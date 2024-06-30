@@ -11,10 +11,10 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Placeholder } from "react-bootstrap";
 
-export default function PricingPlans({title}) {
+export default function PricingPlans({ title }) {
   const user = useSelector((state) => state.userReducer);
   const [activeTab, setActiveTab] = useState("monthly");
-  const currency = useSelector((state)=>state.currencyReducer.currencyDetail)
+  const currency = useSelector((state) => state.currencyReducer.currencyDetail);
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
@@ -52,84 +52,94 @@ export default function PricingPlans({title}) {
     return <div className="text-dynamic-white">Error: reteriving</div>;
   }
 
-  const PricingCards = data.map((mst, index) => (
-    <div key={index}>
-      <div
-        className="nft-card card featured-card border-0 bg-gray"
-        style={{ maxWidth: "250px" }}
-      >
-        <div className="img-wrap">
-          {/* Badge */}
-          <div className={`badge bg- position-absolute section-`}></div>
-        </div>
+  console.log("user", user);
 
-        <div className="card-body">
-          {/* Meta Info */}
-          <div className="row gx-2 align-items-center mt-2">
-            <div className="col-12">
-              <div className="name-info d-flex align-items-center">
-                <div className="author-img position-relative">
-                  <img
-                    className="shadow"
-                    src={`${imageURL}${mst.icon}`}
-                    alt=""
-                  />
-                  <i className={`bi bi-check position-absolute bg-success `} />
-                </div>
-
-                <div className="name-author">
-                  <OverlayTrigger
-                    placement="top"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={<Tooltip>{mst.name}</Tooltip>}
-                  >
-                    <Link
-                      className="name d-block hover-primary text-truncate"
-                      style={{ fontSize: "20px" }}
-                      to={`${process.env.PUBLIC_URL}/featured-items/`}
-                    >
-                      <b>{mst.name} Plan</b>
-                    </Link>
-                  </OverlayTrigger>
-                </div>
-              </div>
-            </div>
-            <div
-              className="col-12"
-              style={{ marginTop: "10px", marginBottom: "10px" }}
-            >
-              <div className="price text-center">
-                <span className="fz-12 d-block"></span>
-                <h1 className="mb-0 text-danger">
-                {currency.symbol}&nbsp;{activeTab === "monthly" ? mst.price : mst.yearly_price}
-                </h1>
-              </div>
-            </div>
-            <div className="col-12">
-              <div className="price text-start" style={{ marginBottom: "5px" }}>
-                <span className="fz-12 d-block"></span>
-                <h5 className="mb-0 text-warning">Discount In</h5>
-              </div>
-              {mst.project_discounts.map((pd, index) => (
-                <div className="price text-start">
-                  <span className="fz-12 d-block"></span>
-                  <h6 className="mb-0">
-                    <i class="bi bi-patch-check-fill ms-2 text-success"></i>{" "}
-                    {pd.project.project_name} {parseInt(pd.discount)}%
-                  </h6>
-                </div>
-              ))}
-            </div>
+  const normalPricingCards = data
+    .filter((item) => item.type === "NORMAL")
+    .map((mst, index) => (
+      <div key={index}>
+        <div
+          className="nft-card card featured-card border-0 bg-gray"
+          style={{ maxWidth: "250px" }}
+        >
+          <div className="img-wrap">
+            {/* Badge */}
+            <div className={`badge bg- position-absolute section-`}></div>
           </div>
 
-          {/* Button */}
-          <div className="row gx-2 align-items-center mt-3">
-            <div className="col-6">
-              <Link className={`btn btn- rounded-pill btn-sm`} to="">
-                <i className={`bi `}></i>
-              </Link>
+          <div className="card-body">
+            {/* Meta Info */}
+            <div className="row gx-2 align-items-center mt-2">
+              <div className="col-12">
+                <div className="name-info d-flex align-items-center">
+                  <div className="author-img position-relative">
+                    <img
+                      className="shadow"
+                      src={`${imageURL}${mst.icon}`}
+                      alt=""
+                    />
+                    <i
+                      className={`bi bi-check position-absolute bg-success `}
+                    />
+                  </div>
+
+                  <div className="name-author">
+                    <OverlayTrigger
+                      placement="top"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={<Tooltip>{mst.name}</Tooltip>}
+                    >
+                      <Link
+                        className="name d-block hover-primary text-truncate"
+                        style={{ fontSize: "20px" }}
+                        to={`${process.env.PUBLIC_URL}/featured-items/`}
+                      >
+                        <b>{mst.name} Plan</b>
+                      </Link>
+                    </OverlayTrigger>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="col-12"
+                style={{ marginTop: "10px", marginBottom: "10px" }}
+              >
+                <div className="price text-center">
+                  <span className="fz-12 d-block"></span>
+                  <h1 className="mb-0 text-danger">
+                    {currency.symbol}&nbsp;
+                    {activeTab === "monthly" ? mst.price : mst.yearly_price}
+                  </h1>
+                </div>
+              </div>
+              <div className="col-12">
+                <div
+                  className="price text-start"
+                  style={{ marginBottom: "5px" }}
+                >
+                  <span className="fz-12 d-block"></span>
+                  <h5 className="mb-0 text-warning">Discount In</h5>
+                </div>
+                {mst.project_discounts.map((pd, index) => (
+                  <div className="price text-start">
+                    <span className="fz-12 d-block"></span>
+                    <h6 className="mb-0">
+                      <i class="bi bi-patch-check-fill ms-2 text-success"></i>{" "}
+                      {pd.project.project_name} {parseInt(pd.discount)}%
+                    </h6>
+                  </div>
+                ))}
+              </div>
             </div>
-           
+
+            {/* Button */}
+            <div className="row gx-2 align-items-center mt-3">
+              <div className="col-6">
+                <Link className={`btn btn- rounded-pill btn-sm`} to="">
+                  <i className={`bi `}></i>
+                </Link>
+              </div>
+
               <div className="col-6 text-end">
                 {mst.id !== user?.membershipType?.membership_type?.id ? (
                   <Link
@@ -143,11 +153,116 @@ export default function PricingPlans({title}) {
                   <span className="btn-success btn btn-sm">Subscribed</span>
                 )}
               </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  ));
+    ));
+
+  const BusinessPricingCards = data
+    ?.filter((item) => item.type === "BUSINESS")
+    .map((mst, index) => (
+      <div key={index}>
+        <div
+          className="nft-card card featured-card border-0 bg-gray"
+          style={{ maxWidth: "250px" }}
+        >
+          <div className="img-wrap">
+            {/* Badge */}
+            <div className={`badge bg- position-absolute section-`}></div>
+          </div>
+
+          <div className="card-body">
+            {/* Meta Info */}
+            <div className="row gx-2 align-items-center mt-2">
+              <div className="col-12">
+                <div className="name-info d-flex align-items-center">
+                  <div className="author-img position-relative">
+                    <img
+                      className="shadow"
+                      src={`${imageURL}${mst.icon}`}
+                      alt=""
+                    />
+                    <i
+                      className={`bi bi-check position-absolute bg-success `}
+                    />
+                  </div>
+
+                  <div className="name-author">
+                    <OverlayTrigger
+                      placement="top"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={<Tooltip>{mst.name}</Tooltip>}
+                    >
+                      <Link
+                        className="name d-block hover-primary text-truncate"
+                        style={{ fontSize: "20px" }}
+                        to={`${process.env.PUBLIC_URL}/featured-items/`}
+                      >
+                        <b>{mst.name} Plan</b>
+                      </Link>
+                    </OverlayTrigger>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="col-12"
+                style={{ marginTop: "10px", marginBottom: "10px" }}
+              >
+                <div className="price text-center">
+                  <span className="fz-12 d-block"></span>
+                  <h1 className="mb-0 text-danger">
+                    {currency.symbol}&nbsp;
+                    {activeTab === "monthly" ? mst.price : mst.yearly_price}
+                  </h1>
+                </div>
+              </div>
+              <div className="col-12">
+                <div
+                  className="price text-start"
+                  style={{ marginBottom: "5px" }}
+                >
+                  <span className="fz-12 d-block"></span>
+                  <h5 className="mb-0 text-warning">Discount In</h5>
+                </div>
+                {mst.project_discounts.map((pd, index) => (
+                  <div className="price text-start">
+                    <span className="fz-12 d-block"></span>
+                    <h6 className="mb-0">
+                      <i class="bi bi-patch-check-fill ms-2 text-success"></i>{" "}
+                      {pd.project.project_name} {parseInt(pd.discount)}%
+                    </h6>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Button */}
+            <div className="row gx-2 align-items-center mt-3">
+              <div className="col-6">
+                <Link className={`btn btn- rounded-pill btn-sm`} to="">
+                  <i className={`bi `}></i>
+                </Link>
+              </div>
+
+              <div className="col-6 text-end">
+                {mst.id !== user?.membershipType?.membership_type?.id ? (
+                  <Link
+                    className={`btn btn-danger btn-sm hover-primary`}
+                    to={`/buy/plan/${mst.id}/${activeTab}`}
+                  >
+                    <i className={`bi bi-cart me-1`}></i>
+                    Buy
+                  </Link>
+                ) : (
+                  <span className="btn-success btn btn-sm">Subscribed</span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ));
 
   return (
     <div className="featured-nfts-wrap">
@@ -174,13 +289,47 @@ export default function PricingPlans({title}) {
         </div>
       </div>
 
-      <div className="row mt-4">
-        <div className="col-12">
-          <div className="featured-nfts-slide">
-            <div className="product-container">{PricingCards}</div>
+      {!user.isAuthenticated && (
+        <>
+          <div className="row mt-4">
+            <div className="col-12">
+              <h6>Normal Plans</h6>
+              <div className="featured-nfts-slide">
+                <div className="product-container">{normalPricingCards}</div>
+              </div>
+            </div>
+          </div>
+          <div className="row mt-4">
+            <div className="col-12">
+              <h6>Business Plans</h6>
+              <div className="featured-nfts-slide">
+                <div className="product-container">{BusinessPricingCards}</div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {user.isAuthenticated && user.user.user_type === "NORMAL" && (
+        <div className="row mt-4">
+          <div className="col-12">
+            <h6>Normal Plans</h6>
+            <div className="featured-nfts-slide">
+              <div className="product-container">{normalPricingCards}</div>
+            </div>
           </div>
         </div>
-      </div>
+      )}
+      {user.isAuthenticated && user.user.user_type === "BUSINESS" && (
+        <div className="row mt-4">
+          <div className="col-12">
+            <h6>Business Plans</h6>
+            <div className="featured-nfts-slide">
+              <div className="product-container">{BusinessPricingCards}</div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-
 import useStickyHeader from "./StickyHeader";
 // import NotificationData from "../../../data/dashboard/notification-data.json";
-
-import { imageURL } from "../../config/config";
 import HeaderMenu from "./HeaderMenu";
 import { useSelector } from "react-redux";
 import ThemeToggler from "./themeToggler";
@@ -16,14 +13,11 @@ const Header = () => {
   const stickyClass = `${sticky && check ? "sticky-on" : ""}`;
 
   const [isActive, setActive] = useState(false);
-  const metainfo = useSelector(state=>state.metaReducer)
+  const metainfo = useSelector((state) => state.metaReducer);
 
   const handleToggle = () => {
     setActive(!isActive);
   };
-
-
-
 
   return (
     <>
@@ -39,15 +33,15 @@ const Header = () => {
                   <Link className="d-block" to="/">
                     <img
                       className="nav-light-logo"
-                      src={`${imageURL}${metainfo.meta?.black_logo}`}
+                      src={`${metainfo.meta?.black_logo}`}
                       alt="Light"
-                      style={{ width: "auto", height: "60px" }}
+                      style={{ width: "auto", height: "70px" }}
                     />
                     <img
                       className="nav-dark-logo"
-                      src={`${imageURL}${metainfo.meta?.white_logo}`}
+                      src={`${metainfo.meta?.white_logo}`}
                       alt="Dark"
-                      style={{ width: "auto", height: "60px" }}
+                      style={{ width: "auto", height: "70px" }}
                     />
                   </Link>
                   {/* <Link className="d-block" to="/dashboard" >
@@ -106,7 +100,7 @@ const Header = () => {
               {/* Menu Toggler */}
 
               {/* Button */}
-              <ThemeToggler/>
+              <ThemeToggler />
               <a
                 className="btn btn-sm btn-primary rounded-pill ms-2 ms-sm-3 d-none d-sm-block"
                 href="/login"

@@ -62,13 +62,11 @@ const PointsPayment = () => {
           `${baseURL}members/register/membership/`,
           data
         );
-        console.log(res);
-        message.success("Coupon purchase Successfully");
+        message.success("membership purchase Successfully");
         await dispatch(userMembership());
         navigate("/profile");
       } catch (err) {
-        console.log(err);
-        message.error("error purchasing the Coupons");
+        message.error(err.response.data.errors.non_field_errors[0]);
       }
     }
 
@@ -82,12 +80,10 @@ const PointsPayment = () => {
           `${baseURL}coupons/buy/created/`,
           data
         );
-        console.log(res);
         message.success("Coupon purchase Successfully");
         navigate("/my-coupons");
       } catch (err) {
-        console.log(err);
-        message.error("error purchasing the Coupons");
+        message.error(err.response.data.errors.non_field_errors[0]);
       }
     }
   };
