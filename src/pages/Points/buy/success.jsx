@@ -44,28 +44,32 @@ const register_membership = async (data) => {
 };
 
 const Success = () => {
-  const purchaseData = useSelector((state) => state.purchaseReducer);
   const [messages, setMessage] = useState("");
   const [navlinks, setNavLinks] = useState("/dashboard");
   const [buttonMessage, setButtonMessage] = useState("");
 
   const [status, setStatus] = useState("");
-  const [amount, setAmount] = useState("");
-  const [currency, setCurrency] = useState("");
-  const [paymentType, setPaymentType] = useState("");
+
   const [requestCompleted, setRequestCompleted] = useState(false);
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const dispatch = useDispatch();
 
-  const url = window.location.href;
+  // const url = window.location.href;
   const queryParams = new URLSearchParams(window.location.search);
   const payment_intent = queryParams.get("payment_intent");
   const client_secret = queryParams.get("payment_intent_client_secret");
   const redirectStatus = queryParams.get("redirect_status");
 
+  useEffect(() => {
+    if (queryParams.get("redirect_status") === "succeeded") {
+      setStatus(queryParams.get("redirect_status"));
+    }
+    if (queryParams.get("redirect_status") === "failed") {
+      setStatus(queryParams.get("redirect_status"));
+    }
+  }, [redirectStatus]);
+
   const shouldFetch = Boolean(
-    redirectStatus === "succeeded" &&
+    redirectStatus !== "failed" &&
       !requestCompleted &&
       payment_intent &&
       client_secret
@@ -79,33 +83,7 @@ const Success = () => {
 
   useEffect(() => {
     async function payment_confirm() {
-      setAmount(data?.amount);
-      setCurrency(data?.currency_code);
-      setPaymentType(data?.payment_method_type);
-      setStatus("succeeded");
       if (data) {
-        if (data.meta_data.id === "coupon-buy") {
-          const res = await buyCoupon({
-            payment_intent: data.payment_intent,
-            coupon: data.meta_data?.couponId,
-          });
-
-          if (res.success) {
-            message.success("Coupon purchased successfully");
-
-            setMessage(`Coupon purchased successfully`);
-            setNavLinks("/my-coupons");
-            setButtonMessage("view Membership");
-            dispatch(getWallet());
-          } else {
-            message.error("Error buying coupon ");
-            setMessage(`Error buying Coupon purchased`);
-            setNavLinks("/coupon");
-            setButtonMessage("/Try again");
-            setStatus("failed");
-          }
-        }
-
         if (data.meta_data.id === "buy-points") {
           const res = await buyPoints({
             payment_intent: data.payment_intent,
@@ -113,7 +91,6 @@ const Success = () => {
             currency_code: data.currency_code,
             payment_method: data.payment_method,
           });
-          console.log("in points", res);
           if (res.success) {
             message.success("Money loaded successfully");
             setMessage(
@@ -125,38 +102,11 @@ const Success = () => {
             setStatus("failed");
             message.error("Error loading Money ");
             setMessage(`Error loading Money with ${data?.payment_method_type}`);
-            setNavLinks("/points/buy");
-            setButtonMessage("Try again");
-            setStatus("failed");
-            console.error("Error buying points:", error);
-          }
-        }
-
-        if (data.meta_data.id === "membership-plan") {
-          const res = await register_membership({
-            membership_type: data.meta_data.planId,
-            payment_intent: data.payment_intent,
-            plan_time: data.meta_data.planTime,
-          });
-          if (res.success) {
-            message.success("Membership Plan updated successfully");
-            setMessage(`Membership Updated Successfully`);
-            setNavLinks("/profile");
-            setButtonMessage("view Membership");
-            await dispatch(userMembership())
-          } else {
-            message.error("Error buying Membership Plan");
-            setMessage(`Error buying Buying Membership plan `);
-            setNavLinks("/pricing");
-            setButtonMessage("/Try again");
             setStatus("failed");
           }
         }
-
         setRequestCompleted(true);
         navigate(window.location.pathname);
-
-        // Call buyPoints function separately
       }
     }
     payment_confirm();
@@ -194,6 +144,7 @@ const Success = () => {
       </DashboardLayout>
     );
   }
+
   if (error) {
     return (
       <DashboardLayout>
@@ -256,9 +207,9 @@ const Success = () => {
                   Please try again. Your transaction has not been completed.
                 </p>
 
-                <Link to={navlinks}>
-                  <Button variant="success" className="mb-3" href={navlinks}>
-                    {buttonMessage}
+                <Link to={"/points/buy"}>
+                  <Button variant="danger" className="mb-3">
+                    Try again
                   </Button>
                 </Link>
               </>
