@@ -65,6 +65,7 @@ const Success = () => {
     }
     if (queryParams.get("redirect_status") === "failed") {
       setStatus(queryParams.get("redirect_status"));
+      navigate(window.location.pathname);
     }
   }, [redirectStatus]);
 
