@@ -1,0 +1,35 @@
+import axios from 'axios'
+import React, {useState, useEffect } from 'react'
+import ReferForm from '../../../components/refer/ReferForm'
+// import { axiosInstance } from '../../..';
+// import { useSelector } from 'react-redux';
+// import { baseURL } from '../../../config/config';
+
+
+const ReferPage = () => {
+
+
+    // const user = useSelector((state) => state.userReducer);
+    // console.log(user);
+
+
+    // useEffect(()=>{
+
+    //     // const fecthingrefer = async()=>{
+    //     //     const res = await axiosInstance.get()
+    //     // }
+    //     // fecthingrefer();
+
+    // },[])
+   
+
+
+  return (
+    <div>
+      
+      <ReferForm/>
+    </div>
+  )
+}
+
+export default ReferPage

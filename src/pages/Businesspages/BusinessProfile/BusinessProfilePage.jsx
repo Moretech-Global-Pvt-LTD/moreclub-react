@@ -1,0 +1,71 @@
+import React from "react";
+import BusinessProfile from "../../../components/user_profile/BusinessProfile";
+import { useDispatch, useSelector } from "react-redux";
+import DashboardLayout from "../../../components/Layout/DashboardLayout";
+import Unauthorized from "../../../components/unauthorized/unauthorized";
+import Loading from "../../../components/loading/loading";
+import { Placeholder } from "react-bootstrap";
+import { useQuery } from "@tanstack/react-query";
+import { baseURL } from "../../../config/config";
+import { axiosInstance } from "../../..";
+import { businessProfileSucess } from "../../../redux/slices/businessSlice";
+import { userMembership } from "../../../redux/api/userMembershipAPI";
+
+const BusinessProfilePage = () => {
+ 
+  const permission = useSelector((state) => state.permissionReducer);
+
+  const dispatch = useDispatch();
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["business profile"],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`${baseURL}business/profile/`);
+      const data = await response.data.data;
+      await dispatch(businessProfileSucess(data));
+      await dispatch(userMembership());
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    return (
+      <DashboardLayout title={"Business Profile"}>
+        <Placeholder as="p" animation="glow" className="rounded">
+          <Placeholder xs={12} size="lg" style={{ height: "7rem" }} />
+        </Placeholder>
+        <Placeholder as="p" animation="glow" className="rounded">
+          <Placeholder xs={12} style={{ height: "7rem" }} />
+        </Placeholder>
+        <Placeholder as="p" animation="glow" className="rounded">
+          <Placeholder xs={12} style={{ height: "7rem" }} />
+        </Placeholder>
+      </DashboardLayout>
+    );
+  }
+
+  if (isError) {
+    <div className="text-dynamic white">Error getting page data</div>;
+  }
+
+
+
+  return (
+    <DashboardLayout title={"Business Profile"}> 
+        {permission.permission.isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            {permission.permission && permission.permission.business_profile ? (
+              <BusinessProfile businessProfiles={data}/>
+            ) : (
+              <Unauthorized />
+            )}
+          </>
+        )}
+    
+    </DashboardLayout>
+  );
+};
+
+export default BusinessProfilePage;

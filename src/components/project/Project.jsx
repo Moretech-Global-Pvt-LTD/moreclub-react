@@ -1,0 +1,191 @@
+import React from "react";
+
+import { Link } from "react-router-dom";
+import TinySlider from "tiny-slider-react";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+
+import { baseURL } from "../../config/config";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { Placeholder } from "react-bootstrap";
+
+
+export default function Project(props) {
+  const { heading } = props;
+
+  const ProjectSettings = {
+    items: 4,
+    gutter: 24,
+    slideBy: 1,
+    autoplay: false,
+    autoplayButtonOutput: false,
+    autoplayTimeout: 5000,
+    speed: 750,
+    loop: true,
+    nav: false,
+    mouseDrag: true,
+    controlsText: [
+      '<i class="bi bi-arrow-left"></i>',
+      '<i class="bi bi-arrow-right"></i>',
+    ],
+    responsive: {
+      320: {
+        items: 1,
+        gutter: 0,
+      },
+      480: {
+        items: 1.5,
+        gutter: 24,
+      },
+      576: {
+        items: 2,
+        gutter: 24,
+      },
+      992: {
+        items: 3,
+        gutter: 24,
+      },
+      1200: {
+        items: 4,
+        gutter: 24,
+      },
+    },
+  };
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["project"],
+    queryFn: async () => {
+      const response = await axios.get(
+        `${baseURL}projects/list/`
+      );
+      const data = await response.data.data;
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    return (
+      <div className="container">
+      <div className="d-flex  g-2">
+        <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+          <Placeholder xs={12} style={{ height: "15rem" }} />
+        </Placeholder>
+        <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
+          <Placeholder xs={12} style={{ height: "15rem" }} />
+        </Placeholder>
+        <Placeholder as="p" animation="glow" className="rounded  w-25">
+          <Placeholder xs={12} style={{ height: "15rem" }} />
+        </Placeholder>
+      </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <div className="text-dynamic-white">Error: reteriving</div>;
+  }
+
+
+
+  const ProjectCards = data.slice(0,2).map((proj, index) => (
+    <div key={index} style={{maxWidth:"300px"}}>
+      <div className="nft-card card featured-card border-0 bg-gray">
+        <div className="img-wrap">
+          <img src={`${proj.image}`} alt={proj.project_name} />
+
+          <div className={`badge bg-primary position-absolute`}>
+            {proj.project_name}
+          </div>
+        </div>
+
+        <div className="card-body">
+          {/* Meta Info */}
+          <div className="row gx-2 align-items-center mt-0">
+            <div className="col-12">
+              <div className="d-flex align-items-center">
+                <div className="name-author">
+                  <OverlayTrigger
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={
+                      <Tooltip id={`featuredNFT${proj.id}`}>
+                        {proj.project_name}
+                      </Tooltip>
+                    }
+                  >
+                    <a
+                      className="name d-block hover-primary"
+                      href={`/projects/${proj.id}`}
+                    >
+                      <b className="text-truncate" style={{ fontSize: "20px" }}>
+                        {proj.project_name}
+                      </b>
+                      <p className="truncateText3">{proj.description}</p>
+                    </a>
+                  </OverlayTrigger>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Button */}
+          <div className="row gx-2 align-items-center mt-3">
+            <div className="col-12 text-end">
+              <Link
+                className={`btn btn-danger btn-sm hover-primary`}
+                to={`/projects/${proj.id}`}
+              >
+                View Detail
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ));
+
+  return (
+    <div className="featured-nfts-wrap">
+      <div className="container">
+        <div className="row">
+          <div className="col-12 ">
+            <div className="section-heading d-flex  justify-content-between">
+              <h2 className="flex-grow-1 mb-0">{heading}</h2>
+              <Link to="/products">
+                <button className="btn btn-link btn-sm items-self-center visibility-hidden">
+                  View all
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            {/* Featured NFT's Slide*/}
+            <div className="featured-nfts-slide">
+              <TinySlider settings={ProjectSettings}>{ProjectCards}</TinySlider>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container visibility-show">
+        <div className="row">
+          <div className="col-12 ">
+            <div className="section-heading d-flex  justify-content-center">
+              <Link to={"/products"}>
+                <button className="btn btn-link btn-sm items-self-center">
+                  View all
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

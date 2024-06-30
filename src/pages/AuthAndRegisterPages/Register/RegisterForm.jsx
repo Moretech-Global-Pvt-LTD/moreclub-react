@@ -1,0 +1,136 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import PaginateBar from "../../../components/register/FormPagination";
+import UserBasicForm from "./Multistep/UserBasicForm";
+import UserSecondForm from "./Multistep/UserSecondForm";
+import BusinessRegisterForm from "./BusinessRegisterForm";
+import { register } from "../../../redux/api/loginAPI";
+import { Link, useNavigate } from "react-router-dom";
+import { message } from "antd";
+
+const RegistrationForm = (props) => {
+  const { subTitle, button } = props;
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state.registerReducer.formData);
+  const step = useSelector((state) => state.registerReducer);
+  const [businessRegistration, setBusinessRegistration] = useState();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const currentUrl = window.location.href;
+
+  // Create a URL object
+
+  // async function decodeUrl(Url) {
+  //   if (currentUrl.includes("%")) {
+  //     const decodeUrl = decodeURIComponent(Url);
+  //     const uri = new URL(decodeUrl);
+  //     return uri;
+  //   } else {
+  //     const uri = new URL(Url);
+  //     return uri;
+  //   }
+  // }
+
+  // async function validateRefer(uri){
+  //   const referParam = uri.searchParams.get("referral");
+  //   const alphabetRegex = /^[a-zA-Z]+$/;
+  //   console.log("validate",referParam);
+  //   if (!alphabetRegex.test(referParam)) {
+  //     console.log("Invalid referral parameter, removing invalid characters");
+  //     const newReferParam = referParam.replace(/[^a-zA-Z]/g, '');
+  //     console.log("after",referParam);
+
+  //     return newReferParam;
+  //   }else{
+  //     console.log("else",referParam);
+
+  //     return referParam;
+  //   }
+  // }
+  // async function validateBpms(uri){
+  //   const bpmsParam = url.searchParams.get("bpms");
+  //   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  //   if (!uuidRegex.test(bpmsParam)) {
+  //     console.log("Invalid bpms parameter, resetting to empty");
+  //     bpmsParam = bpmsParam.replace();
+
+  //   }else{
+  //     return bpmsParam;
+  //   }
+  // }
+  // const url = window.location.href;
+  // const referParam = url.searchParams.get("referral");
+  // // const referParam = validateRefer(url);
+  // const bpmsParam = url.searchParams.get("bpms");
+  const url = new URL(currentUrl);
+  
+  // Get the value of the 'refer' query parameter
+  const referParam = url.searchParams.get('referral');
+  const bpmsParam = url.searchParams.get('bpms');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.user_type === "BUSINESS") {
+      setBusinessRegistration(true);
+    } else {
+      // submitting without business logic
+      const combinedFormData = {
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        email: formData.email,
+        phone_number: `${formData.phone_prefix}${formData.phone_number}`,
+        password: formData.password,
+        user_type: formData.user_type,
+        user_profile: {
+          phone_prefix: formData.phone_prefix,
+          country_code: formData.country_code,
+          country: formData.country,
+          gender: formData.gender,
+        },
+      };
+
+      setLoading(true);
+      const result = await dispatch(
+        register(combinedFormData, referParam, bpmsParam)
+      );
+      if (result.status === 200) {
+        message.success("Registered sucessfully");
+        localStorage.setItem("otp_username", formData.email);
+        navigate("/otp");
+        setLoading(false);
+      } else {
+        message.error("Something went Wrong");
+        setLoading(false);
+      }
+    }
+    // Handle form submission here
+  };
+
+  return (
+    <>
+      {!businessRegistration ? (
+        <div className={`registerform`}>
+          <PaginateBar />
+          <div className="card register-form-wrapper">
+            {step.userStep === 1 && <UserBasicForm />}
+            {step.userStep === 2 && (
+              <UserSecondForm handleSubmit={handleSubmit} loading={loading} />
+            )}
+            <p className="text-end px-4 mt-0 mb-0">
+                {subTitle}
+                <Link className="ms-1 hover-primary" to={button[0].path}>
+                  {button[0].text}
+                </Link>
+              </p>
+          </div>
+        </div>
+      ) : (
+        <BusinessRegisterForm
+          setBusinessRegistration={setBusinessRegistration}
+        />
+      )}
+    </>
+  );
+};
+
+export default RegistrationForm;
