@@ -62,7 +62,7 @@ const Settingpage = () => {
                   <Link to="/business/update">
                     <p className="fs-6 mt-2 mb-2 border-bottom pb-2">
                       {" "}
-                      Update Business Profile 
+                      Update Business Profile
                     </p>
                   </Link>
                 </>
@@ -78,16 +78,31 @@ const Settingpage = () => {
                   Change Transaction PIN
                 </p>
               </Link>
-              <Link to="#">
+              {/* <Link to="/">
                 <p className="fs-6 mt-2 mb-2 border-bottom pb-2">
                   Help and Support
                 </p>
-              </Link>
-              <Link to="#">
+              </Link> */}
+              <Link to="/faq">
                 <p className="fs-6 mt-2 mb-2 border-bottom pb-2">FAQs</p>
               </Link>
-              <p className="fs-6 mt-2 mb-2 border-bottom pb-2" onClick={logOut}>
-                Log out
+              <p className="fs-6 mt-2 border-bottom pb-2">
+                <button
+                  className="btn btn-warning btn-sm "
+                  style={{ cursor: "pointer" }}
+                  onClick={logOut}
+                >
+                  Log out
+                </button>
+              </p>
+              <p className="fs-6 mt-2 border-bottom pb-2">
+                <button
+                  className="btn btn-danger btn-sm "
+                  style={{ cursor: "pointer" }}
+                  // onClick={logOut}
+                >
+                  Delete Account
+                </button>
               </p>
             </ul>
           </div>

@@ -9,16 +9,13 @@ import { baseURL } from "../../config/config";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-
 export default function ProjectContent(props) {
   const { heading } = props;
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["project"],
     queryFn: async () => {
-      const response = await axios.get(
-        `${baseURL}projects/list/`
-      );
+      const response = await axios.get(`${baseURL}projects/list/`);
       const data = await response.data.data;
       return data;
     },
@@ -27,17 +24,17 @@ export default function ProjectContent(props) {
   if (isLoading) {
     return (
       <div className="container">
-      <div className="d-flex  g-2">
-        <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-          <Placeholder xs={12} style={{ height: "15rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
-          <Placeholder xs={12} style={{ height: "15rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded  w-25">
-          <Placeholder xs={12} style={{ height: "15rem" }} />
-        </Placeholder>
-      </div>
+        <div className="d-flex  g-2">
+          <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+            <Placeholder xs={12} style={{ height: "15rem" }} />
+          </Placeholder>
+          <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
+            <Placeholder xs={12} style={{ height: "15rem" }} />
+          </Placeholder>
+          <Placeholder as="p" animation="glow" className="rounded  w-25">
+            <Placeholder xs={12} style={{ height: "15rem" }} />
+          </Placeholder>
+        </div>
       </div>
     );
   }
@@ -49,10 +46,14 @@ export default function ProjectContent(props) {
   const ProjectCards = data.map((proj, index) => (
     <div
       key={index}
-      className="nft-card card featured-card border-0 bg-gray product-card-containers"
+      className="nft-card border-0 bg-gray pt-2 product-card-containers"
     >
-      <div className="img-wrap">
-        <img src={`${proj.image}`} alt={proj.project_name} />
+      <div className="img-wrap bg-white">
+        <img
+          src={`${proj.image}`}
+          alt={proj.project_name}
+          style={{ height: "15rem", width: "100%", objectFit: "cover" }}
+        />
 
         <div className={`badge bg-primary position-absolute`}>
           {proj.project_name}
@@ -76,7 +77,7 @@ export default function ProjectContent(props) {
                 >
                   <Link
                     className="name d-block hover-primary"
-                   to={`/projects/${proj.id}`}
+                    to={`/projects/${proj.id}`}
                   >
                     <b className="text-truncate" style={{ fontSize: "20px" }}>
                       {proj.project_name}
@@ -92,7 +93,10 @@ export default function ProjectContent(props) {
         {/* Button */}
         <div className="row gx-2 align-items-center mt-3">
           <div className="col-12 text-end">
-            <Link className={`btn btn-danger btn-sm hover-primary`} to={`/projects/${proj.id}`}>
+            <Link
+              className={`btn btn-danger btn-sm hover-primary`}
+              to={`/projects/${proj.id}`}
+            >
               View Detail
             </Link>
           </div>
@@ -104,25 +108,24 @@ export default function ProjectContent(props) {
   return (
     <div className="featured-nfts-wrap">
       {/* <div className="container"> */}
-        <div className="row">
-          <div className="col-12 col-sm-9 col-lg-6">
-            <div className="section-heading">
-              <h2 className="mb-0">{heading}</h2>
-            </div>
-          </div>
-        </div>
-      {/* </div> */}
-
-      {/* <div className="container"> */}
-        <div className="row">
-          <div className="col-12">
-            {/* Featured NFT's Slide*/}
-            <div className="featured-nfts-slide">
-              <div className="product-container ">{ProjectCards}</div>
-            </div>
+      <div className="row">
+        <div className="col-12 col-sm-9 col-lg-6">
+          <div className="section-heading">
+            <h2 className="mb-0">{heading}</h2>
           </div>
         </div>
       </div>
-    // </div>
+      {/* </div> */}
+
+      {/* <div className="container"> */}
+
+      <div className="row mt-4">
+        <div className="col-12">
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 gap-2">
+            {ProjectCards}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

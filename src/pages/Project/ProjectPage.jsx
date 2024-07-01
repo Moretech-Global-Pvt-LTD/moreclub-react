@@ -14,7 +14,9 @@ const ProjectPage = () => {
   if (user.isAuthenticated) {
     return (
       <DashboardLayout title={"Products"}>
-        <ProjectContent />
+        <div className="px-4">
+          <ProjectContent />
+        </div>
         <Divider />
       </DashboardLayout>
     );
@@ -31,8 +33,7 @@ const ProjectPage = () => {
           ]}
         />
         <div className="container">
-
-        <ProjectContent />
+          <ProjectContent />
         </div>
         <Divider />
       </LandingLayout>

@@ -3,9 +3,11 @@ import { Card, Carousel, Button } from "react-bootstrap";
 import Image1 from "../../images/Home/404image.png";
 import Image2 from "../../images/Home/HeroWhite.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const EventCard = ({ events }) => {
-  console.log(events);
+  const user = useSelector((state) => state.userReducer);
+
   return (
     <Card
       className="d-flex flex-column flex-md-row "
@@ -52,7 +54,9 @@ const EventCard = ({ events }) => {
             <Card.Text className="line-clamp-3">{events.description}</Card.Text>
           </div>
           <div className="col-12 col-md-4 align-self-center">
-            <Link to={`/event/${events.id}`}>
+            {}
+
+            <Link to={user.isAuthenticated ? `/event/${events.id}` : "/login"}>
               <Button variant="warning" className="w-100 mb-2">
                 Book Ticket
               </Button>

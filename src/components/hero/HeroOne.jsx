@@ -4,7 +4,6 @@ import HomeImageWhite from "../../images/Home/HeroWhite.png";
 import { useEffect, useRef } from "react";
 
 export default function HeroOne() {
-
   const iframeRef = useRef(null);
 
   const adjustIframeHeight = () => {
@@ -17,11 +16,11 @@ export default function HeroOne() {
 
   useEffect(() => {
     adjustIframeHeight();
-    window.addEventListener('resize', adjustIframeHeight);
+    window.addEventListener("resize", adjustIframeHeight);
 
     // Cleanup event listener on component unmount
     return () => {
-      window.removeEventListener('resize', adjustIframeHeight);
+      window.removeEventListener("resize", adjustIframeHeight);
     };
   }, []);
 
@@ -35,7 +34,7 @@ export default function HeroOne() {
                 class="animated fadeInUp"
                 style={{ animationDuration: "1s" }}
               >
-                <h2>Save and Make Money with MoreDeals club.</h2>
+                <h2>Save and Make Money with MoreDeals Club.</h2>
               </div>
               <div
                 class="animated fadeInUp "
@@ -88,10 +87,10 @@ export default function HeroOne() {
           <div class="col-12 col-sm-12 col-md-6">
             <div className="row video-container">
               <iframe
-             ref={iframeRef}
-             id="ytplayer"
-             type="text/html"
-             src="https://www.youtube.com/embed/KuuKQZ64HNo?autoplay=1&loop=1&playlist=KuuKQZ64HNo&controls=0&showinfo=0&modestbranding=0&rel=0"
+                ref={iframeRef}
+                id="ytplayer"
+                type="text/html"
+                src="https://www.youtube.com/embed/KuuKQZ64HNo?autoplay=1&loop=1&playlist=KuuKQZ64HNo&controls=0&showinfo=0&modestbranding=0&rel=0"
                 title="Membersclub - Save and Make Money with More Deals Club"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

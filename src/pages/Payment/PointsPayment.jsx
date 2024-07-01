@@ -12,6 +12,7 @@ import CouponDetail from "./CouponDetail";
 import CouponCard from "../../components/coupon/CouponCard";
 import PlanDetail from "./PlanDetail";
 import { userMembership } from "../../redux/api/userMembershipAPI";
+import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
 
 const PointsPayment = () => {
   const { couponId, planId, planTime } = useParams();
@@ -23,6 +24,18 @@ const PointsPayment = () => {
   const coupon = useSelector((state) => state.couponReducer);
   const plan = useSelector((state) => state.membershipTypeReducer);
   const currency = useSelector((state) => state.currencyReducer.currencyDetail);
+
+  const [rate, setRate] = useState(1);
+
+  useEffect(() => {
+    const fetchRate = async () => {
+      const usercode = currency.currencyCode;
+      const convertedRate = await currencyConvertor("EUR", usercode);
+      setRate(convertedRate);
+    };
+
+    fetchRate();
+  }, [currency.currencyCode]);
 
   const navigate = useNavigate();
 
@@ -42,9 +55,11 @@ const PointsPayment = () => {
   useEffect(() => {
     if (plan && plan.planDetail.price) {
       if (planTime === "monthly") {
-        setPrice(plan.planDetail.price);
+        const prices = rate * plan.planDetail.price;
+        setPrice(prices);
       } else {
-        setPrice(plan.planDetail.yearly_price);
+        const prices = rate * plan.planDetail.yearly_price;
+        setPrice(prices);
       }
     }
   }, [plan, planTime, price]);
@@ -66,7 +81,7 @@ const PointsPayment = () => {
         await dispatch(userMembership());
         navigate("/profile");
       } catch (err) {
-        message.error(err.response.data.errors.non_field_errors[0]);
+        message.error(err.response.data.errors?.non_field_errors[0]);
       }
     }
 
@@ -83,7 +98,7 @@ const PointsPayment = () => {
         message.success("Coupon purchase Successfully");
         navigate("/my-coupons");
       } catch (err) {
-        message.error(err.response.data.errors.non_field_errors[0]);
+        message.error(err.response.data.errors?.non_field_errors[0]);
       }
     }
   };
