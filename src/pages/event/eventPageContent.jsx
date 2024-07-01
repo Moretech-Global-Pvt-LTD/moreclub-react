@@ -71,32 +71,32 @@ const EventpageContent = () => {
 
   if (isLoading) {
     return (
-      <LandingLayout>
+      <>
         <Placeholder as="p" animation="glow" className="rounded">
           <Placeholder xs={12} style={{ height: "4rem" }} />
         </Placeholder>
         <Placeholder as="p" animation="glow" className="rounded">
           <Placeholder xs={12} style={{ height: "4rem" }} />
         </Placeholder>
-      </LandingLayout>
+      </>
     );
   }
 
   if (isError) {
     return (
-      <LandingLayout>
+      <>
         <div className="text-dynamic-white">Error: reteriving</div>
         <Divider />
-      </LandingLayout>
+      </>
     );
   }
 
   return (
     <Row>
-      <Col md={3} className="mt-4">
+      {/* <Col md={3} className="mt-4">
         <FilterSection />
-      </Col>
-      <Col md={9}>
+      </Col> */}
+      <Col md={12}>
         {data.pages.map((data) => (
           <div className="d-flex flex-wrap gap-4 mt-4">
             {data.data.map((event) => (

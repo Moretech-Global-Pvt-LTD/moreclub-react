@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import { message } from "antd";
+import { Link } from "react-router-dom";
 
 function ChangePinForm() {
   const [pin, setPin] = useState("");
@@ -72,14 +73,17 @@ function ChangePinForm() {
           data
         );
         console.log("res", res);
-        if(res.status === 200){
-          message.success("pin changed successfully")
+        if (res.status === 200) {
+          message.success("pin changed successfully");
         }
       } catch (err) {
         console.log(err);
-        if(err.response.data.errors.non_field_errors[0]==="Invalid current PIN."){
+        if (
+          err.response.data.errors.non_field_errors[0] ===
+          "Invalid current PIN."
+        ) {
           setoldpinError(err.response.data.errors.non_field_errors[0]);
-        }else{
+        } else {
           setoldpinError(err.response.data.errors.non_field_errors[0]);
         }
       }
@@ -130,9 +134,16 @@ function ChangePinForm() {
         />
         {confirmPinError && <p className="text-danger">{confirmPinError}</p>}
       </Form.Group>
-      <Button variant="primary" type="submit" className="mt-3">
-        Change PIN
-      </Button>
+      <div className="d-flex gap-2 align-items-center">
+        <Button variant="primary" type="submit" className="mt-3">
+          Change PIN
+        </Button>
+        <Link to="Reset Pin" className="mt-3 t">
+          <Button variant="ghost" className="text-primary">
+            {"forget your Pin ?"}
+          </Button>
+        </Link>
+      </div>
     </Form>
   );
 }

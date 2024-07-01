@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import RecentTransaction from "../../components/dashboard/RecentTransaction";
-import PointsTransaction from "../../components/dashboard/PointTransaction";
-import { Col, Placeholder, Row } from "react-bootstrap";
+import React, { useEffect } from "react";
+
+import { Card, Col, Placeholder, Row } from "react-bootstrap";
 import Chart from "../../components/dashboard/chart";
 import QuickLinks from "../../components/dashboard/quickLinks";
 import Topcards from "../../components/dashboard/topcards";
@@ -10,14 +9,17 @@ import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import { get_transaction } from "../../redux/api/transactionAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+
 import { useQuery } from "@tanstack/react-query";
 import UserChart from "../../components/dashboard/ChartUser";
 import DashboardOffers from "../../components/dashboard/dashboardoffers";
 import RefrealChart from "../../components/dashboard/RefrealChart";
 import Walletlinks from "../../components/dashboard/Walletlinks";
 import { setMembershipType } from "../../redux/slices/userSlice";
-
+import { Link } from "react-router-dom";
+import Blackqr from "../../images/Qr/qrblack.png";
+import Whiteqr from "../../images/Qr/qrwhite.png";
+import EventDashboardDisplay from "../../components/event/EventDashboardDisplay";
 
 const DashboardContent = () => {
   const user = useSelector((state) => state.userReducer);
@@ -31,11 +33,12 @@ const DashboardContent = () => {
   const fetchDashboardData = async () => {
     try {
       // Attempt to fetch both business and user data
-      const [businessResponse, userResponse, membership] = await Promise.allSettled([
-        axiosInstance.get(`${baseURL}dashboard/user/business/`),
-        axiosInstance.get(`${baseURL}dashboard/user/`),
-        axiosInstance.get(`${baseURL}members/user/membership/`)
-      ]);
+      const [businessResponse, userResponse, membership] =
+        await Promise.allSettled([
+          axiosInstance.get(`${baseURL}dashboard/user/business/`),
+          axiosInstance.get(`${baseURL}dashboard/user/`),
+          axiosInstance.get(`${baseURL}members/user/membership/`),
+        ]);
 
       // Handle the responses
       let businessData = null;
@@ -55,8 +58,7 @@ const DashboardContent = () => {
       }
 
       if (membership.status === "fulfilled") {
-        const membershipdata = membership.value.data.data;
-        await dispatch(setMembershipType( membership.value.data.data));
+        await dispatch(setMembershipType(membership.value.data.data));
       } else {
         throw new Error(
           `Failed to fetch user data: ${membership.reason.message}`
@@ -73,8 +75,6 @@ const DashboardContent = () => {
           `Failed to fetch user data: ${userResponse.reason.message}`
         );
       }
-
-
     } catch (error) {
       // Handle the error, for example by throwing it so it can be caught by react-query
       throw new Error(`Failed to fetch dashboard data: ${error.message}`);
@@ -126,20 +126,51 @@ const DashboardContent = () => {
                 description={data?.businessData?.billing_transaction_by_coupon}
                 href={"/transactions"}
               />
-              <Topcards
+              {/* <Topcards
                 title={"Transaction"}
                 subtitle={"With Membership"}
                 description={
                   data?.businessData?.billing_transaction_by_membership
                 }
                 href={"/business-transactions"}
-              />
+              /> */}
               <Topcards
                 title={"Refers"}
                 subtitle={"Total referals"}
                 description={data?.businessData?.referral}
                 href={"/my-network"}
               />
+              <Col>
+                <Link to={"/scan"}>
+                  <Card>
+                    <Card.Body>
+                      <Card.Title className="text-dynamic-white fs-6">
+                        {"Membership QR"}
+                      </Card.Title>
+                      <Card.Text className="text-center">
+                        <img
+                          className="nav-light-logo"
+                          src={Blackqr}
+                          alt="Light"
+                          style={{
+                            height: "3.5rem",
+                            width: "auto",
+                          }}
+                        />
+                        <img
+                          className="nav-dark-logo"
+                          src={Whiteqr}
+                          alt="Dark"
+                          style={{
+                            height: "3.5rem",
+                            width: "auto",
+                          }}
+                        />
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Col>
             </Row>
           )}
         </>
@@ -158,45 +189,51 @@ const DashboardContent = () => {
               description={data.userData?.billing_transaction_by_coupon}
               href={"/transactions"}
             />
-            <Topcards
+            {/* <Topcards
               title={"Transaction"}
               subtitle={"With Membership"}
               description={data.userData?.billing_transaction_by_membership}
               href={"/business-transactions"}
-            />
+            /> */}
             <Topcards
               title={"Refers"}
               subtitle={"Total refers"}
               description={data.userData?.referral}
               href={"/my-network"}
             />
+            <Col>
+              <Link to={"/scan"}>
+                <Card>
+                  <Card.Body>
+                    <Card.Title className="text-dynamic-white fs-6">
+                      {"Membership QR"}
+                    </Card.Title>
+                    <Card.Text className="text-center">
+                      <img
+                        className="nav-light-logo"
+                        src={Blackqr}
+                        alt="Light"
+                        style={{
+                          height: "3.5rem",
+                          width: "auto",
+                        }}
+                      />
+                      <img
+                        className="nav-dark-logo"
+                        src={Whiteqr}
+                        alt="Dark"
+                        style={{
+                          height: "3.5rem",
+                          width: "auto",
+                        }}
+                      />
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
           </Row>
         )}
-        
-        {/* {user && user.user?.user_type === "NORMAL" && (
-          <Row sm={2} md={4} className=" gx-3 gy-3 gb-3">
-            <Topcards
-              title={"Coupons"}
-              subtitle={"Total coupon"}
-              description={data.userData?.coupon}
-            />
-            <Topcards
-              title={"Transaction"}
-              subtitle={"With Coupon "}
-              description={data.userData?.billing_transaction_by_coupon}
-            />
-            <Topcards
-              title={"Transaction"}
-              subtitle={"With Membership"}
-              description={data.userData?.billing_transaction_by_membership}
-            />
-            <Topcards
-              title={"Refers"}
-              subtitle={"Total refers"}
-              description={data.userData?.referral}
-            />
-          </Row>
-        )} */}
 
         <Row>
           {user &&
@@ -243,6 +280,9 @@ const DashboardContent = () => {
           )} */}
           {/* <PointsTransaction /> */}
         </Row>
+        {/* <Row>
+          <EventDashboardDisplay />
+        </Row> */}
 
         <Row>
           <DashboardOffers />

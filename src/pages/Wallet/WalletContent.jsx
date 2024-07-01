@@ -10,6 +10,7 @@ import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
 import Walletlinks from "../../components/dashboard/Walletlinks";
 import { loadStripe } from "@stripe/stripe-js";
 import { useStripe } from "@stripe/react-stripe-js";
+import WalletAlertNotification from "../../components/alert_notification/WalletAlerts";
 
 const WalletContent = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,6 @@ const WalletContent = () => {
   );
   const [currency, setCurrency] = useState("");
   const [rate, setRate] = useState(0);
-
-
 
   useEffect(() => {
     const fetchUserCurrency = async () => {
@@ -41,7 +40,7 @@ const WalletContent = () => {
         console.error(err);
       }
     };
-    
+
     fetchUserCurrency();
   }, []);
 
@@ -58,45 +57,48 @@ const WalletContent = () => {
   ];
 
   return (
-    <div className="row mt-4">
-      <div className=" col-12 col-md-4  card shadow mb-5">
-        <div className="card-body text-start p-4 position-relative">
-          {/* <p
+    <>
+      <WalletAlertNotification />
+      <div className="row mt-4">
+        <div className=" col-12 col-md-4  card shadow mb-5">
+          <div className="card-body text-start p-4 position-relative">
+            {/* <p
             className="text-warning text-end position-absolute top-0 end-0 "
             style={{ fontSize: "12px" }}
           >
             {walletInfo[0].currency}&nbsp;1 = {currencyData.symbol}&nbsp;
             {rate?.toFixed(3)}{" "}
           </p> */}
-          <h6 className="mb-2">username: {walletInfo[0].userName}</h6>
-          <h5 className="mb-0 row text-dark d-flex align-items-center justify-content-center">
-            <img
-              className="me-1 col-4"
-              src={Wallet}
-              alt=""
-              style={{ width: "auto", height: "50px" }}
-            />
-            <span className="counter col-8 fs-6">
-              <span className="fs-6">Balance :</span>&nbsp;
-              {walletInfo[0].currency}&nbsp;{walletInfo[0].balanceCard}
-            </span>
-          </h5>
+            <h6 className="mb-2">username: {walletInfo[0].userName}</h6>
+            <h5 className="mb-0 row text-dark d-flex align-items-center justify-content-center">
+              <img
+                className="me-1 col-4"
+                src={Wallet}
+                alt=""
+                style={{ width: "auto", height: "50px" }}
+              />
+              <span className="counter col-8 fs-6">
+                <span className="fs-6">Balance :</span>&nbsp;
+                {walletInfo[0].currency}&nbsp;{walletInfo[0].balanceCard}
+              </span>
+            </h5>
 
-          {/* Recharge Button */}
-          <Walletlinks />
+            {/* Recharge Button */}
+            <Walletlinks />
+          </div>
         </div>
-      </div>
-      <div className="col-12 col-md-4">
-        {/* <div className="card text-white p-4 "> */}
-        {/* <Link to={"/points/send"}>
+        <div className="col-12 col-md-4">
+          {/* <div className="card text-white p-4 "> */}
+          {/* <Link to={"/points/send"}>
             <h6 className=" mt-2 mb-2  pb-2 border-bottom ">
               <i class="bi bi-send"></i>&nbsp;&nbsp;Send Points
             </h6>
           </Link> */}
-        {/* <Link to={'/points/buy'}><h6 className=' mt-2 mb-2  pb-2 border-bottom '><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Buy Points</h6></Link> */}
-        {/* </div> */}
+          {/* <Link to={'/points/buy'}><h6 className=' mt-2 mb-2  pb-2 border-bottom '><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Buy Points</h6></Link> */}
+          {/* </div> */}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

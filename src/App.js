@@ -388,18 +388,6 @@ const App = () => {
     },
   ];
 
-  // const PrivateRoute = ({ element, redirectTo }) => {
-  //   const user = useSelector((state) => state.userReducer);
-
-  //   return user.isAuthenticated ? element : <Navigate to={redirectTo} />;
-  // };
-
-  // const AuthRoute = ({ element, redirectTo }) => {
-  //   const user = useSelector((state) => state.userReducer);
-
-  //   return !user.isAuthenticated ? element : <Navigate to={redirectTo} />;
-  // };
-
   return (
     <div className="App">
       <Routes>

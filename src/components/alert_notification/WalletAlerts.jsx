@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { alertNotification } from "../../redux/api/notification";
 import { Link } from "react-router-dom";
 
-const AlertNotification = () => {
+const WalletAlertNotification = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,12 +22,12 @@ const AlertNotification = () => {
         <>
           <div className="notification-content-wrap">
             <ul className="notification-list ps-0 mb-2 mt-1 row justify-content-end ">
-              {notifications?.business_profile === false && (
-                <li className="col-12 col-lg-6 col-xl-6">
-                  <Link to="/business/update" className="bg-danger">
+              {!notifications.kyc && (
+                <li className="col-12 col-lg-6 col-xl-6 ">
+                  <Link to="/KYC/update" className="bg-danger">
                     <i class="me-2 bg- bi bi-building"></i>
                     <span style={{ fontSize: "12px" }}>
-                      Upload your business document to be verified for business.
+                      Verify your KYC Form.
                     </span>
                     <span class="badge bg-warning text-dark fz-12 rounded-pill ms-auto">
                       Click Here
@@ -35,25 +35,13 @@ const AlertNotification = () => {
                   </Link>
                 </li>
               )}
-              {notifications?.business_document_pending === "pending" && (
+
+              {!notifications.phone_verified && (
                 <li className="col-12 col-lg-6 col-xl-6">
-                  <Link to="/business/update" className="bg-info">
-                    <i class="me-2 bg- bi bi-building"></i>
+                  <Link to="/otp-phone" className="bg-danger">
+                    <i class="me-2 bg- bi bi-phone"></i>
                     <span style={{ fontSize: "12px" }}>
-                      Your business verififaction is in pending.
-                    </span>
-                    {/* <span class="badge bg-warning text-dark fz-12 rounded-pill ms-auto">
-                      Click Here
-                    </span> */}
-                  </Link>
-                </li>
-              )}
-              {notifications?.business_card_status === false && (
-                <li className="col-12 col-lg-6 col-xl-6">
-                  <Link to="/business/update" className="bg-danger">
-                    <i class="me-2 bg- bi bi-building"></i>
-                    <span style={{ fontSize: "12px" }}>
-                      Upload your business payout card.
+                      Please verify your phone Number.
                     </span>
                     <span class="badge bg-warning text-dark fz-12 rounded-pill ms-auto">
                       Click Here
@@ -69,4 +57,4 @@ const AlertNotification = () => {
   );
 };
 
-export default AlertNotification;
+export default WalletAlertNotification;

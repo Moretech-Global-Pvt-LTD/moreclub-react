@@ -73,7 +73,6 @@ function PurchaseForm() {
         navigate(`/points/buy/${encodedid}`);
       }
     } catch (err) {
-      console.log("error", err.response.data.errors.non_field_errors[0]);
       message.error(err.response.data.errors.non_field_errors[0]);
     }
   };

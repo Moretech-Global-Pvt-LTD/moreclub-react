@@ -1,7 +1,7 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { baseURL} from "../../config/config";
+import { baseURL } from "../../config/config";
 import CouponCards from "../../components/coupon/CouponCards";
 import Divider from "../../components/divider/Divider";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
@@ -21,29 +21,26 @@ export default function ViewCoupon() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["my-coupons"],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${baseURL}coupons/user/list/`
-      );
+      const response = await axiosInstance.get(`${baseURL}coupons/user/list/`);
       const data = await response.data.data;
       return data;
     },
   });
 
-
   if (isLoading) {
     return (
       <DashboardLayout title={"My Coupons"}>
-      <div className="d-flex  g-2">
-        <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded  w-25">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
-      </div>
+        <div className="d-flex  g-2">
+          <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+            <Placeholder xs={12} style={{ height: "4rem" }} />
+          </Placeholder>
+          <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
+            <Placeholder xs={12} style={{ height: "4rem" }} />
+          </Placeholder>
+          <Placeholder as="p" animation="glow" className="rounded  w-25">
+            <Placeholder xs={12} style={{ height: "4rem" }} />
+          </Placeholder>
+        </div>
       </DashboardLayout>
     );
   }
@@ -52,13 +49,12 @@ export default function ViewCoupon() {
     return <div className="text-dynamic-white">Error: reteriving</div>;
   }
 
-
-  const filteredCoupons = data.filter((coupon)=>{
+  const filteredCoupons = data.filter((coupon) => {
     if (activeTab === "active") {
       return !coupon.is_expired;
     } else if (activeTab === "expired") {
       return coupon.is_expired;
-    } 
+    }
   });
 
   const couponsCard = filteredCoupons.map((mst, index) => (
@@ -70,7 +66,6 @@ export default function ViewCoupon() {
     filteredCoupons.length === 0 ||
     (activeTab === "expired" && couponsCard.length === 0);
 
-  
   return (
     <DashboardLayout title={"My Coupons"}>
       {permission.permission.isLoading ? (
@@ -80,11 +75,27 @@ export default function ViewCoupon() {
           {permission.permission && permission.permission.my_coupon ? (
             <>
               <div className="featured-nfts-wrap">
-                <div className={`d-flex ${noCouponsFound ? 'justify-content-end':'justify-content-between'}  gap-2 my-2`}>
-                  {!noCouponsFound &&
-                  <Link to="/coupon">
-                  <button className="btn btn-sm btn-primary">Buy New Coupons</button>
-                  </Link>}
+                <div
+                  className={`d-flex ${
+                    noCouponsFound
+                      ? "justify-content-end"
+                      : "justify-content-between"
+                  }  gap-2 my-2`}
+                >
+                  {!noCouponsFound && (
+                    <div>
+                      <Link to="/coupon">
+                        <button className="btn btn-sm btn-primary">
+                          Buy New Coupons
+                        </button>
+                      </Link>
+                      <Link to={`/transactions`} className="mx-auto">
+                        <button className="btn btn-secondary btn-sm">
+                          Coupons Transaction
+                        </button>
+                      </Link>
+                    </div>
+                  )}
                   <div>
                     <button
                       className={`btn btn-${

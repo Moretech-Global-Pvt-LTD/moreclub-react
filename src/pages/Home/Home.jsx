@@ -7,32 +7,31 @@ import Process from "../../components/process/Process";
 import Project from "../../components/project/Project";
 import LandingLayout from "../../components/Layout/LandingLayout";
 import PricingPlans from "../Pricing/PricingPlans";
-
-
+import { useSelector } from "react-redux";
 
 const Home = () => {
-    return(
-        <LandingLayout>
-            {/* <Divider /> */}
-            <HeroOne />
-            <Divider />
-            <Process />
-            <Divider />
-            <div className="container">
-            <PricingPlans title="Pricing Plans"/>
-            </div>
-            <Divider />
-            <Coupon />
-            <About />
-            <Divider />
-            <Project heading="Our Projects" />
-            <Divider />
-           
+  const user = useSelector((state) => state.userReducer);
 
-            
-            
-        </LandingLayout>
-    )
-}
+  return (
+    <LandingLayout>
+      {/* <Divider /> */}
+      <HeroOne />
+      <Divider />
+      <Process />
+      <Divider />
+      {user.isAuthenticated && (
+        <div className="container">
+          <PricingPlans title="Pricing Plans" />
+          <Divider />
+        </div>
+      )}
+      <Coupon />
+      <About />
+      <Divider />
+      <Project heading="Our Projects" />
+      <Divider />
+    </LandingLayout>
+  );
+};
 
 export default Home;
