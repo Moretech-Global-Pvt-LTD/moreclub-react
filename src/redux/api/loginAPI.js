@@ -391,6 +391,30 @@ export const change_password = (formData) => async (dispatch) => {
   }
 };
 
+export const update_Kyc_document = (formData) => async (dispatch) => {
+  if (localStorage.getItem("moretechglobal_access")) {
+    dispatch(setLoading(true));
+    try {
+      const res = await axiosInstance.patch(
+        `${baseURL}kyc/documents/upload/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return res;
+    } catch (error) {
+      dispatch(setLoading(false));
+      return error.response;
+    }
+  } else {
+    dispatch(userFail());
+    dispatch(setLoading(false));
+  }
+};
+
 export const upload_Kyc_document = (formData) => async (dispatch) => {
   if (localStorage.getItem("moretechglobal_access")) {
     dispatch(setLoading(true));
@@ -404,13 +428,12 @@ export const upload_Kyc_document = (formData) => async (dispatch) => {
           },
         }
       );
-      // dispatch(userSuccess(res.data.data));
-      console.log(res);
-      return res.data.success;
+
+      return res;
     } catch (error) {
       dispatch(setLoading(false));
-      console.log(error);
-      return "false";
+
+      return error.response;
     }
   } else {
     dispatch(userFail());

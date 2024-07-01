@@ -280,9 +280,9 @@ const DashboardContent = () => {
           )} */}
           {/* <PointsTransaction /> */}
         </Row>
-        {/* <Row>
+        <Row>
           <EventDashboardDisplay />
-        </Row> */}
+        </Row>
 
         <Row>
           <DashboardOffers />

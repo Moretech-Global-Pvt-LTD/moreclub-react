@@ -4,9 +4,8 @@ import { message } from "antd";
 import Form from "react-bootstrap/Form";
 import { useDebounce } from "../../Hooks/useDebounce"; // Adjust the import path as needed
 
-import { imageURL } from "../../config/config";
 import {
-  update_profile_picture,
+  update_Kyc_document,
   upload_Kyc_document,
 } from "../../redux/api/loginAPI";
 import { useNavigate } from "react-router-dom";
@@ -20,8 +19,11 @@ const IDCardForm = ({ initialData }) => {
   const [IdnumberError, setIdnumberError] = useState("");
   const [IDIssueDateError, setIDissueDateError] = useState("");
   const [IDExpiryDateError, setIDExpiryDateError] = useState("");
+
   const [inputID, setInputID] = useState("");
-  const [inputDisplayID, setInputDisplayID] = useState("");
+  const [inputDisplayID, setInputDisplayID] = useState(
+    initialData?.document_file ?? ""
+  );
   const [IDError, setIDError] = useState("");
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -77,19 +79,54 @@ const IDCardForm = ({ initialData }) => {
   const handleIDSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
-    const formData = new FormData();
-    formData.append("document_file", inputID);
-    formData.append("document_type", Idtype);
-    formData.append("document_id", Idnumber);
-    formData.append("issue_date", IDIssueDate);
 
-    const res = await dispatch(upload_Kyc_document(formData));
-    if (res) {
-      message.success("document Updated Successfully");
-      navigate("/KYC");
+    if (initialData) {
+      if (
+        inputDisplayID !== initialData.document_file ||
+        inputID !== initialData.document_id ||
+        Idtype !== initialData.document_type ||
+        IDIssueDate !== initialData.issue_date
+      ) {
+        const formData = new FormData();
+        formData.append("document_file", inputID);
+        formData.append("document_type", Idtype);
+        formData.append("document_id", Idnumber);
+        formData.append("issue_date", IDIssueDate);
+        const res = await dispatch(update_Kyc_document(formData));
+        if (res.data.success) {
+          message.success("document Updated Successfully");
+          navigate("/KYC");
+        } else {
+          message.error(res.data.data.non_field_errors[0]);
+        }
+      } else {
+        const formData = new FormData();
+        formData.append("document_type", Idtype);
+        formData.append("document_id", Idnumber);
+        formData.append("issue_date", IDIssueDate);
+        const res = await dispatch(update_Kyc_document(formData));
+        if (res.data.success) {
+          message.success("document Updated Successfully");
+          navigate("/KYC");
+        } else {
+          message.error(res.data.data.non_field_errors[0]);
+        }
+      }
     } else {
-      message.error("Failed to Update ID");
+      const formData = new FormData();
+      formData.append("document_file", inputID);
+      formData.append("document_type", Idtype);
+      formData.append("document_id", Idnumber);
+      formData.append("issue_date", IDIssueDate);
+      const res = await dispatch(upload_Kyc_document(formData));
+      if (res.data.success) {
+        message.success("Kyc Updated Successfully");
+        navigate("/KYC");
+      } else {
+        message.error(res.data.message);
+      }
     }
+
     setIsSubmitting(false);
   };
 
@@ -118,27 +155,15 @@ const IDCardForm = ({ initialData }) => {
         </Form.Group>
 
         <div className="img-wrap text-center">
-          {initialData?.document_file ? (
-            <img
-              src={initialData?.document_file}
-              alt=""
-              style={{
-                width: "200px",
-                border: "1px",
-                borderColor: "white",
-              }}
-            />
-          ) : (
-            <img
-              src={inputDisplayID}
-              alt=""
-              style={{
-                width: "200px",
-                border: "1px",
-                borderColor: "white",
-              }}
-            />
-          )}
+          <img
+            src={inputDisplayID}
+            alt=""
+            style={{
+              width: "200px",
+              border: "1px",
+              borderColor: "white",
+            }}
+          />
         </div>
       </div>
 
@@ -149,7 +174,6 @@ const IDCardForm = ({ initialData }) => {
           type="file"
           accept="image/*"
           onChange={handleIDChange}
-          required
         />
         {IDError && <p className="text-danger">{IDError}</p>}
       </Form.Group>

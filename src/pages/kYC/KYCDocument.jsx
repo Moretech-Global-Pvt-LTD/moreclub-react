@@ -7,11 +7,10 @@ import { baseURL } from "../../config/config";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 
 const KYCDocument = () => {
-
   const fetchDashboardData = async () => {
     try {
       // Attempt to fetch both user profile and KYC status
-      const [ kycResponse] = await Promise.allSettled([
+      const [kycResponse] = await Promise.allSettled([
         axiosInstance.get(`${baseURL}kyc/status/`),
       ]);
       // Handle the KYC status response
@@ -57,31 +56,25 @@ const KYCDocument = () => {
     <div className="text-dynamic white">Error getting page data</div>;
   }
 
+  let initialData;
 
-  let initialData; 
-
-  if(data){
+  if (data) {
     initialData = data.document;
 
     return (
       <div className="card p-4" style={{ maxWidth: "600px" }}>
         <h5>Document Upload</h5>
-        <IDCardForm  initialData={initialData}/>
+        <IDCardForm initialData={initialData} />
       </div>
     );
-  }else{
+  } else {
     return (
       <div className="card p-4" style={{ maxWidth: "600px" }}>
         <h5>Document Upload</h5>
-        <IDCardForm initialData={initialData}/>
+        <IDCardForm />
       </div>
     );
   }
-
-
-
-
- 
 };
 
 export default KYCDocument;

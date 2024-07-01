@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import EventCard from "../../components/cards/Eventcard";
-import { Carousel, Col, Placeholder, Row } from "react-bootstrap";
+import { Button, Carousel, Col, Placeholder, Row } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../../config/config";
 import Divider from "../../components/divider/Divider";
+import EventCarousel from "./EventCarousel";
+import { Link } from "react-router-dom";
 
 const EventDashboardDisplay = () => {
   const { data, isLoading, isError, fetchNextPage, hasNextPage } = useQuery({
@@ -38,16 +40,15 @@ const EventDashboardDisplay = () => {
   }
 
   return (
-    <Row>
-      <Carousel></Carousel>
-      {/* {data.pages.map((data) => (
-        <div className="d-flex flex-wrap gap-4 mt-4">
-          {data.data.map((event) => (
-            <EventCard events={event} />
-          ))}
-        </div>
-      ))} */}
-    </Row>
+    <div className="mb-5">
+      <div className="d-flex justify-content-between align-item-center mb-3">
+        <h2 className="mt-4 mb-3">Popular events </h2>
+        <Link to="/event">
+          <Button variant="link">View All</Button>
+        </Link>
+      </div>
+      <EventCarousel data={data} />
+    </div>
   );
 };
 
