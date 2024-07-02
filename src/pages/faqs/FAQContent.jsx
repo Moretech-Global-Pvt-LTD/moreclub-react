@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import FAQimage from "../../images/about/expectation.png";
 import { baseURL } from "../../config/config";
 import axios from "axios";
-import { Modal, Space, message } from "antd";
+import { message } from "antd";
 import { axiosInstance } from "../..";
 
 const FAQContent = () => {
   const [faq, setFaq] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deletionReason, setDeletionReason] = useState("");
+  const [reasonError, setReasonError] = useState("");
+  const [activeKey, setActiveKey] = useState(null);
+  const [showdelete, setShowDelete] = useState(false);
+
+  const handleSelect = () => {
+    setShowDelete(!showdelete);
+  };
 
   useEffect(() => {
     const fetchFaq = async () => {
@@ -24,8 +32,30 @@ const FAQContent = () => {
     fetchFaq();
   }, []);
 
+  const handleReasonOnchange = async (e) => {
+    const value = e.target.value;
+    if (value !== "") {
+      setDeletionReason(e.target.value);
+      setReasonError("");
+    } else {
+      setReasonError("Please provide your reason");
+    }
+  };
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Reason for deletion:", deletionReason);
+    if (deletionReason.trim() !== "") {
+      setReasonError("");
+      await handleDelete();
+      toggleModal(false);
+    } else {
+      setReasonError("Please provide your reason");
+    }
   };
 
   async function handleDelete() {
@@ -33,13 +63,11 @@ const FAQContent = () => {
       const res = await axiosInstance.post(
         `${baseURL}auth/delete/user/account/`,
         {
-          remark: "",
+          remark: deletionReason,
         }
       );
-      console.log(res);
       message.error("account deleted Successfully");
     } catch (err) {
-      console.log(err);
       message.error(err.response?.data?.errors?.non_fields_error[0]);
     }
   }
@@ -87,43 +115,6 @@ const FAQContent = () => {
                   </Accordion.Body>
                 </Accordion.Item>
               ))}
-              <Accordion.Item
-                eventKey={`how to delete`}
-                className="text-dynamic-white"
-              >
-                <Accordion.Header className="text-dynamic-white">
-                  How to delete my Account ?
-                </Accordion.Header>
-                <Accordion.Body className="text-dynamic-white">
-                  <p>
-                    To delete your account, click the "Delete Account" button at
-                    the bottom of this question.
-                  </p>
-                  <p>
-                    Read the Following Guidelines before you delete your account
-                  </p>
-                  <p>
-                    All your data, including personal information, saved
-                    preferences, and content you've created, will be permanently
-                    removed from our servers. This process is irreversible.
-                  </p>
-                  <p>
-                    Once your account is deleted, it cannot be recovered. To use
-                    our services again, you will need to create a new account.
-                  </p>
-                  <p className="fs-6 mt-2 border-bottom border-top  py-2">
-                    <Space>
-                      <button
-                        className="btn btn-danger btn-sm "
-                        style={{ cursor: "pointer" }}
-                        onClick={() => toggleModal(0, true)}
-                      >
-                        Delete Account
-                      </button>
-                    </Space>
-                  </p>
-                </Accordion.Body>
-              </Accordion.Item>
             </>
           )}
           {!faq && (
@@ -132,28 +123,127 @@ const FAQContent = () => {
             </div>
           )}
         </Accordion>
-        {/* <button
-          className="btn btn-danger btn-sm "
-          style={{ cursor: "pointer" }}
-          // onClick={() => toggleModal(0, true)}
-          onClick={handleDelete}
-        >
-          Delete Account
-        </button>
+
+        <Accordion>
+          <Accordion.Item eventKey={0} className="text-dynamic-white">
+            <Accordion.Header
+              className="text-dynamic-white"
+              onClick={handleSelect}
+            >
+              How to delete my Account ?
+            </Accordion.Header>
+            <Accordion.Body className="text-dynamic-white">
+              <p>
+                To delete your account, click the "Delete Account" button at the
+                bottom of this question.
+              </p>
+              <p className="fw-bold">
+                Read the Following Guidelines before you delete your account
+              </p>
+              <ol>
+                <li>
+                  All your data, including personal information, saved
+                  preferences, and content you've created, will be permanently
+                  removed from our servers. This process is irreversible.
+                </li>
+                <li>
+                  Once your account is deleted, it cannot be recovered. To use
+                  our services again, you will need to create a new account.
+                </li>
+                <li>
+                  Deleting your account will cancel all active subscriptions
+                  associated with your account. Any remaining subscription
+                  period will not be refunded.
+                </li>
+                <li>
+                  The account deletion process is immediate, but it may take up
+                  to 30 days for all your data to be fully removed from our
+                  backup systems.
+                </li>
+                <li>
+                  We recommend resolving any pending orders or transactions
+                  before deleting your account. Deleting your account will
+                  cancel any ongoing transactions.
+                </li>
+                <li>
+                  You can also contact our customer support team to request
+                  account deletion. They will guide you through the process and
+                  confirm your request.
+                </li>
+                <li>
+                  If you face any problems while attempting to delete your
+                  account, please reach out to our customer support team for
+                  assistance.
+                </li>
+                <li>
+                  All your activity, including posts, comments, and
+                  interactions, will be deleted along with your account,
+                  ensuring complete removal of your presence from our platform.
+                </li>
+                <li>
+                  You can delete your account from both the website and the
+                  mobile app. The process is similar in both, located within the
+                  account settings section.
+                </li>
+              </ol>
+            </Accordion.Body>
+          </Accordion.Item>
+          <div className="bg-white">
+            {showdelete && (
+              <button
+                className="btn btn-danger btn-sm my-2 mx-2"
+                style={{ cursor: "pointer" }}
+                onClick={() => toggleModal(true)}
+              >
+                Delete Account
+              </button>
+            )}
+          </div>
+        </Accordion>
 
         <Modal
-          title="Basic Modal"
-          open={isModalOpen[0]}
-          onOk={() => toggleModal()}
-          onCancel={() => toggleModal()}
-          // footer="Footer"
-          // classNames={classNames}
-          // styles={modalStyles}
+          aria-labelledby="contained-modal-title-vcenter"
+          size="lg"
+          centered
+          show={isModalOpen}
+          onHide={toggleModal}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal> */}
+          <Modal.Header>
+            <Modal.Title id="contained-modal-title-vcenter text-center">
+              Delete Your Accound
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleFormSubmit}>
+              <Form.Group controlId="formDeletionReason">
+                <Form.Label>Reason for Account Deletion</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  placeholder="Enter your reason"
+                  style={{ height: "100px" }}
+                  value={deletionReason}
+                  isInvalid={reasonError}
+                  onChange={handleReasonOnchange}
+                  required
+                />
+              </Form.Group>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={() => toggleModal(false)}>
+                  Cancel
+                </Button>
+                <Button
+                  variant="danger"
+                  type="submit"
+                  disabled={
+                    deletionReason.trim() === "" || reasonError.trim() !== ""
+                  }
+                >
+                  Delete Account
+                </Button>
+              </Modal.Footer>
+            </Form>
+          </Modal.Body>
+        </Modal>
       </Row>
     </>
   );
