@@ -138,7 +138,7 @@ function ChangePinForm() {
         <Button variant="primary" type="submit" className="mt-3">
           Change PIN
         </Button>
-        <Link to="Reset Pin" className="mt-3 t">
+        <Link to="/forget/pin" className="mt-3 t">
           <Button variant="ghost" className="text-primary">
             {"forget your Pin ?"}
           </Button>

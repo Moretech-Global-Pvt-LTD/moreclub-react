@@ -322,10 +322,10 @@ const BillingForm = (hasPermission) => {
   // membership scanner
   const ScannerResult = async (result) => {
     const resultObject = JSON.parse(result.data);
-    if(resultObject.membership_code){
+    if (resultObject.membership_code) {
       const membershipCode = resultObject.membership_code;
       setMembership(membershipCode);
-    }else{
+    } else {
       setMembership("");
     }
   };
@@ -337,7 +337,7 @@ const BillingForm = (hasPermission) => {
     title: "Scan the MemberCode",
     content: (
       <div style={{ width: "300px", height: "300px", position: "relative" }}>
-        <MembershipCodeReader onScanSuccess={ScannerResult} />
+        <MembershipCodeReader onScansSuccess={ScannerResult} />
       </div>
     ),
   };
