@@ -100,8 +100,8 @@ const TermsContent = () => {
             >
               <div className={`col-12 ${priv.image ? "col-lg-8" : ""}`}>
                 <h4>{priv.title}</h4>
-                <Content priv={priv.description} />
-                {/* <p className="text-dynamic-white">{priv.description}</p> */}
+                {/* <Content priv={priv.description} /> */}
+                <p className="text-dynamic-white">{priv.description}</p>
               </div>
               {priv.image ? (
                 <div

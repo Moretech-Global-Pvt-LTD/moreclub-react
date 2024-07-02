@@ -9,8 +9,10 @@ import Forget from "../../images/auth/forget.png";
 import { useDebounce } from "../../Hooks/useDebounce";
 import { baseURL } from "../../config/config";
 import axios from "axios";
+import DashboardLayout from "../../components/Layout/DashboardLayout";
+import { message } from "antd";
 
-export default function ForgetPasswordEmail(props) {
+export default function ForgetPinEmail(props) {
   const { title, subTitle } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,62 +55,69 @@ export default function ForgetPasswordEmail(props) {
     validateAndCheckPhone();
   }, [debouncedEmail]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = {
-      username: email,
+      email: email,
     };
-    const res = dispatch(forget_pin(formData));
-    if (res) {
+    const res = await dispatch(forget_pin(formData));
+    console.log("", res);
+    if (res.data.success) {
       localStorage.setItem("otp_username", email);
-      navigate("/forgot/pin/otp");
+      navigate("/forget/pin/otp");
+    } else {
+      message.error(res.data.error.non_field_errors[0]);
     }
   };
 
   return (
-    <div className="register-area">
-      <div className="container">
-        <div className="row g-4 g-lg-5 align-items-center justify-content-between">
-          <div className="col-12 col-md-6 col-xl-5">
-            <div className="register-card">
-              <h2>{title}</h2>
-              <p>{subTitle}</p>
+    <DashboardLayout>
+      <div className="register-area">
+        <div className="container">
+          <div className="row g-4 g-lg-5 align-items-center justify-content-between">
+            <div className="col-12 col-md-6 col-xl-5">
+              <div className="register-card">
+                <h2>{title}</h2>
+                <p>{subTitle}</p>
 
-              <div className="register-form mt-5">
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-4">
-                    <Form.Control
-                      type="email"
-                      placeholder="Enter email to reset password"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                    {emailError && <p className="text-danger">{emailError}</p>}
-                  </Form.Group>
-                  <button
-                    className="btn btn-warning btn-sm"
-                    type="submit"
-                    disabled={emailError.trim() !== ""}
-                  >
-                    Reset Pin
-                  </button>
-                </Form>
+                <div className="register-form mt-5">
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-4">
+                      <Form.Control
+                        type="email"
+                        placeholder="Enter email to reset password"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
+                      {emailError && (
+                        <p className="text-danger">{emailError}</p>
+                      )}
+                    </Form.Group>
+                    <button
+                      className="btn btn-warning btn-sm"
+                      type="submit"
+                      disabled={emailError.trim() !== ""}
+                    >
+                      Reset Pin
+                    </button>
+                  </Form>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="col-12 col-md-6">
-            <div className="register-thumbnail mt-5 mt-md-0">
-              <img
-                src={Forget}
-                alt="Forget"
-                style={{ width: "60%", height: "auto", margin: "auto" }}
-              />
+            <div className="col-12 col-md-6">
+              <div className="register-thumbnail mt-5 mt-md-0">
+                <img
+                  src={Forget}
+                  alt="Forget"
+                  style={{ width: "60%", height: "auto", margin: "auto" }}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

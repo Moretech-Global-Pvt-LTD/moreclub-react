@@ -74,6 +74,8 @@ import UserEventpage from "./pages/event/userEventpage";
 import EventImageUpload from "./components/event/eventImageUpload";
 import UserEventDetailPage from "./pages/event/UsereventDetailspage";
 import ForgetPin from "./pages/Transactionpin/ForgetPin";
+import ForgetPinEmail from "./pages/Transactionpin/ForgetPinEmail";
+import ForgetPinOTP from "./pages/Transactionpin/ForgetPinOtp";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -385,6 +387,18 @@ const App = () => {
     {
       path: "/KYC/document/update",
       page: <KYCDocumentPage />,
+    },
+    {
+      path: "/forget/pin",
+      page: <ForgetPinEmail />,
+    },
+    {
+      path: "/forget/pin/otp",
+      page: <ForgetPinOTP />,
+    },
+    {
+      path: "/reset/pin/",
+      page: <ForgetPin />,
     },
   ];
 

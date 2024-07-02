@@ -101,7 +101,11 @@ const PrivacyContent = () => {
             >
               <div className={`col-12 ${priv.image ? "col-lg-8" : ""}`}>
                 <h4>{priv.title}</h4>
-                <Content priv={priv.description} />
+                {/* <Content priv={priv.description} /> */}
+                <div
+                  className="text-dynamic-white"
+                  dangerouslySetInnerHTML={{ __html: priv.description }}
+                />
               </div>
               {priv.image ? (
                 <div

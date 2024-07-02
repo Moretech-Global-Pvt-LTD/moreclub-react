@@ -444,12 +444,16 @@ export const upload_Kyc_document = (formData) => async (dispatch) => {
 export const forget_pin = (formData) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const res = await axios.post(`${baseURL}auth/pin/reset/`, formData);
+    const res = await axiosInstance.post(
+      `${baseURL}auth/forget/user/pin/`,
+      formData
+    );
     dispatch(setLoading(false));
 
-    return res.data.success;
+    return res;
   } catch (error) {
     dispatch(setLoading(false));
+    return error.response;
   }
 };
 
@@ -457,7 +461,7 @@ export const forget_pin_otp_verify = (formData) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
     const res = await axios.post(
-      `${baseURL}auth/password/reset/confirm/`,
+      `${baseURL}auth/confirm/forget/user/pin/`,
       formData
     );
     dispatch(setLoading(false));
