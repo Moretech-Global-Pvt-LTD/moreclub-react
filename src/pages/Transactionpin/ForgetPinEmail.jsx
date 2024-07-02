@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { useEffect, useState } from "react";
-import { forget_password, forget_pin } from "../../redux/api/loginAPI";
+import { forget_pin } from "../../redux/api/loginAPI";
 import { useDispatch } from "react-redux";
 import Forget from "../../images/auth/forget.png";
 import { useDebounce } from "../../Hooks/useDebounce";
@@ -18,6 +18,7 @@ export default function ForgetPinEmail(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const debouncedEmail = useDebounce(email, 500);
 
@@ -57,31 +58,30 @@ export default function ForgetPinEmail(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const formData = {
       email: email,
     };
     const res = await dispatch(forget_pin(formData));
-    console.log("", res);
     if (res.data.success) {
       localStorage.setItem("otp_username", email);
       navigate("/forget/pin/otp");
     } else {
-      message.error(res.data.error.non_field_errors[0]);
+      message.error(res.data.errors.non_field_errors[0]);
     }
+    setLoading(false);
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayout title={"Reset Pin"}>
       <div className="register-area">
-        <div className="row g-4 g-lg-5 align-items-center justify-content-between">
+        <div className="row flex-column-reverse flex-md-row  g-4 g-lg-5 align-items-center justify-content-between">
           <div className="col-12 col-md-6 col-xl-5">
             <div className="register-card">
-              <h2>{title}</h2>
-              <p>{subTitle}</p>
-
               <div className="register-form mt-5">
                 <Form onSubmit={handleSubmit}>
                   <Form.Group className="mb-4">
+                    <Form.Label className="mb-4">Email address</Form.Label>
                     <Form.Control
                       type="email"
                       placeholder="Enter email to reset password"
@@ -96,6 +96,9 @@ export default function ForgetPinEmail(props) {
                     type="submit"
                     disabled={emailError.trim() !== ""}
                   >
+                    {loading && (
+                      <span className="spinner-border spinner-border-sm text-danger"></span>
+                    )}
                     Reset Pin
                   </button>
                 </Form>
@@ -103,7 +106,7 @@ export default function ForgetPinEmail(props) {
             </div>
           </div>
 
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 d-none d-md-block">
             <div className="register-thumbnail mt-5 mt-md-0">
               <img
                 src={Forget}

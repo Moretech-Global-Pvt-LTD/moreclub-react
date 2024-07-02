@@ -2,22 +2,17 @@ import { Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  forget_password_otp_verify,
-  forget_pin_otp_verify,
-  otpResend,
-  otpVerify,
-} from "../../redux/api/loginAPI";
+import { useNavigate } from "react-router-dom";
+import { forget_pin_otp_verify, otpResend } from "../../redux/api/loginAPI";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 
 const ForgetPinOTP = () => {
   const [timer, setTimer] = useState(120);
-  const [messageApi, contextHolder] = message.useMessage();
-  const key = "updatable";
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isResending, setIsResending] = useState(true);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     let interval;
     if (isResending) {
@@ -44,25 +39,35 @@ const ForgetPinOTP = () => {
     message.success("OTP has been sent");
     setIsResending(true);
   }
+
+  async function handlebackOTP() {
+    localStorage.removeItem("otp_username");
+    navigate("/forget/pin");
+  }
+
   const formRef = React.createRef();
   const onFinish = async (values) => {
+    setLoading(true);
     const formData = {
-      username: localStorage.getItem("otp_username"),
       code: values.code,
     };
     const result = await dispatch(forget_pin_otp_verify(formData));
-    if (result.status === 200) {
+    console.log(result);
+    if (result.data.success) {
+      localStorage.setItem("pin_otp", values.code);
       message.success(result.data.message);
+      localStorage.removeItem("otp_username");
       navigate("/reset/pin/");
     } else {
-      if (result.success === false) {
-        if (result.errors.username) {
-          message.warning(result.errors.username[0]);
+      if (result.data.success === false) {
+        if (result?.data?.message) {
+          message.error(result?.data?.message);
         } else {
-          message.warning(result.message);
+          message.error(result.data?.errors?.non_field_errors[0]);
         }
       }
     }
+    setLoading(false);
   };
 
   return (
@@ -104,20 +109,22 @@ const ForgetPinOTP = () => {
                     />
                   </Form.Item>
                   <Form.Item>
+                    <button
+                      onClick={handlebackOTP}
+                      className="btn btn-sm btn-link"
+                    >
+                      {"Back"}
+                    </button>
+
                     <Button type="submit" className="btn btn-sm pull-right">
+                      {loading && (
+                        <span className="spinner-border spinner-border-sm text-danger"></span>
+                      )}
                       Verify OTP
                     </Button>
                   </Form.Item>
                 </Form>
                 <p>The OTP code valid for only 5 minutes.</p>
-                <p>{isResending ? `Resend OTP in ${timer} seconds` : ""}</p>
-                <button
-                  onClick={handleResendOTP}
-                  disabled={isResending}
-                  className="btn btn-sm btn-danger"
-                >
-                  {isResending ? "Resending..." : "Resend OTP"}
-                </button>
               </div>
             </div>
           </div>

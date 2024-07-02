@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  CardElement,
-  useStripe,
-  useElements,
-  Elements,
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement,
-  PaymentElement,
-} from "@stripe/react-stripe-js";
-import { Card, FormGroup } from "react-bootstrap";
-import { Form, useNavigate } from "react-router-dom";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { baseURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
 import { message } from "antd";
 import Visa from "../../../images/Payments/visacard.png";
 import MasterCard from "../../../images/Payments/MasterCard_Logo.png";
 import DefaultCard from "../../../images/Payments/cards.png";
-
-
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -27,39 +16,41 @@ const PaymentForm = () => {
   const [cardHolderName, setCardHolderName] = useState("");
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const CARD_ELEMENT_OPTIONS = {
     style: {
       base: {
-        color: theme === 'dark' ? '#ffffff' : '#32325d',
+        color: theme === "dark" ? "#ffffff" : "#32325d",
         // backgroundColor: theme === 'dark' ? '#0c153b' : '#ffffff',
         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSmoothing: 'antialiased',
-        fontSize: '16px',
-        '::placeholder': {
-          color: theme === 'dark' ? '#bbbbbb' : '#aab7c4',
+        fontSmoothing: "antialiased",
+        fontSize: "16px",
+        "::placeholder": {
+          color: theme === "dark" ? "#bbbbbb" : "#aab7c4",
         },
-        border: '1px solid',
-        borderColor: theme === 'dark' ? '#555555' : '#cccccc',
-        padding: '50px',
-        borderRadius: '4px',
+        border: "1px solid",
+        borderColor: theme === "dark" ? "#555555" : "#cccccc",
+        padding: "50px",
+        borderRadius: "4px",
       },
       invalid: {
-        color: '#fa755a',
-        iconColor: '#fa755a',
-        borderColor: '#fa755a',
+        color: "#fa755a",
+        iconColor: "#fa755a",
+        borderColor: "#fa755a",
       },
     },
   };
 
-
-
-
   const fetchCardDetail = async () => {
     try {
       const res = await axiosInstance.get(`${baseURL}business/card/details/`);
-      console.log("card data", res);
-      setCards(res.data.data);
+      console.log(res);
+      if (res.data.data.message === "No detail found") {
+        setCards(null);
+      } else {
+        setCards(res.data.data);
+      }
     } catch (err) {
       message.error("Error getting message");
     }
@@ -71,6 +62,7 @@ const PaymentForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     if (!stripe || !elements) {
       return;
@@ -97,13 +89,14 @@ const PaymentForm = () => {
 
         message.success("Payment method added successfully");
         await fetchCardDetail();
-        navigate('/dashboard')
+        navigate("/dashboard");
         // console.log("Payment method added successfully:", );
       } catch (err) {
         console.error(error);
         message.error(error?.response?.data.errors.non_field_errors[0]);
       }
     }
+    setLoading(false);
   };
 
   return (
@@ -149,26 +142,30 @@ const PaymentForm = () => {
           </Card.Body>
         </Card>
       )}
-      <h6 className="mt-1">{cards ? `Update Your card` : 'Add Your Payments'}</h6>
+      <h6 className="mt-1">
+        {cards ? `Update Your card` : "Add Your Payments"}
+      </h6>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           onChange={(e) => setCardHolderName(e.target.value)}
-          className="form-control my-1 mb-2 w-100"
+          className="form-control my-1 mb-4 w-100"
           placeholder="Card Holder Name"
           style={{ width: "100%" }}
         />
 
         <CardElement options={CARD_ELEMENT_OPTIONS} />
         <div className="d-flex justify-content-end w-100">
-        <button
-          type="submit"
-          className="btn  rounded-pill btn-primary my-2 mt-4 align-self-end "
-          disabled={!stripe}
-        >
-          Process
-        </button>
-
+          <button
+            type="submit"
+            className="btn  rounded-pill btn-primary my-2 mt-4 align-self-end "
+            disabled={!stripe}
+          >
+            {loading && (
+              <span className="spinner-border spinner-border-sm text-danger"></span>
+            )}
+            Process
+          </button>
         </div>
       </form>
     </Card>

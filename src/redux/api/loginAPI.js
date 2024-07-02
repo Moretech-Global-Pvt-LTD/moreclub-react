@@ -461,12 +461,13 @@ export const forget_pin_otp_verify = (formData) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
     const res = await axiosInstance.post(
-      `${baseURL}auth/confirm/forget/user/pin/`,
+      `${baseURL}auth/verify/forget/user/pin/`,
       formData
     );
     dispatch(setLoading(false));
     return res;
   } catch (error) {
     dispatch(setLoading(false));
+    return error.response;
   }
 };
