@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Placeholder } from "react-bootstrap";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import Content from "../../components/ui/content";
 
 const TermsContent = () => {
   const metaInfo = useSelector((state) => state.metaReducer);
@@ -99,7 +100,8 @@ const TermsContent = () => {
             >
               <div className={`col-12 ${priv.image ? "col-lg-8" : ""}`}>
                 <h4>{priv.title}</h4>
-                <p className="text-dynamic-white">{priv.description}</p>
+                <Content priv={priv.description} />
+                {/* <p className="text-dynamic-white">{priv.description}</p> */}
               </div>
               {priv.image ? (
                 <div

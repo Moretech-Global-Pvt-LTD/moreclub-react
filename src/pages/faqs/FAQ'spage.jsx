@@ -9,7 +9,7 @@ const FAQPage = () => {
   const user = useSelector((state) => state.userReducer);
   if (user.isAuthenticated) {
     return (
-      <DashboardLayout>
+      <DashboardLayout title={"FAQs"}>
         <FAQContent />
       </DashboardLayout>
     );
@@ -17,9 +17,8 @@ const FAQPage = () => {
     return (
       <LandingLayout>
         <div className="container">
-
-        <FAQContent />
-        <Divider/>
+          <FAQContent />
+          <Divider />
         </div>
       </LandingLayout>
     );

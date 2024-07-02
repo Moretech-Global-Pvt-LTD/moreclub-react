@@ -26905,4 +26905,36 @@ span {
   display: flex;
 }
 
+.content-container {
+  white-space: pre-wrap; /* This preserves whitespace and line breaks */
+  font-family: Arial, sans-serif; /* Set your desired font */
+  color: #333; /* Set your desired text color */
+  padding: 20px; /* Add padding if needed */
+  line-height: 1.6; /* Adjust line height for better readability */
+}
+
+.content-container h1,
+.content-container h2,
+.content-container h3,
+.content-container h4,
+.content-container h5,
+.content-container h6 {
+  font-weight: bold; /* Ensure headings are bold */
+  margin-top: 20px; /* Add margin to top of headings */
+}
+
+.content-container p {
+  margin-bottom: 20px; /* Add margin to bottom of paragraphs */
+}
+
+.content-container ul,
+.content-container ol {
+  margin-left: 20px; /* Add margin to lists */
+  margin-bottom: 20px; /* Add margin to bottom of lists */
+}
+
+.content-container li {
+  margin-bottom: 10px; /* Add margin to bottom of list items */
+}
+
 /*# sourceMappingURL=main.c1c39487.css.map*/

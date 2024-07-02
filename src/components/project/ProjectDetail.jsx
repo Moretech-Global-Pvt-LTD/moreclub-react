@@ -1,16 +1,14 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Zoom } from "react-awesome-reveal";
 import { Tab, Tabs } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { projectDetail } from "../../redux/api/projectAPI";
 
-
 const ProjectDetails = () => {
   const { projectId } = useParams();
   const projects = useSelector((state) => state.projectReducer).singleProject;
   const dispatch = useDispatch();
-  console.log("project details", projects);
   useEffect(() => {
     dispatch(projectDetail(projectId));
   }, [dispatch]);
@@ -152,8 +150,6 @@ const ProjectDetails = () => {
           </div>
         </div>
       </div> */}
-
-     
     </>
   );
 };

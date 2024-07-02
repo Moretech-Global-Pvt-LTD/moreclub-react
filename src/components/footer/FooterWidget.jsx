@@ -16,17 +16,21 @@ export default function FooterWidget(props) {
           className={`mb-4 ${widgetTitle === "Marketplace" ? "text-gray" : ""}`}
         >
           {widgetTitle}
-          {widgetTitle === "Marketplace" && <>{" "}<i class="bi bi-lock-fill fs-6"></i></>}
+          {widgetTitle === "Marketplace" && (
+            <>
+              {" "}
+              <i class="bi bi-lock-fill fs-6"></i>
+            </>
+          )}
         </h5>
         <ul className="list-unstyled mb-0">
           {widgetTitle === "Marketplace" ? (
             <>
               {navList.map((ele, index) => (
-              <li key={index}>
-                <p className="text-gray">{ele.text}</p>
-              </li>
-              ))
-              }
+                <li key={index}>
+                  <p className="text-gray ">{ele.text}</p>
+                </li>
+              ))}
             </>
           ) : (
             <>{liItems}</>

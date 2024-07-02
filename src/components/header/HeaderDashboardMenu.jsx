@@ -57,6 +57,19 @@ const HeaderDashboardMenu = () => {
             &nbsp; My Wallet &nbsp;<i class="bi bi-lock"></i>
           </li>
         )}
+        {/* {permisions.permission && permisions.permission.my_wallet ? ( */}
+        <li>
+          <NavLink to={"/event"}>
+            <i className={`bi bi-calendar3`} />
+            Events
+          </NavLink>
+        </li>
+        {/* ) : ( */}
+        {/* <li>
+            <i className={`bi bi-wallet2`} />
+            &nbsp; My Wallet &nbsp;<i class="bi bi-lock"></i>
+          </li> */}
+        {/* )} */}
         {permisions.permission && permisions.permission.transaction ? (
           <li>
             <NavLink to={"/transactions"}>

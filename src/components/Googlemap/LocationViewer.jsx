@@ -8,8 +8,7 @@ import {
 } from "@vis.gl/react-google-maps";
 import { MapApi, MapId } from "../../config/config";
 
-export default function MapComponent({lat, lng}) {
-  console.log(lat, lng)
+export default function MapComponent({ lat, lng }) {
   const position = { lat: parseFloat(lat), lng: parseFloat(lng) };
   const [open, setOpen] = useState(false);
 

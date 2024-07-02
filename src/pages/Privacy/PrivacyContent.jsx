@@ -5,6 +5,7 @@ import { baseURL, imageURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Placeholder } from "react-bootstrap";
+import Content from "../../components/ui/content";
 
 const PrivacyContent = () => {
   const metaInfo = useSelector((state) => state.metaReducer);
@@ -100,7 +101,7 @@ const PrivacyContent = () => {
             >
               <div className={`col-12 ${priv.image ? "col-lg-8" : ""}`}>
                 <h4>{priv.title}</h4>
-                <p className="text-dynamic-white">{priv.description}</p>
+                <Content priv={priv.description} />
               </div>
               {priv.image ? (
                 <div

@@ -297,18 +297,6 @@ const EventDetailPage = () => {
       <div>
         <div class="animated fadeInUp " style={{ animationDuration: "1s" }}>
           <MapComponent lat={data.eventdata.lat} lng={data.eventdata.lng} />
-          {/* <LocationDisplay latitude={28.2123042} longitude={83.9721532} /> */}
-          {/* <iframe
-                  title="Google Map"
-                  src={`https://www.google.com/maps?q=${encodeURIComponent(
-                    data.eventdata.location
-                  )}&output=embed`}
-                  width="100%"
-                  height="300"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                ></iframe> */}
         </div>
       </div>
 

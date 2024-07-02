@@ -11,7 +11,7 @@ const Eventpage = () => {
 
   if (user.isAuthenticated) {
     return (
-      <DashboardLayout title={"Pricing plans"}>
+      <DashboardLayout title={"Events"}>
         <EventpageContent />
         <Divider />
       </DashboardLayout>
