@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { Placeholder } from "react-bootstrap";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import Content from "../../components/ui/content";
 
 const TermsContent = () => {
   const metaInfo = useSelector((state) => state.metaReducer);
@@ -102,7 +101,7 @@ const TermsContent = () => {
                 <h4>{priv.title}</h4>
                 {/* <Content priv={priv.description} /> */}
                 <div
-                  className="text-dynamic-white"
+                  className=" content-container text-dynamic-white"
                   dangerouslySetInnerHTML={{ __html: priv.description }}
                 />
               </div>

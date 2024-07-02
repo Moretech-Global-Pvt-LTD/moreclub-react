@@ -69,10 +69,10 @@ export default function PricingPlans({ title }) {
     const yearlyRate = mst.yearly_price * rate;
 
     return (
-      <div className="col my-2">
+      <div className="col my-2 pricing-width mx-auto mx-sm-0">
         <div
-          className="nft-card card featured-card border-0 bg-gray"
-          style={{ maxWidth: "250px" }}
+          className="nft-card card featured-card border-0 bg-gray "
+          // style={{ maxWidth: "250px" }}
         >
           <div className="img-wrap">
             {/* Badge */}
