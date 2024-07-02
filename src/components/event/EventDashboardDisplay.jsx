@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import EventCard from "../../components/cards/Eventcard";
-import { Button, Carousel, Col, Placeholder, Row } from "react-bootstrap";
+import React from "react";
+import { Button, Placeholder } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../../config/config";
@@ -9,7 +8,7 @@ import EventCarousel from "./EventCarousel";
 import { Link } from "react-router-dom";
 
 const EventDashboardDisplay = () => {
-  const { data, isLoading, isError, fetchNextPage, hasNextPage } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["event"],
     queryFn: async ({ pageParam = 1 }) => {
       const response = await axios.get(`${baseURL}events/?page=${pageParam}`);
