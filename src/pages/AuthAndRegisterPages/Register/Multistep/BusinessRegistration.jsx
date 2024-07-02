@@ -6,18 +6,19 @@ import {
   currentStep,
   updateFormData,
 } from "../../../../redux/slices/RegisterSlice";
-import LocationDisplayWithAutocomplete from "../../../../components/Googlemap/LocationInput";
 import AddressInputWithAutocomplete from "../../../../components/Googlemap/LocationInputonly";
 
-const BusinessBasicForm = ({setBusinessRegistration}) => {
+const BusinessBasicForm = ({ setBusinessRegistration }) => {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.registerReducer.formData);
 
   const [companyName, setCompanyName] = useState(formData?.business_name ?? "");
-  const [registrationNumber, setRegistrationNumber] = useState(formData?.business_registration_number?? "");
-  const [address, setAddress] = useState(formData?.business_address?? "");
-  const [lat, setlat]=useState(formData?.lat?? null);
-  const [lng, setlng]=useState(formData?.lng?? null);
+  const [registrationNumber, setRegistrationNumber] = useState(
+    formData?.business_registration_number ?? ""
+  );
+  const [address, setAddress] = useState(formData?.business_address ?? "");
+  const [lat, setlat] = useState(formData?.lat ?? null);
+  const [lng, setlng] = useState(formData?.lng ?? null);
 
   const [companyNameError, setcompanyNameError] = useState("");
   const [registrationNumberError, setRegistrationNumberError] = useState("");
@@ -33,7 +34,7 @@ const BusinessBasicForm = ({setBusinessRegistration}) => {
     const value = event.target.value;
     if (value.trim() === "") {
       setcompanyNameError("Comapny Name is Required");
-      await dispatch(updateFormData({ "business_name": companyName }));
+      await dispatch(updateFormData({ business_name: companyName }));
     } else {
       await dispatch(updateFormData({ business_name: companyName }));
       setcompanyNameError("");
@@ -45,7 +46,7 @@ const BusinessBasicForm = ({setBusinessRegistration}) => {
   const handleRegistrationNumberChange = async (event) => {
     setRegistrationNumber(event.target.value);
     await dispatch(
-      updateFormData({ "business_registration_number": registrationNumber })
+      updateFormData({ business_registration_number: registrationNumber })
     );
   };
 
@@ -56,20 +57,19 @@ const BusinessBasicForm = ({setBusinessRegistration}) => {
       setRegistrationNumberError("Registration number is Required");
     } else {
       await dispatch(
-        updateFormData({ "business_registration_number": registrationNumber })
+        updateFormData({ business_registration_number: registrationNumber })
       );
       setRegistrationNumberError("");
     }
   };
 
-
-  const handlePlaceSelected = async(place, address) => {
+  const handlePlaceSelected = async (place, address) => {
     setAddress(address);
     setlat(place.lat);
     setlng(place.lng);
-    await dispatch(updateFormData({ "business_address": address }));
-    await dispatch(updateFormData({ "lat": place.lat }));
-    await dispatch(updateFormData({ "lng": place.lng }));
+    await dispatch(updateFormData({ business_address: address }));
+    await dispatch(updateFormData({ lat: place.lat }));
+    await dispatch(updateFormData({ lng: place.lng }));
   };
 
   // for handleAddress
@@ -83,7 +83,7 @@ const BusinessBasicForm = ({setBusinessRegistration}) => {
     if (value.trim() === "") {
       setAddressError("Address is Required");
     } else {
-      await dispatch(updateFormData({ "business_address": address }));
+      await dispatch(updateFormData({ business_address: address }));
       setAddressError("");
     }
   };
@@ -91,12 +91,11 @@ const BusinessBasicForm = ({setBusinessRegistration}) => {
   const handleNextStep = (value) => {
     dispatch(currentBusinessStep(value));
   };
-  
-  const handlepreviousStep = (value)=>{
-    
-  dispatch(currentStep(value));
-  setBusinessRegistration(false);
-  }
+
+  const handlepreviousStep = (value) => {
+    dispatch(currentStep(value));
+    setBusinessRegistration(false);
+  };
 
   return (
     <>
@@ -104,13 +103,16 @@ const BusinessBasicForm = ({setBusinessRegistration}) => {
         className={`register-form-container  register-form-wrapper register-headings pe-2 ps-2`}
       >
         <h1>Setup your Business </h1>
-      <button className="btn btn-link btn-sm " onClick={()=>handlepreviousStep(2)} >
-        Back 
-      </button>
+        <button
+          className="btn btn-link btn-sm "
+          onClick={() => handlepreviousStep(2)}
+        >
+          Back
+        </button>
       </span>
 
       <Form.Group className="register-form-container ">
-        <Form.Label>Comapny Name</Form.Label>
+        <Form.Label>Company Name</Form.Label>
         <Form.Control
           type="text"
           placeholder="Company Name"
@@ -143,15 +145,7 @@ const BusinessBasicForm = ({setBusinessRegistration}) => {
           initialLat={lat}
           initialLng={lng}
           initialAddress={address}
-          />
-        {/* <Form.Control
-          type="text"
-          placeholder="Company Address"
-          value={address}
-          onChange={handleAddressChange}
-          onBlur={handleAddressValidation}
-          required
-        /> */}
+        />
         {addressError && <p className="text-danger">{addressError}</p>}
       </Form.Group>
 

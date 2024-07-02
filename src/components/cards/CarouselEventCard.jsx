@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Carousel, Button } from "react-bootstrap";
-import Image1 from "../../images/Home/404image.png";
 import Image2 from "../../images/Home/HeroWhite.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
