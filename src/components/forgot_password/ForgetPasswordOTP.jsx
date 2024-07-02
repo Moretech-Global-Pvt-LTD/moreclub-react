@@ -2,17 +2,15 @@ import { Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   forget_password_otp_verify,
   otpResend,
-  otpVerify,
 } from "../../redux/api/loginAPI";
 
 const ForgetPasswordOTP = () => {
   const [timer, setTimer] = useState(120);
-  const [messageApi, contextHolder] = message.useMessage();
-  const key = "updatable";
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isResending, setIsResending] = useState(true);
@@ -24,7 +22,7 @@ const ForgetPasswordOTP = () => {
           if (prevTimer === 0) {
             clearInterval(interval);
             setIsResending(false);
-            return 120;
+            return 300;
           } else {
             return prevTimer - 1;
           }
@@ -109,7 +107,7 @@ const ForgetPasswordOTP = () => {
                     </Button>
                   </Form.Item>
                 </Form>
-                <p>The OTP code valid for only 2 minutes.</p>
+                <p>The OTP code valid for only 5 minutes.</p>
                 <p>{isResending ? `Resend OTP in ${timer} seconds` : ""}</p>
                 <button
                   onClick={handleResendOTP}
