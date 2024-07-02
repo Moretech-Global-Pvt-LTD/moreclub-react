@@ -26,7 +26,7 @@ const ForgetPinOTP = () => {
           if (prevTimer === 0) {
             clearInterval(interval);
             setIsResending(false);
-            return 120;
+            return 300;
           } else {
             return prevTimer - 1;
           }
@@ -109,7 +109,7 @@ const ForgetPinOTP = () => {
                     </Button>
                   </Form.Item>
                 </Form>
-                <p>The OTP code valid for only 2 minutes.</p>
+                <p>The OTP code valid for only 5 minutes.</p>
                 <p>{isResending ? `Resend OTP in ${timer} seconds` : ""}</p>
                 <button
                   onClick={handleResendOTP}

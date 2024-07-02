@@ -7,8 +7,7 @@ import { otpResend, otpVerify } from "../../redux/api/loginAPI";
 
 const OTPArea = () => {
   const [timer, setTimer] = useState(5);
-  const [messageApi, contextHolder] = message.useMessage();
-  const key = "updatable";
+  // const key = "updatable";
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isResending, setIsResending] = useState(true);
@@ -21,7 +20,7 @@ const OTPArea = () => {
           if (prevTimer === 0) {
             clearInterval(interval);
             setIsResending(false);
-            return 120;
+            return 300;
           } else {
             return prevTimer - 1;
           }
@@ -31,16 +30,11 @@ const OTPArea = () => {
     return () => clearInterval(interval);
   }, [isResending]);
 
-
-
-  const handleBack=async(e)=>{
+  const handleBack = async (e) => {
     e.preventDefault();
-    localStorage.removeItem("otp_username")
-    navigate('/register-membership')  
-  }
-
-
-
+    localStorage.removeItem("otp_username");
+    navigate("/register-membership");
+  };
 
   // Function to handle resend OTP
   async function handleResendOTP() {
@@ -52,14 +46,13 @@ const OTPArea = () => {
   }
   const formRef = React.createRef();
   const onFinish = async (values) => {
-    console.log(values);
     const result = await dispatch(
       otpVerify(localStorage.getItem("otp_username"), values.code)
     );
     console.log(result);
     if (result.status === 200) {
       message.success(result.data.message);
-      localStorage.removeItem('otp_username');
+      localStorage.removeItem("otp_username");
       redirect("/dashboard");
     } else {
       if (result.success === false) {
@@ -91,7 +84,7 @@ const OTPArea = () => {
                 Confirm your otp here. OTP is send to your registered email and
                 phone number.
               </p>
-              
+
               <div className="register-form mt-4">
                 <Form
                   ref={formRef}
@@ -107,19 +100,18 @@ const OTPArea = () => {
                   >
                     <Input.OTP level={6} style={{ height: "100px" }} />
                   </Form.Item>
-                  <Form.Item  className="d-flex gap-2">
-
-                  <Button variant="link" onClick={handleBack}>Back</Button>
+                  <Form.Item className="d-flex gap-2">
+                    <Button variant="link" onClick={handleBack}>
+                      Back
+                    </Button>
 
                     <Button type="submit" className="btn btn-sm pull-right">
                       Verify OTP
                     </Button>
                   </Form.Item>
                 </Form>
-                <p>
-                
-              </p>
-                <p>The OTP code valid for only 2 minutes.</p>
+                <p></p>
+                <p>The OTP code valid for only 5 minutes.</p>
                 <p>{isResending ? `Resend OTP in ${timer} seconds` : ""}</p>
                 <button
                   onClick={handleResendOTP}
