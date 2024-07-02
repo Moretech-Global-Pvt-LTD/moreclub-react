@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import { message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function ForgetPinForm() {
   const [pin, setPin] = useState("");
@@ -10,6 +11,8 @@ function ForgetPinForm() {
   const [confirmPin, setConfirmPin] = useState("");
   const [pinError, setPinError] = useState("");
   const [confirmPinError, setConfirmPinError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const validateoldPin = (value) => {
     if (value.length !== 4) {
@@ -42,6 +45,7 @@ function ForgetPinForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const pinValidationError = validatePin(pin);
     const confirmPinValidationError = validateConfirmPin(confirmPin);
 
@@ -50,31 +54,37 @@ function ForgetPinForm() {
       setConfirmPinError(confirmPinValidationError);
     } else {
       // Submit logic here
+      const code = localStorage.getItem("pin_otp");
       const data = {
+        code: code,
         new_pin: pin,
         confirm_new_pin: confirmPin,
       };
       try {
-        const res = await axiosInstance.patch(
-          `${baseURL}auth/change/user/pin/`,
+        const res = await axiosInstance.post(
+          `${baseURL}auth/confirm/forget/user/pin/`,
           data
         );
-        console.log("res", res);
-        if (res.status === 200) {
+
+        if (res.data.success) {
+          localStorage.removeItem("pin_otp");
           message.success("pin changed successfully");
+          navigate("/dashboard");
         }
       } catch (err) {
         console.log(err);
-        if (
-          err.response.data.errors.non_field_errors[0] ===
-          "Invalid current PIN."
-        ) {
-          setoldpinError(err.response.data.errors.non_field_errors[0]);
-        } else {
-          setoldpinError(err.response.data.errors.non_field_errors[0]);
-        }
+        message.error(err.response?.data?.message);
+        // if (
+        //   err.response?.data?.errors?.non_field_errors[0] ===
+        //   "Invalid current PIN."
+        // ) {
+        //   setoldpinError(err.response?.data?.errors?.non_field_errors[0]);
+        // } else {
+        //   setoldpinError(err?.response?.data?.errors?.non_field_errors[0]);
+        // }
       }
     }
+    setLoading(false);
   };
 
   return (
@@ -113,6 +123,9 @@ function ForgetPinForm() {
         {confirmPinError && <p className="text-danger">{confirmPinError}</p>}
       </Form.Group>
       <Button variant="primary" type="submit" className="mt-3">
+        {loading && (
+          <span className="spinner-border spinner-border-sm text-danger"></span>
+        )}
         Reset PIN
       </Button>
     </Form>

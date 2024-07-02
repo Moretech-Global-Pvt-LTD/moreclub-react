@@ -95,15 +95,6 @@ const Settingpage = () => {
                   Log out
                 </button>
               </p>
-              <p className="fs-6 mt-2 border-bottom pb-2">
-                <button
-                  className="btn btn-danger btn-sm "
-                  style={{ cursor: "pointer" }}
-                  // onClick={logOut}
-                >
-                  Delete Account
-                </button>
-              </p>
             </ul>
           </div>
         </div>

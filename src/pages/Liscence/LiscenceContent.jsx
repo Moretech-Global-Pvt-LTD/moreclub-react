@@ -63,7 +63,7 @@ const LiscenceContent = () => {
   return (
     <div id="privacypolicy" className="container p-4">
       <header className="align-items-center d-flex justify-content-between border-bottom border-secondary py-2">
-        <h2>Liscence</h2>
+        <h2>License</h2>
         <div className="admin-logo me-2 me-sm-3">
           <Link className="d-flex align-items-center" to="/dashboard">
             <img

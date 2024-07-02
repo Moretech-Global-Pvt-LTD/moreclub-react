@@ -22967,8 +22967,8 @@ dropdown-no .nav-light-logo {
 }
 
 .pricing-width {
-  max-width: 300px !important;
-  margin: 0px, auto;
+  max-width: 100% !important;
+  margin: auto, 0px;
 }
 
 @media only screen and (min-width: 640px) {
