@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Carousel, Button } from "react-bootstrap";
-import Image1 from "../../images/Home/404image.png";
 import Image2 from "../../images/Home/HeroWhite.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -10,19 +9,34 @@ const EventCard = ({ events }) => {
 
   return (
     <Card
-      className="d-flex flex-column flex-md-row "
+      className="d-flex flex-column flex-md-row  mx-auto mx-md-0"
       style={{ maxWidth: "720px", border: "1px solid #ddd" }}
     >
       <div className="col-12 col-md-4 p-0">
-        <Carousel className="w-100  border" style={{ height: "100%" }}>
+        <Carousel
+          className=" border "
+          style={{
+            width: "20rem",
+            height: "14rem",
+            objectFit: "cover",
+            backgroundColor: "#0078ff",
+          }}
+        >
           {events.event_photo &&
             events.event_photo.map((imag) => (
-              <Carousel.Item key={imag.id} style={{ height: "100%" }}>
+              <Carousel.Item
+                key={imag.id}
+                style={{ width: "20rem", height: "14rem", objectFit: "cover" }}
+              >
                 <img
                   className="d-block w-100"
                   src={imag.image}
                   alt={`${events.title}-${imag.id}`}
-                  style={{ height: "100%", width: "100%", objectFit: "cover" }}
+                  style={{
+                    width: "20rem",
+                    height: "14rem",
+                    objectFit: "cover",
+                  }}
                   key={imag.id}
                 />
               </Carousel.Item>
@@ -33,7 +47,7 @@ const EventCard = ({ events }) => {
                 className="d-block w-100"
                 src={Image2}
                 alt="Second slide"
-                style={{ height: "100%", width: "100%", objectFit: "cover" }}
+                style={{ width: "20rem", height: "14rem", objectFit: "cover" }}
               />
             </Carousel.Item>
           )}

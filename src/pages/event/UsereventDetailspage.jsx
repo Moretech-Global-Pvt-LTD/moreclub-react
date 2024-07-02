@@ -1,17 +1,6 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  Carousel,
-  ListGroup,
-  Table,
-  Card,
-  Placeholder,
-} from "react-bootstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Row, Col, Carousel, Card, Placeholder } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../../config/config";
