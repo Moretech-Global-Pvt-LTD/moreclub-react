@@ -141,7 +141,7 @@ const DashboardContent = () => {
                 href={"/my-network"}
               />
               <Col>
-                <Link to={"/scan"}>
+                <Link to={"/profile"}>
                   <Card>
                     <Card.Body>
                       <Card.Title className="text-dynamic-white fs-6">
@@ -202,7 +202,7 @@ const DashboardContent = () => {
               href={"/my-network"}
             />
             <Col>
-              <Link to={"/scan"}>
+              <Link to={"/profile"}>
                 <Card>
                   <Card.Body>
                     <Card.Title className="text-dynamic-white fs-6">
