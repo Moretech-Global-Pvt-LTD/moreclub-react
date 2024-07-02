@@ -14,7 +14,7 @@ const EventCard = ({ events }) => {
     >
       <div className="col-12 col-md-4 p-0">
         <Carousel
-          className=" border "
+          className="border"
           style={{
             width: "20rem",
             height: "14rem",
@@ -53,7 +53,10 @@ const EventCard = ({ events }) => {
           )}
         </Carousel>
       </div>
-      <Card.Body className="d-flex flex-column  justify-content-between col col-md-8">
+      <Card.Body
+        className="d-flex flex-column  justify-content-between col col-md-8 card "
+        style={{ zIndex: "10" }}
+      >
         <h5 className="text-start">{events.name}</h5>
         <div className="d-flex flex-column flex-md-row-reverse gap-2">
           <div className="col-12 col-md-8">
