@@ -49,7 +49,8 @@ export const login = (username, password) => async (dispatch) => {
         username,
         password,
       });
-      await dispatch(loginSuccess(res.data));
+      console.log("login response", res);
+      await dispatch(loginSuccess(res.data.data));
       await dispatch(load_user());
       await dispatch(loadMembershipType());
       await dispatch(CurrencySet());
@@ -174,6 +175,10 @@ export const otpVerify = (username, code) => async (dispatch) => {
     });
     if (res.status === 200) {
       localStorage.setItem("moretechglobal_access", res.data.data.token);
+      localStorage.setItem(
+        "moretechglobal_refresh",
+        res.data.data.refresh_token
+      );
       localStorage.removeItem("otp_username");
       await dispatch(load_user());
       await dispatch(userMembership());

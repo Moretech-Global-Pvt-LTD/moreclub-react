@@ -153,6 +153,116 @@
         applyTheme(newTheme);
       });
     </script>
+
+<script>
+  // Console Warnings
+  if (window.console) {
+    console.log('%cStop!', 'color: red; font-size: 50px; font-weight: bold;');
+    console.log(
+      '%cThis is a browser feature intended for developers. If someone told you to copy and paste something here to enable a feature or "hack" someone\'s account, it is a scam and will give them access to your account.',
+      'color: black; font-size: 20px;'
+    );
+    // console.log('See https://www.facebook.com/selfxss for more information.');
+  }
+
+  // Detect DevTools
+  (function() {
+    const element = new Image();
+    Object.defineProperty(element, 'id', {
+      get: function() {
+        alert('DevTools detected! Please do not use developer tools on this site.');
+        window.open('', '_self').close();
+        window.location = 'about:blank'; // Fallback
+      }
+    });
+
+    setInterval(function() {
+      // console.dir(element);
+    }, 1000);
+  })();
+</script>
+<script>
+  (function() {
+    // Replace `YOUR_PRODUCTION_ENV_CHECK` with your actual environment check
+    // var isProduction = true; // This should be your actual environment check
+
+  
+      console.log = function() {};
+      console.warn = function() {};
+      console.error = function() {};
+      console.info = function() {};
+      console.debug = function() {};
+   
+  })();
+</script>
+
+
+
+    <!-- <script>
+      (function() {
+        // Detect DevTools open/close
+        const element = new Image();
+        Object.defineProperty(element, 'id', {
+          get: function() {
+            // Attempt to close the tab if DevTools is detected
+            alert('DevTools detected! Closing the tab for security reasons.');
+            window.open('', '_self').close();
+            window.location = 'about:blank'; // Fallback to redirect to a blank page
+          }
+        });
+  
+        setInterval(() => {
+          console.dir(element);
+        }, 1000);
+      })();
+    </script> -->
+     
+     <!-- <script>
+      // Function to detect if DevTools is open
+      function detectDevTools() {
+        const threshold = 160;
+        const devtools = {
+          open: false,
+          orientation: null
+        };
+  
+        const element = new Image();
+        Object.defineProperty(element, 'id', {
+          get: function() {
+            devtools.open = true;
+            throw new Error('DevTools detected');
+          }
+        });
+  
+        const check = () => {
+          devtools.open = false;
+          devtools.orientation = window.outerWidth - window.innerWidth > threshold ? 'vertical' : 'horizontal';
+  
+          if (devtools.open) {
+            alert('DevTools detected! Closing the tab for security reasons.');
+            window.open('', '_self', ''); // Needed for some browsers to enable window.close()
+            window.close(); // Attempt to close the window (may not work in all browsers)
+            if (!window.closed) {
+              window.location.href = 'about:blank'; // Fallback to redirect to a blank page
+            }
+          }
+        };
+  
+        window.addEventListener('resize', check);
+        window.addEventListener('keydown', check);
+        check();
+      }
+  
+      // Continuously check for DevTools
+      function checkDevTools() {
+        detectDevTools();
+        setTimeout(checkDevTools, 1000); // Check every second
+      }
+
+      window.onload = checkDevTools;
+  
+      </script> -->
+
     <!-- </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

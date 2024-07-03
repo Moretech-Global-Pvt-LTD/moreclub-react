@@ -14,6 +14,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CookiesProvider } from "react-cookie";
 import StripeProvider from "./components/HOC/StripeProvider";
 import PayPalProvider from "./components/HOC/PaypalProvider";
+import { message } from "antd";
+import { logout } from "./redux/api/loginAPI";
 
 export const axiosInstance = axios.create({
   baseURL: baseURL,
@@ -25,7 +27,8 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = "Token " + localStorage.getItem("moretechglobal_access");
+    const token = "Bearer " + localStorage.getItem("moretechglobal_access");
+
     if (token) {
       config.headers.authorization = token;
     }
@@ -33,6 +36,26 @@ axiosInstance.interceptors.request.use(
   },
   (err) => {
     return Promise.reject(err);
+  }
+);
+
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      if (error.response.data.data?.code !== "token_not_valid") {
+        if (!!localStorage.getItem("moretechglobal_access")) {
+          console.log("inside access chek", error.response);
+          localStorage.setItem("sessionExpired", "true");
+          localStorage.removeItem("moretechglobal_access");
+          const event = new Event("sessionExpired");
+          window.dispatchEvent(event);
+        }
+      }
+    }
+    return Promise.reject(error);
   }
 );
 
@@ -45,10 +68,10 @@ root.render(
       <ScrollTop />
       <Provider store={store}>
         <CookiesProvider defaultSetOptions={{ path: "/" }}>
-        <PayPalProvider>
-          <QueryClientProvider client={queryClient}>
-            <App />
-          </QueryClientProvider>
+          <PayPalProvider>
+            <QueryClientProvider client={queryClient}>
+              <App />
+            </QueryClientProvider>
           </PayPalProvider>
         </CookiesProvider>
       </Provider>

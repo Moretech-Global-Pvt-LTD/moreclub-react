@@ -212,14 +212,16 @@ import Loading from "../../components/loading/loading";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 
-
 const NetworkTable = ({ list, meta }) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  console.log(list, meta)
 
-  const { data: permissions, isLoading, isError } = useQuery({
+  const {
+    data: permissions,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["permissions"],
     queryFn: async () => {
       const response = await axiosInstance.get(`${baseURL}permissions/list/`);
@@ -392,4 +394,3 @@ const NetworkTable = ({ list, meta }) => {
 };
 
 export default NetworkTable;
-

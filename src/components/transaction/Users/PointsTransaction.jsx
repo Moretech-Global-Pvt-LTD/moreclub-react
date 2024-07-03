@@ -13,7 +13,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import MembershipCouponCard from "./MembershipBuy";
 import ReferCard from "./Refer";
-import EventCard from "../../cards/Eventcard";
+
 import EventTransCard from "./Event";
 
 const PointsTransactions = () => {
@@ -101,100 +101,110 @@ const PointsTransactions = () => {
       className="content-inside-wrapper nft-card card p-4"
       style={{ maxWidth: "640px" }}
     >
-      <>
-        {data.pages.map((data) => (
-          <>
-            {data.data.map((notification) => (
-              <>
-                <h6 className="mt-2 mb-1">
-                  {moment(notification.day).format("dddd DD MMM, YY")}
-                </h6>
-                {notification.transactions.map((row) => (
-                  <>
-                    {row.transaction_type === "RECEIVE" ? (
-                      <ReceiveCard
-                        // receiver={`${row.recipient.first_name} ${row.recipient.last_name}`}
-                        // sender={`${row.sender.first_name} ${row.sender.last_name}`}
-                        narration={row.narration}
-                        transactiontime={row.timestamp}
-                        transactionamount={row.amount}
-                        previousbalance={row.previous_balance}
-                      />
-                    ) : (
-                      <>
-                        {row.transaction_type === "WITHDRAW" ? (
-                          <WithDrawCard
-                            narration={row.narration}
-                            transactiontime={row.timestamp}
-                            transactionamount={row.amount}
-                            previousbalance={row.previous_balance}
-                          />
-                        ) : (
-                          <>
-                            {row.transaction_type === "SEND" ? (
-                              <SendCard
-                                narration={row.narration}
-                                transactiontime={row.timestamp}
-                                transactionamount={row.amount}
-                                previousbalance={row.previous_balance}
-                              />
-                            ) : (
-                              <>
-                                {row.transaction_type === "MEMBERSHIP" ||
-                                row.transaction_type === "COUPON" ? (
-                                  <MembershipCouponCard
-                                    narration={row.narration}
-                                    transactiontime={row.timestamp}
-                                    transactionamount={row.amount}
-                                    previousbalance={row.previous_balance}
-                                  />
-                                ) : (
-                                  <>
-                                    {row.transaction_type === "BUY" ? (
-                                      <BuyCard
-                                        narration={row.narration}
-                                        transactiontime={row.timestamp}
-                                        transactionamount={row.amount}
-                                        previousbalance={row.previous_balance}
-                                      />
-                                    ) : (
-                                      <>
-                                        {row.transaction_type === "REFER" ? (
-                                          <ReferCard
-                                            narration={row.narration}
-                                            transactiontime={row.timestamp}
-                                            transactionamount={row.amount}
-                                            previousbalance={
-                                              row.previous_balance
-                                            }
-                                          />
-                                        ) : (
-                                          <EventTransCard
-                                            narration={row.narration}
-                                            transactiontime={row.timestamp}
-                                            transactionamount={row.amount}
-                                            previousbalance={
-                                              row.previous_balance
-                                            }
-                                          />
-                                        )}
-                                      </>
-                                    )}
-                                  </>
-                                )}
-                              </>
-                            )}
-                          </>
-                        )}
-                      </>
-                    )}
-                  </>
-                ))}
-              </>
-            ))}
-          </>
-        ))}
-      </>
+      {data && !data.data ? (
+        <div
+          className="row align-items-center"
+          style={{ height: "20vh", width: "100%" }}
+        >
+          <h6 className="text-center ">Transactions not found</h6>
+        </div>
+      ) : (
+        <>
+          {data.pages.map((data) => (
+            <>
+              {data.data.map((notification) => (
+                <>
+                  <h6 className="mt-2 mb-1">
+                    {moment(notification.day).format("dddd DD MMM, YY")}
+                  </h6>
+                  {notification.transactions.map((row) => (
+                    <>
+                      {row.transaction_type === "RECEIVE" ? (
+                        <ReceiveCard
+                          // receiver={`${row.recipient.first_name} ${row.recipient.last_name}`}
+                          // sender={`${row.sender.first_name} ${row.sender.last_name}`}
+                          narration={row.narration}
+                          transactiontime={row.timestamp}
+                          transactionamount={row.amount}
+                          previousbalance={row.previous_balance}
+                        />
+                      ) : (
+                        <>
+                          {row.transaction_type === "WITHDRAW" ? (
+                            <WithDrawCard
+                              narration={row.narration}
+                              transactiontime={row.timestamp}
+                              transactionamount={row.amount}
+                              previousbalance={row.previous_balance}
+                            />
+                          ) : (
+                            <>
+                              {row.transaction_type === "SEND" ? (
+                                <SendCard
+                                  narration={row.narration}
+                                  transactiontime={row.timestamp}
+                                  transactionamount={row.amount}
+                                  previousbalance={row.previous_balance}
+                                />
+                              ) : (
+                                <>
+                                  {row.transaction_type === "MEMBERSHIP" ||
+                                  row.transaction_type === "COUPON" ? (
+                                    <MembershipCouponCard
+                                      narration={row.narration}
+                                      transactiontime={row.timestamp}
+                                      transactionamount={row.amount}
+                                      previousbalance={row.previous_balance}
+                                    />
+                                  ) : (
+                                    <>
+                                      {row.transaction_type === "BUY" ? (
+                                        <BuyCard
+                                          narration={row.narration}
+                                          transactiontime={row.timestamp}
+                                          transactionamount={row.amount}
+                                          previousbalance={row.previous_balance}
+                                        />
+                                      ) : (
+                                        <>
+                                          {row.transaction_type === "REFER" ? (
+                                            <ReferCard
+                                              narration={row.narration}
+                                              transactiontime={row.timestamp}
+                                              transactionamount={row.amount}
+                                              previousbalance={
+                                                row.previous_balance
+                                              }
+                                            />
+                                          ) : (
+                                            <EventTransCard
+                                              narration={row.narration}
+                                              transactiontime={row.timestamp}
+                                              transactionamount={row.amount}
+                                              previousbalance={
+                                                row.previous_balance
+                                              }
+                                            />
+                                          )}
+                                        </>
+                                      )}
+                                    </>
+                                  )}
+                                </>
+                              )}
+                            </>
+                          )}
+                        </>
+                      )}
+                    </>
+                  ))}
+                </>
+              ))}
+            </>
+          ))}
+        </>
+      )}
+
       <div
         ref={(node) => {
           bottomRef.current = node;

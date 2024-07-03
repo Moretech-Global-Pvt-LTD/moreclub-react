@@ -7,9 +7,10 @@ const initialState = {
   error: null,
   isAuthenticated: false,
   access: localStorage.getItem("moretechglobal_access"),
+  refresh: localStorage.getItem("moretechglobal_refresh"),
   message: null,
   profileUser: null,
-  membershipType: null
+  membershipType: null,
 };
 export const userRegister = createSlice({
   name: "userRegister",
@@ -25,7 +26,14 @@ export const userRegister = createSlice({
       state.error = action.payload;
     },
     loginSuccess: (state, { payload }) => {
-      state.access = localStorage.setItem("moretechglobal_access", payload.key);
+      state.access = localStorage.setItem(
+        "moretechglobal_access",
+        payload.token
+      );
+      state.refresh = localStorage.setItem(
+        "moretechglobal_refresh",
+        payload.refresh
+      );
       state.isAuthenticated = true;
     },
     setMessage: (state, action) => {
@@ -60,7 +68,7 @@ export const userRegister = createSlice({
     authSuccess: (state) => {
       state.isAuthenticated = true;
     },
-    setMeta:(state, { payload }) => {
+    setMeta: (state, { payload }) => {
       state.meta = payload;
     },
     logMeOut: (state) => {
@@ -69,9 +77,9 @@ export const userRegister = createSlice({
       state.access = null;
       state.isAuthenticated = false;
     },
-    setMembershipType:(state, action)=>{
+    setMembershipType: (state, action) => {
       state.membershipType = action.payload;
-    }
+    },
   },
 });
 

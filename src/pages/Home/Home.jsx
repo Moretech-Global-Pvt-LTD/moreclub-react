@@ -19,12 +19,12 @@ const Home = () => {
       <Divider />
       <Process />
       <Divider />
-      {user.isAuthenticated && (
+      {/* {user.isAuthenticated && (
         <div className="container">
           <PricingPlans title="Pricing Plans" />
           <Divider />
         </div>
-      )}
+      )} */}
       <Coupon />
       <About />
       <Divider />

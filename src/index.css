@@ -26937,4 +26937,8 @@ span {
   margin-bottom: 10px; /* Add margin to bottom of list items */
 }
 
+.blur-background {
+  filter: blur(5px);
+}
+
 /*# sourceMappingURL=main.c1c39487.css.map*/

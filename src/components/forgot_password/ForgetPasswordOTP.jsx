@@ -50,6 +50,10 @@ const ForgetPasswordOTP = () => {
     console.log(result);
     if (result.status === 200) {
       localStorage.setItem("moretechglobal_access", result.data.data.token);
+      localStorage.setItem(
+        "moretechglobal_refresh",
+        result.data.data.refresh_token
+      );
       message.success(result.data.message);
       navigate("/change-password");
     } else {

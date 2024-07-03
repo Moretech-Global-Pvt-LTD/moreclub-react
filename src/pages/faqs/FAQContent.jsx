@@ -220,7 +220,7 @@ const FAQContent = () => {
                 <Form.Control
                   as="textarea"
                   placeholder="Enter your reason"
-                  style={{ height: "100px" }}
+                  style={{ height: "100px", backgroundColor: "transparent" }}
                   value={deletionReason}
                   isInvalid={reasonError}
                   onChange={handleReasonOnchange}

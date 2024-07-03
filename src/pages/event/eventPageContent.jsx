@@ -5,8 +5,6 @@ import { useLocation } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../../config/config";
-import { axiosInstance } from "../..";
-import LandingLayout from "../../components/Layout/LandingLayout";
 import Divider from "../../components/divider/Divider";
 
 const EventpageContent = () => {
@@ -97,13 +95,24 @@ const EventpageContent = () => {
         <FilterSection />
       </Col> */}
       <Col md={12}>
-        {data.pages.map((data) => (
-          <div className="d-flex flex-wrap gap-4 mt-4">
-            {data.data.map((event) => (
-              <EventCard events={event} />
-            ))}
+        {data && !data.data ? (
+          <div
+            className="row align-items-center"
+            style={{ height: "20vh", width: "100%" }}
+          >
+            <h6 className="text-center ">Events are not active currently</h6>
           </div>
-        ))}
+        ) : (
+          <>
+            {data.pages.map((data) => (
+              <div className="d-flex flex-wrap gap-4 mt-4">
+                {data.data.map((event) => (
+                  <EventCard events={event} />
+                ))}
+              </div>
+            ))}
+          </>
+        )}
         <div
           ref={(node) => {
             bottomRef.current = node;
