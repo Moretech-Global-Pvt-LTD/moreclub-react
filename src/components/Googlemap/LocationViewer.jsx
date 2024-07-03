@@ -9,7 +9,7 @@ import {
 import { MapApi, MapId } from "../../config/config";
 
 export default function MapComponent({ lat, lng }) {
-  const position = { lat: parseFloat(lat), lng: parseFloat(lng) };
+  const position = { lat: parseFloat(lat?? 0), lng: parseFloat(lng?? 0) };
   const [open, setOpen] = useState(false);
 
   return (
