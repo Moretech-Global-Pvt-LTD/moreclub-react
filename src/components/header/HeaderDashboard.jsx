@@ -7,13 +7,17 @@ import useStickyHeader from "./StickyHeader";
 import BrandLogo from "../../images/logo/MembersClubWhite.png";
 import BrandBlackLogo from "../../images/logo/MembersClubblack.png";
 import { useDispatch, useSelector } from "react-redux";
-import { imageURL } from "../../config/config";
+import { baseURL, imageURL } from "../../config/config";
 import { logout } from "../../redux/api/loginAPI";
 import { getWallet } from "../../redux/api/wallets";
 import DropNotificationContent from "../Notifications/DropNotificationContent";
 import HeaderDashboardMenu from "./HeaderDashboardMenu";
 import HeaderUserInfo from "./HeaderUserInfo";
 import ThemeToggler from "./themeToggler";
+import { axiosInstance } from "../..";
+import { businessProfileSucess } from "../../redux/slices/businessSlice";
+import { setMembershipType, userSuccess } from "../../redux/slices/userSlice";
+import { useQuery } from "@tanstack/react-query";
 
 const HeaderDashboard = () => {
   let [check] = useState(true);
@@ -27,6 +31,74 @@ const HeaderDashboard = () => {
   const wallet = useSelector((state) => state.walletReducer);
 
   const currency = useSelector((state) => state.currencyReducer.currencyDetail);
+
+  // const dispatch = useDispatch();
+
+  const fetchUsersdashboardData = async () => {
+    try {
+      // Attempt to fetch both business and user data
+      const [businessResponse, userResponse, membership] =
+        await Promise.allSettled([
+          axiosInstance.get(`${baseURL}business/profile/`),
+          axiosInstance.get(`${baseURL}auth/user/all/details/`),
+          axiosInstance.get(`${baseURL}members/user/membership/`),
+        ]);
+
+      // Handle the responses
+      let businessData = null;
+      if (businessResponse.status === "fulfilled") {
+        businessData = businessResponse.value.data.data;
+        await dispatch(businessProfileSucess(businessData));
+      } else if (
+        businessResponse.status === "rejected" &&
+        businessResponse.reason.response.status === 403
+      ) {
+        console.warn(
+          "User is not registered as a business, skipping business data."
+        );
+      } else {
+        throw new Error(
+          `Failed to fetch business data: ${businessResponse.reason.message}`
+        );
+      }
+
+      if (membership.status === "fulfilled") {
+        await dispatch(setMembershipType(membership.value.data.data));
+      } else {
+        throw new Error(
+          `Failed to fetch user data: ${membership.reason.message}`
+        );
+      }
+      if (userResponse.status === "fulfilled") {
+        const userData = userResponse.value.data.data;
+        await dispatch(userSuccess(data));
+        return {
+          businessData,
+          userData,
+        };
+      } else {
+        throw new Error(
+          `Failed to fetch user data: ${userResponse.reason.message}`
+        );
+      }
+    } catch (error) {
+      // Handle the error, for example by throwing it so it can be caught by react-query
+      throw new Error(`Failed to fetch dashboard data: ${error.message}`);
+    }
+  };
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["dashboarddatas"],
+    queryFn: fetchUsersdashboardData,
+    staleTime: 100,
+  });
+
+  if (isLoading) {
+    <p>loading....</p>;
+  }
+  if (error) {
+    <p>error...</p>;
+  }
 
   useEffect(() => {
     dispatch(getWallet());

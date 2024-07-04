@@ -7,7 +7,6 @@ import { get_user_coupon_list } from "../../redux/api/couponAPI";
 import { useSelector } from "react-redux";
 
 import QRDownload from "../QR/QRDownload";
-import { Button } from "react-bootstrap";
 
 const UserProfile = ({ users }) => {
   const dispatch = useDispatch();

@@ -16,37 +16,39 @@ require("jquery-nice-select");
 
 const ProfileChangeContent = ({ user }) => {
   const [inputFullName, setInputFullName] = useState(
-    `${user.user.first_name} ${user.user.last_name}`
+    `${user.user?.first_name} ${user.user?.last_name}`
   );
   const [inputPhoneNumber, setInputPhoneNumber] = useState(
-    user.user.user_profile.secondary_phone_number
+    user.user.user_profile?.secondary_phone_number
   );
-  const [primaryEmail, setPrimaryEmail] = useState(user.user.email);
-  const [primaryPhone, setPrimaryPhone] = useState(user.user.phone_number);
+  const [primaryEmail, setPrimaryEmail] = useState(user.user?.email);
+  const [primaryPhone, setPrimaryPhone] = useState(user.user?.phone_number);
   const [inputEmail, setInputEmail] = useState(
-    user.user.user_profile.secondary_email
+    user.user?.user_profile?.secondary_email
   );
   const [inputDateOfBirth, setInputDateOfBirth] = useState(
-    user.user.user_profile.date_of_birth
+    user.user?.user_profile?.date_of_birth
   );
-  const [inputGender, setInputGender] = useState(user.user.user_profile.gender);
-  const [inputUserType, setInputUserType] = useState(user.user.user_type);
+  const [inputGender, setInputGender] = useState(
+    user.user?.user_profile?.gender
+  );
+  const [inputUserType, setInputUserType] = useState(user.user?.user_type);
 
-  const [inputState, setInputState] = useState(user.user.user_profile.street);
-  const [inputCity, setInputCity] = useState(user.user.user_profile.city);
+  const [inputState, setInputState] = useState(user.user?.user_profile?.street);
+  const [inputCity, setInputCity] = useState(user.user?.user_profile?.city);
   const [inputAddress, setInputAddress] = useState(
-    user.user.user_profile.address
+    user.user?.user_profile?.address
   );
   const [inputZipCode, setInputZipCode] = useState(
-    user.user.user_profile.zip_code
+    user.user?.user_profile?.zip_code
   );
   const [inputHouseNumber, setInputHouseNumber] = useState(
-    user.user.user_profile.house_no
+    user.user?.user_profile?.house_no
   );
 
   const [inputAvatar, setInputAvatar] = useState("");
   const [inputDisplayImage, setInputDisplayImage] = useState(
-    `${user.user.user_profile.display_picture}`
+    `${user.user.user_profile?.display_picture}`
   );
   const [avatarError, setAvatarError] = useState("");
 
