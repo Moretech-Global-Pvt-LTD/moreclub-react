@@ -6,7 +6,7 @@ import HeroOne from "../../components/hero/HeroOne";
 import Process from "../../components/process/Process";
 import Project from "../../components/project/Project";
 import LandingLayout from "../../components/Layout/LandingLayout";
-import PricingPlans from "../Pricing/PricingPlans";
+
 import { useSelector } from "react-redux";
 
 const Home = () => {
@@ -19,7 +19,7 @@ const Home = () => {
       <Divider />
       <Process />
       <Divider />
-{/*       {user.isAuthenticated && (
+      {/*       {user.isAuthenticated && (
         <div className="container">
           <PricingPlans title="Pricing Plans" />
           <Divider />

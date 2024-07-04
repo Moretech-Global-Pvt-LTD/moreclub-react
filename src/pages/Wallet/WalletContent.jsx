@@ -5,11 +5,10 @@ import Wallet from "../../images/wallet/coins.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getWallet } from "../../redux/api/wallets";
 import { axiosInstance } from "../..";
-import { baseURL, stripePublicKey } from "../../config/config";
+import { baseURL } from "../../config/config";
 import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
 import Walletlinks from "../../components/dashboard/Walletlinks";
-import { loadStripe } from "@stripe/stripe-js";
-import { useStripe } from "@stripe/react-stripe-js";
+
 import WalletAlertNotification from "../../components/alert_notification/WalletAlerts";
 
 const WalletContent = () => {
@@ -82,8 +81,6 @@ const WalletContent = () => {
                 {walletInfo[0].currency}&nbsp;{walletInfo[0].balanceCard}
               </span>
             </h5>
-
-            {/* Recharge Button */}
             <Walletlinks />
           </div>
         </div>

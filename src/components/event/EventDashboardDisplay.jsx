@@ -40,13 +40,17 @@ const EventDashboardDisplay = () => {
 
   return (
     <div className="mb-5">
-      <div className="d-flex justify-content-between align-item-center mb-3">
-        <h2 className="mt-4 mb-3">Popular events </h2>
-        <Link to="/event">
-          <Button variant="link">View All</Button>
-        </Link>
-      </div>
-      <EventCarousel data={data} />
+      {data.data && data.data.length !== 0 && (
+        <>
+          <div className="d-flex justify-content-between align-item-center mb-3">
+            <h2 className="mt-4 mb-3">Popular events </h2>
+            <Link to="/event">
+              <Button variant="link">View All</Button>
+            </Link>
+          </div>
+          <EventCarousel data={data} />
+        </>
+      )}
     </div>
   );
 };

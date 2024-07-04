@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 // import ScrollAnimation from "react-animate-on-scroll";
-import HomeImageWhite from "../../images/Home/HeroWhite.png";
 import { useEffect, useRef } from "react";
 
 export default function HeroOne() {

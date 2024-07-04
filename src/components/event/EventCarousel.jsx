@@ -2,13 +2,31 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 import React from "react";
-import EventCard from "../cards/Eventcard";
 import CarouselEventCard from "../cards/CarouselEventCard";
 
 const EventCarousel = ({ data }) => {
   const responsive = {
+    xxxlDesktop: {
+      breakpoint: { max: 1900, min: 1700 },
+      items: 4,
+      slidesToSlide: 1, // optional, default to 1.
+      partialVisibilityGutter: 70,
+    },
+    xxlDesktop: {
+      breakpoint: { max: 1900, min: 1700 },
+      items: 4,
+      slidesToSlide: 1, // optional, default to 1.
+      partialVisibilityGutter: 0,
+    },
+    xlDesktop: {
+      breakpoint: { max: 1700, min: 1500 },
+      items: 3,
+      slidesToSlide: 1, // optional, default to 1.
+      partialVisibilityGutter: 70,
+    },
+
     largedesktop: {
-      breakpoint: { max: 3000, min: 1200 },
+      breakpoint: { max: 1500, min: 1200 },
       items: 3,
       slidesToSlide: 1, // optional, default to 1.
     },

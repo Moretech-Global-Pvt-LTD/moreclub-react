@@ -78,13 +78,18 @@ const PartnerDeatilContent = ({ company }) => {
                     <strong>Location:</strong> {company.business_address}
                   </ListGroupItem>
                   <ListGroupItem>
-                    <strong>Referrals:</strong> {company.referrals}
+                    <strong>Referrals:</strong> {company.no_of_refer}
                   </ListGroupItem>
                 </ListGroup>
               </div>
               <div className="mt-4">
                 <h5>Google Map Location</h5>
-                <MapComponent lat={company.lat} lng={company.lng} />
+                <MapComponent
+                  lat={company.lat}
+                  lng={company.lng}
+                  detail={company.business_address}
+                  title={company.business_name}
+                />
                 {/* <iframe
                   title="Google Map"
                   src={`https://www.google.com/maps?q=${encodeURIComponent(

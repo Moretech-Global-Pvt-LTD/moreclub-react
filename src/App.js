@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import ScrollToTop from "react-scroll-to-top";
-import { load_user } from "./redux/api/loginAPI";
+import { load_user, logout } from "./redux/api/loginAPI";
 import Home from "./pages/Home/Home";
 import ProjectDetail from "./pages/Project/ProjectDetail";
 import ProjectPage from "./pages/Project/ProjectPage";
@@ -76,21 +76,53 @@ import UserEventDetailPage from "./pages/event/UsereventDetailspage";
 import ForgetPin from "./pages/Transactionpin/ForgetPin";
 import ForgetPinEmail from "./pages/Transactionpin/ForgetPinEmail";
 import ForgetPinOTP from "./pages/Transactionpin/ForgetPinOtp";
+import SessionExpiredModal from "./components/sessiondialog";
+
+const PrivateRoute = ({ element, isAuthenticated }) => {
+  return isAuthenticated ? element : <Navigate to="/login" />;
+};
 
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer);
+  const [isSessionExpired, setIsSessionExpired] = useState(false);
+
+  // useEffect(() => {
+  //   const handleSessionExpired = () => {
+  //     dispatch(logout());
+  //     window.location.href = "/login"; // Redirect to login page
+  //   };
+  //   window.addEventListener("sessionExpired", handleSessionExpired);
+  //   return () => {
+  //     window.removeEventListener("sessionExpired", handleSessionExpired);
+  //   };
+  // }, [dispatch]);
+  // const [isSessionExpired, setIsSessionExpired] = useState(false);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      await dispatch(load_user());
-      await dispatch(userMembership());
-      await dispatch(getBusinessProfile());
-      await dispatch(loadUserPermissions());
-      await dispatch(CurrencySet());
-      await dispatch(getMetadata());
+    const handleSessionExpired = () => {
+      setIsSessionExpired(sessionStorage.getItem("sessionExpired"));
     };
-    fetchUser();
+
+    window.addEventListener("sessionExpired", handleSessionExpired);
+
+    return () => {
+      window.removeEventListener("sessionExpired", handleSessionExpired);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!localStorage.getItem("sessionExpired")) {
+      const fetchUser = async () => {
+        await dispatch(load_user());
+        await dispatch(userMembership());
+        await dispatch(getBusinessProfile());
+        await dispatch(loadUserPermissions());
+        await dispatch(CurrencySet());
+        await dispatch(getMetadata());
+      };
+      fetchUser();
+    }
   }, [dispatch]);
 
   const authRoutes = [
@@ -402,28 +434,18 @@ const App = () => {
     },
   ];
 
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("sessionExpired");
+    window.location.href = "/login"; // Redirect to login page
+  };
+
   return (
     <div className="App">
       <Routes>
         {publicRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.page} />
         ))}
-
-        {/*   {authRoutes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={<AuthRoute element={route.page} redirectTo="/dashboard" />}
-          />
-        ))}
-
-        {userRoutes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={<PrivateRoute element={route.page} redirectTo="/login" />}
-          />
-        ))} */}
 
         {authRoutes.map((route) => (
           <Route
@@ -439,13 +461,42 @@ const App = () => {
           />
         ))}
 
-        {userRoutes.map((route) =>
+        {/* {userRoutes.map((route) =>
           user.isAuthenticated ? (
             <Route key={route.path} path={route.path} element={route.page} />
           ) : (
             <Route element={<Navigate to="/login" />} />
           )
-        )}
+        )} */}
+
+        {userRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <PrivateRoute
+                element={route.page}
+                isAuthenticated={
+                  !!sessionStorage.getItem("moretechglobal_access")
+                }
+              />
+            }
+          />
+        ))}
+        {businessRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <PrivateRoute
+                element={route.page}
+                isAuthenticated={
+                  !!sessionStorage.getItem("moretechglobal_access")
+                }
+              />
+            }
+          />
+        ))}
 
         {/*   {businessRoutes.map((route) => (
           <Route
@@ -455,18 +506,34 @@ const App = () => {
           />
         ))} */}
 
-        {businessRoutes.map((route) =>
+        {/* {businessRoutes.map((route) =>
           user.isAuthenticated ? (
             <Route key={route.path} path={route.path} element={route.page} />
           ) : (
             <Route element={<Navigate to="/login" />} />
           )
-        )}
+        )} */}
 
-        <Route path="/wallet/" element={<Wallet />} />
-        <Route path="" element={<NotFound />} />
+        <Route
+          path="/wallet/"
+          element={
+            <PrivateRoute
+              element={<Wallet />}
+              isAuthenticated={
+                !!sessionStorage.getItem("moretechglobal_access")
+              }
+            />
+          }
+        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-
+      <div className={isSessionExpired ? "blur-background" : ""}>
+        <SessionExpiredModal
+          visible={isSessionExpired}
+          onLogout={handleLogout}
+        />
+        {/* Your app components */}
+      </div>
       {/* Scroll To Top */}
       <ScrollToTop
         id="scrollTopButton"

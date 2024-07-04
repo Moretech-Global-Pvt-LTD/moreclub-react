@@ -19,9 +19,6 @@ import AddPaypalaccounts from "../Accounts/paypalaccounts";
 import AddSwishaccounts from "../Accounts/Swish";
 import AddCardaccounts from "../Accounts/Card";
 import { fetchMethodCredentials } from "../../../redux/api/userAccountAPI";
-import Card from "../../../images/Payments/cards.png";
-import Paypal from "../../../images/Payments/Paypal.png";
-import Swish from "../../../images/Payments/swish.png";
 
 const MethodCredentialForm = ({ onNext, onBack }) => {
   const dispatch = useDispatch();
@@ -29,7 +26,6 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
 
   const [selectedId, setSelectedId] = useState("");
   const [selectedCard, setSelectedCard] = useState();
-  const [buttondisabled, setButtonDisable]= useState();
 
   useEffect(() => {
     if (withdrawaldata?.method) {
@@ -37,14 +33,14 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
     }
   }, [withdrawaldata.method, dispatch]);
 
-  const handleCredentialsChange = (e) => {
-    dispatch(
-      setMethodCredentials({
-        ...withdrawaldata?.methodCredentials,
-        value: e.target.value,
-      })
-    );
-  };
+  // const handleCredentialsChange = (e) => {
+  //   dispatch(
+  //     setMethodCredentials({
+  //       ...withdrawaldata?.methodCredentials,
+  //       value: e.target.value,
+  //     })
+  //   );
+  // };
 
   const handleRadioChange = async (accvalue) => {
     if (withdrawaldata.method === "paypal") {
@@ -62,14 +58,14 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
   };
 
   const isButtonDisabled = useMemo(() => {
-    if (withdrawaldata.method === 'card') {
+    if (withdrawaldata.method === "card") {
       return selectedCard === null || selectedCard === undefined;
     } else {
       return selectedId === "";
     }
   }, [withdrawaldata.method, selectedCard, selectedId]);
 
-  const handleBacknavigation = async(e) => {
+  const handleBacknavigation = async (e) => {
     e.preventDefault();
     if (withdrawaldata.method === "paypal") {
       setSelectedId("");
@@ -82,9 +78,8 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
       await dispatch(setCard(null));
     } else {
       console.log("error setting");
-    }     
+    }
     handleStep(1);
-    
   };
   const handleStep = (value) => {
     dispatch(setWithdrawalStep(value));
@@ -123,7 +118,7 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
                   
                   />
                 </div> */}
-                
+
                 <div class="custom-radio">
                   <input
                     type="radio"
@@ -273,7 +268,9 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
           <div className="ms-2" style={{ maxWidth: "18rem" }}></div>
         </div>
       </Form>
-      <div style={{maxWidth:"300px", marginBottom:"1rem" , marginTop:"1rem"}}>
+      <div
+        style={{ maxWidth: "300px", marginBottom: "1rem", marginTop: "1rem" }}
+      >
         {withdrawaldata.method === "paypal" && (
           <Accordion id="paypal">
             <AccordionButton>Add Paypal Account</AccordionButton>
@@ -305,7 +302,6 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
           className="me-2"
           onClick={(e) => {
             handleBacknavigation(e);
-           
           }}
           type="button"
         >

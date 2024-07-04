@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Placeholder, Row } from "react-bootstrap";
 import { baseURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
-import { useDispatch, useSelector } from "react-redux";
 import DashboardLayout from "../../../components/Layout/DashboardLayout";
 import { Link, useNavigate } from "react-router-dom";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { setMessage } from "../../../redux/slices/userSlice";
-import Dashboard from "../../Dashboard/Dashboard";
-import { getWallet } from "../../../redux/api/wallets";
+import { useQuery } from "@tanstack/react-query";
+
 import { message } from "antd";
-import { userMembership } from "../../../redux/api/userMembershipAPI";
 
 const fetchPaymentIntent = async ({ queryKey }) => {
   const [key, { payment_intent, client_secret }] = queryKey;
@@ -27,21 +23,21 @@ const buyPoints = async (data) => {
   return res.data;
 };
 
-const buyCoupon = async (data) => {
-  const buy_coupon = await axiosInstance.post(
-    `${baseURL}coupons/buy/created/`,
-    data
-  );
-  return buy_coupon.data;
-};
+// const buyCoupon = async (data) => {
+//   const buy_coupon = await axiosInstance.post(
+//     `${baseURL}coupons/buy/created/`,
+//     data
+//   );
+//   return buy_coupon.data;
+// };
 
-const register_membership = async (data) => {
-  const res = await axiosInstance.post(
-    `${baseURL}members/register/membership/`,
-    data
-  );
-  return res.data;
-};
+// const register_membership = async (data) => {
+//   const res = await axiosInstance.post(
+//     `${baseURL}members/register/membership/`,
+//     data
+//   );
+//   return res.data;
+// };
 
 const Success = () => {
   const [messages, setMessage] = useState("");

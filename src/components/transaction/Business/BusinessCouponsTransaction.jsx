@@ -87,38 +87,48 @@ const BusinessCouponsTransactions = () => {
   if (isError) {
     return <div className="text-dynamic-white">Error: retriving</div>;
   }
+  console.log("pages", data);
 
   return (
     <div
       className="content-inside-wrapper nft-card card p-4"
       style={{ maxWidth: "640px" }}
     >
-      <>
-        {data.pages.map((data) => (
-          <>
-            {data.data.map((trnx, index) => (
-              <>
-                {trnx.transactions.map((trans) => (
-                  <WithCouponCard
-                    // receiver={`${trans.membership.user.first_name} ${trans.membership.user.last_name}`}
-                    dated={trans.created_at}
-                    total={trans.total_amount}
-                    discount={trans.discount}
-                    paid={trans.paid_amount}
-                    currencyCode={trans.currency.code}
-                    key={`${trans.created_at}-${index}`}
-                  />
-                ))}
-              </>
-            ))}
-          </>
-        ))}
+      {data && data.pages[0].data.length === 0 ? (
         <div
-          ref={(node) => {
-            bottomRef.current = node;
-          }}
-        />
-      </>
+          className="row align-items-center"
+          style={{ height: "20vh", width: "100%" }}
+        >
+          <h6 className="text-center ">Transactions not found</h6>
+        </div>
+      ) : (
+        <>
+          {data.pages.map((data) => (
+            <>
+              {data.data.map((trnx, index) => (
+                <>
+                  {trnx.transactions.map((trans) => (
+                    <WithCouponCard
+                      // receiver={`${trans.membership.user.first_name} ${trans.membership.user.last_name}`}
+                      dated={trans.created_at}
+                      total={trans.total_amount}
+                      discount={trans.discount}
+                      paid={trans.paid_amount}
+                      currencyCode={trans.currency.code}
+                      key={`${trans.created_at}-${index}`}
+                    />
+                  ))}
+                </>
+              ))}
+            </>
+          ))}
+          <div
+            ref={(node) => {
+              bottomRef.current = node;
+            }}
+          />
+        </>
+      )}
     </div>
   );
 };

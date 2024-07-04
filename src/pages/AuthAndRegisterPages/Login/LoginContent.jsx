@@ -71,6 +71,7 @@ const LoginContent = (props) => {
   //     setFailedAttempts(parseInt(storedAttempts, 10));
   //   }
   // }, []);
+
   useEffect(() => {
     const storedAttempts = cookies.failedAttempts;
     if (storedAttempts) {
@@ -85,7 +86,7 @@ const LoginContent = (props) => {
       const result = await dispatch(login(email, password));
       if (result?.status === 200) {
         setLoading(false);
-        redirect("/dashboard ");
+        redirect("/dashboard");
       } else {
         message.warning(`${5 - failedAttempts - 1} attempt remaining`);
         message.error("invalid credentials");

@@ -6,10 +6,6 @@ import Notfounimage from "../images/Home/404image.png";
 import Divider from "../components/divider/Divider";
 
 const NotFound = () => {
-  //   const handleGoBack = () => {
-  //     history.push('/');
-  //   };
-
   return (
     <LandingLayout>
       <Container
@@ -18,11 +14,7 @@ const NotFound = () => {
       >
         <Row className="text-center">
           <Col>
-            <img
-            src={Notfounimage}
-            alt="notfound"
-            className="w-25"
-            />
+            <img src={Notfounimage} alt="notfound" className="w-25" />
             <h2>Page Not Found</h2>
             <p>The page you are looking for does not exist.</p>
             <Link to="/">
@@ -31,7 +23,7 @@ const NotFound = () => {
           </Col>
         </Row>
       </Container>
-      <Divider/>
+      <Divider />
     </LandingLayout>
   );
 };

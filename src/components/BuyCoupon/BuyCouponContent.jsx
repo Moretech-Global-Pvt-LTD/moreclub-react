@@ -8,7 +8,6 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { axiosInstance } from "../..";
 
 import { message } from "antd";
 import CouponCard from "../coupon/CouponCard";
@@ -66,8 +65,7 @@ const BuyCouponContent = ({ couponId, paymentIntent }) => {
         },
         redirect: "if_required",
       });
-      
-      
+
       if (error) {
         console.error("Error creating payment intent:", error);
         message.error(error.message);
@@ -90,7 +88,7 @@ const BuyCouponContent = ({ couponId, paymentIntent }) => {
       // }
       if (paymentIntent) {
         const url = new URL(`${hostURL}/points/buy/success`);
-        url.searchParams.set("payment_intent",paymentIntent.id);
+        url.searchParams.set("payment_intent", paymentIntent.id);
         url.searchParams.set(
           "payment_intent_client_secret",
           elements._commonOptions.clientSecret.id
@@ -98,7 +96,7 @@ const BuyCouponContent = ({ couponId, paymentIntent }) => {
         url.searchParams.set("redirect_status", "succeeded");
 
         window.location.href = url.toString();
-      }else{
+      } else {
         const url = new URL(`${hostURL}/points/buy/success`);
         url.searchParams.set("redirect_status", "failed");
         window.location.href = url.toString();
@@ -113,9 +111,9 @@ const BuyCouponContent = ({ couponId, paymentIntent }) => {
       //       coupon: coupon.couponDetail.id,
       //     }
       //   );
-        // if (buy_coupon.data.success) {
-        //   message.success("Coupon purchased successfully");
-        //   navigate("/my-coupons");
+      // if (buy_coupon.data.success) {
+      //   message.success("Coupon purchased successfully");
+      //   navigate("/my-coupons");
       //   }
       // }
     } catch (error) {

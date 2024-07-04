@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
 import BrandLogo from "../../../images/logo/MembersClubblack.png";
 
 import { message } from "antd";
 
-import { baseURL, hostURL } from "../../../config/config";
-import { axiosInstance } from "../../..";
+import { hostURL } from "../../../config/config";
+
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const PurchasePaymentContents = () => {
@@ -19,15 +19,10 @@ const PurchasePaymentContents = () => {
     clientId: "test",
     currency: "USD",
     intent: "capture",
-};
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!stripe || !elements) {
-    //   return;
-    // }
-    // setIsLoading(true);
-
     try {
       if (true) {
       } else {
@@ -37,7 +32,6 @@ const PurchasePaymentContents = () => {
       }
     } catch (error) {
       message.error("error creating payments");
-      //   setIsLoading(false);
     }
   };
 
@@ -50,28 +44,15 @@ const PurchasePaymentContents = () => {
               <div class="card-body">
                 <h5>Load Money</h5>
                 <form id="payment-form" onSubmit={handleSubmit}>
-                  {/* <PaymentElement id="payment-element" /> */}
                   <PayPalScriptProvider options={initialOptions}>
                     <PayPalButtons style={{ layout: "horizontal" }} />
                   </PayPalScriptProvider>
                   <button
-                    // disabled={isLoading || !stripe || !elements}
                     id="submit"
                     className="btn btn-danger btn-sm mt-2"
                     style={{ float: "right" }}
                   >
-                    <span id="button-text">
-                      {/* {isLoading ? (
-                        <div
-                          class="spinner-border spinner-border-sm text-primary"
-                          role="status"
-                        >
-                          
-                        </div>
-                      ) : (
-                        "Pay now"
-                      )} */}
-                    </span>
+                    <span id="button-text"></span>
                   </button>
                 </form>
               </div>

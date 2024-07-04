@@ -1,81 +1,34 @@
-// import React from 'react';
-// import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
-// import { FormControl, ListGroup } from 'react-bootstrap';
+import React, { useState, useMemo, useRef, useEffect } from "react";
+import { useLoadScript } from "@react-google-maps/api";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import { FormControl, ListGroup, Row, Col } from "react-bootstrap";
+import { MapApi } from "../../config/config";
 
-// const AddressInputWithAutocomplete = ({ onAddressSelected, initialAddress }) => {
-//   const {
-//     ready,
-//     value,
-//     setValue,
-//     suggestions: { status, data },
-//     clearSuggestions,
-//   } = usePlacesAutocomplete({
-//     defaultValue: initialAddress,
-//   });
-
-//   const handleSelect = async (address) => {
-//     setValue(address, false);
-//     clearSuggestions();
-
-//     const results = await getGeocode({ address });
-//     const { lat, lng } = await getLatLng(results[0]);
-//     const formatted_address = results[0].formatted_address;
-//     onAddressSelected({ lat, lng }, formatted_address);
-//   };
-
-//   return (
-//     <>
-//       <FormControl
-//         value={value}
-//         onChange={(e) => setValue(e.target.value)}
-//         disabled={!ready}
-//         placeholder="Search an address"
-//         style={{ marginBottom: '10px' }}
-//       />
-//       {status === 'OK' && (
-//         <ListGroup>
-//           {data.map(({ place_id, description }) => (
-//             <ListGroup.Item
-//               key={place_id}
-//               action
-//               onClick={() => handleSelect(description)}
-//             >
-//               {description}
-//             </ListGroup.Item>
-//           ))}
-//         </ListGroup>
-//       )}
-//     </>
-//   );
-// };
-
-// export default AddressInputWithAutocomplete;
-
-import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
-import { FormControl, ListGroup, Row, Col } from 'react-bootstrap';
-import { MapApi } from '../../config/config';
-
-const mapContainerStyle = {
-  width: '100%',
-  height: '200px',
-};
-
-const LocationInputDisplayonly = ({ onPlaceSelected, initialLat, initialLng, initialAddress }) => {
+const LocationInputDisplayonly = ({
+  onPlaceSelected,
+  initialLat,
+  initialLng,
+  initialAddress,
+}) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: MapApi,
-    libraries: ['places'],
+    libraries: ["places"],
   });
 
-  const [selected, setSelected] = useState(initialLat && initialLng ? { lat: initialLat, lng: initialLng } : null);
-  const [address, setAddress] = useState(initialAddress || '');
+  const [selected, setSelected] = useState(
+    initialLat && initialLng ? { lat: initialLat, lng: initialLng } : null
+  );
+  const [address, setAddress] = useState(initialAddress || "");
 
   const mapRef = useRef();
 
- 
-
-  const center = useMemo(() => ({ lat: initialLat || 43.45, lng: initialLng || -80.49 }), [initialLat, initialLng]);
+  const center = useMemo(
+    () => ({ lat: initialLat || 43.45, lng: initialLng || -80.49 }),
+    [initialLat, initialLng]
+  );
 
   useEffect(() => {
     if (initialLat && initialLng) {
@@ -102,9 +55,12 @@ const LocationInputDisplayonly = ({ onPlaceSelected, initialLat, initialLng, ini
 
   return (
     <>
-      <Row className='w-100'>
+      <Row className="w-100">
         <Col>
-          <PlacesAutocomplete setSelected={handlePlaceSelect} initialAddress={address} />
+          <PlacesAutocomplete
+            setSelected={handlePlaceSelect}
+            initialAddress={address}
+          />
         </Col>
       </Row>
     </>
@@ -139,9 +95,9 @@ const PlacesAutocomplete = ({ setSelected, initialAddress }) => {
         onChange={(e) => setValue(e.target.value)}
         disabled={!ready}
         placeholder="Search an address"
-        style={{ marginBottom: '10px', width:"100%" }}
+        style={{ marginBottom: "10px", width: "100%" }}
       />
-      {status === 'OK' && (
+      {status === "OK" && (
         <ListGroup>
           {data.map(({ place_id, description }) => (
             <ListGroup.Item
@@ -159,4 +115,3 @@ const PlacesAutocomplete = ({ setSelected, initialAddress }) => {
 };
 
 export default LocationInputDisplayonly;
-

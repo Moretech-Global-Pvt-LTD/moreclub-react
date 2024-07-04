@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
-import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
 
 const PlanDetail = ({ plan, currency, price, planTime }) => {
   return (

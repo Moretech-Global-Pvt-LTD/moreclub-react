@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { imageURL } from "../../config/config";
 import { Link } from "react-router-dom";
 
 const KYCdetailcontent = ({ data }) => {
