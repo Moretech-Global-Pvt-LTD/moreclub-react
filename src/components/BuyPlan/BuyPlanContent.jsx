@@ -1,28 +1,23 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, } from "react-router-dom";
-import { baseURL, hostURL, } from "../../config/config";
+import { Link, useNavigate } from "react-router-dom";
+import { baseURL, hostURL } from "../../config/config";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import {
   PaymentElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { axiosInstance } from "../..";
-import { register_membership } from "../../redux/api/membershipTypeAPI";
+
 import { message } from "antd";
-import { userMembership } from "../../redux/api/userMembershipAPI";
 
 const BuyPlanContent = ({ planId, planTime, price }) => {
- 
-  const dispatch = useDispatch();
   const plan = useSelector((state) => state.membershipTypeReducer);
-  const currency = useSelector((state)=>state.currencyReducer.currencyDetail)
+  const currency = useSelector((state) => state.currencyReducer.currencyDetail);
 
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,7 +39,7 @@ const BuyPlanContent = ({ planId, planTime, price }) => {
       //   }
       // );
 
-      const { error,paymentIntent } = await stripe.confirmPayment({
+      const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: `${hostURL}/points/buy/success`, // your return URL
@@ -62,7 +57,7 @@ const BuyPlanContent = ({ planId, planTime, price }) => {
 
       if (paymentIntent) {
         const url = new URL(`${hostURL}/points/buy/success`);
-        url.searchParams.set("payment_intent",paymentIntent.id);
+        url.searchParams.set("payment_intent", paymentIntent.id);
         url.searchParams.set(
           "payment_intent_client_secret",
           elements._commonOptions.clientSecret.id
@@ -70,38 +65,16 @@ const BuyPlanContent = ({ planId, planTime, price }) => {
         url.searchParams.set("redirect_status", "succeeded");
 
         window.location.href = url.toString();
-      }else{
+      } else {
         const url = new URL(`${hostURL}/points/buy/success`);
         url.searchParams.set("redirect_status", "failed");
         window.location.href = url.toString();
       }
-
-
-      // if (!error) {
-      //   const reg_member = await dispatch(
-      //     register_membership(
-      //       planId,
-      //       elements._commonOptions.clientSecret.id,
-      //       planTime
-      //     )
-      //   );
-
-      //   if (reg_member.success) {
-      //     message.success("Membership purchased successfully");
-      //     await dispatch(userMembership());
-      //     navigate("/profile");
-      //   }
-      // }
     } catch (error) {
       console.error("Error creating payment intent:", error);
       setIsLoading(false);
     }
   };
-
-  // const handleRadioChange = (selectedId) => {
-  //   setId(selectedId);
-  //   dispatch(load_plan_detail(selectedId));
-  // };
 
   return (
     <>

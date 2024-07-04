@@ -88,6 +88,7 @@ const EventpageContent = () => {
       </>
     );
   }
+  console.log(data);
 
   return (
     <Row>
@@ -95,7 +96,7 @@ const EventpageContent = () => {
         <FilterSection />
       </Col> */}
       <Col md={12}>
-        {data && !data.data ? (
+        {data && data.pages[0].data.length === 0 ? (
           <div
             className="row align-items-center"
             style={{ height: "20vh", width: "100%" }}

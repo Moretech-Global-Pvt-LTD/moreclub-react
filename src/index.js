@@ -12,10 +12,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CookiesProvider } from "react-cookie";
-import StripeProvider from "./components/HOC/StripeProvider";
 import PayPalProvider from "./components/HOC/PaypalProvider";
-import { message } from "antd";
-import { logout } from "./redux/api/loginAPI";
 
 export const axiosInstance = axios.create({
   baseURL: baseURL,
@@ -27,7 +24,7 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = "Bearer " + localStorage.getItem("moretechglobal_access");
+    const token = "Bearer " + sessionStorage.getItem("moretechglobal_access");
 
     if (token) {
       config.headers.authorization = token;
@@ -46,10 +43,10 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       if (error.response.data.data?.code !== "token_not_valid") {
-        if (!!localStorage.getItem("moretechglobal_access")) {
+        if (!!sessionStorage.getItem("moretechglobal_access")) {
           console.log("inside access chek", error.response);
           localStorage.setItem("sessionExpired", "true");
-          localStorage.removeItem("moretechglobal_access");
+          sessionStorage.removeItem("moretechglobal_access");
           const event = new Event("sessionExpired");
           window.dispatchEvent(event);
         }

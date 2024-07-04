@@ -5,8 +5,6 @@ import { useDispatch } from "react-redux";
 import CouponsTransactionCard from "./CouponsTransactionCard";
 
 const CouponTransactions = ({ couponId }) => {
-  //   const transaction = useSelector((state) => state.transactionReducer);
-  //   console.log(transaction.transaction);
   const [couponTrans, setCouponsTrans] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {

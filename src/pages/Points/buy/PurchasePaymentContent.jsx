@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import BrandLogo from "../../../images/logo/MembersClubblack.png";
 
 import { message } from "antd";
@@ -9,8 +8,7 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { baseURL, hostURL } from "../../../config/config";
-import { axiosInstance } from "../../..";
+import { hostURL } from "../../../config/config";
 
 const PurchasePaymentContent = () => {
   const stripe = useStripe();
@@ -53,11 +51,10 @@ const PurchasePaymentContent = () => {
         message.error("error creating payments");
         setIsLoading(false);
       }
-    
 
       if (paymentIntent) {
         const url = new URL(`${hostURL}/points/buy/success`);
-        url.searchParams.set("payment_intent",paymentIntent.id);
+        url.searchParams.set("payment_intent", paymentIntent.id);
         url.searchParams.set(
           "payment_intent_client_secret",
           elements._commonOptions.clientSecret.id
@@ -65,7 +62,6 @@ const PurchasePaymentContent = () => {
         url.searchParams.set("redirect_status", "succeeded");
 
         window.location.href = url.toString();
-
 
         // const url = window.location.href;
         // const extractedId = url.substring(url.lastIndexOf("/") + 1);
@@ -87,7 +83,7 @@ const PurchasePaymentContent = () => {
         //   message.success("Money loaded successfully");
         //   navigate("/wallet");
         // }
-      }else{
+      } else {
         const url = new URL(`${hostURL}/points/buy/success`);
         url.searchParams.set("redirect_status", "failed");
         window.location.href = url.toString();

@@ -13,7 +13,6 @@ import DashboardLayout from "../../components/Layout/DashboardLayout";
 import { message } from "antd";
 
 export default function ForgetPinEmail(props) {
-  const { title, subTitle } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");

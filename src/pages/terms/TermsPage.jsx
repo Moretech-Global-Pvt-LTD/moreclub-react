@@ -15,7 +15,6 @@ const TermsPage = () => {
         <HeaderDashboard />
         <div className="admin-wrapper">
           <TermsContent />
-
           <Divider />
           <Footer />
         </div>

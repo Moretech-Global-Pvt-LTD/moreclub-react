@@ -20,7 +20,7 @@ import { loadMembershipType } from "./membershipTypeAPI";
 import { CurrencySet } from "./CurrencyConvertorAPI";
 
 export const load_user = () => async (dispatch) => {
-  if (localStorage.getItem("moretechglobal_access")) {
+  if (sessionStorage.getItem("moretechglobal_access")) {
     dispatch(setLoading(true));
     try {
       const res = await axiosInstance.get(`${baseURL}auth/user/all/details/`);
@@ -29,7 +29,7 @@ export const load_user = () => async (dispatch) => {
     } catch (err) {
       const error = err.response?.data?.code;
       if (err.response.data.detail === "Invalid token.") {
-        localStorage.removeItem("moretechglobal_access");
+        sessionStorage.removeItem("moretechglobal_access");
         dispatch(userFail());
       }
       dispatch(userFail());
@@ -174,11 +174,16 @@ export const otpVerify = (username, code) => async (dispatch) => {
       code,
     });
     if (res.status === 200) {
-      localStorage.setItem("moretechglobal_access", res.data.data.token);
-      localStorage.setItem(
+      sessionStorage.setItem("moretechglobal_access", res.data.data.token);
+      sessionStorage.setItem(
         "moretechglobal_refresh",
         res.data.data.refresh_token
       );
+      // localStorage.setItem("moretechglobal_access", res.data.data.token);
+      // localStorage.setItem(
+      //   "moretechglobal_refresh",
+      //   res.data.data.refresh_token
+      // );
       localStorage.removeItem("otp_username");
       await dispatch(load_user());
       await dispatch(userMembership());
@@ -243,7 +248,7 @@ export const logout = () => (dispatch) => {
 };
 
 export const update_profile = (formData) => async (dispatch) => {
-  if (localStorage.getItem("moretechglobal_access")) {
+  if (sessionStorage.getItem("moretechglobal_access")) {
     dispatch(setLoading(true));
     try {
       const res = await axiosInstance.patch(
@@ -268,7 +273,7 @@ export const update_profile = (formData) => async (dispatch) => {
 };
 
 export const update_profile_picture = (formData) => async (dispatch) => {
-  if (localStorage.getItem("moretechglobal_access")) {
+  if (sessionStorage.getItem("moretechglobal_access")) {
     dispatch(setLoading(true));
     try {
       const res = await axiosInstance.post(
@@ -296,7 +301,7 @@ export const update_profile_picture = (formData) => async (dispatch) => {
 };
 
 export const update_business_document = (formData) => async (dispatch) => {
-  if (localStorage.getItem("moretechglobal_access")) {
+  if (sessionStorage.getItem("moretechglobal_access")) {
     dispatch(setLoading(true));
     try {
       const res = await axiosInstance.patch(
@@ -324,7 +329,7 @@ export const update_business_document = (formData) => async (dispatch) => {
   }
 };
 export const update_business_detail = (formData) => async (dispatch) => {
-  if (localStorage.getItem("moretechglobal_access")) {
+  if (sessionStorage.getItem("moretechglobal_access")) {
     dispatch(setLoading(true));
     try {
       const res = await axiosInstance.patch(
@@ -397,7 +402,7 @@ export const change_password = (formData) => async (dispatch) => {
 };
 
 export const update_Kyc_document = (formData) => async (dispatch) => {
-  if (localStorage.getItem("moretechglobal_access")) {
+  if (sessionStorage.getItem("moretechglobal_access")) {
     dispatch(setLoading(true));
     try {
       const res = await axiosInstance.patch(
@@ -421,7 +426,7 @@ export const update_Kyc_document = (formData) => async (dispatch) => {
 };
 
 export const upload_Kyc_document = (formData) => async (dispatch) => {
-  if (localStorage.getItem("moretechglobal_access")) {
+  if (sessionStorage.getItem("moretechglobal_access")) {
     dispatch(setLoading(true));
     try {
       const res = await axiosInstance.post(

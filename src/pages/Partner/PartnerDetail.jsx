@@ -4,7 +4,6 @@ import { baseURL } from "../../config/config";
 import axios from "axios";
 import { Placeholder } from "react-bootstrap";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
-import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import LandingLayout from "../../components/Layout/LandingLayout";
 import { useSelector } from "react-redux";
 import PartnerDeatilContent from "./PartnerDeatilContent";

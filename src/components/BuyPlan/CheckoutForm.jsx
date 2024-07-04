@@ -1,13 +1,11 @@
-import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
-import {loadStripe} from '@stripe/stripe-js';
+import React, { useState } from "react";
+
 import {
   PaymentElement,
-  Elements,
   useStripe,
   useElements,
-} from '@stripe/react-stripe-js';
-import { baseURL } from '../../config/config';
+} from "@stripe/react-stripe-js";
+import { baseURL } from "../../config/config";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -23,7 +21,7 @@ const CheckoutForm = () => {
     }
 
     // Trigger form validation and wallet collection
-    const {error: submitError} = await elements.submit();
+    const { error: submitError } = await elements.submit();
     if (submitError) {
       // Show error to your customer
       setErrorMessage(submitError.message);
@@ -31,18 +29,21 @@ const CheckoutForm = () => {
     }
 
     // Create the PaymentIntent and obtain clientSecret from your server endpoint
-    const res = await fetch(`${baseURL}payments/stripe/create-payment-intent/`, {
-      method: 'POST',
-    });
+    const res = await fetch(
+      `${baseURL}payments/stripe/create-payment-intent/`,
+      {
+        method: "POST",
+      }
+    );
 
-    const {client_secret: clientSecret} = await res.json();
+    const { client_secret: clientSecret } = await res.json();
 
-    const {error} = await stripe.confirmPayment({
+    const { error } = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
       clientSecret,
       confirmParams: {
-        return_url: 'https://example.com/order/123/complete',
+        return_url: "https://example.com/order/123/complete",
       },
     });
 

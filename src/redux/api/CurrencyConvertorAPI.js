@@ -1,7 +1,6 @@
 import axios from "axios";
 import { baseURL } from "../../config/config";
 import { setCurrency } from "../slices/CurrencySlice";
-import { useDispatch } from "react-redux";
 import { axiosInstance } from "../..";
 
 export const currencyConvertor = async (fromCurrency, toCurrency) => {
@@ -22,7 +21,7 @@ export const currencyConvertor = async (fromCurrency, toCurrency) => {
   }
 };
 
-export const CurrencySet =() => async (dispatch) => {
+export const CurrencySet = () => async (dispatch) => {
   try {
     const response = await axiosInstance.get(`${baseURL}user/currency/`);
     const currencyList = response.data.data.currency;

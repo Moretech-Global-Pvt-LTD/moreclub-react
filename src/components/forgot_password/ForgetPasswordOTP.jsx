@@ -49,8 +49,8 @@ const ForgetPasswordOTP = () => {
     const result = await dispatch(forget_password_otp_verify(formData));
     console.log(result);
     if (result.status === 200) {
-      localStorage.setItem("moretechglobal_access", result.data.data.token);
-      localStorage.setItem(
+      sessionStorage.setItem("moretechglobal_access", result.data.data.token);
+      sessionStorage.setItem(
         "moretechglobal_refresh",
         result.data.data.refresh_token
       );

@@ -3,29 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/api/loginAPI";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
-// import { axiosInstance } from "../..";
-// import { baseURL } from "../../config/config";
 
 const Settingpage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.userReducer);
-
-  // const [permisions, setPermissions]= useState();
-
-  // const fetchPermissions = async () => {
-  //   try {
-  //     const res = await axiosInstance.get(`${baseURL}permissions/list/`);
-  //     setPermissions(res.data.data);
-  //   } catch (err) {
-  //     console.error("error fetching permisions", err);
-  //   }
-  // };
-
-  // useEffect(()=>{
-  //   fetchPermissions();
-  // },[])
 
   const logOut = () => {
     dispatch(logout());
@@ -37,7 +20,6 @@ const Settingpage = () => {
         <div className="col-12  col-md-9">
           <div className="nft-card card shadow-sm mb-4 p-4">
             <h4 className="linked-heading">Settings </h4>
-            {/* <span className="btn btn-link">View All</span> */}
             <ul className="row">
               <Link to="/profile">
                 <p className="fs-6 mt-2 mb-2 border-bottom pb-2 cursor">
@@ -78,11 +60,6 @@ const Settingpage = () => {
                   Change Transaction PIN
                 </p>
               </Link>
-              {/* <Link to="/">
-                <p className="fs-6 mt-2 mb-2 border-bottom pb-2">
-                  Help and Support
-                </p>
-              </Link> */}
               <Link to="/faq">
                 <p className="fs-6 mt-2 mb-2 border-bottom pb-2">FAQs</p>
               </Link>

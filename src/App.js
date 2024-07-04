@@ -97,7 +97,7 @@ const App = () => {
 
   useEffect(() => {
     const handleSessionExpired = () => {
-      setIsSessionExpired(localStorage.getItem("sessionExpired"));
+      setIsSessionExpired(sessionStorage.getItem("sessionExpired"));
     };
 
     window.addEventListener("sessionExpired", handleSessionExpired);

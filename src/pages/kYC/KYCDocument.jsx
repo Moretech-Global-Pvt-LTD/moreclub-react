@@ -4,7 +4,6 @@ import { Placeholder } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
-import DashboardLayout from "../../components/Layout/DashboardLayout";
 
 const KYCDocument = () => {
   const fetchDashboardData = async () => {

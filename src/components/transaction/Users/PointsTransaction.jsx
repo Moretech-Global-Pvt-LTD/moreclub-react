@@ -101,7 +101,7 @@ const PointsTransactions = () => {
       className="content-inside-wrapper nft-card card p-4"
       style={{ maxWidth: "640px" }}
     >
-      {data && !data.data ? (
+      {data && data.pages[0].data.length === 0 ? (
         <div
           className="row align-items-center"
           style={{ height: "20vh", width: "100%" }}

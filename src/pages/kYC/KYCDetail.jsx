@@ -2,17 +2,16 @@ import React from "react";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userSuccess } from "../../redux/slices/userSlice";
 import KYCdetailcontent from "./KYCdetailcontent";
-import { Button, Placeholder } from "react-bootstrap";
-import KYCIMAGE from "../../images/Home/KYC.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Placeholder } from "react-bootstrap";
+
+import { useNavigate } from "react-router-dom";
 
 const KYCDetail = () => {
-  const user = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   const fetchDashboardData = async () => {
     try {
@@ -79,10 +78,10 @@ const KYCDetail = () => {
   if (isError) {
     <div className="text-dynamic white">Error getting page data</div>;
   }
-  if(data.kyc.message ==="KYC verification not found"){
-    navigate("/KYC/update")
+  if (data.kyc.message === "KYC verification not found") {
+    navigate("/KYC/update");
   }
-  
+
   return (
     <>
       {data.kyc.message !== "KYC verification not found" ? (

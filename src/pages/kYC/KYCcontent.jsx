@@ -1,13 +1,11 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Row, Col, Button, Form } from "react-bootstrap";
 import debounce from "lodash/debounce";
 import { axiosInstance } from "../..";
-import { KycTerms, baseURL, hostURL } from "../../config/config";
+import { KycTerms, baseURL } from "../../config/config";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import TermsPdf from "../../assets/pdf/Terms_and_Conditions.pdf";
-// import PDFReader from "../../components/ui/PDFviewer";
 
 const initialFormValues = {
   marital_status: "",
