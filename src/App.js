@@ -78,6 +78,10 @@ import ForgetPinEmail from "./pages/Transactionpin/ForgetPinEmail";
 import ForgetPinOTP from "./pages/Transactionpin/ForgetPinOtp";
 import SessionExpiredModal from "./components/sessiondialog";
 
+const PrivateRoute = ({ element, isAuthenticated }) => {
+  return isAuthenticated ? element : <Navigate to="/login" />;
+};
+
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer);
@@ -443,22 +447,6 @@ const App = () => {
           <Route key={route.path} path={route.path} element={route.page} />
         ))}
 
-        {/*   {authRoutes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={<AuthRoute element={route.page} redirectTo="/dashboard" />}
-          />
-        ))}
-
-        {userRoutes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={<PrivateRoute element={route.page} redirectTo="/login" />}
-          />
-        ))} */}
-
         {authRoutes.map((route) => (
           <Route
             key={route.path}
@@ -473,13 +461,42 @@ const App = () => {
           />
         ))}
 
-        {userRoutes.map((route) =>
+        {/* {userRoutes.map((route) =>
           user.isAuthenticated ? (
             <Route key={route.path} path={route.path} element={route.page} />
           ) : (
             <Route element={<Navigate to="/login" />} />
           )
-        )}
+        )} */}
+
+        {userRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <PrivateRoute
+                element={route.page}
+                isAuthenticated={
+                  !!sessionStorage.getItem("moretechglobal_access")
+                }
+              />
+            }
+          />
+        ))}
+        {businessRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <PrivateRoute
+                element={route.page}
+                isAuthenticated={
+                  !!sessionStorage.getItem("moretechglobal_access")
+                }
+              />
+            }
+          />
+        ))}
 
         {/*   {businessRoutes.map((route) => (
           <Route
@@ -489,16 +506,26 @@ const App = () => {
           />
         ))} */}
 
-        {businessRoutes.map((route) =>
+        {/* {businessRoutes.map((route) =>
           user.isAuthenticated ? (
             <Route key={route.path} path={route.path} element={route.page} />
           ) : (
             <Route element={<Navigate to="/login" />} />
           )
-        )}
+        )} */}
 
-        <Route path="/wallet/" element={<Wallet />} />
-        <Route path="" element={<NotFound />} />
+        <Route
+          path="/wallet/"
+          element={
+            <PrivateRoute
+              element={<Wallet />}
+              isAuthenticated={
+                !!sessionStorage.getItem("moretechglobal_access")
+              }
+            />
+          }
+        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <div className={isSessionExpired ? "blur-background" : ""}>
         <SessionExpiredModal

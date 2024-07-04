@@ -1,12 +1,78 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { imageURL } from "../../config/config";
+import { useDispatch, useSelector } from "react-redux";
+import { baseURL, imageURL } from "../../config/config";
 import { Placeholder } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { axiosInstance } from "../..";
+import { setMembershipType, userSuccess } from "../../redux/slices/userSlice";
+import { userMembership } from "../../redux/api/userMembershipAPI";
+import { businessProfileSucess } from "../../redux/slices/businessSlice";
 
 const HeaderUserInfo = () => {
   const user = useSelector((state) => state.userReducer);
   const business = useSelector((state) => state.businessReducer);
+
+  const dispatch = useDispatch();
+
+  const fetchUsersdashboardData = async () => {
+    try {
+      // Attempt to fetch both business and user data
+      const [businessResponse, userResponse, membership] =
+        await Promise.allSettled([
+          axiosInstance.get(`${baseURL}business/profile/`),
+          axiosInstance.get(`${baseURL}auth/user/all/details/`),
+          axiosInstance.get(`${baseURL}members/user/membership/`),
+        ]);
+
+      // Handle the responses
+      let businessData = null;
+      if (businessResponse.status === "fulfilled") {
+        businessData = businessResponse.value.data.data;
+        await dispatch(businessProfileSucess(businessData));
+      } else if (
+        businessResponse.status === "rejected" &&
+        businessResponse.reason.response.status === 403
+      ) {
+        console.warn(
+          "User is not registered as a business, skipping business data."
+        );
+      } else {
+        throw new Error(
+          `Failed to fetch business data: ${businessResponse.reason.message}`
+        );
+      }
+
+      if (membership.status === "fulfilled") {
+        await dispatch(setMembershipType(membership.value.data.data));
+      } else {
+        throw new Error(
+          `Failed to fetch user data: ${membership.reason.message}`
+        );
+      }
+      if (userResponse.status === "fulfilled") {
+        const userData = userResponse.value.data.data;
+        await dispatch(userSuccess(data));
+        return {
+          businessData,
+          userData,
+        };
+      } else {
+        throw new Error(
+          `Failed to fetch user data: ${userResponse.reason.message}`
+        );
+      }
+    } catch (error) {
+      // Handle the error, for example by throwing it so it can be caught by react-query
+      throw new Error(`Failed to fetch dashboard data: ${error.message}`);
+    }
+  };
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["dashboarddatas"],
+    queryFn: fetchUsersdashboardData,
+    staleTime: 100,
+  });
 
   function capitalizeFirstLetterOfEachWord(str) {
     return str
