@@ -10,13 +10,14 @@ import { Placeholder } from "react-bootstrap";
 import { userMembership } from "../../../redux/api/userMembershipAPI";
 
 const Profile = () => {
-  const user = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
-  const { data, isLoading, isError, refetch } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["user profile"],
     queryFn: async () => {
-      const response = await axiosInstance.get(`${baseURL}auth/user/all/details/`);
+      const response = await axiosInstance.get(
+        `${baseURL}auth/user/all/details/`
+      );
       const data = await response.data.data;
       await dispatch(userSuccess(data));
       await dispatch(userMembership());

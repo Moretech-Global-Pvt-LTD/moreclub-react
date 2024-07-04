@@ -35,8 +35,8 @@ const ProfileCard = ({ user, membershipType }) => {
                       backgroundColor: "#fff",
                     }}
                   >
-                    {/* {user.user?.last_name[0]} */}
-                    NL
+                    {user && user?.user?.first_name[0]}
+                    {user && user?.user?.last_name[0]}
                   </div>
                 ) : (
                   <img
