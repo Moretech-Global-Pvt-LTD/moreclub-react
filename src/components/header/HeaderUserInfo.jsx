@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { baseURL, imageURL } from "../../config/config";
 import { Placeholder } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../..";
-import { setMembershipType, userSuccess } from "../../redux/slices/userSlice";
-import { userMembership } from "../../redux/api/userMembershipAPI";
-import { businessProfileSucess } from "../../redux/slices/businessSlice";
+// import { useQuery } from "@tanstack/react-query";
+// import { axiosInstance } from "../..";
+// import { setMembershipType, userSuccess } from "../../redux/slices/userSlice";
+// import { userMembership } from "../../redux/api/userMembershipAPI";
+// import { businessProfileSucess } from "../../redux/slices/businessSlice";
 
 const HeaderUserInfo = () => {
   const user = useSelector((state) => state.userReducer);
@@ -52,9 +52,8 @@ const HeaderUserInfo = () => {
                   backgroundColor: "#fff",
                 }}
               >
-                {/* {user.user?.first_name[0]}
-                {user.user?.last_name[0]} */}
-                NL
+                {user.user?.first_name[0]}
+                {user.user?.last_name[0]}
               </div>
             ) : (
               <img

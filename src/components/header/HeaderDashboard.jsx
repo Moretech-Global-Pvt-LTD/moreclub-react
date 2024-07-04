@@ -71,7 +71,7 @@ const HeaderDashboard = () => {
       }
       if (userResponse.status === "fulfilled") {
         const userData = userResponse.value.data.data;
-        await dispatch(userSuccess(data));
+        await dispatch(userSuccess(userData));
         return {
           businessData,
           userData,
