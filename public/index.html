@@ -162,24 +162,8 @@
       '%cThis is a browser feature intended for developers. If someone told you to copy and paste something here to enable a feature or "hack" someone\'s account, it is a scam and will give them access to your account.',
       'color: black; font-size: 20px;'
     );
-    // console.log('See https://www.facebook.com/selfxss for more information.');
+    
   }
-
-  // Detect DevTools
-  (function() {
-    const element = new Image();
-    Object.defineProperty(element, 'id', {
-      get: function() {
-        alert('DevTools detected! Please do not use developer tools on this site.');
-        window.open('', '_self').close();
-        window.location = 'about:blank'; // Fallback
-      }
-    });
-
-    setInterval(function() {
-      // console.dir(element);
-    }, 1000);
-  })();
 </script>
 <script>
   (function() {
@@ -187,11 +171,11 @@
     // var isProduction = true; // This should be your actual environment check
 
   
-      // console.log = function() {};
-      // console.warn = function() {};
-      // console.error = function() {};
-      // console.info = function() {};
-      // console.debug = function() {};
+      console.log = function() {};
+      console.warn = function() {};
+      console.error = function() {};
+      console.info = function() {};
+      console.debug = function() {};
    
   })();
 </script>
