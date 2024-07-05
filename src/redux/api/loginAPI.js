@@ -17,6 +17,7 @@ import { redirect } from "react-router-dom";
 import { userMembership } from "./userMembershipAPI";
 import { getBusinessProfile } from "./userDetailAPI";
 import { loadMembershipType } from "./membershipTypeAPI";
+import { loadUserPermissions } from "./PermissionsAPI";
 import { CurrencySet } from "./CurrencyConvertorAPI";
 
 export const load_user = () => async (dispatch) => {
