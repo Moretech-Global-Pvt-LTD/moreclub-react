@@ -28,7 +28,7 @@ const LearnMoreContents = () => {
             <iframe
               width="100%"
               height="315"
-              src="https://www.youtube.com/embed/0EUKcQFSzAs?si=FSKaSdjWwYx7ogUc"
+              src="https://www.youtube.com/embed/QagusmnC0Fs?si=v9MmeW8Nv85wzoRm?autoplay=1&loop=1&controls=0&showinfo=0&modestbranding=0&rel=0"
               title="About Us Video"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
