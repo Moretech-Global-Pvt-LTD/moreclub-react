@@ -160,17 +160,6 @@ const Header = () => {
                 </Link>
 
                 <Link
-                  id="Pricing"
-                  aria-expanded="false"
-                  role="button"
-                  className="nav-link text-dynamic-white"
-                  tabindex="2"
-                  to="/pricing"
-                >
-                  Pricing
-                </Link>
-
-                <Link
                   id="Event"
                   aria-expanded="false"
                   role="button"
