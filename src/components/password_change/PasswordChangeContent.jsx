@@ -21,8 +21,8 @@ export default function ChangePasswordContent(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = {
-      new_password1: inputPassword1,
-      new_password2: inputPassword2,
+      new_password: inputPassword1,
+      confirm_password: inputPassword2,
     };
     try {
       const res = await axiosInstance.post(
