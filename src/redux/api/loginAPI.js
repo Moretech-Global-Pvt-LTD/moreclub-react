@@ -55,6 +55,7 @@ export const login = (username, password) => async (dispatch) => {
       await dispatch(loadMembershipType());
       await dispatch(CurrencySet());
       await dispatch(getBusinessProfile());
+      await dispatch(loadUserPermissions());
       await dispatch(setProcessing(false));
       localStorage.removeItem("otp_username");
       return res;
