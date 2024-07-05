@@ -89,7 +89,7 @@ export default function HeroOne() {
                 ref={iframeRef}
                 id="ytplayer"
                 type="text/html"
-                src="https://www.youtube.com/embed/QagusmnC0Fs?autoplay=1&loop=1&playlist=KuuKQZ64HNo&controls=0&showinfo=0&modestbranding=0&rel=0"
+                src="https://www.youtube.com/embed/QagusmnC0Fs?si=v9MmeW8Nv85wzoRm&autoplay=1&loop=1&playlist=KuuKQZ64HNo&controls=0&showinfo=0&modestbranding=0&rel=0"
                 title="Membersclub - Save and Make Money with More Deals Club"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
