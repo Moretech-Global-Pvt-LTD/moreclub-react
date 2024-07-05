@@ -179,10 +179,9 @@ const EventDetailPage = () => {
                     "dddd DD MMM, YY"
                   )}{" "}
                   at{" "}
-                  {moment
-                    .utc(data.eventdata.start_date)
-                    .local()
-                    .format("h:mm a")}
+                  {data.eventdata.start_date}
+                  {moment.utc(data.eventdata.start_date).local().format("h:mm a")}
+                  
                   &nbsp;
                   <br />
                   &nbsp;&nbsp;&nbsp;&nbsp; Ends At:&nbsp;
