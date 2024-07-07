@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import { useState } from "react";
-import axios from "axios";
-import { hostURL } from "../../config/config";
 import SubscriptionMailForm from "./SubscriptionMailForm";
 
 export default function LeftWidget(props) {

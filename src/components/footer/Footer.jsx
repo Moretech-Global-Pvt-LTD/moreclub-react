@@ -3,10 +3,52 @@ import LeftWidget from "./LeftWidget";
 import FooterWidget from "./FooterWidget";
 
 import { useSelector } from "react-redux";
-import { imageURL } from "../../config/config";
 
 export default function Footer() {
   const metainfo = useSelector((state) => state.metaReducer);
+
+  const navlist = [
+    {
+      text: "About Us",
+      url: "/about",
+    },
+    {
+      text: "Events",
+      url: "/event",
+    },
+
+    {
+      text: "Our Products",
+      url: "/products",
+    },
+    {
+      text: "Our Partners",
+      url: "/partners",
+    },
+  ];
+  const extendedNavlist = [
+    {
+      text: "About Us",
+      url: "/about",
+    },
+    {
+      text: "Events",
+      url: "/event",
+    },
+    {
+      text: "Pricing",
+      url: "/pricing",
+    },
+
+    {
+      text: "Our Products",
+      url: "/products",
+    },
+    {
+      text: "Our Partners",
+      url: "/partners",
+    },
+  ];
 
   return (
     <footer
@@ -63,24 +105,11 @@ export default function Footer() {
               {/* Single Widget */}
               <FooterWidget
                 widgetTitle="Explore"
-                navList={[
-                  {
-                    text: "About Us",
-                    url: "/about",
-                  },
-                  {
-                    text: "Events",
-                    url: "/event",
-                  },
-                  {
-                    text: "Our Products",
-                    url: "/products",
-                  },
-                  {
-                    text: "Our Partners",
-                    url: "/partners",
-                  },
-                ]}
+                navList={
+                  !!sessionStorage.getItem("moretechglobal_access")
+                    ? extendedNavlist
+                    : navlist
+                }
               />
 
               {/* Single Widget */}

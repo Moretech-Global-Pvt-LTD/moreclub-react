@@ -229,11 +229,7 @@ const App = () => {
 
       page: <ProjectDetail />,
     },
-    {
-      path: "/pricing/",
 
-      page: <PricingPage />,
-    },
     {
       path: "/coupon/",
 
@@ -447,15 +443,26 @@ const App = () => {
           <Route key={route.path} path={route.path} element={route.page} />
         ))}
 
+        <Route
+          path="/pricing"
+          element={
+            !sessionStorage.getItem("moretechglobal_access") ? (
+              <NotFound />
+            ) : (
+              <PricingPage />
+            )
+          }
+        />
+
         {authRoutes.map((route) => (
           <Route
             key={route.path}
             path={route.path}
             element={
-              !user.isAuthenticated ? (
-                route.page
-              ) : (
+              !!sessionStorage.getItem("moretechglobal_access") ? (
                 <Navigate to={"/dashboard"} />
+              ) : (
+                route.page
               )
             }
           />

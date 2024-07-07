@@ -88,7 +88,6 @@ const EventpageContent = () => {
       </>
     );
   }
-  console.log(data);
 
   return (
     <Row>
