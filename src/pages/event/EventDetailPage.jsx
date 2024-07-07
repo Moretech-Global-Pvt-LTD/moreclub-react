@@ -135,7 +135,7 @@ const EventDetailPage = () => {
       <div class="welcome-area" style={{ marginTop: "10px" }}>
         <div class="row align-items-center">
           <div class="col-12 col-sm-12 col-md-6">
-            <div className="row video-container">
+            <div className="row  bg-white">
               <Carousel>
                 {data.eventdata.event_photo &&
                   data.eventdata.event_photo.map((item) => (
@@ -144,6 +144,7 @@ const EventDetailPage = () => {
                         className="d-block w-100"
                         src={item.image}
                         alt="First slide"
+                        style={{ objectFit: "fit" }}
                       />
                     </Carousel.Item>
                   ))}
@@ -179,8 +180,10 @@ const EventDetailPage = () => {
                     "dddd DD MMM, YY"
                   )}{" "}
                   at{" "}
-                  {moment.utc(data.eventdata.start_date).local().format("h:mm a")}
-                  
+                  {moment
+                    .utc(data.eventdata.start_date)
+                    .local()
+                    .format("h:mm a")}
                   &nbsp;
                   <br />
                   &nbsp;&nbsp;&nbsp;&nbsp; Ends At:&nbsp;

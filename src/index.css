@@ -26828,6 +26828,10 @@ span {
   text-align: center;
 }
 
+.event-carousel-width {
+  width: 20rem !important;
+}
+
 @media (max-width: 640px) {
   .event-card {
     display: flex;
@@ -26849,6 +26853,11 @@ span {
   .card-body {
     order: 3;
     text-align: center;
+  }
+}
+@media (max-width: 768px) {
+  .event-carousel-width {
+    width: 100% !important;
   }
 }
 

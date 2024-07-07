@@ -3,6 +3,7 @@ import { Card, Carousel, Button } from "react-bootstrap";
 import Image2 from "../../images/Home/HeroWhite.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 const EventCard = ({ events }) => {
   const user = useSelector((state) => state.userReducer);
@@ -12,11 +13,10 @@ const EventCard = ({ events }) => {
       className="d-flex flex-column flex-md-row  mx-auto mx-md-0"
       style={{ maxWidth: "720px", border: "1px solid #ddd" }}
     >
-      <div className="col-12 col-md-4 p-0">
+      <div className="col-12 col-md-4 p-0 event-carousel-width">
         <Carousel
-          className="border"
+          className="border event-carousel-width"
           style={{
-            width: "20rem",
             height: "14rem",
             objectFit: "cover",
             backgroundColor: "#0078ff",
@@ -26,7 +26,8 @@ const EventCard = ({ events }) => {
             events.event_photo.map((imag) => (
               <Carousel.Item
                 key={imag.id}
-                style={{ width: "20rem", height: "14rem", objectFit: "cover" }}
+                className="event-carousel-width"
+                style={{ height: "14rem", objectFit: "cover" }}
               >
                 <img
                   className="d-block w-100"
@@ -44,31 +45,38 @@ const EventCard = ({ events }) => {
           {!events.event_photo && (
             <Carousel.Item>
               <img
-                className="d-block w-100"
+                className="d-block w-100 event-carousel-width"
                 src={Image2}
                 alt="Second slide"
-                style={{ width: "20rem", height: "14rem", objectFit: "cover" }}
+                style={{ height: "14rem", objectFit: "cover" }}
               />
             </Carousel.Item>
           )}
         </Carousel>
       </div>
       <Card.Body
-        className="d-flex flex-column  justify-content-between col col-md-8 card "
+        className="d-flex flex-column position-relative justify-content-between col col-md-8 card "
         style={{ zIndex: "10" }}
       >
-        <h5 className="text-start">{events.name}</h5>
+        <h5 className="text-start mt-2">{events.name}</h5>
         <div className="d-flex flex-column flex-md-row-reverse gap-2">
           <div className="col-12 col-md-8">
             <div className="d-flex  flex-column justify-content-between">
-              <Card.Text className=" text-start text-md-end">
-                <i className="bi bi-geo-alt"></i> View on map
+              <Card.Text
+                className=" text-start text-md-end text-warning"
+                style={{ fontSize: "13px" }}
+              >
+                <i className="bi bi-calendar "></i>{" "}
+                {moment(events.end_date).format("dddd DD MMM, YY")}
               </Card.Text>
               <Card.Text className="text-start text-md-end">
-                Seat Available :{events.seat_available} of {events.max_limit}
+                Seat Available :
+                <span className="text-warning">
+                  {events.seat_available} of {events.max_limit}
+                </span>
               </Card.Text>
             </div>
-            <Card.Text className="line-clamp-3">{events.description}</Card.Text>
+            <Card.Text className="line-clamp-2">{events.description}</Card.Text>
           </div>
           <div className="col-12 col-md-4 align-self-center">
             {}
