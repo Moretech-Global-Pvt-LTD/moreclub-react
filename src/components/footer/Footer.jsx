@@ -80,10 +80,6 @@ export default function Footer() {
                     text: "Our Partners",
                     url: "/partners",
                   },
-                  {
-                    text: "Pricing",
-                    url: "/pricing",
-                  },
                 ]}
               />
 
