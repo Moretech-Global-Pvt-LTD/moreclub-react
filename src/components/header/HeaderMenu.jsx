@@ -41,6 +41,21 @@ export default function HeaderMenu() {
             Event
           </Link>
         </div>
+        {!!sessionStorage.getItem("moretechglobal_access") && (
+          <div class="ft-dd nav-item ">
+            <Link
+              id="Pricing"
+              aria-expanded="false"
+              role="button"
+              class="nav-link"
+              tabindex="0"
+              to="/pricing"
+            >
+              Pricing
+            </Link>
+          </div>
+        )}
+
         <div class="ft-dd nav-item ">
           <Link
             id="Products"
