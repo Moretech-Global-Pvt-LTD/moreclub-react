@@ -5,7 +5,6 @@ import {
   currentStep,
   updateFormData,
 } from "../../../../redux/slices/RegisterSlice";
-import { Button } from "react-bootstrap";
 import { hostURL } from "../../../../config/config";
 
 const UserSecondForm = ({ handleSubmit, loading }) => {
@@ -25,13 +24,10 @@ const UserSecondForm = ({ handleSubmit, loading }) => {
     formData?.password ?? ""
   );
 
-  // const [confirmPassword, setConfirmPassword] = useState("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   //step 3 variable for Error
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
-
-  // const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   const timeoutRef = useRef(null);
 
@@ -187,7 +183,6 @@ const UserSecondForm = ({ handleSubmit, loading }) => {
       )}
 
       <Form.Group className="d-flex gap-2 align-items-baseline">
-        
         <Form.Check
           className="mb-4"
           type="checkbox"
@@ -197,7 +192,14 @@ const UserSecondForm = ({ handleSubmit, loading }) => {
           onChange={handleAgreementChange}
           required
         />
-        <a href={`${hostURL}/terms`} target='_blank' className="text-warning" style={{fontSize:"12px"}}>Read&nbsp;<i class="bi bi-eye"></i></a>
+        <a
+          href={`${hostURL}/terms`}
+          target="_blank"
+          className="text-warning"
+          style={{ fontSize: "12px" }}
+        >
+          Read&nbsp;<i class="bi bi-eye"></i>
+        </a>
       </Form.Group>
 
       <button
