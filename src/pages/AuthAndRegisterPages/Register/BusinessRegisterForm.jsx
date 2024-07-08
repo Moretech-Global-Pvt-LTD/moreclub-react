@@ -6,11 +6,27 @@ import BusinessPaginateBar from "../../../components/register/BusinessRegistrati
 import { useNavigate } from "react-router-dom";
 import { register } from "../../../redux/api/loginAPI";
 import { message } from "antd";
+import axios from "axios";
+import { baseURL } from "../../../config/config";
 
 const BusinessRegisterForm = ({ setBusinessRegistration }) => {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.registerReducer.formData);
   const step = useSelector((state) => state.registerReducer);
+
+  const [countryList, setCountryList] = useState();
+
+  useEffect(() => {
+    const fetchCountry = async () => {
+      try {
+        const res = await axios.get(`${baseURL}country/list/`);
+        setCountryList(res.data.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchCountry();
+  }, []);
 
   const currentUrl = window.location.href;
 
@@ -26,7 +42,11 @@ const BusinessRegisterForm = ({ setBusinessRegistration }) => {
 
   const handleSubmitWithBusiness = async (e) => {
     e.preventDefault();
-    console.log("form data from business submit ", formData);
+
+    const selectedCountry = countryList.find(
+      (country) => country.prefix_number === formData.phone_prefix
+    );
+
     // Handle form submission here
     const combinedFormData = {
       first_name: formData.first_name,
@@ -37,8 +57,8 @@ const BusinessRegisterForm = ({ setBusinessRegistration }) => {
       user_type: formData.user_type,
       user_profile: {
         phone_prefix: formData.phone_prefix,
-        country_code: formData.country_code,
-        country: formData.country,
+        country_code: selectedCountry.code,
+        country: selectedCountry.name,
         gender: formData.gender,
       },
       business_profile: {

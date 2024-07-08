@@ -7,6 +7,8 @@ import BusinessRegisterForm from "./BusinessRegisterForm";
 import { register } from "../../../redux/api/loginAPI";
 import { Link, useNavigate } from "react-router-dom";
 import { message } from "antd";
+import { baseURL } from "../../../config/config";
+import axios from "axios";
 
 const RegistrationForm = (props) => {
   const { subTitle, button } = props;
@@ -18,55 +20,25 @@ const RegistrationForm = (props) => {
   const navigate = useNavigate();
   const currentUrl = window.location.href;
 
-  // Create a URL object
+  const [countryList, setCountryList] = useState();
 
-  // async function decodeUrl(Url) {
-  //   if (currentUrl.includes("%")) {
-  //     const decodeUrl = decodeURIComponent(Url);
-  //     const uri = new URL(decodeUrl);
-  //     return uri;
-  //   } else {
-  //     const uri = new URL(Url);
-  //     return uri;
-  //   }
-  // }
+  useEffect(() => {
+    const fetchCountry = async () => {
+      try {
+        const res = await axios.get(`${baseURL}country/list/`);
+        setCountryList(res.data.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchCountry();
+  }, []);
 
-  // async function validateRefer(uri){
-  //   const referParam = uri.searchParams.get("referral");
-  //   const alphabetRegex = /^[a-zA-Z]+$/;
-  //   console.log("validate",referParam);
-  //   if (!alphabetRegex.test(referParam)) {
-  //     console.log("Invalid referral parameter, removing invalid characters");
-  //     const newReferParam = referParam.replace(/[^a-zA-Z]/g, '');
-  //     console.log("after",referParam);
-
-  //     return newReferParam;
-  //   }else{
-  //     console.log("else",referParam);
-
-  //     return referParam;
-  //   }
-  // }
-  // async function validateBpms(uri){
-  //   const bpmsParam = url.searchParams.get("bpms");
-  //   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-  //   if (!uuidRegex.test(bpmsParam)) {
-  //     console.log("Invalid bpms parameter, resetting to empty");
-  //     bpmsParam = bpmsParam.replace();
-
-  //   }else{
-  //     return bpmsParam;
-  //   }
-  // }
-  // const url = window.location.href;
-  // const referParam = url.searchParams.get("referral");
-  // // const referParam = validateRefer(url);
-  // const bpmsParam = url.searchParams.get("bpms");
   const url = new URL(currentUrl);
-  
+
   // Get the value of the 'refer' query parameter
-  const referParam = url.searchParams.get('referral');
-  const bpmsParam = url.searchParams.get('bpms');
+  const referParam = url.searchParams.get("referral");
+  const bpmsParam = url.searchParams.get("bpms");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,6 +46,9 @@ const RegistrationForm = (props) => {
       setBusinessRegistration(true);
     } else {
       // submitting without business logic
+      const selectedCountry = countryList.find(
+        (country) => country.prefix_number === formData.phone_prefix
+      );
       const combinedFormData = {
         first_name: formData.first_name,
         last_name: formData.last_name,
@@ -83,8 +58,8 @@ const RegistrationForm = (props) => {
         user_type: formData.user_type,
         user_profile: {
           phone_prefix: formData.phone_prefix,
-          country_code: formData.country_code,
-          country: formData.country,
+          country_code: selectedCountry.code,
+          country: selectedCountry.name,
           gender: formData.gender,
         },
       };
@@ -117,11 +92,11 @@ const RegistrationForm = (props) => {
               <UserSecondForm handleSubmit={handleSubmit} loading={loading} />
             )}
             <p className="text-end px-4 mt-0 mb-0">
-                {subTitle}
-                <Link className="ms-1 hover-primary" to={button[0].path}>
-                  {button[0].text}
-                </Link>
-              </p>
+              {subTitle}
+              <Link className="ms-1 hover-primary" to={button[0].path}>
+                {button[0].text}
+              </Link>
+            </p>
           </div>
         </div>
       ) : (

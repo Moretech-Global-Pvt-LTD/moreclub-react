@@ -86,7 +86,6 @@ const UserBasicForm = () => {
     }
   };
 
-
   //  phone check weather it exist or not
   const handlePhoneCheck = async (value, prefix = null) => {
     if (value !== "") {
@@ -119,7 +118,6 @@ const UserBasicForm = () => {
       setPhoneError("Phone number is required");
     }
   };
-
 
   //for gender change
   const handleGenderChange = async (event) => {
@@ -167,10 +165,8 @@ const UserBasicForm = () => {
       country: country,
       country_code: countryCode,
     });
-     handlePhoneCheck(phone_number, prefix);
+    handlePhoneCheck(phone_number, prefix);
   };
-
-
 
   return (
     <>
