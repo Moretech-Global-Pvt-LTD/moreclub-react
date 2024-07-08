@@ -87,18 +87,6 @@ const App = () => {
   const user = useSelector((state) => state.userReducer);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
 
-  // useEffect(() => {
-  //   const handleSessionExpired = () => {
-  //     dispatch(logout());
-  //     window.location.href = "/login"; // Redirect to login page
-  //   };
-  //   window.addEventListener("sessionExpired", handleSessionExpired);
-  //   return () => {
-  //     window.removeEventListener("sessionExpired", handleSessionExpired);
-  //   };
-  // }, [dispatch]);
-  // const [isSessionExpired, setIsSessionExpired] = useState(false);
-
   useEffect(() => {
     const handleSessionExpired = () => {
       setIsSessionExpired(sessionStorage.getItem("sessionExpired"));
@@ -111,6 +99,10 @@ const App = () => {
     };
   }, []);
 
+  const getMetadatas = async () => {
+    await dispatch(getMetadata());
+  };
+
   useEffect(() => {
     if (!localStorage.getItem("sessionExpired")) {
       const fetchUser = async () => {
@@ -119,10 +111,11 @@ const App = () => {
         await dispatch(getBusinessProfile());
         await dispatch(loadUserPermissions());
         await dispatch(CurrencySet());
-        await dispatch(getMetadata());
       };
+
       fetchUser();
     }
+    getMetadatas();
   }, [dispatch]);
 
   const authRoutes = [
@@ -306,10 +299,6 @@ const App = () => {
       path: "/notification/",
       page: <NotificationPage />,
     },
-    // {
-    //   path: "/wallet/",
-    //   page: <Wallet />,
-    // },
     {
       path: "/profile/",
       page: <Profile />,
@@ -334,10 +323,6 @@ const App = () => {
       path: "/my-coupons/",
       page: <ViewCoupon />,
     },
-    // {
-    //   path: "/refer/",
-    //   page: <ReferPage />,
-    // },
     {
       path: "/transactions",
       page: <UserTransaction />,
@@ -433,7 +418,7 @@ const App = () => {
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("sessionExpired");
-    window.location.href = "/login"; // Redirect to login page
+    window.location.href = "/login";
   };
 
   return (
@@ -459,22 +444,10 @@ const App = () => {
             key={route.path}
             path={route.path}
             element={
-              !!sessionStorage.getItem("moretechglobal_access") ? (
-                <Navigate to={"/dashboard"} />
-              ) : (
-                route.page
-              )
+              user.isAuthenticated ? <Navigate to={"/dashboard"} /> : route.page
             }
           />
         ))}
-
-        {/* {userRoutes.map((route) =>
-          user.isAuthenticated ? (
-            <Route key={route.path} path={route.path} element={route.page} />
-          ) : (
-            <Route element={<Navigate to="/login" />} />
-          )
-        )} */}
 
         {userRoutes.map((route) => (
           <Route
@@ -505,22 +478,6 @@ const App = () => {
           />
         ))}
 
-        {/*   {businessRoutes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={<PrivateRoute element={route.page} redirectTo="/login" />}
-          />
-        ))} */}
-
-        {/* {businessRoutes.map((route) =>
-          user.isAuthenticated ? (
-            <Route key={route.path} path={route.path} element={route.page} />
-          ) : (
-            <Route element={<Navigate to="/login" />} />
-          )
-        )} */}
-
         <Route
           path="/wallet/"
           element={
@@ -539,9 +496,7 @@ const App = () => {
           visible={isSessionExpired}
           onLogout={handleLogout}
         />
-        {/* Your app components */}
       </div>
-      {/* Scroll To Top */}
       <ScrollToTop
         id="scrollTopButton"
         width="14"
