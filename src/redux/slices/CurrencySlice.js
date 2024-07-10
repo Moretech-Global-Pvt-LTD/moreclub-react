@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
+  loading: false,
   currencyDetail: {
     currencyCode: "EUR",
     symbol: "€",
@@ -13,8 +15,11 @@ export const currencyReducer = createSlice({
     setCurrency: (state, action) => {
       state.currencyDetail = action.payload;
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
   },
 });
 
-export const { setCurrency } = currencyReducer.actions;
+export const { setCurrency, setLoading } = currencyReducer.actions;
 export default currencyReducer.reducer;

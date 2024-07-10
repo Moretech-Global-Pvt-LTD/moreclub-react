@@ -135,7 +135,7 @@ const EventDetailPage = () => {
       <div class="welcome-area" style={{ marginTop: "10px" }}>
         <div class="row align-items-center">
           <div class="col-12 col-sm-12 col-md-6">
-            <div className="row  bg-white">
+            <div className="row  bg-white mb-4">
               <Carousel>
                 {data.eventdata.event_photo &&
                   data.eventdata.event_photo.map((item) => (

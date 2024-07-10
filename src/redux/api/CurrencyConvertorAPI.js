@@ -1,6 +1,6 @@
 import axios from "axios";
 import { baseURL } from "../../config/config";
-import { setCurrency } from "../slices/CurrencySlice";
+import { setCurrency, setLoading } from "../slices/CurrencySlice";
 import { axiosInstance } from "../..";
 
 export const currencyConvertor = async (fromCurrency, toCurrency) => {
@@ -22,6 +22,7 @@ export const currencyConvertor = async (fromCurrency, toCurrency) => {
 };
 
 export const CurrencySet = () => async (dispatch) => {
+  setLoading(true);
   try {
     const response = await axiosInstance.get(`${baseURL}user/currency/`);
     const currencyList = response.data.data.currency;
@@ -43,5 +44,7 @@ export const CurrencySet = () => async (dispatch) => {
     }
   } catch (error) {
     console.error(error.message);
+  } finally {
+    setLoading(false);
   }
 };

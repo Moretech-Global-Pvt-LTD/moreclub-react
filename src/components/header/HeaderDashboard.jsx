@@ -18,6 +18,8 @@ import { axiosInstance } from "../..";
 import { businessProfileSucess } from "../../redux/slices/businessSlice";
 import { setMembershipType, userSuccess } from "../../redux/slices/userSlice";
 import { useQuery } from "@tanstack/react-query";
+import { CurrencySet } from "../../redux/api/CurrencyConvertorAPI";
+import { Placeholder } from "react-bootstrap";
 
 const HeaderDashboard = () => {
   let [check] = useState(true);
@@ -72,6 +74,7 @@ const HeaderDashboard = () => {
       if (userResponse.status === "fulfilled") {
         const userData = userResponse.value.data.data;
         await dispatch(userSuccess(userData));
+        await dispatch(CurrencySet());
         return {
           businessData,
           userData,
@@ -139,15 +142,6 @@ const HeaderDashboard = () => {
     </>
   ));
 
-  // const notificationCards = NotificationData.slice(0, 4).map((elem, index) => (
-  //     <li key={index}>
-  //         <Link className="dropdown-item" to={`/notification-details/${elem.id}`} >
-  //             <i className={`me-2 bg-${elem.icon[0].color} bi ${elem.icon[0].icon}`} />
-  //             {elem.notification}
-  //         </Link>
-  //     </li>
-  // ))
-
   return (
     <>
       <header
@@ -186,7 +180,20 @@ const HeaderDashboard = () => {
                 className="btn btn-sm btn-danger rounded-pill me-2 me-sm-3 "
                 to="/wallet"
               >
-                <span className="fs-6 fw-bold">{currency.symbol}&nbsp;</span>
+                {currency.loading ? (
+                  <span className="fs-6 fw-bold">
+                    <Placeholder animation="glow" className="rounded">
+                      <Placeholder
+                        xs={12}
+                        style={{ height: "12px", width: "1rem" }}
+                      />
+                    </Placeholder>
+                    &nbsp;
+                  </span>
+                ) : (
+                  <span className="fs-6 fw-bold">{currency.symbol}&nbsp;</span>
+                )}
+
                 <span className="fs-6 fw-bold ">
                   {wallet.wallet?.balance ?? "0.00"}
                 </span>
