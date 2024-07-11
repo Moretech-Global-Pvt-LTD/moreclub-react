@@ -21,7 +21,10 @@ function BusinessPaginateBar() {
 
   return (
     <div className="ms-4 me-4">
-      <div className={"formouterContainer"} style={{ maxWidth: "14rem" }}>
+      <div
+        className={"formouterContainer position-relative"}
+        style={{ maxWidth: "14rem" }}
+      >
         <div className={"formbuttonContainer"}>{buttonE1}</div>
         <progress
           className={"formprogressBar"}

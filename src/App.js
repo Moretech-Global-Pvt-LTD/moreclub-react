@@ -26,7 +26,6 @@ import { getBusinessProfile } from "./redux/api/userDetailAPI";
 
 import PricingPage from "./pages/Pricing/Pricing";
 import ViewCoupon from "./pages/Coupon/ViewCoupon";
-import CouponDetail from "./pages/Coupon/CouponDetail";
 import ProfileChange from "./pages/UserPages/profile/ProfileChange";
 import UserTransaction from "./pages/Transactions/UserTransaction";
 
@@ -42,7 +41,6 @@ import NetworkPage from "./pages/Network/NetworkPage";
 import BusinessDocumentPage from "./pages/Businesspages/BusinessUpdate/BusinessDocumentPage";
 import LearmMorePage from "./pages/LearnMore/LearmMorePage";
 import PartnerPage from "./pages/Partner/PartnerPage";
-import LoginPhoneNumber from "./pages/AuthAndRegisterPages/Login/LoginPhonenumber";
 import NetworkMessage from "./pages/Network/NetworkMessage";
 
 import { loadUserPermissions } from "./redux/api/PermissionsAPI";
@@ -123,11 +121,6 @@ const App = () => {
       path: "/login",
 
       page: <Login />,
-    },
-    {
-      path: "/login-phonenumber",
-
-      page: <LoginPhoneNumber />,
     },
     {
       path: "/register-membership",
@@ -227,11 +220,6 @@ const App = () => {
       path: "/coupon/",
 
       page: <AllCoupon />,
-    },
-    {
-      path: "/coupon/:couponId",
-
-      page: <CouponDetail />,
     },
     {
       path: "/scan",

@@ -19,7 +19,7 @@ const DashboardLayout = ({ children, title }) => {
           breadcrumbNav={[
             {
               navText: "Home",
-              path: "/",
+              path: "/dashboard",
             },
           ]}
         />
