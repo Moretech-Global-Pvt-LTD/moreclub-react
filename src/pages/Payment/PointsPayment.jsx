@@ -122,7 +122,7 @@ const PointsPayment = () => {
                       {currency.currencyCode}&nbsp;
                     </span>
                     {couponId && <>{coupon?.couponDetail?.balance}</>}
-                    {plan && planTime && <>{price}</>}
+                    {plan && planTime && <>{price.toFixed(2)}</>}
                   </h1>
                 </div>
                 <div
