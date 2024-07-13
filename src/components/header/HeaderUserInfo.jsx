@@ -95,7 +95,7 @@ const HeaderUserInfo = () => {
                   backgroundColor: "#fff",
                 }}
               >
-                {`${business?.businessProfile?.business_name[0] ?? ""}`}
+                {`${business?.businessProfile?.business_name ?? ""}`}
               </div>
             ) : (
               <img
