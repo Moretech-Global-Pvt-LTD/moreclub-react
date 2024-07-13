@@ -48,7 +48,7 @@ const PlanDetail = ({ plan, currency, price, planTime }) => {
                     className="mb-0 text-danger"
                     style={{ fontSize: "36px", fontWeight: "bold" }}
                   >
-                    {currency.symbol}&nbsp;{price}
+                    {currency.symbol}&nbsp;{price.toFixed(2)}
                   </span>
                   <span className="Label">/{planTime}</span>
                 </div>
