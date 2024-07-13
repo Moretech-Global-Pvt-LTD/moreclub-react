@@ -33,7 +33,7 @@ export default function HeroOne() {
                 class="animated fadeInUp"
                 style={{ animationDuration: "1s" }}
               >
-                <h2>Save and Make Money with MoreDeals Club.</h2>
+                <h2>Save and Make Money with More Deals Club.</h2>
               </div>
               <div
                 class="animated fadeInUp "
