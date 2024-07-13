@@ -101,10 +101,10 @@ export default function PricingPlans({ title }) {
                       delay={{ show: 250, hide: 400 }}
                       overlay={<Tooltip>{mst?.name}</Tooltip>}
                     >
-                      <Link
+                      <div
                         className="name d-block hover-primary text-truncate"
                         style={{ fontSize: "20px" }}
-                        to={`${process.env.PUBLIC_URL}/featured-items/`}
+                       
                       >
                         <b>{mst?.name} Plan</b>
                       </Link>
