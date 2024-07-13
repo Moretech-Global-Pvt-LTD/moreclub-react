@@ -22973,7 +22973,7 @@ dropdown-no .nav-light-logo {
 
 @media only screen and (min-width: 640px) {
   .pricing-width {
-    max-width: 250px !important;
+    max-width: 90% !important;
   }
 }
 
