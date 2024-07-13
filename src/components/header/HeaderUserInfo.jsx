@@ -57,7 +57,7 @@ const HeaderUserInfo = () => {
               </div>
             ) : (
               <img
-                src={`${imageURL}${user.user?.user_profile?.display_picture}`}
+                src={`${user.user?.user_profile?.display_picture}`}
                 style={{
                   width: "45px",
                   height: "45px",
@@ -95,7 +95,7 @@ const HeaderUserInfo = () => {
                   backgroundColor: "#fff",
                 }}
               >
-                {`${business?.businessProfile?.business_name ?? ""}`}
+                {`${business?.businessProfile?.business_name[0] ?? ""}`}
               </div>
             ) : (
               <img
