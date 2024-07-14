@@ -40,6 +40,7 @@ export default function PricingPlans({ title }) {
       const data = await response.data.data;
       return data;
     },
+    staleTime:60000
   });
 
   if (isLoading) {
