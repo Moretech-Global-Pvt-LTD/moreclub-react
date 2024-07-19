@@ -55,7 +55,8 @@ const Hero = () => {
                     Learn More<i class="ms-2 bi bi-arrow-right"></i>
                   </Link>
                 </p> */}
-                <div className="bg-danger px-4 py-2 mx-5 ">
+                <a href="/login">
+<div className="bg-danger px-4 py-2 mx-5 ">
                   <h3 className="text-white text-center">TRY FOR FREE</h3>
                   <p
                     className="fs-6 fw-thin text-white text-center "
@@ -64,6 +65,8 @@ const Hero = () => {
                     TAKE YOUR BUSINESS TO NEXT LEVEL
                   </p>
                 </div>
+                </a>
+                
               </div>
             </div>
           </div>

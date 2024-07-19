@@ -40,6 +40,9 @@ export default function PricingPlans({ title }) {
       const data = await response.data.data;
       return data;
     },
+    staleTime:60*1000,
+    fallback: (lastData) => lastData || [],
+
   });
 
   if (isLoading) {
@@ -104,7 +107,7 @@ export default function PricingPlans({ title }) {
                       <Link
                         className="name d-block hover-primary text-truncate"
                         style={{ fontSize: "20px" }}
-                        to={`${process.env.PUBLIC_URL}/featured-items/`}
+                        to={`/buy/plan/${mst.id}/${activeTab}`}
                       >
                         <b>{mst?.name} Plan</b>
                       </Link>
@@ -227,7 +230,7 @@ export default function PricingPlans({ title }) {
           <div className="row mt-4">
             <div className="col-12">
               <h6>Normal Plans</h6>
-              <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+              <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4">
                 {normalPricingCards}
               </div>
             </div>
@@ -235,7 +238,7 @@ export default function PricingPlans({ title }) {
           <div className="row mt-4">
             <div className="col-12">
               <h6>Business Plans</h6>
-              <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+              <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4">
                 {BusinessPricingCards}
               </div>
             </div>
@@ -248,7 +251,7 @@ export default function PricingPlans({ title }) {
           <div className="col-12">
             <h6>Normal Plans</h6>
 
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4">
               {normalPricingCards}
             </div>
           </div>
@@ -258,7 +261,7 @@ export default function PricingPlans({ title }) {
         <div className="row mt-4">
           <div className="col-12">
             <h6>Business Plans</h6>
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4">
               {BusinessPricingCards}
             </div>
           </div>

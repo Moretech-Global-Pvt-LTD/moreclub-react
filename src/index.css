@@ -23311,7 +23311,7 @@ dropdown-no .nav-light-logo {
 
 @media only screen and (min-width: 640px) {
   .pricing-width {
-    max-width: 250px !important;
+    max-width: 90% !important;
   }
 }
 
@@ -27110,39 +27110,6 @@ span {
   padding-right: 2px !important;
 }
 
-/* 
-.StripeElement {
-    box-sizing: border-box;
-    padding: 2rem 3rem;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px 0 #e6ebf1;
-    transition: box-shadow 150ms ease;
-    color: #fff;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
-    font-smoothing: antialiased;
-    background-color: #000080;
-  }
-  
-  .StripeElement .InputContainer {
-    padding: 1rem;
-    background-color: red;
-  }
-  
-  .StripeElement--focus {
-    box-shadow: 0 1px 3px 0 #cfd7df;
-  }
-  
-  .StripeElement--invalid {
-    border-color: #fa755a;
-  }
-  
-  .StripeElement--webkit-autofill {
-    background-color: #fefde5 !important;
-  }
-   */
-
 .card-container {
   position: relative;
   width: 400px;
@@ -27228,62 +27195,7 @@ span {
   justify-content: center;
 }
 
-/* .event-card {
-    background-color: #ffffff;
-    color: #000000;
-  }
-  
-  [data-theme=dark] .event-card {
-    background-color: #1e1e1e;
-    color: #ffffff;
-  }
-  
-  .event-badge {
-    display: inline-block;
-    margin-bottom: 10px;
-  }
-  
-  .event-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  
-  
-  .event-button {
-    margin-bottom: 10px;
-  }
-  
-  .event-price {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .event-reviews {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .event-stars {
-    color: #ffc107;
-  }
-  
-  .event-review-count {
-    margin-left: 10px;
-  }
-  
-  .event-review-text {
-    font-style: italic;
-    margin-bottom: 10px;
-  }
-  
-  .event-more-reviews {
-    font-weight: bold;
-    color: #007bff;
-  } */
+
 
 .event-card {
   max-width: 600px;

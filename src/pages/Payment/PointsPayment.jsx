@@ -55,10 +55,10 @@ const PointsPayment = () => {
   useEffect(() => {
     if (plan && plan.planDetail.price) {
       if (planTime === "monthly") {
-        const prices = rate * plan.planDetail.price;
+        const prices = rate * plan.planDetail.price.toFixed(2);
         setPrice(prices);
       } else {
-        const prices = rate * plan.planDetail.yearly_price;
+        const prices = rate * plan.planDetail.yearly_price.toFixed(2);
         setPrice(prices);
       }
     }
@@ -122,7 +122,7 @@ const PointsPayment = () => {
                       {currency.currencyCode}&nbsp;
                     </span>
                     {couponId && <>{coupon?.couponDetail?.balance}</>}
-                    {plan && planTime && <>{price}</>}
+                    {plan && planTime && <>{price.toFixed(2)}</>}
                   </h1>
                 </div>
                 <div
