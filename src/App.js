@@ -75,6 +75,11 @@ import ForgetPin from "./pages/Transactionpin/ForgetPin";
 import ForgetPinEmail from "./pages/Transactionpin/ForgetPinEmail";
 import ForgetPinOTP from "./pages/Transactionpin/ForgetPinOtp";
 import SessionExpiredModal from "./components/sessiondialog";
+import Resturant from "./pages/moreclub/Resturant/resturant";
+import RestroInfo from "./pages/moreclub/Resturant/info";
+import RestroDiscount from "./pages/moreclub/Resturant/discount";
+import RestroOffer from "./pages/moreclub/Resturant/offer";
+import RestroMenu from "./pages/moreclub/Resturant/menu";
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to="/login" />;
@@ -403,6 +408,34 @@ const App = () => {
     },
   ];
 
+  const resturant = [
+    {
+      path: "/resturant",
+
+      page: <Resturant />,
+    },
+    {
+      path: "/resturant/info",
+
+      page: <RestroInfo />,
+    },
+    {
+      path: "/resturant/discount",
+
+      page: <RestroDiscount />,
+    },
+    {
+      path: "/resturant/offer",
+
+      page: <RestroOffer />,
+    },
+    {
+      path: "/resturant/menu",
+
+      page: <RestroMenu />,
+    },
+  ];
+
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("sessionExpired");
@@ -477,6 +510,20 @@ const App = () => {
             />
           }
         />
+        {resturant.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <PrivateRoute
+                element={route.page}
+                isAuthenticated={
+                  !!sessionStorage.getItem("moretechglobal_access")
+                }
+              />
+            }
+          />
+        ))}
         <Route path="*" element={<NotFound />} />
       </Routes>
       <div className={isSessionExpired ? "blur-background" : ""}>

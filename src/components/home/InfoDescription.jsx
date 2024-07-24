@@ -5,12 +5,12 @@ const InfoDescription = ({ item }) => {
     <div className="about-content">
       {/* <h2>{item.title}</h2>
       <p>{item.description}</p> */}
-      {item.heading && <h3>{item.heading}</h3>}
+      {item.heading && <h2 className="mb-4">{item.heading}</h2>}
       {item.subheadings &&
         item.subheadings.map((sub, subIndex) => (
-          <div key={subIndex}>
-            <h6>{sub.title}</h6>
-            <p>{sub.description}</p>
+          <div key={subIndex} className="">
+            <h5 className="my-3">{sub.title}</h5>
+            <p className="fs-5 font-weight-normal my-3" style={{wordSpacing:"0.25rem", lineHeight:"1.75rem"}}>{sub.description}</p>
           </div>
         ))}
       {item.testimonial && (

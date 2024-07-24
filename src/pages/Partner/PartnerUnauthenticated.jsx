@@ -4,15 +4,13 @@ import { Col, Placeholder, Row } from "react-bootstrap";
 import { baseURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import OffersCard from "../../components/dashboard/Offercard";
-import { axiosInstance } from "../..";
+import axios from "axios";
 
-const PartnerContent = () => {
-
+const PartnerUnauthenticatedContent = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["partners data"],
     queryFn: async () => {
-      
-      const response = await axiosInstance.get(
+      const response = await axios.get(
         `${baseURL}business/our/partners/`
       );
       return response.data.data;
@@ -46,7 +44,7 @@ const PartnerContent = () => {
         {data.map((item) => (
           <Col className="d-flex flex-column">
             <OffersCard
-            id={item.id}
+              id={item.id}
               logo={item.business_logo}
               name={item.business_name}
               address={item.business_address}
@@ -61,4 +59,4 @@ const PartnerContent = () => {
   );
 };
 
-export default PartnerContent;
+export default PartnerUnauthenticatedContent;

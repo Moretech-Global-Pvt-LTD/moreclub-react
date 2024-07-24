@@ -6,7 +6,7 @@ import Hero from "../../components/home/hero";
 import Navbar from "../../components/header/Navbar";
 import Stat from "../../components/home/stat";
 import InfoContainer from "../../components/home/InfoContainer";
-import PricingCards from "../../components/pricing/PricingCard";
+
 import Featuredtext from "../../components/home/Featuredtext";
 import FreeButton from "../../components/home/FreeButton";
 import Testimonials from "../../components/home/Testimonials";
@@ -25,11 +25,7 @@ const Infodata1 = [
         description:
           "More Deals Club gives you everything you need to save money and earn rewards effortlessly. Manage your referrals, track your rewards, and enjoy exclusive discounts all in one place.",
       },
-      {
-        title: "Your Brand, Your Rewards",
-        description:
-          "Customize your experience with our white-label feature. Make the platform truly yours, showcasing your brand at every step. Your friends and customers will see your brand, ensuring you stand out and earn more.",
-      },
+      
       {
         title: "Sign Up Today and Start Earning!",
         description:
@@ -52,11 +48,7 @@ const Infodata1 = [
         description:
           "More Deals Club offers a complete solution for maximizing your savings and rewards. Easily manage your referrals, track rewards, and access exclusive discounts all in one place.",
       },
-      {
-        title: "Stand Out with Your Brand",
-        description:
-          "Our white-label feature lets you customize the platform with your own branding. Impress your friends and customers with a personalized experience, all while earning more.",
-      },
+      
       {
         title: "Sign Up Today and Start Earning!",
         description:
@@ -96,11 +88,6 @@ const Infodata2 = [
           "More Deals Club provides everything you need to boost your business. Manage your leads, track referrals, and increase sales effortlessly. Attract more customers and grow your business with our all-in-one platform.",
       },
       {
-        title: "Your Brand, Your Platform",
-        description:
-          "Customize the platform with your own branding using our white-label feature. Your clients will see your brand, enhancing your professional image and helping you stand out.",
-      },
-      {
         title: "Sign Up Today and Grow Your Earning!",
         description:
           "Join More Deals Club now and discover the ultimate platform for increasing sales, gaining more customers, and enjoying daily discounts. Don’t miss out—start growing your business and savings today!",
@@ -127,7 +114,10 @@ const Infodata2 = [
       },
     ],
   },
+];
+const Infodata3 = [
   {
+    image: About2,
     heading: "Join More Deals Club today and unlock a world of opportunities.",
     subheadings: [
       {
@@ -156,7 +146,7 @@ const Home = () => {
           Join The Most Successful Marketers On The Planet
         </h2>
         <p className="text-white fs-6">
-          Discover What HighLevel Can Do For You & Your Business
+          Discover What More Deals Can Do For You & Your Business
         </p>
         <div className="container">
           <FreeButton />
@@ -166,7 +156,9 @@ const Home = () => {
         </p>
       </Featuredtext>
       <Divider />
-      <PricingCards />
+      {/* <PricingCards /> */}
+      <InfoContainer data={Infodata3} />
+      <Divider />
       <Featuredtext>
         <h2 className="text-white">Want to hear more success stories?</h2>
 

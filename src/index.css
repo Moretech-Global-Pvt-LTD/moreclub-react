@@ -22808,6 +22808,34 @@ dropdown-no .nav-light-logo {
     height: 140px;
   }
 }
+
+.partner-logo {
+  width: auto;
+  height: 100px;
+}
+
+@media (min-width: 992) {
+  .partner-logo {
+    height: 120px;
+  }
+}
+
+@media (min-width: 720px) {
+  .partner-logo {
+    height: 140px;
+  }
+}
+
+@media (min-width: 1240px) {
+  .partner-logo {
+    height: 160px;
+  }
+}
+@media (min-width: 1500px) {
+  .partner-logo {
+    height: 180px;
+  }
+}
 /* @media (min-width: 1700px) {
   .navbar-logo {
     height: 160px;
@@ -24748,6 +24776,51 @@ textarea.form-control {
 .header-sidebar-wrap.sidebar-active {
   left: 0;
 }
+
+
+.sidebar-dropdown {
+  width: 100%;
+}
+
+.sidebar-dropdown-item {
+ 
+  margin-bottom: 10px;
+}
+
+.sidebar-dropdown-header {
+  background: transparent;
+  
+  cursor: pointer;
+  color: #8480ae;
+}
+
+.sidebar-dropdown-header h6 {
+  background: transparent;
+  
+  cursor: pointer;
+  color: #8480ae !important;
+}
+
+.sidebar-dropdown-body {
+  list-style: none;
+  padding-left: 1rem !important;
+  padding-top: 1rem !important ;
+  padding-bottom:1rem !important;
+  background-color:rgba(0, 0, 0, 0.4);
+  transition: 5s ease-in-out;
+}
+
+.sidebar-dropdown-body li {
+
+  padding-left: 0.5rem !important;
+}
+
+.sidebar-dropdown-body li a,
+.sidebar-dropdown-body li span {
+  text-decoration: none;
+  color: #333;
+}
+
 
 /* @media only screen and (min-width: 992px) {
     .header-sidebar-wrap {
@@ -27343,6 +27416,22 @@ span {
 
 .blur-background {
   filter: blur(5px);
+}
+
+.button-text{
+  font-Size:14px;
+}
+
+@media (max-width: 500px) {
+  .button-text {
+    font-Size:12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .button-text {
+    font-Size:16px;
+  }
 }
 
 /*# sourceMappingURL=main.c1c39487.css.map*/

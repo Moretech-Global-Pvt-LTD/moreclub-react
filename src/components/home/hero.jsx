@@ -56,17 +56,16 @@ const Hero = () => {
                   </Link>
                 </p> */}
                 <a href="/login">
-<div className="bg-danger px-4 py-2 mx-5 ">
-                  <h3 className="text-white text-center">TRY FOR FREE</h3>
-                  <p
-                    className="fs-6 fw-thin text-white text-center "
-                    style={{ whiteSpace: "nowrap" }}
-                  >
-                    TAKE YOUR BUSINESS TO NEXT LEVEL
-                  </p>
-                </div>
+                  <div className="bg-danger px-4 py-2 mx-5 ">
+                    <h3 className="text-white text-center">SIGNUP FOR FREE</h3>
+                    <p
+                      className="fw-thin text-white text-center button-text"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      TAKE YOUR BUSINESS TO NEXT LEVEL
+                    </p>
+                  </div>
                 </a>
-                
               </div>
             </div>
           </div>

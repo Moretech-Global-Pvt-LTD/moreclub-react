@@ -6,13 +6,12 @@ import Divider from "../../components/divider/Divider";
 import PartnerContent from "./PartnerContent";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 import LandingLayout from "../../components/Layout/LandingLayout";
+import PartnerUnauthenticatedContent from "./PartnerUnauthenticated";
 
 const PartnerPage = () => {
-  const user = useSelector((state) => state.userReducer);
-  if (user.isAuthenticated) {
+  if (!!sessionStorage.getItem("moretechglobal_access")) {
     return (
       <DashboardLayout title={"Our Partners"}>
-        {/* <div className="container"> */}
         <PartnerContent />
 
         {/* </div> */}
@@ -32,8 +31,8 @@ const PartnerPage = () => {
           ]}
         />
         <div className="container">
-        <PartnerContent />
-        <Divider/>
+          <PartnerUnauthenticatedContent />
+          <Divider />
         </div>
       </LandingLayout>
     );
