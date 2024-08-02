@@ -98,6 +98,9 @@ const BusinessUpdatePage = ({ business }) => {
     setAddress(address);
     setlat(place.lat);
     setlng(place.lng);
+    // await dispatch(updateFormData({ "business_address": address }));
+    // await dispatch(updateFormData({ "lat": place.lat }));
+    // await dispatch(updateFormData({ "lng": place.lng }));
   };
 
   // for handleAddress

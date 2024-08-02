@@ -1,18 +1,16 @@
 import React from "react";
 import { Button, Col, Placeholder, Row } from "react-bootstrap";
 import OffersCard from "./Offercard";
+import axios from "axios";
 import { baseURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { axiosInstance } from "../..";
 
 const DashboardOffers = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["offers data"],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${baseURL}business/our/partners/`
-      );
+      const response = await axios.get(`${baseURL}business/our/partners/`);
       return response.data.data;
     },
     staleTime: 1000,
@@ -50,7 +48,7 @@ const DashboardOffers = () => {
           </div>
           <Row xs={1} sm={2} md={2} lg={4} className="gx-3 gy-3">
             {data.slice(0, 4).map((item) => (
-              <Col className="d-flex flex-column">
+              <Col>
                 <OffersCard
                   id={item.id}
                   logo={item.business_logo}

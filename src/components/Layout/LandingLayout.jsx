@@ -1,23 +1,23 @@
-import React, { useEffect } from "react";
-import Footer from "../footer/Footer";
-import Divider from "../divider/Divider";
-import UniverslNavbar from "../header/Header";
+import React, { useEffect }  from 'react'
+import Header from '../header/Header'
+import Footer from '../footer/Footer'
+import Divider from '../divider/Divider'
 
-const LandingLayout = ({ children }) => {
+const LandingLayout = ({children}) => {
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <>
-      <UniverslNavbar />
-      <Divider />
-      <div className="divider-mobile" />
-      <div className="mt-3">{children}</div>
-
-      <Footer />
+    <Header/>
+    <Divider/>
+    <div className="divider-mobile"/>
+    {children}
+    <Footer/>  
     </>
-  );
-};
+  )
+}
 
-export default LandingLayout;
+export default LandingLayout

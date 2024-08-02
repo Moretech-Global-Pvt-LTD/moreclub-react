@@ -25,14 +25,14 @@ const OTPPhoneNumbers = ({ handleNext }) => {
     }
   }, [debouncedPhoneNumber, phoneNumber, chooseCountry]);
 
-  const validatePhoneNumber = (phoneNumber) => {
+  const validatePhoneNumber =(phoneNumber) => {
     if (phoneNumber.trim() === "") {
       return "Phone Number is required";
     } else if (`${chooseCountry}${phoneNumber}` !== userphonenumber) {
       return "Phone number doesnot match";
     } else {
-      //   message.success("phone Number matched");
-      //   localStorage.setItem("otp_phonenumber", `${chooseCountry}${phoneNumber}`);
+    //   message.success("phone Number matched");
+    //   localStorage.setItem("otp_phonenumber", `${chooseCountry}${phoneNumber}`);
       return "";
     }
   };
@@ -67,10 +67,9 @@ const OTPPhoneNumbers = ({ handleNext }) => {
   };
 
   return (
-    // <div className="col-12 col-md-6 col-xl-6">
-    <div className="col-12 ">
+    <div className="col-12 col-md-6 col-xl-5">
       <div className="register-card">
-        <h5>Phone Verify</h5>
+        <h2>Phone Verify</h2>
         <p>
           Confirm your Phone Number. OTP will be send to your registered phone
           number.

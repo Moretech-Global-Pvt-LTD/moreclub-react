@@ -1,17 +1,34 @@
-import React from "react";
-
-import ForgetPasswordChange from "./ForgetPasswordChange";
-import AuthLayout from "../../../components/Layout/AuthLayout";
+import React from 'react'
+import Header from '../../../components/header/Header'
+import Breadcrumb from '../../../components/breadcrumb/Breadcrumb'
+import Divider from '../../../components/divider/Divider'
+import Footer from '../../../components/footer/Footer'
+import ForgetPasswordChange from './ForgetPasswordChange'
 // import ForgetPasswordContent from '../../components/forgot_password/ForgetPasswordContent'
+
 
 const PasswordChangeContent = () => {
   return (
     <>
-      <AuthLayout>
-        <ForgetPasswordChange />
-      </AuthLayout>
-    </>
-  );
-};
+        <Header />
+        <Divider />
+        <Breadcrumb 
+            breadcrumbTitle="Change Password" 
+            breadcrumbNav={[
+                {
+                    navText: "Home",
+                    path: "/"
+                }
+            ]}
+        />
 
-export default PasswordChangeContent;
+        <ForgetPasswordChange />
+
+        <Divider />
+
+        <Footer />
+    </>
+  )
+}
+
+export default PasswordChangeContent

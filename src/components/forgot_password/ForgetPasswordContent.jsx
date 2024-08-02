@@ -10,18 +10,20 @@ import axios from "axios";
 
 export default function ForgetPasswordContent(props) {
   const { title, subTitle } = props;
-  //   const [inputUsername, setInputUsername] = useState();
+//   const [inputUsername, setInputUsername] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
 
+
   const debouncedEmail = useDebounce(email, 500);
 
   const validateEmail = async (email) => {
+
     const emailpattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailpattern.test(email)) {
-      return "Invalid email";
+      return"Invalid email";
     }
     try {
       const res = await axios.post(`${baseURL}auth/check/username/`, {
@@ -43,7 +45,9 @@ export default function ForgetPasswordContent(props) {
   useEffect(() => {
     const validateAndCheckPhone = async () => {
       if (debouncedEmail) {
-        const error = await validateEmail(debouncedEmail);
+        const error = await validateEmail(
+          debouncedEmail,
+        );
         setEmailError(error);
       } else {
         setEmailError("");
@@ -51,6 +55,8 @@ export default function ForgetPasswordContent(props) {
     };
     validateAndCheckPhone();
   }, [debouncedEmail]);
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -68,7 +74,7 @@ export default function ForgetPasswordContent(props) {
     <div className="register-area">
       <div className="container">
         <div className="row g-4 g-lg-5 align-items-center justify-content-between">
-          <div className="col-12 col-md-6 col-xl-5 ">
+          <div className="col-12 col-md-6 col-xl-5">
             <div className="register-card">
               <h2>{title}</h2>
               <p>{subTitle}</p>
@@ -76,7 +82,6 @@ export default function ForgetPasswordContent(props) {
               <div className="register-form mt-5">
                 <Form onSubmit={handleSubmit}>
                   <Form.Group className="mb-4">
-                    <Form.Label>Email Address</Form.Label>
                     <Form.Control
                       type="email"
                       placeholder="Enter email to reset password"
@@ -86,11 +91,7 @@ export default function ForgetPasswordContent(props) {
                     />
                     {emailError && <p className="text-danger">{emailError}</p>}
                   </Form.Group>
-                  <button
-                    className="btn btn-warning btn-sm"
-                    type="submit"
-                    disabled={emailError.trim() !== ""}
-                  >
+                  <button className="btn btn-warning btn-sm" type="submit" disabled={emailError.trim() !== ""}>
                     Reset Password
                   </button>
                 </Form>
@@ -98,12 +99,12 @@ export default function ForgetPasswordContent(props) {
             </div>
           </div>
 
-          <div className="col-12 col-md-6 ">
-            <div className="register-thumbnail mt-5 mt-md-0 d-none d-md-block">
+          <div className="col-12 col-md-6">
+            <div className="register-thumbnail mt-5 mt-md-0">
               <img
                 src={Forget}
                 alt="Forget"
-                style={{ width: "70%", height: "auto", margin: "auto" }}
+                style={{ width: "60%", height: "auto", margin: "auto" }}
               />
             </div>
           </div>

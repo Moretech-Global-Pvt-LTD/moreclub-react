@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import PINInput from "../../components/ui/PinInput";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { load_coupon_detail } from "../../redux/api/couponAPI";
 import { load_plan_detail } from "../../redux/api/membershipTypeAPI";
@@ -13,10 +13,8 @@ import CouponCard from "../../components/coupon/CouponCard";
 import PlanDetail from "./PlanDetail";
 import { userMembership } from "../../redux/api/userMembershipAPI";
 import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
-import { planDetailSuccess } from "../../redux/slices/membershipTypeSlice";
 
 const PointsPayment = () => {
-  const location = useLocation()
   const { couponId, planId, planTime } = useParams();
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState("");
@@ -46,25 +44,25 @@ const PointsPayment = () => {
     if (couponId) {
       dispatch(load_coupon_detail(couponId));
     }
-  }, [dispatch, couponId, location.pathname]);
+  }, [dispatch, couponId]);
 
   useEffect(() => {
     if (planId) {
       dispatch(load_plan_detail(planId));
     }
-  }, [dispatch, planId, location.pathname]);
+  }, [dispatch, planId]);
 
   useEffect(() => {
     if (plan && plan.planDetail.price) {
       if (planTime === "monthly") {
-        const prices = rate * plan.planDetail.price.toFixed(2);
+        const prices = rate * plan.planDetail.price;
         setPrice(prices);
       } else {
-        const prices = rate * plan.planDetail.yearly_price.toFixed(2);
+        const prices = rate * plan.planDetail.yearly_price;
         setPrice(prices);
       }
     }
-  }, [plan, planTime, price, location.pathname]);
+  }, [plan, planTime, price]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,7 +80,6 @@ const PointsPayment = () => {
         message.success("membership purchase Successfully");
         await dispatch(userMembership());
         navigate("/profile");
-        dispatch(planDetailSuccess({}));
       } catch (err) {
         message.error(err.response.data.errors?.non_field_errors[0]);
       }

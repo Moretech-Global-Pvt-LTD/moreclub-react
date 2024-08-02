@@ -13,7 +13,6 @@ import { useCookies } from "react-cookie";
 import { useDebounce } from "../../../Hooks/useDebounce";
 import { baseURL } from "../../../config/config";
 import axios from "axios";
-import ReactGA from "react-ga4";
 
 const LoginContent = (props) => {
   const dispatch = useDispatch();
@@ -28,10 +27,6 @@ const LoginContent = (props) => {
   const maxAttempts = 5;
   const expirationTime = 1 * 60 * 60 * 1000;
   const [cookies, setCookie] = useCookies(["failedAttempts"]);
-
-  ReactGA.send("page_view", {
-    page_path: '/login',
-  });
 
   const debouncedEmail = useDebounce(email, 1000);
 
@@ -91,11 +86,6 @@ const LoginContent = (props) => {
       const result = await dispatch(login(email, password));
       if (result?.status === 200) {
         setLoading(false);
-        //  ReactGA.event({
-        //    category: "Authentication",
-        //    action: "Login",
-        //    label: "Successful Login",
-        //  });
         redirect("/dashboard");
       } else {
         message.warning(`${5 - failedAttempts - 1} attempt remaining`);
@@ -134,125 +124,127 @@ const LoginContent = (props) => {
   };
 
   return (
-    <div className="container">
-      <div className="row g-4 g-lg-5 align-items-center justify-content-between ">
-        <div className="col-12 col-md-6 col-xl-5 ">
-          <div className="register-card">
-            <h2>{title}</h2>
-            <p>
-              {subTitle}
-              <Link className="ms-1 hover-primary" to={button[0].path}>
-                {button[0].text}
-              </Link>
-            </p>
-            <p>
-              login with
-              {loginType === "email" && (
-                <button
-                  className={`btn btn-success ms-2 rounded-pill btn-sm ${
-                    loginType === "email" ? "block" : "hidden"
-                  }`}
-                  onClick={() => handleLoginTypeChange("phoneNumber")}
-                >
-                  <i className="bi bi-phone"></i>&nbsp;Phone Number
-                </button>
-              )}
-              {loginType === "phoneNumber" && (
-                <button
-                  className={`btn  btn-sm rounded-pill btn-success ms-2 ${
-                    loginType === "phoneNumber" ? "block" : "hidden"
-                  }`}
-                  onClick={() => handleLoginTypeChange("email")}
-                >
-                  <i className="bi bi-envelope"></i>&nbsp;Email
-                </button>
-              )}
-            </p>
+    <div className="welcome-area">
+      <div className="container">
+        <div className="row g-4 g-lg-5 align-items-center justify-content-between ">
+          <div className="col-12 col-md-6 col-xl-5 ">
+            <div className="register-card">
+              <h2>{title}</h2>
+              <p>
+                {subTitle}
+                <Link className="ms-1 hover-primary" to={button[0].path}>
+                  {button[0].text}
+                </Link>
+              </p>
+              <p>
+                login with
+                {loginType === "email" && (
+                  <button
+                    className={`btn btn-success ms-2 rounded-pill btn-sm ${
+                      loginType === "email" ? "block" : "hidden"
+                    }`}
+                    onClick={() => handleLoginTypeChange("phoneNumber")}
+                  >
+                    <i className="bi bi-phone"></i>&nbsp;Phone Number
+                  </button>
+                )}
+                {loginType === "phoneNumber" && (
+                  <button
+                    className={`btn  btn-sm rounded-pill btn-success ms-2 ${
+                      loginType === "phoneNumber" ? "block" : "hidden"
+                    }`}
+                    onClick={() => handleLoginTypeChange("email")}
+                  >
+                    <i className="bi bi-envelope"></i>&nbsp;Email
+                  </button>
+                )}
+              </p>
 
-            {/* Login Form */}
-            <Zoom delay={500}>
-              {loginType === "email" && (
-                <div className="register-form mt-5">
-                  <Form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-4">
-                      <Form.Control
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                      />
-                      {emailError && (
-                        <p className="text-danger">{emailError}</p>
+              {/* Login Form */}
+              <Zoom delay={500}>
+                {loginType === "email" && (
+                  <div className="register-form mt-5">
+                    <Form onSubmit={handleSubmit}>
+                      <Form.Group className="mb-4">
+                        <Form.Control
+                          type="email"
+                          placeholder="Email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                        />
+                        {emailError && (
+                          <p className="text-danger">{emailError}</p>
+                        )}
+                      </Form.Group>
+
+                      <Form.Group className="mb-4 form-group">
+                        <label
+                          className="label-psswd"
+                          onClick={togglePassword}
+                          htmlFor="registerPassword"
+                        >
+                          {" "}
+                          {passwordShow ? "Hide" : "Show"}
+                        </label>
+                        <Form.Control
+                          type={passwordShow ? "text" : "password"}
+                          id="registerPassword"
+                          placeholder="Password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                        />
+                      </Form.Group>
+
+                      {failedAttempts >= maxAttempts && (
+                        <p className="text-danger text-center mt-0 mb-0">
+                          You have reached failedAttempts more than 5 times
+                        </p>
                       )}
-                    </Form.Group>
 
-                    <Form.Group className="mb-4 form-group">
-                      <label
-                        className="label-psswd"
-                        onClick={togglePassword}
-                        htmlFor="registerPassword"
+                      <button
+                        className="btn btn-success w-100"
+                        type="submit"
+                        disabled={
+                          loading ||
+                          failedAttempts >= maxAttempts ||
+                          emailError.trim() !== ""
+                        }
                       >
-                        {" "}
-                        {passwordShow ? "Hide" : "Show"}
-                      </label>
-                      <Form.Control
-                        type={passwordShow ? "text" : "password"}
-                        id="registerPassword"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
+                        {loading && (
+                          <span className="spinner-border spinner-border-sm text-danger"></span>
+                        )}{" "}
+                        Log In
+                      </button>
+                    </Form>
+
+                    <div className="login-meta-data d-flex align-items-center justify-content-between">
+                      <Form.Check
+                        className="mt-4"
+                        type="checkbox"
+                        id="keepMeLogin"
+                        label="Keep me logged in"
+                        defaultChecked
                       />
-                    </Form.Group>
-
-                    {failedAttempts >= maxAttempts && (
-                      <p className="text-danger text-center mt-0 mb-0">
-                        You have reached failedAttempts more than 5 times
-                      </p>
-                    )}
-
-                    <button
-                      className="btn btn-success w-100"
-                      type="submit"
-                      disabled={
-                        loading ||
-                        failedAttempts >= maxAttempts ||
-                        emailError.trim() !== ""
-                      }
-                    >
-                      {loading && (
-                        <span className="spinner-border spinner-border-sm text-danger"></span>
-                      )}{" "}
-                      Log In
-                    </button>
-                  </Form>
-
-                  <div className="login-meta-data d-flex align-items-center justify-content-between">
-                    <Form.Check
-                      className="mt-4"
-                      type="checkbox"
-                      id="keepMeLogin"
-                      label="Keep me logged in"
-                      defaultChecked
-                    />
-                    <Link
-                      className="forgot-password mt-4 text-primary fz-16"
-                      to="/forgot/password/"
-                    >
-                      Forgot Password?
-                    </Link>
+                      <Link
+                        className="forgot-password mt-4 text-primary fz-16"
+                        to="/forgot/password/"
+                      >
+                        Forgot Password?
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              )}
-              {loginType === "phoneNumber" && <LoginPhoneContent />}
-            </Zoom>
+                )}
+                {loginType === "phoneNumber" && <LoginPhoneContent />}
+              </Zoom>
+            </div>
           </div>
-        </div>
 
-        <div className="col-12 col-md-6 d-none d-md-block">
-          <div className="register-thumbnail mt-5 mt-md-0">
-            <img src={LoginImage} alt="Login" />
+          <div className="col-12 col-md-6 d-none d-md-block">
+            <div className="register-thumbnail mt-5 mt-md-0">
+              <img src={LoginImage} alt="Login" />
+            </div>
           </div>
         </div>
       </div>

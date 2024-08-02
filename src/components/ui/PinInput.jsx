@@ -3,7 +3,14 @@ import { Form } from "react-bootstrap";
 import axios from "axios";
 import { useDebounce } from "../../Hooks/useDebounce";
 
-
+// const validatePIN = async (pin) => {
+//   try {
+//     const response = await axios.post('/api/validate-pin', { pin });
+//     return response.data.valid ? '' : 'Invalid PIN';
+//   } catch (error) {
+//     return 'Error validating PIN';
+//   }
+// };
 
 const PINInput = ({ pin, setPin, pinError, setPinError }) => {
   const debouncedPIN = useDebounce(pin, 2000);

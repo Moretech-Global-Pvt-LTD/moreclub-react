@@ -1,15 +1,20 @@
 import React from "react";
+
+import Divider from "../../../components/divider/Divider";
 import ChangePasswordContent from "../../../components/password_change/PasswordChangeContent";
-import AuthLayout from "../../../components/Layout/AuthLayout";
+
+import LandingLayout from "../../../components/Layout/LandingLayout";
 
 const PasswordChange = () => {
   return (
-    <AuthLayout>
+    <LandingLayout>
       <ChangePasswordContent
         title="Change your Password"
         subTitle="Already have an account?"
       />
-    </AuthLayout>
+
+      <Divider />
+    </LandingLayout>
   );
 };
 

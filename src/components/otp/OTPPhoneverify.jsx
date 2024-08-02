@@ -63,14 +63,13 @@ const OTPPhoneArea = () => {
   };
 
   return (
-    // <div className="col-12 col-md-6 col-xl-6">
-    <div className="col-12 ">
+    <div className="col-12 col-md-6 col-xl-5">
       <div className="register-card">
-        <h5>OTP Verify</h5>
+        <h2>OTP Verify</h2>
         <p>
           Confirm your otp here. OTP is send to your registered phone number.
         </p>
-        <div className="register-form mt-2">
+        <div className="register-form mt-4">
           <Form
             ref={formRef}
             name="verify-form"
@@ -81,7 +80,7 @@ const OTPPhoneArea = () => {
               name="code"
               rules={[{ required: true, message: "Please input your name!" }]}
             >
-              <Input.OTP level={6} style={{ height: "90px" }} />
+              <Input.OTP level={6} style={{ height: "100px" }} />
             </Form.Item>
             <Form.Item>
               <Button type="submit" className="btn btn-sm pull-right">

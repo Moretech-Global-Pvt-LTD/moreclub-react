@@ -66,19 +66,18 @@ const OTPArea = () => {
   };
 
   return (
-    <div className="d-flex w-100 mt-md-4 mt-lg-0">
-      <div className="container ">
-        <div className="row g-4  g-lg-5 align-items-center justify-content-between ">
-          <div className="col-12 col-md-6 col-lg-6 col-xl-5 col-xxl-6 d-none d-xl-block d-md-block">
+    <div className="register-area">
+      <div className="container">
+        <div className="row g-4 g-lg-5 align-items-center justify-content-between">
+          <div className="col-12 col-md-6 col-xl-7 ">
             <div className="register-thumbnail mt-5 mt-md-0 ">
               <img
                 src="https://thumbs.dreamstime.com/b/otp-one-time-password-step-authentication-data-protection-internet-security-concept-otp-one-time-password-step-authentication-data-254434939.jpg"
                 alt="Register"
-                className="otp-image"
               />
             </div>
           </div>
-          <div className="col-12 col-md-6 col-lg-6 col-xl-7 col-xxl-6">
+          <div className="col-12 col-md-6 col-xl-5">
             <div className="register-card">
               <h2>OTP Verify</h2>
               <p>
@@ -86,7 +85,7 @@ const OTPArea = () => {
                 phone number.
               </p>
 
-              <div className="register-form mt-2">
+              <div className="register-form mt-4">
                 <Form
                   ref={formRef}
                   name="verify-form"
@@ -99,7 +98,7 @@ const OTPArea = () => {
                       { required: true, message: "Please input your name!" },
                     ]}
                   >
-                    <Input.OTP level={6} style={{ height: "90px" }} />
+                    <Input.OTP level={6} style={{ height: "100px" }} />
                   </Form.Item>
                   <Form.Item className="d-flex gap-2">
                     <Button variant="link" onClick={handleBack}>

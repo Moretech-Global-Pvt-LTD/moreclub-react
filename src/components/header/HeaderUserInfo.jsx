@@ -20,6 +20,22 @@ const HeaderUserInfo = () => {
       .join(" ");
   }
 
+  // const userInfo = [
+  //   {
+  //     thumbnail: `${user.user?.user_profile?.display_picture}`,
+  //     username: `${user.user?.first_name} ${user.user?.last_name ?? ""}`,
+  //     userType: `${user?.membershipType?.membership_type?.name ?? ""}`,
+  //   },
+  // ];
+
+  // const businessInfo = [
+  //   {
+  //     thumbnail: `${business?.businessProfile?.business_logo}`,
+  //     username: `${business?.businessProfile?.business_name ?? ""}`,
+  //     userType: `${user?.membershipType?.membership_type?.name ?? ""}`,
+  //   },
+  // ];
+
   return (
     <div className="user-profile">
       {/* User Name */}

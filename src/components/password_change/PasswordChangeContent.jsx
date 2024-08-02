@@ -10,33 +10,11 @@ import { axiosInstance } from "../..";
 import { userMembership } from "../../redux/api/userMembershipAPI";
 import { loadMembershipType } from "../../redux/api/membershipTypeAPI";
 import { getBusinessProfile } from "../../redux/api/userDetailAPI";
-import PasswordInput from "../ui/passwordInput";
 
 export default function ChangePasswordContent(props) {
   const { title, subTitle } = props;
   const [inputPassword1, setInputPassword1] = useState();
   const [inputPassword2, setInputPassword2] = useState();
-
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-
-  const validatePassword = (password) => {
-    const passwordPattern = /^(?!.*[\s`\-_+=<>]).{8,}$/;
-    if (!passwordPattern.test(password)) {
-      return "Password must be at least 8 characters long";
-    }
-    return "";
-  };
-
-  const handleConfirmPasswordChange = (value) => {
-    setInputPassword2(value);
-    if (value !== inputPassword1) {
-      setConfirmPasswordError("Passwords do not match");
-    } else {
-      setConfirmPasswordError("");
-    }
-  };
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -64,70 +42,50 @@ export default function ChangePasswordContent(props) {
   };
 
   return (
-    <div className="container">
-      <div className="row g-4 g-lg-5 align-items-center justify-content-between">
-        <div className="col-12 col-md-6 col-xl-5 ">
-          <div className="register-card">
-            <h2>{title}</h2>
-            <p>{subTitle}</p>
+    <div className="register-area">
+      <div className="container">
+        <div className="row g-4 g-lg-5 align-items-center justify-content-between">
+          <div className="col-12 col-md-6 col-xl-5">
+            <div className="register-card">
+              <h2>{title}</h2>
+              <p>{subTitle}</p>
 
-            <div className="register-form mt-3">
-              <Form onSubmit={handleSubmit}>
-                {/* <Form.Group className="mb-4">
-                  <Form.Label>New Password</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="New Password"
-                    onChange={(e) => setInputPassword1(e.target.value)}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-4">
-                  <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Confirm Password"
-                    onChange={(e) => setInputPassword2(e.target.value)}
-                    required
-                  />
-                </Form.Group> */}
-                <div className="row g-2">
-                  <PasswordInput
-                    label="New Password"
-                    id="phoneLoginPassword"
-                    value={inputPassword1}
-                    onChange={setInputPassword1}
-                    validatePassword={validatePassword}
-                    errorMessage={passwordError}
-                  />
-                  <PasswordInput
-                    label="Confirm New Password"
-                    id="confirmPassword"
-                    value={inputPassword2}
-                    onChange={handleConfirmPasswordChange}
-                    errorMessage={confirmPasswordError}
-                  />
-                </div>
-
-                <button
-                  className="btn btn-warning btn-sm mt-2"
-                  disabled={!!confirmPasswordError || !!passwordError}
-                  type="submit"
-                >
-                  Change Password
-                </button>
-              </Form>
+              <div className="register-form mt-5">
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group className="mb-4">
+                    <Form.Label>New Password</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="New Password"
+                      onChange={(e) => setInputPassword1(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-4">
+                    <Form.Label>Confirm Password</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Confirm Password"
+                      onChange={(e) => setInputPassword2(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+                  <button className="btn btn-warning btn-sm" type="submit">
+                    Change Password
+                  </button>
+                </Form>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="col-12 col-md-6  d-none d-md-block">
-          <div className="register-thumbnail mt-5 mt-md-0">
-            <img
-              src={PasswordchangeImage}
-              alt="Forget"
-              // style={{ width: "auto", height: "300px" }}
-            />
+          <div className="col-12 col-md-6 d-none d-md-block">
+            <div className="register-thumbnail mt-5 mt-md-0">
+              <img
+                src={PasswordchangeImage}
+                alt="Forget"
+                style={{ width: "auto", height: "300px" }}
+              />
+            </div>
           </div>
         </div>
       </div>
