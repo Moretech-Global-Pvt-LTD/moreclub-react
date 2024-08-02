@@ -29,7 +29,7 @@ const Infodata1 = [
       {
         title: "Sign Up Today and Start Earning!",
         description:
-          "Join More Deals Club now and unlock the ultimate platform for savings and rewards. Don't miss out on the easiest way to grow your benefits!",
+          "Join More Deals Club now and unlock the ultimate platform for savings and rewards. Don't miss out on the easiest way to grow your wallets!",
       },
     ],
     // testimonial: {
@@ -52,7 +52,7 @@ const Infodata1 = [
       {
         title: "Sign Up Today and Start Earning!",
         description:
-          "Join More Deals Club now and experience the ultimate platform for effortless savings and earnings. Don’t wait—unlock your benefits today!",
+          "Join More Deals Club now and experience the ultimate platform for effortless savings and earnings. Don’t wait ! Unlock your benefits today!",
       },
     ],
   },

@@ -13,6 +13,7 @@ import { useCookies } from "react-cookie";
 import { useDebounce } from "../../../Hooks/useDebounce";
 import { baseURL } from "../../../config/config";
 import axios from "axios";
+import ReactGA from "react-ga4";
 
 const LoginContent = (props) => {
   const dispatch = useDispatch();
@@ -27,6 +28,10 @@ const LoginContent = (props) => {
   const maxAttempts = 5;
   const expirationTime = 1 * 60 * 60 * 1000;
   const [cookies, setCookie] = useCookies(["failedAttempts"]);
+
+  ReactGA.send("page_view", {
+    page_path: '/login',
+  });
 
   const debouncedEmail = useDebounce(email, 1000);
 
@@ -86,6 +91,11 @@ const LoginContent = (props) => {
       const result = await dispatch(login(email, password));
       if (result?.status === 200) {
         setLoading(false);
+        //  ReactGA.event({
+        //    category: "Authentication",
+        //    action: "Login",
+        //    label: "Successful Login",
+        //  });
         redirect("/dashboard");
       } else {
         message.warning(`${5 - failedAttempts - 1} attempt remaining`);

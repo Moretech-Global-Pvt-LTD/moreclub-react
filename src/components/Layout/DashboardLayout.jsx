@@ -4,10 +4,16 @@ import Footer from "../footer/Footer";
 import Divider from "../divider/Divider";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
 import Footbar from "../footbar/footbar";
+import { useLocation } from "react-router-dom";
+import ReactGA from "react-ga4";
 
 const DashboardLayout = ({ children, title }) => {
+  const location = useLocation()
   useEffect(() => {
     window.scrollTo(0, 0);
+    ReactGA.send("page_view", {
+      page_path: location.pathname,
+    });
   }, []);
 
   return (

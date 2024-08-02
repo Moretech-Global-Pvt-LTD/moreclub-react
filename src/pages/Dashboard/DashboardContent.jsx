@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Card, Col, Placeholder, Row } from "react-bootstrap";
+import { Button, Card, Col, Placeholder, Row } from "react-bootstrap";
 import Chart from "../../components/dashboard/chart";
 import QuickLinks from "../../components/dashboard/quickLinks";
 import Topcards from "../../components/dashboard/topcards";
@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import Blackqr from "../../images/Qr/qrblack.png";
 import Whiteqr from "../../images/Qr/qrwhite.png";
 import EventDashboardDisplay from "../../components/event/EventDashboardDisplay";
+import PopularResturant from "../../components/Moreclub/morefood/PopularResturant";
 
 const DashboardContent = () => {
   const user = useSelector((state) => state.userReducer);
@@ -287,6 +288,15 @@ const DashboardContent = () => {
         <Row>
           <DashboardOffers />
         </Row>
+        {/* <Row className="mt-4">
+          <div className="d-flex justify-content-between align-item-center">
+            <h2 className="mt-4 mb-3">Popular Resturants </h2>
+            <Link to="/morefood">
+              <Button variant="link">View All</Button>
+            </Link>
+          </div>
+          <PopularResturant />
+        </Row> */}
         {/* <Row>
             <h2 className="mt-4 mb-3">Offers Nearby</h2>
             <Row sm={2} md={4} className="gx-3 gy-3">

@@ -1,15 +1,13 @@
 import React from "react";
 import DashboardLayout from "../../../components/Layout/DashboardLayout";
+import InfoUpdateTabs from "./UpdateTabs";
 
-import InfoTabs from "./InfoLayout";
-
-const RestroInfo = () => {
+const RestroUpdateInfo = () => {
   return (
     <DashboardLayout>
-      <InfoTabs/>
-      
+      <InfoUpdateTabs />
     </DashboardLayout>
   );
 };
 
-export default RestroInfo;
+export default RestroUpdateInfo;

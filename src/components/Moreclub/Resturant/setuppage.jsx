@@ -1,155 +1,112 @@
 import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Image, Row } from "react-bootstrap";
 import Menu from "../../../images/moreclub/menu.png";
-import Setup from "../../../images/moreclub/setup.png";
-import Resturant from "../../../images/moreclub/resturant.png";
 import Offers from "../../../images/moreclub/offer.png";
-import Check from "../../../images/moreclub/check.png";
-import { Link } from "react-router-dom";
+import Orders from "../../../images/moreclub/order.png";
+import { Link, useParams } from "react-router-dom";
 
-const Setuppage = () => {
+const Setuppage = ({ data }) => {
+  const { id } = useParams();
+
+  const slug = data.name.replace(" ", "-");
   return (
     <div>
-      <Row xs={1} md={2} xl={3} xxl={4} className="g-4">
-        <Link
-          to={"/resturant/info"}
-          className="col-md-12 col-xl-8 col-xxl-6 d-flex flex-column"
-        >
-          <Col>
-            <Card className="p-2">
-              <Card.Title className="text-dynamic-white text-center">
-                Resturant Info
-              </Card.Title>
-              <Card.Body className="d-flex justify-content-between">
-                <ul>
-                  {/* <div
-                  className="partner-logo-wrapper ms-0 me-0 d-flex justify-content-center align-items-center text-uppercase"
-                  style={{
-                    width: "45px",
-                    height: "45px",
-                    objectFit: "contain",
-                    backgroundColor: "#fff",
-                  }}
-                >
-                  NL
-                </div> */}
-
-                  {/* <img
-                  src={Check}
-                  style={{
-                    width: "45px",
-                    height: "45px",
-                    objectFit: "contain",
-                    backgroundColor: "#fff",
-                  }}
-                  alt="Profile"
-                  className="img-fluid rounded-circle mb-3 profile-image"
-                /> */}
-                  <li className="d-flex justify-content-between">
-                    {/* <h6>Name</h6> */}
-                    <h6>Newari Resturant</h6>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    {/* <h6>Location</h6> */}
-                    <h6>Pokhara chipledhunga</h6>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    {/* <h6>Contact</h6> */}
-                    <h6>+977 982234232</h6>
-                  </li>
-                  <li className="d-flex justify-content-between">
-                    {/* <h6>Contact</h6> */}
-                    <p className="line-clamp-1">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Quas incidunt commodi aspernatur vel placeat iste dolorum
-                      optio aperiam autem nulla, totam pariatur ad, excepturi
-                      facere possimus. Eos impedit amet beatae asperiores
-                      aliquam ipsa quod.
-                    </p>
-                  </li>
-                </ul>
-                <img
-                  src={Check}
-                  alt="setup"
-                  className="px-2 py-1 rounded "
-                  style={{ height: "5rem", placeSelf: "end" }}
-                />
-                {/* <img
-                src={Setup}
-                alt="menu"
-                className="px-2 py-1 rounded "
-                style={{ height: "5rem", placeSelf: "end" }}
-              /> */}
-              </Card.Body>
-            </Card>
-          </Col>
-        </Link>
-        <Link to={"/resturant/menu"} className="d-flex flex-column">
-          <Col className="d-flex flex-column">
+      <Row className="mt-4 align-items-center">
+        <Col xs={12} md={6} className="restaurant-info">
+          <img
+            src={data.logo}
+            alt="setup"
+            className="px-2 py-1 rounded-circle profile-image"
+            style={{ height: "5rem", placeSelf: "center" }}
+          />
+          <div className="restaurant-details">
+            <h2>{data.name}</h2>
+            <p>
+              <i class="bi bi-geo-alt"></i>&nbsp; {data.address}
+            </p>
+            <p>
+              {data.is_delivery && "Free Delivery |"}{" "}
+              {data.is_pickup && "Pick up |"} {data.is_dine && "Dine In |"}{" "}
+              {data.currency_code}&nbsp;
+              {data.min_order} Minimum | {data.delivery_time} service
+            </p>
+            <p>{data.description}</p>
+          </div>
+          <Link to={`/resturant/info/${id}`}>
+            <Button variant="warning">{"Edit"}</Button>
+          </Link>
+        </Col>
+        <Col xs={12} md={6}>
+          <Image
+            src={data.banner}
+            alt="banner"
+            className="px-2 py-1 rounded-3"
+            style={{ placeSelf: "center", maxHeight: "15rem" }}
+          />
+        </Col>
+      </Row>
+     
+      <Row xs={2} sm={3} md={4} lg={5} xl={6} xxl={10} className="mt-4">
+        <Link to={`/resturant/${id}/menu/`} className="d-flex flex-column ">
+          <Col className="d-flex flex-column ">
             <Card className="p-2 flex-grow-1">
-              <Card.Title className="text-dynamic-white text-center">
-                Menus
-              </Card.Title>
-              <Card.Body className="d-flex justify-content-between">
+              <Card.Body className="d-flex justify-content-center">
                 <img
                   src={Menu}
                   alt="menu"
                   className="px-2 py-1 rounded  "
-                  style={{ height: "7rem", backgroundColor: "white" }}
-                />
-                <img
-                  src={Setup}
-                  alt="menu"
-                  className="px-2 py-1 rounded "
-                  style={{ height: "5rem", placeSelf: "end" }}
+                  style={{ height: "4rem",  }}
                 />
               </Card.Body>
+              <Card.Title className="text-dynamic-white text-center">
+                Menus
+              </Card.Title>
             </Card>
           </Col>
         </Link>
-        <Link to={"/resturant/offer"} className="d-flex flex-column">
+        <Link to={`/resturant/${id}/offer/${slug}`} className="d-flex flex-column ">
           <Col className="d-flex flex-column">
             <Card className="p-2 flex-grow-1">
-              <Card.Title className="text-dynamic-white text-center">
-                Offers
-              </Card.Title>
-              <Card.Body className="d-flex justify-content-between">
+              <Card.Body className="d-flex justify-content-center">
                 <img
                   src={Offers}
                   alt="menu"
                   className="px-2 py-1 rounded "
-                  style={{ height: "7rem" }}
+                  style={{ height: "4rem" }}
                 />
-                <img
+                {/* <img
                   src={Setup}
                   alt="menu"
                   className="px-2 py-1 rounded "
                   style={{ height: "5rem", placeSelf: "end" }}
-                />
+                /> */}
               </Card.Body>
+              <Card.Title className="text-dynamic-white text-center">
+                Offers
+              </Card.Title>
             </Card>
           </Col>
         </Link>
-        <Link to={"/resturant/discount"} className="d-flex flex-column">
+        <Link to={`/resturant/${id}/orders`} className="d-flex flex-column ">
           <Col className="d-flex flex-column">
             <Card className="p-2 flex-grow-1">
-              <Card.Title className="text-dynamic-white text-center">
-                Discounts
-              </Card.Title>
-              <Card.Body className="d-flex justify-content-between">
+              <Card.Body className="d-flex justify-content-center">
                 <img
-                  src={Menu}
+                  src={Orders}
                   alt="menu"
                   className="px-2 py-1 rounded "
-                  style={{ height: "7rem", backgroundColor: "white" }}
+                  style={{ height: "4rem" }}
                 />
-                <img
+                {/* <img
                   src={Setup}
                   alt="menu"
                   className="px-2 py-1 rounded "
                   style={{ height: "5rem", placeSelf: "end" }}
-                />
+                /> */}
               </Card.Body>
+              <Card.Title className="text-dynamic-white text-center">
+                Orders
+              </Card.Title>
             </Card>
           </Col>
         </Link>
