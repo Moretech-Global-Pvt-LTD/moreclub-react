@@ -84,7 +84,7 @@ const RegistrationForm = (props) => {
   return (
     <>
       {!businessRegistration ? (
-        <div className={`registerform`}>
+        <div className={`registerform mt-0`}>
           <PaginateBar />
           <div className="card register-form-wrapper">
             {step.userStep === 1 && <UserBasicForm />}

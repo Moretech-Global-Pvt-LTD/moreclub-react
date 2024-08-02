@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   loading: false,
   currencyDetail: {
-    currencyCode: "EUR",
-    symbol: "€",
+    currencyCode: "",
+    symbol: "",
   },
 };
 

@@ -80,7 +80,7 @@ const UserProfile = ({ users }) => {
               </div>
               <div className="nft-card card shadow-sm mb-4 p-4">
                 <h4 className="linked-heading">
-                  Get Referals{" "}
+                  Refer & Earn{" "}
                   {/* <a className="btn btn-link" href={`/pricing`}>
                     Change Plan
                   </a> */}

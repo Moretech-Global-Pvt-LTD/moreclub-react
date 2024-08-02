@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 import ScrollToTop from "react-scroll-to-top";
 import { load_user, logout } from "./redux/api/loginAPI";
@@ -26,7 +26,6 @@ import { getBusinessProfile } from "./redux/api/userDetailAPI";
 
 import PricingPage from "./pages/Pricing/Pricing";
 import ViewCoupon from "./pages/Coupon/ViewCoupon";
-import CouponDetail from "./pages/Coupon/CouponDetail";
 import ProfileChange from "./pages/UserPages/profile/ProfileChange";
 import UserTransaction from "./pages/Transactions/UserTransaction";
 
@@ -42,7 +41,6 @@ import NetworkPage from "./pages/Network/NetworkPage";
 import BusinessDocumentPage from "./pages/Businesspages/BusinessUpdate/BusinessDocumentPage";
 import LearmMorePage from "./pages/LearnMore/LearmMorePage";
 import PartnerPage from "./pages/Partner/PartnerPage";
-import LoginPhoneNumber from "./pages/AuthAndRegisterPages/Login/LoginPhonenumber";
 import NetworkMessage from "./pages/Network/NetworkMessage";
 
 import { loadUserPermissions } from "./redux/api/PermissionsAPI";
@@ -77,6 +75,20 @@ import ForgetPin from "./pages/Transactionpin/ForgetPin";
 import ForgetPinEmail from "./pages/Transactionpin/ForgetPinEmail";
 import ForgetPinOTP from "./pages/Transactionpin/ForgetPinOtp";
 import SessionExpiredModal from "./components/sessiondialog";
+import Resturant from "./pages/moreclub/Resturant/resturant";
+import RestroInfo from "./pages/moreclub/Resturant/info";
+import RestroDiscount from "./pages/moreclub/Resturant/discount";
+import RestroOffer from "./pages/moreclub/Resturant/offer";
+import RestroMenu from "./pages/moreclub/Resturant/menu";
+import ReactGA from "react-ga4";
+import { GoogleAnalytics } from "./config/config";
+import Setup from "./pages/moreclub/Resturant/setup";
+import RestroMenuItem from "./pages/moreclub/Resturant/MenuItem";
+import RestroOfferCreate from "./pages/moreclub/Resturant/CreateOffer";
+import RestroUpdateInfo from "./pages/moreclub/Resturant/Update";
+import FoodItem from "./components/Moreclub/Resturant/FoodItem";
+import ResturantOrder from "./pages/moreclub/Resturant/ResturantOrder";
+import Morefood from "./pages/moreclub/morefood/morefood";
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to="/login" />;
@@ -86,8 +98,11 @@ const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
+  const key = GoogleAnalytics;
 
   useEffect(() => {
+    ReactGA.initialize(key);
+
     const handleSessionExpired = () => {
       setIsSessionExpired(sessionStorage.getItem("sessionExpired"));
     };
@@ -123,11 +138,6 @@ const App = () => {
       path: "/login",
 
       page: <Login />,
-    },
-    {
-      path: "/login-phonenumber",
-
-      page: <LoginPhoneNumber />,
     },
     {
       path: "/register-membership",
@@ -227,11 +237,6 @@ const App = () => {
       path: "/coupon/",
 
       page: <AllCoupon />,
-    },
-    {
-      path: "/coupon/:couponId",
-
-      page: <CouponDetail />,
     },
     {
       path: "/scan",
@@ -415,6 +420,67 @@ const App = () => {
     },
   ];
 
+  const resturant = [
+    {
+      path: "/resturant",
+
+      page: <Resturant />,
+    },
+    {
+      path: "/morefood",
+
+      page: <Morefood />,
+    },
+    {
+      path: "/resturant/info/",
+
+      page: <RestroInfo />,
+    },
+    {
+      path: "/resturant/info/:id",
+
+      page: <RestroUpdateInfo />,
+    },
+    {
+      path: "/resturant/setup/:id",
+
+      page: <Setup />,
+    },
+    {
+      path: "/resturant/:res_id/orders",
+      page: <ResturantOrder />,
+    },
+    {
+      path: "/resturant/:res_id/discount",
+
+      page: <RestroDiscount />,
+    },
+    {
+      path: "/resturant/:res_id/offer/create/:slug",
+
+      page: <RestroOfferCreate />,
+    },
+    {
+      path: "/resturant/:res_id/offer/:slug",
+
+      page: <RestroOffer />,
+    },
+    {
+      path: "/resturant/:res_id/menu",
+
+      page: <RestroMenu />,
+    },
+    {
+      path: "/resturant/:res_id/menu/:cat_id/:slug",
+
+      page: <RestroMenuItem />,
+    },
+    {
+      path: "/resturant/:res_id/:cat_id/:id",
+      page: <FoodItem />,
+    },
+  ];
+
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("sessionExpired");
@@ -489,6 +555,20 @@ const App = () => {
             />
           }
         />
+        {resturant.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <PrivateRoute
+                element={route.page}
+                isAuthenticated={
+                  !!sessionStorage.getItem("moretechglobal_access")
+                }
+              />
+            }
+          />
+        ))}
         <Route path="*" element={<NotFound />} />
       </Routes>
       <div className={isSessionExpired ? "blur-background" : ""}>

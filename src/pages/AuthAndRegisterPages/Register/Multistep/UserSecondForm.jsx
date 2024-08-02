@@ -194,6 +194,7 @@ const UserSecondForm = ({ handleSubmit, loading }) => {
         />
         <a
           href={`${hostURL}/terms`}
+          rel="noreferrer"
           target="_blank"
           className="text-warning"
           style={{ fontSize: "12px" }}

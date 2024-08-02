@@ -3,9 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Dropdown from "react-bootstrap/Dropdown";
 import useStickyHeader from "./StickyHeader";
-// import NotificationData from "../../../data/dashboard/notification-data.json";
-import BrandLogo from "../../images/logo/MembersClubWhite.png";
-import BrandBlackLogo from "../../images/logo/MembersClubblack.png";
+
 import { useDispatch, useSelector } from "react-redux";
 import { baseURL, imageURL } from "../../config/config";
 import { logout } from "../../redux/api/loginAPI";
@@ -31,7 +29,7 @@ const HeaderDashboard = () => {
   const navigate = useNavigate();
 
   const wallet = useSelector((state) => state.walletReducer);
-
+  const metainfo = useSelector((state) => state.metaReducer);
   const currency = useSelector((state) => state.currencyReducer.currencyDetail);
 
   // const dispatch = useDispatch();
@@ -154,25 +152,18 @@ const HeaderDashboard = () => {
               <div className="admin-logo me-2 me-sm-3">
                 <Link className="d-flex align-items-center" to="/dashboard">
                   <img
-                    className="nav-light-logo"
-                    src={BrandBlackLogo}
+                    className="nav-light-logo dashboard-header-logo "
+                    src={`${metainfo.meta?.black_logo}`}
                     alt="Light"
-                    style={{ width: "auto", height: "60px" }}
                   />
                   <img
-                    className="nav-dark-logo"
-                    src={BrandLogo}
+                    className="nav-dark-logo dashboard-header-logo "
+                    src={`${metainfo.meta?.white_logo}`}
                     alt="Dark"
-                    style={{ width: "auto", height: "60px" }}
                   />
                 </Link>
               </div>
             </div>
-            {/* <center>
-              <HeaderMenu/>
-              
-            </center> */}
-
             {/* Header Meta */}
             <div className="header-meta d-flex align-items-center  ">
               <ThemeToggler />
@@ -224,7 +215,8 @@ const HeaderDashboard = () => {
                         : `${user.user?.user_profile?.display_picture}`
                     }
                     alt=""
-                    className="user-btn"
+                    className="user-btn bg-white border border-primary"
+                    style={{ padding: "1px" }}
                   />
                 </Dropdown.Toggle>
 

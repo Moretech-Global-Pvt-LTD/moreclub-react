@@ -100,6 +100,12 @@ const ProfileCard = ({ user, membershipType }) => {
                   style={{ background: "white" }}
                 /> */}
                 <img src={`${user.user.qr_code}`} alt="qr" />
+                <span
+                  className="text-warning text-center mt-2 mx-auto"
+                  style={{ fontSize: "12px" }}
+                >
+                  Discount QR code
+                </span>
               </div>
               <div className="col-8 text-dynamic-white text-end">
                 <img

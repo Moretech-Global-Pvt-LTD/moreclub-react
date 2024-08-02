@@ -6,6 +6,13 @@ import CarouselEventCard from "../cards/CarouselEventCard";
 
 const EventCarousel = ({ data }) => {
   const responsive = {
+   
+    xxxxlDesktop: {
+      breakpoint: { max: 4000, min: 1900 },
+      items: 5,
+      slidesToSlide: 1, // optional, default to 1.
+      partialVisibilityGutter: 70,
+    },
     xxxlDesktop: {
       breakpoint: { max: 1900, min: 1700 },
       items: 4,
@@ -71,7 +78,7 @@ const EventCarousel = ({ data }) => {
   return (
     <Carousel
       responsive={responsive}
-      containerClass="ms-3 pb-4"
+      containerClass="ms-3 pb-4 w-full"
       itemClass=""
       autoPlay={true}
       transitionDuration={5000}
@@ -82,6 +89,10 @@ const EventCarousel = ({ data }) => {
       infinite={true}
       partialVisbile={true}
       removeArrowOnDeviceType={[
+        "xxxxlDesktop",
+        "xxxlDesktop",
+        "xxlDesktop",
+        "xlDesktop",
         "largedesktop",
         "mediumDesktop",
         "smallDesktop",

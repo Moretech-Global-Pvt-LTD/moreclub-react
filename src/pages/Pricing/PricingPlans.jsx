@@ -63,7 +63,7 @@ export default function PricingPlans({ title }) {
   }
 
   if (isError) {
-    return <div className="text-dynamic-white">Error: reteriving</div>;
+    return <div className="text-dynamic-white">Error: retriving</div>;
   }
 
   const PricingsCard = ({ mst }) => {
@@ -71,7 +71,7 @@ export default function PricingPlans({ title }) {
     const yearlyRate = mst.yearly_price * rate;
 
     return (
-      <div className="col my-2 pricing-width mx-auto mx-sm-0">
+      <div className="col my-2 pricing-width mx-auto mx-sm-0 ">
         <div
           className="nft-card card featured-card border-0 bg-gray "
           // style={{ maxWidth: "250px" }}
@@ -167,7 +167,7 @@ export default function PricingPlans({ title }) {
                 {mst.id !== user?.membershipType?.membership_type?.id ? (
                   <Link
                     className={`btn btn-danger btn-sm hover-primary`}
-                    to={`/buy/plan/${mst.id}/${activeTab}`}
+                    href={`/buy/plan/${mst.id}/${activeTab}`}
                   >
                     <i className={`bi bi-cart me-1`}></i>
                     Buy
