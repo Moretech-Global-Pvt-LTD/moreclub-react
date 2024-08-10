@@ -49,7 +49,7 @@ const HeaderDashboardMenu = () => {
       ];
 
   return (
-    <div className="sidenav pb-5">
+    <div className="sidenav pb-5 " style={{zIndex:"200px"}}>
       <ul>
         <li>User Menu</li>
         <li>
@@ -135,8 +135,7 @@ const HeaderDashboardMenu = () => {
             </NavLink>
           </li>
         )} */}
-      </ul>
-      {user.user?.user_type !== "NORMAL" && (
+         {user.user?.user_type !== "NORMAL" && (
         <>
           {business.businessProfile.is_verified && (
             <>
@@ -144,7 +143,8 @@ const HeaderDashboardMenu = () => {
                 SidebarDropDownMenu
                 menuIcon={"bi-building"}
                 menuTitle="Business Menu"
-                links={businessMenuLinks}
+                  links={businessMenuLinks}
+                 
               >
                 {permisions.permission && permisions.permission.billing ? (
                   <li>
@@ -201,6 +201,7 @@ const HeaderDashboardMenu = () => {
                 menuIcon={"bi-building"}
                 menuTitle="More Food"
                 links={MoreClubLinks}
+                 
               >
                 <li>
                   <NavLink to={"/Resturant"}>
@@ -239,6 +240,8 @@ const HeaderDashboardMenu = () => {
           )}
         </>
       )}
+      </ul>
+     
     </div>
   );
 };

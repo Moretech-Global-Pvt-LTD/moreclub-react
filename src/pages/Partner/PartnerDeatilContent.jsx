@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Col, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import MapComponent from "../../components/Googlemap/LocationViewer";
+import MapboxComponent from "../../components/Googlemap/MapboxComponent";
 
 const PartnerDeatilContent = ({ company }) => {
   return (
@@ -84,23 +85,12 @@ const PartnerDeatilContent = ({ company }) => {
               </div>
               <div className="mt-4">
                 <h5>Google Map Location</h5>
-                <MapComponent
+                <MapboxComponent
                   lat={company.lat}
                   lng={company.lng}
                   detail={company.business_address}
                   title={company.business_name}
                 />
-                {/* <iframe
-                  title="Google Map"
-                  src={`https://www.google.com/maps?q=${encodeURIComponent(
-                    company.business_address
-                  )}&output=embed`}
-                  width="100%"
-                  height="300"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                ></iframe> */}
               </div>
             </Card.Body>
           </Card>

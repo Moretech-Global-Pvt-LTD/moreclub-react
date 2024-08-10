@@ -66,6 +66,7 @@ export default function FeaturedNFT(props) {
         `${baseURL}members/all/membership_type/`
       );
       const data = await response.data.data;
+      console.log(data)
       return data;
     },
   });
@@ -93,7 +94,9 @@ export default function FeaturedNFT(props) {
   }
 
  
-  const PricingCards =data.map((mst, index) => (
+  const PricingCards = data.map((mst, index) => (
+    
+   
     <div key={index}>
       <div className="nft-card card featured-card border-0 bg-gray max-width-pricing">
         <div className="img-wrap">
@@ -188,7 +191,12 @@ export default function FeaturedNFT(props) {
         </div>
       </div>
     </div>
+
+
+    
   ));
+
+  
 
   return (
     <div className="featured-nfts-wrap">

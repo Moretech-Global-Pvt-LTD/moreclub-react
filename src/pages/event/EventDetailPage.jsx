@@ -24,6 +24,7 @@ import PINInput from "../../components/ui/PinInput";
 import LocationDisplay from "../../components/Googlemap/LocationViewer";
 import MapComponent from "../../components/Googlemap/LocationViewer";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
+import MapboxComponent from "../../components/Googlemap/MapboxComponent";
 
 const EventDetailPage = () => {
   const { eventId } = useParams();
@@ -297,14 +298,14 @@ const EventDetailPage = () => {
       </div>
       <div>
         <div class="animated fadeInUp " style={{ animationDuration: "1s" }}>
-          <MapComponent
+          <MapboxComponent
             lat={data.eventdata.lat}
             lng={data.eventdata.lng}
             title={data.eventdata.name}
             detail={data.eventdata.location}
             extraInfo={`<span
               className="text-dynamic-white"
-              style={{ fontSize: "14px" margin:"0px"}}
+              style={{ fontSize: "10px" margin:"0px"}}
             >
               Start From:&nbsp;
               ${moment(data.eventdata.start_date).format("dddd DD MMM, YY")}
@@ -317,6 +318,8 @@ const EventDetailPage = () => {
               ${moment.utc(data.eventdata.end_date).local().format("h:mm a")}
             </span>`}
           />
+
+          
         </div>
       </div>
 

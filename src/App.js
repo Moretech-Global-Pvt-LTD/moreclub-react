@@ -76,19 +76,21 @@ import ForgetPinEmail from "./pages/Transactionpin/ForgetPinEmail";
 import ForgetPinOTP from "./pages/Transactionpin/ForgetPinOtp";
 import SessionExpiredModal from "./components/sessiondialog";
 import Resturant from "./pages/moreclub/Resturant/resturant";
-import RestroInfo from "./pages/moreclub/Resturant/info";
+import RestroInfo from "./pages/moreclub/Resturant/Info/info";
 import RestroDiscount from "./pages/moreclub/Resturant/discount";
-import RestroOffer from "./pages/moreclub/Resturant/offer";
-import RestroMenu from "./pages/moreclub/Resturant/menu";
+import RestroOffer from "./pages/moreclub/Resturant/Offers/offer";
+import RestroMenu from "./pages/moreclub/Resturant/Menu/menu";
 import ReactGA from "react-ga4";
 import { GoogleAnalytics } from "./config/config";
 import Setup from "./pages/moreclub/Resturant/setup";
-import RestroMenuItem from "./pages/moreclub/Resturant/MenuItem";
-import RestroOfferCreate from "./pages/moreclub/Resturant/CreateOffer";
-import RestroUpdateInfo from "./pages/moreclub/Resturant/Update";
-import FoodItem from "./components/Moreclub/Resturant/FoodItem";
-import ResturantOrder from "./pages/moreclub/Resturant/ResturantOrder";
+import RestroMenuItem from "./pages/moreclub/Resturant/Menu/MenuItem";
+import RestroOfferCreate from "./pages/moreclub/Resturant/Offers/CreateOffer";
+import RestroUpdateInfo from "./pages/moreclub/Resturant/Info/Update";
+import FoodItem from "./components/Moreclub/Resturant/Menu/FoodItem";
+import ResturantOrder from "./pages/moreclub/Resturant/Orders/ResturantOrder";
 import Morefood from "./pages/moreclub/morefood/morefood";
+import OrderDetails from "./pages/moreclub/Resturant/Orders/orderDetail";
+import GalleryPage from "./pages/moreclub/Resturant/Gallery/GalleryPage";
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to="/login" />;
@@ -447,8 +449,12 @@ const App = () => {
       page: <Setup />,
     },
     {
-      path: "/resturant/:res_id/orders",
+      path: "/resturant/:res_id/orders/:slug",
       page: <ResturantOrder />,
+    },
+    {
+      path: "/resturant/:res_id/orders/:slug/:ord_id",
+      page: <OrderDetails />,
     },
     {
       path: "/resturant/:res_id/discount",
@@ -464,6 +470,11 @@ const App = () => {
       path: "/resturant/:res_id/offer/:slug",
 
       page: <RestroOffer />,
+    },
+    {
+      path: "/resturant/:res_id/gallery/:slug",
+
+      page: <GalleryPage />,
     },
     {
       path: "/resturant/:res_id/menu",

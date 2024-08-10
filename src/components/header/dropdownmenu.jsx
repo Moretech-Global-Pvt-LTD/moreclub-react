@@ -6,21 +6,24 @@ const SidebarDropDownMenu = ({
   menuTitle,
   menuIcon,
   links,
-  children
+  children,
+
   
 }) => {
   const [isOpen, setIsOpen] = useState(false);
     const permisions = useSelector((state) => state.permissionReducer);
 
 
-  const handleMenuClick = () => {
+  const handleMenuClick = (event) => {
+   
     setIsOpen(!isOpen);
   };
 
   const location = useLocation();
   useEffect(() => {
     const isAnyLinkActive = links.some((link) => location.pathname === link.to);
-    if (isAnyLinkActive ) {
+    if (isAnyLinkActive) {
+    
       setIsOpen(true);
     }
   }, [location, links, menuTitle, isOpen]);

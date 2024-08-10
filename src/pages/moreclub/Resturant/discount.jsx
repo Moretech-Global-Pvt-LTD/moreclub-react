@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import DashboardLayout from "../../../components/Layout/DashboardLayout";
-import Divider from "../../../components/divider/Divider";
+
 import { Button, Col, Row } from "react-bootstrap";
-import MenuCard from "../../../components/Moreclub/Resturant/MenuCard";
-import OfferForm from "../../../components/Moreclub/Resturant/AddOffer";
+import MenuCard from "../../../components/Moreclub/Resturant/Menu/MenuCard";
+
 import DiscountForm from "../../../components/Moreclub/Resturant/AddDiscounts";
 
 const RestroDiscount = () => {

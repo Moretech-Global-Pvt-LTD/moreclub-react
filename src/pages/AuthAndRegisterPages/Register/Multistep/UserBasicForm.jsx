@@ -7,7 +7,7 @@ import {
 } from "../../../../redux/slices/RegisterSlice";
 import axios from "axios";
 import { baseURL } from "../../../../config/config";
-import PhoneNumberInput from "../../../../components/ui/PhoneInput";
+import PhoneNumberInput from "../../../../components/ui/PhoneInput2";
 
 const UserBasicForm = () => {
   const dispatch = useDispatch();
@@ -87,34 +87,35 @@ const UserBasicForm = () => {
   };
 
   //  phone check weather it exist or not
-  const handlePhoneCheck = async (value, prefix = null) => {
+  const handlePhoneCheck = async (value) => {
+    console.log("value", value);
     if (value !== "") {
-      if (prefix === null) {
-        try {
-          const res = await axios.post(`${baseURL}auth/check/username/`, {
-            username: `${prefix}${value}`,
-          });
-          if (res.status === 200) {
-            setPhoneError("");
-            await dispatch(updateFormData({ phone_number: value }));
-          }
-        } catch (error) {
-          setPhoneError(error.response.data?.errors?.username[0]);
+      // if (prefix === null) {
+      //   try {
+      //     const res = await axios.post(`${baseURL}auth/check/username/`, {
+      //       username: `${prefix}${value}`,
+      //     });
+      //     if (res.status === 200) {
+      //       setPhoneError("");
+      //       await dispatch(updateFormData({ phone_number: value }));
+      //     }
+      //   } catch (error) {
+      //     setPhoneError(error.response.data?.errors?.username[0]);
+      //   }
+      // } else {
+      try {
+        const res = await axios.post(`${baseURL}auth/check/username/`, {
+          username: `${value}`,
+        });
+        if (res.status === 200) {
+          setPhoneError("");
+          await dispatch(updateFormData({ phone_number: value }));
         }
-      } else {
-        try {
-          const res = await axios.post(`${baseURL}auth/check/username/`, {
-            username: `${prefix}${value}`,
-          });
-          if (res.status === 200) {
-            setPhoneError("");
-            await dispatch(updateFormData({ phone_number: value }));
-          }
-        } catch (error) {
-          setPhoneError(error.response.data?.errors?.username[0]);
-        }
+      } catch (error) {
+        setPhoneError(error.response.data?.errors?.username[0]);
       }
-    } else {
+    }
+    else {
       setPhoneError("Phone number is required");
     }
   };
@@ -132,41 +133,62 @@ const UserBasicForm = () => {
 
   const handleNextStep = (value) => {
     dispatch(currentStep(value));
-    console.log(formData);
   };
 
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
-    setphoneInputInfo((prevData) => ({
-      ...prevData,
-      phone_number: event.target.value,
-    }));
+  const handlePhoneNumberChange = (data) => {
+
+    if (data.prefix === undefined || data.country === undefined || data.countryCode === undefined) {
+      setphoneInputInfo((prevData) => ({
+        ...prevData,
+        phone_number: data.fullNumber,
+      }));
+    } else {
+      setPhoneNumber(data.fullNumber);
+      setPrefixs(data.prefix);
+      setphoneInputInfo((prevData) => ({
+        ...prevData,
+        phone_number: data.fullNumber,
+        phone_prefix: data.prefix,
+        country_code: data.countryCode,
+        country: data.country,
+      }));
+      dispatch(
+        updateFormData({
+          phone_number: data.fullNumber,
+          phone_prefix: data.prefix,
+          country_code: data.countryCode,
+          country: data.country,
+        })
+      );
+      handlePhoneCheck(data.fullNumber);
+    }
+
   };
 
-  const handlePhoneNumberDataChange = ({
-    fullNumber,
-    prefix,
-    phone,
-    country,
-    countryCode,
-  }) => {
-    dispatch(
-      updateFormData({
-        phone_number: phone,
-        phone_prefix: prefix,
-        country: country,
-        country_code: countryCode,
-      })
-    );
-    setPrefixs(prefix);
-    setphoneInputInfo({
-      phone_number: phone,
-      phone_prefix: prefix,
-      country: country,
-      country_code: countryCode,
-    });
-    handlePhoneCheck(phone_number, prefix);
-  };
+  // const handlePhoneNumberDataChange = ({
+  //   fullNumber,
+  //   prefix,
+  //   phone,
+  //   country,
+  //   countryCode,
+  // }) => {
+  //   dispatch(
+  //     updateFormData({
+  //       phone_number: phone,
+  //       phone_prefix: prefix,
+  //       country: country,
+  //       country_code: countryCode,
+  //     })
+  //   );
+  //   setPrefixs(prefix);
+  //   setphoneInputInfo({
+  //     phone_number: phone,
+  //     phone_prefix: prefix,
+  //     country: country,
+  //     country_code: countryCode,
+  //   });
+  //   handlePhoneCheck(phone_number, prefix);
+  // };
 
   return (
     <>
@@ -204,7 +226,7 @@ const UserBasicForm = () => {
         />
         {emailError && <p className="text-danger">{emailError}</p>}
       </Form.Group>
-      <PhoneNumberInput
+      {/* <PhoneNumberInput
         label={"Phone Number"}
         phoneNumber={phone_number}
         prefixs={prefixs}
@@ -214,7 +236,17 @@ const UserBasicForm = () => {
         formDatas={phoneInputInfo}
         setFormData={setphoneInputInfo}
         onPhoneNumberChange={handlePhoneNumberDataChange} // Pass the callback function
-      />
+      /> */}
+      <Form.Group className="register-form-container">
+        <Form.Label>Phone Number</Form.Label>
+        <PhoneNumberInput
+          onChange={handlePhoneNumberChange}
+          initialValue={phone_number}
+        />
+        {phoneError && <p className="text-danger">{phoneError}</p>}
+      </Form.Group>
+
+
 
       {/* <Form.Group className="register-form-container">
         <Form.Label>Phone Number</Form.Label>

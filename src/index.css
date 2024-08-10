@@ -21589,6 +21589,18 @@ textarea:invalid {
   }
 }
 
+@media (min-width: 640px) {
+  .admin-wrapper .container {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 720px) {
+  .admin-wrapper .container {
+    max-width: 700px;
+  }
+}
+
 @media (min-width: 768px) {
   .admin-wrapper .container {
     max-width: 700px;
@@ -23360,9 +23372,99 @@ dropdown-no .nav-light-logo {
   color: #0056b3;
 }
 
-.pricingcard-other {
+.pricingcard-premium {
   background-color: #002f6c !important;
   color: #ffc107;
+}
+
+/* Gold plan */
+.pricingcard-gold {
+  background-color: #ffd700 !important; /* Gold color */
+  color: #064e2a;
+}
+
+.text-green{
+  color:#064e2a
+}
+
+.text-gold {
+  color: #ffd700 !important; /* Gold text color */
+}
+.bg-gold{
+  background-color:#ffd700 !important;
+}
+
+.pricingcard-text-gold {
+  color: #064e2a !important; /* Gold text color */
+}
+
+
+.text-premium {
+  color: #8a2be2 !important; /* BlueViolet text color */
+}
+
+/* Platinum plan */
+.pricingcard-platinum {
+  background-color: #e5e4e2 !important; /* Platinum color */
+  color: #6c757d;
+}
+
+.text-platinum {
+  color: #e5e4e2 !important; /* Platinum text color */
+}
+
+/* Diamond plan */
+.pricingcard-diamond {
+  background-color: #ff4500 !important; /* Diamond color */
+  color: #00ced1;
+}
+
+.diamond-botton{
+ background-color: #ffffff !important; 
+ 
+}
+.diamond-botton-text{
+  color:#000000 !important;
+}
+
+.bg-indigo{
+  background-color:#8A2BE2 !important
+}
+.text-diamond {
+  color: #b9f2ff !important; /* Diamond text color */
+}
+
+/* Example of existing styles for reference */
+.bg-gray {
+  background-color: #6c757d !important;
+}
+
+.text-warning {
+  color: #ffc107 !important;
+}
+
+.bg-warning {
+  background-color: #ffc107 !important;
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.bg-premium {
+  background-color: #8a2be2 !important;
+}
+
+.text-premium {
+  color: #8a2be2 !important;
+}
+
+.bg-platinum {
+  background-color: #e5e4e2 !important;
+}
+
+.text-platinum {
+  color: #e5e4e2 !important;
 }
 
 .pricingcard-plan {
@@ -23415,7 +23517,7 @@ dropdown-no .nav-light-logo {
   transform: translateY(-50%); /* Adjust to center vertically */
   margin-right: 10px; /* Add some space between check mark and content */
 }
-.pricingcard-other .pricingcard-features li::before {
+.pricingcard-premium .pricingcard-features li::before {
   content: "\002B";
   font-weight: bold;
   font-size: 1.5em;
@@ -27434,5 +27536,32 @@ span {
   }
 }
 
+.clickable-row {
+  cursor: pointer;
+}
+
+.clickable-row:hover {
+  background-color: #f0f0f0; /* Change this to your desired hover color */
+}
+[data-theme="dark"],
+.clickable-row:hover {
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
+
+
+
+
+.masonry-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* adjust this value to change the number of columns */
+  grid-auto-rows: minmax(0, 8px);
+  gap: 10px;
+}
+
+.masonry-image-container{
+  width:"150px";
+  justify-self:"center";
+}
 
 /*# sourceMappingURL=main.c1c39487.css.map*/

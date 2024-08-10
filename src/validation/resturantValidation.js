@@ -20,10 +20,20 @@ export const validateAddress = (address, lat, lng) => {
     return "";
 }
 
-export const valdateDescription = (description) => {
-    if (!description) return "Description is Required";
-    return "";
-}
+export const valdateShortDescription = (description) => {
+  if (!description) return "Short Description is Required";
+  const wordCount = description.trim().split(/\s+/).length;
+  if (wordCount < 5) return "Short Description must be at least 5 words";
+  return "";
+};
+
+// Long Description Validation with Word Count Check
+export const validateLongDescription = (description) => {
+  if (!description) return "Long Description is Required";
+  const wordCount = description.trim().split(/\s+/).length;
+  if (wordCount < 30) return "Long Description must be at least 20 words";
+  return "";
+};
 
 
  export const validateContactNumber = (phoneNumber) => {
@@ -49,3 +59,64 @@ export const Validatelogo = (logo) => {
   if (!logo) return "Banner is required";
   return "";
 };
+
+export const validateFacebookURL = (url) => {
+  if (!url) return ""; // Optional field, so no error if empty
+  const facebookRegex =
+    /^(https?:\/\/)?(www\.)?facebook\.com\/[A-Za-z0-9\.\-_]+\/?$/;
+  if (!facebookRegex.test(url)) return "Invalid Facebook URL";
+  return "";
+};
+
+export const validateWebsiteURL = (url) => {
+  if (!url) return ""; // Optional field, so no error if empty
+  const websiteRegex =
+    /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+  if (!websiteRegex.test(url)) return "Invalid Website URL";
+  return "";
+};
+
+export const validateInstagramURL = (url) => {
+  if (!url) return ""; // Optional field, so no error if empty
+  const instagramRegex =
+    /^(https?:\/\/)?(www\.)?instagram\.com\/[A-Za-z0-9\._-]+\/?$/;
+  if (!instagramRegex.test(url)) return "Invalid Instagram URL";
+  return "";
+};
+
+export const validateFeatureType = (value) => {
+  if (!value) {
+    return "Feature Type is required.";
+  }
+  return "";
+};
+
+export const validatePriceRange = (value) => {
+  if (!value || isNaN(value)) {
+    return "Price range must be a valid number.";
+  }
+  return "";
+};
+
+export const validateCuisineType = (value) => {
+  if (!value.trim()) {
+    return "Cuisine Type is required.";
+  }
+  return "";
+};
+
+export const validateMeal = (value) => {
+  if (!value.trim()) {
+    return "Meal is required.";
+  }
+  return "";
+};
+
+export const validateProperties = (value) => {
+  if (!value.trim()) {
+    return "Properties are required.";
+  }
+  return "";
+};
+
+

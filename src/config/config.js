@@ -13,5 +13,8 @@ export const KycTerms = process.env.REACT_APP_KYC_TERMS;
 export const GoogleAnalytics = process.env.REACT_APP_GOOGLE_ANALYTICS;
 export const morefoodURL = process.env.REACT_APP_MORE_FOOD_BASE_URL;
 export const morefoodimageURL = process.env.REACT_APP_MORE_FOOD_IMAGE_URL;
+
+// export const MapboxAPIKey = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 // export const baseURL = "https://moretrek.com/api/";
 // export const imageURL = "https://moretrek.com";
+export const MapboxAPIKey = "pk.eyJ1IjoibW9yZXRlY2hnbG9iYWwiLCJhIjoiY2x5Z3htaHl6MDZ0bTJqcXc4bWlqN3MwdiJ9.YNgRJeUppkfBrH6Kjo1I_A";
