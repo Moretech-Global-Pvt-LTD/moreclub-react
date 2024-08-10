@@ -36,7 +36,7 @@ const UpdateEventForm = ({ existingEventData, id }) => {
         price: existingEventData.price,
         event_highlights_title: existingEventData.event_highlights_title,
         event_highlights_description:
-          existingEventData.event_highlights_description,
+        existingEventData.event_highlights_description,
       });
     }
   }, [existingEventData]);
@@ -50,6 +50,7 @@ const UpdateEventForm = ({ existingEventData, id }) => {
   };
 
   const handlePlaceSelected = async (place, address) => {
+    console.log("place", place, address);
     setFormData({
       ...formData,
       location: address,
@@ -74,6 +75,8 @@ const UpdateEventForm = ({ existingEventData, id }) => {
       formData.start_date !== existingEventData.start_date ||
       formData.end_date !== existingEventData.end_date ||
       formData.location !== existingEventData.location ||
+      formData.lng !== existingEventData.lng ||
+      formData.lat !== existingEventData.lat ||
       formData.price !== existingEventData.price ||
       formData.event_highlights_title !==
         existingEventData.event_highlights_title ||

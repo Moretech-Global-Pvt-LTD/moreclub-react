@@ -36,7 +36,7 @@ const pricingData = [
   },
 ];
 
-const PricingCards = () => {
+const PricingCards = ({mst}) => {
   return (
     <Container>
       <Row>

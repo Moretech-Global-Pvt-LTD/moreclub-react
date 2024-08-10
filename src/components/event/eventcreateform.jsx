@@ -5,7 +5,7 @@ import { baseURL } from "../../config/config";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { useDispatch } from "react-redux";
-import LocationDisplayWithAutocomplete from "../Googlemap/LocationInput";
+import LocationDisplayWithAutocomplete from "../Googlemap/MapLocationInput";
 // import CKEditor from "ckeditor4-react";
 
 const Eventcreateform = () => {
@@ -145,6 +145,7 @@ const Eventcreateform = () => {
                 initialLng={formData.lng}
                 initialAddress={formData.location}
               />
+              
             </Form.Group>
 
             {/* <Row>

@@ -45,7 +45,7 @@ const HeaderUserInfo = () => {
                 style={{
                   width: "45px",
                   height: "45px",
-                  objectFit: "contain",
+                  objectFit: "cover",
                   backgroundColor: "#fff",
                 }}
                 alt="Profile"

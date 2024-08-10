@@ -10,7 +10,7 @@ import { useDebounce } from "../../../Hooks/useDebounce";
 import { message } from "antd";
 
 import { useCookies } from "react-cookie";
-import PhoneNumberInput from "../../../components/ui/PhoneInput";
+import PhoneNumberInput from "../../../components/ui/PhoneInput2";
 
 const LoginPhoneContent = (props) => {
   const dispatch = useDispatch();
@@ -26,37 +26,34 @@ const LoginPhoneContent = (props) => {
 
   const [phone_number, setPhoneNumber] = useState("");
   const [prefixs, setPrefixs] = useState("+46");
-  const [country, setCountry]= useState("Sweden");
-  const [countryCode, setContryCode]= useState("SE")
+  // const [country, setCountry]= useState("Sweden");
+  // const [countryCode, setContryCode]= useState("SE")
 
-  const [phoneInputInfo, setphoneInputInfo] = useState({
-    phone_number: phone_number ?? "",
-    phone_prefix: prefixs ?? "+46",
-    country: country ?? "Sweden",
-    country_code: countryCode ?? "SE",
-  });
+  // const [phoneInputInfo, setphoneInputInfo] = useState({
+  //   phone_number: phone_number ?? "",
+  //   phone_prefix: prefixs ?? "+46",
+  //   // country: country ?? "Sweden",
+  //   // country_code: countryCode ?? "SE",
+  // });
 
-  const validatePhoneNumber = async (prefix, phone) => {
-    if (!phone) return "Phone number is required.";
-    if (!prefix) return "Choose the country.";
-    if (!/^\d+$/.test(phone)) return "Phone number must contain only digits.";
-
+  const validatePhoneNumber = async (phone) => {
+    if(!phone.match(/^[0-9]+$/)) return "";
     try {
       const res = await axios.post(`${baseURL}auth/check/username/`, {
-        username: `${prefix}${phone}`,
+        username: `${phone}`,
       });
       if (res.status === 200) {
         return "Username not found";
       }
     } catch (error) {
       if (error.response.data?.errors?.username[0] === "Already Exists") {
-        return ""; // No error
+        return ""; 
       } else {
         return error.response.data?.errors?.username[0];
       }
     }
 
-    return ""; // No error
+    return ""; 
   };
 
 
@@ -71,7 +68,7 @@ const LoginPhoneContent = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const username = `${prefixs}${phone_number}`;
+    const username = `${phone_number}`;
     const result = await dispatch(login(username, password));
     if (result?.status === 200) {
       setLoading(false);
@@ -98,40 +95,58 @@ const LoginPhoneContent = (props) => {
   };
 
 
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
-    setphoneInputInfo((prevData) => ({
-      ...prevData,
-      phone_number: event.target.value,
-    }));
+  const handlePhoneNumberChange =async (data) => {
+    setPhoneNumber(data.fullNumber);
+    
+  
+    setPhoneNumber(data.fullNumber);
+    setPrefixs(data.prefix);
+
+    const error = await validatePhoneNumber(data.fullNumber)
+    console.log(error)
+    if (error.trim() !== "") { 
+      setPhoneError(error);
+    } else {
+      setPhoneError("");
+    }
+
   };
 
-  const handlePhoneNumberDataChange = ({
-    fullNumber,
-    prefix,
-    phone,
-    country,
-    countryCode,
-  }) => {
-    setPhoneNumber(phone);
-    setCountry(country);
-    setContryCode(countryCode);
-    setPrefixs(prefix);
-    setphoneInputInfo({
-      phone_number: phone,
-      phone_prefix: prefix,
-      country: country,
-      country_code: countryCode,
-    });
-    validatePhoneNumber(phone_number, prefix);
-  };
+  // const handlePhoneNumberDataChange = ({
+  //   fullNumber,
+  //   prefix,
+  //   phone,
+  //   country,
+  //   countryCode,
+  // }) => {
+  //   setPhoneNumber(phone);
+  //   setCountry(country);
+  //   setContryCode(countryCode);
+  //   setPrefixs(prefix);
+  //   setphoneInputInfo({
+  //     phone_number: phone,
+  //     phone_prefix: prefix,
+  //     country: country,
+  //     country_code: countryCode,
+  //   });
+  //   validatePhoneNumber(phone_number, prefix);
+  // };
 
 
   return (
     <div className="register-form mt-5">
       <Form onSubmit={handleSubmit}>
 
-        <PhoneNumberInput
+        <Form.Group className="register-form-container">
+          <Form.Label>Phone Number</Form.Label>
+          <PhoneNumberInput
+            onChange={handlePhoneNumberChange}
+            initialValue={phone_number}
+          />
+          {phoneError && <p className="text-danger">{phoneError}</p>}
+        </Form.Group>
+
+        {/* <PhoneNumberInput
           label={"Phone Number"}
           phoneNumber={phone_number}
           prefixs={prefixs}
@@ -141,7 +156,7 @@ const LoginPhoneContent = (props) => {
           formDatas={phoneInputInfo}
           setFormData={setphoneInputInfo}
           onPhoneNumberChange={handlePhoneNumberDataChange} // Pass the callback function
-        />
+        /> */}
 
         <Form.Group className="mb-4 form-group">
           <label

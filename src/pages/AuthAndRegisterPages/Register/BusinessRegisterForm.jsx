@@ -52,7 +52,7 @@ const BusinessRegisterForm = ({ setBusinessRegistration }) => {
       first_name: formData.first_name,
       last_name: formData.last_name,
       email: formData.email,
-      phone_number: `${formData.phone_prefix}${formData.phone_number}`,
+      phone_number: `${formData.phone_number}`,
       password: formData.password,
       user_type: formData.user_type,
       user_profile: {

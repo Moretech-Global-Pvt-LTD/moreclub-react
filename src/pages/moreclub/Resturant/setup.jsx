@@ -1,6 +1,6 @@
 import React from 'react'
 import DashboardLayout from '../../../components/Layout/DashboardLayout';
-import Setuppage from '../../../components/Moreclub/Resturant/setuppage';
+import Setuppage from '../../../components/Moreclub/Resturant/Setup/setuppage';
 import { useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '../../..';
 import { morefoodURL } from '../../../config/config';

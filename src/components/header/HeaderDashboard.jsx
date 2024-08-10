@@ -106,8 +106,10 @@ const HeaderDashboard = () => {
   }, [dispatch]);
 
   const handleToggle = () => {
+    console.log("i am called")
     setActive(!isActive);
   };
+
 
   const user = useSelector((state) => state.userReducer);
 
@@ -252,28 +254,34 @@ const HeaderDashboard = () => {
       <div className={`admin-sidebar-wrap sidebar-hidden `}>
         <div className="overflowY-scroll  ">
           <HeaderUserInfo />
-          <HeaderDashboardMenu />
+          <HeaderDashboardMenu  />
         </div>
       </div>
 
       {isActive && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => {
-            isActive && handleToggle();
-          }}
-        >
+        <>
+        
           <div
             className={`admin-sidebar-wrap  ${
               isActive ? "sidebar-active" : "sidebar-disabled"
             }`}
           >
-            <div className="overflowY-scroll  ">
+            <div className="overflowY-scroll"
+            
+            >
               <HeaderUserInfo />
+              
               <HeaderDashboardMenu />
             </div>
           </div>
-        </div>
+          <div
+            className="sidebar-overlay"
+            onClick={() => {
+              isActive && handleToggle();
+            }}
+          />
+        </>
+        
       )}
     </>
   );
