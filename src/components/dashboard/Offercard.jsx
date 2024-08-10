@@ -3,6 +3,7 @@ import { Card} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const OffersCard = ({ id, logo, name, address, email, phone, discounts }) => {
+ console.log(typeof discounts[0].discount)
   return (
     <Link to={`/partners/${id}`} className="d-flex flex-column" style={{height:"100%"}}>
       <Card className="nearby-offers-card flex-grow-1">
@@ -51,9 +52,13 @@ const OffersCard = ({ id, logo, name, address, email, phone, discounts }) => {
           </Card.Text>
           {discounts &&
             discounts.map((dics) => (
+              <>
+                {dics.discount !==  0 && 
               <Card.Text className="text-warning">
                 {dics.discount}% discounts
               </Card.Text>
+              }
+              </>
             ))}
         </Card.Body>
       </Card>
