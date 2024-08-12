@@ -109,13 +109,13 @@ const ProfileCard = ({ user, membershipType }) => {
               </div>
               <div className="col-8 text-dynamic-white text-end">
                 <img
-                  src={`{metainfo.meta?.black_logo}`}
+                  src={`${metainfo.meta?.black_logo}`}
                   alt=""
                   className="nav-light-logo ms-auto"
                   style={{ width: "70px" }}
                 />
                 <img
-                  src={`{metainfo.meta?.white_logo}`}
+                  src={`${metainfo.meta?.white_logo}`}
                   alt=""
                   className="nav-dark-logo ms-auto"
                   style={{ width: "70px" }}

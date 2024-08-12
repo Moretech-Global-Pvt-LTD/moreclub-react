@@ -103,7 +103,7 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
   const handleCusineChange = (selectedOptions) => {
     if (selectedOptions) {
       const selectedValues = selectedOptions.map(option => option.value);
-      setMenuItem({ ...menuItem, cuisine: selectedValues });
+      setMenuItem({ ...menuItem, cuisine_id: selectedValues });
       console.log("selected option", selectedValues)
     } else {
       setMenuItem({ ...menuItem, "cuisine": [] });
@@ -287,7 +287,7 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
             menuItem.price.trim() === "" ||
             menuItem.short_description.trim() === "" ||
             menuItem.image === null ||
-            menuItem.cuisine.length === 0
+            menuItem.cuisine_id.length === 0
           }
         >
           {loading && (
