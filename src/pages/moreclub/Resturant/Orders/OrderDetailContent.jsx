@@ -176,7 +176,7 @@ const OrderDetailsContent = ({item}) => {
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formOrderStatus">
-              <Form.Label>Order Status</Form.Label>
+              <Form.Label className="text-black">Order Status</Form.Label>
               <Form.Control
                 as="select"
                 name="orderstatus"

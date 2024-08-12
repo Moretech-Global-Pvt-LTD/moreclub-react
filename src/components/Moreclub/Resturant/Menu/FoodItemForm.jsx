@@ -102,20 +102,15 @@ const FoodItemForm = ({ data }) => {
   const handleCusineChange = (selectedOptions) => {
     if (selectedOptions) {
       const selectedValues = selectedOptions.map(option => option.value);
-      setMenuItem({ ...menuItem, cuisine: selectedValues });
+      setMenuItem({ ...menuItem, cuisine_id: selectedValues });
       console.log("selected option", selectedValues)
     } else {
-      setMenuItem({ ...menuItem, "cuisine": [] });
+      setMenuItem({ ...menuItem, "cuisine_id": [] });
       console.log("selected option", selectedOptions)
     }
   };
 
-  const removeCuisine = (cuisineToRemove) => {
-    setMenuItem({
-      ...menuItem,
-      cuisine: menuItem.cuisine.filter(cuisine => cuisine !== cuisineToRemove),
-    });
-  };
+ 
 
   const handleImageChange = (e) => {
     setMenuItem({ ...menuItem, image: e.target.files[0] });

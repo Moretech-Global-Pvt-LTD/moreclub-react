@@ -106,7 +106,6 @@ const HeaderDashboard = () => {
   }, [dispatch]);
 
   const handleToggle = () => {
-    console.log("i am called")
     setActive(!isActive);
   };
 
@@ -254,7 +253,7 @@ const HeaderDashboard = () => {
       <div className={`admin-sidebar-wrap sidebar-hidden `}>
         <div className="overflowY-scroll  ">
           <HeaderUserInfo />
-          <HeaderDashboardMenu  />
+          <HeaderDashboardMenu/>
         </div>
       </div>
 
