@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
@@ -59,16 +59,36 @@ const customStyles = {
 const FoodItemForm = ({ data }) => {
   const { cat_id, res_id, id } = useParams()
   const queryClient = useQueryClient();
-  const [imageUrl ,setImageUrl]= useState("")
+  const [imageUrl, setImageUrl] = useState("")
+  const [cuisineOption, setCuisineOption] = useState([]);
+  console.log(data)
   const [menuItem, setMenuItem] = useState({
     name: data.name,
     price: data.actual_price,
     offerPrice: data.item_price ?? null,
     short_description: data.short_description,
     image: null,
-    cuisine: data.cuisine?? [],
-    ingredients: data.ingredients?? ""
+    cuisine_id: data.cuisine.map((item) => item.id)?? [],
+    ingredient: data.ingredient?? ""
   });
+
+  async function getCuisineList() {
+    try {
+      const res = await axiosInstance.get(`${morefoodURL}moreclub/user/cuisines/${res_id}/`);
+      const mappedData = res.data.data.map(item => ({
+        value: item.id, // Assuming 'id' is the value you want
+        label: item.name // Assuming 'name' is the label you want
+      }));
+      setCuisineOption(mappedData);
+    } catch (err) {
+      console.error(err);
+      setCuisineOption([]);
+    }
+  }
+
+  useEffect(() => {
+    getCuisineList();
+  }, [cat_id, res_id])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,18 +97,7 @@ const FoodItemForm = ({ data }) => {
 
   const [loading, setLoading] = useState(false)
 
-  const cusineOptions = [
-    { value: "Indian", label: "Indian" },
-    { value: "Chinese", label: "Chinese" },
-    { value: "Italian", label: "Italian" },
-    { value: "Mexican", label: "Mexican" },
-    { value: "Thai", label: "Thai" },
-    { value: "Japanese", label: "Japanese" },
-    { value: "Korean", label: "Korean" },
-    { value: "French", label: "French" },
-    { value: "American", label: "American" },
-    { value: "Spanish", label: "Spanish" },
-  ]
+
 
   const handleCusineChange = (selectedOptions) => {
     if (selectedOptions) {
@@ -116,49 +125,106 @@ const FoodItemForm = ({ data }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    const formData = new FormData();
-    formData.append("name", menuItem.name);
-    formData.append("price", menuItem.price);
-    formData.append("short_description", menuItem.short_description);
-    formData.append("menu", cat_id);
-    formData.append("restaurant_id", res_id);
-    formData.append("discount_price", menuItem.offerPrice ?? "");
-     menuItem.image && formData.append("image", menuItem.image);
-    formData.append("cuisine", JSON.stringify(menuItem.cuisine));
-    formData.append("ingredients", menuItem.ingredients);
+    if (!menuItem.image) {
+      const data = {
+        name: menuItem.name,
+        price: menuItem.price,
+        discount_price: menuItem.offerPrice ?? null,
+        short_description: menuItem.short_description,
+        image: menuItem.image,
+        cuisine_id: menuItem.cuisine_id,
+        ingredient: menuItem.ingredient,
+        restaurant_id: res_id,
+        menu: cat_id
+      }
+      axiosInstance
+        .patch(
+          `${morefoodURL}moreclub/user/food/items/${cat_id}/${id}/${res_id}/`,
+          data,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then((response) => {
+          message.success("Food Items Updated Successfully");
+          // setMenuItem({
+          //   name: "",
+          //   price: "",
+          //   short_description: "",
+          //   image: null,
+          // });
+          queryClient.invalidateQueries({
+            queryKey: [`Resturant SubMenu List ${cat_id}`],
+          });
+          queryClient.invalidateQueries({
+            queryKey: [`Resturant SubMenu ${id}`],
+          });
+        })
+        .catch((error) => {
+          console.error("There was an error updating the foodItems!", error);
+          message.error("error Updating Food Items");
+        }).finally(() => {
+          setLoading(false)
+        });
+    } else {
+      const data = {
+        name: menuItem.name,
+        price: menuItem.price,
+        discount_price: menuItem.offerPrice ?? null,
+        short_description: menuItem.short_description,
+        cuisine_id: menuItem.cuisine_id,
+        ingredient: menuItem.ingredient,
+        restaurant_id: res_id,
+        menu: cat_id
+      }
+      axiosInstance
+        .patch(
+          `${morefoodURL}moreclub/user/food/items/${cat_id}/${id}/${res_id}/`,
+          data,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then((response) => {
+          message.success("Food Items Updated Successfully");
+          // setMenuItem({
+          //   name: "",
+          //   price: "",
+          //   short_description: "",
+          //   image: null,
+          // });
+          queryClient.invalidateQueries({
+            queryKey: [`Resturant SubMenu List ${cat_id}`],
+          });
+          queryClient.invalidateQueries({
+            queryKey: [`Resturant SubMenu ${id}`],
+          });
+        })
+        .catch((error) => {
+          console.error("There was an error updating the foodItems!", error);
+          message.error("error Updating Food Items");
+        }).finally(() => {
+          setLoading(false)
+        });
+    }
+
+    // const formData = new FormData();
+    // formData.append("name", menuItem.name);
+    // formData.append("price", menuItem.price);
+    // formData.append("short_description", menuItem.short_description);
+    // formData.append("menu", cat_id);
+    // formData.append("restaurant_id", res_id);
+    // formData.append("discount_price", menuItem.offerPrice ?? "");
+    //  menuItem.image && formData.append("image", menuItem.image);
+    // formData.append("cuisine", menuItem.cuisine);
+    // formData.append("ingredient", menuItem.ingredient);
     
     
-    axiosInstance
-      .patch(
-        `${morefoodURL}moreclub/user/food/items/${cat_id}/${id}/${res_id}/`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        message.success("Food Items Updated Successfully");
-        // setMenuItem({
-        //   name: "",
-        //   price: "",
-        //   short_description: "",
-        //   image: null,
-        // });
-        queryClient.invalidateQueries({
-          queryKey: [`Resturant SubMenu List ${cat_id}`],
-        });
-        queryClient.invalidateQueries({
-          queryKey: [`Resturant SubMenu ${id}`],
-        });
-      })
-      .catch((error) => {
-        console.error("There was an error updating the foodItems!", error);
-        message.error("error Updating Food Items");
-      }).finally(()=>{
-        setLoading(false)
-      });
+    
   };
   return (
     <Card className="p-3">
@@ -209,11 +275,11 @@ const FoodItemForm = ({ data }) => {
             className="mb-4 form-control"
             placeholder="select cusine type"
             styles={customStyles}
-            value={Array.isArray(menuItem.cuisine)
-              ? cusineOptions.filter(option => menuItem.cuisine.includes(option.value))
+            value={Array.isArray(menuItem.cuisine_id)
+              ? cuisineOption.filter(option => menuItem.cuisine_id.includes(option.value))
               : []}
             onChange={handleCusineChange}
-            options={cusineOptions}
+            options={cuisineOption}
             isMulti={true}
             required
           />
@@ -225,8 +291,8 @@ const FoodItemForm = ({ data }) => {
             as="textarea"
             rows={3}
             placeholder="Ingredients"
-            name="ingredients"
-            value={menuItem.ingredients}
+            name="ingredient"
+            value={menuItem.ingredient}
             onChange={handleChange}
           />
         </Form.Group>

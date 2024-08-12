@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
@@ -66,23 +66,33 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
     offerPrice: null,
     short_description: "",
     image: null,
-    cuisine: [],
-    ingredients: ""
+    cuisine_id: [],
+    ingredient: ""
   });
   const [loading, setLoading] = useState(false)
+  const [uiLoading, setUIloading] = useState(false);
+  const [cuisineOption, setCuisineOption] = useState([]);
 
-  const cusineOptions = [
-    { value: "Indian", label: "Indian" },
-    { value: "Chinese", label: "Chinese" },
-    { value: "Italian", label: "Italian" },
-    { value: "Mexican", label: "Mexican" },
-    { value: "Thai", label: "Thai" },
-    { value: "Japanese", label: "Japanese" },
-    { value: "Korean", label: "Korean" },
-    { value: "French", label: "French" },
-    { value: "American", label: "American" },
-    { value: "Spanish", label: "Spanish" },
-  ]
+
+  async function getCuisineList() {
+    try {
+      const res = await axiosInstance.get(`${morefoodURL}moreclub/user/cuisines/${res_id}/`);
+      const mappedData = res.data.data.map(item => ({
+        value: item.id, // Assuming 'id' is the value you want
+        label: item.name // Assuming 'name' is the label you want
+      }));
+      setCuisineOption(mappedData);
+    } catch (err) {
+      console.error(err);
+      setCuisineOption([]);
+    }
+  }
+
+  useEffect(() => {
+    getCuisineList();
+  }, [cat_id, res_id])
+  
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -101,12 +111,12 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
     }
   };
 
-  const removeCuisine = (cuisineToRemove) => {
-    setMenuItem({
-      ...menuItem,
-      cuisine: menuItem.cuisine.filter(cuisine => cuisine !== cuisineToRemove),
-    });
-  };
+  // const removeCuisine = (cuisineToRemove) => {
+  //   setMenuItem({
+  //     ...menuItem,
+  //     cuisine: menuItem.cuisine.filter(cuisine => cuisine !== cuisineToRemove),
+  //   });
+  // };
 
   const handleImageChange = (e) => {
     setMenuItem({ ...menuItem, image: e.target.files[0] });
@@ -116,20 +126,32 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
     e.preventDefault();
     setLoading(true);
    
-    const formData = new FormData();
-    formData.append("name", menuItem.name);
-    formData.append("price", menuItem.price);
-    formData.append("short_description", menuItem.short_description);
-    formData.append("image", menuItem.image);
-    formData.append("menu", cat_id);
-    formData.append("restaurant_id", res_id);
-    formData.append("discount_price", menuItem.offerPrice ?? "");
-    formData.append("cuisine", JSON.stringify(menuItem.cuisine));
-    formData.append("ingredients", menuItem.ingredients);
+    const data = {
+      name: menuItem.name,
+      price: menuItem.price,
+      discount_price: menuItem.offerPrice ?? null,
+      short_description: menuItem.short_description,
+      image: menuItem.image,
+      cuisine_id: menuItem.cuisine_id,
+      ingredient: menuItem.ingredient,
+      restaurant_id: res_id,
+      menu: cat_id
+    }
+    // const formData = new FormData();
+
+    // formData.append("name", menuItem.name);
+    // formData.append("price", menuItem.price);
+    // formData.append("short_description", menuItem.short_description);
+    // formData.append("image", menuItem.image);
+    // formData.append("menu", cat_id);
+    // formData.append("restaurant_id", res_id);
+    // formData.append("discount_price", menuItem.offerPrice ?? "");
+    // formData.append("cuisine_id", menuItem.cuisine);
+    // formData.append("ingredient", menuItem.ingredient);
     
 
     axiosInstance
-      .post(`${morefoodURL}moreclub/user/food/items/${cat_id}/${res_id}/`, formData,
+      .post(`${morefoodURL}moreclub/user/food/items/${cat_id}/${res_id}/`, data,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -144,8 +166,8 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
           name: "",
           price: "",
           short_description: "",
-          cuisine: [],
-          ingredients:"",
+          cuisine_id: [],
+          ingredient:"",
           image: null,
         });
       })
@@ -205,13 +227,13 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
           <Form.Label className="mb-2 fz-16">Cusine types</Form.Label>
           <Select
             className="mb-4 form-control"
-            placeholder="select cusine type"
+            placeholder="select cuisine type"
             styles={customStyles}
-            value={Array.isArray(menuItem.cuisine)
-              ? cusineOptions.filter(option => menuItem.cuisine.includes(option.value))
+            value={Array.isArray(menuItem.cuisine_id)
+              ? cuisineOption.filter(option => menuItem.cuisine_id.includes(option.value))
               : []}
             onChange={handleCusineChange}
-            options={cusineOptions}
+            options={cuisineOption}
             isMulti={true}
             required
           />
@@ -223,8 +245,8 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
             as="textarea"
             rows={3}
             placeholder="Ingredients"
-            name="ingredients"
-            value={menuItem.ingredients}
+            name="ingredient"
+            value={menuItem.ingredient}
             onChange={handleChange}
           />
         </Form.Group>

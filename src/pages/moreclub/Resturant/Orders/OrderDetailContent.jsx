@@ -51,7 +51,7 @@ const OrderDetailsContent = ({item}) => {
   //   ],
   // };
 
-  const totalAmount = item.order_items.reduce(
+  const totalAmount = item.items.reduce(
     (total, item) => total + item.quantity * item.price,
     0
   );
@@ -138,7 +138,7 @@ const OrderDetailsContent = ({item}) => {
               </tr>
             </thead>
             <tbody>
-              {item.order_items.map((items, index) => (
+              {item.items.map((items, index) => (
                 <tr key={index}>
                   <td className="text-dynamic-white">{items.food_item.name}</td>
                   <td className="text-dynamic-white">{items.quantity}</td>
@@ -170,7 +170,7 @@ const OrderDetailsContent = ({item}) => {
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter text-center">
-            Delete Your Accound
+            Update Order Status
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

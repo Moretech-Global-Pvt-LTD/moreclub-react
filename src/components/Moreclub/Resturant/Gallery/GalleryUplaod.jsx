@@ -3,6 +3,8 @@ import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { message } from "antd";
+import { axiosInstance } from "../../../..";
+import { morefoodURL } from "../../../../config/config";
 
 const GalleryImageUpload = () => {
   const { res_id } = useParams();
@@ -77,16 +79,16 @@ const GalleryImageUpload = () => {
     setLoading(true);
 
     try {
-      //   const res = await axiosInstance.post(
-      //     `${baseURL}events/event-photos/${eventId}/`,
-      //     formData,
-      //     {
-      //       headers: {
-      //         "Content-Type": "multipart/form-data",
-      //       },
-      //     }
-      //   );
-      //   console.log("res", res);
+        const res = await axiosInstance.post(
+          `${morefoodURL}moreclub/user/restaurants/gallery/${res_id}/`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        console.log("res", res);
       message.success("Image added successfully");
     } catch (err) {
       console.log(err);

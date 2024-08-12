@@ -29,7 +29,7 @@ const Logo = ({data}) => {
       logo: inputBanner,
     };
     const res = await await axiosInstance.patch(
-     `${morefoodURL}moreclub/user/restaurants/update/${id}/`,
+     `${morefoodURL}moreclub/user/restaurants/${id}/`,
      formData,
      {
        headers: {

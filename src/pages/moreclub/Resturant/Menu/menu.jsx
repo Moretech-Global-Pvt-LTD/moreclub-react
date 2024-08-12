@@ -15,7 +15,7 @@ const RestroMenu = () => {
     queryKey: [`Resturant List ${res_id}`],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        `${morefoodURL}moreclub/user/restaurants/details/${res_id}/`
+        `${morefoodURL}moreclub/user/restaurants/${res_id}/`
       );
       const data = await response.data.data;
       return data;

@@ -169,7 +169,7 @@ const UpdateInfoForm = ({ data }) => {
       try {
         setIsLoading(true);
         const res = await axiosInstance.patch(
-          `${morefoodURL}moreclub/user/restaurants/update/${data.id}/`,
+          `${morefoodURL}moreclub/user/restaurants/${data.id}/`,
           formValues
         );
         message.success("Your changes was Uploaded ")
