@@ -16,7 +16,7 @@ const OrderCard = ({ item }) => {
       <tr
         className="text-dynamic-white clickable-row"
         onClick={() =>
-          navigate(`/resturant/${res_id}/orders/${slug}/${item.id}`)
+          navigate(`/resturant/${res_id}/orders/${slug}/${item.order_id}`)
         }
       >
         <td className="text-dynamic-white">{item.order_id}</td>

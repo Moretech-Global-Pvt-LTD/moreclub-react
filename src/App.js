@@ -91,6 +91,8 @@ import ResturantOrder from "./pages/moreclub/Resturant/Orders/ResturantOrder";
 import Morefood from "./pages/moreclub/morefood/morefood";
 import OrderDetails from "./pages/moreclub/Resturant/Orders/orderDetail";
 import GalleryPage from "./pages/moreclub/Resturant/Gallery/GalleryPage";
+import Cuisine from "./pages/moreclub/Resturant/Cuisine/cuisine";
+import UpdateCuisine from "./pages/moreclub/Resturant/Cuisine/UpdateCuisine";
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to="/login" />;
@@ -453,9 +455,18 @@ const App = () => {
       page: <ResturantOrder />,
     },
     {
+      path: "/resturant/:res_id/cuisine/:slug",
+      page: <Cuisine />,
+    },
+    {
+      path: "/resturant/:res_id/cuisine/:cuisine_id/:slug",
+      page: <UpdateCuisine />,
+    },
+    {
       path: "/resturant/:res_id/orders/:slug/:ord_id",
       page: <OrderDetails />,
     },
+
     {
       path: "/resturant/:res_id/discount",
 

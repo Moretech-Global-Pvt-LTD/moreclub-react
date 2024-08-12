@@ -86,10 +86,11 @@ const OrderDetails = () => {
     phone_no: "+977987654321",
     restaurant: "3fd10479-8b3d-49b9-b738-f54c3d46710d",
   };
+  console.log(data)
 
   return (
     <DashboardLayout title={`${name} order`}>
-      <OrderDetailsContent item={intialdata} />
+      <OrderDetailsContent item={data} />
     </DashboardLayout>
   );
 };

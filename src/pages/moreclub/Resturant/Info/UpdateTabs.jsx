@@ -16,7 +16,7 @@ const InfoUpdateTabs = () => {
         queryKey: [`Resturant List ${id}`],
         queryFn: async () => {
           const response = await axiosInstance.get(
-            `${morefoodURL}moreclub/user/restaurants/details/${id}/`
+            `${morefoodURL}moreclub/user/restaurants/${id}/`
           );
           const data = await response.data.data;
           return data;

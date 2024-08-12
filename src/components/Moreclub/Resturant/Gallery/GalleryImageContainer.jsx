@@ -40,7 +40,7 @@ const ImageContainer = ({ item, onClick }) => {
           onClick={onClick}
         >
           <img
-            src={item.url}
+            src={item.image}
             alt={item.name}
             style={{ width: "100%" }}
           />
