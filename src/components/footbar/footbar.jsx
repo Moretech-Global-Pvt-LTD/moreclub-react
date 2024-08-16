@@ -97,23 +97,28 @@ const Footbar = () => {
         </div>
       </div>
       {isActive && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => {
-            isActive && handleToggle();
-          }}
-        >
+        <>
+
           <div
-            className={`admin-sidebar-wrap  ${
-              isActive ? "sidebar-active" : "sidebar-disabled"
-            }`}
+            className={`admin-sidebar-wrap  ${isActive ? "sidebar-active" : "sidebar-disabled"
+              }`}
           >
-            <div className="overflowY-scroll ">
+            <div className="overflowY-scroll"
+
+            >
               <HeaderUserInfo />
+
               <HeaderDashboardMenu />
             </div>
           </div>
-        </div>
+          <div
+            className="sidebar-overlay"
+            onClick={() => {
+              isActive && handleToggle();
+            }}
+          />
+        </>
+
       )}
     </>
   );
