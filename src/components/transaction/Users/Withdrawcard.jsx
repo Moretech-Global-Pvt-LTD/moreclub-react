@@ -8,6 +8,8 @@ const WithDrawCard = ({
   transactiontime,
   transactionamount,
   previousbalance,
+  currency_received,
+  currency_send
 }) => {
   const currency = useSelector((state)=>state.currencyReducer.currencyDetail)
   return (
@@ -42,7 +44,7 @@ const WithDrawCard = ({
         <div className="d-grid w-100">
           <span className="fw-medium mb-2 d-flex justify-content-between">
             <span className=""></span>
-            <span className="fw-medium"> &#8722;&nbsp;{currency.symbol}&nbsp;{transactionamount}</span>
+            <span className="fw-medium"> &#8722;&nbsp;{currency_send ?? currency.symbol}&nbsp;{transactionamount}</span>
           </span>
           {/* <span>{`Receiver: ${receiver}`}</span> */}
           {/* <span>{`Sender  ${sender}`}</span> */}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Placeholder, Row } from "react-bootstrap";
-import ResturantCard from "../Resturant/ResturantCard2";
+import ResturantCard from "../Resturant/RestaurantCard3";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { morefoodURL } from "../../../config/config";
@@ -55,12 +55,15 @@ const MorefoodContent = () => {
 
   return (
     <div className="w-full mx-auto">
+      
       <h3 className="mx-auto mt-3 ">Popular Resutaurants</h3>
       <PopularResturant />
-      <h3 className="mx-auto mt-3 ">Resutaurants</h3>
-      <Row xs={1} sm={2} md={2} xl={3} xxl={4} className="g-4">
+      <h3 className="mx-auto mt-3 ">Restaurants</h3>
+      <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={5} className=" px-2">
         {data?.map((item) => (
+          <>
           <ResturantCard link={"#"} res={item} />
+          </>
         ))}
       </Row>
     </div>

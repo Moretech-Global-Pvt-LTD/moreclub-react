@@ -2,7 +2,8 @@ import React from "react";
 import moment from "moment";
 import { useSelector } from "react-redux";
 
-const BuyCard = ({narration, transactiontime, transactionamount, previousbalance}) => {
+const BuyCard = ({ narration, transactiontime, transactionamount, previousbalance, currency_received,
+  currency_send }) => {
   const currency = useSelector((state)=>state.currencyReducer.currencyDetail)
   return (
     <div className="d-flex w-100 justify-content-between border-bottom border-warning ">
@@ -31,7 +32,7 @@ const BuyCard = ({narration, transactiontime, transactionamount, previousbalance
         <div className="d-grid w-100">
           <span className="fw-medium mb-2 d-flex justify-content-between">
           <span className=""></span>
-            <span className="fw-medium">&#43;&nbsp;{currency.symbol}&nbsp;{transactionamount}</span>
+            <span className="fw-medium">&#43;&nbsp;{currency_send ?? currency.symbol}&nbsp;{transactionamount}</span>
           </span>
           {/* <span>{`Receiver: ${receiver}`}</span> */}
           {/* <span>{`Sender  ${sender}`}</span> */}

@@ -12,7 +12,7 @@ const PopularResturant = () => {
         const response = await axios.get(
           `${morefoodURL}restaurants/popular-restaurants/`
         );
-        const data = await response.data.data.data;
+        const data = await response.data.data;
         return data;
       },
       staleTime: 100,
@@ -41,6 +41,7 @@ const PopularResturant = () => {
       return <div className="text-dynamic-white">Error: retriving</div>;
     }
 
+  console.log("popular restaurants",data)
 
   return (
     <div>

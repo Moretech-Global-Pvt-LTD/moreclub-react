@@ -127,6 +127,9 @@ const PointsTransactions = () => {
                           transactiontime={row.timestamp}
                           transactionamount={row.amount}
                           previousbalance={row.previous_balance}
+                          currency={row.currency}
+                          currency_received={row.currency_received_symbol}
+                          currency_send={row.currency_sent_symbol}
                         />
                       ) : (
                         <>
@@ -135,7 +138,9 @@ const PointsTransactions = () => {
                               narration={row.narration}
                               transactiontime={row.timestamp}
                               transactionamount={row.amount}
-                              previousbalance={row.previous_balance}
+                                previousbalance={row.previous_balance}
+                                currency_received={row?.currency_received_symbol}
+                                currency_send={row?.currency_sent_symbol}
                             />
                           ) : (
                             <>
@@ -145,6 +150,8 @@ const PointsTransactions = () => {
                                   transactiontime={row.timestamp}
                                   transactionamount={row.amount}
                                   previousbalance={row.previous_balance}
+                                  currency_received={row?.currency_received_symbol}
+                                      currency_send={row?.currency_sent_symbol}
                                 />
                               ) : (
                                 <>
@@ -154,7 +161,9 @@ const PointsTransactions = () => {
                                       narration={row.narration}
                                       transactiontime={row.timestamp}
                                       transactionamount={row.amount}
-                                      previousbalance={row.previous_balance}
+                                              previousbalance={row.previous_balance}
+                                              currency_received={row?.currency_received_symbol}
+                                              currency_send={row?.currency_sent_symbol}
                                     />
                                   ) : (
                                     <>
@@ -163,7 +172,9 @@ const PointsTransactions = () => {
                                           narration={row.narration}
                                           transactiontime={row.timestamp}
                                           transactionamount={row.amount}
-                                          previousbalance={row.previous_balance}
+                                                  previousbalance={row.previous_balance}
+                                                  currency_received={row?.currency_received_symbol}
+                                                  currency_send={row?.currency_sent_symbol}
                                         />
                                       ) : (
                                         <>
@@ -175,6 +186,8 @@ const PointsTransactions = () => {
                                               previousbalance={
                                                 row.previous_balance
                                               }
+                                                        currency_received={row?.currency_received_symbol}
+                                                        currency_send={row?.currency_sent_symbol}
                                             />
                                           ) : (
                                             <EventTransCard
@@ -184,6 +197,8 @@ const PointsTransactions = () => {
                                               previousbalance={
                                                 row.previous_balance
                                               }
+                                              currency_received={row?.currency_received_symbol}
+                                              currency_send={row?.currency_sent_symbol}
                                             />
                                           )}
                                         </>

@@ -1,28 +1,31 @@
 import React from 'react'
 import { Card, Col, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { morefoodimageURL } from '../../../config/config';
 
 const ResturantCard = ({res, link}) => {
     return (
-      <a
-        href={link}
-        target="_blank"
-        className="d-flex flex-column "
-        key={res.id}
+     
+      <Col className="d-flex flex-column flex-grow-1 rounded-3 restaurantCard position-relative">
+        <a
+          href={link}
+          target="_blank"
+          rel='noreferrer'
+          className="d-flex flex-column "
+          key={res.id}
         // style={{ minWidth: "240px" }}
-      >
-        <Col className="d-flex flex-column flex-grow-1 rounded-3">
+        >
           <Image
-            src={res.banner}
+            src={`${morefoodimageURL}${res.banner}`}
             alt={"banner"}
-            style={{ height: "12rem", background: "white" }}
+            className="restaurantCard-image"
           />
           <Card className="p-2 flex-grow-1">
-            <Card.Body className="d-flex align-items-center justify-content-between">
+            <Card.Body className="d-flex align-items-center justify-content-between p-2">
               <ul>
                 <div className="d-flex align-items-center gap-2">
                   <img
-                    src={res.banner}
+                    src={`${morefoodimageURL}${res.logo}`}
                     style={{
                       width: "25px",
                       height: "25px",
@@ -33,25 +36,22 @@ const ResturantCard = ({res, link}) => {
                     className="img-fluid rounded-circle mb-3 profile-image"
                   />
                   {/* )} */}
-                  <h5 className="text-dynamic-white  text-start">{res.name}</h5>
+                  <h6 className="text-dynamic-white  text-start">{res.name}</h6>
                 </div>
                 <li className="d-flex justify-content-between text-start">
                   {/* <h6>Location</h6> */}
-                  <p className="my-0" style={{ fontSize: "12px" }}>
+                  <p className="my-0" style={{ fontSize: "10px" }}>
                     <i class="bi bi-geo-alt"></i>&nbsp;{res.address}
                   </p>
                 </li>
-                <li className="d-flex text-start line-clamp-3">
-                  {/* <h6>Location</h6> */}
-                  <p className="my-0" style={{ fontSize: "12px" }}>
-                    {res.description}
-                  </p>
-                </li>
+               
               </ul>
             </Card.Body>
           </Card>
+          <span className='text-danger fw-bold position-absolute top-0 end-0 fs-6 bg-warning p-1 '><i class="bi bi-star-fill"></i>  {res.restaurant_rating}</span>
+        </a>
         </Col>
-      </a>
+    
     );
 }
 

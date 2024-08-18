@@ -63,8 +63,7 @@ const AddCuisineForm = () => {
                
             })
             .catch((error) => {
-                console.error("There was an error updating the foodItems!", error);
-                message.error("error Updating Food Items");
+                message.error("error creating Cuisine ");
             }).finally(() => {
                 setLoading(false)
             });

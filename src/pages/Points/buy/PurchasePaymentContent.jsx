@@ -104,7 +104,6 @@ const PurchasePaymentContent = () => {
                 <h5>Load Money</h5>
                 <form id="payment-form" onSubmit={handleSubmit}>
                   <PaymentElement id="payment-element" />
-
                   <button
                     disabled={isLoading || !stripe || !elements}
                     id="submit"

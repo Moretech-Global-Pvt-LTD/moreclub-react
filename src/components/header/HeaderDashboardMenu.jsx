@@ -46,7 +46,6 @@ const HeaderDashboardMenu = () => {
       label: "Resturant",
       permission: true,
     },
-
   ];
 
   return (
@@ -221,7 +220,7 @@ const HeaderDashboardMenu = () => {
                         &nbsp; Setup Resturant
                       </NavLink>
                     </li>
-                    {/* <li>
+                    <li>
                   <NavLink to={"/morefood"}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -236,7 +235,7 @@ const HeaderDashboardMenu = () => {
                     </svg>
                     &nbsp; More Food
                   </NavLink>
-                </li> */}
+                </li>
                   </SidebarDropDownMenu>
                 }
               </>

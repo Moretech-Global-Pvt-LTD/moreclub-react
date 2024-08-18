@@ -1,6 +1,7 @@
 import React from "react";
 import { Badge, Card, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const OfferCard = ({
   id,
@@ -49,7 +50,7 @@ const OfferCard = ({
                 ))}
             </div>
             <Card.Text className="text-dynamic-white text-start">
-              Starts at {start_offer}& upto {end_offer}
+              Starts at  {moment(start_offer).format("dddd DD MMM, YY")} up-to  {moment(end_offer).format("dddd DD MMM, YY")} 
             </Card.Text>
             <Card.Text className="text-warning text-start">
               {currency_Symbol}&nbsp;{price}
