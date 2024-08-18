@@ -27564,4 +27564,26 @@ span {
   justify-self:"center";
 }
 
+.restaurantCard{
+
+}
+.restaurantCard-image{
+  height: "12rem";
+  background: "white";
+}
+
+.restaurantCard h6{
+  font-Size:"12px";
+}
+
+@media (max-width: 500px) {
+ .restaurantCard-image{
+  height: "12rem" !important;
+  
+}
+.restaurantCard h6{
+  font-Size:"10px" !important;
+}
+}
+
 /*# sourceMappingURL=main.c1c39487.css.map*/

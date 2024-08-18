@@ -21,6 +21,7 @@ import Blackqr from "../../images/Qr/qrblack.png";
 import Whiteqr from "../../images/Qr/qrwhite.png";
 import EventDashboardDisplay from "../../components/event/EventDashboardDisplay";
 import PopularResturant from "../../components/Moreclub/morefood/PopularResturant";
+import BusinessTypes from "../../components/dashboard/BusinessTypes";
 
 const DashboardContent = () => {
   const user = useSelector((state) => state.userReducer);
@@ -288,7 +289,10 @@ const DashboardContent = () => {
         <Row>
           <DashboardOffers />
         </Row>
-        {/* <Row className="mt-4">
+        <Row>
+          <BusinessTypes />
+        </Row>
+        <Row className="mt-4">
           <div className="d-flex justify-content-between align-item-center">
             <h2 className="mt-4 mb-3">Popular Resturants </h2>
             <Link to="/morefood">
@@ -296,7 +300,7 @@ const DashboardContent = () => {
             </Link>
           </div>
           <PopularResturant />
-        </Row> */}
+        </Row>
         {/* <Row>
             <h2 className="mt-4 mb-3">Offers Nearby</h2>
             <Row sm={2} md={4} className="gx-3 gy-3">

@@ -9,13 +9,14 @@ import { useSelector } from "react-redux";
 import PartnerDeatilContent from "./PartnerDeatilContent";
 import { Link, useParams } from "react-router-dom";
 import Divider from "../../components/divider/Divider";
+import { axiosInstance } from "../..";
 
 const PartnerDetail = () => {
   const { partnerId } = useParams();
   const { data, isLoading, isError } = useQuery({
     queryKey: [`partners ${partnerId}`],
     queryFn: async () => {
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         `${baseURL}business/our/partners/${partnerId}/`
       );
       return response.data.data;
@@ -51,7 +52,7 @@ const PartnerDetail = () => {
       </DashboardLayout>
     );
   } else {
-    console.log("partner", data);
+   
     return (
       <LandingLayout>
         <div className="container">

@@ -76,7 +76,7 @@ const PopularresturantCarousel = ({data}) => {
   return (
     <Carousel
       responsive={responsive}
-      containerClass="ms-3 pb-4 row w-full"
+      containerClass="ms-3 pb-4 w-full"
       itemClass="ms-2 me-2"
       autoPlay={true}
       transitionDuration={5000}
@@ -100,7 +100,7 @@ const PopularresturantCarousel = ({data}) => {
         "mobile",
       ]}
       >
-          
+      
       {data.slice(0,10).map((item) => (
         <ResturantCard
           key={item.id}

@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { useSelector } from "react-redux";
 
 const ReceiveCard = ({
   receiver,
@@ -8,7 +9,10 @@ const ReceiveCard = ({
   transactiontime,
   transactionamount,
   previousbalance,
+  currency_received, 
+  currency_send 
 }) => {
+  const currency = useSelector((state) => state.currencyReducer.currencyDetail)
   return (
     <div className="d-flex w-100 justify-content-between border-bottom border-warning ">
       <div className="d-flex align-items-center mb-1 w-100 text-dynamic-white">
@@ -43,7 +47,7 @@ const ReceiveCard = ({
         <div className="d-grid w-100">
           <span className="fw-medium mb-2 d-flex justify-content-between">
             <span className=""></span>
-            <span className="fw-medium">&#43;&nbsp;${transactionamount}</span>
+            <span className="fw-medium">&#43;&nbsp;{currency_received ?? currency.symbol}&nbsp;{transactionamount}</span>
           </span>
           {/* <span>{`Receiver: ${receiver}`}</span> */}
           {/* <span>{`Sender  ${sender}`}</span> */}
@@ -52,7 +56,7 @@ const ReceiveCard = ({
             <i className="bi bi-calendar"></i>&nbsp;&nbsp;
             {moment.utc(transactiontime).local().format("h:mm a")}
           </span>
-          <span className="mt-2">Balance&nbsp;{previousbalance}</span>
+          <span className="mt-2">Balance&nbsp;{currency.symbol}{previousbalance}</span>
         </div>
       </div>
     </div>

@@ -7,6 +7,8 @@ const EventTransCard = ({
   transactiontime,
   transactionamount,
   previousbalance,
+  currency_send,
+  currency_received
 }) => {
   const currency = useSelector((state) => state.currencyReducer.currencyDetail);
   return (
@@ -43,7 +45,7 @@ const EventTransCard = ({
           <span className="fw-medium mb-2 d-flex justify-content-between">
             <span className=""></span>
             <span className="fw-medium">
-              &nbsp;{currency.symbol}&nbsp;{transactionamount}
+              &nbsp;{currency_send ?? currency.symbol}&nbsp;{transactionamount}
             </span>
           </span>
           {/* <span>{`Receiver: ${receiver}`}</span> */}

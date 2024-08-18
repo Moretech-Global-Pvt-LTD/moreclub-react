@@ -42,15 +42,24 @@ const PartnerDeatilContent = ({ company }) => {
               <Card.Title className="text-dynamic-white text-center text-warning">
                 {company?.business_name}
               </Card.Title>
-              <Card.Text>
-                <strong>Address:</strong> {company?.business_address}
-              </Card.Text>
-              <Card.Text>
-                <strong>Phone:</strong> {company?.business_phone}
-              </Card.Text>
-              <Card.Text>
-                <strong>Email:</strong> {company?.business_email}
-              </Card.Text>
+              <p>
+                <i class="bi bi-geo-alt-fill"></i>&nbsp;<strong>Address:</strong> {company?.business_address}
+              </p>
+              <p>
+                <strong><i class="bi bi-telephone-fill"></i>&nbsp;Phone:</strong><a href={`https://wa.me/${company?.business_phone}`}>{company?.business_phone}</a>
+              </p>
+              <p>
+                <i class="bi bi-envelope-fill"></i>&nbsp;<strong>Email:</strong> <a href={`mailto:${company?.business_email}`}>{company?.business_email}</a>
+              </p>
+              <p>
+                <strong><i class="bi bi-globe"></i> &nbsp;</strong> {company?.business_email}
+              </p>
+              <p>
+                <strong><i class="bi bi-facebook"></i>&nbsp;</strong> {company?.business_email}
+              </p>
+              <p>
+                <i class="bi bi-instagram"></i>&nbsp; {company?.business_email}
+              </p>
             </Card.Body>
           </Card>
           <Card className="my-2">
@@ -61,7 +70,7 @@ const PartnerDeatilContent = ({ company }) => {
               {company?.business_discounts &&
                 company.business_discounts.map((item) => (
                   <Card.Text>
-                    <strong>{item?.business_type.name}:</strong>{" "}
+                    <strong>{item?.business_type}:</strong>{" "}
                     {item?.discount}%
                   </Card.Text>
                 ))}
@@ -73,24 +82,27 @@ const PartnerDeatilContent = ({ company }) => {
             <Card.Body>
               {/* <Card.Title>Company Details</Card.Title> */}
               <div className="d-flex gap-2 align-items-center">
-                <img src={company.qr_code} alt="qr" className="w-25" />
+                <img src={company?.qr_code} alt="qr" className="w-25" />
                 <ListGroup className="list-group-flush w-75">
                   <ListGroupItem>
-                    <strong>Location:</strong> {company.business_address}
+                    <strong>Location:</strong> {company?.business_address}
                   </ListGroupItem>
                   <ListGroupItem>
-                    <strong>Referrals:</strong> {company.no_of_refer}
+                    <strong>Referrals:</strong> {company?.no_of_refer}
                   </ListGroupItem>
                 </ListGroup>
               </div>
               <div className="mt-4">
                 <h5>Google Map Location</h5>
+                {company?.lat && company?.lng &&
                 <MapboxComponent
                   lat={company.lat}
                   lng={company.lng}
                   detail={company.business_address}
                   title={company.business_name}
                 />
+                  
+               }
               </div>
             </Card.Body>
           </Card>

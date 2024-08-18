@@ -93,6 +93,7 @@ import OrderDetails from "./pages/moreclub/Resturant/Orders/orderDetail";
 import GalleryPage from "./pages/moreclub/Resturant/Gallery/GalleryPage";
 import Cuisine from "./pages/moreclub/Resturant/Cuisine/cuisine";
 import UpdateCuisine from "./pages/moreclub/Resturant/Cuisine/UpdateCuisine";
+import BusinessTypesDetail from "./pages/Partner/BusinessTypesDetail";
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to="/login" />;
@@ -225,6 +226,11 @@ const App = () => {
       path: "/partners/",
 
       page: <PartnerPage />,
+    },
+    {
+      path: "/partners/:partnerId/:partnerName",
+
+      page: <BusinessTypesDetail />,
     },
     {
       path: "/partners/:partnerId",
