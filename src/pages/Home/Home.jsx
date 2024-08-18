@@ -160,9 +160,9 @@ const Home = () => {
       <InfoContainer data={Infodata3} />
       <Divider />
       <Featuredtext>
-        <h2 className="text-white">Want to hear more success stories?</h2>
+{/*         <h2 className="text-white">Want to hear more success stories?</h2>
 
-        <Testimonials />
+        <Testimonials /> */}
         <div className="container">
           <FreeButton />
         </div>

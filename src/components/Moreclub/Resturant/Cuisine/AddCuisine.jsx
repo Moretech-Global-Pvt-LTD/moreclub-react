@@ -64,6 +64,7 @@ const AddCuisineForm = () => {
             })
             .catch((error) => {
                 message.error("error creating Cuisine ");
+
             }).finally(() => {
                 setLoading(false)
             });

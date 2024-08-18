@@ -63,8 +63,8 @@ const UpdateCuisineForm = ({ data }) => {
                 });
             })
             .catch((error) => {
-                console.error("There was an error updating the foodItems!", error);
-                message.error("error Updating Food Items");
+
+                message.error("error Updating cuisine ");
             }).finally(() => {
                 setLoading(false)
             });
