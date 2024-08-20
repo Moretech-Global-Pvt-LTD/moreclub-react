@@ -188,7 +188,7 @@ const OrderDetailsContent = ({item}) => {
                 <option value="Pending">Pending</option>
                 <option value="Cooked">Cooked</option>
                 <option value="Delivered">Delivered</option>
-                <option value="Cancelled">Cancelled</option>
+                <option value="Cancalled">Cancelled</option>
               </Form.Control>
             </Form.Group>
             <div className="d-flex justify-content-end gap-2">

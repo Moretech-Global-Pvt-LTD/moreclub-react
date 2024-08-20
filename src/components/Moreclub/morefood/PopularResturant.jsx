@@ -45,10 +45,7 @@ const PopularResturant = () => {
 
   return (
     <div>
-      {/* <Row xs={1} sm={2} md={2} xl={3} xxl={4} className="g-4"> */}
       {data && data.length !== 0 &&  <PopularresturantCarousel data={data} />}
-
-      {/* </Row> */}
     </div>
   );
 }
