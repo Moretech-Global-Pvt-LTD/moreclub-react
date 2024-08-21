@@ -94,6 +94,10 @@ import GalleryPage from "./pages/moreclub/Resturant/Gallery/GalleryPage";
 import Cuisine from "./pages/moreclub/Resturant/Cuisine/cuisine";
 import UpdateCuisine from "./pages/moreclub/Resturant/Cuisine/UpdateCuisine";
 import BusinessTypesDetail from "./pages/Partner/BusinessTypesDetail";
+import RestaurantPage from "./pages/moreclub/Resturant/Gallery/RestaurantGalleryPage";
+import UserPage from "./pages/moreclub/Resturant/Gallery/UserGalleryPage";
+import OpeninghoursPage from "./pages/moreclub/Resturant/openinghours/OpeninghoursPage";
+
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to="/login" />;
@@ -492,6 +496,21 @@ const App = () => {
       path: "/resturant/:res_id/gallery/:slug",
 
       page: <GalleryPage />,
+    },
+    {
+      path: "/resturant/:res_id/opening-duration/:slug",
+
+      page: <OpeninghoursPage />,
+    },
+    {
+      path: "/resturant/:res_id/gallery/:slug/restaurant",
+
+      page: <RestaurantPage />,
+    },
+    {
+      path: "/resturant/:res_id/gallery/:slug/user-upload",
+
+      page: <UserPage />,
     },
     {
       path: "/resturant/:res_id/menu",

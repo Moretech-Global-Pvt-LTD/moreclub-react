@@ -162,6 +162,26 @@ const Setuppage = ({ data }) => {
             </Card>
           </Col>
         </Link>
+        <Link
+          to={`/resturant/${id}/opening-duration/${slug}`}
+          className="d-flex flex-column "
+        >
+          <Col className="d-flex flex-column">
+            <Card className="p-2 flex-grow-1">
+              <Card.Body className="d-flex justify-content-center">
+                <img
+                  src={Gallery}
+                  alt="menu"
+                  className="px-2 py-1 rounded "
+                  style={{ height: "5rem", width: "5rem" }}
+                />
+              </Card.Body>
+              <Card.Title className="text-dynamic-white text-center fs-6">
+                Opening Duration
+              </Card.Title>
+            </Card>
+          </Col>
+        </Link>
       </Row>
     </div>
   );

@@ -62,7 +62,7 @@ const MorefoodContent = () => {
       <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={5} className=" px-2">
         {data?.map((item) => (
           <>
-          <ResturantCard link={"#"} res={item} />
+            <ResturantCard key={item.id} link={`https://morefood-six.vercel.app/resturants/${item.id}`} res={item} />
           </>
         ))}
       </Row>
