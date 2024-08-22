@@ -97,6 +97,7 @@ import BusinessTypesDetail from "./pages/Partner/BusinessTypesDetail";
 import RestaurantPage from "./pages/moreclub/Resturant/Gallery/RestaurantGalleryPage";
 import UserPage from "./pages/moreclub/Resturant/Gallery/UserGalleryPage";
 import OpeninghoursPage from "./pages/moreclub/Resturant/openinghours/OpeninghoursPage";
+import Failed from "./pages/Points/buy/Failed";
 
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
@@ -386,6 +387,10 @@ const App = () => {
     {
       path: "/points/buy/success",
       page: <Success />,
+    },
+    {
+      path: "/points/buy/failed",
+      page: <Failed />,
     },
     {
       path: "/points/buy/:paymentId",
