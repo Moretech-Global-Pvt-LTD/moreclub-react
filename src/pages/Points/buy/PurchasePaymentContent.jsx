@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import BrandLogo from "../../../images/logo/MembersClubblack.png";
 
@@ -8,9 +8,15 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { hostURL } from "../../../config/config";
+import { baseURL } from "../../../config/config";
+import SkeletonPayment from "../../../components/Skeleton/Skeleton";
+import { axiosInstance } from "../../..";
+import { useNavigate } from "react-router-dom";
 
-const PurchasePaymentContent = () => {
+const PurchasePaymentContent = ({ buyAmount, currency }) => {
+  const [clientSecret, setClientSecret] = useState("");
+  const [paymentIntent, setPaymentIntent] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
@@ -18,81 +24,88 @@ const PurchasePaymentContent = () => {
   const currencyData = useSelector(
     (state) => state.currencyReducer.currencyDetail
   );
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!stripe || !elements) {
-      return;
-    }
+
+  useEffect(() => {
+    fetch(`${baseURL}payments/stripe/create-payment-intent/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        items: [{ id: "buy-points", price: buyAmount, currency: currency }],
+      }),
+
+    })
+      .then((res) => res.json())
+
+      .then((data) => {
+        console.log("data", data);
+        setClientSecret(data.clientSecret);
+        setPaymentIntent(data.payment_intent);
+      })
+      .catch((error) =>
+        setErrorMessage(`Error fetching client secret: ${error.message}`)
+      );
+  }, [buyAmount, currency]);
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setIsLoading(true);
 
-    try {
-      // const response = await axiosInstance.post(
-      //   `${baseURL}payments/stripe/confirm-payment-intent/`,
-      //   {
-      //     payment_intent: elements._commonOptions.clientSecret.id,
-      //   },
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
-
-      const { error, paymentIntent } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: `${hostURL}/points/buy/success`,
-        },
-        redirect: "if_required",
-      });
-
-      if (error) {
-        message.error("error creating payments");
-        setIsLoading(false);
-      }
-
-      if (paymentIntent) {
-        const url = new URL(`${hostURL}/points/buy/success`);
-        url.searchParams.set("payment_intent", paymentIntent.id);
-        url.searchParams.set(
-          "payment_intent_client_secret",
-          elements._commonOptions.clientSecret.id
-        );
-        url.searchParams.set("redirect_status", "succeeded");
-
-        window.location.href = url.toString();
-
-        // const url = window.location.href;
-        // const extractedId = url.substring(url.lastIndexOf("/") + 1);
-        // const rate = parseFloat(
-        //   extractedId.substring(5, extractedId.length - 5)
-        // );
-
-        // const buy_coupon = await axiosInstance.post(
-        //   `${baseURL}wallets/buy/points/`,
-        //   {
-        //     payment_intent: elements._commonOptions.clientSecret.id,
-        //     amount: purchaseData.purchaseAmount,
-        //     currency_code: purchaseData.currency,
-        //     payment_method: paymentIntent.payment_method,
-        //   }
-        // );
-
-        // if (buy_coupon.data.success) {
-        //   message.success("Money loaded successfully");
-        //   navigate("/wallet");
-        // }
-      } else {
-        const url = new URL(`${hostURL}/points/buy/success`);
-        url.searchParams.set("redirect_status", "failed");
-        window.location.href = url.toString();
-      }
-    } catch (error) {
-      message.error("error creating payments");
+    if (!stripe || !elements) {
+      setErrorMessage("Stripe or elements not loaded.");
       setIsLoading(false);
+      return;
     }
+    const { error: submitError } = await elements.submit();
+
+    if (submitError) {
+      setErrorMessage(submitError.message);
+      setIsLoading(false);
+      return;
+    }
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      elements,
+    });
+
+    console.log("paymentMethod", paymentMethod);
+    console.log("paymentMethod error", error);
+
+    try {
+      const newOrderData = {
+        payment_intent: paymentIntent,
+        amount: buyAmount,
+        currency_code: currency,
+        payment_method: paymentMethod?.id ?? ""
+      };
+
+      const response = await axiosInstance.post(`${baseURL}wallets/buy/points/`, newOrderData);
+
+
+      if (response.status !== 200) {
+        setErrorMessage(`${response.data.message}`);
+      } else {
+        message.success("Payment Success");
+        console.log("navigate", response.data.data);
+        navigate(`/points/buy/success?amount=${response.data.data.currency_symbol}${response.data.data.amount}`);
+      }
+
+    } catch (error) {
+      message.error("Payment Failed");
+      const errorMessage = error?.response?.data?.errors?.non_field_errors[0];
+      navigate(`/points/buy/failed?error=${errorMessage}`);
+      setErrorMessage(error.message || "An unknown error occurred.");
+
+    }
+
+    setIsLoading(false);
   };
+
+
 
   return (
     <>
@@ -102,30 +115,28 @@ const PurchasePaymentContent = () => {
             <div class="card border-0 shadow-sm dashboard-activity-tab">
               <div class="card-body">
                 <h5>Load Money</h5>
-                <form id="payment-form" onSubmit={handleSubmit}>
-                  <PaymentElement id="payment-element" />
-                  <button
-                    disabled={isLoading || !stripe || !elements}
-                    id="submit"
-                    className="btn btn-danger btn-sm mt-2"
-                    style={{ float: "right" }}
-                  >
-                    <span id="button-text">
-                      {isLoading ? (
-                        <div
+                {(!clientSecret || !paymentIntent || !stripe || !elements) ? (
+                  <SkeletonPayment />
+                )
+                  : (
+                    <form onSubmit={handleSubmit} className="payment-form ">
+                      {clientSecret && <PaymentElement />}
+                      {errorMessage && <div className="text-danger">{errorMessage}</div>}
+                      <button
+                        disabled={!stripe || isLoading}
+                        className="btn btn-danger btn-sm mt-2"
+                        style={{ float: "right" }}
+                      >
+                        {isLoading ? <div
                           class="spinner-border spinner-border-sm text-primary"
                           role="status"
                         >
-                          {/* <span class="sr-only">Loading...</span> */}
-                        </div>
-                      ) : (
-                        "Pay now"
-                      )}
-                    </span>
-                  </button>
-                  {/* Show any error or success messages */}
-                  {/* {messages && <div id="payment-message">{messages}</div>} */}
-                </form>
+
+                        </div> : `Load ${currency} ${buyAmount}`}
+                      </button>
+                    </form>
+                  )
+                }
               </div>
             </div>
           </div>
