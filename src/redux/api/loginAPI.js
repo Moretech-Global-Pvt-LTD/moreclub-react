@@ -50,7 +50,6 @@ export const login = (username, password) => async (dispatch) => {
         username,
         password,
       });
-      console.log("login response", res);
       await dispatch(loginSuccess(res.data.data));
       await dispatch(load_user());
       await dispatch(loadMembershipType());
@@ -169,11 +168,12 @@ export const otpResend = (username) => async (dispatch) => {
   }
 };
 
-export const otpVerify = (username, code) => async (dispatch) => {
+export const otpVerify = (username, code , callbackUrl) => async (dispatch) => {
   try {
     const res = await axios.post(`${baseURL}auth/register/verify/`, {
       username,
       code,
+      return_url: callbackUrl
     });
     if (res.status === 200) {
       sessionStorage.setItem("moretechglobal_access", res.data.data.token);

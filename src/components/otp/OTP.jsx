@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { otpResend, otpVerify } from "../../redux/api/loginAPI";
+import { encryptObject } from "../../validation/makeToken";
 
 const OTPArea = () => {
   const [timer, setTimer] = useState(5);
@@ -11,6 +12,11 @@ const OTPArea = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isResending, setIsResending] = useState(true);
+
+  const nextParam = new URLSearchParams(window.location.search).get("next") ?? "";
+  
+  
+  // navigate(nextUrl.toString());
 
   useEffect(() => {
     let interval;
@@ -33,7 +39,12 @@ const OTPArea = () => {
   const handleBack = async (e) => {
     e.preventDefault();
     localStorage.removeItem("otp_username");
-    navigate("/register-membership");
+    if (nextParam) {
+      const targetUrl = `/register-membership?next=${encodeURIComponent(nextParam)}`;
+      navigate(targetUrl);
+    } else {
+      navigate("/register-membership");
+    }
   };
 
   // Function to handle resend OTP
@@ -47,13 +58,22 @@ const OTPArea = () => {
   const formRef = React.createRef();
   const onFinish = async (values) => {
     const result = await dispatch(
-      otpVerify(localStorage.getItem("otp_username"), values.code)
+      otpVerify(localStorage.getItem("otp_username"), values.code ,nextParam)
     );
     console.log(result);
     if (result.status === 200) {
       message.success(result.data.message);
       localStorage.removeItem("otp_username");
-      redirect("/dashboard");
+      if (nextParam) {
+        const tokens = result.data.data.callback_url
+        const token = tokens;
+        const nextUrl = new URL(nextParam, window.location.origin);
+        nextUrl.searchParams.append('token', token);
+        console.log(nextUrl.href);
+        window.location.href = nextUrl.href;
+      } else {
+        redirect("/dashboard");
+      }
     } else {
       if (result.success === false) {
         if (result.errors.username) {
