@@ -29,6 +29,9 @@ const LoginContent = (props) => {
   const expirationTime = 1 * 60 * 60 * 1000;
   const [cookies, setCookie] = useCookies(["failedAttempts"]);
 
+  const url = new URL(window.location.href);
+  const nextParam = url.searchParams.get("next");
+
   ReactGA.send("page_view", {
     page_path: '/login',
   });
@@ -88,7 +91,7 @@ const LoginContent = (props) => {
     event.preventDefault();
     setLoading(true);
     try {
-      const result = await dispatch(login(email, password));
+      const result = await dispatch(login(email, password, nextParam));
       if (result?.status === 200) {
         setLoading(false);
         //  ReactGA.event({
@@ -96,6 +99,18 @@ const LoginContent = (props) => {
         //    action: "Login",
         //    label: "Successful Login",
         //  });
+        console.log(result)
+        if (nextParam) {
+          const tokens = result.data.data.callback_url_token
+          const token = tokens;
+          const nextUrl = new URL(nextParam, window.location.origin);
+          nextUrl.searchParams.append('token', token);
+          console.log(nextUrl.href);
+          window.location.href = nextUrl.href;
+        } else {
+          redirect("/dashboard");
+        }
+
         redirect("/dashboard");
       } else {
         message.warning(`${5 - failedAttempts - 1} attempt remaining`);

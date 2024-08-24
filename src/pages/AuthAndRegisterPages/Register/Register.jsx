@@ -9,6 +9,7 @@ import Navbutton from "../../../components/header/Navbutton";
 export default function Register() {
   const otp_username = localStorage.getItem("otp_username");
   const navigate = useNavigate();
+
   useEffect(() => {
     if (otp_username) {
       navigate("/otp");

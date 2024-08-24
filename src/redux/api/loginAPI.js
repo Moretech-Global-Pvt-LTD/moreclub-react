@@ -42,13 +42,14 @@ export const load_user = () => async (dispatch) => {
   }
 };
 
-export const login = (username, password) => async (dispatch) => {
+export const login = (username, password ,next) => async (dispatch) => {
   dispatch(setProcessing(true));
   if (username && password) {
     try {
       const res = await axios.post(`${baseURL}auth/login/`, {
         username,
         password,
+        return_url: next,
       });
       await dispatch(loginSuccess(res.data.data));
       await dispatch(load_user());

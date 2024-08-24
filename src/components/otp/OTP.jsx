@@ -60,7 +60,6 @@ const OTPArea = () => {
     const result = await dispatch(
       otpVerify(localStorage.getItem("otp_username"), values.code ,nextParam)
     );
-    console.log(result);
     if (result.status === 200) {
       message.success(result.data.message);
       localStorage.removeItem("otp_username");
