@@ -29,7 +29,7 @@ const QrReader = () => {
     let url;
     try {
       const parsed_json = JSON.parse(result.data);
-      console.log("parsed json ", parsed_json);
+      
 
       if (typeof parsed_json === "object") {
         if (parsed_json?.billing) {
@@ -42,7 +42,6 @@ const QrReader = () => {
           }
         }
       } else {
-        console.log("else condition");
         if (parsed_json?.includes("referral")) {
           url = parsed_json;
         } else if(parsed_json?.includes("bpms")) {

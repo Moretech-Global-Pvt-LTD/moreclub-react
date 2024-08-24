@@ -37,6 +37,7 @@ const RegistrationForm = (props) => {
   const url = new URL(currentUrl);
 
   // Get the value of the 'refer' query parameter
+  const nextParam = url.searchParams.get("next");
   const referParam = url.searchParams.get("referral");
   const bpmsParam = url.searchParams.get("bpms");
 
@@ -71,7 +72,12 @@ const RegistrationForm = (props) => {
       if (result.status === 200) {
         message.success("Registered sucessfully");
         localStorage.setItem("otp_username", formData.email);
-        navigate("/otp");
+        if (nextParam) { 
+          const targetUrl = `/otp?next=${encodeURIComponent(nextParam)}`;
+          navigate(targetUrl);
+        } else {
+          navigate("/otp");
+        }
         setLoading(false);
       } else {
         message.error("Something went Wrong");

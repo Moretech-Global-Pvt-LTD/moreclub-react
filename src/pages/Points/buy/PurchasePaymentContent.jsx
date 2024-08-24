@@ -72,8 +72,6 @@ const PurchasePaymentContent = ({ buyAmount, currency }) => {
       elements,
     });
 
-    console.log("paymentMethod", paymentMethod);
-    console.log("paymentMethod error", error);
 
     try {
       const newOrderData = {
