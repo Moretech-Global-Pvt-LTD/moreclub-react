@@ -47,7 +47,7 @@ const BusinessTypes = () => {
             {data && data.length !== 0 && (
                 <>
                     <div className="d-flex justify-content-between align-item-center">
-                        <h2 className="mt-4 mb-3">Our Partners</h2>
+                        <h2 className="mt-4 mb-3">Best Deals in Town</h2>
                         <Link to="/partners">
                             <Button variant="link">View All</Button>
                         </Link>

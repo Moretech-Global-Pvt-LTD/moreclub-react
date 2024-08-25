@@ -27563,13 +27563,20 @@ span {
   width:"150px";
   justify-self:"center";
 }
-
 .restaurantCard{
 
 }
-.restaurantCard-image{
-  height: "12rem";
+
+.restaurantCard-image-container{
+  height: "11rem";
   background: "white";
+  overflow:"hidden";
+}
+.restaurantCard-image{
+  height: "11rem";
+  background: "white";
+  object-fit: "cover"
+  
 }
 
 .restaurantCard h6{
@@ -27578,7 +27585,7 @@ span {
 
 @media (max-width: 500px) {
  .restaurantCard-image{
-  height: "12rem" !important;
+  height: "11rem" !important;
   
 }
 .restaurantCard h6{

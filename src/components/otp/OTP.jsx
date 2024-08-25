@@ -2,7 +2,7 @@ import { Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { otpResend, otpVerify } from "../../redux/api/loginAPI";
 
 const OTPArea = () => {

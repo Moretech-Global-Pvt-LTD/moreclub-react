@@ -15,11 +15,14 @@ const ResturantCard = ({res, link}) => {
           key={res.id}
         // style={{ minWidth: "240px" }}
         >
+          <div className='restaurantCard-image-container'>
           <Image
             src={`${morefoodimageURL}${res.banner}`}
             alt={"banner"}
-            className="restaurantCard-image"
+            className="restaurantCard-image "
+            style={{height: "11rem", width:"100%", objectfit:"cover"}}
           />
+          </div>
           <Card className="p-2 flex-grow-1">
             <Card.Body className="d-flex align-items-center justify-content-between p-2">
               <ul>

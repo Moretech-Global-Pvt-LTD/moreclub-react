@@ -287,9 +287,6 @@ const DashboardContent = () => {
         </Row>
 
         <Row>
-          <DashboardOffers />
-        </Row>
-        <Row>
           <BusinessTypes />
         </Row>
         <Row className="mt-4">
