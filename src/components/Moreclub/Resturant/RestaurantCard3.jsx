@@ -14,11 +14,14 @@ const ResturantCard = ({ res, link }) => {
             // style={{ minWidth: "240px" }}
             >
         <Col className="d-flex flex-column flex-grow-1 rounded-3 restaurantCard position-relative mx-0">
-                <Image
-                    src={`${morefoodimageURL}${res.banner}`}
-                    alt={"banner"}
-                    className="restaurantCard-image"
-                />
+                <div className='restaurantCard-image-container'>
+          <Image
+            src={`${morefoodimageURL}${res.banner}`}
+            alt={"banner"}
+            className="restaurantCard-image "
+            style={{height: "10rem", width:"100%", objectfit:"cover"}}
+          />
+          </div>
                 <Card className="flex-grow-1 p-0">
                     <Card.Body className="d-flex align-items-center justify-content-between p-2">
                         <ul>
