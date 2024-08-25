@@ -67,7 +67,7 @@ const rearrangedLabels = [...labels.slice(currentMonthIndex + 1), ...labels.slic
       };
 
   return (
-    <Col sm={12} md={6} className="my-4" style={{minHeight:"7rem"}}>
+    <Col sm={12} md={6} className="my-4 d-none d-md-block" style={{minHeight:"7rem"}}>
       <Line options={options} data={data} />
     </Col>
   );

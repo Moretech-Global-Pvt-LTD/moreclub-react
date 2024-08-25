@@ -253,11 +253,7 @@ const App = () => {
 
       page: <AllCoupon />,
     },
-    {
-      path: "/scan",
-
-      page: <GetMembership />,
-    },
+    
     {
       path: "/terms",
 
@@ -306,6 +302,11 @@ const App = () => {
   ];
 
   const userRoutes = [
+    {
+      path: "/scan",
+
+      page: <GetMembership />,
+    },
     {
       path: "/otp-phone",
 

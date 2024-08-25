@@ -2,13 +2,15 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const BusinessTypesCard = ({ id, logo, name }) => {
+const BusinessTypesCard = ({ id, logo, name, banner }) => {
 
     const slug = name.replace(" ", "-");
 
     return (
-        <Link to={`/partners/${id}/${slug}`} className="d-flex flex-column" style={{ height: "100%" }}>
-            <Card className="nearby-offers-card flex-grow-1">
+        <Link to={`/partners/${id}/${slug}`} className="d-flex flex-column" style={{ height: "100%", backgroundImage: `url(${banner?? ""})` }}>
+            <Card className="nearby-offers-card flex-grow-1 " style={{
+                height: "100%", width: "100%", backgroundImage: `url(${banner ?? ""})`, backgroundSize: "cover", backgroundPosition: "center",    
+    backgroundRepeat: "no-repeat" }}>
                 <div className="mx-auto mt-2 mb-0">
                     {!logo ? (
                         <div
@@ -17,7 +19,7 @@ const BusinessTypesCard = ({ id, logo, name }) => {
                                 width: "60px",
                                 height: "60px",
                                 objectFit: "contain",
-                                backgroundColor: "#fff",
+                                backgroundColor: `${banner ? "gray" : "white"}`,
                             }}
                         >
                             {name[0]}
@@ -29,15 +31,15 @@ const BusinessTypesCard = ({ id, logo, name }) => {
                                 width: "60px",
                                 height: "60px",
                                 objectFit: "contain",
-                                backgroundColor: "#fff",
+                                backgroundColor: `${banner ? "#ffc106" : "white"}`,
                             }}
                             alt="logo"
-                            className="img-fluid rounded-circle mb-3 profile-image"
+                            className="img-fluid rounded-circle mb-3  profile-image"
                         />
                     )}
                 </div>
                 <Card.Body className="pt-0">
-                    <Card.Title className="text-dynamic-white text-center line">
+                    <Card.Title className={`${banner ? "text-black" : "text-dynamic-white"}  text-center fw-bold line`}>
                         {name}
                     </Card.Title>
                 </Card.Body>

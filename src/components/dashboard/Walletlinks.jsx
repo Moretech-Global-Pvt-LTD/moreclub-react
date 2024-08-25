@@ -94,19 +94,19 @@ const Walletlinks = () => {
           className="btn btn-success rounded-pill btn-sm w-100 mt-3"
           to="/points/send"
         >
-          Send Money
+          <i class="bi bi-send-fill"></i> Send Money
         </Link>
         <Link
           className="btn btn-warning rounded-pill btn-sm w-100 mt-3"
           to="/points/buy"
         >
-          Load Money
+          <i class="bi bi-box-arrow-in-down"></i> Load Money
         </Link>
         <Link
           className="btn btn-danger rounded-pill btn-sm w-100 mt-3"
           to="/points/withdraw"
         >
-          Withdraw
+          <i class="bi bi-box-arrow-down"></i> Withdraw
         </Link>
       </>
     );

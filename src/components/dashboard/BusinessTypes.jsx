@@ -40,7 +40,7 @@ const BusinessTypes = () => {
     if (isError) {
         <div className="text-dynamic white">Error getting data</div>;
     }
-    console.log(data)
+   
 
     return (
         <div>
@@ -52,13 +52,14 @@ const BusinessTypes = () => {
                             <Button variant="link">View All</Button>
                         </Link>
                     </div>
-                    <Row xs={1} sm={2} md={2} lg={4} xxl={6} className="gx-3 gy-3">
+                    <Row xs={2} sm={3} md={3} lg={4} xxl={6} className="gx-3 gy-3">
                         {data.map((item) => (
                             <Col className="d-flex flex-column">
                                 <BusinessTypesCard
                                     id={item.id}
-                                    logo={item?.business_logo}
+                                    logo={item?.image}
                                     name={item?.name}
+                                    banner={item?.banner}
                                 />
                             </Col>
                         ))}

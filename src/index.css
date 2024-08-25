@@ -26367,7 +26367,6 @@ input[type="file"]::file-selector-button:hover {
 
 @media (min-width: 768px) {
   .Scanner-wrapper {
-    grid-template-columns: repeat(2, 1fr);
     column-gap: 10px;
     max-width: calc(80%);
     justify-content: space-around;
