@@ -12,7 +12,7 @@ const QuickLinks = () => {
       <Col lg={8}>
         <div className="nft-card  shadow-sm mt-4 mb-4 p-4">
           <h6>Quick links</h6>
-          <Row className="" xs={1} sm={2} lg={3}  gap={1}>
+          <Row className="" xs={2} sm={2} lg={3}  gap={1}>
             <Link to="/scan" className="col p-1 ">
               <p className="fs-6 mt-2 mb-2 border-bottom pb-2 text-center card"> Scan</p>
             </Link>

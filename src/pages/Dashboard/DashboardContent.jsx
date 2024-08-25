@@ -113,7 +113,7 @@ const DashboardContent = () => {
     <div>
       <AlertNotification />
       <div>
-        <>
+        <div className="d-none d-sm-block">
           {data.businessData && data.userData && (
             <Row sm={2} md={4} className=" gx-3 gy-3 gb-3 mb-3">
               <Topcards
@@ -175,10 +175,10 @@ const DashboardContent = () => {
               </Col>
             </Row>
           )}
-        </>
-
+        </div>
+        
         {!data.businessData && data.userData && (
-          <Row sm={2} md={4} className=" gx-3 gy-3 gb-3">
+          <Row sm={2} md={4} className=" gx-3 gy-3 gb-3 d-none d-sm-block">
             <Topcards
               title={"Coupons"}
               subtitle={"Total coupon"}
@@ -237,11 +237,14 @@ const DashboardContent = () => {
           </Row>
         )}
 
+        
+        
+
         <Row>
           {user &&
             user.user?.user_type === "BUSINESS" &&
             data?.businessData && (
-              <>
+              < >
                 <Chart
                   billingsData={
                     data?.businessData?.billing_transactions_chart_data
@@ -264,6 +267,8 @@ const DashboardContent = () => {
             </>
           )}
         </Row>
+       
+
         <Row xs={1} sm={1} md={2} lg={3} className="align-items-center">
           <Col>
             <div className="nft-card card shadow-sm mt-4 mb-4 p-4">

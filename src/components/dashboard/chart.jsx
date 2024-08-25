@@ -125,7 +125,7 @@ const Chart = ({ refersData, pointsdata, billingsData }) => {
     <Col
       sm={12}
       md={6}
-      className="my-4 "
+      className="my-4 d-none d-md-block"
       style={{ minHeight: "7rem", Width: "100%" }}
     >
       <Line

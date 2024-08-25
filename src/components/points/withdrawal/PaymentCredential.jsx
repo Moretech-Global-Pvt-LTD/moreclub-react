@@ -5,6 +5,8 @@ import {
   Accordion,
   AccordionBody,
   AccordionButton,
+  Row,
+  Col,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -93,12 +95,16 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
             {" "}
             Your existing {withdrawaldata.method} Accounts
           </h6>
-
+          
+          <div style={{ maxWidth: "1200px" }}>
+          <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={4}>
           {withdrawaldata.paypalAccount &&
             withdrawaldata.method === "paypal" &&
             withdrawaldata.paypalAccount?.map((acc, index) => (
-              <div
-                class={`custom-radio-card card text-dynamic-white p-4 m-2 ${
+              <Col>
+              
+              <div 
+                class={`cols custom-radio-card card text-dynamic-white p-4 m-2 ${
                   acc.email === selectedId ? "bg-warning text-black" : ""
                 } ${
                   withdrawaldata.paypal === acc.email
@@ -148,11 +154,14 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
                   </label>
                 </div>
               </div>
+              </Col>
             ))}
+           
 
           {withdrawaldata.swishAccount &&
             withdrawaldata.method === "swish" &&
             withdrawaldata.swishAccount?.map((acc, index) => (
+              <Col>
               <div
                 class={`custom-radio-card card text-dynamic-white p-4 m-2 ${
                   acc.phone_number === selectedId ? "bg-warning text-black" : ""
@@ -193,12 +202,14 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
                     </h2> */}
                   </label>
                 </div>
-              </div>
+                </div>
+              </Col>
             ))}
 
           {withdrawaldata.CardAccount &&
             withdrawaldata.method === "card" &&
             withdrawaldata.CardAccount?.map((acc, index) => (
+              <Col>
               <div
                 class={`custom-radio-card card text-dynamic-white p-4 m-2 ${
                   acc === selectedCard ? "bg-warning text-black" : ""
@@ -262,9 +273,11 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
                     </p>
                   </label>
                 </div>
-              </div>
+                </div>
+              </Col>
             ))}
-
+            </Row>
+          </div>
           <div className="ms-2" style={{ maxWidth: "18rem" }}></div>
         </div>
       </Form>
