@@ -176,9 +176,10 @@ const DashboardContent = () => {
             </Row>
           )}
         </div>
+        <div className="d-none d-sm-block">
         
         {!data.businessData && data.userData && (
-          <Row sm={2} md={4} className=" gx-3 gy-3 gb-3 d-none d-sm-block">
+          <Row sm={2} md={4} className=" gx-3 gy-3 gb-3 ">
             <Topcards
               title={"Coupons"}
               subtitle={"Total coupon"}
@@ -236,6 +237,7 @@ const DashboardContent = () => {
             </Col>
           </Row>
         )}
+        </div>
 
         
         
