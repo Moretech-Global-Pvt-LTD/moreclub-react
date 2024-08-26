@@ -1,15 +1,11 @@
 import Divider from "../../components/divider/Divider";
 import Process from "../../components/process/Process";
-
-import { useSelector } from "react-redux";
 import Hero from "../../components/home/hero";
 import Navbar from "../../components/header/Navbar";
 import Stat from "../../components/home/stat";
 import InfoContainer from "../../components/home/InfoContainer";
-
 import Featuredtext from "../../components/home/Featuredtext";
 import FreeButton from "../../components/home/FreeButton";
-import Testimonials from "../../components/home/Testimonials";
 import PartnerSection from "../../components/home/PartnerSection";
 import Footer from "../../components/footer/Footer";
 import About1 from "../../images/about/expectation.png";
