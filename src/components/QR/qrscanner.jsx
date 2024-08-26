@@ -30,7 +30,7 @@ const QrReader = () => {
     try {
       const parsed_json = JSON.parse(result.data);
       
-
+     
       if (typeof parsed_json === "object") {
         if (parsed_json?.billing) {
           const user_name = parsed_json?.billing?.user_name;
@@ -41,13 +41,22 @@ const QrReader = () => {
             url = `${hostURL}/login`;
           }
         }
-      } else {
-        if (parsed_json?.includes("referral")) {
-          url = parsed_json;
-        } else if(parsed_json?.includes("bpms")) {
-          url = parsed_json;
+        else if (parsed_json?.username) {
+          console.log("username ", parsed_json?.username);
+          const user_name = parsed_json?.username;
+          if (user.isAuthenticated === true) {
+            url = `${hostURL}/points/send?user_name=${user_name}`;
+          } else {
+            url = `${hostURL}/login`;
+          }
         }
-      }
+      }else {
+          if (parsed_json?.includes("referral")) {
+            url = parsed_json;
+          } else if(parsed_json?.includes("bpms")) {
+            url = parsed_json;
+          }
+        }
       window.location.href= url;
     } catch (error) {
       console.log("error",error);

@@ -69,7 +69,7 @@ const QRcontent = () => {
                 <img
                   src={`${user.user.user_refer_qr}`}
                   alt="qr"
-                  style={{ width: "10rem", height: "auto" }}
+                  style={{ width: "12rem", height: "auto" }}
                 />
               </div>
             )}
@@ -102,11 +102,11 @@ const QRcontent = () => {
                 <img
                   src={`${user.user.qr_code}`}
                   alt="qr"
-                  style={{ width: "10rem", height: "auto" }}
+                  style={{ width: "14rem", height: "auto" }}
                 />
               </div>
             )}
-            <p className="text-center text-danger">Use this Qr to get Discounts while Paying with Membership</p>
+            <p className="text-center text-danger">Use this Qr to get Discounts while Paying with Membership or Sending Or Receving Money in your wallet</p>
           </>
 
         )}
