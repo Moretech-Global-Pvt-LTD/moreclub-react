@@ -58,7 +58,7 @@ const customStyles = {
 
 
 
-const MenuItemsForm = ({ res_id, cat_id }) => {
+const MenuItemsForm = ({ res_id, cat_id , onFinish }) => {
   const queryClient = useQueryClient();
   const [menuItem, setMenuItem] = useState({
     name: "",
@@ -72,6 +72,7 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
   const [loading, setLoading] = useState(false)
   const [uiLoading, setUIloading] = useState(false);
   const [cuisineOption, setCuisineOption] = useState([]);
+  const [offererror, setOfferError] = useState("");
 
 
   async function getCuisineList() {
@@ -95,8 +96,18 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
 
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setMenuItem({ ...menuItem, [name]: value });
+    if (e.target.name === "offerPrice" && e.target.value) {
+      if ( parseFloat(menuItem.price) > parseFloat(e.target.value)) {
+        setMenuItem({ ...menuItem, [e.target.name]: e.target.value });
+        setOfferError("");
+      } else {
+        setMenuItem({ ...menuItem, [e.target.name]: null });
+        setOfferError("Must be less than price")
+      }
+    } else {
+      const { name, value } = e.target;
+      setMenuItem({ ...menuItem, [name]: value });
+    }
   }
 
 
@@ -104,19 +115,12 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
     if (selectedOptions) {
       const selectedValues = selectedOptions.map(option => option.value);
       setMenuItem({ ...menuItem, cuisine_id: selectedValues });
-      console.log("selected option", selectedValues)
     } else {
       setMenuItem({ ...menuItem, "cuisine": [] });
       console.log("selected option", selectedOptions)
     }
   };
 
-  // const removeCuisine = (cuisineToRemove) => {
-  //   setMenuItem({
-  //     ...menuItem,
-  //     cuisine: menuItem.cuisine.filter(cuisine => cuisine !== cuisineToRemove),
-  //   });
-  // };
 
   const handleImageChange = (e) => {
     setMenuItem({ ...menuItem, image: e.target.files[0] });
@@ -137,19 +141,7 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
       restaurant_id: res_id,
       menu: cat_id
     }
-    // const formData = new FormData();
-
-    // formData.append("name", menuItem.name);
-    // formData.append("price", menuItem.price);
-    // formData.append("short_description", menuItem.short_description);
-    // formData.append("image", menuItem.image);
-    // formData.append("menu", cat_id);
-    // formData.append("restaurant_id", res_id);
-    // formData.append("discount_price", menuItem.offerPrice ?? "");
-    // formData.append("cuisine_id", menuItem.cuisine);
-    // formData.append("ingredient", menuItem.ingredient);
-    
-
+  
     axiosInstance
       .post(`${morefoodURL}moreclub/user/food/items/${cat_id}/${res_id}/`, data,
         {
@@ -170,6 +162,7 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
           ingredient:"",
           image: null,
         });
+        onFinish();
       })
       .catch((error) => {
         console.error("There was an error fetching the categories!", error);
@@ -211,7 +204,7 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
           </Col>
           <Col>
             <Form.Group controlId="formItemOfferPrice">
-              <Form.Label>Offer Price</Form.Label>
+              <Form.Label>Offer Price <span style={{ fontSize: "11px" }}>(optional)</span></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter offer price"
@@ -219,6 +212,7 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
                 value={menuItem.offerPrice}
                 onChange={handleChange}
               />
+              {offererror && <p className="text-danger" style={{ fontSize: "11px" }}>{offererror}</p>}
             </Form.Group>
           </Col>
         </Row>
@@ -287,7 +281,8 @@ const MenuItemsForm = ({ res_id, cat_id }) => {
             menuItem.price.trim() === "" ||
             menuItem.short_description.trim() === "" ||
             menuItem.image === null ||
-            menuItem.cuisine_id.length === 0
+            menuItem.cuisine_id.length === 0 ||
+            offererror !== ""
           }
         >
           {loading && (

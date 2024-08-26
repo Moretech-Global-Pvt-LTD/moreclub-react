@@ -4,7 +4,7 @@ import { morefoodURL } from '../../../../config/config';
 import { axiosInstance } from '../../../..';
 import { useQueryClient } from '@tanstack/react-query';
 
-const CategoryForm = ({ res_id}) => {
+const CategoryForm = ({ res_id ,onFinish}) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const queryClient = useQueryClient();
@@ -42,9 +42,8 @@ const CategoryForm = ({ res_id}) => {
         queryClient.invalidateQueries({
           queryKey: [`Resturant Menu List ${res_id}`],
         });
-        
-        
         setSelectedCategory("");
+        onFinish();
       })
       .catch((error) => {
         console.error("There was an error fetching the categories!", error);

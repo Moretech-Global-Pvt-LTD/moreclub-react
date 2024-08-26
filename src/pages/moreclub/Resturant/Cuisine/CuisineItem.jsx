@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
-import CategoryCard from "../../../../components/Moreclub/Resturant/Menu/CategoryCard";
 import AddCuisineForm from "../../../../components/Moreclub/Resturant/Cuisine/AddCuisine";
 import CuisineCard from "../../../../components/Moreclub/Resturant/Cuisine/CuisineCard";
 
@@ -79,7 +78,7 @@ const CuisineItem = () => {
             </div>
             <Row>
                 <Col xs={12} sm={8} md={6} lg={4}>
-                    {showForm && <AddCuisineForm res_id={res_id} />}
+                    {showForm && <AddCuisineForm res_id={res_id}  onFinish={hideAddCategory}/>}
                 </Col>
             </Row>
 
@@ -100,6 +99,7 @@ const CuisineItem = () => {
                             logo={item.image}
                             name={item.name}
                             item={item.no_of_items}
+                            
                         />
                     </Col>
                 ))}

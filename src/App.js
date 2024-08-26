@@ -475,7 +475,7 @@ const App = () => {
       page: <Cuisine />,
     },
     {
-      path: "/resturant/:res_id/cuisine/:cuisine_id/:slug",
+      path: "/resturant/:res_id/cuisine/:cuisine_id/:rest_name/:slug",
       page: <UpdateCuisine />,
     },
     {

@@ -3,7 +3,7 @@ import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
 import { message } from "antd";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import CuisineCard from "./CuisineCard";
 
@@ -12,13 +12,14 @@ import CuisineCard from "./CuisineCard";
 
 
 const UpdateCuisineForm = ({ data }) => {
-    const { slug, res_id, cuisine_id } = useParams()
+    const {slug, res_id, cuisine_id , rest_name } = useParams()
     const queryClient = useQueryClient();
     const [imageUrl, setImageUrl] = useState(data.image)
     const [cuisineFormData, setCuisineFormData] = useState({
         name: data?.name,
         image: null,
     });
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -61,6 +62,7 @@ const UpdateCuisineForm = ({ data }) => {
                 queryClient.invalidateQueries({
                     queryKey: [`Resturant Cuisine Detail ${res_id} ${cuisine_id}`],
                 });
+                navigate(`/resturant/${res_id}/cuisine/${rest_name}`);
             })
             .catch((error) => {
 

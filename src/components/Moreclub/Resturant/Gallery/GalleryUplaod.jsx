@@ -6,14 +6,15 @@ import { message } from "antd";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
 
-const GalleryImageUpload = () => {
+
+const GalleryImageUpload = ({onFinish}) => {
   const { res_id } = useParams();
-  const navigate = useNavigate();
+ 
   const [formData, setFormData] = useState({
     id: res_id,
     images: [],
   });
-  const [serverimages, setServerImage] = useState([{}]);
+
 
   const [imagePreviews, setImagePreviews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -66,7 +67,7 @@ const GalleryImageUpload = () => {
             marginRight: "10px",
           }}
         />
-        <Button variant="danger" onClick={() => handleRemoveImage(index)}>
+        <Button variant="danger" onClick={() => handleRemoveImage(index)} >
           &times;
         </Button>
       </>
@@ -88,7 +89,7 @@ const GalleryImageUpload = () => {
             },
           }
         );
-        console.log("res", res);
+       onFinish();
       message.success("Image added successfully");
     } catch (err) {
       console.log(err);

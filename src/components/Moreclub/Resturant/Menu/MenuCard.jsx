@@ -19,6 +19,16 @@ const MenuCard = ({
   const { res_id, cat_id } = useParams();
     const queryClient = useQueryClient();
 
+  console.log({
+    id,
+    logo,
+    name,
+    price,
+    short_description,
+    currency_Symbol,
+    actual_price,
+    discount_percentage
+  });
   async function handleDelete() {
     try {
       await axiosInstance
@@ -58,19 +68,21 @@ const MenuCard = ({
                 </Card.Title>
                 <Card.Text className="d-flex gap-2 text-warning">
                   {currency_Symbol}&nbsp;{price}{" "}
-                  {discount_percentage && (
-                    <span
-                      className="text-dynamic-white"
-                      style={{ textDecorationLine: "line-through" }}
-                    >
-                      {currency_Symbol}&nbsp;{actual_price}
-                    </span>
-                  )}
-                  {discount_percentage && (
-                    <span className="text-dynamic-white text-end">
-                      {discount_percentage}% Off
-                    </span>
-                  )}
+                  <>
+                    {actual_price !== price && discount_percentage !== 0 && (
+                      <>
+                        <span
+                          className="text-dynamic-white"
+                          style={{ textDecorationLine: "line-through" }}
+                        >
+                          {currency_Symbol}&nbsp;{actual_price}
+                        </span>
+                        <span className="text-dynamic-white text-end">
+                          {discount_percentage}% Off
+                        </span>
+                      </>
+                    )}
+                  </>
                 </Card.Text>
                 <Card.Text className="text-dynamic-white line-clamp-2">
                   {short_description},
