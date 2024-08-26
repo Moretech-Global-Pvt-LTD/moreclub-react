@@ -10,7 +10,7 @@ import Select from "react-select";
 
 
 
-const AddCuisineForm = () => {
+const AddCuisineForm = ({onFinish}) => {
     const { cat_id, res_id, id } = useParams()
     const queryClient = useQueryClient();
     const [imageUrl, setImageUrl] = useState("")
@@ -60,7 +60,8 @@ const AddCuisineForm = () => {
                 queryClient.invalidateQueries({
                     queryKey: [`Resturant Cuisine List ${res_id}`],
                 });
-               
+
+                onFinish();
             })
             .catch((error) => {
                 message.error("error creating Cuisine ");
@@ -73,7 +74,6 @@ const AddCuisineForm = () => {
         <Card className="p-3">
             {/* <h1>Add Menu Item to {category}</h1> */}
             <Form onSubmit={handleSubmit}>
-               
                     <Col className="mb-4">
                         <Form.Group controlId="formItemName">
                             <Form.Label>Cuisine Name</Form.Label>

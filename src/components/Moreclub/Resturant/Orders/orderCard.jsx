@@ -5,11 +5,7 @@ import {  useNavigate, useParams } from 'react-router-dom';
 
 const OrderCard = ({ item }) => {
     const {res_id , slug}= useParams()
-  
   const navigate = useNavigate()
-
-  
-
    
   return (
     <>

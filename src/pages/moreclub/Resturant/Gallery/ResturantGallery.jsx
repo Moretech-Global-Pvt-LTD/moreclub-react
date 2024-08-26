@@ -80,7 +80,7 @@ const RestaurantGalleryContent = () => {
             </div>
             <Row>
                 <Col xs={12} lg={8} xxl={6}>
-                    {showForm && <GalleryImageUpload />}
+                    {showForm && <GalleryImageUpload  onFinish={hideAddPhoto}/>}
                 </Col>
             </Row>
 

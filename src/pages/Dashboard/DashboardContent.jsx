@@ -271,7 +271,7 @@ const DashboardContent = () => {
         </Row>
        
 
-        <Row xs={1} sm={1} md={2} lg={3} className="align-items-center">
+        <Row xs={1} sm={1} md={1} lg={3} className="align-items-center">
           <Col>
             <div className="nft-card card shadow-sm mt-4 mb-4 p-4">
               <Walletlinks />

@@ -64,9 +64,9 @@ const Setuppage = ({ data }) => {
         </Col>
       </Row>
 
-      <Row xs={2} sm={3} md={4} lg={5} xl={6} xxl={10} className="mt-4">
-        <Link to={`/resturant/${id}/menu/`} className="d-flex flex-column ">
-          <Col className="d-flex flex-column ">
+      <Row xs={2} sm={2} md={3} lg={4} xl={5} xxl={6}  className="mt-4">
+        <Link to={`/resturant/${id}/menu/`} className="d-flex flex-column my-2 ">
+          <Col className="d-flex flex-column my-2 ">
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
@@ -84,9 +84,9 @@ const Setuppage = ({ data }) => {
         </Link>
         <Link
           to={`/resturant/${id}/cuisine/${slug}`}
-          className="d-flex flex-column "
+          className="d-flex flex-column my-2 "
         >
-          <Col className="d-flex flex-column">
+          <Col className="d-flex flex-column my-2">
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
@@ -104,9 +104,9 @@ const Setuppage = ({ data }) => {
         </Link>
         <Link
           to={`/resturant/${id}/offer/${slug}`}
-          className="d-flex flex-column "
+          className="d-flex flex-column my-2 "
         >
-          <Col className="d-flex flex-column">
+          <Col className="d-flex flex-column my-2">
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
@@ -124,9 +124,9 @@ const Setuppage = ({ data }) => {
         </Link>
         <Link
           to={`/resturant/${id}/orders/${slug}`}
-          className="d-flex flex-column "
+          className="d-flex flex-column my-2 "
         >
-          <Col className="d-flex flex-column">
+          <Col className="d-flex flex-column my-2">
             <Card className="p-2 px-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
@@ -144,9 +144,9 @@ const Setuppage = ({ data }) => {
         </Link>
         <Link
           to={`/resturant/${id}/gallery/${slug}`}
-          className="d-flex flex-column "
+          className="d-flex flex-column my-2 "
         >
-          <Col className="d-flex flex-column">
+          <Col className="d-flex flex-column my-2">
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
@@ -164,9 +164,9 @@ const Setuppage = ({ data }) => {
         </Link>
         <Link
           to={`/resturant/${id}/opening-duration/${slug}`}
-          className="d-flex flex-column "
+          className="d-flex flex-column my-2 "
         >
-          <Col className="d-flex flex-column">
+          <Col className="d-flex flex-column my-2">
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img

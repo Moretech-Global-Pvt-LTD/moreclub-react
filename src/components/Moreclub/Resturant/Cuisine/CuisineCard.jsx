@@ -1,13 +1,13 @@
 import React from "react";
 import { Badge, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { morefoodimageURL, morefoodURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 
 const CuisineCard = ({ id, res_id, logo, name, item }) => {
-
+    const { slug:rest_name } = useParams();
     const queryClient = useQueryClient();
     const slug = name.replace(" ", "-");
 
@@ -29,7 +29,7 @@ const CuisineCard = ({ id, res_id, logo, name, item }) => {
     }
 
     return (
-        <Link to={`/resturant/${res_id}/cuisine/${id}/${slug}`} className="d-flex flex-column position-relative" style={{ height: "100%" }}>
+        <Link to={`/resturant/${res_id}/cuisine/${id}/${rest_name}/${slug}`} className="d-flex flex-column position-relative" style={{ height: "100%" }}>
         <div className="d-flex flex-column position-relative" style={{ height: "100%" }}>
             {/* <Badge className="bg-danger position-absolute top-0 end-0" style={{ zIndex: 10, cursor: "pointer" }} onClick={() => handleDelete()}>
                 <i class="bi bi-trash"></i>

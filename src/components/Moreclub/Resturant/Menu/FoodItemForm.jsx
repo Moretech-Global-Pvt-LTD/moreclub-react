@@ -3,7 +3,7 @@ import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
 import { message } from "antd";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
 
@@ -61,7 +61,7 @@ const FoodItemForm = ({ data }) => {
   const queryClient = useQueryClient();
   const [imageUrl, setImageUrl] = useState("")
   const [cuisineOption, setCuisineOption] = useState([]);
-  console.log(data)
+
   const [menuItem, setMenuItem] = useState({
     name: data.name,
     price: data.actual_price,
@@ -71,7 +71,9 @@ const FoodItemForm = ({ data }) => {
     cuisine_id: data.cuisine.map((item) => item.id)?? [],
     ingredient: data.ingredient?? ""
   });
+  const [offererror, setOfferError] = useState("");
 
+  const navigate = useNavigate();
   async function getCuisineList() {
     try {
       const res = await axiosInstance.get(`${morefoodURL}moreclub/user/cuisines/${res_id}/`);
@@ -90,10 +92,10 @@ const FoodItemForm = ({ data }) => {
     getCuisineList();
   }, [cat_id, res_id])
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setMenuItem({ ...menuItem, [name]: value });
-  };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setMenuItem({ ...menuItem, [name]: value });
+  // };
 
   const [loading, setLoading] = useState(false)
 
@@ -111,6 +113,21 @@ const FoodItemForm = ({ data }) => {
   };
 
  
+
+  const handleChange = (e) => {
+    if (e.target.name === "offerPrice" && e.target.value) {
+      if (parseFloat(menuItem.price) > parseFloat(e.target.value)) {
+        setMenuItem({ ...menuItem, [e.target.name]: e.target.value });
+        setOfferError("");
+      } else {
+        setMenuItem({ ...menuItem, [e.target.name]: null });
+        setOfferError("Must be less than price")
+      }
+    } else {
+      const { name, value } = e.target;
+      setMenuItem({ ...menuItem, [name]: value });
+    }
+  }
 
   const handleImageChange = (e) => {
     setMenuItem({ ...menuItem, image: e.target.files[0] });
@@ -156,6 +173,8 @@ const FoodItemForm = ({ data }) => {
           queryClient.invalidateQueries({
             queryKey: [`Resturant SubMenu ${id}`],
           });
+          navigate(`/resturant/${res_id}/menu/${cat_id}/Menu/`);
+
         })
         .catch((error) => {
           console.error("There was an error updating the foodItems!", error);
@@ -198,6 +217,7 @@ const FoodItemForm = ({ data }) => {
           queryClient.invalidateQueries({
             queryKey: [`Resturant SubMenu ${id}`],
           });
+
         })
         .catch((error) => {
           console.error("There was an error updating the foodItems!", error);
@@ -260,6 +280,7 @@ const FoodItemForm = ({ data }) => {
                 value={menuItem.offerPrice}
                 onChange={handleChange}
               />
+              {offererror && <p className="text-danger" style={{ fontSize: "11px" }}>{offererror}</p>}
             </Form.Group>
           </Col>
         </Row>
@@ -329,7 +350,7 @@ const FoodItemForm = ({ data }) => {
           <Form.Control type="file" name="image" onChange={handleImageChange} />
         </Form.Group>
 
-        <Button variant="success" type="submit" className="my-3">
+        <Button variant="success" disabled={offererror !== ""} type="submit" className="my-3">
           Update
         </Button>
       </Form>

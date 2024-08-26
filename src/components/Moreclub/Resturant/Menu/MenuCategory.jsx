@@ -79,7 +79,7 @@ const MenuCategory = () => {
       </div>
       <Row>
         <Col xs={12} sm={8} md={6} lg={4}>
-          {showForm && <CategoryForm res_id={res_id} />}
+          {showForm && <CategoryForm res_id={res_id} onFinish={hideAddCategory} />}
         </Col>
       </Row>
 

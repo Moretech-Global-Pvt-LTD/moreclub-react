@@ -10,14 +10,14 @@ import UpdateCuisineForm from "../../../../components/Moreclub/Resturant/Cuisine
 import Divider from "../../../../components/divider/Divider";
 
 const UpdateCuisineItem = () => {
-  const { res_id, cuisine_id, slug } = useParams();
+  const { res_id, cuisine_id, slug , rest_name } = useParams();
 
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [`Resturant Cuisine Detail ${ res_id } ${ cuisine_id }`],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        `${morefoodURL}moreclub/user/cuisines/${cuisine_id}/${res_id}/`
+        `${morefoodURL}moreclub/user/cuisines/update/${cuisine_id}/${res_id}/`
       );
       const data = await response.data.data;
       return data;
@@ -66,15 +66,16 @@ const UpdateCuisineItem = () => {
     )
   }
 
+  
+
 
   return (
     <DashboardLayout>
       {/* <div className="d-flex align-items-center justify-content-between my-2"> */}
         <h4> Cuisines</h4>
       <Row>
-        <Col >
+        <Col>
           <UpdateCuisineForm res_id={res_id} data={data} />
-          
         </Col>
       </Row>
 

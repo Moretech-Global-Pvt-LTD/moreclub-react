@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import DashboardLayout from "../../../../components/Layout/DashboardLayout";
 
 import { Button, Col, Placeholder, Row } from "react-bootstrap";
@@ -59,7 +59,7 @@ const RestroOffer = () => {
     <DashboardLayout title={`${ name } Offers`}>
       <div>
         <div className="d-flex align-items-center justify-content-between my-2">
-          <h6></h6>
+          <div></div>
           <Link to={`/resturant/${res_id}/offer/create/${slug}`}>
             <Button variant="warning">
               Add Offers

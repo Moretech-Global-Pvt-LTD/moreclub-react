@@ -59,6 +59,7 @@ const MenuItem = () => {
   }
 
   const name = slug.replace("-", " ");
+  console.log(data)
   return (
     <div>
       <div className="d-flex align-items-center justify-content-between my-2">
@@ -75,7 +76,7 @@ const MenuItem = () => {
       </div>
       <Row>
         <Col xs={12} lg={8} xxl={6}>
-          {showForm && <MenuItemsForm res_id={res_id} cat_id={cat_id} />}
+          {showForm && <MenuItemsForm res_id={res_id} cat_id={cat_id} onFinish={hideAddCategory} />}
         </Col>
       </Row>
 

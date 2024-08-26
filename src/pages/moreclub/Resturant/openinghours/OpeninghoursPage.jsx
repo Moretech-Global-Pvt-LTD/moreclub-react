@@ -27,13 +27,10 @@ const OpeninghoursPage = () => {
         return (
             <DashboardLayout>
                 <div className="row gap-2">
-                    <Placeholder as="p" animation="glow" className="rounded w-50 me-2">
-                        <Placeholder xs={12} lg={6} style={{ height: "10rem" }} />
-                    </Placeholder>
                     <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
                         <Placeholder xs={12} style={{ height: "10rem" }} />
                     </Placeholder>
-                    <Placeholder as="p" animation="glow" className="rounded  w-25">
+                    <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
                         <Placeholder xs={12} style={{ height: "10rem" }} />
                     </Placeholder>
                     <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
@@ -51,9 +48,7 @@ const OpeninghoursPage = () => {
             </DashboardLayout>
         );
     }
-    
 
-    console.log("working hours", data);
     
     return (
         <DashboardLayout title={data.name}>

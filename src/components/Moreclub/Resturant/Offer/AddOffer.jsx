@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 import { Form, Button, Col, Row, Badge, Spinner } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {morefoodURL} from "../../../../config/config"
 import { axiosInstance } from '../../../..';
@@ -10,7 +10,7 @@ import { message } from 'antd';
 
 
 const OfferForm = () => {
-  const { res_id } = useParams();
+  const { slug, res_id } = useParams();
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedItemsName, setSelectedItemsName] = useState([]);
@@ -22,6 +22,7 @@ const OfferForm = () => {
   const [endDate, setEndDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate();
   const fetchCategories = async () => {
     const response = await axiosInstance.get(`${morefoodURL}moreclub/user/menus/${res_id}/`);
     return response.data.data;
@@ -89,7 +90,7 @@ const OfferForm = () => {
   
       })
       message.success("Offer added successfully");
-      
+      navigate(`/resturant/${res_id}/offer/${slug}`)
     } catch (err) {
       console.log(err)
       message.error("Error adding offer");
