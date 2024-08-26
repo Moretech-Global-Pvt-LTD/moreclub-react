@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import EventCard from "../../components/cards/Eventcard";
-import { Col, Form, Placeholder, Row } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { Button, Col, Form, Placeholder, Row } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../../config/config";
 import Divider from "../../components/divider/Divider";
+import { useSelector } from "react-redux";
 
 const EventpageContent = () => {
   const location = useLocation();
   const [starting, setStarting] = useState("");
   const [ending, setEnding] = useState("");
+  const user = useSelector((state) => state.userReducer);
+  const business = useSelector((state) => state.businessReducer);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -94,6 +97,13 @@ const EventpageContent = () => {
       {/* <Col md={3} className="mt-4">
         <FilterSection />
       </Col> */}
+      {user?.user?.user_type !== "NORMAL" && business.businessProfile.is_verified &&
+        <div className="d-flex justify-content-end  mt-2">
+          <Link to="/event/create">
+            <Button variant="warning">Add New Events</Button>
+          </Link>
+        </div>
+      }
       <Col md={12}>
         {data && data.pages[0].data.length === 0 ? (
           <div
