@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { NavLink, useLocation } from "react-router-dom";
+import {  useLocation } from "react-router-dom";
 
 const SidebarDropDownMenu = ({
   menuTitle,
@@ -11,7 +11,6 @@ const SidebarDropDownMenu = ({
   
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-    const permisions = useSelector((state) => state.permissionReducer);
 
 
   const handleMenuClick = (event) => {
