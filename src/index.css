@@ -24908,12 +24908,18 @@ textarea.form-control {
   padding-left: 1rem !important;
   padding-top: 1rem !important ;
   padding-bottom:1rem !important;
-  background-color:rgba(0, 0, 0, 0.4);
+  background-color:rgba(229, 231, 235, 0.5);
   transition: 5s ease-in-out;
 }
 
-.sidebar-dropdown-body li {
 
+[data-theme="dark"] .sidebar-dropdown-body{
+  background-color:rgba(0, 0, 0, 0.4) !important;
+}
+
+
+
+.sidebar-dropdown-body li {
   padding-left: 0.5rem !important;
 }
 
