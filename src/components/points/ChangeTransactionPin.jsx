@@ -4,6 +4,7 @@ import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import { message } from "antd";
 import { Link } from "react-router-dom";
+import PINInput from "../ui/GridPinInput";
 
 function ChangePinForm() {
   const [pin, setPin] = useState("");
@@ -34,17 +35,44 @@ function ChangePinForm() {
     return "";
   };
 
-  const handleBlurOldPin = () => {
-    setoldpinError(validateoldPin(oldPin));
+  const handleConfirmPin = async (newPin) => {
+    const value = newPin;
+    
+    setConfirmPin(value);
+    if (value.trim() !== "") {
+      setConfirmPinError(validateConfirmPin(value));
+    } else {
+      setConfirmPin("Pin required");
+    }
   };
 
-  const handleBlurPin = () => {
-    setPinError(validatePin(pin));
+  const handlePIn = async (newPin) => {
+    const value = newPin;
+    setPin(value);
+    if (value.trim() !== "") {
+      setPinError(validatePin(value));  
+    } else {
+      setPinError("Pin required");
+    }
   };
 
-  const handleBlurConfirmPin = () => {
-    setConfirmPinError(validateConfirmPin(confirmPin));
+  const handleCurrentPIn = async (newPin) => {
+    const value = newPin;
+    setOldPin(value);
+    
+    setoldpinError(validatePin(value));
+
+    if (value.trim() !== "") {
+      setoldpinError(validatePin(value));
+
+    } else {
+      setoldpinError("Pin required");
+    }
+
   };
+
+
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,45 +122,15 @@ function ChangePinForm() {
     <Form onSubmit={handleSubmit} className="col-12 col-md-6">
       <Form.Group controlId="pin">
         <Form.Label>Current PIN</Form.Label>
-        <Form.Control
-          type="number"
-          value={oldPin}
-          onChange={(e) => setOldPin(e.target.value)}
-          onBlur={handleBlurOldPin}
-          min={0}
-          maxLength={4}
-          max={9999}
-          required
-        />
-        {oldpinError && <p className="text-danger">{oldpinError}</p>}
+        <PINInput length={4} value={pin} onChange={handleCurrentPIn} error={oldpinError} />
       </Form.Group>
       <Form.Group controlId="pin">
         <Form.Label>Set New PIN</Form.Label>
-        <Form.Control
-          type="number"
-          value={pin}
-          onChange={(e) => setPin(e.target.value)}
-          onBlur={handleBlurPin}
-          min={0}
-          maxLength={4}
-          max={9999}
-          required
-        />
-        {pinError && <p className="text-danger">{pinError}</p>}
+        <PINInput length={4} value={pin} onChange={handlePIn} error={pinError} />
       </Form.Group>
       <Form.Group controlId="confirmPin">
         <Form.Label>Confirm New PIN</Form.Label>
-        <Form.Control
-          type="number"
-          value={confirmPin}
-          onChange={(e) => setConfirmPin(e.target.value)}
-          onBlur={handleBlurConfirmPin}
-          maxLength={4}
-          min={0}
-          max={9999}
-          required
-        />
-        {confirmPinError && <p className="text-danger">{confirmPinError}</p>}
+        <PINInput length={4} value={confirmPin} onChange={handleConfirmPin} error={confirmPinError} />
       </Form.Group>
       <div className="d-flex gap-2 align-items-center">
         <Button variant="primary" type="submit" className="mt-3">

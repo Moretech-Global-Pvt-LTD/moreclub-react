@@ -66,7 +66,7 @@ const QuickLinks = () => {
                 </Card>
               </Col>
             </Link>
-            <Link to={`/coupon`} className="d-flex flex-column my-2 ">
+            {/* <Link to={`/coupon`} className="d-flex flex-column my-2 ">
               <Col className="d-flex flex-column  ">
                 <Card className=" flex-grow-1 p-0">
                   <div className="d-flex justify-content-center py-2 px-0">
@@ -77,7 +77,7 @@ const QuickLinks = () => {
                   </Card.Title>
                 </Card>
               </Col>
-            </Link>
+            </Link> */}
             <Link to={`/pricing`} className="d-flex flex-column my-2 ">
               <Col className="d-flex flex-column  ">
                 <Card className=" flex-grow-1 p-0">
@@ -109,7 +109,7 @@ const QuickLinks = () => {
                     {permisions.permission &&
                       permisions.permission.billing &&
                     <>
-                    <Link to={`/billing`} className="d-flex flex-column my-2 ">
+                    {/* <Link to={`/billing`} className="d-flex flex-column my-2 ">
                       <Col className="d-flex flex-column  ">
                         <Card className=" flex-grow-1 p-0">
                           <div className="d-flex justify-content-center py-2 px-0">
@@ -120,7 +120,7 @@ const QuickLinks = () => {
                           </Card.Title>
                         </Card>
                       </Col>
-                    </Link>
+                    </Link> */}
                     <Link to={`/business-transactions`} className="d-flex flex-column my-2 ">
                       <Col className="d-flex flex-column  ">
                         <Card className=" flex-grow-1 p-0">

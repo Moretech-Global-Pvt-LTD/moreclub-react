@@ -20,9 +20,8 @@ import { axiosInstance } from "../..";
 import { message } from "antd";
 import { useSelector } from "react-redux";
 import { Modal, Space } from "antd";
-import PINInput from "../../components/ui/PinInput";
-import LocationDisplay from "../../components/Googlemap/LocationViewer";
-import MapComponent from "../../components/Googlemap/LocationViewer";
+import PINInput from "../../components/ui/GridPinInput";
+
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 import MapboxComponent from "../../components/Googlemap/MapboxComponent";
 
@@ -114,7 +113,24 @@ const EventDetailPage = () => {
     );
   }
 
+
+  const handlePInChange = async (newPin) => {
+    const value = newPin;
+    setPin(value);
+    let timeOut;
+    setTimeout(() => {
+      if (value.trim() !== "") {
+        setPinError("");
+      } else {
+        setPinError("Pin required");
+      }
+    }, 2000);
+
+    clearTimeout(timeOut);
+  };
+
   const handleBooking = async (e) => {
+
     e.preventDefault();
     try {
       const res = await axiosInstance.post(
@@ -245,13 +261,10 @@ const EventDetailPage = () => {
                         // classNames={classNames}
                         // styles={modalStyles}
                       >
-                        <form onSubmit={handleBooking}>
-                          <PINInput
-                            pin={pin}
-                            setPin={setPin}
-                            pinError={pinError}
-                            setPinError={setPinError}
-                          />
+                          <form onSubmit={handleBooking}>
+                            
+                              <label className="form-label">Enter PIN</label>
+                              <PINInput length={4} value={pin} onChange={handlePInChange} error={pinError} />
                           <Button
                             variant="primary"
                             type="submit"

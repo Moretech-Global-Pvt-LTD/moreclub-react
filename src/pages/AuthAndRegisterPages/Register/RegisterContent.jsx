@@ -7,6 +7,8 @@ import RegistrationForm from "./RegisterForm";
 
 const RegisterContent = (props) => {
   const { title, subTitle, button } = props;
+  const url = new URL(window.location.href);
+  const nextParam = url.searchParams.get("next");
 
   return (
     // <div className="d-flex w-100 mt-md-4 mt-lg-0" style={{ height: "70vh" }}>
@@ -17,9 +19,17 @@ const RegisterContent = (props) => {
             <h2>{title}</h2>
             <p>
               {subTitle}
+              {nextParam ? (
+                <Link className="ms-1 hover-primary" to={`/login?next=${encodeURIComponent(nextParam)}`}>
+                  {button[0].text}
+                </Link>  
+              ): (
               <Link className="ms-1 hover-primary" to={button[0].path}>
                 {button[0].text}
               </Link>
+              )
+            
+            }
             </p>
             <div className="row justify-content-center">
               <div className="col-md-12 col-lg-10 col-xl-10   ">

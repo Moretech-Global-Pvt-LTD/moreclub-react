@@ -22,6 +22,7 @@ const RegistrationForm = (props) => {
 
   const [countryList, setCountryList] = useState();
 
+
   useEffect(() => {
     const fetchCountry = async () => {
       try {
@@ -99,9 +100,18 @@ const RegistrationForm = (props) => {
             )}
             <p className="text-end px-4 mt-0 mb-0">
               {subTitle}
-              <Link className="ms-1 hover-primary" to={button[0].path}>
-                {button[0].text}
-              </Link>
+              {nextParam ? (
+                <Link className="ms-1 hover-primary" to={`/login?next=${encodeURIComponent(nextParam)}`}>
+                  {button[0].text}
+                </Link>
+              ) : (
+                <Link className="ms-1 hover-primary" to={button[0].path}>
+                  {button[0].text}
+                </Link>
+              )
+
+              }
+             
             </p>
           </div>
         </div>

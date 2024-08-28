@@ -44,6 +44,10 @@ const QrReader = () => {
         else if (parsed_json?.username) {
           console.log("username ", parsed_json?.username);
           const user_name = parsed_json?.username;
+          const bpms = parsed_json?.bpms;
+          if(bpms){
+            sessionStorage.setItem("bpms", bpms);            
+          }
           if (user.isAuthenticated === true) {
             url = `${hostURL}/points/send?user_name=${user_name}`;
           } else {

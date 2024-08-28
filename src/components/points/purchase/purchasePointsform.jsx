@@ -4,13 +4,14 @@ import { axiosInstance } from "../../..";
 import { baseURL } from "../../../config/config";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setPurchaseConversion,
   setPurchaseCurrency,
   updatePurchaseAmount,
 } from "../../../redux/slices/PurchaseSlice";
 import CurrencyInput from "../../ui/CurrencyInput";
+import PINInput from "../../ui/GridPinInput";
 
 function PurchaseForm() {
   const [purchaseAmount, setPurchaseAmount] = useState("");
@@ -35,8 +36,8 @@ function PurchaseForm() {
     dispatch(setPurchaseConversion(convertedRate));
   }, [convertedRate, dispatch]);
 
-  const handlePInChange = async (e) => {
-    const value = e.target.value;
+  const handlePInChange = async (newPin) => {
+    const value = newPin;
     setPin(value);
     let timeOut;
     setTimeout(() => {
@@ -107,18 +108,7 @@ function PurchaseForm() {
 
       <Form.Group controlId="pin" className="mt-4">
         <Form.Label>Enter PIN</Form.Label>
-        <Form.Control
-          type="number"
-          value={pin}
-          onChange={handlePInChange}
-          onKeyDown={handleKeyDown}
-          onWheel={handleWheel}
-          min={0}
-          maxLength={4}
-          max={9999}
-          required
-        />
-        {pinError && <p className="text-danger">{pinError}</p>}
+        <PINInput length={4} value={pin} onChange={handlePInChange} error={pinError}/>
       </Form.Group>
 
       <Button

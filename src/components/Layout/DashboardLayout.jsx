@@ -9,12 +9,26 @@ import ReactGA from "react-ga4";
 
 const DashboardLayout = ({ children, title }) => {
   const location = useLocation()
+  const removebpms = () => {
+
+    if (location.pathname !== '/points/send') {
+      if (typeof window !== "undefined") {
+        sessionStorage.removeItem("bpms");
+      }
+    }
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
     ReactGA.send("page_view", {
       page_path: location.pathname,
     });
-  }, []);
+
+    removebpms()
+
+  }, [location.pathname]);
+
+ 
 
   return (
     <>

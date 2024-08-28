@@ -17,6 +17,7 @@ import { baseURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
 import { getWallet } from "../../../redux/api/wallets";
 import { useNavigate } from "react-router-dom";
+import PINInput from "../../ui/GridPinInput";
 
 const ConfirmationForm = () => {
   const dispatch = useDispatch();
@@ -33,8 +34,8 @@ const ConfirmationForm = () => {
 
   
 
-  const handlePInChange = async (e) => {
-    const value = e.target.value;
+  const handlePInChange = async (newPin) => {
+    const value = newPin;
     setPin(value)
     let timeOut
     setTimeout(()=>{
@@ -177,7 +178,8 @@ const ConfirmationForm = () => {
 
       <Form.Group controlId="pin">
         <Form.Label>Enter PIN</Form.Label>
-        <Form.Control
+        <PINInput length={4} value={pin} onChange={handlePInChange} error={pinError} />
+        {/* <Form.Control
           type="number"
           value={pin}
           onChange={handlePInChange}
@@ -186,7 +188,7 @@ const ConfirmationForm = () => {
           max={9999}
           required
         />
-        {pinError && <p className="text-danger">{pinError}</p>}
+        {pinError && <p className="text-danger">{pinError}</p>} */}
       </Form.Group>
       <Button
         variant="secondary"

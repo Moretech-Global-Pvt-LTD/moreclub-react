@@ -1,5 +1,3 @@
-// TransferForm.js
-
 import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { axiosInstance } from "../..";
@@ -10,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getWallet } from "../../redux/api/wallets";
 import CurrencyInput from "../ui/CurrencyInput";
+import PINInput from "../ui/GridPinInput";
 
 function TransferForm() {
   const [step, setStep] = useState(1);
@@ -21,6 +20,7 @@ function TransferForm() {
   const [ConfirmationData, setConfirmationData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [transferdata, setTransferdata] = useState(null);
+
 
   const [convertedRate, setCovertedRate] = useState();
 
@@ -46,22 +46,26 @@ function TransferForm() {
 
   const handleTransferSubmit = async (event) => {
     event.preventDefault();
+    
+    const bpms = sessionStorage.getItem("bpms");
 
     const data = {
       currency_code: currency,
       amount: transferAmount,
       username: recipient,
+      bpms,
       pin,
     };
-
-    // Reset form fields
     try {
       setIsLoading(true);
+      const bpms = sessionStorage.getItem("bpms");
+      if (bpms) { }
       const res = await axiosInstance.post(`${baseURL}wallets/wallet/`, data);
       setTransferdata(res.data.data);
       setIsLoading(false);
       setStep(3);
       dispatch(getWallet());
+      sessionStorage.removeItem("bpms");
       message.success("Funds Transferred Successfully");
     } catch (err) {
       setIsLoading(false);
@@ -97,8 +101,8 @@ function TransferForm() {
     }
   };
 
-  const handlePInChange = async (e) => {
-    const value = e.target.value;
+  const handlePInChange = async (newPin) => {
+    const value = newPin;
     setPin(value);
     let timeOut;
     setTimeout(() => {
@@ -246,7 +250,8 @@ function TransferForm() {
             </div>
             <Form.Group controlId="pin">
               <Form.Label>Enter PIN</Form.Label>
-              <Form.Control
+              <PINInput length={4} value={pin} onChange={handlePInChange} error={pinError} />
+              {/* <Form.Control
                 type="number"
                 value={pin}
                 onChange={handlePInChange}
@@ -254,9 +259,11 @@ function TransferForm() {
                 maxLength={4}
                 max={9999}
                 required
-              />
-              {pinError && <p className="text-danger">{pinError}</p>}
+              /> */}
+              {/* {pinError && <p className="text-danger">{pinError}</p>} */}
             </Form.Group>
+            <div className="d-flex justify-content-center gap-2 my-3">
+
             <Button
               variant="Secondary"
               onClick={HandleBack}
@@ -270,6 +277,7 @@ function TransferForm() {
               )}
               &nbsp;Confirm Send
             </Button>
+            </div>
           </>
         )}
       </Form>
