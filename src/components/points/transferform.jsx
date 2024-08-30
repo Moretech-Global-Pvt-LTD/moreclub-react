@@ -9,10 +9,11 @@ import { Link } from "react-router-dom";
 import { getWallet } from "../../redux/api/wallets";
 import CurrencyInput from "../ui/CurrencyInput";
 import PINInput from "../ui/GridPinInput";
+import moment from "moment";
 
 function TransferForm() {
   const [step, setStep] = useState(1);
-  const [transferAmount, setTransferAmount] = useState();
+  const [transferAmount, setTransferAmount] = useState("");
   const [transferError, setTransferError] = useState("");
   const [recipient, setRecipient] = useState("");
   const [pin, setPin] = useState("");
@@ -77,10 +78,19 @@ function TransferForm() {
   };
 
   const handleConfirmation = async () => {
+
+    if (transferAmount <= 0) {
+      setTransferError("Amount should be greater than 0");
+      return;
+    }
+
+    const bpms = sessionStorage.getItem("bpms");
+
     const data = {
       currency_code: currency,
       amount: transferAmount,
       username: recipient,
+      bpms
     };
 
     // Reset form fields
@@ -205,7 +215,7 @@ function TransferForm() {
         )}
         {step === 2 && (
           <>
-            <div className="nft-card card p-2 col-12 col-md-8 mb-2 ms-1 me-1 mx-md-auto">
+            <div className="nft-card card p-2 col-12 col-md-8 mb-2 ms-1 me-1 mx-auto mx-md-0">
               <div className="bg-dynamic-black mb-1">
                 <p
                   className=" mb-0 mt-0 text-center text-success"
@@ -237,32 +247,42 @@ function TransferForm() {
                   {ConfirmationData?.first_name}&nbsp;
                   {ConfirmationData?.last_name}
                 </p>{" "}
+                
               </div>
+              {ConfirmationData?.discount_amount > 0 &&
+              <div className="d-flex justify-content-between">
+                {" "}
+                <p className="mb-0 fw-bold">Discount:</p>
+                <p className="mb-0 text-dynamic-white">
+                    {ConfirmationData?.discount_amount}
+                  
+                </p>{" "}
+
+                </div>
+              }
             </div>
-            <div className="nft-card card p-2 col-12 col-md-8 ms-1 me-1 mx-md-auto">
+            <div className="nft-card card p-2 col-12 col-md-8 ms-1 me-1 mx-auto mx-md-0">
               <div className="d-flex justify-content-between">
                 {" "}
                 <p className="mb-0 fw-bold">Total Paying Money:</p>
-                <p className="mb-0">
-                  {currency}&nbsp;{ConfirmationData?.amount}
-                </p>{" "}
+                {ConfirmationData?.discount_amount > 0 && 
+                <p className="mb-0 text-dynamic-white">
+                  {currency}&nbsp;{ConfirmationData?.paid_amount}
+                </p>
+                }
+                {ConfirmationData?.discount_amount === 0 &&
+                  <p className="mb-0 text-dynamic-white">
+                    {currency}&nbsp;{ConfirmationData?.amount}
+                  </p>
+                }
               </div>
             </div>
-            <Form.Group controlId="pin">
+            <Form.Group controlId="pin" className="mt-3">
               <Form.Label>Enter PIN</Form.Label>
               <PINInput length={4} value={pin} onChange={handlePInChange} error={pinError} />
-              {/* <Form.Control
-                type="number"
-                value={pin}
-                onChange={handlePInChange}
-                min={0}
-                maxLength={4}
-                max={9999}
-                required
-              /> */}
-              {/* {pinError && <p className="text-danger">{pinError}</p>} */}
+              
             </Form.Group>
-            <div className="d-flex justify-content-center gap-2 my-3">
+            <div className="d-flex justify-content-start gap-2 my-5">
 
             <Button
               variant="Secondary"
@@ -298,35 +318,41 @@ function TransferForm() {
               <div className="d-flex justify-content-between">
                 {" "}
                 <p className="mb-0">Transaction Date:</p>
-                <p className="mb-0">{"2024-04-05"}</p>{" "}
+                <p className="mb-0">{moment.utc(transferdata.transaction_date).local().format("MMM DD YYYY")}</p>{" "}
               </div>
               <div className="d-flex justify-content-between">
                 {" "}
                 <p className="mb-0">Sender:</p>
                 <p className="mb-0">
-                  {user.user.first_name}&nbsp;{user.user.last_name}
+                  {transferdata.sender_name}
                 </p>{" "}
               </div>
               <div className="d-flex justify-content-between">
                 {" "}
                 <p className="mb-0">Receiver:</p>
                 <p className="mb-0">
-                  {ConfirmationData?.first_name}&nbsp;
-                  {ConfirmationData?.last_name}
+                  {transferdata.recipient_name}
                 </p>{" "}
               </div>
               <div className="d-flex justify-content-between">
                 {" "}
                 <p className="mb-0">Amount:</p>
                 <p className="mb-0">
-                  {currency}&nbsp;{ConfirmationData?.amount}
+                  {transferdata.currency_code}&nbsp;{transferdata?.total_amount}
+                </p>{" "}
+              </div>
+              <div className="d-flex justify-content-between">
+                {" "}
+                <p className="mb-0">Discount:</p>
+                <p className="mb-0">
+                  {transferdata.currency_code}&nbsp;{transferdata?.discount_amount}
                 </p>{" "}
               </div>
               <div className="d-flex justify-content-between">
                 {" "}
                 <p className="mb-0">Sent Money:</p>
                 <p className="mb-0">
-                  {currencyData.symbol}&nbsp;{convertedRate}
+                  {transferdata.currency_code}&nbsp;{transferdata?.paid_amount}
                 </p>{" "}
               </div>
             </div>

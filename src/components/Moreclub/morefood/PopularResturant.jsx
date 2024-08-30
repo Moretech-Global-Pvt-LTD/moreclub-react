@@ -1,5 +1,5 @@
 import React from 'react'
-import { Placeholder, Row } from 'react-bootstrap';
+import { Placeholder} from 'react-bootstrap';
 import { morefoodURL } from '../../../config/config';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -40,9 +40,6 @@ const PopularResturant = () => {
     if (isError) {
       return <div className="text-dynamic-white">Error: retriving</div>;
     }
-
-  console.log("popular restaurants",data)
-
   return (
     <div>
       {data && data.length !== 0 &&  <PopularresturantCarousel data={data} />}

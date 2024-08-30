@@ -85,7 +85,8 @@ const CurrencyInput = ({
     } else if (amount === "") {
       setConvertedRate(0);
     } else {
-      setError("Amount must be greater than 0");
+      // setError("Amount must be greater than 0");
+      setError("");
     }
   }, [rate, amount, dispatch, setConvertedRate, setError]);
 

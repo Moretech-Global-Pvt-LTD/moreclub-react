@@ -23,6 +23,7 @@
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
     "dotenv": "^16.4.5",
+    "firebase": "^10.13.0",
     "google-libphonenumber": "^3.2.34",
     "jquery-nice-select": "^1.1.0",
     "lodash": "^4.17.21",
@@ -53,6 +54,7 @@
     "react-scripts": "5.0.1",
     "react-scroll-to-top": "^3.0.0",
     "react-select": "^5.8.0",
+    "react-toastify": "^10.0.5",
     "redux": "^5.0.1",
     "serve": "^14.2.3",
     "swiper": "^11.1.0",
@@ -84,5 +86,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack": "^5.94.0"
   }
 }

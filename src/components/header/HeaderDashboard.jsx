@@ -18,6 +18,7 @@ import { setMembershipType, userSuccess } from "../../redux/slices/userSlice";
 import { useQuery } from "@tanstack/react-query";
 import { CurrencySet } from "../../redux/api/CurrencyConvertorAPI";
 import { Placeholder } from "react-bootstrap";
+import Notification from "../Notifications/Notification";
 
 const HeaderDashboard = () => {
   let [check] = useState(true);

@@ -6,9 +6,13 @@ import Breadcrumb from "../breadcrumb/Breadcrumb";
 import Footbar from "../footbar/footbar";
 import { useLocation } from "react-router-dom";
 import ReactGA from "react-ga4";
+// import { setupNotifications } from "../../utills/firebase";
+// import useVisibilityChange from "../../Hooks/useVisibilityChange";
+// import { sendNativeNotification, toastNotification } from "../../utills/notificationhelper";
 
 const DashboardLayout = ({ children, title }) => {
   const location = useLocation()
+  // const isForeground = useVisibilityChange();
   const removebpms = () => {
 
     if (location.pathname !== '/points/send') {
@@ -27,6 +31,24 @@ const DashboardLayout = ({ children, title }) => {
     removebpms()
 
   }, [location.pathname]);
+
+  // useEffect(() => {
+  //   setupNotifications(({ title, body }) => {
+  //     if (isForeground) {
+  //       // App is in the foreground, show toast notification
+  //       toastNotification({
+  //         title,
+  //         description: body,
+  //       });
+  //     } else {
+  //       // App is in the background, show native notification
+  //       sendNativeNotification({
+  //         title,
+  //         body,
+  //       });
+  //     }
+  //   });
+  // }, [isForeground]);
 
  
 

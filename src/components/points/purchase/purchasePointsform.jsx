@@ -78,17 +78,7 @@ function PurchaseForm() {
     }
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-      e.preventDefault();
-    }
-  };
-
-  const handleWheel = (e) => {
-    if (document.activeElement.type === "number") {
-      e.preventDefault();
-    }
-  };
+ 
 
   return (
     <Form onSubmit={handlePurchaseSubmit}>

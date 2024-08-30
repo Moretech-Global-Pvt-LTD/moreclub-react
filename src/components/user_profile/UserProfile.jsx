@@ -34,6 +34,7 @@ const UserProfile = ({ users }) => {
 
   const linkInputRef = useRef(null);
 
+  console.log("user profile", user);
   const copyLink = () => {
     const linkInput = linkInputRef.current;
     if (linkInput) {
@@ -68,12 +69,16 @@ const UserProfile = ({ users }) => {
             <div className="col-12 col-md-4 col-xl-6 ">
               <div className="notification-content-wrap d-none d-md-block">
                 <ul className="notification-list ps-0 mb-2 mt-1 row justify-content-end ">
+                  {user.user.user_type !== "NORMAL" && (
                   <li className="col-12 d-flex justify-content-end my-2">
                     <Link to="/business-profile" className="">
                     
                   <Button variant="warning" >View Business Profile</Button>
                     </Link>
                   </li>
+                    
+                  )}
+                 
                   <li className="col-12">
                     <Link to="/KYC">
                       <i class="me-2 bg- bi bi-ui-checks"></i>
