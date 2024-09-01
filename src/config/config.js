@@ -4,8 +4,6 @@ export const imageURL = process.env.REACT_APP_IMAGE_URL;
 export const stripePublicKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
 export const hostURL = process.env.REACT_APP_HOST_URL;
 
-export const PaypalClientKey =
-  "AZeIqy8LxkqkspcEM-9kkUkoqtwFlAw29mMp2xPZ5AGHtf3NOU-F7-SPrSqpo9bsEDd212PEl6f1kMUS";
 
 export const MapApi = process.env.REACT_APP_MAP_API;
 export const MapId = process.env.REACT_APP_MAP_ID;
