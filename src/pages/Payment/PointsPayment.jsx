@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import PINInput from "../../components/ui/PinInput";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { load_coupon_detail } from "../../redux/api/couponAPI";
@@ -14,6 +13,7 @@ import PlanDetail from "./PlanDetail";
 import { userMembership } from "../../redux/api/userMembershipAPI";
 import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
 import { planDetailSuccess } from "../../redux/slices/membershipTypeSlice";
+import PINInput from "../../components/ui/GridPinInput";
 
 const PointsPayment = () => {
   const location = useLocation()
@@ -65,6 +65,21 @@ const PointsPayment = () => {
       }
     }
   }, [plan, planTime, price, location.pathname]);
+
+  const handlePInChange = async (newPin) => {
+    const value = newPin;
+    setPin(value);
+    let timeOut;
+    setTimeout(() => {
+      if (value.trim() !== "") {
+        setPinError("");
+      } else {
+        setPinError("Pin required");
+      }
+    }, 2000);
+
+    clearTimeout(timeOut);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -149,12 +164,11 @@ const PointsPayment = () => {
                 </div>
               </div>
               <form onSubmit={handleSubmit}>
-                <PINInput
-                  pin={pin}
-                  setPin={setPin}
-                  pinError={pinError}
-                  setPinError={setPinError}
-                />
+                <div className="my-3">
+                <label className="form-label">Enter PIN</label>
+                <PINInput length={4} value={pin} onChange={handlePInChange} error={pinError} />
+
+                </div>
                 <Button variant="primary" type="submit" className="mt-4 ">
                   {isLoading && (
                     <span className="spinner-border spinner-border-sm text-danger"></span>

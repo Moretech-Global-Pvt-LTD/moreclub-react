@@ -13,6 +13,7 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CookiesProvider } from "react-cookie";
 import PayPalProvider from "./components/HOC/PaypalProvider";
+import { register } from "./utills/serviceworker";
 
 export const axiosInstance = axios.create({
   baseURL: baseURL,
@@ -76,3 +77,4 @@ root.render(
   </React.StrictMode>
 );
 reportWebVitals();
+register();

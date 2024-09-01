@@ -21,7 +21,7 @@ const QRDownload = ({ imageUrl, name }) => {
 
   return (
     <>
-      <button className='btn  btn-primary btn-sm' onClick={handleDownload}>Download Image</button>
+      <button className='btn  btn-primary btn-sm' onClick={handleDownload}>Download QR</button>
     </>
   );
 };

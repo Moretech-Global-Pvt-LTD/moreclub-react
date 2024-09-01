@@ -99,7 +99,6 @@ const LoginContent = (props) => {
         //    action: "Login",
         //    label: "Successful Login",
         //  });
-        console.log(result)
         if (nextParam) {
           const tokens = result.data.data.callback_url_token
           const token = tokens;
@@ -156,9 +155,16 @@ const LoginContent = (props) => {
             <h2>{title}</h2>
             <p>
               {subTitle}
-              <Link className="ms-1 hover-primary" to={button[0].path}>
-                {button[0].text}
-              </Link>
+              {nextParam ? (
+                <Link className="ms-1 hover-primary" to={`/register-membership?next=${encodeURIComponent(nextParam)}`}>
+                  {button[0].text}
+                </Link>
+              ) : (
+                <Link className="ms-1 hover-primary" to={button[0].path}>
+                  {button[0].text}
+                </Link>
+              )
+              }
             </p>
             <p>
               login with

@@ -4,6 +4,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import {baseURL} from "../../config/config"
 import { axiosInstance } from "../..";
 import { Placeholder } from "react-bootstrap";
+import Notification from "./Notification";
 
 const Notifications = () => {
     const {
@@ -52,7 +53,8 @@ const Notifications = () => {
   if (isError) {
     return <div className="text-dynamic-white">Error: reteriving</div>;
   }
-  
+
+
   return (
     <div>
       {data.pages.map((data)=>(

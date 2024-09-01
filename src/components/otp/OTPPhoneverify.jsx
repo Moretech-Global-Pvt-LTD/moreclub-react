@@ -1,16 +1,17 @@
 import { Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { otpPhoneResend, otpPhoneVerify } from "../../redux/api/loginAPI";
 
-const OTPPhoneArea = () => {
+const OTPPhoneArea = ({ handleback }) => {
   const [timer, setTimer] = useState(5);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isResending, setIsResending] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     let interval;
@@ -44,6 +45,7 @@ const OTPPhoneArea = () => {
   }
   const formRef = React.createRef();
   const onFinish = async (values) => {
+    setIsLoading(true);
     const result = await dispatch(
       otpPhoneVerify(localStorage.getItem("otp_phonenumber"), values.code)
     );
@@ -60,7 +62,12 @@ const OTPPhoneArea = () => {
         }
       }
     }
+    setIsLoading(false);
   };
+
+  const handleBack = () => {
+    handleback();
+  }
 
   return (
     // <div className="col-12 col-md-6 col-xl-6">
@@ -84,8 +91,11 @@ const OTPPhoneArea = () => {
               <Input.OTP level={6} style={{ height: "90px" }} />
             </Form.Item>
             <Form.Item>
-              <Button type="submit" className="btn btn-sm pull-right">
-                Verify OTP
+              <Button  variant="outline" onClick={handleBack}  className="btn btn-sm pull-right">
+                Back
+              </Button>
+              <Button type="submit" disabled={isLoading} className="btn btn-sm pull-right">
+                {isLoading && <Spinner variant="danger" animation="border" size="sm" />}  Verify OTP
               </Button>
             </Form.Item>
           </Form>

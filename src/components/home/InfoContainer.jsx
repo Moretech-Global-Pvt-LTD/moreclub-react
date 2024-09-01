@@ -76,7 +76,7 @@ const InfoContainer = ({ data }) => {
   return (
     <Container>
       {data.map((item, index) => (
-        <>
+        <React.Fragment key={index}>
           <Row
             className="align-items-center d-flex my-2 py-2 position-relative"
             key={index}
@@ -158,7 +158,7 @@ const InfoContainer = ({ data }) => {
               </div>
             )}
           </div>
-        </>
+        </React.Fragment>
       ))}
     </Container>
   );

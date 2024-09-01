@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import { axiosInstance } from '../..';
 import { baseURL } from '../../config/config';
 import { message } from 'antd';
+import PINInput from '../ui/GridPinInput';
 
 
 function TransactionPinForm({onPinSet}) {
@@ -28,13 +29,27 @@ function TransactionPinForm({onPinSet}) {
       return '';
     };
   
-    const handleBlurPin = () => {
-      setPinError(validatePin(pin));
-    };
   
-    const handleBlurConfirmPin = () => {
-      setConfirmPinError(validateConfirmPin(confirmPin));
-    };
+  const handlePIn = async (newPin) => {
+    const value = newPin;
+    setPin(value);
+    if (value.trim() !== "") {
+      setPinError(validatePin(value));
+    } else {
+      setPinError("Pin required");
+    }
+  };
+  const handleConfirmPIn = async (newPin) => {
+    const value = newPin;
+    setConfirmPin(value);
+    if (value.trim() !== "") {
+    setPinError(validateConfirmPin(value));
+    } else {
+      setConfirmPin("Pin required");
+    }
+  };
+  
+
   
     const handleSubmit = async(e) => {
       e.preventDefault();
@@ -81,32 +96,13 @@ function TransactionPinForm({onPinSet}) {
 
     <Form onSubmit={handleSubmit} className='col-12 col-md-4'>
       <Form.Group controlId="pin">
-        <Form.Label>Set PIN</Form.Label>
-        <Form.Control
-          type="number"
-          value={pin}
-          onChange={(e) => setPin(e.target.value)}
-          onBlur={handleBlurPin}
-          min={0}
-          maxLength={4}
-          max={9999}
-          required
-        />
-        {pinError && <p className="text-danger">{pinError}</p>}
+          <Form.Label>Set PIN</Form.Label>
+          <PINInput length={4} value={pin} onChange={handlePIn} error={pinError} />
+
       </Form.Group>
       <Form.Group controlId="confirmPin">
-        <Form.Label>Confirm PIN</Form.Label>
-        <Form.Control
-          type="number"
-          value={confirmPin}
-          onChange={(e) => setConfirmPin(e.target.value)}
-          onBlur={handleBlurConfirmPin}
-          maxLength={4}
-          min={0}
-          max={9999}
-          required
-        />
-        {confirmPinError && <p className="text-danger">{confirmPinError}</p>}
+          <Form.Label>Confirm PIN</Form.Label>
+          <PINInput length={4} value={pin} onChange={handleConfirmPIn} error={confirmPinError} />
       </Form.Group>
       <Button variant="primary" type="submit" className='mt-4'>
        {loading && <spin className="spinner-border spinner-border-sm text-danger"></spin>}Set PIN

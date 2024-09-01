@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import SidebarDropDownMenu from "./dropdownmenu";
 
@@ -11,12 +11,12 @@ const HeaderDashboardMenu = () => {
 
 
   const businessMenuLinks = [
-    {
-      to: "/billing",
-      icon: "bi-receipt",
-      label: "Billing",
-      permission: 'billing',
-    },
+    // {
+    //   to: "/billing",
+    //   icon: "bi-receipt",
+    //   label: "Billing",
+    //   permission: 'billing',
+    // },
     {
       to: "/business-transactions",
       icon: "bi-journal",
@@ -58,7 +58,7 @@ const HeaderDashboardMenu = () => {
             Dashboard
           </NavLink>
         </li>
-        {permisions.permission && permisions.permission.my_coupon ? (
+        {/* {permisions.permission && permisions.permission.my_coupon ? (
           <li>
             <NavLink to={"/my-coupons"}>
               <i className={`bi bi-cash`} />
@@ -70,7 +70,7 @@ const HeaderDashboardMenu = () => {
             <i className={`bi bi-cash`} />
             &nbsp; My Coupons &nbsp;<i class="bi bi-lock"></i>
           </li>
-        )}
+        )} */}
         {permisions.permission && permisions.permission.my_network ? (
           <li>
             <NavLink to={"/my-network"}>
@@ -146,7 +146,7 @@ const HeaderDashboardMenu = () => {
                   links={businessMenuLinks}
 
                 >
-                  {permisions.permission && permisions.permission.billing ? (
+                  {/* {permisions.permission && permisions.permission.billing ? (
                     <li>
                       <NavLink to={"/billing"}>
                         <i className={`bi bi-receipt`} />
@@ -158,7 +158,7 @@ const HeaderDashboardMenu = () => {
                       <i className={`bi bi-receipt`} />
                       &nbsp; Billling &nbsp;<i class="bi bi-lock"></i>
                     </li>
-                  )}
+                  )} */}
                   {permisions.permission &&
                     permisions.permission.business_transaction ? (
                     <li>

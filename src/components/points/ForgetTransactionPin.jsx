@@ -4,6 +4,7 @@ import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
+import PINInput from "../ui/GridPinInput";
 
 function ForgetPinForm() {
   const [pin, setPin] = useState("");
@@ -35,12 +36,23 @@ function ForgetPinForm() {
     return "";
   };
 
-  const handleBlurPin = () => {
-    setPinError(validatePin(pin));
+  const handlePIn = async (newPin) => {
+    const value = newPin;
+    setPin(value);
+    if (value.trim() !== "") {
+      setPinError(validatePin(value));
+    } else {
+      setPinError("Pin required");
+    }
   };
-
-  const handleBlurConfirmPin = () => {
-    setConfirmPinError(validateConfirmPin(confirmPin));
+  const handleConfirmPIn = async (newPin) => {
+    const value = newPin;
+    setConfirmPin(value);
+    if (value.trim() !== "") {
+      setConfirmPinError(validateConfirmPin(value));
+    } else {
+      setConfirmPinError("Pin required");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -60,6 +72,7 @@ function ForgetPinForm() {
         new_pin: pin,
         confirm_new_pin: confirmPin,
       };
+      console.log(data);
       try {
         const res = await axiosInstance.post(
           `${baseURL}auth/confirm/forget/user/pin/`,
@@ -94,7 +107,7 @@ function ForgetPinForm() {
           {oldpinError}
         </p>
       )}
-      <Form.Group controlId="pin">
+      {/* <Form.Group controlId="pin">
         <Form.Label>Set New PIN</Form.Label>
         <Form.Control
           type="number"
@@ -121,6 +134,15 @@ function ForgetPinForm() {
           required
         />
         {confirmPinError && <p className="text-danger">{confirmPinError}</p>}
+      </Form.Group> */}
+      <Form.Group controlId="pin">
+        <Form.Label>Set PIN</Form.Label>
+        <PINInput length={4} value={pin} onChange={handlePIn} error={pinError} />
+
+      </Form.Group>
+      <Form.Group controlId="confirmPin">
+        <Form.Label>Confirm PIN</Form.Label>
+        <PINInput length={4} value={pin} onChange={handleConfirmPIn} error={confirmPinError} />
       </Form.Group>
       <Button variant="primary" type="submit" className="mt-3">
         {loading && (

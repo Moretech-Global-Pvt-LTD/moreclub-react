@@ -3,7 +3,8 @@ const initialState = {
   isLoading: false,
   error: null,
   businessTypeList:[],
-  businessProfile: {}
+  businessProfile: {},
+  businessQRInfo:[],
 };
 export const businessReducer = createSlice({
   name: "businessReducer",
@@ -19,6 +20,9 @@ export const businessReducer = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    businessQRInfoSuccess: (state, { payload }) => {
+      state.businessQRInfo = payload;
+    },
     businessProfileSucess: (state, { payload }) => {
       state.businessProfile = payload;
     },
@@ -29,6 +33,7 @@ export const {
   setLoading,
   businessTypeSuccess,
   setError,
+  businessQRInfoSuccess,
   businessProfileSucess
 } = businessReducer.actions;
 export default businessReducer.reducer;

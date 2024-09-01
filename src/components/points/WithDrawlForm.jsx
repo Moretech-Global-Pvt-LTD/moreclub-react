@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import axios from "axios";
@@ -8,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { getWallet } from "../../redux/api/wallets";
 import CurrencyInput from "../ui/CurrencyInput";
+import PINInput from "../ui/GridPinInput";
 
 const WithDrawalForm = () => {
   const [step, setStep] = useState(1);
@@ -97,8 +97,9 @@ const WithDrawalForm = () => {
     }
   };
 
-  const handlePIn = async (e) => {
-    const value = e.target.value;
+  const handlePIn = async (newPin) => {
+    const value = newPin;
+    setPin(value);
     if (value.trim() !== "") {
       setPinError("");
     } else {
@@ -242,7 +243,8 @@ const WithDrawalForm = () => {
           </div>
           <Form.Group controlId="pin">
             <Form.Label>Enter PIN</Form.Label>
-            <Form.Control
+            <PINInput length={4} value={pin} onChange={handlePIn} error={pinError} />
+            {/* <Form.Control
               type="number"
               value={pin}
               onChange={(e) => setPin(e.target.value)}
@@ -251,7 +253,7 @@ const WithDrawalForm = () => {
               maxLength={4}
               max={9999}
               required
-            />
+            /> */}
             {pinError && <p className="text-danger">{pinError}</p>}
           </Form.Group>
           <Button variant="primary" type="submit">

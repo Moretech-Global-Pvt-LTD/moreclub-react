@@ -23,12 +23,12 @@ const BusinessTabs = () => {
           >
             All transaction
           </button>
-          <button
+          {/* <button
             className={activeTab === "Coupons" ? "tablinks active" : "tablinks"}
             onClick={() => openTab("Coupons")}
           >
             Coupons
-          </button>
+          </button> */}
           <button
             className={
               activeTab === "Membership" ? "tablinks active" : "tablinks"
@@ -53,14 +53,14 @@ const BusinessTabs = () => {
                 <BillingTransactions />
               </div>
 
-              <div
+              {/* <div
                 id="Coupons"
                 className={
                   activeTab === "Coupons" ? "tabcontent active" : "tabcontent"
                 }
               >
                 <BusinessCouponsTransactions />
-              </div>
+              </div> */}
 
               <div
                 id="Membership"

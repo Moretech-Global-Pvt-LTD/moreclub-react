@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useQuery } from "@tanstack/react-query";
 import UserChart from "../../components/dashboard/ChartUser";
-import DashboardOffers from "../../components/dashboard/dashboardoffers";
 import RefrealChart from "../../components/dashboard/RefrealChart";
 import Walletlinks from "../../components/dashboard/Walletlinks";
 import { setMembershipType } from "../../redux/slices/userSlice";
@@ -25,7 +24,6 @@ import BusinessTypes from "../../components/dashboard/BusinessTypes";
 
 const DashboardContent = () => {
   const user = useSelector((state) => state.userReducer);
-  const business = useSelector((state) => state.businessReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {

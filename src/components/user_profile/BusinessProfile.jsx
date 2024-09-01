@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { message } from "antd";
 import BusinessProfileCard from "./BusinessProfileCard";
 import { useSelector } from "react-redux";
-import { hostURL, imageURL } from "../../config/config";
+import { hostURL} from "../../config/config";
 import QRDownload from "../QR/QRDownload";
 import DefaultQr from "../../images/Qr/defaultQR.jpg";
+import BusinessInfo from "./BusinessInfo";
 
 const BusinessProfile = ({ businessProfiles }) => {
   // const businessProfiles = useSelector((state) => state.businessReducer);
@@ -27,10 +28,11 @@ const BusinessProfile = ({ businessProfiles }) => {
     <>
       {businessProfiles ? (
         <div className="row  mt-1">
-          <div className="col-12 col-md-8 col-xl-6">
+          <div className="col-12 col-lg-7 col-xl-6 col-xxl-4 mb-4 ">
             <BusinessProfileCard BusinessDetails={businessProfiles} />
+            <BusinessInfo/>
           </div>
-          <div className="col-12 col-md-4 col-xl-6 ">
+          <div className="col-12 col-lg-5 col-xl-6 col-xxl-5">
             {/* subscription  */}
             <div className="nft-card card shadow-sm mb-4 p-4">
               <h4 className="linked-heading">
@@ -83,9 +85,9 @@ const BusinessProfile = ({ businessProfiles }) => {
                     Business Transactions
                   </p>
                 </Link>
-                <Link to="/billing">
+                {/* <Link to="/billing">
                   <p className="fs-6 mt-2 mb-2 border-bottom pb-2"> Billings</p>
-                </Link>
+                </Link> */}
                 <Link to="/transactions">
                   <p className="fs-6 mt-2 mb-2 border-bottom pb-2">
                     Transactions

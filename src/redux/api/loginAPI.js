@@ -19,12 +19,14 @@ import { getBusinessProfile } from "./userDetailAPI";
 import { loadMembershipType } from "./membershipTypeAPI";
 import { loadUserPermissions } from "./PermissionsAPI";
 import { CurrencySet } from "./CurrencyConvertorAPI";
+// import { setupNotifications } from "../../utills/firebase";
 
 export const load_user = () => async (dispatch) => {
   if (sessionStorage.getItem("moretechglobal_access")) {
     dispatch(setLoading(true));
     try {
       const res = await axiosInstance.get(`${baseURL}auth/user/all/details/`);
+      sessionStorage.setItem("username", res.data.data.username);
       await dispatch(userSuccess(res.data?.data));
       await dispatch(setLoading(false));
     } catch (err) {
@@ -58,6 +60,8 @@ export const login = (username, password ,next) => async (dispatch) => {
       await dispatch(getBusinessProfile());
       await dispatch(loadUserPermissions());
       await dispatch(setProcessing(false));
+      // await setupNotifications()
+      sessionStorage.removeItem("username")
       localStorage.removeItem("otp_username");
       return res;
     } catch (err) {
@@ -187,12 +191,15 @@ export const otpVerify = (username, code , callbackUrl) => async (dispatch) => {
       //   "moretechglobal_refresh",
       //   res.data.data.refresh_token
       // );
+      
       localStorage.removeItem("otp_username");
       await dispatch(load_user());
       await dispatch(userMembership());
       await dispatch(CurrencySet());
       await dispatch(loadMembershipType());
       await dispatch(getBusinessProfile());
+      // await setupNotifications();
+      sessionStorage.removeItem("username");
     }
     return res;
   } catch (err) {
@@ -207,7 +214,7 @@ export const otpPhoneSend = (phone_number) => async (dispatch) => {
     });
     return res;
   } catch (err) {
-    return err.response.data;
+    return err;
   }
 };
 

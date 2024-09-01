@@ -9,7 +9,7 @@ const BusinessProfileCard = ({ BusinessDetails }) => {
   return (
     <>
       <div className="profile-card-container col-12 col-md-12 col-lg-12 col-xl-12">
-        <div className="col-12 col-lg-12 ">
+        <div className="col-12 col-lg-12  ">
           <div className="card shadow-sm Profile-card">
             <div>
               <div className="card-header text-center text-dynamic-white relative ">
@@ -81,10 +81,12 @@ const BusinessProfileCard = ({ BusinessDetails }) => {
             </div>
           </div>
         </div>
-        <div className="col-12 col-lg-12">
+        <div className="col-12 col-lg-12  ">
           <div className="nft-card card shadow-sm Profile-card">
             <div className="card-body row">
               <div className="col-4 justify-content-center ">
+                <p className="text-warning text-center" style={{ fontSize: "11px" }}>Your Business Referal Qr</p>
+
                 {permission.permission.business_qr_code ? (
                   <img src={BusinessDetails.qr_code} alt="qr" />
                 ) : (

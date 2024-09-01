@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-import { Form } from "react-bootstrap";
-import axios from "axios";
-import { baseURL } from "../../config/config";
-import { useSelector } from "react-redux";
-import { message } from "antd";
+import { Form, Spinner } from "react-bootstrap";
 import { useDebounce } from "../../Hooks/useDebounce";
+import PhoneNumberInput from "../ui/PhoneInput2";
+import { message } from "antd";
+import { baseURL } from "../../config/config";
+import { axiosInstance } from "../..";
 
-const OTPPhoneNumbers = ({ handleNext }) => {
-  const user = useSelector((state) => state.userReducer);
-  const userphonenumber = user.user.phone_number;
-  const phone_prefix = user.user.user_profile.phone_prefix;
+const OTPPhoneNumbers = ({ handleNext, errorMessage }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [phoneError, setPhoneError] = useState("");
-  const [chooseCountry, setChooseCountry] = useState(phone_prefix);
-
   const debouncedPhoneNumber = useDebounce(phoneNumber, 500);
+  const [loading, setLoading]= useState(false)
 
   useEffect(() => {
     if (debouncedPhoneNumber) {
@@ -23,51 +19,63 @@ const OTPPhoneNumbers = ({ handleNext }) => {
     } else {
       setPhoneError("");
     }
-  }, [debouncedPhoneNumber, phoneNumber, chooseCountry]);
+  }, [debouncedPhoneNumber, phoneNumber, ]);
 
   const validatePhoneNumber = (phoneNumber) => {
     if (phoneNumber.trim() === "") {
       return "Phone Number is required";
-    } else if (`${chooseCountry}${phoneNumber}` !== userphonenumber) {
-      return "Phone number doesnot match";
     } else {
-      //   message.success("phone Number matched");
-      //   localStorage.setItem("otp_phonenumber", `${chooseCountry}${phoneNumber}`);
       return "";
     }
   };
 
-  const [countryList, setCountryList] = useState(null);
 
-  useEffect(() => {
-    const fetchCountry = async () => {
-      try {
-        const res = await axios.get(`${baseURL}country/list/`);
-        setCountryList(res.data.data);
-        console.log("countrylist", res.data.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchCountry();
-  }, []);
+
+
+  const handlePhoneNumberChange = async (data) => {
+    setPhoneNumber(data.fullNumber);
+    setPhoneNumber(data.fullNumber);
+    const error = await validatePhoneNumber(data.fullNumber)
+    if (error.trim() !== "") {
+      setPhoneError(error);
+    } else {
+      setPhoneError("");
+    }
+
+  };
+
+  async function handleSendOTP() {
+    setLoading(true)
+    try {
+      const res = await axiosInstance.post(`${baseURL}auth/otp/phone/verify/`, {
+        phone_number:phoneNumber,
+      });
+      message.success("OTP has been sent");
+      handleNext()
+    } catch (err) {
+     
+      setPhoneError(err.response?.data?.errors["phone_number"]);
+    }
+    setLoading(false)
+
+
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
+   
     if (phoneNumber.trim() === "") {
       setPhoneError("Phone Number is required");
-    } else if (`${chooseCountry}${phoneNumber}` !== userphonenumber) {
-      setPhoneError("Phone number doesnot match");
     } else {
-      localStorage.setItem("otp_phonenumber", `${chooseCountry}${phoneNumber}`);
-      // message.success("phone Number matched");
-      setPhoneError("");
+      localStorage.setItem("otp_phonenumber", `${phoneNumber}`);
+      handleSendOTP()
+     
     }
-    handleNext();
   };
 
   return (
-    // <div className="col-12 col-md-6 col-xl-6">
+ 
     <div className="col-12 ">
       <div className="register-card">
         <h5>Phone Verify</h5>
@@ -78,43 +86,19 @@ const OTPPhoneNumbers = ({ handleNext }) => {
         <div className="register-form mt-4">
           <Form.Group className="register-form-container">
             <Form.Label>Phone Number</Form.Label>
-            <div className="d-flex gap-1" style={{ width: "100%" }}>
-              <Form.Control
-                as="select"
-                value={chooseCountry}
-                onChange={(e) => setChooseCountry(e.target.value)}
-                style={{ width: "4rem", backgroundColor: "transparent" }}
-                className="text-dynamic-white focus-select "
-                required
-              >
-                {countryList &&
-                  countryList.map((cou) => (
-                    <option value={cou.prefix_number}>
-                      <img
-                        src={cou.icon}
-                        alt={`flag-${cou.name}`}
-                        style={{ width: "6px", height: "6px" }}
-                      />
-                      <span>{cou.code}</span>
-                    </option>
-                  ))}
-              </Form.Control>
-              <Form.Control
-                type="number"
-                placeholder="Enter phone number"
-                required
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                value={phoneNumber}
-              />
-            </div>
+            <PhoneNumberInput
+              onChange={handlePhoneNumberChange}
+              initialValue={phoneNumber}
+            />
             {phoneError && <p className="text-danger">{phoneError}</p>}
+            
           </Form.Group>
           <button
             className="btn btn-primary mt-4 rounded"
             onClick={handleSubmit}
             disabled={phoneError !== "" || phoneNumber.trim() === ""}
           >
-            Next
+            {loading && <Spinner variant="danger" animation="border" size="sm" /> }  Next
           </button>
         </div>
       </div>

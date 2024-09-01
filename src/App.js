@@ -98,6 +98,8 @@ import RestaurantPage from "./pages/moreclub/Resturant/Gallery/RestaurantGallery
 import UserPage from "./pages/moreclub/Resturant/Gallery/UserGalleryPage";
 import OpeninghoursPage from "./pages/moreclub/Resturant/openinghours/OpeninghoursPage";
 import Failed from "./pages/Points/buy/Failed";
+import useVisibilityChange from "./Hooks/useVisibilityChange";
+
 
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
@@ -109,8 +111,11 @@ const App = () => {
   const user = useSelector((state) => state.userReducer);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const key = GoogleAnalytics;
+  Notification.requestPermission();
+  const isForeground = useVisibilityChange();
 
   useEffect(() => {
+    
     ReactGA.initialize(key);
 
     const handleSessionExpired = () => {
@@ -123,6 +128,8 @@ const App = () => {
       window.removeEventListener("sessionExpired", handleSessionExpired);
     };
   }, []);
+
+
 
   const getMetadatas = async () => {
     await dispatch(getMetadata());
@@ -142,6 +149,15 @@ const App = () => {
     }
     getMetadatas();
   }, [dispatch]);
+
+  useEffect(() => { 
+     if (typeof importScripts !== "function") {
+       console.warn(
+         `You're trying to run service-worker.js file on non-worker scope. Please check your framework build and make sure you're running your service worker file once on WorkerGlobalScope.`
+       );
+       return;
+     }
+  },[])
 
   const authRoutes = [
     {
@@ -267,10 +283,10 @@ const App = () => {
   ];
 
   const businessRoutes = [
-    {
-      path: "/billing",
-      page: <BillingPage />,
-    },
+    // {
+    //   path: "/billing",
+    //   page: <BillingPage />,
+    // },
     {
       path: "/business-transactions",
       page: <BusinessTransaction />,
@@ -539,6 +555,8 @@ const App = () => {
     localStorage.removeItem("sessionExpired");
     window.location.href = "/login";
   };
+
+   
 
   return (
     <div className="App">
