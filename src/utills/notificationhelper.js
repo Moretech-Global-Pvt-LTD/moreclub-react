@@ -3,7 +3,6 @@ import "react-toastify/dist/ReactToastify.css";
 export const toastNotification = ({ title, description }) => {
   console.log(title, description);
   toast(`${title}: ${description}`, {
-    position: toast.POSITION.TOP_RIGHT,
     autoClose: 5000, // Duration in ms, can be customized
     hideProgressBar: false,
     closeOnClick: true,

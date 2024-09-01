@@ -104,7 +104,7 @@ const PopularresturantCarousel = ({data}) => {
       {data.slice(0,10).map((item) => (
         <ResturantCard
           key={item.id}
-          link={`https://morefood-six.vercel.app/resturants/${item.id}`}
+          link={`https://morefood.se/resturants/${item.id}`}
           res={item}
         />
       ))}

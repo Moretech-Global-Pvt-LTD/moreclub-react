@@ -303,68 +303,6 @@ const DashboardContent = () => {
           </div>
           <PopularResturant />
         </Row>
-        {/* <Row>
-            <h2 className="mt-4 mb-3">Offers Nearby</h2>
-            <Row sm={2} md={4} className="gx-3 gy-3">
-              <Col>
-                <OffersCard
-                  logo={BrandLogo}
-                  name={"Navin Business"}
-                  offer="<p><span class='text-warning text-center'>20% <span>off on min 2000<p>"
-                />
-              </Col>
-              <Col>
-                <OffersCard
-                  logo={BrandLogo}
-                  name={"Navin Business"}
-                  offer="<p><span class='text-warning text-center'>20% <span>off on min 2000<p>"
-                />
-              </Col>
-              <Col>
-                <OffersCard
-                  logo={BrandLogo}
-                  name={"Navin Business"}
-                  offer="<p><span class='text-warning text-center'>20% <span>off on min 2000<p>"
-                />
-              </Col>
-              <Col>
-                <OffersCard
-                  logo={BrandLogo}
-                  name={"Navin Business"}
-                  offer="<p><span class='text-warning text-center'>20% <span>off on min 2000<p>"
-                />
-              </Col>
-              <Col>
-                <OffersCard
-                  logo={BrandLogo}
-                  name={"Navin Business"}
-                  offer="<p><span class='text-warning text-center'>20% <span>off on min 2000<p>"
-                />
-              </Col>
-              <Col>
-                <OffersCard
-                  logo={BrandLogo}
-                  name={"Navin Business"}
-                  offer="<p><span class='text-warning text-center'>20% <span>off on min 2000<p>"
-                />
-              </Col>
-              <Col>
-                <OffersCard
-                  logo={BrandLogo}
-                  name={"Navin Business"}
-                  offer="<p><span class='text-warning text-center'>20% <span>off on min 2000<p>"
-                />
-              </Col>
-              <Col>
-                <OffersCard
-                  logo={BrandLogo}
-                  name={"Navin Business"}
-                  offer="<p><span class='text-warning text-center'>20% <span>off on min 2000<p>"
-                />
-              </Col>
-        
-            </Row>
-          </Row> */}
       </div>
     </div>
   );

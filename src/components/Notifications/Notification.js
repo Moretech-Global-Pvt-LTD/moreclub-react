@@ -1,66 +1,49 @@
-import React, { useState, useEffect } from "react";
-// import toast, { Toaster } from "react-hot-toast";
-import { requestForToken, onMessageListener, setupNotifications } from "../../utills/firebase";
+import React, {useEffect } from "react";
+import { messaging } from "../../utills/firebase";
 import useVisibilityChange from "../../Hooks/useVisibilityChange";
-import { sendNativeNotification, toastNotification } from "../../utills/notificationhelper";
+import { sendNativeNotification } from "../../utills/notificationhelper";
+import { onMessage } from "firebase/messaging";
+import { toast, ToastContainer } from "react-toastify";
+
 
 const Notification = () => {
-  // const [notification, setNotification] = useState({ title: "", body: "" });
-//   const notify = () => toast(<ToastDisplay />);
-//   function ToastDisplay() {
-//     return (
-//       <div>
-//         <p>
-//           <b>{notification?.title}</b>
-//         </p>
-//         <p>{notification?.body}</p>
-//       </div>
-//     );
-    //   }
-    
+
+  const isForeground = useVisibilityChange();
+
+  const notify = (message) =>
+    toast.warn(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
 
 
-  // useEffect(() => {
-  //   if (notification?.title) {
-  //       //   notify();
-  //       console.log("notification", notification);
-  //   }
-  // }, [notification]);
 
-  // requestForToken();
+  useEffect(() => {
+    onMessage(messaging, (payload) => {
+      if (isForeground) {
+        const message = (
+          <>
+            <h6 style={{color:"black"}}>{payload.notification.title}</h6>
+            <p style={{color:"black"}}>{payload.notification.body}</p>
+          </>
+        );
+        notify(message);
+      } else {
+        sendNativeNotification({
+          title: payload.notification.title,
+          body: payload.notification.body,
+        });
+      }
+    });
+  }, [isForeground]);
 
-  // onMessageListener()
-  //   .then((payload) => {
-  //     setNotification({
-  //       title: payload?.notification?.title,
-  //       body: payload?.notification?.body,
-  //     });
-  //   })
-  //   .catch((err) => console.log("failed: ", err));
-
-  //   //   return <Toaster />;
-  //   return <p></p>
- const isForeground = useVisibilityChange();
- useEffect(() => {
-   setupNotifications((message) => {
-      console.log("message", message);
-     if (isForeground) {
-       // App is in the foreground, show toast notification
-      
-       toastNotification({
-         title: "title",
-         description: "body",
-         status: "info",
-       });
-     } else {
-       // App is in the background, show native notification
-       sendNativeNotification({
-         title: "title",
-         body: "body",
-       });
-     }
-   });
- }, []);
+  return <ToastContainer  stacked/>;
 };
 
 export default Notification;

@@ -32,25 +32,6 @@ const DashboardLayout = ({ children, title }) => {
 
   }, [location.pathname]);
 
-  // useEffect(() => {
-  //   setupNotifications(({ title, body }) => {
-  //     if (isForeground) {
-  //       // App is in the foreground, show toast notification
-  //       toastNotification({
-  //         title,
-  //         description: body,
-  //       });
-  //     } else {
-  //       // App is in the background, show native notification
-  //       sendNativeNotification({
-  //         title,
-  //         body,
-  //       });
-  //     }
-  //   });
-  // }, [isForeground]);
-
- 
 
   return (
     <>

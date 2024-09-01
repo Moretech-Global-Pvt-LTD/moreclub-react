@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
-import BrandLogo from "../../images/logo/MembersClubblack.png";
 import { message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -21,6 +20,7 @@ function TransferForm() {
   const [ConfirmationData, setConfirmationData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [transferdata, setTransferdata] = useState(null);
+  const metainfo = useSelector((state) => state.metaReducer);
 
 
   const [convertedRate, setCovertedRate] = useState();
@@ -307,12 +307,22 @@ function TransferForm() {
             id="coin-receipt"
             className="nft-card card bg-white p-2 col-12 col-md-8 mx-auto"
           >
-            <img
-              className="light-logo"
-              src={BrandLogo}
-              alt="Light"
-              style={{ width: "70px", margin: "auto" }}
-            />
+            <div className="admin-logo me-2 me-sm-3">
+              <Link className="d-flex align-items-center" to="/dashboard">
+                <img
+                  className="nav-light-logo dashboard-header-logo "
+                  src={`${metainfo.meta?.black_logo}`}
+                  alt="Light"
+                  style={{ width: "70px", margin: "auto" }}
+                />
+                <img
+                  className="nav-dark-logo dashboard-header-logo "
+                  src={`${metainfo.meta?.white_logo}`}
+                  alt="Dark"
+                  style={{ width: "70px", margin: "auto" }}
+                />
+              </Link>
+            </div>
             <h5 className="text-center">Transactions Receipt</h5>
             <div className=" border p-2">
               <div className="d-flex justify-content-between">

@@ -8,7 +8,7 @@ const EventTransCard = ({
   transactionamount,
   previousbalance,
   currency_send,
-  currency_received
+
 }) => {
   const currency = useSelector((state) => state.currencyReducer.currencyDetail);
   return (
