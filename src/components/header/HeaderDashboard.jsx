@@ -191,7 +191,7 @@ const HeaderDashboard = () => {
                   {wallet.wallet?.balance ?? "0.00"}
                 </span>
               </Link>
-
+              <Notification/>
               {/* notification */}
               <Dropdown className="user-dropdown me-2 points-show">
                 <Dropdown.Toggle className="user-btn" id="userDropdown">

@@ -1,9 +1,45 @@
 import React from "react";
-import { Card, Col, ListGroup, ListGroupItem, Row } from "react-bootstrap";
-import MapComponent from "../../components/Googlemap/LocationViewer";
+import { Card, Col, ListGroup, ListGroupItem, Placeholder, Row } from "react-bootstrap";
 import MapboxComponent from "../../components/Googlemap/MapboxComponent";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { axiosInstance } from "../..";
+import { baseURL } from "../../config/config";
 
-const PartnerDeatilContent = ({ company }) => {
+const PartnerDeatilContent = () => {
+
+  const { partnerId } = useParams();
+  const { data:company, isLoading, isError } = useQuery({
+    queryKey: [`partners ${partnerId}`],
+    queryFn: async () => {
+      const response = await axiosInstance.get(
+        `${baseURL}business/our/partners/${partnerId}/`
+      );
+      return response.data.data;
+    },
+    staleTime: 1000,
+  });
+
+  if (isLoading) {
+    return (
+      <div>
+        <Placeholder as="p" animation="glow" className="rounded">
+          <Placeholder xs={12} size="lg" style={{ height: "7rem" }} />
+        </Placeholder>
+        <Placeholder as="p" animation="glow" className="rounded">
+          <Placeholder xs={12} style={{ height: "7rem" }} />
+        </Placeholder>
+        <Placeholder as="p" animation="glow" className="rounded">
+          <Placeholder xs={12} style={{ height: "7rem" }} />
+        </Placeholder>
+      </div>
+    );
+  }
+
+  if (isError) {
+    <div className="text-dynamic white">Error getting data</div>;
+  }
+
   return (
     <div className="mt-5">
       <Row>
@@ -37,7 +73,6 @@ const PartnerDeatilContent = ({ company }) => {
                 />
               )}
             </div>
-            {/* <Card.Img variant="top" src={company?.business_logo} alt={`${company?.business_name} logo`} /> */}
             <Card.Body>
               <Card.Title className="text-dynamic-white text-center text-warning">
                 {company?.business_name}

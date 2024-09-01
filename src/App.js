@@ -103,7 +103,7 @@ import useVisibilityChange from "./Hooks/useVisibilityChange";
 
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
-  return isAuthenticated ? element : <Navigate to="/login" />;
+  return isAuthenticated ? element : <Navigate to={`/login`} />;
 };
 
 const App = () => {
@@ -232,11 +232,7 @@ const App = () => {
 
       page: <PrivacyPage />,
     },
-    {
-      path: "/event/",
-
-      page: <Eventpage />,
-    },
+   
 
     {
       path: "/products/",
@@ -253,11 +249,7 @@ const App = () => {
 
       page: <BusinessTypesDetail />,
     },
-    {
-      path: "/partners/:partnerId",
-
-      page: <PartnerDetail />,
-    },
+    
     {
       path: "/projects/:projectId",
 
@@ -322,6 +314,16 @@ const App = () => {
       path: "/scan",
 
       page: <GetMembership />,
+    },
+    {
+      path: "/partner/detail/:partnerId/:slug",
+
+      page: <PartnerDetail />,
+    },
+    {
+      path: "/event/",
+
+      page: <Eventpage />,
     },
     {
       path: "/otp-phone",

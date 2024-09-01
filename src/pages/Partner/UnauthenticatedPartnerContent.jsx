@@ -4,19 +4,21 @@ import { Col, Placeholder, Row } from "react-bootstrap";
 import { baseURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import OffersCard from "../../components/dashboard/Offercard";
-import { axiosInstance } from "../..";
+import axios from "axios";
 import Divider from "../../components/divider/Divider";
 import { useParams } from "react-router-dom";
 
-const BusinessPartnerContent = ({ partnerId }) => {
+const UnauthenticatedBusinessPartnerContent = ({ partnerId }) => {
 
-    const { partnerName } = useParams();
+
+    const {  partnerName } = useParams();
+
     const title = partnerName.replace("-", " ")
     const { data, isLoading, isError } = useQuery({
         queryKey: [`partners data ${partnerId}`],
         queryFn: async () => {
 
-            const response = await axiosInstance.get(
+            const response = await axios.get(
                 `${baseURL}business/partners/${partnerId}/`
             );
             return response.data.data;
@@ -46,10 +48,11 @@ const BusinessPartnerContent = ({ partnerId }) => {
     if (isError) {
         <div className="text-dynamic white">Error getting data</div>;
     }
+
     return (
         <div className="mt-4">
             <Row sm={2} md={4} className="gx-3 gy-3">
-                {data && data.map((item) => (
+                { data &&data.map((item) => (
                     <Col className="d-flex flex-column">
                         <OffersCard
                             id={item.id}
@@ -62,6 +65,7 @@ const BusinessPartnerContent = ({ partnerId }) => {
                         />
                     </Col>
                 ))}
+               
             </Row>
             {data && data.length === 0 && (
                 <>
@@ -75,4 +79,4 @@ const BusinessPartnerContent = ({ partnerId }) => {
     );
 };
 
-export default BusinessPartnerContent;
+export default UnauthenticatedBusinessPartnerContent;

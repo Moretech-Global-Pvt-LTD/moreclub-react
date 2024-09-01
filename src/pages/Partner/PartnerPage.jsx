@@ -1,12 +1,9 @@
 import React from "react";
-
-import { useSelector } from "react-redux";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import Divider from "../../components/divider/Divider";
 import PartnerContent from "./PartnerContent";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 import LandingLayout from "../../components/Layout/LandingLayout";
-import PartnerUnauthenticatedContent from "./PartnerUnauthenticated";
 
 const PartnerPage = () => {
   if (!!sessionStorage.getItem("moretechglobal_access")) {
@@ -31,7 +28,8 @@ const PartnerPage = () => {
           ]}
         />
         <div className="container">
-          <PartnerUnauthenticatedContent />
+          <PartnerContent />
+          {/* <PartnerUnauthenticatedContent /> */}
           <Divider />
         </div>
       </LandingLayout>
