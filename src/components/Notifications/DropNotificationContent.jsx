@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Button } from "react-bootstrap";
-import Notification from "./Notification";
+import Notifications from "./Notifications";
 import { Link } from "react-router-dom";
 
 const DropNotificationContent = () => {
@@ -16,7 +16,7 @@ const DropNotificationContent = () => {
           <Button variant="link">See all</Button>
         </Link>
       </div>
-      <Notification />
+      <Notifications />
     </div>
   );
 };

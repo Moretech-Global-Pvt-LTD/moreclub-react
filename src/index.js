@@ -12,7 +12,6 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CookiesProvider } from "react-cookie";
-import PayPalProvider from "./components/HOC/PaypalProvider";
 import { register } from "./utills/serviceworker";
 
 export const axiosInstance = axios.create({
@@ -66,11 +65,11 @@ root.render(
       <ScrollTop />
       <Provider store={store}>
         <CookiesProvider defaultSetOptions={{ path: "/" }}>
-          <PayPalProvider>
+          
             <QueryClientProvider client={queryClient}>
               <App />
             </QueryClientProvider>
-          </PayPalProvider>
+         
         </CookiesProvider>
       </Provider>
     </BrowserRouter>
