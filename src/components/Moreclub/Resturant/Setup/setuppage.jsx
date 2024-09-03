@@ -5,6 +5,8 @@ import Offers from "../../../../images/moreclub/offers.png";
 import Orders from "../../../../images/moreclub/orders.png";
 import Gallery from "../../../../images/moreclub/galleries.png";
 import Cuisine from "../../../../images/moreclub/cuisine.png";
+import Working from "../../../../images/moreclub/workinghour.png";
+
 import { Link, useParams } from "react-router-dom";
 
 const Setuppage = ({ data }) => {
@@ -170,7 +172,7 @@ const Setuppage = ({ data }) => {
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
-                  src={Gallery}
+                  src={Working}
                   alt="menu"
                   className="px-2 py-1 rounded "
                   style={{ height: "5rem", width: "5rem" }}
