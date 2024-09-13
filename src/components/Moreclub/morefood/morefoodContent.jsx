@@ -45,7 +45,6 @@ const MorefoodContent = () => {
         {data?.map((item) => (
           <>
             <ResturantCard key={item.id} link={`https://morefood.se/resturants/${item.id}`} res={item} />
-            {/* <ResturantCard key={item.id} link={`http://localhost:3000/resturants/${item.id}?redirect=true`} res={item} /> */}
           </>
         ))}
       </Row>

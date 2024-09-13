@@ -1,14 +1,31 @@
 import React from 'react'
 import { Card, Col, Image } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { morefoodimageURL } from '../../../config/config';
+import { axiosInstance } from '../../..';
+import { baseURL } from '../../../config/config';
 
-const ResturantCard = ({res, link}) => {
-    return (
+
+const ResturantCard = ({ res, link }) => {
+  
+  async function handleRedirection() {
+    try {
+      const response = await axiosInstance.post(`${baseURL}auth/code/generate/`);
+      if (response.status === 200) {
+        const url = `${link}?redirect=true&&code=${response.data.data.auth_code}`;
+        window.open(url, '_blank');
+      }
+    } catch (err) {
+      console.log("error getting code ", err.response.status)
+      const url = `${link}`;
+      window.open(url, '_blank');
+    }
+  }
+  return (
+      
+
      
       <Col className="d-flex flex-column flex-grow-1 rounded-3 restaurantCard position-relative">
-        <a
-          href={link}
+        <div
+        onClick={handleRedirection}
           target="_blank"
           rel='noreferrer'
           className="d-flex flex-column "
@@ -52,7 +69,7 @@ const ResturantCard = ({res, link}) => {
             </Card.Body>
           </Card>
           <span className='text-danger fw-bold position-absolute top-0 end-0 fs-6 bg-warning p-1 '><i class="bi bi-star-fill"></i>  {res.restaurant_rating}</span>
-        </a>
+        </div>
         </Col>
     
     );
