@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
+import { RestaurantItemskeleton } from "../../../Skeleton/SmallCardSkeleton";
 
 const MenuCategory = () => {
   const { res_id } = useParams();
@@ -25,28 +26,7 @@ const MenuCategory = () => {
 
     if (isLoading) {
       return (
-        <div className="">
-          <div className="row gap-2">
-            <Placeholder as="p" animation="glow" className="rounded w-25">
-              <Placeholder xs={12} style={{ height: "4rem" }} />
-            </Placeholder>
-            <Placeholder as="p" animation="glow" className="rounded  w-25">
-              <Placeholder xs={12} style={{ height: "4rem" }} />
-            </Placeholder>
-            <Placeholder as="p" animation="glow" className="rounded  w-25">
-              <Placeholder xs={12} style={{ height: "4rem" }} />
-            </Placeholder>
-            <Placeholder as="p" animation="glow" className="rounded w-25">
-              <Placeholder xs={12} style={{ height: "4rem" }} />
-            </Placeholder>
-            <Placeholder as="p" animation="glow" className="rounded  w-25">
-              <Placeholder xs={12} style={{ height: "4rem" }} />
-            </Placeholder>
-            <Placeholder as="p" animation="glow" className="rounded  w-25">
-              <Placeholder xs={12} style={{ height: "4rem" }} />
-            </Placeholder>
-          </div>
-        </div>
+        <RestaurantItemskeleton/>
       );
     }
 

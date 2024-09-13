@@ -5,6 +5,8 @@ import Offers from "../../../../images/moreclub/offers.png";
 import Orders from "../../../../images/moreclub/orders.png";
 import Gallery from "../../../../images/moreclub/galleries.png";
 import Cuisine from "../../../../images/moreclub/cuisine.png";
+import Working from "../../../../images/moreclub/workinghour.png";
+
 import { Link, useParams } from "react-router-dom";
 
 const Setuppage = ({ data }) => {
@@ -39,7 +41,7 @@ const Setuppage = ({ data }) => {
             </p>
             <div className="d-flex gap-2">
               {data.instagram_link && (
-                <a href={data.instagram_link} target="_blank" rel="noreferrer"><Button variant="primary" className="border-primary border-2"><i class="bi bi-globe"></i>&nbsp;&nbsp;Website</Button></a>
+                <a href={data.website_link} target="_blank" rel="noreferrer"><Button variant="primary" className="border-primary border-2"><i class="bi bi-globe"></i>&nbsp;&nbsp;Website</Button></a>
               )}
               {data.facebook_link && (
                 <a href={data.facebook_link} target="_blank" rel="noreferrer"><Button variant="primary" className="border-primary border-2"><i class="bi bi-facebook"></i>&nbsp; &nbsp; Facebook</Button></a>
@@ -170,7 +172,7 @@ const Setuppage = ({ data }) => {
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
-                  src={Gallery}
+                  src={Working}
                   alt="menu"
                   className="px-2 py-1 rounded "
                   style={{ height: "5rem", width: "5rem" }}

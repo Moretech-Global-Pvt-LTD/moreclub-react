@@ -7,6 +7,7 @@ import axios from "axios";
 import { baseURL } from "../../config/config";
 import Divider from "../../components/divider/Divider";
 import { useSelector } from "react-redux";
+import EventCardSkeleton from "../../components/Skeleton/EventCardSkeleton";
 
 const EventpageContent = () => {
   const location = useLocation();
@@ -73,12 +74,7 @@ const EventpageContent = () => {
   if (isLoading) {
     return (
       <>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
+        <EventCardSkeleton/>
       </>
     );
   }

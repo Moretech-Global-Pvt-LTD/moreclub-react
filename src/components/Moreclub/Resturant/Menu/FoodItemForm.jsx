@@ -191,8 +191,10 @@ const FoodItemForm = ({ data }) => {
         cuisine_id: menuItem.cuisine_id,
         ingredient: menuItem.ingredient,
         restaurant_id: res_id,
-        menu: cat_id
+        menu: cat_id,
+        image: menuItem.image
       }
+     
       axiosInstance
         .patch(
           `${morefoodURL}moreclub/user/food/items/${cat_id}/${id}/${res_id}/`,

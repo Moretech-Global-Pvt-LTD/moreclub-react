@@ -10,42 +10,6 @@ const QRcontent = () => {
   const user = useSelector((state) => state.userReducer);
   const [switchvalue, setSwitchValue] = React.useState(true);
 
-  // const { data, isLoading, isError, refetch } = useQuery({
-  //   queryKey: ["user profile"],
-  //   queryFn: async () => {
-  //     const response = await axiosInstance.get(
-  //       `${baseURL}auth/user/all/details/`
-  //     );
-  //     const data = await response.data.data;
-
-  //     return data;
-  //   },
-  // });
-
-  // if (isLoading) {
-  //   return (
-  //     <Placeholder as="p" animation="glow" className="rounded">
-  //       <Placeholder xs={12} size="lg" style={{ height: "7rem" }} />
-  //     </Placeholder>
-  //   );
-  // }
-
-  // if (isError) {
-  //   return (
-  //     <div className="row">
-  //       <h1 className="text-center mb">Refer your Friends </h1>
-  //       <div className="qr-container">
-  //         <QRCode
-  //           errorLevel="H"
-  //           value={`${hostURL}/register-membership`}
-  //           icon={Logos}
-  //           style={{ background: "white" }}
-  //         />
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className="row mt-0 mt-lg-5">
       <div className="d-flex gap-2 ">
@@ -53,9 +17,9 @@ const QRcontent = () => {
       <Form.Check 
         type="switch"
         id="custom-switch"
-          value={switchvalue}
-          onChange={() => setSwitchValue(!switchvalue)}
-        className="text-primary mb-3 "
+        value={switchvalue}
+        onChange={() => setSwitchValue(!switchvalue)}
+        className=" mb-3 "
         bsPrefix="h-6 bg-success"
         />
         <label className={`fs-6 fw-bold ${!switchvalue ? "text-success" : "text-secondary"}`}>Profile Qr </label>

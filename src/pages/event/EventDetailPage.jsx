@@ -7,6 +7,7 @@ import {
   Card,
   Placeholder,
   Button,
+  Modal,
 } from "react-bootstrap";
 import LandingLayout from "../../components/Layout/LandingLayout";
 import { Link, useParams } from "react-router-dom";
@@ -19,7 +20,6 @@ import { axiosInstance } from "../..";
 
 import { message } from "antd";
 import { useSelector } from "react-redux";
-import { Modal, Space } from "antd";
 import PINInput from "../../components/ui/GridPinInput";
 
 import DashboardLayout from "../../components/Layout/DashboardLayout";
@@ -31,15 +31,12 @@ const EventDetailPage = () => {
   const currencyData = useSelector(
     (state) => state.currencyReducer.currencyDetail
   );
-  const [isModalOpen, setIsModalOpen] = useState([false, false]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState("");
 
-  const toggleModal = (idx, target) => {
-    setIsModalOpen((p) => {
-      p[idx] = target;
-      return [...p];
-    });
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
   };
 
   const fetchEventData = async () => {
@@ -242,30 +239,48 @@ const EventDetailPage = () => {
                     </button>
                   ) : (
                     <>
-                      <Space>
                         <button
                           className="btn btn-danger rounded-pill mt-3 me-3 "
                           style={{ whiteSpace: "nowrap" }}
                           // onClick={()=>{handleBooking(data.eventdata.id)}}
-                          onClick={() => toggleModal(0, true)}
+                          onClick={() => toggleModal(true)}
                         >
                           Book Now
                         </button>
-                      </Space>
-                      <Modal
-                        title="Book your Ticket"
-                        open={isModalOpen[0]}
-                        onOk={() => toggleModal(0, false)}
-                        onCancel={() => toggleModal(0, false)}
-                        footer=""
-                        // classNames={classNames}
-                        // styles={modalStyles}
-                      >
+                        <Modal
+                          aria-labelledby="contained-modal-title-vcenter"
+                          size="md"
+                          centered
+                          show={isModalOpen}
+                          onHide={toggleModal}
+                        
+                        >
+                          <Modal.Header>
+                            <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
+                              Book your Ticket
+                            </Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
                           <form onSubmit={handleBooking}>
-                            
-                              <label className="form-label">Enter PIN</label>
+                            <div className="d-flex flex-column justify-content-center">
+                              <label className="form-label text-center">Enter PIN</label>
+                              <div className=" mx-auto">
+
                               <PINInput length={4} value={pin} onChange={handlePInChange} error={pinError} />
-                          <Button
+                                </div>
+                              </div>
+                              <div className="d-flex justify-content-end my-2 gap-2">
+                                <Button
+                                  variant="secondary"
+                                  onClick={(e) => { e.preventDefault(); toggleModal(false) }}
+                                  className="mt-4 "
+                                >
+                                  {isLoading && (
+                                    <span className="spinner-border spinner-border-sm text-danger"></span>
+                                  )}
+                                  &nbsp;Cancel 
+                                </Button>
+                              <Button
                             variant="primary"
                             type="submit"
                             className="mt-4 "
@@ -275,7 +290,10 @@ const EventDetailPage = () => {
                             )}
                             &nbsp;Confirm buy
                           </Button>
-                        </form>
+                                
+                         </div>
+                            </form>
+                            </Modal.Body>
                       </Modal>
                     </>
                   )}

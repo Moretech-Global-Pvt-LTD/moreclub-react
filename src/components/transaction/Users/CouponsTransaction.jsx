@@ -8,6 +8,7 @@ import { baseURL } from "../../../config/config";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import CouponTrnsactionCard from "./CouponTrnsactionCard";
 import { useLocation } from "react-router-dom";
+import TransactionCardSkeleton from "../../Skeleton/TransactionCardSkeleton";
 
 const CouponsTransaction = () => {
   const location = useLocation();
@@ -71,16 +72,8 @@ const CouponsTransaction = () => {
 
   if (isLoading) {
     return (
-      <div
-        className="content-inside-wrapper nft-card card p-4"
-        style={{ maxWidth: "640px" }}
-      >
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
+      <div className="card p-4">
+        <TransactionCardSkeleton />
       </div>
     );
   }

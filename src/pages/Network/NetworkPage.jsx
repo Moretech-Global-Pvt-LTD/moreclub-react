@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
-
+import React from "react";
 import { baseURL } from "../../config/config";
 import { axiosInstance } from "../..";
 
 import { useSelector } from "react-redux";
-// import Tree from "../../components/tree/tree";
-// import NetworkTree from "../../components/tree/tree";
+
 import NetworkTable from "./NetworkTable";
 import { useLocation } from "react-router-dom";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 import Unauthorized from "../../components/unauthorized/unauthorized";
 import Loading from "../../components/loading/loading";
 import { useQuery } from "@tanstack/react-query";
-import { Placeholder } from "react-bootstrap";
+import { Placeholder, Table } from "react-bootstrap";
 
 const fetchReferals = async (page) => {
   const res = await await axiosInstance.get(
@@ -26,7 +24,7 @@ const NetworkPage = () => {
   const page = new URLSearchParams(search).get("page") || 1;
   const permission = useSelector((state) => state.permissionReducer);
 
-  const { data, error, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["referals", page],
     queryFn: async () => fetchReferals(page),
     keepPreviousData: true,
@@ -34,13 +32,38 @@ const NetworkPage = () => {
 
   if (isLoading) {
     return (
-      <DashboardLayout title={"Networks"}>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} size="lg" style={{ height: "7rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "7rem" }} />
-        </Placeholder>
+      <DashboardLayout title={"Networks"}> 
+        <Table responsive className="bg-white">
+          <thead className="border-bottom-0">
+            <tr className="pricingcard-premium">
+              <th className="text-dynamic-white"> Name</th>
+              <th className="text-dynamic-white">Email</th>
+              <th className="text-dynamic-white">Phone</th>
+              <th className="text-white text-center">Action</th>
+              {/* )} */}
+            </tr>
+          </thead>
+
+        </Table>
+        <div className="row gap-2">
+
+          <Placeholder as="p" animation="glow" className="rounded my-1 w-100">
+            <Placeholder xs={12} style={{ height: "2rem" }} />
+          </Placeholder>
+          <Placeholder as="p" animation="glow" className="rounded my-2 w-100">
+            <Placeholder xs={12} style={{ height: "2rem" }} />
+          </Placeholder>
+          <Placeholder as="p" animation="glow" className="rounded my-2 w-100">
+            <Placeholder xs={12} style={{ height: "2rem" }} />
+          </Placeholder>
+          <Placeholder as="p" animation="glow" className="rounded my-2 w-100">
+            <Placeholder xs={12} style={{ height: "2rem" }} />
+          </Placeholder>
+          <Placeholder as="p" animation="glow" className="rounded my-2 w-100">
+            <Placeholder xs={12} style={{ height: "2rem" }} />
+          </Placeholder>
+
+        </div>
       </DashboardLayout>
     );
   }

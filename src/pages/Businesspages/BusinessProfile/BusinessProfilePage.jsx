@@ -10,6 +10,7 @@ import { baseURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
 import { businessProfileSucess } from "../../../redux/slices/businessSlice";
 import { userMembership } from "../../../redux/api/userMembershipAPI";
+import ProfileCardSkeleton from "../../../components/Skeleton/ProfileCard";
 
 const BusinessProfilePage = () => {
  
@@ -31,15 +32,7 @@ const BusinessProfilePage = () => {
   if (isLoading) {
     return (
       <DashboardLayout title={"Business Profile"}>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} size="lg" style={{ height: "7rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "7rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "7rem" }} />
-        </Placeholder>
+        <ProfileCardSkeleton/>
       </DashboardLayout>
     );
   }

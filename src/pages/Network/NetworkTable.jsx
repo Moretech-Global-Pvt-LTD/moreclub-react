@@ -310,7 +310,7 @@ const NetworkTable = ({ list, meta }) => {
       </div>
       <Table responsive className="bg-white">
         <thead className="border-bottom-0">
-          <tr>
+          <tr className="pricingcard-premium">
             <th>
               <input type="checkbox" onChange={handleSelectAll} />
             </th>

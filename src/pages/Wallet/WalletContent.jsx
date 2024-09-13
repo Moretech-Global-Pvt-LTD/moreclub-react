@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Wallet from "../../images/wallet/coins.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getWallet } from "../../redux/api/wallets";
-import { axiosInstance } from "../..";
-import { baseURL } from "../../config/config";
-import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
+// import { axiosInstance } from "../..";
+// import { baseURL } from "../../config/config";
+// import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
 import Walletlinks from "../../components/dashboard/Walletlinks";
 
 import WalletAlertNotification from "../../components/alert_notification/WalletAlerts";
@@ -14,34 +14,34 @@ import WalletAlertNotification from "../../components/alert_notification/WalletA
 const WalletContent = () => {
   const dispatch = useDispatch();
   const wallets = useSelector((state) => state.walletReducer);
-  const currencyData = useSelector(
-    (state) => state.currencyReducer.currencyDetail
-  );
-  const [currency, setCurrency] = useState("");
-  const [rate, setRate] = useState(0);
+  // const currencyData = useSelector(
+  //   (state) => state.currencyReducer.currencyDetail
+  // );
+  // const [currency, setCurrency] = useState("");
+  // const [rate, setRate] = useState(0);
 
-  useEffect(() => {
-    const fetchUserCurrency = async () => {
-      try {
-        const res = await axiosInstance.get(`${baseURL}user/currency/`);
-        if (res.data.data && res.data.data.length > 0) {
-          const matchedCurrency = res.data.data.find(
-            (bt) => bt.default === true
-          );
-          setCurrency(matchedCurrency.code);
-          const currency_res = await currencyConvertor(
-            res.data.data.code,
-            currencyData.currencyCode
-          );
-          setRate(currency_res);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUserCurrency = async () => {
+  //     try {
+  //       const res = await axiosInstance.get(`${baseURL}user/currency/`);
+  //       if (res.data.data && res.data.data.length > 0) {
+  //         const matchedCurrency = res.data.data.find(
+  //           (bt) => bt.default === true
+  //         );
+       
+  //         const currency_res = await currencyConvertor(
+  //           res.data.data.code,
+  //           currencyData.currencyCode
+  //         );
+        
+  //       }
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
 
-    fetchUserCurrency();
-  }, []);
+  //   fetchUserCurrency();
+  // }, []);
 
   useEffect(() => {
     dispatch(getWallet());

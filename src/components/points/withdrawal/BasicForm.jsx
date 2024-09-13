@@ -188,7 +188,9 @@ const WithdrawalAmountForm = ({ onNext }) => {
   };
 
   return (
-    <Form style={{ maxWidth: "500px" }}>
+    <div className="row" >
+      <div className="col-12 col-md-6">
+    <Form  className="">
       <Form.Group controlId="withdrawalAmount">
         <Form.Label>Amount to Withdraw</Form.Label>
         <div className="d-flex align-items-center">
@@ -232,7 +234,7 @@ const WithdrawalAmountForm = ({ onNext }) => {
         )}
       </Form.Group>
 
-      <Form.Group controlId="withDrawalMethod">
+      <Form.Group controlId="withDrawalMethod" className="col-12 col-md-8 mb-2 ms-1 me-1 mx-auto mx-md-0">
         <Form.Label>Withdrawal Method</Form.Label>
         <Form.Control
           as="select"
@@ -265,7 +267,8 @@ const WithdrawalAmountForm = ({ onNext }) => {
       >
         Withdraw
       </Button>
-    </Form>
+        </Form>
+        </div></div>
   );
 };
 

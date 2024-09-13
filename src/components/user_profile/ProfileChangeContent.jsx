@@ -8,9 +8,7 @@ import {
 } from "../../redux/api/loginAPI";
 import { useDispatch } from "react-redux";
 import { message } from "antd";
-import { imageURL } from "../../config/config";
-import PANForm from "./PANCardUpdate";
-import IDCardForm from "./IDCardUpdate";
+
 window.jQuery = window.$ = $;
 require("jquery-nice-select");
 

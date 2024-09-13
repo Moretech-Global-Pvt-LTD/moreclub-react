@@ -60,7 +60,6 @@ import NotFound from "./pages/notfound";
 import { CurrencySet } from "./redux/api/CurrencyConvertorAPI";
 import StripeProvider from "./components/HOC/StripeProvider";
 import Success from "./pages/Points/buy/success";
-import Paymentpage from "./pages/Payment/paymentpage";
 import Eventpage from "./pages/event/eventpage";
 import EventDetailPage from "./pages/event/EventDetailPage";
 import KYCPage from "./pages/kYC/KYCPage";
@@ -98,7 +97,10 @@ import RestaurantPage from "./pages/moreclub/Resturant/Gallery/RestaurantGallery
 import UserPage from "./pages/moreclub/Resturant/Gallery/UserGalleryPage";
 import OpeninghoursPage from "./pages/moreclub/Resturant/openinghours/OpeninghoursPage";
 import Failed from "./pages/Points/buy/Failed";
-import useVisibilityChange from "./Hooks/useVisibilityChange";
+import FeedPage from "./pages/feed/feedPage";
+// import DisableDevtool from "disable-devtool";
+
+
 
 
 
@@ -112,12 +114,59 @@ const App = () => {
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const key = GoogleAnalytics;
   Notification.requestPermission();
-  const isForeground = useVisibilityChange();
+ 
+  // DisableDevtool({
+  //   url:'https://_blank',
+    
+  //   ondevtoolopen: (type, next) => {
+  //     next(); 
+  //   },
+    
+  //   ondevtoolclose: () => {
+  //     console.log("Developer tools closed");
+  //   },
+    
+  //   interval: 1,
+  //   disableMenu: true,
+  //   disableSelect: false,
+  //   disableCopy: false,
+  //   disableCut: false,
+  //   disablePaste: false,
+  // });
+
+  // disableDevtool({
+  //   md5: "0b9e05caf5000360ec1c263335bd83fe",
+  //   interval: 200,
+  //   disableMenu: true,
+  //   clearLog: true,
+  //   disableSelect: true,
+  //   disableCopy: true,
+  //   disableCut: true,
+  //   disablePaste: true,
+  // });
+// function configureDisableDevtool() {
+//   disableDevtool({
+
+    
+//     clearIntervalWhenDevOpenTrigger: true,
+//     ondevtoolopen: (type, next) => {
+//       alert('DevTools opened! Type: ' + type , next);
+//       console.log("DevTools opened! Type:", type);
+//       // next(); // Uncomment to close the page when DevTools is detected
+//     },
+//     ondevtoolclose: () => {
+//       console.log("DevTools closed!");
+//     },
+//     ignore: () => window.ignore === undefined,
+//   });
+// }
+    // useEffect(() => {
+    //   configureDisableDevtool();
+    // }, []);
 
   useEffect(() => {
     
     ReactGA.initialize(key);
-
     const handleSessionExpired = () => {
       setIsSessionExpired(sessionStorage.getItem("sessionExpired"));
     };
@@ -128,6 +177,14 @@ const App = () => {
       window.removeEventListener("sessionExpired", handleSessionExpired);
     };
   }, []);
+
+
+
+
+
+
+
+  
 
 
 
@@ -157,7 +214,8 @@ const App = () => {
        );
        return;
      }
-  },[])
+  }, [])
+  
 
   const authRoutes = [
     {
@@ -311,6 +369,11 @@ const App = () => {
 
   const userRoutes = [
     {
+      path: "/feed",
+
+      page: <FeedPage />,
+    },
+    {
       path: "/scan",
 
       page: <GetMembership />,
@@ -420,10 +483,7 @@ const App = () => {
 
       page: <EventDetailPage />,
     },
-    {
-      path: "/payments/:paymentKey",
-      page: <Paymentpage />,
-    },
+
     {
       path: "/business/update",
       page: (

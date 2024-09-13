@@ -10,11 +10,13 @@ const MainWithDrawalForm = () => {
 
   const withdrawaldata = useSelector((state) => state.withdrawalReducer);
   return (
-    <div className="" >
+    <div  >
+      
       {withdrawaldata.withdrawalStep === 1 && <WithdrawalAmountForm  />}
       {withdrawaldata.withdrawalStep === 2 && <MethodCredentialForm />}
       {withdrawaldata.withdrawalStep === 3 && <ConfirmationForm  />}
       {withdrawaldata.withdrawalStep === 4 && <Receipt  />}
+     
     </div>
   );
 };

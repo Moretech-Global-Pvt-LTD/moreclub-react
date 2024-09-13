@@ -21,30 +21,7 @@ const GetMembership = () => {
         </div>
       </>
     );
-  // } else {
-  //   return (
-  //     <>
-  //       <UniverslNavbar />
-  //       <Divider />
-  //       <ScannarContent title="Scan" />
-  //       <Divider />
-  //       <Footer />
-  //     </>
-  //   );
-  // }
-  // return (
-  //   <>
-  //     <Header />
 
-  //     <Divider />
-
-  //     <ScannarContent title="Create your account" />
-
-  //     <Divider />
-
-  //     <Footer />
-  //   </>
-  // );
 };
 
 export default GetMembership;

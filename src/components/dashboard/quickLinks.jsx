@@ -12,47 +12,7 @@ const QuickLinks = () => {
       <Col lg={8}>
         <div className="nft-card  shadow-sm mt-4 mb-4 p-4">
           <h6>Quick links</h6>
-          {/* <Row className="" xs={2} sm={2} lg={3}  gap={1}>
-            <Link to="/scan" className="col p-1 ">
-              <p className="fs-6 mt-2 mb-2 border-bottom pb-2 text-center card"> Scan</p>
-            </Link>
-            <Link to="/coupon" className="col p-1">
-              <p className="card text-center fs-6 mt-2 mb-2 border-bottom pb-2">Buy Coupons</p>
-            </Link>
-            <Link to="/pricing" className="col p-1" >
-              <p className="card text-center fs-6 mt-2 mb-2 border-bottom pb-2">
-                Upgrade Package
-              </p>
-            </Link>
-            <Link to="/my-network" className="col p-1" >
-              <p className="card text-center fs-6 mt-2 mb-2 border-bottom pb-2">
-                My network
-              </p>
-            </Link>
-            {user && user.user?.user_type !== "NORMAL" &&  (
-              <>
-              {business && business.businessProfile.is_verified &&
-              <>
-              {permisions.permission &&
-            permisions.permission.billing && 
-              <>
-                <Link to="/billing"className="col p-1">
-                  <p className="card text-center fs-6 mt-2 mb-2 border-bottom pb-2">Billing</p>
-                </Link>
-                <Link to="/business-transactions" className="col p-1">
-                  <p className="card text-center fs-6 mt-2 mb-2 border-bottom pb-2">
-                    Billing Transactions
-                  </p>
-                </Link>
-              </>
-              }
-              </>
-              
-              }
-              </>
-
-            )}
-          </Row> */}
+         
           <Row xs={3} sm={3} md={3} lg={3} xl={3} xxl={6} className="mt-4">
             <Link to={`/scan`} className="d-flex flex-column my-2 ">
               <Col className="d-flex flex-column  ">

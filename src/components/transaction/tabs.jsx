@@ -6,6 +6,7 @@ import Filtercomponent from "./Users/Filtercomponent";
 const CustomTabs = () => {
   const [activeTab, setActiveTab] = useState("Transactions");
 
+
   const openTab = (tabName) => {
     setActiveTab(tabName);
   };
@@ -22,14 +23,14 @@ const CustomTabs = () => {
           >
             Transactions
           </button>
-          <button
+          {/* <button
             className={`${
               activeTab === "Coupons" ? "tablinks active" : "tablinks"
             } `}
             onClick={() => openTab("Coupons")}
           >
             Coupons
-          </button>
+          </button> */}
         </div>
 
         <div className="d-flex flex-column-reverse flex-lg-row w-100">
@@ -45,14 +46,14 @@ const CustomTabs = () => {
             >
               <PointsTransactions />
             </div>
-            <div
+            {/* <div
               id="Coupons"
               className={
                 activeTab === "Coupons" ? "tabcontent active" : "tabcontent"
               }
             >
               <CouponsTransaction />
-            </div>
+            </div> */}
           </div>
           <div className="content-outside-wrapper w-lg-50">
             <div className="tabcontent active">

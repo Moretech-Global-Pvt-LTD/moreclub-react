@@ -5,9 +5,9 @@ import ProfileCard from "./ProfileCard";
 import { useDispatch } from "react-redux";
 import { get_user_coupon_list } from "../../redux/api/couponAPI";
 import { useSelector } from "react-redux";
-
 import QRDownload from "../QR/QRDownload";
 import { Button } from "react-bootstrap";
+
 
 const UserProfile = ({ users }) => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const UserProfile = ({ users }) => {
 
   const linkInputRef = useRef(null);
 
-  console.log("user profile", user);
+
   const copyLink = () => {
     const linkInput = linkInputRef.current;
     if (linkInput) {
@@ -62,11 +62,11 @@ const UserProfile = ({ users }) => {
             </ul>
           </div>
           <div className="row  mt-1 g-2">
-            <div className="col-12 col-md-8 col-xl-6">
+            <div className="col-12 col-lg-7 col-xl-6 col-xxl-4 ">
               <ProfileCard user={user} membershipType={user.membershipType} />
             </div>
 
-            <div className="col-12 col-md-4 col-xl-6 ">
+            <div className="col-12 col-lg-5 col-xl-6 col-xxl-5">
               <div className="notification-content-wrap d-none d-md-block">
                 <ul className="notification-list ps-0 mb-2 mt-1 row justify-content-end ">
                   {user.user.user_type !== "NORMAL" && (

@@ -125,6 +125,7 @@ const CurrencyInput = ({
         </Form.Control>
         <Form.Control
           type="text"
+          name="amount"
           value={amount}
           onChange={handleAmountChange}
           required

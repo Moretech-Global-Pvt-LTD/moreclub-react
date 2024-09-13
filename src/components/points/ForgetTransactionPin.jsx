@@ -71,8 +71,7 @@ function ForgetPinForm() {
         code: code,
         new_pin: pin,
         confirm_new_pin: confirmPin,
-      };
-      console.log(data);
+      }
       try {
         const res = await axiosInstance.post(
           `${baseURL}auth/confirm/forget/user/pin/`,
@@ -85,7 +84,6 @@ function ForgetPinForm() {
           navigate("/dashboard");
         }
       } catch (err) {
-        console.log(err);
         message.error(err.response?.data?.message);
         // if (
         //   err.response?.data?.errors?.non_field_errors[0] ===

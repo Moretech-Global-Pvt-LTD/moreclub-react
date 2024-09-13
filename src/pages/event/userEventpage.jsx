@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 import { Button, Col, Placeholder, Row } from "react-bootstrap";
-import EventCard from "../../components/cards/Eventcard";
 import UserEventCard from "../../components/cards/userEventcard";
 import { Link, useLocation } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
+import EventCardSkeleton from "../../components/Skeleton/EventCardSkeleton";
 
 const UserEventpage = () => {
   const location = useLocation();
@@ -71,13 +71,8 @@ const UserEventpage = () => {
   if (isLoading) {
     return (
       <DashboardLayout title={"Events"}>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
-      </DashboardLayout>
+      <EventCardSkeleton/>
+     </DashboardLayout>
     );
   }
 
@@ -100,7 +95,7 @@ const UserEventpage = () => {
         <Col>
           <div>
             {data.pages.map((data) => (
-              <div className="d-flex flex-wrap gap-4">
+              <div className="d-flex flex-wrap ">
                 {data.data.map((event) => (
                   <UserEventCard events={event} />
                 ))}

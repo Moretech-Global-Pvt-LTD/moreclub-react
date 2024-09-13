@@ -25,13 +25,26 @@ const WalletAlertNotification = () => {
               {!notifications.kyc && (
                 <li className="col-12 col-lg-6 col-xl-6 ">
                   <Link to="/KYC/update" className="bg-danger">
-                    <i class="me-2 bg- bi bi-building"></i>
+                    <i class="me-2 text-primary bi bi-exclamation-triangle-fill"></i>
                     <span style={{ fontSize: "12px" }}>
                       Verify your KYC Form.
                     </span>
                     <span class="badge bg-warning text-dark fz-12 rounded-pill ms-auto">
                       Click Here
                     </span>
+                  </Link>
+                </li>
+              )}
+              {notifications.kyc && !notifications.is_verified_user && (
+                <li className="col-12 col-lg-6 col-xl-6 ">
+                  <Link to="/KYC/update" className="bg-primary">
+                    <i class="me-2 text-danger bi bi-exclamation-triangle-fill"></i>
+                    <span style={{ fontSize: "12px" }}>
+                      KYC verification is in Pending
+                    </span>
+                    {/* <span class="badge bg-warning text-dark fz-12 rounded-pill ms-auto">
+                      Click Here
+                    </span> */}
                   </Link>
                 </li>
               )}

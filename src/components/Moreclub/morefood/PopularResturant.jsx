@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 import PopularresturantCarousel from './PopularresturantCarousel';
+import RestaurantCardSkeleton from '../../Skeleton/RestaurantCardSkeleton';
 const PopularResturant = () => {
     const { data, isLoading, isError } = useQuery({
       queryKey: ["More Food Popular Resturant List"],
@@ -20,20 +21,7 @@ const PopularResturant = () => {
 
     if (isLoading) {
       return (
-        <div className="row gap-2">
-          <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-            <Placeholder xs={12} style={{ height: "10rem" }} />
-          </Placeholder>
-          <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
-            <Placeholder xs={12} style={{ height: "10rem" }} />
-          </Placeholder>
-          <Placeholder as="p" animation="glow" className="rounded  w-25">
-            <Placeholder xs={12} style={{ height: "10rem" }} />
-          </Placeholder>
-          <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-            <Placeholder xs={12} style={{ height: "10rem" }} />
-          </Placeholder>
-        </div>
+        <RestaurantCardSkeleton />
       );
     }
 
