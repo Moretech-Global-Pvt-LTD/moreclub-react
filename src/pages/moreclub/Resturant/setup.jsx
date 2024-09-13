@@ -6,6 +6,7 @@ import { axiosInstance } from '../../..';
 import { morefoodURL } from '../../../config/config';
 import { useParams } from 'react-router-dom';
 import { Placeholder } from 'react-bootstrap';
+import RestaurantLayoutSkeleton from '../../../components/Skeleton/RestaurantLayout';
 
 const Setup = () => {
    const { id } = useParams();
@@ -25,21 +26,7 @@ const Setup = () => {
   if (isLoading) {
     return (
       <DashboardLayout>
-
-      <div className="row gap-2">
-        <Placeholder as="p" animation="glow" className="rounded w-100">
-          <Placeholder xs={12}   style={{ height: "10rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
-          <Placeholder xs={12} style={{ height: "10rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded  w-25">
-          <Placeholder xs={12} style={{ height: "10rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-          <Placeholder xs={12} style={{ height: "10rem" }} />
-        </Placeholder>
-      </div>
+        <RestaurantLayoutSkeleton/>
       </DashboardLayout>
     );
   }

@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "react-phone-number-input/style.css";
-
 import RegisterPic from "../../../images/auth/register.png";
 import RegistrationForm from "./RegisterForm";
 

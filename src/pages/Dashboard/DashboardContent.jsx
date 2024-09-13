@@ -21,6 +21,8 @@ import Whiteqr from "../../images/Qr/qrwhite.png";
 import EventDashboardDisplay from "../../components/event/EventDashboardDisplay";
 import PopularResturant from "../../components/Moreclub/morefood/PopularResturant";
 import BusinessTypes from "../../components/dashboard/BusinessTypes";
+import { TopcardsSkeleton, ChartSkeleton } from "../../components/Skeleton/SmallCardSkeleton";
+import { DashboardSkeleton } from "../../components/Skeleton/DashboardLayout";
 
 const DashboardContent = () => {
   const user = useSelector((state) => state.userReducer);
@@ -89,17 +91,7 @@ const DashboardContent = () => {
 
   if (isLoading) {
     return (
-      <div>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} size="lg" style={{ height: "7rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "7rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "7rem" }} />
-        </Placeholder>
-      </div>
+      <DashboardSkeleton/>
     );
   }
 
@@ -111,6 +103,8 @@ const DashboardContent = () => {
     <div>
       <AlertNotification />
       <div>
+      
+        
         <div className="d-none d-sm-block">
           {data.businessData && data.userData && (
             <Row sm={2} md={4} className=" gx-3 gy-3 gb-3 mb-3">
@@ -237,9 +231,7 @@ const DashboardContent = () => {
         )}
         </div>
 
-        
-        
-
+      
         <Row>
           {user &&
             user.user?.user_type === "BUSINESS" &&

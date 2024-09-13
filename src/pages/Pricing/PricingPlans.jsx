@@ -2,16 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Tooltip from "react-bootstrap/Tooltip";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-
-import { baseURL, imageURL } from "../../config/config";
-import "tiny-slider/dist/tiny-slider.css";
+import { baseURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Card, Placeholder } from "react-bootstrap";
 import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
-import FreeButton from "../../components/home/FreeButton";
+import PricingSkeleton from "../../components/Skeleton/PricingSkeleton";
 
 export default function PricingPlans({ title }) {
   const user = useSelector((state) => state.userReducer);
@@ -48,17 +44,8 @@ export default function PricingPlans({ title }) {
   if (isLoading) {
     return (
       <>
-        <div className="d-flex  g-2">
-          <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-            <Placeholder xs={12} style={{ height: "10rem" }} />
-          </Placeholder>
-          <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
-            <Placeholder xs={12} style={{ height: "10rem" }} />
-          </Placeholder>
-          <Placeholder as="p" animation="glow" className="rounded  w-25">
-            <Placeholder xs={12} style={{ height: "10rem" }} />
-          </Placeholder>
-        </div>
+        
+        <PricingSkeleton/>
       </>
     );
   }
@@ -67,129 +54,6 @@ export default function PricingPlans({ title }) {
     return <div className="text-dynamic-white">Error: retriving</div>;
   }
 
-  console.log(data);
-  console.log(user.membershipType)
-  // const PricingsCard = ({ mst }) => {
-  //   const monthlyRate = mst.price * rate;
-  //   const yearlyRate = mst.yearly_price * rate;
-
-  //   return (
-
-         
-  //       <div className="col my-2 pricing-width mx-auto mx-sm-0 ">
-  //         <div
-  //           className="nft-card card featured-card border-0 bg-gray "
-  //           // style={{ maxWidth: "250px" }}
-  //         >
-  //           <div className="img-wrap">
-  //             {/* Badge */}
-  //             <div className={`badge bg- position-absolute section-`}></div>
-  //           </div>
-
-  //           <div className="card-body">
-  //             {/* Meta Info */}
-  //             <div className="row gx-2 align-items-center mt-2">
-  //               <div className="col-12">
-  //                 <div className="name-info d-flex align-items-center">
-  //                   <div className="author-img position-relative">
-  //                     <img
-  //                       className="shadow"
-  //                       src={`${imageURL}${mst.icon}`}
-  //                       alt=""
-  //                     />
-  //                     <i
-  //                       className={`bi bi-check position-absolute bg-success `}
-  //                     />
-  //                   </div>
-
-  //                   <div className="name-author">
-  //                     <OverlayTrigger
-  //                       placement="top"
-  //                       delay={{ show: 250, hide: 400 }}
-  //                       overlay={<Tooltip>{mst?.name}</Tooltip>}
-  //                     >
-  //                       <Link
-  //                         className="name d-block hover-primary text-truncate"
-  //                         style={{ fontSize: "20px" }}
-  //                         to={`/buy/plan/${mst.id}/${activeTab}`}
-  //                       >
-  //                         <b>{mst?.name} Plan</b>
-  //                       </Link>
-  //                     </OverlayTrigger>
-  //                   </div>
-  //                 </div>
-  //               </div>
-  //               <div
-  //                 className="col-12"
-  //                 style={{ marginTop: "10px", marginBottom: "10px" }}
-  //               >
-  //                 <div className="price text-center">
-  //                   <span className="fz-12 d-block"></span>
-  //                   <h1 className="mb-0 text-danger">
-  //                     {currency.symbol}&nbsp;
-  //                     {activeTab === "monthly"
-  //                       ? monthlyRate.toFixed(0)
-  //                       : yearlyRate.toFixed(0)}
-  //                     <br />
-  //                   </h1>
-  //                   <span
-  //                     className="text-dynamic-white mt-0 mb-0"
-  //                     style={{ fontSize: "14px" }}
-  //                   >
-  //                     /&nbsp;{activeTab}
-  //                   </span>
-  //                 </div>
-  //               </div>
-  //               <div className="col-12">
-  //                 <div
-  //                   className="price text-start"
-  //                   style={{ marginBottom: "5px" }}
-  //                 >
-  //                   <span className="fz-12 d-block"></span>
-  //                   <h5 className="mb-0 text-warning">Discount In</h5>
-  //                 </div>
-  //                 {mst?.project_discounts?.map((pd, index) => (
-  //                   <div className="price text-start">
-  //                     <span className="fz-12 d-block"></span>
-  //                     <h6 className="mb-0">
-  //                       <i class="bi bi-patch-check-fill ms-2 text-success"></i>{" "}
-  //                       {pd.project.project_name} {parseInt(pd.discount)}%
-  //                     </h6>
-  //                   </div>
-  //                 ))}
-  //               </div>
-  //             </div>
-
-  //             {/* Button */}
-  //             <div className="row gx-2 align-items-center mt-3">
-  //               <div className="col-6">
-  //                 <Link className={`btn btn- rounded-pill btn-sm`} to="">
-  //                   <i className={`bi `}></i>
-  //                 </Link>
-  //               </div>
-
-  //               <div className="col-6 text-end">
-  //                 {mst.id !== user?.membershipType?.membership_type?.id ? (
-  //                   <Link
-  //                     className={`btn btn-danger btn-sm hover-primary`}
-  //                     href={`/buy/plan/${mst.id}/${activeTab}`}
-  //                   >
-  //                     <i className={`bi bi-cart me-1`}></i>
-  //                     Buy
-  //                   </Link>
-  //                 ) : (
-  //                   <span className="btn-success btn btn-sm">Subscribed</span>
-  //                 )}
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
-     
-  //   );
-  // };
-
-  // 
 
   const planConfig = {
     1: {
@@ -220,14 +84,7 @@ export default function PricingPlans({ title }) {
       priceColorClass: "pricing-text-color",
       discountsColorClass: "text-warning",
     },
-    // 5: {
-    //   cardClass: "pricingcard-diamond",
-    //   textColorClass: "text-diamond",
-    //   bgColorClass: "bg-indigo text-white",
-    //   priceColorClass: "text-white",
-    //   discountsColorClass: "text-white",
-    //   bottoncolor:"bg-warning text-white"
-    // },
+  
   };
 
   const PricingsCard = ({ mst ,index}) => {

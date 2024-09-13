@@ -6,6 +6,7 @@ import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
 import AddCuisineForm from "../../../../components/Moreclub/Resturant/Cuisine/AddCuisine";
 import CuisineCard from "../../../../components/Moreclub/Resturant/Cuisine/CuisineCard";
+import { RestaurantItemskeleton } from "../../../../components/Skeleton/SmallCardSkeleton";
 
 const CuisineItem = () => {
     const { res_id } = useParams();
@@ -25,28 +26,7 @@ const CuisineItem = () => {
 
     if (isLoading) {
         return (
-            <div className="">
-                <div className="row gap-2">
-                    <Placeholder as="p" animation="glow" className="rounded w-25">
-                        <Placeholder xs={12} style={{ height: "4rem" }} />
-                    </Placeholder>
-                    <Placeholder as="p" animation="glow" className="rounded  w-25">
-                        <Placeholder xs={12} style={{ height: "4rem" }} />
-                    </Placeholder>
-                    <Placeholder as="p" animation="glow" className="rounded  w-25">
-                        <Placeholder xs={12} style={{ height: "4rem" }} />
-                    </Placeholder>
-                    <Placeholder as="p" animation="glow" className="rounded w-25">
-                        <Placeholder xs={12} style={{ height: "4rem" }} />
-                    </Placeholder>
-                    <Placeholder as="p" animation="glow" className="rounded  w-25">
-                        <Placeholder xs={12} style={{ height: "4rem" }} />
-                    </Placeholder>
-                    <Placeholder as="p" animation="glow" className="rounded  w-25">
-                        <Placeholder xs={12} style={{ height: "4rem" }} />
-                    </Placeholder>
-                </div>
-            </div>
+            <RestaurantItemskeleton />
         );
     }
 

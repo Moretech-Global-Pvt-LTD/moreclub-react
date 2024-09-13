@@ -10,17 +10,26 @@
       content="Luxury redefined. Exclusive club. Personalized service, bespoke experiences &amp; unmatched amenities. Elevate your lifestyle. Join today"
     />
     <link rel="canonical" href="https://moredealsclub.com" />
-
     <title>MoreDeals Club</title>
 
     <!-- Favicon and App Icons -->
-    <link rel="icon" href="/favicon.ico" />
+    <!-- <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#00080a" />
     <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" /> -->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="apple-mobile-web-app-title" content="More Deals Club">
+<meta name="application-name" content="More Deals Club">
+<meta name="msapplication-TileColor" content="#9f00a7">
+<meta name="theme-color" content="#ffffff">
 
     <!-- Manifest -->
     <link rel="manifest" href="/manifest.json" />
@@ -171,81 +180,17 @@
     // var isProduction = true; // This should be your actual environment check
 
   
-      console.log = function() {};
-      console.warn = function() {};
-      console.error = function() {};
-      console.info = function() {};
-      console.debug = function() {};
+      // console.log = function() {};
+      // console.warn = function() {};
+      // console.error = function() {};
+      // console.info = function() {};
+      // console.debug = function() {};
    
   })();
 </script>
 
 
-
-    <!-- <script>
-      (function() {
-        // Detect DevTools open/close
-        const element = new Image();
-        Object.defineProperty(element, 'id', {
-          get: function() {
-            // Attempt to close the tab if DevTools is detected
-            alert('DevTools detected! Closing the tab for security reasons.');
-            window.open('', '_self').close();
-            window.location = 'about:blank'; // Fallback to redirect to a blank page
-          }
-        });
-  
-        setInterval(() => {
-          console.dir(element);
-        }, 1000);
-      })();
-    </script> -->
      
-     <!-- <script>
-      // Function to detect if DevTools is open
-      function detectDevTools() {
-        const threshold = 160;
-        const devtools = {
-          open: false,
-          orientation: null
-        };
-  
-        const element = new Image();
-        Object.defineProperty(element, 'id', {
-          get: function() {
-            devtools.open = true;
-            throw new Error('DevTools detected');
-          }
-        });
-  
-        const check = () => {
-          devtools.open = false;
-          devtools.orientation = window.outerWidth - window.innerWidth > threshold ? 'vertical' : 'horizontal';
-  
-          if (devtools.open) {
-            alert('DevTools detected! Closing the tab for security reasons.');
-            window.open('', '_self', ''); // Needed for some browsers to enable window.close()
-            window.close(); // Attempt to close the window (may not work in all browsers)
-            if (!window.closed) {
-              window.location.href = 'about:blank'; // Fallback to redirect to a blank page
-            }
-          }
-        };
-  
-        window.addEventListener('resize', check);
-        window.addEventListener('keydown', check);
-        check();
-      }
-  
-      // Continuously check for DevTools
-      function checkDevTools() {
-        detectDevTools();
-        setTimeout(checkDevTools, 1000); // Check every second
-      }
-
-      window.onload = checkDevTools;
-  
-      </script> -->
 
     <!-- </head>
   <body>
@@ -269,5 +214,41 @@
         version: "1.5.16",
       });
     </script> -->
+
+
+    <!-- <script
+    disable-devtool-auto
+    src='https://cdn.jsdelivr.net/npm/disable-devtool'
+    md5='05765682dac5f5e9fc88fbeb680e2b03'
+    url='https://moredealsclub.com/'
+    tk-name='82cb9734d2dddd6819b4d76cc69b659b3d7735d59fbe88fa8731fa9879776ff5'
+    interval='1000'
+    disable-menu='true'
+    clear-log='true'
+    disable-select='true'
+    disable-copy='true'
+    disable-cut='true'
+    disable-paste='true'
+></script>
+<script>
+    disableDevtool({
+        ondevtoolopen: (type, next) => {
+          alert('DevTools opened! Type: ' + type , next);
+            document.body.innerHTML = 'DevTools opened! Type: ' + type;
+            // next(); // Uncomment this to close the current window when DevTools is opened
+        },
+        ondevtoolclose: () => {
+            document.body.innerHTML = 'DevTools closed!';
+        },
+        clearIntervalWhenDevOpenTrigger: true,
+        detectors: [
+            disableDevtool.DetectorType.RegToString,
+            disableDevtool.DetectorType.FuncToString,
+            disableDevtool.DetectorType.Debugger,
+            disableDevtool.DetectorType.DebugLib
+        ],
+        ignore: () => window.ignore === undefined,
+    });
+</script> -->
   </body>
 </html>

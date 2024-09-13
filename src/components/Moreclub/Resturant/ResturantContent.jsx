@@ -1,11 +1,12 @@
 import React from "react";
-import { Card, Col, Placeholder, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Plus from "../../../images/moreclub/plus.png";
 import { axiosInstance } from "../../..";
 import { morefoodURL } from "../../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import ResturantCard from "./ResturantCard";
+import RestaurantCardSkeleton from "../../Skeleton/RestaurantCardSkeleton";
 
 const ResturantContent = () => {
     const { data, isLoading, isError } = useQuery({
@@ -20,20 +21,7 @@ const ResturantContent = () => {
 
     if (isLoading) {
       return (
-          <div className="row gap-2">
-            <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-              <Placeholder xs={12}  style={{ height: "10rem" }} />
-            </Placeholder>
-            <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
-              <Placeholder xs={12} style={{ height: "10rem" }} />
-            </Placeholder>
-            <Placeholder as="p" animation="glow" className="rounded  w-25">
-              <Placeholder xs={12} style={{ height: "10rem" }} />
-            </Placeholder>
-            <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-              <Placeholder xs={12} style={{ height: "10rem" }} />
-            </Placeholder>
-          </div>
+         <RestaurantCardSkeleton />
       );
     }
 

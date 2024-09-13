@@ -1,4 +1,4 @@
-import React, { useCallback} from "react";
+import React, { useCallback } from "react";
 
 import { useSelector } from "react-redux";
 import WalletContent from "./WalletContent";
@@ -10,9 +10,10 @@ import { axiosInstance } from "../..";
 import { useQuery } from "@tanstack/react-query";
 import TransactionPinForm from "../../components/points/TransactionPinForm";
 import { Placeholder } from "react-bootstrap";
+import { WalletSkeleton } from "../../components/Skeleton/SmallCardSkeleton";
 
 const Wallet = () => {
- 
+
   const permission = useSelector((state) => state.permissionReducer);
 
   const { data, isLoading, isError, refetch } = useQuery({
@@ -33,9 +34,10 @@ const Wallet = () => {
   if (isLoading) {
     return (
       <DashboardLayout>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} size="lg" style={{ height: "7rem" }} />
-        </Placeholder>
+        <div className=" col-12 col-md-4  card shadow mb-5">
+
+          <WalletSkeleton />
+        </div>
       </DashboardLayout>
     );
   }
@@ -44,7 +46,7 @@ const Wallet = () => {
     return <div>error reteriveing transaction pin status</div>;
   }
 
- 
+
 
   if (data.status) {
     return (
@@ -65,7 +67,7 @@ const Wallet = () => {
   } else {
     return (
       <DashboardLayout title={"Transaction PIN"}>
-        <TransactionPinForm onPinSet={handlePinSet}/>
+        <TransactionPinForm onPinSet={handlePinSet} />
       </DashboardLayout>
     );
   }

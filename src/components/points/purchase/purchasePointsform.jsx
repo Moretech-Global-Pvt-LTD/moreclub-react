@@ -81,7 +81,7 @@ function PurchaseForm() {
  
 
   return (
-    <Form onSubmit={handlePurchaseSubmit}>
+    <Form onSubmit={handlePurchaseSubmit} className="col-12 col-md-8 mb-2 ms-1 me-1 mx-auto mx-md-0">
       <Form.Group controlId="purchaseAmount">
         <Form.Label>Amount to Purchase</Form.Label>
         <CurrencyInput

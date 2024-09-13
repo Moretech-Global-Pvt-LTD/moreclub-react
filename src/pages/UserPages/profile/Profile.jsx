@@ -1,13 +1,13 @@
 import React from "react";
 import UserProfile from "../../../components/user_profile/UserProfile";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import DashboardLayout from "../../../components/Layout/DashboardLayout";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../..";
 import { baseURL } from "../../../config/config";
 import { userSuccess } from "../../../redux/slices/userSlice";
-import { Placeholder } from "react-bootstrap";
 import { userMembership } from "../../../redux/api/userMembershipAPI";
+import ProfileCardSkeleton from "../../../components/Skeleton/ProfileCard";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -28,15 +28,7 @@ const Profile = () => {
   if (isLoading) {
     return (
       <DashboardLayout title={"Profile"}>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} size="lg" style={{ height: "7rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "7rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "7rem" }} />
-        </Placeholder>
+        <ProfileCardSkeleton/>
       </DashboardLayout>
     );
   }

@@ -17,7 +17,7 @@ const ResturantCard = ({res, link}) => {
         >
           <div className='restaurantCard-image-container'>
           <Image
-            src={`${morefoodimageURL}${res.banner}`}
+            src={`${res.banner}`}
             alt={"banner"}
             className="restaurantCard-image "
             style={{height: "11rem", width:"100%", objectfit:"cover"}}
@@ -28,7 +28,7 @@ const ResturantCard = ({res, link}) => {
               <ul>
                 <div className="d-flex align-items-center gap-2">
                   <img
-                    src={`${morefoodimageURL}${res.logo}`}
+                    src={`${res.logo}`}
                     style={{
                       width: "25px",
                       height: "25px",

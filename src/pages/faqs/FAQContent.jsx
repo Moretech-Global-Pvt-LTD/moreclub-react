@@ -207,10 +207,12 @@ const FAQContent = () => {
           centered
           show={isModalOpen}
           onHide={toggleModal}
+          
         >
+         
           <Modal.Header>
-            <Modal.Title id="contained-modal-title-vcenter text-center">
-              Delete Your Accound
+            <Modal.Title id="contained-modal-title-vcenter text-center " className="text-dynamic-white">
+              Delete Your Account
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -227,7 +229,7 @@ const FAQContent = () => {
                   required
                 />
               </Form.Group>
-              <Modal.Footer>
+              <div className="d-flex gap-2 justify-content-end my-2">
                 <Button variant="secondary" onClick={() => toggleModal(false)}>
                   Cancel
                 </Button>
@@ -240,9 +242,11 @@ const FAQContent = () => {
                 >
                   Delete Account
                 </Button>
-              </Modal.Footer>
+              </div>
+             
             </Form>
           </Modal.Body>
+           
         </Modal>
       </Row>
     </>

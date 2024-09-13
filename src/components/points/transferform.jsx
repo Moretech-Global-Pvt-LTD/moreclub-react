@@ -20,6 +20,9 @@ function TransferForm() {
   const [ConfirmationData, setConfirmationData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [transferdata, setTransferdata] = useState(null);
+  const [remark, setRemark] = useState("")
+  const [remarkField, setRemarkField] = useState(false);
+  const [remarks, setRemarks] = useState("");
   const metainfo = useSelector((state) => state.metaReducer);
 
 
@@ -45,9 +48,30 @@ function TransferForm() {
     setTransferAmount(amount);
   }, []);
 
+  const handleMethodchange = async (event) => {
+    const value = event.target.value;
+    if (value === "Others") {
+      setRemark(value);
+      setRemarkField(true)
+    } else {
+      setRemark(value);
+      setRemarks("");
+      setRemarkField(false);
+    }
+  };
+
+  const handleOtherRemarks = async (event) => {
+    const value = event.target.value;
+    setRemarks(value);
+
+  }
+
+
+
+
   const handleTransferSubmit = async (event) => {
     event.preventDefault();
-    
+
     const bpms = sessionStorage.getItem("bpms");
 
     const data = {
@@ -56,6 +80,7 @@ function TransferForm() {
       username: recipient,
       bpms,
       pin,
+      remarks: remark === "Others" ? remarks : remark
     };
     try {
       setIsLoading(true);
@@ -76,6 +101,7 @@ function TransferForm() {
       // console.log(errors[0]);
     }
   };
+
 
   const handleConfirmation = async () => {
 
@@ -182,7 +208,7 @@ function TransferForm() {
       <Form onSubmit={handleTransferSubmit}>
         {step === 1 && (
           <>
-            <Form.Group controlId="transferAmount">
+            <Form.Group controlId="transferAmount" className="col-12 col-md-10 pe-md-4 mb-2 ms-1 me-1 mx-auto mx-md-0">
               <Form.Label>Amount to Transfer</Form.Label>
               <CurrencyInput
                 amount={transferAmount}
@@ -195,7 +221,7 @@ function TransferForm() {
                 setError={setTransferError}
               />
             </Form.Group>
-            <Form.Group controlId="recipient">
+            <Form.Group controlId="recipient" className=" col-12 col-md-8 mb-2 ms-1 me-1 mx-auto mx-md-0">
               <Form.Label>Recipient</Form.Label>
               <Form.Control
                 type="text"
@@ -247,16 +273,16 @@ function TransferForm() {
                   {ConfirmationData?.first_name}&nbsp;
                   {ConfirmationData?.last_name}
                 </p>{" "}
-                
+
               </div>
               {ConfirmationData?.discount_amount > 0 &&
-              <div className="d-flex justify-content-between">
-                {" "}
-                <p className="mb-0 fw-bold">Discount:</p>
-                <p className="mb-0 text-dynamic-white">
+                <div className="d-flex justify-content-between">
+                  {" "}
+                  <p className="mb-0 fw-bold">Discount:</p>
+                  <p className="mb-0 text-dynamic-white">
                     {ConfirmationData?.discount_amount}
-                  
-                </p>{" "}
+
+                  </p>{" "}
 
                 </div>
               }
@@ -265,10 +291,10 @@ function TransferForm() {
               <div className="d-flex justify-content-between">
                 {" "}
                 <p className="mb-0 fw-bold">Total Paying Money:</p>
-                {ConfirmationData?.discount_amount > 0 && 
-                <p className="mb-0 text-dynamic-white">
-                  {currency}&nbsp;{ConfirmationData?.paid_amount}
-                </p>
+                {ConfirmationData?.discount_amount > 0 &&
+                  <p className="mb-0 text-dynamic-white">
+                    {currency}&nbsp;{ConfirmationData?.paid_amount}
+                  </p>
                 }
                 {ConfirmationData?.discount_amount === 0 &&
                   <p className="mb-0 text-dynamic-white">
@@ -277,26 +303,62 @@ function TransferForm() {
                 }
               </div>
             </div>
+            <Form.Group controlId="pin" className="p-2 col-12 col-md-8 mb-2 ms-1 me-1 mx-auto mx-md-0">
+              <Form.Label>Remark (optional)</Form.Label>
+              <Form.Control
+                as="select"
+                value={remark}
+                onChange={handleMethodchange}
+                required
+              >
+                <option value="" disabled>Select Remark</option>
+                <option value={"Bill Sharing"} >
+                  Bill Sharing
+                </option><option value={"Family Expenses"} >
+                  Family Expenses
+                </option><option value={"Lend/Borrow"} >
+                  Lend/Borrow
+                </option><option value={"Personal Use"} >
+                  Personal Use
+                </option>
+                <option value={"Others"} >
+                  Others
+                </option>
+              </Form.Control>
+              {remarkField &&
+                <Form.Control
+                  type="text"
+                  value={remarks}
+                  name="remarks"
+                  placeholder="Remark"
+                  onChange={handleOtherRemarks}
+                required
+                className="my-2"
+                />
+              }
+
+
+            </Form.Group>
             <Form.Group controlId="pin" className="mt-3">
               <Form.Label>Enter PIN</Form.Label>
               <PINInput length={4} value={pin} onChange={handlePInChange} error={pinError} />
-              
+
             </Form.Group>
             <div className="d-flex justify-content-start gap-2 my-5">
 
-            <Button
-              variant="Secondary"
-              onClick={HandleBack}
-              disabled={isLoading}
-            >
-              Back
-            </Button>
-            <Button variant="primary" type="submit">
-              {isLoading && (
-                <span className="spinner-border spinner-border-sm text-danger"></span>
-              )}
-              &nbsp;Confirm Send
-            </Button>
+              <Button
+                variant="Secondary"
+                onClick={HandleBack}
+                disabled={isLoading}
+              >
+                Back
+              </Button>
+              <Button variant="primary" type="submit">
+                {isLoading && (
+                  <span className="spinner-border spinner-border-sm text-danger"></span>
+                )}
+                &nbsp;Confirm Send
+              </Button>
             </div>
           </>
         )}
@@ -363,6 +425,13 @@ function TransferForm() {
                 <p className="mb-0">Sent Money:</p>
                 <p className="mb-0">
                   {transferdata.currency_code}&nbsp;{transferdata?.paid_amount}
+                </p>{" "}
+              </div>
+              <div className="d-flex flex-column gap-2">
+                {" "}
+                <p className="mb-0">Remark</p>
+                <p className="mb-0">
+                  {transferdata?.remarks}
                 </p>{" "}
               </div>
             </div>

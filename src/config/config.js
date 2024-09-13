@@ -12,7 +12,14 @@ export const GoogleAnalytics = process.env.REACT_APP_GOOGLE_ANALYTICS;
 export const morefoodURL = process.env.REACT_APP_MORE_FOOD_BASE_URL;
 export const morefoodimageURL = process.env.REACT_APP_MORE_FOOD_IMAGE_URL;
 
-// export const MapboxAPIKey = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+export const apiKey = process.env.REACT_APP_FIREBASE_APIKEY;
+export const authDomain = process.env.REACT_APP_FIREBASE_AUTHDOMAIN;
+export const projectId = process.env.REACT_APP_FIREBASE_PROJECTID;
+export const storageBucket = process.env.REACT_APP_FIREBASE_STORAGEBUCKE;
+export const messagingSenderId = process.env.REACT_APP_MESSAGINGSENDERID;
+export const appId = process.env.REACT_APP_APPID;
+export const measurementId=process.env.REACT_APP_MEASUREMENTID;
+export const MapboxAPIKey = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 // export const baseURL = "https://moretrek.com/api/";
 // export const imageURL = "https://moretrek.com";
-export const MapboxAPIKey = "pk.eyJ1IjoibW9yZXRlY2hnbG9iYWwiLCJhIjoiY2x5Z3htaHl6MDZ0bTJqcXc4bWlqN3MwdiJ9.YNgRJeUppkfBrH6Kjo1I_A";
+// export const MapboxAPIKey = "pk.eyJ1IjoibW9yZXRlY2hnbG9iYWwiLCJhIjoiY2x5Z3htaHl6MDZ0bTJqcXc4bWlqN3MwdiJ9.YNgRJeUppkfBrH6Kjo1I_A";

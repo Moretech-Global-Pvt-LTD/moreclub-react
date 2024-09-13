@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
+import { FoodItemSkeleton } from "../../../Skeleton/SmallCardSkeleton";
 
 const MenuItem = () => {
   const {res_id,cat_id, slug}= useParams()
@@ -27,22 +28,7 @@ const MenuItem = () => {
 
     if (isLoading) {
       return (
-        <div className="">
-          <div className="row gap-2">
-            <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-              <Placeholder xs={12} style={{ height: "8rem" }} />
-            </Placeholder>
-            <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
-              <Placeholder xs={12} style={{ height: "8rem" }} />
-            </Placeholder>
-            <Placeholder as="p" animation="glow" className="rounded  w-25">
-              <Placeholder xs={12} style={{ height: "8rem" }} />
-            </Placeholder>
-            <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-              <Placeholder xs={12} style={{ height: "8rem" }} />
-            </Placeholder>
-          </div>
-        </div>
+        <FoodItemSkeleton/>
       );
     }
 
@@ -91,6 +77,7 @@ const MenuItem = () => {
       >
         {data.map((item) => (
           <Col className="d-flex flex-column">
+            
             <MenuCard
               id={item.id}
               logo={item.image}
@@ -104,6 +91,7 @@ const MenuItem = () => {
           </Col>
         ))}
       </Row>
+      
       {data && data.length === 0 && (
         <p className="normal-case text-center">
           Add some food items in your {name} Menu

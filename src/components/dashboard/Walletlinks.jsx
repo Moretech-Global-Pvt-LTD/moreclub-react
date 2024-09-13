@@ -4,6 +4,10 @@ import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import { Col, Placeholder } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Send from "../../images/svg/send.png";
+import Load from "../../images/svg/load_amount.svg";
+import Withdraw from "../../images/svg/withdraw_icon.svg";
+
 
 const Walletlinks = () => {
   const fetchWalletPermission = async () => {
@@ -94,19 +98,19 @@ const Walletlinks = () => {
           className="btn btn-success rounded-pill btn-sm w-100 mt-3"
           to="/points/send"
         >
-          <i class="bi bi-send-fill"></i> Send Money
+          <img src={Send} alt="send" className="small-icon" /> Send Money 
         </Link>
         <Link
           className="btn btn-warning rounded-pill btn-sm w-100 mt-3"
           to="/points/buy"
         >
-          <i class="bi bi-box-arrow-in-down"></i> Load Money
+          <img src={Load} alt="send" className="small-icon" /> Load Money
         </Link>
         <Link
           className="btn btn-danger rounded-pill btn-sm w-100 mt-3"
           to="/points/withdraw"
         >
-          <i class="bi bi-box-arrow-down"></i> Withdraw
+          <img src={Withdraw} alt="send" className="small-icon"  style={{fill:"#fff"}}  />  Withdraw
         </Link>
       </>
     );

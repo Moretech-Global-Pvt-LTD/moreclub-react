@@ -44,7 +44,7 @@ axiosInstance.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       if (error.response.data.data?.code !== "token_not_valid") {
         if (!!sessionStorage.getItem("moretechglobal_access")) {
-          console.log("inside access chek", error.response);
+          
           localStorage.setItem("sessionExpired", "true");
           sessionStorage.removeItem("moretechglobal_access");
           const event = new Event("sessionExpired");

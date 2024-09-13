@@ -11,6 +11,7 @@ import { baseURL } from "../../../config/config";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
+import TransactionCardSkeleton from "../../Skeleton/TransactionCardSkeleton";
 
 const BillingTransaction = () => {
   const location = useLocation();
@@ -29,7 +30,7 @@ const BillingTransaction = () => {
     }
   }, [location.search]);
 
-  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetching } =
+  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: ["all business transactions", activeTab, starting, ending],
       queryFn: async ({ pageParam = 1 }) => {
@@ -75,16 +76,8 @@ const BillingTransaction = () => {
 
   if (isLoading) {
     return (
-      <div
-        className="content-inside-wrapper nft-card card p-4"
-        style={{ maxWidth: "640px" }}
-      >
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
+      <div className="card p-4">
+        <TransactionCardSkeleton />
       </div>
     );
   }
@@ -92,7 +85,7 @@ const BillingTransaction = () => {
   if (isError) {
     return <div className="text-dynamic-white">Error: retriving</div>;
   }
-  console.log("transaction", data);
+
   return (
     <div
       className="content-inside-wrapper nft-card card p-4"
@@ -155,7 +148,10 @@ const BillingTransaction = () => {
             ref={(node) => {
               bottomRef.current = node;
             }}
-          />
+            />
+            {isFetchingNextPage && <div className="card p-4">
+              <TransactionCardSkeleton />
+            </div>}
         </>
       )}
     </div>

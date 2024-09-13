@@ -5,10 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import BusinessTypesCard from "./BusinessTypesCard";
 import axios from "axios";
+import { BestDealsinTownSkeleton } from "../Skeleton/SmallCardSkeleton";
 
 
 
-const BusinessTypes = ({toppart}) => {
+const BusinessTypes = ({ toppart }) => {
     const { data, isLoading, isError } = useQuery({
         queryKey: ["business types"],
         queryFn: async () => {
@@ -22,20 +23,7 @@ const BusinessTypes = ({toppart}) => {
 
     if (isLoading) {
         return (
-            <div className="d-flex gap-2">
-                <Placeholder as="p" animation="glow" className="rounded">
-                    <Placeholder xs={12} md={6} lg={4} xl={3} style={{ height: "7rem", width:"7rem" }} />
-                </Placeholder>
-                <Placeholder as="p" animation="glow" className="rounded">
-                    <Placeholder xs={12} md={6} lg={4} xl={3} style={{ height: "7rem", width: "7rem" }} />
-                </Placeholder>
-                <Placeholder as="p" animation="glow" className="rounded">
-                    <Placeholder xs={12} md={6} lg={4} xl={3} style={{ height: "7rem", width: "7rem" }} />
-                </Placeholder>
-                <Placeholder as="p" animation="glow" className="rounded">
-                    <Placeholder xs={12} md={6} lg={4} xl={3} style={{ height: "7rem", width: "7rem" }} />
-                </Placeholder>
-            </div>
+            <BestDealsinTownSkeleton />
         );
     }
 
@@ -48,7 +36,7 @@ const BusinessTypes = ({toppart}) => {
         <div>
             {data && data.length !== 0 && (
                 <>
-                    <div className={`justify-content-between align-item-center ${!!toppart ? 'd-none': 'd-flex'} `}>
+                    <div className={`justify-content-between align-item-center ${!!toppart ? 'd-none' : 'd-flex'} `}>
                         <h2 className="mt-4 mb-3">Best Deals in Town</h2>
                         <Link to="/partners">
                             <Button variant="link">View All</Button>

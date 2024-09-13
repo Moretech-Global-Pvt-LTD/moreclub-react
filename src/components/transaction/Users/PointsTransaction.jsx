@@ -15,6 +15,7 @@ import MembershipCouponCard from "./MembershipBuy";
 import ReferCard from "./Refer";
 
 import EventTransCard from "./Event";
+import TransactionCardSkeleton from "../../Skeleton/TransactionCardSkeleton";
 
 const PointsTransactions = () => {
   const location = useLocation();
@@ -32,7 +33,7 @@ const PointsTransactions = () => {
     }
   }, [location.search]);
 
-  const { data, isLoading, isError, fetchNextPage, hasNextPage } =
+  const { data, isLoading, isError, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteQuery({
       queryKey: ["pointstransaction", starting, ending],
       queryFn: async ({ pageParam = 1 }) => {
@@ -78,16 +79,9 @@ const PointsTransactions = () => {
 
   if (isLoading) {
     return (
-      <div
-        className="content-inside-wrapper nft-card card p-4"
-        style={{ maxWidth: "640px" }}
-      >
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
+
+      <div className="card p-4">
+        <TransactionCardSkeleton />
       </div>
     );
   }
@@ -138,9 +132,9 @@ const PointsTransactions = () => {
                               narration={row.narration}
                               transactiontime={row.timestamp}
                               transactionamount={row.amount}
-                                previousbalance={row.previous_balance}
-                                currency_received={row?.currency_received_symbol}
-                                currency_send={row?.currency_sent_symbol}
+                              previousbalance={row.previous_balance}
+                              currency_received={row?.currency_received_symbol}
+                              currency_send={row?.currency_sent_symbol}
                             />
                           ) : (
                             <>
@@ -151,19 +145,19 @@ const PointsTransactions = () => {
                                   transactionamount={row.amount}
                                   previousbalance={row.previous_balance}
                                   currency_received={row?.currency_received_symbol}
-                                      currency_send={row?.currency_sent_symbol}
+                                  currency_send={row?.currency_sent_symbol}
                                 />
                               ) : (
                                 <>
                                   {row.transaction_type === "MEMBERSHIP" ||
-                                  row.transaction_type === "COUPON" ? (
+                                    row.transaction_type === "COUPON" ? (
                                     <MembershipCouponCard
                                       narration={row.narration}
                                       transactiontime={row.timestamp}
                                       transactionamount={row.amount}
-                                              previousbalance={row.previous_balance}
-                                              currency_received={row?.currency_received_symbol}
-                                              currency_send={row?.currency_sent_symbol}
+                                      previousbalance={row.previous_balance}
+                                      currency_received={row?.currency_received_symbol}
+                                      currency_send={row?.currency_sent_symbol}
                                     />
                                   ) : (
                                     <>
@@ -172,9 +166,9 @@ const PointsTransactions = () => {
                                           narration={row.narration}
                                           transactiontime={row.timestamp}
                                           transactionamount={row.amount}
-                                                  previousbalance={row.previous_balance}
-                                                  currency_received={row?.currency_received_symbol}
-                                                  currency_send={row?.currency_sent_symbol}
+                                          previousbalance={row.previous_balance}
+                                          currency_received={row?.currency_received_symbol}
+                                          currency_send={row?.currency_sent_symbol}
                                         />
                                       ) : (
                                         <>
@@ -186,8 +180,8 @@ const PointsTransactions = () => {
                                               previousbalance={
                                                 row.previous_balance
                                               }
-                                                        currency_received={row?.currency_received_symbol}
-                                                        currency_send={row?.currency_sent_symbol}
+                                              currency_received={row?.currency_received_symbol}
+                                              currency_send={row?.currency_sent_symbol}
                                             />
                                           ) : (
                                             <EventTransCard
@@ -225,6 +219,9 @@ const PointsTransactions = () => {
           bottomRef.current = node;
         }}
       />
+      {isFetchingNextPage && 
+        <TransactionCardSkeleton />
+      }
     </div>
   );
 };

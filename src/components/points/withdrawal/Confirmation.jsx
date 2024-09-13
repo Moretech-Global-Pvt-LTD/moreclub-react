@@ -120,7 +120,7 @@ const ConfirmationForm = () => {
 
   return (
     <Form onSubmit={handleTransferSubmit} style={{ maxWidth: "500px" }}>
-      <div className="nft-card card p-2 col-12 col-md-8 mb-2 ms-1 me-1 mx-md-auto">
+      <div className="nft-card card p-2 col-12 col-md-8 mb-2 ms-1 me-1 mx-auto mx-md-0">
         <div className="bg-dynamic-black mb-1">
           <p
             className=" mb-0 mt-0 text-center text-success"
