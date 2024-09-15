@@ -124,12 +124,12 @@ const NetworkTable = ({ list, meta }) => {
             <option value="1000">1000</option>
           </select>
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="rowsPerPage" className="me-3">
             Start from:
           </label>
           <input value={offset} onChange={handlePageOffset} type="number" className="form-control"/>
-        </div>
+        </div> */}
         <div>
           {permissions && permissions.send_sms_refer && (
             <Link to="/network/message">
