@@ -24,7 +24,7 @@ const ResturantCard = ({ res, link }) => {
             <div class="restaurant-card" onClick={handleRedirection}>
                 <div class="restaurant-card-image">
                     <img src={`${res.banner}`} alt="Restaurant Image"/>
-                    <span class={`open-status ${res.is_open ? "open" : ""}`}>{res.is_open ? "Open" : `${res.open_hrs}`}</span>
+                    <span class={`open-status ${res.is_open ? "restro-open" : ""}`}>{res.is_open ? "Open" : `${res.open_hrs}`}</span>
                 </div>
                 <div class="restaurant-card-details">
                     <h3 class="restaurant-name">{res.name}</h3>

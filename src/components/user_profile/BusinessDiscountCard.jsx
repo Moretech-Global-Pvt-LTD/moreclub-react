@@ -9,10 +9,6 @@ const BusinessDiscountCard = ({ item }) => {
     const [modalShow, setModalShow] = React.useState(false);
    
 
-
-
-
-
   return (
       <div className="d-flex align-items-center user-profile w-100 border-bottom p-3">
           {!item.business_type_icon ? (
@@ -69,20 +65,21 @@ const BusinessDiscountCard = ({ item }) => {
         >
           <Modal.Header >
                   <Modal.Title closeButton id="contained-modal-title-vcenter " className='w-100' >
-                      <div className='d-flex justify-content-between w-100 '>
+                      <div className='d-flex justify-content-between w-100 text-dynamic-white '>
                         {item.business_type_name}  QR
-                      <Button variant='outline' className='text-black' onClick={() => setModalShow(false)}>X</Button>
-                       
+                      <Button variant='outline' className='text-dynamic-white' onClick={() => setModalShow(false)}>X</Button>
                      </div>
               </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-             
+          <Modal.Body className='d-flex flex-column justify-content-center'>
+            
                   <Image
                       src={`${item.qr_code}`}
                       alt={`Qr Code for ${item.business_type_name}`}
+                      style={{ width: "90%" , marginLeft:"auto", marginRight:"auto"}}
+                     
                   />
-                  <div className='d-flex justify-content-center'>
+                  <div className='d-flex justify-content-center mt-3'>
                   <QRDownload
                       imageUrl={`${item.qr_code}`}
                       name={`Merchant-qr_${item.business_type_name}}`}
@@ -96,31 +93,3 @@ const BusinessDiscountCard = ({ item }) => {
 }
 
 export default BusinessDiscountCard
-
-function QRcodeModal(props) {
-    return (
-        <Modal
-            {...props}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-        >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Modal heading
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <h4>Centered Modal</h4>
-                <p>
-                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                    consectetur ac, vestibulum at eros.
-                </p>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
-            </Modal.Footer>
-        </Modal>
-    );
-}

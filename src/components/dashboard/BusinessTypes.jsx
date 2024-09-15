@@ -36,8 +36,8 @@ const BusinessTypes = ({ toppart }) => {
         <div>
             {data && data.length !== 0 && (
                 <>
-                    <div className={`justify-content-between align-item-center ${!!toppart ? 'd-none' : 'd-flex'} `}>
-                        <h2 className="mt-4 mb-3">Best Deals in Town</h2>
+                    <div className={`justify-content-between align-items-center ${!!toppart ? 'd-none' : 'd-flex '} `}>
+                        <h4 className="mt-4 mb-3">Best Deals in Town</h4>
                         <Link to="/partners">
                             <Button variant="link">View All</Button>
                         </Link>

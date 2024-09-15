@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Button, Card, Col, Placeholder, Row } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import Chart from "../../components/dashboard/chart";
 import QuickLinks from "../../components/dashboard/quickLinks";
 import Topcards from "../../components/dashboard/topcards";
@@ -21,7 +21,6 @@ import Whiteqr from "../../images/Qr/qrwhite.png";
 import EventDashboardDisplay from "../../components/event/EventDashboardDisplay";
 import PopularResturant from "../../components/Moreclub/morefood/PopularResturant";
 import BusinessTypes from "../../components/dashboard/BusinessTypes";
-import { TopcardsSkeleton, ChartSkeleton } from "../../components/Skeleton/SmallCardSkeleton";
 import { DashboardSkeleton } from "../../components/Skeleton/DashboardLayout";
 
 const DashboardContent = () => {
@@ -103,8 +102,6 @@ const DashboardContent = () => {
     <div>
       <AlertNotification />
       <div>
-      
-        
         <div className="d-none d-sm-block">
           {data.businessData && data.userData && (
             <Row sm={2} md={4} className=" gx-3 gy-3 gb-3 mb-3">
@@ -270,25 +267,14 @@ const DashboardContent = () => {
           <QuickLinks />
         </Row>
         <Row>
-          {/* {user && user.user?.user_type === "BUSINESS" && (
-            <>
-              {business && business.businessProfile.is_verified && (
-                <RecentTransaction />
-              )}
-            </>
-          )} */}
-          {/* <PointsTransaction /> */}
-        </Row>
-        <Row>
           <EventDashboardDisplay />
         </Row>
-
         <Row>
           <BusinessTypes />
         </Row>
         <Row className="mt-4">
-          <div className="d-flex justify-content-between align-item-center">
-            <h2 className="mt-4 mb-3">Popular Resturants </h2>
+          <div className="d-flex justify-content-between align-items-center">
+            <h4 className="mt-4 mb-3">Popular Resturants </h4>
             <Link to="/morefood">
               <Button variant="link">View All</Button>
             </Link>

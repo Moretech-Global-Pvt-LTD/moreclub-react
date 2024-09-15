@@ -7,6 +7,7 @@ import OffersCard from "../../components/dashboard/Offercard";
 import { axiosInstance } from "../..";
 import Divider from "../../components/divider/Divider";
 import { useParams } from "react-router-dom";
+import { BestDealsinTownSkeleton } from "../../components/Skeleton/SmallCardSkeleton";
 
 const BusinessPartnerContent = ({ partnerId }) => {
 
@@ -27,18 +28,7 @@ const BusinessPartnerContent = ({ partnerId }) => {
     if (isLoading) {
         return (
             <div className="d-flex gap-2">
-                <Placeholder as="p" animation="glow" className="rounded">
-                    <Placeholder xs={12} md={6} xl={4} style={{ height: "7rem", width: "100%" }} />
-                </Placeholder>
-                <Placeholder as="p" animation="glow" className="rounded">
-                    <Placeholder xs={12} md={6} xl={4} style={{ height: "7rem" }} />
-                </Placeholder>
-                <Placeholder as="p" animation="glow" className="rounded">
-                    <Placeholder xs={12} md={6} xl={4} style={{ height: "7rem" }} />
-                </Placeholder>
-                <Placeholder as="p" animation="glow" className="rounded">
-                    <Placeholder xs={12} md={6} xl={4} style={{ height: "7rem" }} />
-                </Placeholder>
+                <BestDealsinTownSkeleton />
             </div>
         );
     }

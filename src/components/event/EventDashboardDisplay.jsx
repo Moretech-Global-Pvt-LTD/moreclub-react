@@ -42,8 +42,8 @@ const EventDashboardDisplay = () => {
     <div className="mb-5">
       {data.data && data.data.length !== 0 && (
         <>
-          <div className="d-flex justify-content-between align-item-center mb-3">
-            <h2 className="mt-4 mb-3">Popular events </h2>
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h4 className="mt-4 mb-3">Popular events </h4>
             <Link to="/event">
               <Button variant="link">View All</Button>
             </Link>
