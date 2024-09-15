@@ -143,7 +143,7 @@ const MessageContent = () => {
               "numberedList",
               "blockQuote",
               "link",
-              "ImageUpload",
+              // "ImageUpload",
             ],
             heading: {
               options: [

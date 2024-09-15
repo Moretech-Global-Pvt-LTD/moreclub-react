@@ -28160,6 +28160,9 @@ span {
   font-size: 0.9rem;
 }
 
+.open{
+  background-color: #198754;
+}
 /* Card details (restaurant name, address) */
 .restaurant-card-details {
   padding: 15px;
