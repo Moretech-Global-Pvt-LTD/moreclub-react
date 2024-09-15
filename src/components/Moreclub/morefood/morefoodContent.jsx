@@ -26,12 +26,6 @@ const MorefoodContent = () => {
 
   if (isError) {
     return <div className="text-dynamic-white">Error: retriving
-    
-      <a href="http://localhost:3000/resturants/75adfd3d-01a8-4507-9b0e-143a8e71eaa0?redirect=true" target="_blank">
-
-        <button
-        >{"send user"}</button>
-      </a>
     </div>;
   }
 
@@ -48,6 +42,7 @@ const MorefoodContent = () => {
           </>
         ))}
       </Row>
+      
        
     </>
   );
