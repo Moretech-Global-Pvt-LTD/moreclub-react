@@ -125,7 +125,7 @@ const BookingTable = ({ list, eventId }) => {
 
   return (
     <div>
-      <div className="table-controls d-flex align-items-center justify-content-end mb-3 gap-2">
+      <div className="table-controls d-flex align-items-center justify-content-between mb-3 gap-2">
         {/* <Form>
           <Row>
             <Col>
@@ -154,6 +154,8 @@ const BookingTable = ({ list, eventId }) => {
             </Col>
           </Row>
         </Form> */}
+        <h4>View your Bookings for the events</h4>
+        <div className="d-flex gap-2">
         <ReachableContext.Provider value="Light">
           <Space>
             <Button
@@ -182,6 +184,8 @@ const BookingTable = ({ list, eventId }) => {
           </Button>
           {/* )} */}
         </div>
+        </div>
+
       </div>
       <Table responsive className="bg-white">
         <thead className="border-bottom-0">
@@ -249,6 +253,7 @@ const BookingTable = ({ list, eventId }) => {
           </tr>
         </tfoot>
       </Table>
+    
     </div>
   );
 };

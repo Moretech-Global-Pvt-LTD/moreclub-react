@@ -8,6 +8,8 @@ import {
 } from "../../redux/api/loginAPI";
 import { useDispatch } from "react-redux";
 import { message } from "antd";
+import AutoCompleteInput from "../Googlemap/AutofillInput";
+import AddressForm from "./UserAddress";
 
 window.jQuery = window.$ = $;
 require("jquery-nice-select");
@@ -133,6 +135,21 @@ const ProfileChangeContent = ({ user }) => {
       message.error("Failed to Update Avatar");
     }
   };
+
+  // const [address, setAddress] = useState({
+  //   place: "",
+  //   region: "",
+  //   postcode: "",
+  //   houseno:"",
+  //   latitude: "",
+  //   longitude: "",
+  // });
+
+  // const handleAddressSubmit = (event) => {
+  //   event.preventDefault();
+  //     console.log("Selected address:", address);
+  // };
+  
 
   return (
     <div className="row justify-content-start">
@@ -374,6 +391,7 @@ const ProfileChangeContent = ({ user }) => {
                   <h4>Update Address</h4>
                   <Form onSubmit={handleAddressSubmit}>
                     <div className="row g-4">
+                      
                       <div className="col-12">
                         <Form.Group>
                           <Form.Label className="fz-16 ">State</Form.Label>
@@ -450,7 +468,13 @@ const ProfileChangeContent = ({ user }) => {
                         </button>
                       </div>
                     </div>
+
                   </Form>
+                  {/* <AddressForm
+                    onSubmit={handleAddressSubmit}
+                    address={address}
+                    setAddress={setAddress}
+                  /> */}
                 </div>
               </div>
             </div>

@@ -28257,6 +28257,29 @@ span {
 }
 
 
+.map-suggestion-container{
+  background-color:#a6a7a7;
+  position:absolute;
+  z-index:50;
+  top:0;
+  left:0;
+  right:0;
+  overflow-y:auto;
+  height:10rem;
+ 
+}
+.map-suggestions{
+  cursor:pointer;
+  padding:4px;
+  border-bottom: 1px solid #fff
+}
+.map-suggestions:hover{
+  background-color:#0c153b;
+  color:white;
+ 
+}
+
+
 
 
 /*# sourceMappingURL=main.c1c39487.css.map*/

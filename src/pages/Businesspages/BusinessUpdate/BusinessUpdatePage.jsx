@@ -5,6 +5,9 @@ import { update_business_detail } from "../../../redux/api/loginAPI";
 import { message } from "antd";
 import { alertNotification } from "../../../redux/api/notification";
 import AddressInputWithAutocomplete from "../../../components/Googlemap/LocationInputonly";
+import MapBoxLocationDisplayAutocomplete from "../../../components/Googlemap/MapLocationInput";
+import MapboxComponent from "../../../components/Googlemap/MapboxComponent";
+import MapBoxLocationOnlyAutocomplete from "../../../components/Googlemap/MapLocationOnly";
 
 const BusinessUpdatePage = ({ business }) => {
   const dispatch = useDispatch();
@@ -97,7 +100,7 @@ const BusinessUpdatePage = ({ business }) => {
   const handlePlaceSelected = async (place, address) => {
     setAddress(address);
     setlat(place.lat);
-    setlng(place.lng);
+    setlng(place.lon);
   };
 
   // for handleAddress
@@ -206,6 +209,7 @@ const BusinessUpdatePage = ({ business }) => {
           <Form.Group className="register-form-container ">
             <Form.Label>Address</Form.Label>
             {businessverification.businessProfile.is_verified ? (
+              <>
               <Form.Control
                 type="text"
                 placeholder="Company Address"
@@ -216,19 +220,30 @@ const BusinessUpdatePage = ({ business }) => {
                 required
                 className="text-dynamic-white"
                 style={{ backgroundColor: "transparent" }}
-              />
-            ) : (
-              <AddressInputWithAutocomplete
-                onPlaceSelected={handlePlaceSelected}
-                initialLat={lat}
-                initialLng={lng}
-                initialAddress={address}
-              />
-            )}
+            />
+            <div className="w-100 my-2">
 
+            <MapboxComponent
+              lat={lat}
+              lng={lng}
+              title={companyName}
+              detail={address}
+            />
+              </div>
+              </>
+            ) : (
+            
+            <div className="w-100">
+            <MapBoxLocationDisplayAutocomplete
+              onPlaceSelected={handlePlaceSelected}
+              initialLat={lat}
+              initialLng={lng}
+              initialAddress={address}
+            />
+            </div>
+            )}
             {addressError && <p className="text-danger">{addressError}</p>}
           </Form.Group>
-
           <Form.Group className="register-form-container ">
             <Form.Label>Business Phonenumber</Form.Label>
             <Form.Control

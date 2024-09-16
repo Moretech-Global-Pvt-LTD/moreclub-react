@@ -47,6 +47,7 @@ const OfferForm = () => {
   };
 
   const addItem = (item) => {
+    console.log("added",item);
     if (!selectedItems.includes(item)) {
       setSelectedItems([...selectedItems, item.id]);
       setSelectedItemsName([
@@ -58,7 +59,7 @@ const OfferForm = () => {
 
   const removeItem = (item) => {
     setSelectedItems(selectedItems.filter((i) => i !== item.id));
-    setSelectedItemsName(selectedItems.filter((i) => i.id !== item.id));
+    setSelectedItemsName(selectedItemsName.filter((i) => i.id !== item.id));
   };
 
   const handleBannerImageChange = (event) => {

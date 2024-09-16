@@ -7,7 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../..";
 import { useParams } from "react-router-dom";
 import { morefoodURL } from "../../../../config/config";
-import Feature from "../../../../components/Moreclub/Resturant/Setup/Feature";
 
 const InfoUpdateTabs = () => {
   const [activeTab, setActiveTab] = useState("Information");
@@ -85,13 +84,6 @@ const InfoUpdateTabs = () => {
             Resturant Information
           </button>
           <button
-            className={`${activeTab === "Feature" ? "tablinks active" : "tablinks"
-              } rounded-pills`}
-            onClick={() => openTab("Feature")}
-          >
-            Features
-          </button>
-          <button
             className={`${
               activeTab === "Images" ? "tablinks active" : "tablinks"
             } `}
@@ -126,16 +118,7 @@ const InfoUpdateTabs = () => {
                 <Logo data={data.logo} />
               </Col>
             </div>
-            <div
-              id="Feature"
-              className={`
-                ${activeTab === "Feature"
-                  ? "tabcontent active"
-                  : "tabcontent"
-                } `}
-            >
-              <Feature data={[]} />
-            </div>
+            
           </div>
         </div>
       </div>

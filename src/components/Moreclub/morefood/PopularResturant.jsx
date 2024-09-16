@@ -1,5 +1,4 @@
 import React from 'react'
-import { Placeholder} from 'react-bootstrap';
 import { morefoodURL } from '../../../config/config';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';

@@ -8,7 +8,7 @@ const Morefood = () => {
     <DashboardLayout title={"More Food"}>
       <div className="w-full mx-auto">
 
-        <h3 className="mx-auto mt-3 ">Popular Resutaurants</h3>
+        <h4 className="mx-auto mt-3 ">Popular Restaurants</h4>
         <PopularResturant />
         
        <MorefoodContent/>

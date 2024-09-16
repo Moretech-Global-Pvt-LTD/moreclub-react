@@ -5,9 +5,8 @@ import InfoTabs from "./InfoLayout";
 
 const RestroInfo = () => {
   return (
-    <DashboardLayout>
+    <DashboardLayout title={"Resturant Setup"}>
       <InfoTabs/>
-      
     </DashboardLayout>
   );
 };

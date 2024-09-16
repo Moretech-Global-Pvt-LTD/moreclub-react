@@ -33,7 +33,7 @@ const MorefoodContent = () => {
 
   return (
     <>
-      <h3 className="mx-auto mt-3 ">Restaurants</h3>
+      <h4 className="mx-auto mt-3 ">Restaurants</h4>
      
       <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={5} className=" px-2">
         {data?.map((item) => (

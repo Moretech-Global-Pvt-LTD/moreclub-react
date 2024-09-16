@@ -102,6 +102,12 @@
         --background-color: #fff;
         --text-color: #000;
       }
+      .custom-tawk-container{
+        position: fixed; /* Keep it fixed in one place */
+    bottom: 20rem; /* Move it up from the bottom */
+    right: 20px; /* Adjust this to move it from the right side */
+    z-index: 9999;
+      }
 
     
 
@@ -200,6 +206,22 @@
       src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
       crossorigin
     ></script>
+    <div id="custom-tawk-container">
+      <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/66e6f46750c10f7a00aa6185/1i7r2le2k';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+
+    </div>
 
     <!-- <script
       type="text/javascript"

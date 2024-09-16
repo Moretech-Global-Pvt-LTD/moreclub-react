@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
-import { Button, Form, Placeholder } from "react-bootstrap";
+import { Button, Col, Form, Placeholder, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { baseURL, imageURL } from "../../config/config";
 import { axiosInstance } from "../..";
@@ -167,7 +167,7 @@ const EventImageUpload = () => {
           },
         }
       );
-      console.log("res", res);
+   
       message.success("Event created successfully");
       navigate(`/business-events/`);
     } catch (err) {
@@ -179,6 +179,8 @@ const EventImageUpload = () => {
 
   return (
     <DashboardLayout title={"Upload Images"}>
+      <Row >
+        <Col xs={12} md={10} xl={6} className=" card p-2">
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formImages" className="mb-3">
           <Form.Label>Images</Form.Label>
@@ -213,8 +215,9 @@ const EventImageUpload = () => {
             multiple
             onChange={(e) => handleImageChange(e)}
           />
-        </Form.Group>
-        <Button variant="primary" type="submit">
+            </Form.Group>
+            <div className="d-flex justify-content-end">
+        <Button variant="warning" type="submit" className="">
           {isLoading && (
             <span
               class="spinner-border spinner-border-sm text-primary"
@@ -223,7 +226,12 @@ const EventImageUpload = () => {
           )}
           Upload Images
         </Button>
+
+            </div>
       </Form>
+        
+        </Col>
+      </Row>
     </DashboardLayout>
   );
 };

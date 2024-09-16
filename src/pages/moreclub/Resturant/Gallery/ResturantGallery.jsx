@@ -54,7 +54,6 @@ const RestaurantGalleryContent = () => {
     const datas = data && data.map((e) => ({ ...e, width: "300", height: "200" }));
 
 
-    console.log(data)
     async function showAddPhoto() {
         setShowForm(true);
     }
