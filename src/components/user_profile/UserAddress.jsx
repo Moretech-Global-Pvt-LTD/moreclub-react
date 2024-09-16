@@ -8,7 +8,7 @@ AddressForm.propTypes = {
     setAddress: PropTypes.func.isRequired,
 };
 
-export default function AddressForm({ address, onSubmit, setAddress }) {
+export default function AddressForm({ address, onSubmit, setAddress , loading}) {
     const handleManualInputChange = (event, stateProperty) => {
         const newAddress = { ...address };
         newAddress[stateProperty] = event.target.value;
@@ -17,7 +17,7 @@ export default function AddressForm({ address, onSubmit, setAddress }) {
     };
 
     return (
-        <form className="form" onSubmit={onSubmit}>
+        <form className="form d-flex flex-column gap-2" onSubmit={onSubmit}>
             <label htmlFor="address">Address</label>
             <AutoCompleteInput
                 setAddress={setAddress}
@@ -55,7 +55,7 @@ export default function AddressForm({ address, onSubmit, setAddress }) {
                 onChange={(event) => handleManualInputChange(event, "postcode")}
             />
 
-            {/* <label htmlFor="House No">House No (optional)</label>
+            <label htmlFor="House No">House No (optional)</label>
             <input
                 type="text"
                 id="houseno"
@@ -63,29 +63,19 @@ export default function AddressForm({ address, onSubmit, setAddress }) {
                 className="form-control"
                 value={address.houseno}
                 onChange={(event) => handleManualInputChange(event, "houseno")}
-            /> */}
+            />
 
-            <div className="buttons">
-                <button type="submit" className="confirm-button">
-                    Confirm
-                </button>
+            <div className="buttons mt-3">
                 <button
-                    type="reset"
-                    className="reset-button"
-                    onClick={() =>
-                        setAddress({
-                            streetAndNumber: "",
-                            place: "",
-                            region: "",
-                            postcode: "",
-                            country: "",
-                            latitude: "",
-                            longitude: "",
-                        })
-                    }
+                    className="btn btn-warning w-100 rounded-pill"
+                    type="submit"
+                    disabled={loading}
                 >
-                    Reset
+                   {loading && <span className="spinner-border spinner-border-sm me-1"></span>}
+                    <i className="bi bi-sd-card-fill me-1" />
+                    Save changes
                 </button>
+                
             </div>
         </form>
     );

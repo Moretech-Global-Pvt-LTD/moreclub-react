@@ -8,7 +8,6 @@ import {
 } from "../../redux/api/loginAPI";
 import { useDispatch } from "react-redux";
 import { message } from "antd";
-import AutoCompleteInput from "../Googlemap/AutofillInput";
 import AddressForm from "./UserAddress";
 
 window.jQuery = window.$ = $;
@@ -34,17 +33,17 @@ const ProfileChangeContent = ({ user }) => {
   );
   const [inputUserType, setInputUserType] = useState(user.user?.user_type);
 
-  const [inputState, setInputState] = useState(user.user?.user_profile?.street);
-  const [inputCity, setInputCity] = useState(user.user?.user_profile?.city);
-  const [inputAddress, setInputAddress] = useState(
-    user.user?.user_profile?.address
-  );
-  const [inputZipCode, setInputZipCode] = useState(
-    user.user?.user_profile?.zip_code
-  );
-  const [inputHouseNumber, setInputHouseNumber] = useState(
-    user.user?.user_profile?.house_no
-  );
+  // const [inputState, setInputState] = useState(user.user?.user_profile?.street);
+  // const [inputCity, setInputCity] = useState(user.user?.user_profile?.city);
+  // const [inputAddress, setInputAddress] = useState(
+  //   user.user?.user_profile?.address
+  // );
+  // const [inputZipCode, setInputZipCode] = useState(
+  //   user.user?.user_profile?.zip_code
+  // );
+  // const [inputHouseNumber, setInputHouseNumber] = useState(
+  //   user.user?.user_profile?.house_no
+  // );
 
   const [inputAvatar, setInputAvatar] = useState("");
   const [inputDisplayImage, setInputDisplayImage] = useState(
@@ -53,6 +52,8 @@ const ProfileChangeContent = ({ user }) => {
   const [avatarError, setAvatarError] = useState("");
 
   const [activeTab, setActiveTab] = useState("General");
+
+  const [loading, setLoading] = useState(false);
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
@@ -89,28 +90,28 @@ const ProfileChangeContent = ({ user }) => {
     }
   };
 
-  const handleAddressSubmit = async (event) => {
-    event.preventDefault();
+  // const handleAddressSubmit = async (event) => {
+  //   event.preventDefault();
 
-    const userProfileData = {
-      street: inputState,
-      city: inputCity,
-      address: inputAddress,
-      zip_code: inputZipCode,
-      house_no: inputHouseNumber,
-    };
+  //   const userProfileData = {
+  //     street: inputState,
+  //     city: inputCity,
+  //     address: inputAddress,
+  //     zip_code: inputZipCode,
+  //     house_no: inputHouseNumber,
+  //   };
 
-    const formData = {
-      user_profile: userProfileData,
-    };
-    const res = await dispatch(update_profile(formData));
+  //   const formData = {
+  //     user_profile: userProfileData,
+  //   };
+  //   const res = await dispatch(update_profile(formData));
 
-    if (res.success) {
-      message.success("Address Updated Successfully");
-    } else {
-      message.error("Failed to Update Address");
-    }
-  };
+  //   if (res.success) {
+  //     message.success("Address Updated Successfully");
+  //   } else {
+  //     message.error("Failed to Update Address");
+  //   }
+  // };
 
   const AvatarhandleChange = (event) => {
     const file = event.target.files[0];
@@ -136,19 +137,44 @@ const ProfileChangeContent = ({ user }) => {
     }
   };
 
-  // const [address, setAddress] = useState({
-  //   place: "",
-  //   region: "",
-  //   postcode: "",
-  //   houseno:"",
-  //   latitude: "",
-  //   longitude: "",
-  // });
+  const [address, setAddress] = useState({
+    streetAndNumber: user.user?.user_profile?.street?? "",
+    place: user.user?.user_profile?.city?? "",
+    region: user.user?.user_profile?.street?? "",
+    postcode: user.user?.user_profile?.zip_code?? "",
+    houseno: user.user?.user_profile?.house_no?? "",
+    latitude: "",
+    longitude: "",
+  });
 
-  // const handleAddressSubmit = (event) => {
-  //   event.preventDefault();
-  //     console.log("Selected address:", address);
-  // };
+  const handleAddressSubmit = async(event) => {
+    event.preventDefault();
+    setLoading(true);
+    if(address.streetAndNumber === "" || address.place === "" || address.region === "" || address.postcode === "" ) {
+     message.error("Please fill all the fields"); 
+    }
+    else{
+      const userProfileData = {
+        street: address.region,
+        city: address.place,
+        address: address.streetAndNumber,
+        zip_code: address.postcode,
+        house_no: address.houseno,
+      };
+
+      const formData = {
+        user_profile: userProfileData,
+      };
+      const res = await dispatch(update_profile(formData));
+
+      if (res.success) {
+        message.success("Address Updated Successfully");
+      } else {
+        message.error("Failed to Update Address");
+      }
+    }
+    setLoading(false);
+  };
   
 
   return (
@@ -364,9 +390,11 @@ const ProfileChangeContent = ({ user }) => {
 
                       <div className="col-12">
                         <button
-                          className="btn btn-primary w-100 rounded-pill"
+                          className="btn btn-warning w-100 rounded-pill"
                           type="submit"
+                          disabled={loading}
                         >
+                          {loading && <span className="spinner-border spinner-border-sm me-1"></span>}
                           <i className="bi bi-sd-card-fill me-1" />
                           Save changes
                         </button>
@@ -389,7 +417,7 @@ const ProfileChangeContent = ({ user }) => {
                   style={{ marginTop: "-25px" }}
                 >
                   <h4>Update Address</h4>
-                  <Form onSubmit={handleAddressSubmit}>
+                  {/* <Form onSubmit={handleAddressSubmit}>
                     <div className="row g-4">
                       
                       <div className="col-12">
@@ -469,12 +497,13 @@ const ProfileChangeContent = ({ user }) => {
                       </div>
                     </div>
 
-                  </Form>
-                  {/* <AddressForm
+                  </Form> */}
+                  <AddressForm
                     onSubmit={handleAddressSubmit}
                     address={address}
                     setAddress={setAddress}
-                  /> */}
+                    loading={loading}
+                  />
                 </div>
               </div>
             </div>
@@ -523,10 +552,13 @@ const ProfileChangeContent = ({ user }) => {
                     </div>
                     <div className="col-12">
                       <button
-                        className="btn btn-primary w-100 rounded-pill"
+                        className="btn btn-warning w-100 rounded-pill"
                         type="submit"
-                        disabled={avatarError !== ""}
+                        disabled={avatarError !== "" || loading}
                       >
+                        {loading && <span className="spinner-border spinner-border-sm me-1"></span>}
+
+                      
                         <i className="bi bi-sd-card-fill me-1" />
                         Save changes
                       </button>
