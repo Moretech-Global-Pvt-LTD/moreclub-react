@@ -12,9 +12,11 @@ import Loading from "../../components/loading/loading";
 import { useQuery } from "@tanstack/react-query";
 import { Placeholder, Table } from "react-bootstrap";
 
-const fetchReferals = async (page) => {
+const fetchReferals = async (page, limit=20 , offset=0) => {
   const res = await await axiosInstance.get(
-    `${baseURL}referral/user/?page=${page}`
+    // `${baseURL}referral/user/?page=${page}`
+    `${baseURL}referral/user/?limit=${limit}&page=${page}&offset=${offset}`
+
   );
   return res.data;
 };
@@ -22,11 +24,13 @@ const fetchReferals = async (page) => {
 const NetworkPage = () => {
   const { search } = useLocation();
   const page = new URLSearchParams(search).get("page") || 1;
+  const limit = new URLSearchParams(search).get("limit") || 20;
+  const offset = new URLSearchParams(search).get("offset") || 0;
   const permission = useSelector((state) => state.permissionReducer);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["referals", page],
-    queryFn: async () => fetchReferals(page),
+    queryKey: ["referals", page ,limit, offset],
+    queryFn: async () => fetchReferals(page ,limit , offset),
     keepPreviousData: true,
   });
 
@@ -36,11 +40,10 @@ const NetworkPage = () => {
         <Table responsive className="bg-white">
           <thead className="border-bottom-0">
             <tr className="pricingcard-premium">
-              <th className="text-dynamic-white"> Name</th>
-              <th className="text-dynamic-white">Email</th>
-              <th className="text-dynamic-white">Phone</th>
+              <th className="text-white"> Name</th>
+              <th className="text-white">Email</th>
+              <th className="text-white">Phone</th>
               <th className="text-white text-center">Action</th>
-              {/* )} */}
             </tr>
           </thead>
 

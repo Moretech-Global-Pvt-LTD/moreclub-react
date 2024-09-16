@@ -36,10 +36,6 @@ const BusinessInfo = () => {
     if (isError) {
         <div className="text-dynamic white">Error getting page data</div>;
     }
-
-    console.log(data)
-    console.log(businessProfiles)
-    console.log(businessProfiles.BusinessInfo)
     return (
         <div className='d-flex flex-column my-4'>
             <Card className='p-2'>

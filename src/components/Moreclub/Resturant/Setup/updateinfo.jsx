@@ -8,6 +8,7 @@ import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 import { valdateShortDescription, validateAddress, validateContactNumber, validateCountry, validateFacebookURL, validateInstagramURL, validateLongDescription, validateMin_order, validateResturantName, validateWebsiteURL } from "../../../../validation/resturantValidation";
 import { validateEmail } from "../../../../validation/addaccountvalidation";
+import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
 
 const UpdateInfoForm = ({ data }) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -153,7 +154,7 @@ const UpdateInfoForm = ({ data }) => {
       ...prevValues,
       address: address,
       lat: place.lat,
-      lng: place.lng,
+      lng: place.lon,
     }));
   };
 
@@ -294,11 +295,11 @@ const UpdateInfoForm = ({ data }) => {
                 <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
                   <Form.Group>
                     <Form.Label>Location</Form.Label>
-                    <AddressInputWithAutocomplete
+                    <MapBoxLocationDisplayAutocomplete
                       onPlaceSelected={handlePlaceSelected}
                       initialLat={formValues.lat}
                       initialLng={formValues.lng}
-                      initialAddress={formValues.address}
+                      initialAddress={formValues.location}
                     />
                     <p className="text-danger">{errors.address}</p>
                   </Form.Group>

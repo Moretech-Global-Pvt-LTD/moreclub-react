@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { message } from "antd";
 import { axiosInstance } from "../..";
@@ -12,38 +12,46 @@ const MessageContent = () => {
   const [sendMethod, setSendMethod] = useState("email");
   const [messages, setMessages] = useState("");
   const [subject, setSubject] = useState("");
+  const [sms, setsms] = useState("");
+  const [isCancel , setIsCancel] = useState(false);
+
   const editorRef = useRef(null);
+  const maxChars = 160;
+
+  const handleSMSChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= maxChars) {
+      setsms(value); // Set value only if it's within the limit
+    }
+  };
 
   const handleEditorReady = (editor) => {
     editorRef.current = editor;
   };
 
   const handleCancel = () => {
-    if (window.confirm("Are you sure you want to cancel?")) {
-      // Reset the message content if user confirms
       setMessages("");
       if (editorRef.current) {
         editorRef.current.setData("");
       }
-    }
+    setSubject("");
+    setsms("");
+    setIsCancel(false);
   };
 
-  // const handleSelect =(value)=>{
-  //   setSendMethod(value);
-  //   if(value !== ""){
-  //     setReceipentList([])
-  //   }else if(value === "email"){
-  //     setReceipentList(networkList.emailList)
-  //   }else if(value === "phone"){
-  //     setReceipentList(networkList.phoneList)
-  //   }else{
-  //     setReceipentList([])
-  //   }
-  // }
   const sendmessage = async (data) => {
     try {
       const res = await axiosInstance.post(`${baseURL}sms/send/email/`, data);
-      console.log(res);
+     
+      message.success("message sent");
+    } catch (err) {
+      message.error("error sending message");
+    }
+  };
+  const sendsms = async (data) => {
+    try {
+      const res = await axiosInstance.post(`${baseURL}sms/send/sms/`, data);
+     
       message.success("message sent");
     } catch (err) {
       message.error("error sending message");
@@ -53,23 +61,34 @@ const MessageContent = () => {
   const handleSend = async () => {
     if (networkList.emailList || networkList.phoneList) {
       if (sendMethod === "email") {
-        console.log("email list", networkList.emailList);
-
-       
-        const data = {
-          subject: subject,
-          message: messages,
-          recipients: networkList.emailList,
-        };
-        await sendmessage(data);
+        if (subject !== "" && messages !== "") {
+          const data = {
+            subject: subject,
+            message: messages,
+            recipients: networkList.emailList,
+          };
+          await sendmessage(data);
+        } else {
+          message.warning("Invalid email or subject");
+        }
       } else {
-        console.log("phone list", networkList.phoneList);
-        console.log("message", messages);
+        if (sms !== "") {
+          const data = {
+          
+            message: sms,
+            recipients: networkList.phoneList,
+          };
+          await sendsms(data);
+        } else {
+          message.warning("Invalid sms");
+        }
       }
+      
     } else {
       message.error("Receipent list seems to be empty");
     }
   };
+
 
   return (
     <div className="card p-2">
@@ -89,91 +108,154 @@ const MessageContent = () => {
           >
             Email
           </option>
-          {/* <option
+          <option
             value={"phone"}
             style={{ backgroundColor: "white", color: "black", padding: "4px" }}
           >
             Phone Number
-          </option> */}
+          </option>
         </Form.Select>
       </div>
-
-      <Form.Group controlId="Subject">
-        <Form.Label>Subject</Form.Label>
-        <Form.Control
-          type="text"
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
-          className="mb-3 text-dynamic-white"
-          required
-        />
-        {/* {confirmPinError && <p className="text-danger">{confirmPinError}</p>} */}
-      </Form.Group>
-
-      {/* {error && <p>Error loading editor: {error}</p>}
-      {!showEditor && !error && <p>Loading ....</p>}
-      {showEditor && !error && ( */}
-      <CKEditor
-        editor={ClassicEditor}
-        config={{
-          toolbar: [
-            "heading",
-            "|",
-            "bold",
-            "italic",
-            "bulletedList",
-            "numberedList",
-            "blockQuote",
-            "link",
-            "ImageUpload",
-          ],
-          heading: {
-            options: [
-              {
-                model: "paragraph",
-                title: "Paragraph",
-                class: "ck-heading_paragraph",
-              },
-              {
-                model: "heading1",
-                view: "h1",
-                title: "Heading 1",
-                class: "ck-heading_heading1",
-              },
-              {
-                model: "heading2",
-                view: "h2",
-                title: "Heading 2",
-                class: "ck-heading_heading2",
-              },
-              {
-                model: "heading3",
-                view: "h3",
-                title: "Heading 3",
-                class: "ck-heading_heading3",
-              },
+      {sendMethod === "email" && (
+        <>
+        <Form.Group controlId="Subject">
+          <Form.Label>Subject</Form.Label>
+          <Form.Control
+            type="text"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+            className="mb-3 text-dynamic-white"
+            required
+          />
+          {/* {confirmPinError && <p className="text-danger">{confirmPinError}</p>} */}
+        </Form.Group>
+  
+      
+        <CKEditor
+          editor={ClassicEditor}
+          config={{
+            toolbar: [
+              "heading",
+              "|",
+              "bold",
+              "italic",
+              "bulletedList",
+              "numberedList",
+              "blockQuote",
+              "link",
+              // "ImageUpload",
             ],
-          },
-        }}
-        data=""
-        placeholder="Enter you message..."
-        onReady={handleEditorReady}
-        onChange={(event, editor) => {
-          const data = editor.getData(); // Get the updated content from the editor
-          setMessages(data); // Update the content state variable
-        }}
-        onError={(error) => {
-          console.error("Error initializing editor:", error);
-        }}
-      />
+            heading: {
+              options: [
+                {
+                  model: "paragraph",
+                  title: "Paragraph",
+                  class: "ck-heading_paragraph",
+                },
+                {
+                  model: "heading1",
+                  view: "h1",
+                  title: "Heading 1",
+                  class: "ck-heading_heading1",
+                },
+                {
+                  model: "heading2",
+                  view: "h2",
+                  title: "Heading 2",
+                  class: "ck-heading_heading2",
+                },
+                {
+                  model: "heading3",
+                  view: "h3",
+                  title: "Heading 3",
+                  class: "ck-heading_heading3",
+                },
+              ],
+            },
+          }}
+          data=""
+          placeholder="Enter you message..."
+          onReady={handleEditorReady}
+          onChange={(event, editor) => {
+            const data = editor.getData(); // Get the updated content from the editor
+            setMessages(data); // Update the content state variable
+          }}
+          onError={(error) => {
+            console.error("Error initializing editor:", error);
+          }}
+          />
+        </>
+      )}
+      {sendMethod === "phone" && (
+        <>
+          <Form.Group controlId="Subject">
+            <Form.Label>SMS</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              value={sms}
+              onChange={handleSMSChange}
+              className="mb-3 text-dynamic-white"
+              required
+            />
+            <div className="text-muted">
+              {maxChars - subject.length} characters remaining
+            </div>
+          </Form.Group>
+
+
+         
+        </>
+      )}
 
       {/* )} */}
       <div className="d-flex  mt-4 mb-2 gap-2 flex-1">
-        <Button variant="secondary" onClick={handleCancel}>
+        <Button variant="secondary" onClick={(e)=>setIsCancel(true)}>
           Cancel
         </Button>
         <Button onClick={handleSend}>Send Message</Button>
       </div>
+      <Modal
+      aria-labelledby="contained-modal-title-vcenter"
+      size="md"
+      centered
+      show={isCancel}
+      onHide={()=>setIsCancel(false)}>
+
+      <Modal.Header>
+        <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
+          Alert
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="facebook-post-creation">
+            <h3>Are You sure You want to cancel?</h3>
+            <p className="text-warning">Form will be reset</p>
+        </div>
+        <div className='d-flex justify-content-end'>
+          <div className='d-flex justify-content-end gap-2'>
+            <Button
+              variant="secondary"
+              onClick={()=>setIsCancel(false)}
+              className="mt-4 "
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+                onClick={handleCancel}
+              className="mt-4 "
+            >
+              
+              Confirm
+            </Button>
+
+          </div>
+        </div>
+
+      </Modal.Body>
+
+    </Modal>
     </div>
   );
 };

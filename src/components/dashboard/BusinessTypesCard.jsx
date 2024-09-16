@@ -39,9 +39,9 @@ const BusinessTypesCard = ({ id, logo, name, banner }) => {
                     )}
                 </div>
                 <Card.Body className="pt-0">
-                    <Card.Title className={`${banner ? "text-black" : "text-dynamic-white"}  text-center fw-bold line`}>
+                    <p className={`${banner ? "text-black" : "text-dynamic-white"}  text-center fw-bold line`}>
                         {name}
-                    </Card.Title>
+                    </p>
                 </Card.Body>
             </Card>
         </Link>

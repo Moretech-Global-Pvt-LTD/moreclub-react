@@ -4,7 +4,7 @@ import InfoUpdateTabs from "./UpdateTabs";
 
 const RestroUpdateInfo = () => {
   return (
-    <DashboardLayout>
+    <DashboardLayout title={"Update Restaurant"}>
       <InfoUpdateTabs />
     </DashboardLayout>
   );

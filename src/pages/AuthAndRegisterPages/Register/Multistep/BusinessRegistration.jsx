@@ -7,6 +7,7 @@ import {
   updateFormData,
 } from "../../../../redux/slices/RegisterSlice";
 import AddressInputWithAutocomplete from "../../../../components/Googlemap/LocationInputonly";
+import MapBoxLocationOnlyAutocomplete from "../../../../components/Googlemap/MapLocationOnly";
 
 const BusinessBasicForm = ({ setBusinessRegistration }) => {
   const dispatch = useDispatch();
@@ -66,10 +67,10 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
   const handlePlaceSelected = async (place, address) => {
     setAddress(address);
     setlat(place.lat);
-    setlng(place.lng);
+    setlng(place.lon);
     await dispatch(updateFormData({ business_address: address }));
     await dispatch(updateFormData({ lat: place.lat }));
-    await dispatch(updateFormData({ lng: place.lng }));
+    await dispatch(updateFormData({ lng: place.lon }));
   };
 
   // for handleAddress
@@ -140,12 +141,14 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
       </Form.Group>
       <Form.Group className="register-form-container w-100">
         <Form.Label>Address</Form.Label>
-        <AddressInputWithAutocomplete
+        <div className="w-100">
+        <MapBoxLocationOnlyAutocomplete
           onPlaceSelected={handlePlaceSelected}
           initialLat={lat}
           initialLng={lng}
           initialAddress={address}
         />
+        </div>
         {addressError && <p className="text-danger">{addressError}</p>}
       </Form.Group>
 

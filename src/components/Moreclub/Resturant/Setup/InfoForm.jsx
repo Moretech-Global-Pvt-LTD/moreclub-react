@@ -7,6 +7,7 @@ import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry, validateCuisineType, validateEmail, validateFacebookURL, validateFeatureType, validateInstagramURL, Validatelogo, validateLongDescription, validateMeal, validateMin_order, validatePriceRange, validateProperties, validateResturantName, validateWebsiteURL } from "../../../../validation/resturantValidation";
 import { useNavigate } from "react-router-dom";
+import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
 
 const InfoForm = () => {
   const navigate = useNavigate();
@@ -199,7 +200,7 @@ const InfoForm = () => {
       ...prevValues,
       address: address,
       lat: place.lat,
-      lng: place.lng,
+      lng: place.lon,
     }));
   };
 
@@ -269,7 +270,7 @@ const InfoForm = () => {
       <Row>
         <Col xs={12} md={12} lg={12} xl={10} xxl={10}>
           <Form className="restaurant-form  " onSubmit={handleSubmit}>
-            <h3>Resturant Information</h3>
+            <h5>Resturant Information</h5>
             <p className="text-warning">All fields are required</p>
             <Col className="card d-flex flex-column gap-4 p-2">
               <Row>
@@ -371,20 +372,24 @@ const InfoForm = () => {
                   </Form.Group>
                 </Col>
                 <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
+                  
                   <Form.Group>
                     <Form.Label>Location</Form.Label>
-                    <AddressInputWithAutocomplete
+                    <MapBoxLocationDisplayAutocomplete
                       onPlaceSelected={handlePlaceSelected}
                       initialLat={formValues.lat}
                       initialLng={formValues.lng}
-                      initialAddress={formValues.address}
-                    />
+                      initialAddress={formValues.location}
+                />
+                   
                     <p className="text-danger">{errors.address}</p>
                   </Form.Group>
+
                 </Col>
                 <Col xs={12} md={12} lg={12} xl={6} xxl={6} className="">
+                  <Row className="my-xl-4">
                   <Form.Group
-                    className="d-flex  gap-2"
+                    className="d-flex gap-2 my-3 my-xl-0"
                     style={{ height: "100%", alignItems: "center" }}
                   >
                     <Form.Check
@@ -409,9 +414,8 @@ const InfoForm = () => {
                       onChange={handleChange}
                     />
                   </Form.Group>
-                </Col>
                 <h6 className="mt-3">Social Media Links</h6>
-                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
                   <Form.Group controlId="formWebsitelink">
                     <Form.Label>Website Link (optional)</Form.Label>
                     <Form.Control
@@ -424,7 +428,7 @@ const InfoForm = () => {
                     <p className="text-danger">{errors.website_link}</p>
                   </Form.Group>
                 </Col>
-                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
                   <Form.Group controlId="formFacebookLink">
                     <Form.Label>Facebook Link (optional)</Form.Label>
                     <Form.Control
@@ -437,7 +441,7 @@ const InfoForm = () => {
                     <p className="text-danger">{errors.facebook_link}</p>
                   </Form.Group>
                 </Col>
-                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
                   <Form.Group controlId="formInstagramLink">
                     <Form.Label>Instagram Link (optional)</Form.Label>
                     <Form.Control
@@ -449,6 +453,9 @@ const InfoForm = () => {
                     />
                     <p className="text-danger">{errors.instagram_link}</p>
                   </Form.Group>
+                </Col>
+
+                  </Row>
                 </Col>
               </Row>
 
@@ -478,7 +485,7 @@ const InfoForm = () => {
             <Row>
               <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
                 <div className="col-12 mt-4">
-                  <h4>Resturant Logo</h4>
+                  <h5>Resturant Logo</h5>
                   <div className=" card ">
                     <div
                       className="card-body p-4 p-sm-5"
@@ -521,7 +528,7 @@ const InfoForm = () => {
 
               <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
                 <div className="col-12 mb-4 mt-4">
-                  <h4>Resturant Banner</h4>
+                  <h5>Resturant Banner</h5>
                   <div className=" card ">
                     <div
                       className="card-body p-4 p-sm-5"

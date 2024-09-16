@@ -26,12 +26,6 @@ const MorefoodContent = () => {
 
   if (isError) {
     return <div className="text-dynamic-white">Error: retriving
-    
-      <a href="http://localhost:3000/resturants/75adfd3d-01a8-4507-9b0e-143a8e71eaa0?redirect=true" target="_blank">
-
-        <button
-        >{"send user"}</button>
-      </a>
     </div>;
   }
 
@@ -39,7 +33,7 @@ const MorefoodContent = () => {
 
   return (
     <>
-      <h3 className="mx-auto mt-3 ">Restaurants</h3>
+      <h4 className="mx-auto mt-3 ">Restaurants</h4>
      
       <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={5} className=" px-2">
         {data?.map((item) => (
@@ -48,6 +42,7 @@ const MorefoodContent = () => {
           </>
         ))}
       </Row>
+      
        
     </>
   );

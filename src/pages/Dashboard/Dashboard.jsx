@@ -1,5 +1,4 @@
 
-import { useEffect } from "react";
 import Divider from "../../components/divider/Divider";
 import Footbar from "../../components/footbar/footbar";
 import Footer from "../../components/footer/Footer";

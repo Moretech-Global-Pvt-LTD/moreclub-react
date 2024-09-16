@@ -13,7 +13,7 @@ const QuickLinks = () => {
         <div className="nft-card  shadow-sm mt-4 mb-4 p-4">
           <h6>Quick links</h6>
          
-          <Row xs={3} sm={3} md={3} lg={3} xl={3} xxl={6} className="mt-4">
+          <Row xs={3} sm={3} md={3} lg={3} xl={4} xxl={6} className="mt-4">
             <Link to={`/scan`} className="d-flex flex-column my-2 ">
               <Col className="d-flex flex-column  ">
                 <Card className=" flex-grow-1 p-0">

@@ -62,7 +62,7 @@ const RestroOffer = () => {
           <div></div>
           <Link to={`/resturant/${res_id}/offer/create/${slug}`}>
             <Button variant="warning">
-              Add Offers
+              Add New Offers
             </Button>
           </Link>
         </div>

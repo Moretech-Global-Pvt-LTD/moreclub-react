@@ -3,10 +3,13 @@ import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import { axiosInstance } from "../..";
 import { message } from "antd";
 import { baseURL } from "../../config/config";
-import LocationDisplayWithAutocomplete from "../Googlemap/LocationInput";
+import MapBoxLocationDisplayAutocomplete from "../Googlemap/MapLocationInput";
+
 // import CKEditor from 'ckeditor4-react';
 
 const UpdateEventForm = ({ existingEventData, id }) => {
+  const [currencyList, setCurrencyList] = useState([]);
+  const [currency, setCurrency] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -41,6 +44,40 @@ const UpdateEventForm = ({ existingEventData, id }) => {
     }
   }, [existingEventData]);
 
+  const fetchCurrency = async () => {
+    try {
+      const res = await axiosInstance.get(`/user/currency/`);
+      setCurrencyList(res.data.data.currency);
+      console.log("user currencies", res.data.data.currency);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCurrency();
+  }, []);
+
+  useEffect(() => {
+    const fetchUserCurrency = async () => {
+      try {
+        if (currencyList.length > 0) {
+          const matchedCurrency = currencyList.find(
+            (bt) => bt.default === true
+          );
+          if (matchedCurrency) {
+            console.log("matched symbol", matchedCurrency.symbol);
+            setCurrency(matchedCurrency.symbol);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUserCurrency();
+  }, [currencyList]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -50,11 +87,11 @@ const UpdateEventForm = ({ existingEventData, id }) => {
   };
 
   const handlePlaceSelected = async (place, address) => {
-    console.log("place", place, address);
+   console.log("place", place, address);
     setFormData({
       ...formData,
       location: address,
-      lng: place.lng,
+      lng: place.lon,
       lat: place.lat,
     });
   };
@@ -97,105 +134,62 @@ const UpdateEventForm = ({ existingEventData, id }) => {
     }
   };
 
-  // const renderPreview = (image, index) => {
-  //   if (typeof image === 'string') {
-  //     return (
-  //       <>
-  //         <img
-  //           src={image}
-  //           alt={`Preview ${index}`}
-  //           style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }}
-  //         />
-  //          <Button variant="danger" onClick={() => handleRemoveImage(index)}>&times;</Button>
 
-  //       </>
-  //     );
-  //   } else {
-  //     return (
-  //       <>
-  //         <img
-  //           src={URL.createObjectURL(image)}
-  //           alt={`Preview ${index}`}
-  //           style={{ width: '100px', height: '100px', objectFit: 'cover', marginRight: '10px' }}
-  //         />
-  //          <Button variant="danger" onClick={() => handleRemoveImage(index)}>&times;</Button>
 
-  //       </>
-  //     );
-  //   }
-  // };
-  console.log(formData.start_date);
 
   return (
-    <Card className="p-2" style={{ maxWidth: "600px" }}>
-      <Row className="justify-content-md-center">
-        <Col>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formName" className="mb-3">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter event name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </Form.Group>
+  
+    <Row xs={1} md={2}>
+      <Col xs={12} md={12} lg={12} xl={10} xxl={10}>
+        <Form onSubmit={handleSubmit} className="card p-2">
+          <Row>
+            <Col xs={12} xl={4} xxl={4}>
+              <Form.Group controlId="formName" className="mb-3">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter event name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              </Form.Group>
 
-            <Form.Group controlId="formDescription" className="mb-3">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                placeholder="Enter event description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-              />
-              {/* <CKEditor
-                name="description"
-                data={formData.description}
-                onChange={(event) => handleCKEditorChange('description', event.editor.getData())}
-              /> */}
-            </Form.Group>
+            </Col>
+            <Col xs={12} md={6} lg={6} xl={4} xxl={4}>
 
-            <Form.Group controlId="formLocation" className="mb-3">
-              <Form.Label>Location</Form.Label>
-              <LocationDisplayWithAutocomplete
-                onPlaceSelected={handlePlaceSelected}
-                initialLat={formData.lat}
-                initialLng={formData.lng}
-                initialAddress={formData.location}
-              />
-            </Form.Group>
+              <Form.Group controlId="formName" className="mb-3">
+                <Form.Label>Maximum limit</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter event name"
+                  name="max_limit"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </Col>
+            <Col xs={12} md={6} lg={6} xl={4} xxl={4}>
+              <Form.Group controlId="formPrice" className="mb-3">
+                <Form.Label>Price</Form.Label>
+                <div className="d-flex align-items-center gap-1">
+                  <div className="form-control" style={{ width: "4rem" }}>
+                    {currency}
+                  </div>
 
-            {/* <Row>
-              <Col md={6}>
-                <Form.Group controlId="formDate" className="mb-3">
-                  <Form.Label>Start Date</Form.Label>
                   <Form.Control
-                    type="datetime-local"
-                    name="start_date"
-                    value={formData.date}
+                    type="number"
+                    placeholder="Enter event price"
+                    name="price"
+                    value={formData.price}
                     onChange={handleChange}
                   />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group controlId="formTime" className="mb-3">
-                  <Form.Label>Start Time</Form.Label>
-                  <Form.Control
-                    type="time"
-                    name="start_time"
-                    value={formData.time}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-              </Col>
-            </Row> */}
+                </div>
+              </Form.Group>
+            </Col>
+            <Col xs={12} md={6} lg={6} xl={4} xxl={4}>
 
-            <Row>
-              <Col md={6}>
+              <Col >
                 <Form.Group controlId="formDate" className="mb-3">
                   <Form.Label>Start Date</Form.Label>
                   <Form.Control
@@ -206,7 +200,7 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                   />
                 </Form.Group>
               </Col>
-              <Col md={6}>
+              <Col >
                 <Form.Group controlId="formDate" className="mb-3">
                   <Form.Label>End Date</Form.Label>
                   <Form.Control
@@ -217,83 +211,84 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                   />
                 </Form.Group>
               </Col>
-            </Row>
+              
+            </Col>
+            <Col xs={12} md={6} lg={6} xl={8} xxl={8}>
+              <Form.Group controlId="formDescription" className="mb-3">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={5}
+                  placeholder="Enter event description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                />
+              </Form.Group>
 
-            {/* <Form.Group controlId="formImages" className="mb-3">
-              <Form.Label>Images</Form.Label>
-              <div className="mb-3">
-                {formData.images.map((image, index) => (
-                  <div key={index} style={{ display: 'inline-block', position: 'relative', marginRight: '10px' }}>
-                    {renderPreview(image, index)}
-                  </div>
-                ))}
-              </div>
-              <Form.Control
-                type="file"
-                multiple
-                onChange={(e) => handleImageChange(e)}
-              />
-            </Form.Group> */}
+            </Col>
+          </Row>
+          <Row >
+            <Col xs={12} lg={6} className="order-last order-lg-first">
+              <Form.Group controlId="formEventHighlightsTitle" className="mb-3">
+                <Form.Label>Event Highlights Title</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter event highlights title"
+                  name="event_highlights_title"
+                  value={formData.event_highlights_title}
+                  onChange={handleChange}
+                />
+              </Form.Group>
 
-            <Form.Group controlId="formPrice" className="mb-3">
-              <Form.Label>Price</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Enter event price"
-                name="price"
-                value={formData.price}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="formName" className="mb-3">
-              <Form.Label>Maximum limit</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter event name"
-                name="max_limit"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formEventHighlightsTitle" className="mb-3">
-              <Form.Label>Event Highlights Title</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter event highlights title"
-                name="event_highlights_title"
-                value={formData.event_highlights_title}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group
-              controlId="formEventHighlightsDescription"
-              className="mb-3"
-            >
-              <Form.Label>Event Highlights Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                placeholder="Enter event highlights description"
-                name="event_highlights_description"
-                value={formData.event_highlights_description}
-                onChange={handleChange}
-              />
-              {/* <CKEditor
+              <Form.Group
+                controlId="formEventHighlightsDescription"
+                className="mb-3"
+              >
+                <Form.Label>Event Highlights Description</Form.Label>
+                {/* <CKEditor
                 name="eventHighlightsDescription"
                 data={formData.eventHighlightsDescription}
-                onChange={(event) => handleCKEditorChange('eventHighlightsDescription', event.editor.getData())}
+                onChange={(event) =>
+                  handleCKEditorChange(
+                    "eventHighlightsDescription",
+                    event.editor.getData()
+                  )
+                }
               /> */}
-            </Form.Group>
+                <Form.Control
+                  as="textarea"
+                  rows={10}
+                  placeholder="Enter event highlights description"
+                  name="event_highlights_description"
+                  value={formData.event_highlights_description}
+                  onChange={handleChange}
+                />
+              </Form.Group>
 
+            </Col>
+            <Col xs={12} lg={6}>
+              <Form.Group controlId="formLocation" className="mb-3">
+                <Form.Label>Location</Form.Label>
+                <MapBoxLocationDisplayAutocomplete
+                  onPlaceSelected={handlePlaceSelected}
+                  initialLat={formData.lat}
+                  initialLng={formData.lng}
+                  initialAddress={formData.location}
+                />
+               
+
+              </Form.Group>
+            </Col>
+          </Row>  
+          
             <Button variant="primary" type="submit">
               Update Event
             </Button>
           </Form>
         </Col>
       </Row>
-    </Card>
+ 
   );
 };
 

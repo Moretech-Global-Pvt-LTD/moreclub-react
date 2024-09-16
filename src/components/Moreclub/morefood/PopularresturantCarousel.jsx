@@ -1,7 +1,8 @@
 import React from 'react'
-import ResturantCard from "../Resturant/ResturantCard2";
+import ResturantCard from "../Resturant/RestaurantCard3";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Col } from 'react-bootstrap';
 
 const PopularresturantCarousel = ({data}) => {
     const responsive = {
@@ -77,7 +78,7 @@ const PopularresturantCarousel = ({data}) => {
     <Carousel
       responsive={responsive}
       containerClass="ms-3 pb-4 w-full"
-      itemClass="ms-2 me-2"
+      itemClass=""
       autoPlay={true}
       transitionDuration={5000}
       swipeable={true}
@@ -85,7 +86,7 @@ const PopularresturantCarousel = ({data}) => {
       showDots={true}
       dotListClass={"mt-4"}
       infinite={true}
-      partialVisbile={true}
+      partialVisibilityGutter={true}
       removeArrowOnDeviceType={[
         "xxxxlDesktop",
         "xxxlDesktop",
@@ -101,12 +102,10 @@ const PopularresturantCarousel = ({data}) => {
       ]}
       >
       
-      {data.slice(0,10).map((item) => (
-        <ResturantCard
-          key={item.id}
-          link={`https://morefood.se/resturants/${item.id}`}
-          res={item}
-        />
+      {data.slice(0, 10).map((item) => (
+        <Col key={item.id} className="d-flex flex-column flex-grow-1 rounded-3 restaurantCard position-relative">
+          <ResturantCard key={item.id} res={item}  link={`https://morefood.se/resturants/${item.id}`} />
+        </Col >
       ))}
     </Carousel>
   );

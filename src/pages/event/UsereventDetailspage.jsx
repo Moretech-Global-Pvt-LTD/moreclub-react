@@ -230,7 +230,7 @@ const UserEventDetailPage = () => {
         {/* {bookingShow && ( */}
         <Row>
           <Col>
-            <h3>View your Bookings for the events</h3>
+           
 
             <BookingTable list={data.bookingData} eventId={eventId} />
           </Col>
