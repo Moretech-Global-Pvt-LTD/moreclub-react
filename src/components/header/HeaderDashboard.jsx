@@ -122,7 +122,7 @@ const HeaderDashboard = () => {
     {
       path: "/profile",
       icon: "bi-person-circle",
-      text: "profile",
+      text: "Profile",
     },
     {
       path: "/settings",

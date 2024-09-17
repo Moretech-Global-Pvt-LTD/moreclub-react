@@ -16,6 +16,7 @@
  };
 
 
+ 
   firebase.initializeApp(firebaseConfig);
   const messaging = firebase.messaging();
   // Customize background notification handling here
