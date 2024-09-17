@@ -11,5 +11,7 @@ export const register = () => {
       .catch((error) => {
         console.error("Error registering service worker:", error);
       });
+  } else {
+    console.warn("Service Worker is not supported in this browser.");
   }
 };

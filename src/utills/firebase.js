@@ -81,16 +81,7 @@ const setupNotifications = async (onMessageCallback) => {
 
     await registerTokenWithBackend(token);
     
-    // Handle foreground notifications
-    // onMessage(messaging, (payload) => {
-    //   console.log("Foreground Message received:", payload);
-    //   const { title, body } = payload.notification;
-    //   onMessageCallback({ title, body });
-    //   // toastNotification({
-    //   //   title: payload.notification.title,
-    //   //   description: payload.notification.body,
-    //   // });
-    // });
+   
   } catch (error) {
     console.error("Error setting up notifications:", error);
     // Optionally, retry logic or user notification can be added here

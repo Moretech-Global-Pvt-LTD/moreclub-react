@@ -62,7 +62,6 @@ export const login = (username, password ,next) => async (dispatch) => {
       await dispatch(loadUserPermissions());
       await dispatch(setProcessing(false));
       await setupNotifications()
-      sessionStorage.removeItem("username")
       localStorage.removeItem("otp_username");
       return res;
     } catch (err) {
@@ -200,7 +199,6 @@ export const otpVerify = (username, code , callbackUrl) => async (dispatch) => {
       await dispatch(loadMembershipType());
       await dispatch(getBusinessProfile());
       await setupNotifications();
-      sessionStorage.removeItem("username");
     }
     return res;
   } catch (err) {

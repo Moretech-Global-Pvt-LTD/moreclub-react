@@ -555,7 +555,7 @@ const BillingForm = (hasPermission) => {
       </div>
       <div className="col-12 col-md-6">
         <div className="row">
-          <div className="col-11">
+          <div className="col-11 mx-auto mt-4">
             <Bill
               totalamount={totalAmount}
               discount={discountedAmount}

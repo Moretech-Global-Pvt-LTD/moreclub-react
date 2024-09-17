@@ -28279,6 +28279,74 @@ span {
  
 }
 
+.bill-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    [data-theme="dark"] .bill-container {
+   background-color: #282828;
+  
+}
+
+    .bill-header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .bill-title {
+      font-size: 1.5em;
+      margin-bottom: 4px;
+    }
+
+    .bill-address,
+    .bill-code {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .bill-items {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+      padding:4px;
+      margin-bottom:4px;
+      
+    }
+
+    .bill-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom:2px;
+    }
+
+    .bill-item-name {
+      font-size:14px;
+      font-weight: bold;
+    }
+    .bill-item-price {
+      font-size:14px;
+      
+    }
+
+    .bill-print {
+      background-color: #00bfff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .bill-print:hover {
+      background-color: #0099cc;
+    }
+
 
 
 

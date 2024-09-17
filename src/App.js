@@ -98,7 +98,7 @@ import UserPage from "./pages/moreclub/Resturant/Gallery/UserGalleryPage";
 import OpeninghoursPage from "./pages/moreclub/Resturant/openinghours/OpeninghoursPage";
 import Failed from "./pages/Points/buy/Failed";
 import FeedPage from "./pages/feed/feedPage";
-// import DisableDevtool from "disable-devtool";
+import DisableDevtool from "disable-devtool";
 
 
 
