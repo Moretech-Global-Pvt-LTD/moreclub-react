@@ -7,7 +7,8 @@ const Bill = (props) => {
     const business = useSelector((state)=>state.businessReducer)
 
     
-    const handlePrint = () => {
+  const handlePrint = () => {
+      console.log("printing");
       const content = document.getElementById("bill-receipt").innerHTML;
       const printFrame = document.createElement('iframe');
     
@@ -22,32 +23,53 @@ const Bill = (props) => {
       frameDocument.write('<html><head><title>Print</title>');
     
       // Clone the styles from the original document
-      Array.from(document.styleSheets).forEach((styleSheet) => {
-        try {
-          if (styleSheet.cssRules) { // for <style> and <link> elements
-            const newStyleEl = document.createElement('style');
+      // Array.from(document.styleSheets).forEach((styleSheet) => {
+      //   try {
+      //     if (styleSheet.cssRules) { // for <style> and <link> elements
+      //       const newStyleEl = document.createElement('style');
     
-            Array.from(styleSheet.cssRules).forEach((cssRule) => {
-              newStyleEl.appendChild(document.createTextNode(cssRule.cssText));
-            });
+      //       Array.from(styleSheet.cssRules).forEach((cssRule) => {
+      //         newStyleEl.appendChild(document.createTextNode(cssRule.cssText));
+      //       });
     
-            frameDocument.head.appendChild(newStyleEl);
-          }
-        } catch (e) {
-          console.error(e);
+      //       frameDocument.head.appendChild(newStyleEl);
+      //     }
+      //   } catch (e) {
+      //     console.error(e);
+      //   }
+      // });
+
+    const styles = Array.from(document.styleSheets).map(styleSheet => {
+      try {
+        if (styleSheet.cssRules) {
+          return Array.from(styleSheet.cssRules).map(cssRule => cssRule.cssText).join('\n');
         }
-      });
+      } catch (e) {
+        console.error("Error reading stylesheet:", e);
+        return '';
+      }
+      return '';
+    }).join('\n');
+
+    frameDocument.write(`<style>${styles}</style>`);
     
       frameDocument.write('</head><body>');
       frameDocument.write(content);
       frameDocument.write('</body></html>');
       frameDocument.close();
     
-      frameDoc.focus();
-      frameDoc.print();
-    
+    setTimeout(() => {
+      frameDoc.focus(); // Focus on the iframe
+      frameDoc.print(); // Trigger the print dialog
+
+      // Clean up by removing the iframe after printing
       document.body.removeChild(printFrame);
-    };
+    }, 100); // 100ms delay to ensure rendering is complete
+  };
+      // frameDoc.print();
+    
+      // document.body.removeChild(printFrame);
+    // };
 
     // const handlePrint = () => {
     //     const content = document.getElementById('bill-receipt').innerHTML;
@@ -56,7 +78,28 @@ const Bill = (props) => {
     //     document.body.innerHTML = content;
     //     window.print();
     //     document.body.innerHTML = originalDocument;
-    //   };
+    // };
+  
+  // const handlePrint = () => {
+  //   const content = document.getElementById("bill-receipt").innerHTML;
+
+  //   const printArea = document.createElement('div');
+  //   printArea.id = 'printArea';
+  //   printArea.style.display = 'none'; // Hide the div
+  //   printArea.innerHTML = content;
+
+  //   document.body.appendChild(printArea);
+
+  //   const originalContents = document.body.innerHTML;
+  //   document.body.innerHTML = printArea.innerHTML;
+
+  //   window.print();  // Trigger the print dialog
+
+  //   // Revert the body content after printing
+  //   document.body.innerHTML = originalContents;
+  //   // document.body.removeChild(printArea);  // Clean up the print area div
+  // };
+
 
   return (
     <div>
