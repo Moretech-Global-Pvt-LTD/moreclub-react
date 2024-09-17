@@ -4,10 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { update_business_detail } from "../../../redux/api/loginAPI";
 import { message } from "antd";
 import { alertNotification } from "../../../redux/api/notification";
-import AddressInputWithAutocomplete from "../../../components/Googlemap/LocationInputonly";
 import MapBoxLocationDisplayAutocomplete from "../../../components/Googlemap/MapLocationInput";
 import MapboxComponent from "../../../components/Googlemap/MapboxComponent";
-import MapBoxLocationOnlyAutocomplete from "../../../components/Googlemap/MapLocationOnly";
 
 const BusinessUpdatePage = ({ business }) => {
   const dispatch = useDispatch();
@@ -73,7 +71,7 @@ const BusinessUpdatePage = ({ business }) => {
   const handleCompanyNameValidation = async (event) => {
     const value = event.target.value;
     if (value.trim() === "") {
-      setcompanyNameError("Comapny Name is Required");
+      setcompanyNameError("Company Name is Required");
     } else {
       //   await dispatch(updateFormData({ "business_name": companyName }));
       setcompanyNameError("");
@@ -278,9 +276,9 @@ const BusinessUpdatePage = ({ business }) => {
               <p className="text-danger">{bussinessEmailError}</p>
             )}
           </Form.Group>
-
+            
           <button
-            className="btn btn-primary m-4"
+              className="btn btn-warning w-100  mt-3 rounded-pill"
             type="submit"
             disabled={
               companyName.trim() === "" ||
@@ -291,6 +289,9 @@ const BusinessUpdatePage = ({ business }) => {
               registrationNumberError !== ""
             }
           >
+            {/* {loading && <span className="spinner-border spinner-border-sm me-1"></span>} */}
+            <i className="bi bi-sd-card-fill me-1" />
+
             Update Business
           </button>
         </Form>

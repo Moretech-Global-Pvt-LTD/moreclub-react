@@ -14,7 +14,7 @@ export async function getPlaces(query) {
                 },
             }
         );
-        
+
         return response.data.features;
     } catch (error) {
         console.error("There was an error while fetching places:", error);
@@ -64,23 +64,26 @@ export default function AutoCompleteInput({
     };
 
     return (
-        <div>
-            <div className="autoCompleteInputContainer">
-                <input
-                    id="address"
-                    type="text"
-                    placeholder="Address"
-                    className="form-control"
-                    value={streetAndNumber}
-                    onChange={handleChange}
-                />
-                <ul className="addressSuggestions">
-                    {suggestions?.map((suggestion, index) => (
-                        <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
-                            {suggestion.place_name}
-                        </li>
-                    ))}
-                </ul>
+        <div className="relative">
+            <input
+                id="address"
+                type="text"
+                placeholder="Address"
+                className="form-control"
+                value={streetAndNumber}
+                onChange={handleChange}
+            />
+            <div className="position-relative">
+                {suggestions.length > 0 && (
+                    <ul className="position-absolute map-suggestion-container">
+                        {suggestions?.map((suggestion, index) => (
+                            <li key={index} onClick={() => handleSuggestionClick(suggestion)} className="map-suggestions">
+                                {suggestion.place_name}
+                            </li>
+                        ))}
+
+                    </ul>
+                )}
             </div>
         </div>
     );

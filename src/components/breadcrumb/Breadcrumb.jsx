@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Breadcrumb(props) {
     const { breadcrumbTitle, breadcrumbNav } = props;
+    const navigate = useNavigate();
+
 
     const breadcrumbNavList = breadcrumbNav.map((item, index) => (
         <li className="breadcrumb-item text-capitalize" key={index}>
@@ -15,7 +17,9 @@ export default function Breadcrumb(props) {
         <div className="breadcrumb-wrapper">
             <div className="container">
                 <div className="breadcrumb-content">
-                    <h2 className="breadcrumb-title text-capitalize">
+                    <h2 className="breadcrumb-title text-capitalize d-flex gap-2 align-items-center">
+                        <span onClick={() => navigate(-1)} style={{cursor:"pointer"}}><i class="bi bi-arrow-left text-dynamic-white"></i></span>
+
                         {breadcrumbTitle}
                     </h2>
                     <nav aria-label="breadcrumb">
