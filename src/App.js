@@ -333,10 +333,10 @@ const App = () => {
   ];
 
   const businessRoutes = [
-    // {
-    //   path: "/billing",
-    //   page: <BillingPage />,
-    // },
+    {
+      path: "/billing",
+      page: <BillingPage />,
+    },
     {
       path: "/business-transactions",
       page: <BusinessTransaction />,
