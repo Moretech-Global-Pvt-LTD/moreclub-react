@@ -19,7 +19,7 @@ import { getBusinessProfile } from "./userDetailAPI";
 import { loadMembershipType } from "./membershipTypeAPI";
 import { loadUserPermissions } from "./PermissionsAPI";
 import { CurrencySet } from "./CurrencyConvertorAPI";
-import { setupNotifications } from "../../utills/firebase";
+// import { setupNotifications } from "../../utills/firebase";
 // import { setupNotifications } from "../../utills/firebase";
 
 export const load_user = () => async (dispatch) => {
@@ -61,7 +61,7 @@ export const login = (username, password ,next) => async (dispatch) => {
       await dispatch(getBusinessProfile());
       await dispatch(loadUserPermissions());
       await dispatch(setProcessing(false));
-      await setupNotifications()
+      // await setupNotifications()
       localStorage.removeItem("otp_username");
       return res;
     } catch (err) {
@@ -198,7 +198,7 @@ export const otpVerify = (username, code , callbackUrl) => async (dispatch) => {
       await dispatch(CurrencySet());
       await dispatch(loadMembershipType());
       await dispatch(getBusinessProfile());
-      await setupNotifications();
+      // await setupNotifications();
     }
     return res;
   } catch (err) {

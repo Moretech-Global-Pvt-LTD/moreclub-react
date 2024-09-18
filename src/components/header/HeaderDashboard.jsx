@@ -18,7 +18,7 @@ import { setMembershipType, userSuccess } from "../../redux/slices/userSlice";
 import { useQuery } from "@tanstack/react-query";
 import { CurrencySet } from "../../redux/api/CurrencyConvertorAPI";
 import { Placeholder } from "react-bootstrap";
-import Notification from "../Notifications/Notification";
+// import Notification from "../Notifications/Notification";
 
 const HeaderDashboard = () => {
   let [check] = useState(true);
@@ -191,7 +191,7 @@ const HeaderDashboard = () => {
                   {wallet.wallet?.balance ?? "0.00"}
                 </span>
               </Link>
-              <Notification/>
+              {/* <Notification/> */}
               {/* notification */}
               <Dropdown className="user-dropdown me-2 points-show">
                 <Dropdown.Toggle className="user-btn" id="userDropdown">
