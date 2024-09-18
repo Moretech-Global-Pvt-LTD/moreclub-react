@@ -97,7 +97,6 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
     dispatch(currentStep(value));
     setBusinessRegistration(false);
   };
-  console.log("formData", formData);
 
   return (
     <>
