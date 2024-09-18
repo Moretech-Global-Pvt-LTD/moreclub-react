@@ -18,10 +18,7 @@ const BusinessDiscountsForm = ({ handleSubmit, loading }) => {
   );
 
   const [options, setOptions] = useState([]);
-
-
-  // const user = useSelector((state) => state.userReducer);
-
+ 
   // setting options for the BusinessTypes
   const bt = useSelector((state) => state.businessReducer);
   useEffect(() => {
@@ -101,7 +98,6 @@ const BusinessDiscountsForm = ({ handleSubmit, loading }) => {
             step={0.01}
             className="w-full"
             placeholder="Discount in percentge"
-            // style={{ backgroundColor:"transparent", border:"#fff" , marginLeft:"10px"}}
             value={
               selectedBusinessDiscounts.find(
                 (d) => d.business_type === type.value

@@ -1,9 +1,8 @@
 import {useNavigate } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
-// import { change_password } from "../../redux/api/loginAPI";
+import { change_password } from "../../redux/api/loginAPI";
 import { useDispatch } from "react-redux";
-// import PasswordchangeImage from "../../images/auth/login.png"
 import { message } from "antd";
 
 const ForgetPasswordChange = () => {
@@ -19,14 +18,13 @@ const ForgetPasswordChange = () => {
             new_password1: inputPassword1,
             new_password2: inputPassword2,
         };
-        console.log(formData)
-        // const res = dispatch(change_password(formData));
-        // if(res){
-        //     message.success("Password changed");
-        //     navigate("/dashboard");
-        //   }else{
-        //     message.error("Error changing password");
-        //   }
+        const res = dispatch(change_password(formData));
+        if(res){
+            message.success("Password changed");
+            navigate("/dashboard");
+          }else{
+            message.error("Error changing password");
+          }
     }
   return (
     

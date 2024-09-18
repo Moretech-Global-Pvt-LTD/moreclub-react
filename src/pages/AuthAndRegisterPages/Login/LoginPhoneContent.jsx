@@ -6,7 +6,6 @@ import Form from "react-bootstrap/Form";
 import { login } from "../../../redux/api/loginAPI";
 import axios from "axios";
 import { baseURL } from "../../../config/config";
-import { useDebounce } from "../../../Hooks/useDebounce";
 import { message } from "antd";
 
 import { useCookies } from "react-cookie";
@@ -26,15 +25,7 @@ const LoginPhoneContent = (props) => {
 
   const [phone_number, setPhoneNumber] = useState("");
   const [prefixs, setPrefixs] = useState("+46");
-  // const [country, setCountry]= useState("Sweden");
-  // const [countryCode, setContryCode]= useState("SE")
-
-  // const [phoneInputInfo, setphoneInputInfo] = useState({
-  //   phone_number: phone_number ?? "",
-  //   phone_prefix: prefixs ?? "+46",
-  //   // country: country ?? "Sweden",
-  //   // country_code: countryCode ?? "SE",
-  // });
+ 
 
   const validatePhoneNumber = async (phone) => {
     if(!phone.match(/^[0-9]+$/)) return "";
@@ -112,26 +103,6 @@ const LoginPhoneContent = (props) => {
 
   };
 
-  // const handlePhoneNumberDataChange = ({
-  //   fullNumber,
-  //   prefix,
-  //   phone,
-  //   country,
-  //   countryCode,
-  // }) => {
-  //   setPhoneNumber(phone);
-  //   setCountry(country);
-  //   setContryCode(countryCode);
-  //   setPrefixs(prefix);
-  //   setphoneInputInfo({
-  //     phone_number: phone,
-  //     phone_prefix: prefix,
-  //     country: country,
-  //     country_code: countryCode,
-  //   });
-  //   validatePhoneNumber(phone_number, prefix);
-  // };
-
 
   return (
     <div className="register-form mt-5">
@@ -146,17 +117,6 @@ const LoginPhoneContent = (props) => {
           {phoneError && <p className="text-danger">{phoneError}</p>}
         </Form.Group>
 
-        {/* <PhoneNumberInput
-          label={"Phone Number"}
-          phoneNumber={phone_number}
-          prefixs={prefixs}
-          setPhoneError={setPhoneError}
-          phoneError={phoneError}
-          handlePhoneNumberChange={handlePhoneNumberChange}
-          formDatas={phoneInputInfo}
-          setFormData={setphoneInputInfo}
-          onPhoneNumberChange={handlePhoneNumberDataChange} // Pass the callback function
-        /> */}
 
         <Form.Group className="mb-4 form-group">
           <label

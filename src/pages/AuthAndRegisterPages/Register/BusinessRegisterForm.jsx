@@ -71,7 +71,6 @@ const BusinessRegisterForm = ({ setBusinessRegistration }) => {
         business_email: formData.email,
         business_phone: formData.phone_number,
         business_registration_number: formData.business_registration_number,
-        // business_document : formData.business_document.File
       },
       business_discount: formData.business_discount,
     };
@@ -109,7 +108,6 @@ const BusinessRegisterForm = ({ setBusinessRegistration }) => {
             loading={loading}
           />
         )}
-        {/* {step.businessStep === 3 && <BusinessDocumentForm handleSubmit={handleSubmitWithBusiness}/>} */}
       </div>
     </div>
   );

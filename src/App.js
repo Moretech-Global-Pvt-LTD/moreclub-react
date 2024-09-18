@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import ScrollToTop from "react-scroll-to-top";
 import { load_user, logout } from "./redux/api/loginAPI";
@@ -98,7 +98,7 @@ import UserPage from "./pages/moreclub/Resturant/Gallery/UserGalleryPage";
 import OpeninghoursPage from "./pages/moreclub/Resturant/openinghours/OpeninghoursPage";
 import Failed from "./pages/Points/buy/Failed";
 import FeedPage from "./pages/feed/feedPage";
-import DisableDevtool from "disable-devtool";
+// import DisableDevtool from "disable-devtool";
 
 
 
@@ -113,7 +113,7 @@ const App = () => {
   const user = useSelector((state) => state.userReducer);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const key = GoogleAnalytics;
-  Notification.requestPermission();
+  // Notification.requestPermission();
  
   // DisableDevtool({
   //   url:'https://_blank',
@@ -207,14 +207,14 @@ const App = () => {
     getMetadatas();
   }, [dispatch]);
 
-  useEffect(() => { 
-     if (typeof importScripts !== "function") {
-       console.warn(
-         `You're trying to run service-worker.js file on non-worker scope. Please check your framework build and make sure you're running your service worker file once on WorkerGlobalScope.`
-       );
-       return;
-     }
-  }, [])
+  // useEffect(() => { 
+  //    if (typeof importScripts !== "function") {
+  //      console.warn(
+  //        `You're trying to run service-worker.js file on non-worker scope. Please check your framework build and make sure you're running your service worker file once on WorkerGlobalScope.`
+  //      );
+  //      return;
+  //    }
+  // }, [])
   
 
   const authRoutes = [

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import {
@@ -165,30 +165,7 @@ const UserBasicForm = () => {
 
   };
 
-  // const handlePhoneNumberDataChange = ({
-  //   fullNumber,
-  //   prefix,
-  //   phone,
-  //   country,
-  //   countryCode,
-  // }) => {
-  //   dispatch(
-  //     updateFormData({
-  //       phone_number: phone,
-  //       phone_prefix: prefix,
-  //       country: country,
-  //       country_code: countryCode,
-  //     })
-  //   );
-  //   setPrefixs(prefix);
-  //   setphoneInputInfo({
-  //     phone_number: phone,
-  //     phone_prefix: prefix,
-  //     country: country,
-  //     country_code: countryCode,
-  //   });
-  //   handlePhoneCheck(phone_number, prefix);
-  // };
+
 
   return (
     <>
@@ -226,17 +203,7 @@ const UserBasicForm = () => {
         />
         {emailError && <p className="text-danger">{emailError}</p>}
       </Form.Group>
-      {/* <PhoneNumberInput
-        label={"Phone Number"}
-        phoneNumber={phone_number}
-        prefixs={prefixs}
-        setPhoneError={setPhoneError}
-        phoneError={phoneError}
-        handlePhoneNumberChange={handlePhoneNumberChange}
-        formDatas={phoneInputInfo}
-        setFormData={setphoneInputInfo}
-        onPhoneNumberChange={handlePhoneNumberDataChange} // Pass the callback function
-      /> */}
+    
       <Form.Group className="register-form-container">
         <Form.Label>Phone Number</Form.Label>
         <PhoneNumberInput
@@ -246,64 +213,6 @@ const UserBasicForm = () => {
         {phoneError && <p className="text-danger">{phoneError}</p>}
       </Form.Group>
 
-
-
-      {/* <Form.Group className="register-form-container">
-        <Form.Label>Phone Number</Form.Label>
-        <div className="d-flex  align-items-center " style={{ width: "100%" }}>
-          <Form.Control
-            as="select"
-            value={chooseCountry}
-            onChange={handleCountryChange}
-            // onBlur={handleCountryValidation}
-
-            style={{ width: "4rem", backgroundColor: "transparent" }}
-            className="text-dynamic-white focus-select "
-            required
-          >
-            {countryList &&
-              countryList.map((cou) => (
-                <option value={cou.code}>
-                  <img
-                    src={cou.icon}
-                    alt={`flag-${cou.name}`}
-                    style={{ width: "6px", height: "6px" }}
-                  />
-                  <span>{cou.code}</span>
-                </option>
-              ))}
-          </Form.Control>
-          <Form.Control
-            type="text"
-            readOnly
-            name="prefix"
-            value={prefix}
-            className="text-dynamic-white"
-            style={{
-              
-              width: "3rem",
-              paddingBottom: "6px",
-              paddingTop: "6px",
-              borderRight:"0px",
-              borderTopRightRadius:"0px", borderBottomRightRadius:"0px",
-              paddingRight:"0px",
-              marginRight:"0px",
-              backgroundColor:"transparent"
-            }}
-          />
-
-          <Form.Control
-            type="text"
-            placeholder="Enter phone number"
-            required
-            onChange={handlePhoneNumberChange}
-            onBlur={(e) => handlePhoneCheck(e.target.value)}
-            value={phone_number}
-            style={{borderLeft:"0px", borderTopLeftRadius:"0px", borderBottomLeftRadius:"0px", paddingLeft:"0px"}}
-          />
-        </div>
-        {phoneError && <p className="text-danger">{phoneError}</p>}
-      </Form.Group> */}
       <Form.Group className="register-form-container">
         <Form.Label>Gender</Form.Label>
         <div>
