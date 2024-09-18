@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import GalleryContent from './GalleryContent';
 
 const GalleryPage = () => {
-    const { res_id, slug } = useParams();
+    const {  slug } = useParams();
     const name = slug.replace("-", " ");
   return (
     <DashboardLayout title={`${name} Gallery`}>

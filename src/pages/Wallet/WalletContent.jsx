@@ -1,48 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, } from "react";
 
-// import { Link } from "react-router-dom";
+
 import Wallet from "../../images/wallet/coins.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getWallet } from "../../redux/api/wallets";
-// import { axiosInstance } from "../..";
-// import { baseURL } from "../../config/config";
-// import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
+
 import Walletlinks from "../../components/dashboard/Walletlinks";
 
 import WalletAlertNotification from "../../components/alert_notification/WalletAlerts";
+// import Websockettest from "../../components/socket/websockettest";
 
 const WalletContent = () => {
   const dispatch = useDispatch();
   const wallets = useSelector((state) => state.walletReducer);
-  // const currencyData = useSelector(
-  //   (state) => state.currencyReducer.currencyDetail
-  // );
-  // const [currency, setCurrency] = useState("");
-  // const [rate, setRate] = useState(0);
-
-  // useEffect(() => {
-  //   const fetchUserCurrency = async () => {
-  //     try {
-  //       const res = await axiosInstance.get(`${baseURL}user/currency/`);
-  //       if (res.data.data && res.data.data.length > 0) {
-  //         const matchedCurrency = res.data.data.find(
-  //           (bt) => bt.default === true
-  //         );
-       
-  //         const currency_res = await currencyConvertor(
-  //           res.data.data.code,
-  //           currencyData.currencyCode
-  //         );
-        
-  //       }
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   fetchUserCurrency();
-  // }, []);
-
+ 
   useEffect(() => {
     dispatch(getWallet());
   }, [dispatch]);
@@ -61,13 +32,7 @@ const WalletContent = () => {
       <div className="row mt-4">
         <div className=" col-12 col-md-4  card shadow mb-5">
           <div className="card-body text-start p-4 position-relative">
-            {/* <p
-            className="text-warning text-end position-absolute top-0 end-0 "
-            style={{ fontSize: "12px" }}
-          >
-            {walletInfo[0].currency}&nbsp;1 = {currencyData.symbol}&nbsp;
-            {rate?.toFixed(3)}{" "}
-          </p> */}
+          
             <h6 className="mb-2">username: {walletInfo[0].userName}</h6>
             <h5 className="mb-0 row text-dark d-flex align-items-center justify-content-center">
               <img
@@ -85,6 +50,7 @@ const WalletContent = () => {
           </div>
         </div>
         <div className="col-12 col-md-4">
+          {/* <Websockettest/> */}
           {/* <div className="card text-white p-4 "> */}
           {/* <Link to={"/points/send"}>
             <h6 className=" mt-2 mb-2  pb-2 border-bottom ">

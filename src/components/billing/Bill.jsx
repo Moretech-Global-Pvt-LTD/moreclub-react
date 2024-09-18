@@ -155,78 +155,59 @@ const Bill = (props) => {
 
     // Inline styles for print media
     const printStyles = `
-      
-
-    .bill-container {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-
-   
-
-    .bill-header {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .bill-title {
-      font-size: 1.5em;
-      margin-bottom: 4px;
-    }
-
-    .bill-address,
-    .bill-code {
-      font-size: 1rem;
-      margin-bottom: 4px;
-    }
-
-    .bill-items {
-      display: flex;
-      flex-direction: column;
-      border-top: 1px solid black;
-      border-bottom: 1px solid black;
-      padding:4px;
-      margin-bottom:4px;
-      
-    }
-
-    .bill-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom:2px;
-    }
-
-    .bill-item-name {
-      font-size:14px;
-      font-weight: bold;
-    }
-    .bill-item-price {
-      font-size:14px;
-      
-    }
-
-    .bill-print {
-      background-color: #00bfff;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .bill-print:hover {
-      background-color: #0099cc;
-    }
+    <style>
+      @media print {
+        body {
+          -webkit-print-color-adjust: exact;
+          margin: 0;
+        }
+        .bill-container {
+          background-color: #fff;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .bill-header {
+          text-align: center;
+          margin-bottom: 10px;
+        }
+        .bill-title {
+          font-size: 1.5em;
+          margin-bottom: 4px;
+        }
+        .bill-address, .bill-code {
+          font-size: 1rem;
+          margin-bottom: 4px;
+        }
+        .bill-items {
+          display: flex;
+          flex-direction: column;
+          border-top: 1px solid black;
+          border-bottom: 1px solid black;
+          padding: 4px;
+          margin-bottom: 4px;
+        }
+        .bill-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 2px;
+        }
+        .bill-item-name {
+          font-size: 14px;
+          font-weight: bold;
+        }
+        .bill-item-price {
+          font-size: 14px;
+        }
+        .bill-print {
+          display: none; /* Hide the print button during printing */
+        }
       }
-    `;
+    </style>
+  `;
 
-    
-
-    frameDocument.write(`<style>${printStyles}</style>`);
+    frameDocument.write(printStyles);
     frameDocument.write('</head><body>');
     frameDocument.write(content);
     frameDocument.write('</body></html>');
@@ -243,25 +224,6 @@ const Bill = (props) => {
 
   return (
     <div>
-      {/* <div id="bill-receipt" className='bg-white text-dynamic-white p-4'>
-        <h3 className='text-center mb-0'>{business.businessProfile.business_name}</h3>
-        <p className='text-center mt-0 mb-0'>{business.businessProfile.business_address}</p>
-        <p className='text-center mt-0 mb-3'>{business.businessProfile.business_registration_number}</p>
-        <div className='border-top p-2 '>
-          <div className='d-flex justify-content-between'>
-            <span>Total amount</span>
-            <span>{currency}&nbsp;{totalamount}</span>
-          </div>
-          <div className='d-flex justify-content-between'>
-            <span>Discount</span>
-            <span>{currency}&nbsp;{discount}</span>
-          </div>
-          <div className='d-flex fw-bold justify-content-between border-top mt-2 pt-2'>
-            <span>Grand Total</span>
-            <span>{currency}&nbsp;{grandTotal}</span>
-          </div>
-        </div>
-      </div> */}
       <div id="bill-receipt" className="bill-container" ref={billRef}>
         <div className="bill-header">
           <h1 className="bill-title">{business.businessProfile.business_name}</h1>

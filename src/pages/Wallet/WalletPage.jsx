@@ -9,7 +9,6 @@ import { baseURL } from "../../config/config";
 import { axiosInstance } from "../..";
 import { useQuery } from "@tanstack/react-query";
 import TransactionPinForm from "../../components/points/TransactionPinForm";
-import { Placeholder } from "react-bootstrap";
 import { WalletSkeleton } from "../../components/Skeleton/SmallCardSkeleton";
 
 const Wallet = () => {

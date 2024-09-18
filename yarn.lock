@@ -10658,6 +10658,16 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
+reconnecting-websocket-ts@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.npmjs.org/reconnecting-websocket-ts/-/reconnecting-websocket-ts-4.5.0.tgz"
+  integrity sha512-Md9S7qf0aQGtZj5gP7gYW6PvhTyH+cjXWCSbFOto/FVnlYyldZw3ma8q8p9YD8NuVkbO7cme+at6ALpKXkjsKw==
+
+reconnecting-websocket@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.npmjs.org/reconnecting-websocket/-/reconnecting-websocket-4.4.0.tgz"
+  integrity sha512-D2E33ceRPga0NvTDhJmphEgJ7FUYF0v4lr1ki0csq06OdlxKfugGzN0dSkxM/NfqCxYELK4KcaTOUOjTV6Dcng==
+
 recursive-readdir@^2.2.2:
   version "2.2.3"
   resolved "https://registry.npmjs.org/recursive-readdir/-/recursive-readdir-2.2.3.tgz"

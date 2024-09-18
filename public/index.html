@@ -218,6 +218,33 @@
   s0.parentNode.insertBefore(s1,s0);
   })();
   </script>
+
+    <script type="text/javascript">
+    // Wait for the Tawk.to widget to load fully
+    var Tawk_API = Tawk_API || {};
+    
+    Tawk_API.onLoad = function() {
+      // Check for the button with specific styles that controls the position
+      var chatWidgetButton = document.querySelector('button[style*="position: absolute"]');
+      
+      if (chatWidgetButton) {
+        // Adjust the position by modifying the 'bottom' and 'left' inline styles
+        chatWidgetButton.style.bottom = '40px';  // Move the widget upward by 40px
+        chatWidgetButton.style.left = '20px';    // Optional: Adjust horizontal position if needed
+      }
+
+      // Fallback if it's not immediately available
+      else {
+        setTimeout(function() {
+          var chatWidgetButton = document.querySelector('button[style*="position: absolute"]');
+          if (chatWidgetButton) {
+            chatWidgetButton.style.bottom = '40px';  // Adjust the vertical position
+            chatWidgetButton.style.left = '20px';    // Optional: Adjust horizontal position
+          }
+        }, 3000); // Try again after 3 seconds
+      }
+    };
+  </script>
   <!--End of Tawk.to Script-->
 
     </div>

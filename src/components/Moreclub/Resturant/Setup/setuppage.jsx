@@ -1,11 +1,11 @@
 import React from "react";
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
-import Menu from "../../../../images/moreclub/menus.png";
-import Offers from "../../../../images/moreclub/offers.png";
-import Orders from "../../../../images/moreclub/orders.png";
-import Gallery from "../../../../images/moreclub/galleries.png";
-import Cuisine from "../../../../images/moreclub/cuisine.png";
-import Working from "../../../../images/moreclub/workinghour.png";
+// import Menus from "../../../../images/moreclub/menus.png";
+// import Offer from "../../../../images/moreclub/offers.png";
+// import Order from "../../../../images/moreclub/orders.png";
+// import Galleries from "../../../../images/moreclub/galleries.png";
+// import Cuisines from "../../../../images/moreclub/cuisine.png";
+// import Workings from "../../../../images/moreclub/workinghour.png";
 
 import { Link, useParams } from "react-router-dom";
 
@@ -72,7 +72,7 @@ const Setuppage = ({ data }) => {
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
-                  src={Menu}
+                  src={'/images/moreclub/morefood/menus.png'}
                   alt="menu"
                   className="px-2 py-1 rounded  "
                   style={{ height: "5rem", width: "5rem" }}
@@ -92,8 +92,8 @@ const Setuppage = ({ data }) => {
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
-                  src={Cuisine}
-                  alt="menu"
+                  src={'/images/moreclub/morefood/cuisine.png'}
+                  alt="cuisine"
                   className="px-2 py-1 rounded "
                   style={{ height: "5rem", width: "5rem" }}
                 />
@@ -112,8 +112,8 @@ const Setuppage = ({ data }) => {
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
-                  src={Offers}
-                  alt="menu"
+                  src={'/images/moreclub/morefood/offers.png'}
+                  alt="offer"
                   className="px-2 py-1 rounded "
                   style={{ height: "5rem", width: "5rem" }}
                 />
@@ -132,8 +132,8 @@ const Setuppage = ({ data }) => {
             <Card className="p-2 px-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
-                  src={Orders}
-                  alt="menu"
+                  src={'/images/moreclub/morefood/orders.png'}
+                  alt="orders"
                   className="  rounded "
                   style={{ height: "5rem", width: "5rem" }}
                 />
@@ -152,8 +152,8 @@ const Setuppage = ({ data }) => {
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
-                  src={Gallery}
-                  alt="menu"
+                  src={'/images/moreclub/morefood/galleries.png'}
+                  alt="gallery"
                   className="px-2 py-1 rounded "
                   style={{ height: "5rem", width: "5rem" }}
                 />
@@ -172,8 +172,8 @@ const Setuppage = ({ data }) => {
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
-                  src={Working}
-                  alt="menu"
+                  src={'/images/moreclub/morefood/workinghour.png'}
+                  alt="working"
                   className="px-2 py-1 rounded "
                   style={{ height: "5rem", width: "5rem" }}
                 />

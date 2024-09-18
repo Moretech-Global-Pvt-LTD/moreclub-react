@@ -5,7 +5,6 @@ import { useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '../../..';
 import { morefoodURL } from '../../../config/config';
 import { useParams } from 'react-router-dom';
-import { Placeholder } from 'react-bootstrap';
 import RestaurantLayoutSkeleton from '../../../components/Skeleton/RestaurantLayout';
 
 const Setup = () => {
