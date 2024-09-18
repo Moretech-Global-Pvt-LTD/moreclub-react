@@ -64,12 +64,13 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
   };
 
   const handlePlaceSelected = async (place, address) => {
+    console.log("place", place, address);
     setAddress(address);
     setlat(place.lat);
     setlng(place.lon);
-    await dispatch(updateFormData({ business_address: address }));
-    await dispatch(updateFormData({ lat: place.lat }));
-    await dispatch(updateFormData({ lng: place.lon }));
+    await dispatch(updateFormData({ "business_address": address }));
+    await dispatch(updateFormData({ "lat": place.lat }));
+    await dispatch(updateFormData({ "lng": place.lon }));
   };
 
   // for handleAddress
@@ -96,6 +97,7 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
     dispatch(currentStep(value));
     setBusinessRegistration(false);
   };
+  console.log("formData", formData);
 
   return (
     <>
