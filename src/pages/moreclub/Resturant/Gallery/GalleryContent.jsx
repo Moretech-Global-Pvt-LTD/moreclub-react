@@ -21,7 +21,7 @@ const GalleryContent = () => {
           <Col className="">
             <Link to={`/resturant/${res_id}/gallery/${slug}/restaurant`} className="card bg-secondary">
               <Image
-                src={Restaurant}
+                src={'/images/moreclub/morefood/Restaturant.png'}
                 alt="Restaurant Gallery"
                 className="px-0"
               />
@@ -35,7 +35,7 @@ const GalleryContent = () => {
           <Col className=" ">
             <Link to={`/resturant/${res_id}/gallery/${slug}/user-upload`} className="card bg-secondary">
               <Image
-                src={User}
+                src={`/images/moreclub/morefood/user.png`}
                 alt="User Gallery"
                 className=""
               />
