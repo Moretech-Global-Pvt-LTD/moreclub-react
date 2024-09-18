@@ -65,11 +65,9 @@ root.render(
       <ScrollTop />
       <Provider store={store}>
         <CookiesProvider defaultSetOptions={{ path: "/" }}>
-          
             <QueryClientProvider client={queryClient}>
               <App />
             </QueryClientProvider>
-         
         </CookiesProvider>
       </Provider>
     </BrowserRouter>
