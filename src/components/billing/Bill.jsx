@@ -129,16 +129,18 @@
 
 // export default Bill;
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 const Bill = (props) => {
   const { totalamount, discount, grandTotal, currency } = props;
   const business = useSelector((state) => state.businessReducer);
+  const billRef = useRef();
 
   const handlePrint = () => {
     console.log("printing");
-    const content = document.getElementById("bill-receipt").innerHTML;
+    // const content = document.getElementById("bill-receipt").innerHTML;
+    const content = billRef.current.innerHTML;
     const printFrame = document.createElement('iframe');
 
     printFrame.style.position = 'absolute';
@@ -260,27 +262,27 @@ const Bill = (props) => {
           </div>
         </div>
       </div> */}
-      <div id="bill-receipt" className="bill-container">
+      <div id="bill-receipt" className="bill-container" ref={billRef}>
         <div className="bill-header">
-          <h1 className="bill-title">NL Corp</h1>
-          <p className="bill-address">6X7G+64V, Pokhara 33700, Nepal</p>
-          <p className="bill-code">ASDF12345</p>
+          <h1 className="bill-title">{business.businessProfile.business_name}</h1>
+          <p className="bill-address">{business.businessProfile.business_address}</p>
+          <p className="bill-code">{business.businessProfile.business_registration_number}</p>
         </div>
         <div className="bill-items">
           <div className="bill-item">
             <p className="bill-item-name">Total amount</p>
-            <p className="bill-item-price">NPR 0</p>
+            <p className="bill-item-price">{currency}&nbsp;{totalamount}</p>
           </div>
           <div className="bill-item">
             <p className="bill-item-name">Discount</p>
-            <p className="bill-item-price">NPR 0</p>
+            <p className="bill-item-price">{currency}&nbsp;{discount}</p>
           </div>
           
         </div>
         <div className="bill-item">
             <p className="bill-item-name">Grand Total</p>
-            <p className="bill-item-price">NPR 0</p>
-          </div>
+          <p className="bill-item-price">{currency}&nbsp;{grandTotal}</p>
+        </div>
        
       </div>
     <button className="bill-print" onClick={handlePrint}>Print Bill</button>
