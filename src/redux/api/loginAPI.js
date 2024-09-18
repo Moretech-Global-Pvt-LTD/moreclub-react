@@ -32,6 +32,7 @@ export const load_user = () => async (dispatch) => {
       await dispatch(setLoading(false));
     } catch (err) {
       const error = err.response?.data?.code;
+      console.log(error);
       if (err.response.data.detail === "Invalid token.") {
         sessionStorage.removeItem("moretechglobal_access");
         dispatch(userFail());
@@ -272,6 +273,7 @@ export const update_profile = (formData) => async (dispatch) => {
       return res.data;
     } catch (err) {
       const res = err.response.data;
+      console.log(res);
       dispatch(userFail());
       dispatch(setLoading(false));
     }

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import DashboardLayout from "../../../components/Layout/DashboardLayout";
 import Unauthorized from "../../../components/unauthorized/unauthorized";
 import Loading from "../../../components/loading/loading";
-import { Placeholder } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { baseURL } from "../../../config/config";
 import { axiosInstance } from "../../..";

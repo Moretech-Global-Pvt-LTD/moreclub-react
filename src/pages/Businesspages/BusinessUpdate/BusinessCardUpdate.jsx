@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import {  Form } from "react-bootstrap";
 import { axiosInstance } from "../../..";
 import { baseURL } from "../../../config/config";
-import Paypal from "../../../images/Payments/Paypal.png";
 import {
   validateAccountName,
   validateCVC,

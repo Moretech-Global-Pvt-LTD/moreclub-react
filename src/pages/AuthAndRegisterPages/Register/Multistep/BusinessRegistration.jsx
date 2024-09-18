@@ -6,7 +6,6 @@ import {
   currentStep,
   updateFormData,
 } from "../../../../redux/slices/RegisterSlice";
-import AddressInputWithAutocomplete from "../../../../components/Googlemap/LocationInputonly";
 import MapBoxLocationOnlyAutocomplete from "../../../../components/Googlemap/MapLocationOnly";
 
 const BusinessBasicForm = ({ setBusinessRegistration }) => {
@@ -79,15 +78,15 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
   //   await dispatch(updateFormData({ "business_address": address }));
   // };
 
-  const handleAddressValidation = async (event) => {
-    const value = event.target.value;
-    if (value.trim() === "") {
-      setAddressError("Address is Required");
-    } else {
-      await dispatch(updateFormData({ business_address: address }));
-      setAddressError("");
-    }
-  };
+  // const handleAddressValidation = async (event) => {
+  //   const value = event.target.value;
+  //   if (value.trim() === "") {
+  //     setAddressError("Address is Required");
+  //   } else {
+  //     await dispatch(updateFormData({ business_address: address }));
+  //     setAddressError("");
+  //   }
+  // };
 
   const handleNextStep = (value) => {
     dispatch(currentBusinessStep(value));

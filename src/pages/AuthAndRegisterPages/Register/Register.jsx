@@ -38,7 +38,6 @@ export default function Register() {
         </nav>
         {/* <Divider /> */}
 
-        {/* <div className="divider-mobile" /> */}
         <div className="mt-4 mb-4 w-100" style={{ height: "100%" }}>
           <RegisterContent
             title="Create your free account"

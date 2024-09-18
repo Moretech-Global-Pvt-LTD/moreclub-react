@@ -7,7 +7,6 @@ import HeaderDashboard from "../../../components/header/HeaderDashboard";
 
 const GetMembership = () => {
 
-  // if (user.isAuthenticated) {
     return (
       <>
         <HeaderDashboard />

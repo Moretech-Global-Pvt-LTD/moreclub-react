@@ -9,7 +9,6 @@ const RegisterContent = (props) => {
   const nextParam = url.searchParams.get("next");
 
   return (
-    // <div className="d-flex w-100 mt-md-4 mt-lg-0" style={{ height: "70vh" }}>
     <div className="container">
       <div className="row g-4 g-lg-5 align-items-start justify-content-between">
         <div className="col-12 col-md-6 col-lg-6 col-xl-6  mt-0">
