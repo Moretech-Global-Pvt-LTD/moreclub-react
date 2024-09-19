@@ -1,12 +1,5 @@
 import React from "react";
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
-// import Menus from "../../../../images/moreclub/menus.png";
-// import Offer from "../../../../images/moreclub/offers.png";
-// import Order from "../../../../images/moreclub/orders.png";
-// import Galleries from "../../../../images/moreclub/galleries.png";
-// import Cuisines from "../../../../images/moreclub/cuisine.png";
-// import Workings from "../../../../images/moreclub/workinghour.png";
-
 import { Link, useParams } from "react-router-dom";
 
 const Setuppage = ({ data }) => {

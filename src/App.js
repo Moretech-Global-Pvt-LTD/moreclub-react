@@ -622,7 +622,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Routes>
+      <Routes basename="#">
         {publicRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.page} />
         ))}
@@ -688,6 +688,7 @@ const App = () => {
             />
           }
         />
+
         {resturant.map((route) => (
           <Route
             key={route.path}
@@ -702,6 +703,7 @@ const App = () => {
             }
           />
         ))}
+
         <Route path="*" element={<NotFound />} />
       </Routes>
       <div className={isSessionExpired ? "blur-background" : ""}>

@@ -1,66 +1,6 @@
-// import React, { useState } from 'react'
-// import { useEffect } from 'react';
-// import ReconnectingWebSocket from 'reconnecting-websocket';
-
-// const Websockettest = () => {
-//     const [message, setMessage] = useState();
-
-//     const client = new ReconnectingWebSocket(
-//         'ws://192.168.1.96:8000/ws/ride/'
-//     );
-
-//     useEffect(() => {
-        
-
-
-//         if (sessionStorage.getItem("moretechglobal_access")) {
-//             client.onopen = function () {
-//                 console.log("Group Chat Websoket Connected");
-              
-//             };
-
-//             client.onmessage = function (event) {
-//                 console.log("getting websocket message");
-//                 const data = JSON.parse(event.data);
-//                 console.log(data);
-
-
-//             };
-//             client.onclose = function () {
-//                 console.log("WebSocket Client disconnected");
-//             };
-        
-//         }
-    
-//     }, [client]);
-
-   
-
-//   return (
-//       <div>
-//           {/* <input
-//               type='text'
-//               placeholder="Enter Message"
-//               className='form-control'
-//               value={message}
-//               onChange={(e) => setMessage(e.target.value)}
-//           />
-
-//           <button
-//               className='btn btn-primary'
-//               onClick={() => sendMessage()}
-//           >
-//               Send
-//           </button> */}
-
-//     </div>
-//   )
-// }
-
-// export default Websockettest
-
 import React, { useState, useEffect, useRef } from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
+import { baseURL } from '../../config/config';
 
 const WebsocketTest = () => {
     const [message, setMessage] = useState('');
@@ -72,7 +12,7 @@ const WebsocketTest = () => {
 
         if (token) {
             // Initialize the WebSocket only if the token exists
-            wsRef.current = new ReconnectingWebSocket('ws://192.168.1.96:8000/ws/ride/');
+            wsRef.current = new ReconnectingWebSocket(`ws://${baseURL}/ws/ride/`);
             setWsStatus('Connecting...');
 
             wsRef.current.onopen = () => {
