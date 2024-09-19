@@ -11,7 +11,7 @@ const Setup = () => {
    const { id } = useParams();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [`Resturant List ${id}`],
+    queryKey: [`Resturant ${id}`],
     queryFn: async () => {
       const response = await axiosInstance.get(
         `${morefoodURL}moreclub/user/restaurants/${id}/`
@@ -37,7 +37,7 @@ const Setup = () => {
 
 
   return (
-    <DashboardLayout title={data.name}>
+    <DashboardLayout title={data?.name}>
       <Setuppage data={data} />
     </DashboardLayout>
   );
