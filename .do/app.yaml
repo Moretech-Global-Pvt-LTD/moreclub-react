@@ -1,0 +1,8 @@
+services:
+  - name: moredealsclub  # The name of your React app service
+    static_sites:
+      - build: ./build  # Location of the build output (usually /build for React apps)
+        routes:
+          - path: /              # Root route
+          - path: /*  # Wildcard for deep links like /resturant/setup
+            preserve_path: true
