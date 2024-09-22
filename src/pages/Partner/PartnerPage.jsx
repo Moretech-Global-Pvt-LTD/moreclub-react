@@ -4,9 +4,10 @@ import Divider from "../../components/divider/Divider";
 import PartnerContent from "./PartnerContent";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 import LandingLayout from "../../components/Layout/LandingLayout";
+import { getAccessToken } from "../../utills/token";
 
 const PartnerPage = () => {
-  if (!!sessionStorage.getItem("moretechglobal_access")) {
+  if (!!getAccessToken()) {
     return (
       <DashboardLayout title={"Our Partners"}>
         <PartnerContent />

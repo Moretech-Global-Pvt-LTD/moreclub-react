@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { setAccessToken, setRefressToken } from "../../utills/token";
+import Cookies from "js-cookie";
 
 const initialState = {
   user: null,
@@ -6,8 +8,8 @@ const initialState = {
   isLoading: false,
   error: null,
   isAuthenticated: false,
-  access: sessionStorage.getItem("moretechglobal_access"),
-  refresh: sessionStorage.getItem("moretechglobal_refresh"),
+  access: Cookies.get("moretechglobal_access"),
+  refresh: Cookies.get("moretechglobal_refresh"),
   message: null,
   profileUser: null,
   membershipType: null,
@@ -26,14 +28,18 @@ export const userRegister = createSlice({
       state.error = action.payload;
     },
     loginSuccess: (state, { payload }) => {
-      state.access = sessionStorage.setItem(
-        "moretechglobal_access",
-        payload.token
-      );
-      state.refresh = sessionStorage.setItem(
-        "moretechglobal_refresh",
-        payload.refresh
-      );
+      setAccessToken(payload.token)
+      setRefressToken(payload.refresh)
+         state.access = payload.token;
+         state.refresh =payload.refresh;
+      // state.access = sessionStorage.setItem(
+      //   "moretechglobal_access",
+      //   payload.token
+      // );
+      // state.refresh = sessionStorage.setItem(
+      //   "moretechglobal_refresh",
+      //   payload.refresh
+      // );
       // state.access = localStorage.setItem(
       //   "moretechglobal_access",
       //   payload.token
@@ -80,8 +86,8 @@ export const userRegister = createSlice({
       state.meta = payload;
     },
     logMeOut: (state) => {
-      sessionStorage.removeItem("moretechglobal_access");
-      sessionStorage.removeItem("moretechglobal_refresh");
+      Cookies.remove("moretechglobal_access");
+      Cookies.remove("moretechglobal_refresh");
 
       // localStorage.removeItem("moretechglobal_access");
       state.user = null;

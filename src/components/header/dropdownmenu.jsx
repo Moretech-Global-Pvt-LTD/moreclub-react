@@ -4,6 +4,7 @@ import {  useLocation } from "react-router-dom";
 
 const SidebarDropDownMenu = ({
   menuTitle,
+  menuSvg,
   menuIcon,
   links,
   children,
@@ -40,7 +41,7 @@ const SidebarDropDownMenu = ({
               : ""
           }`}
         >
-          <i className={`bi ${menuIcon}`} />
+          {menuSvg ? menuSvg : <i className={`bi ${menuIcon}`} />}
           &nbsp;&nbsp;&nbsp;{menuTitle}
         </h6>
         {isOpen ? (

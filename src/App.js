@@ -100,6 +100,8 @@ import Failed from "./pages/Points/buy/Failed";
 import FeedPage from "./pages/feed/feedPage";
 // import DisableDevtool from "disable-devtool";
 
+import Cookies from "js-cookie";
+
 
 
 
@@ -630,7 +632,7 @@ const App = () => {
         <Route
           path="/pricing"
           element={
-            !sessionStorage.getItem("moretechglobal_access") ? (
+            !Cookies.get("moretechglobal_access") ? (
               <NotFound />
             ) : (
               <PricingPage />
@@ -643,7 +645,11 @@ const App = () => {
             key={route.path}
             path={route.path}
             element={
-              user.isAuthenticated ? <Navigate to={"/dashboard"} /> : route.page
+              !!Cookies.get("moretechglobal_access") ? (
+                <Navigate to={"/dashboard"} />
+              ) : (
+                route.page
+              )
             }
           />
         ))}
@@ -655,9 +661,7 @@ const App = () => {
             element={
               <PrivateRoute
                 element={route.page}
-                isAuthenticated={
-                  !!sessionStorage.getItem("moretechglobal_access")
-                }
+                isAuthenticated={!!Cookies.get("moretechglobal_access")}
               />
             }
           />
@@ -669,9 +673,7 @@ const App = () => {
             element={
               <PrivateRoute
                 element={route.page}
-                isAuthenticated={
-                  !!sessionStorage.getItem("moretechglobal_access")
-                }
+                isAuthenticated={!!Cookies.get("moretechglobal_access")}
               />
             }
           />
@@ -682,9 +684,7 @@ const App = () => {
           element={
             <PrivateRoute
               element={<Wallet />}
-              isAuthenticated={
-                !!sessionStorage.getItem("moretechglobal_access")
-              }
+              isAuthenticated={!!Cookies.get("moretechglobal_access")}
             />
           }
         />
@@ -696,9 +696,7 @@ const App = () => {
             element={
               <PrivateRoute
                 element={route.page}
-                isAuthenticated={
-                  !!sessionStorage.getItem("moretechglobal_access")
-                }
+                isAuthenticated={!!Cookies.get("moretechglobal_access")}
               />
             }
           />

@@ -13,6 +13,7 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CookiesProvider } from "react-cookie";
 import { register } from "./utills/serviceworker";
+import Cookies from "js-cookie"
 
 export const axiosInstance = axios.create({
   baseURL: baseURL,
@@ -24,7 +25,7 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = "Bearer " + sessionStorage.getItem("moretechglobal_access");
+    const token = "Bearer " + Cookies.get("moretechglobal_access");
 
     if (token) {
       config.headers.authorization = token;
@@ -43,10 +44,9 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       if (error.response.data.data?.code !== "token_not_valid") {
-        if (!!sessionStorage.getItem("moretechglobal_access")) {
-          
+        if (!!Cookies.get("moretechglobal_access")) {
           localStorage.setItem("sessionExpired", "true");
-          sessionStorage.removeItem("moretechglobal_access");
+          Cookies.remove("moretechglobal_access");
           const event = new Event("sessionExpired");
           window.dispatchEvent(event);
         }

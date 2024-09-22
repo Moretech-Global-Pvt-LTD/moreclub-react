@@ -9,6 +9,7 @@ import BusinessPartnerContent from "./BusinessPartnerContent";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import LandingLayout from "../../components/Layout/LandingLayout";
 import UnauthenticatedBusinessPartnerContent from "./UnauthenticatedPartnerContent";
+import { getAccessToken } from "../../utills/token";
 
 
 const BusinessTypesDetail = () => {
@@ -17,7 +18,7 @@ const BusinessTypesDetail = () => {
     const title= partnerName.replace("-"," ")
     
    
-    if (!!sessionStorage.getItem("moretechglobal_access")) {
+    if (!!getAccessToken()) {
         return (
             <DashboardLayout title={title}>
                 <BusinessPartnerContent partnerId={partnerId} />
