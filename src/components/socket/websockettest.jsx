@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import { baseURL } from '../../config/config';
+import { getAccessToken } from '../../utills/token';
 
 const WebsocketTest = () => {
     const [message, setMessage] = useState('');
@@ -8,7 +9,7 @@ const WebsocketTest = () => {
     const wsRef = useRef(null);
 
     useEffect(() => {
-        const token = sessionStorage.getItem("moretechglobal_access");
+        const token = getAccessToken();
 
         if (token) {
             // Initialize the WebSocket only if the token exists

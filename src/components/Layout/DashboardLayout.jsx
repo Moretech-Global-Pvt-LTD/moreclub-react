@@ -6,6 +6,7 @@ import Breadcrumb from "../breadcrumb/Breadcrumb";
 import Footbar from "../footbar/footbar";
 import { useLocation } from "react-router-dom";
 import ReactGA from "react-ga4";
+import InactivityLogout from "../HOC/inactivity";
 // import { setupNotifications } from "../../utills/firebase";
 // import useVisibilityChange from "../../Hooks/useVisibilityChange";
 // import { sendNativeNotification, toastNotification } from "../../utills/notificationhelper";
@@ -36,6 +37,7 @@ const DashboardLayout = ({ children, title }) => {
   return (
     <>
       <HeaderDashboard />
+      <InactivityLogout/>
       <div className="admin-wrapper">
         <Breadcrumb
           breadcrumbTitle={title}

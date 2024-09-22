@@ -7,6 +7,7 @@ import {
   forget_password_otp_verify,
   otpResend,
 } from "../../redux/api/loginAPI";
+import { setAccessToken, setRefressToken } from "../../utills/token";
 
 const ForgetPasswordOTP = () => {
   const [timer, setTimer] = useState(120);
@@ -49,11 +50,9 @@ const ForgetPasswordOTP = () => {
     const result = await dispatch(forget_password_otp_verify(formData));
     console.log(result);
     if (result.status === 200) {
-      sessionStorage.setItem("moretechglobal_access", result.data.data.token);
-      sessionStorage.setItem(
-        "moretechglobal_refresh",
-        result.data.data.refresh_token
-      );
+      setAccessToken(result.data.data.token);
+      setRefressToken(result.data.data.refresh_token);
+      
       message.success(result.data.message);
       navigate("/change-password");
     } else {
