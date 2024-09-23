@@ -6,13 +6,15 @@ import { baseURL } from "../../config/config";
 import axios from "axios";
 import { message } from "antd";
 import { axiosInstance } from "../..";
+import BlogCard from "../../components/blog/blogCard";
+import SupportCard from "../../components/cards/SupportCard";
 
 const FAQContent = () => {
   const [faq, setFaq] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deletionReason, setDeletionReason] = useState("");
   const [reasonError, setReasonError] = useState("");
-  const [activeKey, setActiveKey] = useState(null);
+  // const [activeKey, setActiveKey] = useState(null);
   const [showdelete, setShowDelete] = useState(false);
 
   const handleSelect = () => {
@@ -99,6 +101,7 @@ const FAQContent = () => {
       </Row>
 
       <Row>
+        <Col md={8}>
         <Accordion>
           {faq && (
             <>
@@ -248,6 +251,29 @@ const FAQContent = () => {
           </Modal.Body>
            
         </Modal>
+        </Col>
+        <Col md={4}>
+        <SupportCard 
+        title="Need Help?"
+        description="Our support team is here to help you 24/7. Reach out to us anytime and we'll be happy to assist."
+        buttonText="Get Support"
+        buttonLink="/support" 
+      />
+        <h4 className="text-dynamic-white">Recent Posts</h4>
+        <BlogCard 
+        image="https://via.placeholder.com/300x200"
+        title="Awesome Blog Title"
+        description="This is a short description of the blog post. It may be up to 3 lines long and provides an overview."
+        date="September 23, 2024"
+      />
+
+      {/* BlogCard without an image */}
+      <BlogCard 
+        title="Blog Post Without Image"
+        description="Sometimes, there will be no image available for the blog post, and this area will still look good with only text."
+        date="September 20, 2024"
+      />
+        </Col>
       </Row>
     </>
   );

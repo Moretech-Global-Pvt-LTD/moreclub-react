@@ -22,6 +22,7 @@ import EventDashboardDisplay from "../../components/event/EventDashboardDisplay"
 import PopularResturant from "../../components/Moreclub/morefood/PopularResturant";
 import BusinessTypes from "../../components/dashboard/BusinessTypes";
 import { DashboardSkeleton } from "../../components/Skeleton/DashboardLayout";
+import PopularSaloon from "../../components/Moreclub/Saloon/PopularSaloon";
 
 const DashboardContent = () => {
   const user = useSelector((state) => state.userReducer);
@@ -281,6 +282,16 @@ const DashboardContent = () => {
           </div>
           <PopularResturant />
         </Row>
+
+        {/* <Row className="mt-4">
+          <div className="d-flex justify-content-between align-items-center">
+            <h4 className="mt-4 mb-3">Popular Saloon </h4>
+            <Link to="/moresaloon">
+              <Button variant="link">View All</Button>
+            </Link>
+          </div>
+          <PopularSaloon />
+        </Row> */}
       </div>
     </div>
   );

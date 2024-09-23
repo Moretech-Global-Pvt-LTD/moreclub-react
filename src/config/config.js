@@ -9,8 +9,15 @@ export const MapApi = process.env.REACT_APP_MAP_API;
 export const MapId = process.env.REACT_APP_MAP_ID;
 export const KycTerms = process.env.REACT_APP_KYC_TERMS;
 export const GoogleAnalytics = process.env.REACT_APP_GOOGLE_ANALYTICS;
+
 export const morefoodURL = process.env.REACT_APP_MORE_FOOD_BASE_URL;
 export const morefoodimageURL = process.env.REACT_APP_MORE_FOOD_IMAGE_URL;
+
+export const morefoodhostURL = process.env.REACT_APP_MORE_FOOD_HOST_URL;
+export const moresaloonhostURL = process.env.REACT_APP_MORE_SALOON_HOST_URL;
+
+export const moresaloonURL = process.env.REACT_APP_MORE_SALOON_BASE_URL;
+export const moresaloonimageURL = process.env.REACT_APP_MORE_SALOON_IMAGE_URL;
 
 export const apiKey = process.env.REACT_APP_FIREBASE_APIKEY;
 export const authDomain = process.env.REACT_APP_FIREBASE_AUTHDOMAIN;

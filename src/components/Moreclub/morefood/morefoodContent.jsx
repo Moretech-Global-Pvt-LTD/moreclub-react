@@ -3,7 +3,7 @@ import {Row } from "react-bootstrap";
 import ResturantCard from "../Resturant/RestaurantCard3";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { morefoodURL } from "../../../config/config";
+import { morefoodhostURL, morefoodURL } from "../../../config/config";
 import RestaurantCardSkeleton from "../../Skeleton/RestaurantCardSkeleton";
 import { Link } from "react-router-dom";
 
@@ -38,7 +38,7 @@ const MorefoodContent = () => {
       <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={5} className=" px-2">
         {data?.map((item) => (
           <>
-            <ResturantCard key={item.id} link={`https://morefood.se/resturants/${item.id}`} res={item} />
+            <ResturantCard key={item.id} link={`${morefoodhostURL}/resturants/${item.id}`} res={item} />
           </>
         ))}
       </Row>
