@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 import ScrollToTop from "react-scroll-to-top";
 import { load_user, logout } from "./redux/api/loginAPI";
@@ -101,6 +101,17 @@ import FeedPage from "./pages/feed/feedPage";
 // import DisableDevtool from "disable-devtool";
 
 import Cookies from "js-cookie";
+import MoreSaloon from "./pages/moreclub/moresaloon/saloon/moreSaloon";
+import SaloonPage from "./pages/moreclub/moresaloon/setup/SaloonPage";
+import SaloonDetail from "./pages/moreclub/moresaloon/setup/SaloonDetail";
+import ServicePage from "./pages/moreclub/moresaloon/Services/ServicePage";
+import StaffPage from "./pages/moreclub/moresaloon/Staff/StaffPage";
+import BookingPage from "./pages/moreclub/moresaloon/Bookings/BookingPage";
+import SaloonGalleryPage from "./pages/moreclub/moresaloon/Gallery/SaloonGalleryPage";
+import WorkinghourPage from "./pages/moreclub/moresaloon/Workingshours/WorkinghourPage";
+import SaloonUpdate from "./pages/moreclub/moresaloon/saloon/SaloonUpdate";
+import SaloonCreate from "./pages/moreclub/moresaloon/saloon/SaloonCreate";
+import SupportPage from "./pages/Support/SupportPage";
 
 
 
@@ -116,18 +127,31 @@ const App = () => {
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const key = GoogleAnalytics;
   Notification.requestPermission();
- 
+
+  // const location = useLocation();
+
+  // useEffect(() => {
+  //   const botWidget = document.querySelector(".ai-bot-widget");
+
+  //   // If we're on the support page, show the bot
+  //   if (location.pathname === "/support") {
+  //     if (botWidget) botWidget.style.display = "block"; // Show the bot
+  //   } else {
+  //     if (botWidget) botWidget.style.display = "none"; // Hide the bot on other pages
+  //   }
+  // }, [location.pathname]); // Run the effect when the path changes
+
   // DisableDevtool({
   //   url:'https://_blank',
-    
+
   //   ondevtoolopen: (type, next) => {
-  //     next(); 
+  //     next();
   //   },
-    
+
   //   ondevtoolclose: () => {
   //     console.log("Developer tools closed");
   //   },
-    
+
   //   interval: 1,
   //   disableMenu: true,
   //   disableSelect: false,
@@ -146,28 +170,26 @@ const App = () => {
   //   disableCut: true,
   //   disablePaste: true,
   // });
-// function configureDisableDevtool() {
-//   disableDevtool({
+  // function configureDisableDevtool() {
+  //   disableDevtool({
 
-    
-//     clearIntervalWhenDevOpenTrigger: true,
-//     ondevtoolopen: (type, next) => {
-//       alert('DevTools opened! Type: ' + type , next);
-//       console.log("DevTools opened! Type:", type);
-//       // next(); // Uncomment to close the page when DevTools is detected
-//     },
-//     ondevtoolclose: () => {
-//       console.log("DevTools closed!");
-//     },
-//     ignore: () => window.ignore === undefined,
-//   });
-// }
-    // useEffect(() => {
-    //   configureDisableDevtool();
-    // }, []);
+  //     clearIntervalWhenDevOpenTrigger: true,
+  //     ondevtoolopen: (type, next) => {
+  //       alert('DevTools opened! Type: ' + type , next);
+  //       console.log("DevTools opened! Type:", type);
+  //       // next(); // Uncomment to close the page when DevTools is detected
+  //     },
+  //     ondevtoolclose: () => {
+  //       console.log("DevTools closed!");
+  //     },
+  //     ignore: () => window.ignore === undefined,
+  //   });
+  // }
+  // useEffect(() => {
+  //   configureDisableDevtool();
+  // }, []);
 
   useEffect(() => {
-    
     ReactGA.initialize(key);
     const handleSessionExpired = () => {
       setIsSessionExpired(sessionStorage.getItem("sessionExpired"));
@@ -179,16 +201,6 @@ const App = () => {
       window.removeEventListener("sessionExpired", handleSessionExpired);
     };
   }, []);
-
-
-
-
-
-
-
-  
-
-
 
   const getMetadatas = async () => {
     await dispatch(getMetadata());
@@ -209,7 +221,7 @@ const App = () => {
     getMetadatas();
   }, [dispatch]);
 
-  // useEffect(() => { 
+  // useEffect(() => {
   //    if (typeof importScripts !== "function") {
   //      console.warn(
   //        `You're trying to run service-worker.js file on non-worker scope. Please check your framework build and make sure you're running your service worker file once on WorkerGlobalScope.`
@@ -217,7 +229,6 @@ const App = () => {
   //      return;
   //    }
   // }, [])
-  
 
   const authRoutes = [
     {
@@ -264,6 +275,11 @@ const App = () => {
       page: <Home />,
     },
     {
+      path: "/support",
+
+      page: <SupportPage />,
+    },
+    {
       path: "/change-password",
       page: <PasswordChange />,
     },
@@ -292,7 +308,6 @@ const App = () => {
 
       page: <PrivacyPage />,
     },
-   
 
     {
       path: "/products/",
@@ -309,7 +324,7 @@ const App = () => {
 
       page: <BusinessTypesDetail />,
     },
-    
+
     {
       path: "/projects/:projectId",
 
@@ -321,7 +336,7 @@ const App = () => {
 
       page: <AllCoupon />,
     },
-    
+
     {
       path: "/terms",
 
@@ -614,13 +629,55 @@ const App = () => {
     },
   ];
 
+  const Saloon = [
+    {
+      path: "/saloon",
+      page: <SaloonPage />,
+    },
+    {
+      path: "/moresaloon",
+
+      page: <MoreSaloon />,
+    },
+    {
+      path: `/saloon/:id/:slug`,
+      page: <SaloonDetail />,
+    },
+    {
+      path: `/saloon/create/`,
+      page: <SaloonCreate />,
+    },
+    {
+      path: `/saloon/:id/update/:slug`,
+      page: <SaloonUpdate />,
+    },
+    {
+      path: `/saloon/:id/services/:slug`,
+      page: <ServicePage />,
+    },
+    {
+      path: `/saloon/:id/staff/:slug`,
+      page: <StaffPage />,
+    },
+    {
+      path: `/saloon/:id/booking/:slug`,
+      page: <BookingPage />,
+    },
+    {
+      path: `/saloon/:id/gallery/:slug`,
+      page: <SaloonGalleryPage />,
+    },
+    {
+      path: `/saloon/:id/opening-duration/:slug`,
+      page: <WorkinghourPage />,
+    },
+  ];
+
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("sessionExpired");
     window.location.href = "/login";
   };
-
-   
 
   return (
     <div className="App">
@@ -690,6 +747,19 @@ const App = () => {
         />
 
         {resturant.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <PrivateRoute
+                element={route.page}
+                isAuthenticated={!!Cookies.get("moretechglobal_access")}
+              />
+            }
+          />
+        ))}
+
+        {Saloon.map((route) => (
           <Route
             key={route.path}
             path={route.path}

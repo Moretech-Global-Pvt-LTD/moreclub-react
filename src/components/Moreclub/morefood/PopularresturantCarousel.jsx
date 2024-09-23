@@ -3,6 +3,7 @@ import ResturantCard from "../Resturant/RestaurantCard3";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Col } from 'react-bootstrap';
+import { morefoodhostURL } from '../../../config/config';
 
 const PopularresturantCarousel = ({data}) => {
     const responsive = {
@@ -104,7 +105,7 @@ const PopularresturantCarousel = ({data}) => {
       
       {data.slice(0, 10).map((item) => (
         <Col key={item.id} className="d-flex flex-column flex-grow-1 rounded-3 restaurantCard position-relative">
-          <ResturantCard key={item.id} res={item}  link={`https://morefood.se/resturants/${item.id}`} />
+          <ResturantCard key={item.id} res={item}  link={`${morefoodhostURL}/resturants/${item.id}`} />
         </Col >
       ))}
     </Carousel>
