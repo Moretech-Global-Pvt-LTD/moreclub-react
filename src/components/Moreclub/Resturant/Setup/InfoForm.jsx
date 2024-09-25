@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form, InputGroup, Spinner, Card } from "react-bootstrap";
-import AddressInputWithAutocomplete from "../../../Googlemap/LocationInputonly";
 import axios from "axios";
 import { morefoodURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
