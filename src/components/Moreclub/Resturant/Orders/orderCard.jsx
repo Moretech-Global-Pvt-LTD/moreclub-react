@@ -50,6 +50,7 @@ const OrderCard = ({ item }) => {
             {item.order_status}
           </Badge>
         </td>
+       
       </tr>
     </>
   );

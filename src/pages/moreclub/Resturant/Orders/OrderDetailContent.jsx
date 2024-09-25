@@ -184,6 +184,7 @@ const OrderDetailsContent = ({item}) => {
                 required
               >
                 <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
                 <option value="Cooked">Cooked</option>
                 <option value="Delivered">Delivered</option>
                 <option value="Cancalled">Cancelled</option>

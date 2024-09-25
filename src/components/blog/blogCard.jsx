@@ -1,17 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { hostURL } from '../../config/config';
 
-const BlogCard = ({ image, title, description, date }) => {
+import moment from 'moment';
+
+const BlogCard = ({ slug, image, title, description, date }) => {
     return (
-        <div className="blog-card" style={{cursor:"pointer"}}>
+        <Link to={`${hostURL}/blog/detail/${slug}`} className="blog-card" style={{cursor:"pointer"}}>
             {/* Conditionally render image if available */}
             {image && <img src={image} alt="Blog Post" />}
 
             <div className="content">
                 <div className="title text-dynamic-white">{title}</div>
                 <div className="description">{description}</div>
-                <div className="date">Published on: {date}</div>
+                <div className="date">Published on: {moment(date).format('MMM DD YYYY')}</div>
             </div>
-        </div>
+        </Link>
     );
 };
 

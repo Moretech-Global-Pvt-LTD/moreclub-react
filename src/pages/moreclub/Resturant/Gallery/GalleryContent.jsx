@@ -4,9 +4,6 @@ import {Col, Image,  Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 
 
-import Restaurant from "../../../../images/moreclub/Restaturant.png";
-import User from "../../../../images/moreclub/user.png";
-
 
 const GalleryContent = () => {
   const { res_id,  slug } = useParams();
@@ -52,19 +49,7 @@ const GalleryContent = () => {
 
 
       </div>
-      {/* <Row>
-        <Col xs={12} lg={8} xxl={6}>
-          {showForm && <GalleryImageUpload />}
-        </Col>
-      </Row> */}
-
-
-      {/* <div className='masonry-gallery'>
-        {datas.map((item, index) => (
-          <ImageContainer key={item.id} item={item} onClick={() => console.log(index)} />
-        ))
-        }
-      </div> */}
+     
 
     </div>
   );

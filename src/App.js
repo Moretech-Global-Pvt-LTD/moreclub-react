@@ -112,6 +112,10 @@ import WorkinghourPage from "./pages/moreclub/moresaloon/Workingshours/Workingho
 import SaloonUpdate from "./pages/moreclub/moresaloon/saloon/SaloonUpdate";
 import SaloonCreate from "./pages/moreclub/moresaloon/saloon/SaloonCreate";
 import SupportPage from "./pages/Support/SupportPage";
+import SaloonPhotoUploadGallery from "./pages/moreclub/moresaloon/Gallery/SaloonPhotoUploadGallery";
+import SaloonUserUploadGallery from "./pages/moreclub/moresaloon/Gallery/SaloonUserUploadGallery";
+import BlogDetail from "./pages/Support/BlogDetail";
+import BlogDetailPage from "./pages/Support/BlogDetailPage";
 
 
 
@@ -278,6 +282,11 @@ const App = () => {
       path: "/support",
 
       page: <SupportPage />,
+    },
+    {
+      path: "/blog/detail/:slug",
+
+      page: <BlogDetailPage />,
     },
     {
       path: "/change-password",
@@ -666,6 +675,14 @@ const App = () => {
     {
       path: `/saloon/:id/gallery/:slug`,
       page: <SaloonGalleryPage />,
+    },
+    {
+      path: `/saloon/:id/gallery/:slug/saloon`,
+      page: <SaloonPhotoUploadGallery />,
+    },
+    {
+      path: `/saloon/:id/gallery/:slug/user-upload`,
+      page: <SaloonUserUploadGallery />,
     },
     {
       path: `/saloon/:id/opening-duration/:slug`,

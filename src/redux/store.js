@@ -12,25 +12,27 @@ import  walletReducer  from './slices/walletSlice'
 import WithDrawalSlice from './slices/WithDrawalSlice'
 import PurchaseSlice from './slices/PurchaseSlice'
 import infoSlice from './slices/infoSlice'
-import  currencyReducer  from './slices/CurrencySlice'
+import currencyReducer from './slices/CurrencySlice'
+import commentsReducer from './slices/commentsSlice'
 
 const store = configureStore({
   reducer: {
-    membershipTypeReducer:membershipTypeReducer,
-    userReducer:userRegister,
-    couponReducer:couponReducer,
-    projectReducer:projectReducer,
-    businessReducer:businessReducer,
-    transactionReducer:transactionReducer,
-    registerReducer:registerReducer,
-    networkReducer:networkReducer,
-    permissionReducer:permissionReducer,
-    walletReducer:walletReducer,
-    withdrawalReducer:WithDrawalSlice,
-    purchaseReducer:PurchaseSlice,
-    metaReducer:infoSlice,
-    currencyReducer:currencyReducer
+    membershipTypeReducer: membershipTypeReducer,
+    userReducer: userRegister,
+    couponReducer: couponReducer,
+    projectReducer: projectReducer,
+    businessReducer: businessReducer,
+    transactionReducer: transactionReducer,
+    registerReducer: registerReducer,
+    networkReducer: networkReducer,
+    permissionReducer: permissionReducer,
+    walletReducer: walletReducer,
+    withdrawalReducer: WithDrawalSlice,
+    purchaseReducer: PurchaseSlice,
+    metaReducer: infoSlice,
+    currencyReducer: currencyReducer,
+    comments: commentsReducer
   },
-})
+});
 
 export default store

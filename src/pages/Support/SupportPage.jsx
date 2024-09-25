@@ -1,10 +1,14 @@
 import React from 'react'
 import SupportBotPage from "./SupportPageContent"
-import DashboardLayout from "../../components/Layout/DashboardLayout";
+import LandingLayout from "../../components/Layout/LandingLayout";
 
 const SupportPage = () => {
   return (
-    <DashboardLayout><SupportBotPage/></DashboardLayout>
+    <LandingLayout>
+       <div className="container">
+      <SupportBotPage/>
+      </div>
+      </LandingLayout>
   )
 }
 
