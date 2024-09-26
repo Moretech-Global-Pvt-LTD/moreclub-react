@@ -18,10 +18,42 @@ const firebaseConfig = {
 }
 
 const firebaseApp = initializeApp(firebaseConfig);
+
+// Check for browser compatibility
+export function isSupportedBrowser() {
+  // Safari browser detection
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  // Check if Service Workers and Push API are supported
+  const supportsServiceWorker = 'serviceWorker' in navigator;
+  const supportsPushManager = 'PushManager' in window;
+
+  return {
+    isSafari,
+    supportsServiceWorker,
+    supportsPushManager,
+  };
+}
+
+
+
+
+
 const messaging = getMessaging(firebaseApp);
 
 // Function to request notification permission
 const requestNotificationPermission = async () => {
+
+   const browserSupport = isSupportedBrowser();
+
+   // Safari does not support FCM, handle it separately
+   if (browserSupport.isSafari) {
+     console.warn("Safari does not support Firebase Cloud Messaging.");
+     // alert("Your browser does not support push notifications.");
+     // Consider implementing Apple Push Notification Service (APNs) for Safari
+     return;
+   }
+
 if (!("Notification" in window)) {
   console.log("This browser does not support notifications.");
   return null;
@@ -81,6 +113,18 @@ const registerTokenWithBackend = async (token) => {
 
 // Main setup function
 const setupNotifications = async (onMessageCallback) => {
+
+  const browserSupport = isSupportedBrowser();
+
+  // Safari does not support FCM, handle it separately
+  if (browserSupport.isSafari) {
+    console.warn("Safari does not support Firebase Cloud Messaging.");
+    // alert("Your browser does not support push notifications.");
+    // Consider implementing Apple Push Notification Service (APNs) for Safari
+    return;
+  }
+
+
   try {
     const permission = await requestNotificationPermission();
     if (!permission) return;
