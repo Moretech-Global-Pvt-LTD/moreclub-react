@@ -131,7 +131,7 @@ const App = () => {
   const user = useSelector((state) => state.userReducer);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const key = GoogleAnalytics;
-  Notification.requestPermission();
+  // Notification.requestPermission();
 
   // const location = useLocation();
 

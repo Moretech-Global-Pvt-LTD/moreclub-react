@@ -1,144 +1,144 @@
 
-import { initializeApp } from "@firebase/app";
-import { getMessaging, getToken } from "@firebase/messaging";
-import { axiosInstance } from "..";
-import {
-  baseURL,
-} from "../config/config";
+// import { initializeApp } from "@firebase/app";
+// import { getMessaging, getToken } from "@firebase/messaging";
+// import { axiosInstance } from "..";
+// import {
+//   baseURL,
+// } from "../config/config";
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDGpimUAwYbIxYiUxeNAqIXOUqKnm4oqGw",
-  authDomain: "moredealsclub-ae3da.firebaseapp.com",
-  projectId: "moredealsclub-ae3da",
-  storageBucket: "moredealsclub-ae3da.appspot.com",
-  messagingSenderId: "1070037070454",
-  appId: "1:1070037070454:web:bdf85aee6d5e06990ee557",
-  measurementId: "G-SBWYGVC9BE"
-}
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDGpimUAwYbIxYiUxeNAqIXOUqKnm4oqGw",
+//   authDomain: "moredealsclub-ae3da.firebaseapp.com",
+//   projectId: "moredealsclub-ae3da",
+//   storageBucket: "moredealsclub-ae3da.appspot.com",
+//   messagingSenderId: "1070037070454",
+//   appId: "1:1070037070454:web:bdf85aee6d5e06990ee557",
+//   measurementId: "G-SBWYGVC9BE"
+// }
 
-const firebaseApp = initializeApp(firebaseConfig);
+// const firebaseApp = initializeApp(firebaseConfig);
 
-// Check for browser compatibility
-export function isSupportedBrowser() {
-  // Safari browser detection
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+// // Check for browser compatibility
+// export function isSupportedBrowser() {
+//   // Safari browser detection
+//   const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-  // Check if Service Workers and Push API are supported
-  const supportsServiceWorker = 'serviceWorker' in navigator;
-  const supportsPushManager = 'PushManager' in window;
+//   // Check if Service Workers and Push API are supported
+//   const supportsServiceWorker = 'serviceWorker' in navigator;
+//   const supportsPushManager = 'PushManager' in window;
 
-  return {
-    isSafari,
-    supportsServiceWorker,
-    supportsPushManager,
-  };
-}
-
-
+//   return {
+//     isSafari,
+//     supportsServiceWorker,
+//     supportsPushManager,
+//   };
+// }
 
 
 
-const messaging = getMessaging(firebaseApp);
-
-// Function to request notification permission
-const requestNotificationPermission = async () => {
-
-   const browserSupport = isSupportedBrowser();
-
-   // Safari does not support FCM, handle it separately
-   if (browserSupport.isSafari) {
-     console.warn("Safari does not support Firebase Cloud Messaging.");
-     // alert("Your browser does not support push notifications.");
-     // Consider implementing Apple Push Notification Service (APNs) for Safari
-     return;
-   }
-
-if (!("Notification" in window)) {
-  console.log("This browser does not support notifications.");
-  return null;
-}
 
 
-  const permission = await Notification.requestPermission();
-  if (permission !== "granted") {
-    console.log("Notification permission denied.");
-    return null;
-  }
-  return permission;
-};
+// const messaging = getMessaging(firebaseApp);
 
-// Function to retrieve the token
-const retrieveToken = async () => {
-  try {
-    const token = await getToken(messaging, {
-      vapidKey:
-        "BNvcQFcNyARD3q5FslvO46kzGL6iMdJI6Pn776dFO2m8Rj2bV7TObpviK2zLdiwVlZecg2mn8rP8shwmBaSbNOE",
-    });
-    if (!token) {
-      console.error("Failed to retrieve token.");
-      return null;
-    }
-    return token;
-  } catch (error) {
-    console.error("Error retrieving token:", error);
-    return null;
-  }
-};
+// // Function to request notification permission
+// const requestNotificationPermission = async () => {
 
-// Function to register the token with the backend
-const registerTokenWithBackend = async (token) => {
-  const username = sessionStorage.getItem("username");
-  if (!username) {
-    console.error("Username is missing. Cannot register token.");
-    return;
-  }
+//    const browserSupport = isSupportedBrowser();
 
-  try {
-    await axiosInstance.post(`${baseURL}register/devices/`, {
-      name: username,
-      registration_id: token,
-      active: true,
-      type: "web",
-    });
-    console.log("Token successfully registered with the backend.");
-  } catch (error) {
-    console.error(
-      "Device registration failed:",
-      error?.response?.data?.message || error.message
-    );
-    throw error;
-  }
-};
+//    // Safari does not support FCM, handle it separately
+//    if (browserSupport.isSafari) {
+//      console.warn("Safari does not support Firebase Cloud Messaging.");
+//      // alert("Your browser does not support push notifications.");
+//      // Consider implementing Apple Push Notification Service (APNs) for Safari
+//      return;
+//    }
 
-// Main setup function
-const setupNotifications = async (onMessageCallback) => {
-
-  const browserSupport = isSupportedBrowser();
-
-  // Safari does not support FCM, handle it separately
-  if (browserSupport.isSafari) {
-    console.warn("Safari does not support Firebase Cloud Messaging.");
-    // alert("Your browser does not support push notifications.");
-    // Consider implementing Apple Push Notification Service (APNs) for Safari
-    return;
-  }
+// if (!("Notification" in window)) {
+//   console.log("This browser does not support notifications.");
+//   return null;
+// }
 
 
-  try {
-    const permission = await requestNotificationPermission();
-    if (!permission) return;
+//   const permission = await Notification.requestPermission();
+//   if (permission !== "granted") {
+//     console.log("Notification permission denied.");
+//     return null;
+//   }
+//   return permission;
+// };
 
-    const token = await retrieveToken();
-    if (!token) return;
+// // Function to retrieve the token
+// const retrieveToken = async () => {
+//   try {
+//     const token = await getToken(messaging, {
+//       vapidKey:
+//         "BNvcQFcNyARD3q5FslvO46kzGL6iMdJI6Pn776dFO2m8Rj2bV7TObpviK2zLdiwVlZecg2mn8rP8shwmBaSbNOE",
+//     });
+//     if (!token) {
+//       console.error("Failed to retrieve token.");
+//       return null;
+//     }
+//     return token;
+//   } catch (error) {
+//     console.error("Error retrieving token:", error);
+//     return null;
+//   }
+// };
 
-    await registerTokenWithBackend(token);
+// // Function to register the token with the backend
+// const registerTokenWithBackend = async (token) => {
+//   const username = sessionStorage.getItem("username");
+//   if (!username) {
+//     console.error("Username is missing. Cannot register token.");
+//     return;
+//   }
+
+//   try {
+//     await axiosInstance.post(`${baseURL}register/devices/`, {
+//       name: username,
+//       registration_id: token,
+//       active: true,
+//       type: "web",
+//     });
+//     console.log("Token successfully registered with the backend.");
+//   } catch (error) {
+//     console.error(
+//       "Device registration failed:",
+//       error?.response?.data?.message || error.message
+//     );
+//     throw error;
+//   }
+// };
+
+// // Main setup function
+// const setupNotifications = async (onMessageCallback) => {
+
+//   const browserSupport = isSupportedBrowser();
+
+//   // Safari does not support FCM, handle it separately
+//   if (browserSupport.isSafari) {
+//     console.warn("Safari does not support Firebase Cloud Messaging.");
+//     // alert("Your browser does not support push notifications.");
+//     // Consider implementing Apple Push Notification Service (APNs) for Safari
+//     return;
+//   }
+
+
+//   try {
+//     const permission = await requestNotificationPermission();
+//     if (!permission) return;
+
+//     const token = await retrieveToken();
+//     if (!token) return;
+
+//     await registerTokenWithBackend(token);
     
    
-  } catch (error) {
-    console.error("Error setting up notifications:", error);
-    // Optionally, retry logic or user notification can be added here
-  }
-};
+//   } catch (error) {
+//     console.error("Error setting up notifications:", error);
+//     // Optionally, retry logic or user notification can be added here
+//   }
+// };
 
-export { messaging, setupNotifications };
+// export { messaging, setupNotifications };
