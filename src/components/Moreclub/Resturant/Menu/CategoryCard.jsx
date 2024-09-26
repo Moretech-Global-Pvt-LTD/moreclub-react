@@ -9,7 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 const CategoryCard = ({ id, res_id, logo, name, item }) => {
 
   const queryClient = useQueryClient();
-  const slug = name.replace(" ", "-");
+  const slug = name.replace(/ /g, "-");
   
    async function handleDelete() {
      try {

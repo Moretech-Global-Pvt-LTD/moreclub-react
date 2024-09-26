@@ -1,12 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import {moresaloonimageURL } from '../../../config/config';
 
 
 const SaloonCard = ({ sal }) => {
 
 
-    const slug = sal.name.replace(" ", "-");
+    const slug = sal.name.replace(/ /g, "-");
 
     return (
         <Link 
@@ -15,7 +14,7 @@ const SaloonCard = ({ sal }) => {
         >
             <div class="restaurant-card mx-auto mb-2"  >
                 <div class="restaurant-card-image">
-                    <img src={`${moresaloonimageURL}${sal.banner}`} alt="Restaurant Image" />
+                    <img src={`${sal.banner}`} alt="Restaurant Image" />
                     {/* <span class="open-status">{sal.is_open ? "Open" : `${sal.open_hrs}`}</span> */}
                 </div>
                 <div class="restaurant-card-details">

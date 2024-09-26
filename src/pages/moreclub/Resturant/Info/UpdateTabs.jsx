@@ -52,24 +52,7 @@ const InfoUpdateTabs = () => {
   };
 
 
-  const datas = {
-    feature:[
-      {
-        featureType: "Resturant",
-        priceRange: { min: "10", max: "100" },
-        cuisineType: "Italian",
-        meal: "breakfast, lunch, dinner",
-        properties: "Authenti italian taste"
-      },
-      {
-        featureType: "Resturant",
-        priceRange: { min: "10", max: "100" },
-        cuisineType: "Italian",
-        meal: "breakfast, lunch, dinner",
-        properties: "Authenti italian taste"
-      }
-    ]
-  }
+
 
   return (
     <div className="featured-nfts-wrap">

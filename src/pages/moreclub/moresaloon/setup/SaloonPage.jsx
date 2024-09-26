@@ -7,14 +7,14 @@ import { Card, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import SaloonCard from '../../../../components/Moreclub/Saloon/SaloonCard2';
 import Plus from "../../../../images/moreclub/plus.png";
-import axios from 'axios';
+import { axiosInstance } from '../../../..';
 
 
 const SaloonPage = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["user Saloon List"],
     queryFn: async () => {
-      const response = await axios.get(`${moresaloonURL}saloons/lists/`);
+      const response = await axiosInstance.get(`${moresaloonURL}moreclub/users/saloons/list/`);
       const data = await response.data.data;
       return data;
     },
@@ -24,7 +24,6 @@ const SaloonPage = () => {
   if (isLoading) {
     return (
       <DashboardLayout title={"Setup Saloon"}>
-
         <RestaurantCardSkeleton />
       </DashboardLayout>
     );
@@ -40,9 +39,6 @@ const SaloonPage = () => {
     </DashboardLayout>
     )
   }
-
-
-
 
 
   return (

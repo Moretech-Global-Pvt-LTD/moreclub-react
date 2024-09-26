@@ -80,10 +80,6 @@ const OpeningHoursForm = ({ existingdata }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
    
-   
-  
-    
-  
     if (existingdata) {
       setIsloading(true)
       try {
