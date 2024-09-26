@@ -14,7 +14,7 @@ const ServiceCard = ({ id, sal_id, logo, name, item , sal_name}) => {
     async function handleDelete() {
         try {
             await axiosInstance.delete(
-                `${moresaloonURL}moreclub/user/menus/${id}/${sal_id}/`
+                `${moresaloonURL}moreclub/users/saloons/${sal_id}/services/${id}/`
             );
             queryClient.invalidateQueries({
                 queryKey: [`Resturant Menu List ${sal_id}`],
