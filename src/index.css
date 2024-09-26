@@ -28791,4 +28791,132 @@ span {
 }
 
 
+/*  */
+
+/* Container for the service cards */
+.service-variation-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid with cards */
+    gap: 1.5rem; /* Spacing between the cards (gy-3 in Bootstrap) */
+    margin: 2rem 0; /* Top and bottom margin (my-4 in Bootstrap) */
+}
+
+/* Cards styling */
+.service-variation-card {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #000;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Ensures the card takes the full width of the grid cell */
+}
+
+[data-theme="dark"] .service-variation-card{
+   background-color: #0c153b;
+    color: white;
+}
+
+/* Image styling */
+.service-variation-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* Content section */
+.service-variation-content {
+    padding: 16px;
+    flex-grow: 1; /* Ensures that the content stretches to fill space */
+}
+
+/* Title and price section */
+.service-variation-title {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+}
+
+.service-variation-price {
+    font-size: 1.1em;
+    color: #00b4d8;
+    margin-bottom: 12px;
+}
+
+/* Description section */
+.service-variation-description {
+    font-size: 0.9em;
+    color: #adb5bd;
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: auto; /* Allows the description to take available space */
+}
+
+/* Footer section with admin actions */
+.service-variation-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.service-variation-admin {
+    display: flex;
+    gap: 10px;
+}
+
+.service-variation-edit, .service-variation-delete {
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1.2em;
+}
+
+.service-variation-edit:hover {
+    color: #198754; /* Green for edit hover */
+}
+
+.service-variation-delete:hover {
+    color: #dc3545; /* Red for delete hover */
+}
+
+.service-variation-time {
+    font-size: 0.8em;
+    color: #adb5bd;
+}
+
+/* Responsive behavior to control the number of columns based on screen size */
+@media (max-width: 1400px) {
+    .service-variation-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust for xl */
+    }
+}
+
+@media (max-width: 1200px) {
+    .service-variation-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust for lg */
+    }
+}
+
+@media (max-width: 992px) {
+    .service-variation-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust for md */
+    }
+}
+
+@media (max-width: 768px) {
+    .service-variation-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust for smaller screens */
+    }
+}
+
+
+
+
 /*# sourceMappingURL=main.c1c39487.css.map*/

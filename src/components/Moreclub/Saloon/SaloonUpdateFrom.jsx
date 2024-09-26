@@ -35,7 +35,7 @@ const SaloonUpdateInfoForm = ({ data }) => {
         const tempErrors = { ...errors };
         if ("name" in fieldValues)
             tempErrors.name = validateResturantName(fieldValues.name);
-        
+
         if ("country" in fieldValues)
             tempErrors.country = validateCountry(fieldValues.country);
         if ("address" in fieldValues)
@@ -73,7 +73,7 @@ const SaloonUpdateInfoForm = ({ data }) => {
         switch (name) {
             case "name":
                 return validateResturantName(value);
-           
+
             case "country":
                 return validateCountry(value);
             case "address":
@@ -162,7 +162,7 @@ const SaloonUpdateInfoForm = ({ data }) => {
             try {
                 setIsLoading(true);
                 const res = await axiosInstance.patch(
-                    `${moresaloonURL}api/moreclub/services/${data.id}/`,
+                    `${moresaloonURL}moreclub/users/saloon/${data.id}/`,
                     formValues
                 );
                 message.success("Your changes was Uploaded ")
@@ -247,7 +247,7 @@ const SaloonUpdateInfoForm = ({ data }) => {
                                         <p className="text-danger">{errors.country}</p>
                                     </Form.Group>
                                 </Col>
-                                
+
                                 <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
                                     <Form.Group>
                                         <Form.Label>Location</Form.Label>
@@ -260,46 +260,47 @@ const SaloonUpdateInfoForm = ({ data }) => {
                                         <p className="text-danger">{errors.address}</p>
                                     </Form.Group>
                                 </Col>
-                               
-                                <h6 className="mt-3">Social Media Links</h6>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
-                                    <Form.Group controlId="formWebsitelink">
-                                        <Form.Label>Website Link (optional)</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            name="website_link"
-                                            placeholder={"https://example.com"}
-                                            value={formValues.website_link}
-                                            onChange={handleChange}
-                                        />
-                                        <p className="text-danger">{errors.website_link}</p>
-                                    </Form.Group>
-                                </Col>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
-                                    <Form.Group controlId="formFacebookLink">
-                                        <Form.Label>Facebook Link (optional)</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            name="facebook_link"
-                                            placeholder={"Facebook Link"}
-                                            value={formValues.facebook_link}
-                                            onChange={handleChange}
-                                        />
-                                        <p className="text-danger">{errors.facebook_link}</p>
-                                    </Form.Group>
-                                </Col>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
-                                    <Form.Group controlId="formInstagramLink">
-                                        <Form.Label>Instagram Link (optional)</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            name="instagram_link"
-                                            placeholder={"Instagram Link"}
-                                            value={formValues.instagram_link}
-                                            onChange={handleChange}
-                                        />
-                                        <p className="text-danger">{errors.instagram_link}</p>
-                                    </Form.Group>
+                                <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
+                                    <h6 className="mt-3">Social Media Links</h6>
+                                    <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
+                                        <Form.Group controlId="formWebsitelink">
+                                            <Form.Label>Website Link (optional)</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                name="website_link"
+                                                placeholder={"https://example.com"}
+                                                value={formValues.website_link}
+                                                onChange={handleChange}
+                                            />
+                                            <p className="text-danger">{errors.website_link}</p>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
+                                        <Form.Group controlId="formFacebookLink">
+                                            <Form.Label>Facebook Link (optional)</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                name="facebook_link"
+                                                placeholder={"Facebook Link"}
+                                                value={formValues.facebook_link}
+                                                onChange={handleChange}
+                                            />
+                                            <p className="text-danger">{errors.facebook_link}</p>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
+                                        <Form.Group controlId="formInstagramLink">
+                                            <Form.Label>Instagram Link (optional)</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                name="instagram_link"
+                                                placeholder={"Instagram Link"}
+                                                value={formValues.instagram_link}
+                                                onChange={handleChange}
+                                            />
+                                            <p className="text-danger">{errors.instagram_link}</p>
+                                        </Form.Group>
+                                    </Col>
                                 </Col>
                             </Row>
 

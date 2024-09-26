@@ -116,6 +116,7 @@ import SaloonPhotoUploadGallery from "./pages/moreclub/moresaloon/Gallery/Saloon
 import SaloonUserUploadGallery from "./pages/moreclub/moresaloon/Gallery/SaloonUserUploadGallery";
 import BlogDetail from "./pages/Support/BlogDetail";
 import BlogDetailPage from "./pages/Support/BlogDetailPage";
+import ServiceVariationPage from "./pages/moreclub/moresaloon/Services/ServiceVariationPage";
 
 
 
@@ -663,6 +664,10 @@ const App = () => {
     {
       path: `/saloon/:id/services/:slug`,
       page: <ServicePage />,
+    },
+    {
+      path: `/saloon/:id/service/:ser_id/:slug/:ser_name`,
+      page: <ServiceVariationPage />,
     },
     {
       path: `/saloon/:id/staff/:slug`,

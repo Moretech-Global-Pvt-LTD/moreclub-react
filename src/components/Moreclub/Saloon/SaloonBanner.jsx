@@ -54,7 +54,7 @@ const SaloonBanner = ({ data }) => {
 
     return (
         <div className="col-12 col-md-8 col-lg-6 mb-4">
-            <h4>Resturant Banner</h4>
+            <h4>Saloon Banner</h4>
             <div className=" card ">
                 <div className="card-body p-4 p-sm-5" style={{ marginTop: "-25px" }}>
                     <div className=" card-body">

@@ -7,7 +7,6 @@ import { Card, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import SaloonCard from '../../../../components/Moreclub/Saloon/SaloonCard2';
 import Plus from "../../../../images/moreclub/plus.png";
-import axios from 'axios';
 import { axiosInstance } from '../../../..';
 
 

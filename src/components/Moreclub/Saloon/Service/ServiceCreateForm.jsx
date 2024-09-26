@@ -4,8 +4,8 @@ import { morefoodURL } from '../../../../config/config';
 import { axiosInstance } from '../../../..';
 import { useQueryClient } from '@tanstack/react-query';
 
-const ServiceCreateForm = ({ res_id, onFinish }) => {
-    const [categories, setCategories] = useState([]);
+const ServiceCreateForm = ({ res_id, onFinish , onCancel}) => {
+    
     const [servicesName, setServicesName] = useState('');
     const queryClient = useQueryClient();
 
@@ -20,7 +20,7 @@ const ServiceCreateForm = ({ res_id, onFinish }) => {
                 menu_id: servicesName
             })
             .then((response) => {
-                setCategories(response.data.data);
+               
                 queryClient.invalidateQueries({
                     queryKey: [`Resturant Menu List ${res_id}`],
                 });
@@ -33,35 +33,33 @@ const ServiceCreateForm = ({ res_id, onFinish }) => {
     };
     
     return (
-        <Card className="p-3 ">
+        <div className="p-3 ">
             <Form onSubmit={handleSubmit}>
                 <Row className="gy-3">
                     <Form.Group controlId="formMenuCategory">
-                        <Form.Label>Category</Form.Label>
-
+                        <Form.Label>Service</Form.Label>
                         <Form.Control
-                            as="text"
+                            type="text"
+                            name="name"
+                            placeholder={"services.."}
                             value={servicesName}
                             onChange={handleCategoryChange}
-                        >
-                            <option value="">Select a category</option>
-                            {categories &&
-                                categories.length > 0 &&
-                                categories?.map((category, index) => (
-                                    <option key={index} value={category.id}>
-                                        {category.name}
-                                    </option>
-                                ))}
-                        </Form.Control>
+                        />
+                        
+                            
+                        
                     </Form.Group>
-                    <div>
+                    <div className='d-flex justify-content-end gap-2'> 
+                        <Button variant="secondary"  onClick={onCancel}>
+                            Cancel
+                        </Button>
                         <Button variant="success" type="submit" disabled={servicesName.trim() === ""}>
                             Add Service
                         </Button>
                     </div>
                 </Row>
             </Form>
-        </Card>
+        </div>
     );
 };
 

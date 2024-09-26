@@ -27,16 +27,16 @@ const SaloonUpdate = () => {
 
   if (isLoading) {
     return (
-
-      <div className="row gap-2">
-        <Placeholder as="p" animation="glow" className="rounded w-75 me-2">
-          <Placeholder xs={12} style={{ height: "10rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded  w-75 me-2">
-          <Placeholder xs={12} style={{ height: "10rem" }} />
-        </Placeholder>
-      </div>
-
+      <Saloonlayout>
+        <div className="row gap-2">
+          <Placeholder as="p" animation="glow" className="rounded w-75 me-2">
+            <Placeholder xs={12} style={{ height: "10rem" }} />
+          </Placeholder>
+          <Placeholder as="p" animation="glow" className="rounded  w-75 me-2">
+            <Placeholder xs={12} style={{ height: "10rem" }} />
+          </Placeholder>
+        </div>
+      </Saloonlayout>
     );
   }
 
@@ -58,60 +58,60 @@ const SaloonUpdate = () => {
 
   return (
     <Saloonlayout>
-    <div className="featured-nfts-wrap">
-      <div className="row">
-        <div className="tabs">
-          <button
-            className={`${activeTab === "Information" ? "tablinks active" : "tablinks"
-              } rounded-pills`}
-            onClick={() => openTab("Information")}
-          >
-            Saloon Information
-          </button>
-          <button
-            className={`${activeTab === "Images" ? "tablinks active" : "tablinks"
-              } `}
-            onClick={() => openTab("Images")}
-          >
-            Images
-          </button>
-        </div>
-
-        <div className="d-flex flex-column-reverse flex-lg-row w-100">
-          <div className="content-outside-wrapper w-100">
-
-            <div
-              id="Information"
-              className={`
-                ${activeTab === "Information"
-                  ? "tabcontent active"
-                  : "tabcontent"
+      <div className="featured-nfts-wrap">
+        <div className="row">
+          <div className="tabs">
+            <button
+              className={`${activeTab === "Information" ? "tablinks active" : "tablinks"
+                } rounded-pills`}
+              onClick={() => openTab("Information")}
+            >
+              Saloon Information
+            </button>
+            <button
+              className={`${activeTab === "Images" ? "tablinks active" : "tablinks"
                 } `}
+              onClick={() => openTab("Images")}
             >
-                <SaloonUpdateInfoForm data={data} />
-            </div>
-            <div
-              id="Images"
-              className={
-                activeTab === "Images" ? "tabcontent active" : "tabcontent"
-              }
-            >
-              <Col className="gap-4">
-                <SaloonBanner data={data.banner} />
-                <SaloonLogo data={data.logo} />
-              </Col>
-            </div>
+              Images
+            </button>
+          </div>
 
+          <div className="d-flex flex-column-reverse flex-lg-row w-100">
+            <div className="content-outside-wrapper w-100">
+
+              <div
+                id="Information"
+                className={`
+                ${activeTab === "Information"
+                    ? "tabcontent active"
+                    : "tabcontent"
+                  } `}
+              >
+                <SaloonUpdateInfoForm data={data} />
+              </div>
+              <div
+                id="Images"
+                className={
+                  activeTab === "Images" ? "tabcontent active" : "tabcontent"
+                }
+              >
+                <Col className="gap-4">
+                  <SaloonBanner data={data.banner} />
+                  <SaloonLogo data={data.logo} />
+                </Col>
+              </div>
+
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </Saloonlayout>
   );
 };
 
 
- 
+
 
 
 export default SaloonUpdate;
