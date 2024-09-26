@@ -1,10 +1,10 @@
 import React, { useState} from 'react';
 import { Form, Button, Card, Row } from 'react-bootstrap';
-import { morefoodURL } from '../../../../config/config';
+import { morefoodURL, moresaloonURL } from '../../../../config/config';
 import { axiosInstance } from '../../../..';
 import { useQueryClient } from '@tanstack/react-query';
 
-const ServiceCreateForm = ({ res_id, onFinish , onCancel}) => {
+const ServiceCreateForm = ({ id, onFinish , onCancel}) => {
     
     const [servicesName, setServicesName] = useState('');
     const queryClient = useQueryClient();
@@ -16,13 +16,13 @@ const ServiceCreateForm = ({ res_id, onFinish , onCancel}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         axiosInstance
-            .post(`${morefoodURL}moreclub/user/menus/${res_id}/`, {
-                menu_id: servicesName
+            .post(`${moresaloonURL}moreclub/users/saloons/${id}/services/`, {
+                name: servicesName
             })
             .then((response) => {
                
                 queryClient.invalidateQueries({
-                    queryKey: [`Resturant Menu List ${res_id}`],
+                    queryKey: [`Saloon service List ${id}`],
                 });
                 setServicesName("");
                 onFinish();
