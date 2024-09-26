@@ -136,7 +136,7 @@ const HeaderDashboardMenu = () => {
               &nbsp; More Food
             </NavLink>
           </li>
-           {/* <li>
+           <li>
             <NavLink to={"/moresaloon"}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                   <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -149,7 +149,7 @@ const HeaderDashboardMenu = () => {
                 </svg>
               &nbsp; More Saloon
             </NavLink>
-            </li> */}
+            </li>
           </>
         )}
         {user.user?.user_type !== "NORMAL" && (
@@ -250,7 +250,7 @@ const HeaderDashboardMenu = () => {
                 </li>
                   </SidebarDropDownMenu>
                 }
-                {/* {business.businessProfile.business_types?.some(type => type.name === "Restaurant") &&
+                {business.businessProfile.business_types?.some(type => type.name === "Restaurant") &&
 
                   <SidebarDropDownMenu
                     menuIcon={"bi-scissors"}
@@ -281,7 +281,7 @@ const HeaderDashboardMenu = () => {
                       </NavLink>
                     </li>
                   </SidebarDropDownMenu>
-                } */}
+                }
               </>
             )}
           </>

@@ -7,8 +7,8 @@ import { moresaloonURL } from '../../../../config/config';
 import { RestaurantItemskeleton } from '../../../../components/Skeleton/SmallCardSkeleton';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import ServiceCreateForm from '../../../../components/Moreclub/Saloon/Service/ServiceCreateForm';
-import CategoryCard from '../../../../components/Moreclub/Resturant/Menu/CategoryCard';
 import ServiceCard from '../../../../components/Moreclub/Saloon/Service/ServiceCard';
+
 
 const ServicePage = () => {
   const { id, slug } = useParams();
@@ -18,7 +18,7 @@ const ServicePage = () => {
     queryKey: [`Saloon service List ${id}`],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        `${moresaloonURL}moreclub/services/${id}/`
+        `${moresaloonURL}moreclub/users/saloons/${id}/services/`
       );
       const data = await response.data.data;
       return data;
@@ -46,7 +46,7 @@ const ServicePage = () => {
     setShowForm(false);
   }
 
-  console.log(data)
+
 
   return (
     <Saloonlayout>
@@ -99,10 +99,10 @@ const ServicePage = () => {
             <ServiceCard
               id={4}
               sal_id={id}
-              logo={"defaultImage"}
-              name={"Variations"}
+              logo={item.logo}
+              name={item.name}
               sal_name={slug}
-              item={4}
+              item={item.variations?.length ?? 0}
             />
           </Col>
         ))}

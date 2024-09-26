@@ -2,23 +2,32 @@
 import { initializeApp } from "@firebase/app";
 import { getMessaging, getToken } from "@firebase/messaging";
 import { axiosInstance } from "..";
-import { baseURL, apiKey, authDomain, projectId, storageBucket,messagingSenderId, appId, measurementId } from "../config/config";
+import {
+  baseURL,
+} from "../config/config";
+
 
 const firebaseConfig = {
-  apiKey: apiKey,
-  authDomain: authDomain,
-  projectId: projectId,
-  storageBucket: storageBucket,
-  messagingSenderId: messagingSenderId,
-  appId: appId,
-  measurementId: measurementId
-};
+  apiKey: "AIzaSyDGpimUAwYbIxYiUxeNAqIXOUqKnm4oqGw",
+  authDomain: "moredealsclub-ae3da.firebaseapp.com",
+  projectId: "moredealsclub-ae3da",
+  storageBucket: "moredealsclub-ae3da.appspot.com",
+  messagingSenderId: "1070037070454",
+  appId: "1:1070037070454:web:bdf85aee6d5e06990ee557",
+  measurementId: "G-SBWYGVC9BE"
+}
 
 const firebaseApp = initializeApp(firebaseConfig);
 const messaging = getMessaging(firebaseApp);
 
 // Function to request notification permission
 const requestNotificationPermission = async () => {
+if (!("Notification" in window)) {
+  console.log("This browser does not support notifications.");
+  return null;
+}
+
+
   const permission = await Notification.requestPermission();
   if (permission !== "granted") {
     console.log("Notification permission denied.");
@@ -32,7 +41,7 @@ const retrieveToken = async () => {
   try {
     const token = await getToken(messaging, {
       vapidKey:
-        "BNDkh_gwyoOv_uH_cVBYFTYw1CrRdp47JKo3HH4Ige0qonnIzy0mcjZtDn7ZLminMEaturNv195V6Ifoz1zuJkk",
+        "BNvcQFcNyARD3q5FslvO46kzGL6iMdJI6Pn776dFO2m8Rj2bV7TObpviK2zLdiwVlZecg2mn8rP8shwmBaSbNOE",
     });
     if (!token) {
       console.error("Failed to retrieve token.");

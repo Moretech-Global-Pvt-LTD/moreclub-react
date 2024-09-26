@@ -1,4 +1,4 @@
-import React, {useEffect } from "react";
+import React, {useEffect, useState } from "react";
 import { messaging } from "../../utills/firebase";
 import useVisibilityChange from "../../Hooks/useVisibilityChange";
 import { sendNativeNotification } from "../../utills/notificationhelper";
@@ -7,9 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 
 const Notification = () => {
-
   const isForeground = useVisibilityChange();
-
   const notify = (message) =>
     toast.warn(message, {
       position: "top-right",
@@ -20,17 +18,15 @@ const Notification = () => {
       draggable: true,
       progress: undefined,
       theme: "colored",
-    });
-
-
+  });
 
   useEffect(() => {
     onMessage(messaging, (payload) => {
       if (isForeground) {
         const message = (
           <>
-            <h6 style={{color:"black"}}>{payload.notification.title}</h6>
-            <p style={{color:"black"}}>{payload.notification.body}</p>
+            <h6 style={{ color: "black" }}>{payload.notification.title}</h6>
+            <p style={{ color: "black" }}>{payload.notification.body}</p>
           </>
         );
         notify(message);

@@ -54,6 +54,7 @@ export const userRegister = createSlice({
       state.message = action.payload;
     },
     userSuccess: (state, action) => {
+      sessionStorage.setItem("username", action.payload.username);
       state.user = action.payload;
       state.isAuthenticated = true;
     },
