@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { message } from 'antd';
+import { set } from 'lodash';
 
-const OpeningHoursForm = ({ existingdata, submitFunction }) => {
+const TimeSlotForm = ({ existingdata, submitFunction }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [openingHours, setOpeningHours] = useState({
-        Monday: { start_time: '', end_time: '', is_open: false },
-        Tuesday: { start_time: '', end_time: '', is_open: false },
-        Wednesday: { start_time: '', end_time: '', is_open: false },
-        Thursday: { start_time: '', end_time: '', is_open: false },
-        Friday: { start_time: '', end_time: '', is_open: false },
-        Saturday: { start_time: '', end_time: '', is_open: false },
-        Sunday: { start_time: '', end_time: '', is_open: false },
+        Monday: { start_time: '', end_time: '', is_working: false },
+        Tuesday: { start_time: '', end_time: '', is_working: false },
+        Wednesday: { start_time: '', end_time: '', is_working: false },
+        Thursday: { start_time: '', end_time: '', is_working: false },
+        Friday: { start_time: '', end_time: '', is_working: false },
+        Saturday: { start_time: '', end_time: '', is_working: false },
+        Sunday: { start_time: '', end_time: '', is_working: false },
     });
     const [sameAllDays, setSameAllDays] = useState(false);
 
@@ -19,10 +20,10 @@ const OpeningHoursForm = ({ existingdata, submitFunction }) => {
         if (existingdata) {
             const initialState = {};
             existingdata.forEach((item) => {
-                initialState[item.day_of_week] = {
-                    start_time: item.is_open ? item?.start_time ?? '' : '',
-                    end_time: item.is_open ? item?.end_time ?? '' : '',
-                    is_open: item.is_open,
+                initialState[item.day_name] = {
+                    start_time: item.is_working ? item?.start_time ?? '' : '',
+                    end_time: item.is_working ? item?.end_time ?? '' : '',
+                    is_working: item.is_working,
                 };
             });
             setOpeningHours(initialState);
@@ -38,14 +39,14 @@ const OpeningHoursForm = ({ existingdata, submitFunction }) => {
 
     const handleToggleOpen = (day) => {
         setOpeningHours((prevOpeningHours) => {
-            const isOpen = !prevOpeningHours[day].is_open;
+            const works = !prevOpeningHours[day].is_working;
             return {
                 ...prevOpeningHours,
                 [day]: {
                     ...prevOpeningHours[day],
-                    is_open: isOpen,
-                    start_time: isOpen ? prevOpeningHours[day].start_time : '',
-                    end_time: isOpen ? prevOpeningHours[day].end_time : '',
+                    is_working: works,
+                    start_time: works ? prevOpeningHours[day].start_time : '',
+                    end_time: works ? prevOpeningHours[day].end_time : '',
                 },
             };
         });
@@ -66,30 +67,38 @@ const OpeningHoursForm = ({ existingdata, submitFunction }) => {
         }
     };
 
+    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+        
+        const formattedData = Object.keys(openingHours)
+            .filter(day => openingHours[day].is_working) // Filter only days with is_working true
+            .map(day => ({
+                day_of_week: day,
+                start_time: openingHours[day].start_time,
+                end_time: openingHours[day].end_time,
+            }));
 
-        try {
             if (submitFunction) {
-                await submitFunction(openingHours); // Call the passed submit function
+               const res = await submitFunction(formattedData); // Call the passed submit function
+                if (res.status === 200) {
+                    message.success(res.data?.message || 'working hours set successfully');
+                } else {
+                    message.error(res.data?.message || 'Error setting working hours');
+                }
             } else {
                 message.error('No submit function provided');
             }
-            message.success('Working hours updated successfully');
-        } catch (error) {
-            console.error(error);
-            message.error('Error updating working hours');
-        } finally {
             setIsLoading(false);
-        }
     };
 
     return (
         <>
             <Row>
                 <Col md={12}>
-                    <h5 className='my-3'>Opening Hours Form</h5>
+                    <h5 className='my-3'>Working Time Form</h5>
                 </Col>
             </Row>
             <Row>
@@ -111,15 +120,15 @@ const OpeningHoursForm = ({ existingdata, submitFunction }) => {
                                     </Form.Label>
                                     <Form.Check
                                         type='switch'
-                                        checked={openingHours[day].is_open}
+                                        checked={openingHours[day].is_working}
                                         onChange={() => handleToggleOpen(day)}
-                                        label={openingHours[day].is_open ? 'Open' : 'Close'}
+                                        label={openingHours[day].is_working ? 'Works' : 'Day Off'}
                                     />
                                 </div>
-                                {openingHours[day].is_open && (
+                                {openingHours[day].is_working && (
                                     <div className='d-flex flex-column flex-md-row gap-2'>
                                         <div>
-                                            <Form.Label className='text-dynamic-white'>Open</Form.Label>
+                                            <Form.Label className='text-dynamic-white'>Start</Form.Label>
                                             <Form.Control
                                                 type='time'
                                                 value={openingHours[day].start_time}
@@ -127,7 +136,7 @@ const OpeningHoursForm = ({ existingdata, submitFunction }) => {
                                             />
                                         </div>
                                         <div>
-                                            <Form.Label className='text-dynamic-white'>Close</Form.Label>
+                                            <Form.Label className='text-dynamic-white'>End</Form.Label>
                                             <Form.Control
                                                 type='time'
                                                 value={openingHours[day].end_time}
@@ -138,6 +147,8 @@ const OpeningHoursForm = ({ existingdata, submitFunction }) => {
                                 )}
                             </Form.Group>
                         ))}
+
+
                         <Button type='submit' disabled={isLoading}>
                             {isLoading ? 'Loading...' : 'Submit'}
                         </Button>
@@ -148,4 +159,4 @@ const OpeningHoursForm = ({ existingdata, submitFunction }) => {
     );
 };
 
-export default OpeningHoursForm;
+export default TimeSlotForm;

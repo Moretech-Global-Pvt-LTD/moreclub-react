@@ -117,6 +117,7 @@ import SaloonUserUploadGallery from "./pages/moreclub/moresaloon/Gallery/SaloonU
 import BlogDetail from "./pages/Support/BlogDetail";
 import BlogDetailPage from "./pages/Support/BlogDetailPage";
 import ServiceVariationPage from "./pages/moreclub/moresaloon/Services/ServiceVariationPage";
+import StaffDetailPage from "./pages/moreclub/moresaloon/Staff/StaffDetailPage";
 
 
 
@@ -672,6 +673,10 @@ const App = () => {
     {
       path: `/saloon/:id/staff/:slug`,
       page: <StaffPage />,
+    },
+    {
+      path: `/saloon/:id/:slug/staff/:staff_id/:staff_name`,
+      page: <StaffDetailPage />,
     },
     {
       path: `/saloon/:id/booking/:slug`,

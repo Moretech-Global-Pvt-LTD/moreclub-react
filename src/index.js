@@ -74,4 +74,4 @@ root.render(
   </React.StrictMode>
 );
 reportWebVitals();
-register();
+// register();

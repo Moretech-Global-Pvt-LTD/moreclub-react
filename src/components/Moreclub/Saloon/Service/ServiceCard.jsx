@@ -1,12 +1,14 @@
-import React from "react";
-import { Badge, Card } from "react-bootstrap";
+import React, { useState } from "react";
+import { Badge, Card, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { morefoodimageURL, morefoodURL, moresaloonimageURL, moresaloonURL } from "../../../../config/config";
+import { moresaloonimageURL, moresaloonURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
+import ServiceUpdateForm from "./ServiceUpdateForm";
 
-const ServiceCard = ({ id, sal_id, logo, name, item , sal_name}) => {
+const ServiceCard = ({ id, sal_id, logo, name, item, sal_name  }) => {
+    const [showForm, setShowForm] = useState(false);
 
     const queryClient = useQueryClient();
     const slug = name.replace(/ /g, "-");
@@ -17,22 +19,44 @@ const ServiceCard = ({ id, sal_id, logo, name, item , sal_name}) => {
                 `${moresaloonURL}moreclub/users/saloons/${sal_id}/services/${id}/`
             );
             queryClient.invalidateQueries({
-                queryKey: [`Resturant Menu List ${sal_id}`],
+                queryKey: [`Saloon service List ${sal_id}`],
             });
-            message.success("Menu Deleted successfully");
+            message.success("Services Deleted successfully");
         } catch (err) {
             message.error("error deleting");
             queryClient.invalidateQueries({
-                queryKey: [`Resturant Menu List ${sal_id}`],
+                queryKey: [`Saloon service List ${sal_id}`],
             });
         }
     }
 
+
+    async function showAddCategory() {
+        setShowForm(true);
+    }
+
+    async function hideAddCategory() {
+        setShowForm(false);
+    }
+
+    const data = {
+        id,
+        logo,
+        name
+    };
+    
+
     return (
+        <>
         <div className="d-flex flex-column position-relative" style={{ height: "100%" }}>
-            <Badge className="bg-danger position-absolute top-0 end-0" style={{ zIndex: 10, cursor: "pointer" }} onClick={() => handleDelete()}>
+                <div className="position-absolute top-0 end-0 d-flex gap-2">
+                <Badge className="bg-success " style={{ zIndex: 10, cursor: "pointer" }} onClick={() => showAddCategory()}>
+                    <i class="bi bi-pencil"></i>
+                </Badge>
+                <Badge className="bg-danger " style={{ zIndex: 10, cursor: "pointer" }} onClick={() => handleDelete()}>
                 <i class="bi bi-trash"></i>
-            </Badge>
+                </Badge>
+                </div>
             <Card className="nearby-offers-card flex-grow-1">
                 <div className="mx-auto mt-2 mb-0">
                     <img
@@ -56,7 +80,28 @@ const ServiceCard = ({ id, sal_id, logo, name, item , sal_name}) => {
                     </Card.Body>
                 </Link>
             </Card>
+
         </div>
+            <Modal
+                aria-labelledby="contained-modal-title-vcenter"
+                size="md"
+                centered
+                show={showForm}
+                onHide={hideAddCategory}
+
+            >
+
+                <Modal.Header>
+                    <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
+                        Add Services
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <ServiceUpdateForm data={data} id={sal_id} onFinish={hideAddCategory} onCancel={hideAddCategory} />
+                </Modal.Body>
+            </Modal>
+        </>
+        
     );
 };
 

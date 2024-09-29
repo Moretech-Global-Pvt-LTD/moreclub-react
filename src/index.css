@@ -28796,7 +28796,7 @@ span {
 /* Container for the service cards */
 .service-variation-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid with cards */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid with cards */
     gap: 1.5rem; /* Spacing between the cards (gy-3 in Bootstrap) */
     margin: 2rem 0; /* Top and bottom margin (my-4 in Bootstrap) */
 }
@@ -28891,6 +28891,8 @@ span {
     color: #adb5bd;
 }
 
+
+
 /* Responsive behavior to control the number of columns based on screen size */
 @media (max-width: 1400px) {
     .service-variation-container {
@@ -28915,6 +28917,141 @@ span {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust for smaller screens */
     }
 }
+
+
+
+.staff-card {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+[data-theme="dark"] .staff-card{
+   background-color: #0c153b;
+    color: white;
+    border: 1px solid #0c153b;
+}
+
+.staff-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.staff-profile-pic img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.staff-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.staff-name {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.staff-info {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.staff-services {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.staff-badge {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 12px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    display: inline-block;
+    text-align: center;
+}
+
+.staff-badge:hover {
+    background-color: #0056b3;
+}
+
+.tags-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 400px;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.tag .close-btn {
+    margin-left: 10px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    font-size: 0.8rem;
+}
+
+.tag .close-btn:hover {
+    background-color: red;
+    color: white;
+}
+
+.add-tag-section {
+    display: flex;
+    gap: 10px;
+}
+
+.add-btn {
+    background-color: #28a745;
+    border: none;
+    padding: 5px 15px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.add-btn:hover {
+    background-color: #218838;
+}
+
 
 
 

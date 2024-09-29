@@ -1,14 +1,16 @@
 
 
-import React from "react";
-import { Badge, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { morefoodimageURL, morefoodURL, moresaloonURL } from "../../../../config/config";
+import React, { useState } from "react";
+import { Modal } from "react-bootstrap";
+import { moresaloonURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
+import ServiceVariationUpdateForm from "./ServicevariationUpdateForm";
 
-const ServiceVariationCard = ({ id, sal_id, logo, name, item , sal_name}) => {
+const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
+    const [hours, minutes, seconds] = item.duration.split(":");
+    const [showForm, setShowForm] = useState(false);
 
     const queryClient = useQueryClient();
     // const slug = name.replace(/ /g, "-");
@@ -16,42 +18,72 @@ const ServiceVariationCard = ({ id, sal_id, logo, name, item , sal_name}) => {
     async function handleDelete() {
         try {
             await axiosInstance.delete(
-                `${moresaloonURL}moreclub/user/menus/${id}/${sal_id}/`
+                `${moresaloonURL}moreclub/users/saloons/${sal_id}/services/${ser_id}/variations/${item.id}/`
             );
             queryClient.invalidateQueries({
-                queryKey: [`Resturant Menu List ${sal_id}`],
+                queryKey: [`Saloon variation List ${sal_id} ${ser_id}`],
             });
-            message.success("Menu Deleted successfully");
+            message.success("Service Variation Deleted successfully");
         } catch (err) {
             message.error("error deleting");
             queryClient.invalidateQueries({
-                queryKey: [`Resturant Menu List ${sal_id}`],
+                queryKey: [`Saloon variation List ${sal_id} ${ser_id}`],
             });
         }
     }
 
+    async function showAddCategory() {
+        setShowForm(true);
+    }
+
+    async function hideAddCategory() {
+        setShowForm(false);
+    }
+
+
     return (
+
         <div class="service-variation-card">
-    <img src="path_to_image" alt="Service Image" class="service-variation-image"/>
-    <div class="service-variation-content">
-        <h3 class="service-variation-title">Chemical Peels</h3>
-        <p class="service-variation-price">$20.00</p>
-        <p class="service-variation-description">
-            Cleansing and moisturizing the skin is important for many people. Properly maintaining your skin can...
-        </p>
-        <div class="service-variation-footer">
-            <div class="service-variation-admin">
-                <button class="service-variation-edit">
-                    <i class="bi bi-pencil"></i> 
-                </button>
-                <button class="service-variation-delete">
-                    <i class="bi bi-trash"></i> 
-                </button>
+            <img src={item.images[0].image} alt="Service Image" class="service-variation-image" />
+            <div class="service-variation-content">
+                <h3 class="service-variation-title">{item.name}</h3>
+                <p class="service-variation-price">{item.discount_price ? `Rs.${item.discount_price}` : `Rs ${item.price}`}{" "}{<span style={{ textDecoration: "line-through" }}>{item.discount_price && `Rs.${item.price}`}</span>}</p>
+                <p class="service-variation-description">
+                    {item.description}
+                </p>
+                <div class="service-variation-footer">
+                    <div class="service-variation-admin">
+                        <button class="service-variation-edit" onClick={showAddCategory}>
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="service-variation-delete" onClick={handleDelete}>
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                    <span class="service-variation-time">{hours !== '00' ? `${hours} hrs ${minutes} min ` : `${minutes} min `} </span>
+                </div>
             </div>
-            <span class="service-variation-time">20:00 min</span>
+            <Modal
+                aria-labelledby="contained-modal-title-vcenter"
+                size="md"
+                centered
+                show={showForm}
+                onHide={hideAddCategory}
+
+            >
+
+                <Modal.Header>
+                    <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
+                        Add Services
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <ServiceVariationUpdateForm ser_id={ser_id} sal_id={id} data={item} onFinish={hideAddCategory} onCancel={hideAddCategory} />
+                </Modal.Body>
+            </Modal>
         </div>
-    </div>
-</div>
+
+
     );
 };
 

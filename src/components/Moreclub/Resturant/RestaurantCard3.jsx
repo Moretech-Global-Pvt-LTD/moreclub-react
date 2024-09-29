@@ -13,7 +13,6 @@ const ResturantCard = ({ res, link }) => {
                 window.open(url, '_blank');
             }
         } catch(err){
-            console.log("error getting code ", err.response.status)
             const url = `${link}`;
             window.open(url, '_blank');
         }

@@ -1,12 +1,13 @@
 import React, { useState} from 'react';
-import { Form, Button, Card, Row } from 'react-bootstrap';
-import { morefoodURL, moresaloonURL } from '../../../../config/config';
+import { Form, Button, Row } from 'react-bootstrap';
+import {  moresaloonURL } from '../../../../config/config';
 import { axiosInstance } from '../../../..';
 import { useQueryClient } from '@tanstack/react-query';
 
 const ServiceCreateForm = ({ id, onFinish , onCancel}) => {
     
     const [servicesName, setServicesName] = useState('');
+    const [loading, setLoading]= useState(false)
     const queryClient = useQueryClient();
 
     const handleCategoryChange = (e) => {
@@ -15,6 +16,7 @@ const ServiceCreateForm = ({ id, onFinish , onCancel}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true);
         axiosInstance
             .post(`${moresaloonURL}moreclub/users/saloons/${id}/services/`, {
                 name: servicesName
@@ -29,7 +31,7 @@ const ServiceCreateForm = ({ id, onFinish , onCancel}) => {
             })
             .catch((error) => {
                 console.error("There was an error fetching the categories!", error);
-            });
+            }).finally(() => setLoading(false));
     };
     
     return (
@@ -54,6 +56,7 @@ const ServiceCreateForm = ({ id, onFinish , onCancel}) => {
                             Cancel
                         </Button>
                         <Button variant="success" type="submit" disabled={servicesName.trim() === ""}>
+                            {loading && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}&nbsp;
                             Add Service
                         </Button>
                     </div>

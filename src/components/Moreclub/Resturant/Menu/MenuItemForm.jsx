@@ -117,7 +117,7 @@ const MenuItemsForm = ({ res_id, cat_id , onFinish }) => {
       setMenuItem({ ...menuItem, cuisine_id: selectedValues });
     } else {
       setMenuItem({ ...menuItem, "cuisine": [] });
-      console.log("selected option", selectedOptions)
+     
     }
   };
 

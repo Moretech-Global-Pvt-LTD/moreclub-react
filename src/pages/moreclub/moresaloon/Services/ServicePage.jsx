@@ -8,6 +8,7 @@ import { RestaurantItemskeleton } from '../../../../components/Skeleton/SmallCar
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import ServiceCreateForm from '../../../../components/Moreclub/Saloon/Service/ServiceCreateForm';
 import ServiceCard from '../../../../components/Moreclub/Saloon/Service/ServiceCard';
+import ServiceVariationCreationForm from '../../../../components/Moreclub/Saloon/Service/ServiceVariationCreationForm';
 
 
 const ServicePage = () => {
@@ -35,7 +36,9 @@ const ServicePage = () => {
   }
 
   if (isError) {
-    return <Saloonlayout className="text-dynamic-white">Error: retriving</Saloonlayout>;
+    return <Saloonlayout className="text-dynamic-white">Error: retriving
+      <ServiceVariationCreationForm/>
+    </Saloonlayout>;
   }
 
   async function showAddCategory() {
@@ -97,7 +100,7 @@ const ServicePage = () => {
         {data.map((item) => (
           <Col className="d-flex flex-column">
             <ServiceCard
-              id={4}
+              id={item.id}
               sal_id={id}
               logo={item.logo}
               name={item.name}
@@ -110,8 +113,10 @@ const ServicePage = () => {
       </Row>
       
       {data && data.length === 0 &&
-        <p className="text-center">Add New Menu Category for your Resturant</p>
+        <p className="text-center">Add New Service Category for your Saloon</p>
       }  
+
+
     </Saloonlayout>
   )
 }
