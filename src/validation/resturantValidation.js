@@ -14,6 +14,11 @@ export const validateCountry = (country) => {
       return "";
 };
 
+export const validateAnemeties = (animities) => {
+  if (animities.length === 0) return "animities is required";
+  return "";
+};
+
 export const validateAddress = (address, lat, lng) => {
     if (!address) return "Address is Required";
     if(lat === 0 || lng === 0) return "Select Valid Address from the list"

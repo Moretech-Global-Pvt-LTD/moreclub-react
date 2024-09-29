@@ -3,10 +3,11 @@ import { Button, Col, Row, Form, Spinner, } from "react-bootstrap";
 import axios from "axios";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry,  validateEmail, validateFacebookURL, validateInstagramURL, Validatelogo, validateLongDescription,  validateResturantName, validateWebsiteURL } from "../../../validation/resturantValidation";
+import { valdateShortDescription, validateAddress, validateAnemeties, Validatebanner, validateContactNumber, validateCountry,  validateEmail, validateFacebookURL, validateInstagramURL, Validatelogo, validateLongDescription,  validateResturantName, validateWebsiteURL } from "../../../validation/resturantValidation";
 import MapBoxLocationDisplayAutocomplete from "../../Googlemap/MapLocationInput";
 import { moresaloonURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
+import TagsInput from "../CommonComponents/TagInput";
 
 
 const SaloonCreateForm = () => {
@@ -36,6 +37,7 @@ const SaloonCreateForm = () => {
         website_link: "",
         facebook_link: "",
         instagram_link: "",
+        amenities: [],
     });
 
 
@@ -58,6 +60,8 @@ const SaloonCreateForm = () => {
             tempErrors.long_description = validateLongDescription(
                 fieldValues.long_description
             );
+        if ("amenities" in fieldValues)
+            tempErrors.amenities = validateAnemeties(fieldValues.amenities);
         if ("website_link" in fieldValues)
             tempErrors.website_link = validateWebsiteURL(fieldValues.website_link);
         if ("facebook_link" in fieldValues)
@@ -83,6 +87,8 @@ const SaloonCreateForm = () => {
                 return valdateShortDescription(value);
             case "long_description":
                 return validateLongDescription(value);
+            case "amenities":
+                return validateAnemeties(value);
             case "contact_no":
                 return validateContactNumber(value);
             case "email":
@@ -202,14 +208,26 @@ const SaloonCreateForm = () => {
     };
 
 
+    const handleTagsChange = (newTags) => {
+        setFormValues((prevValues) => ({
+            ...prevValues, // Spread the previous state
+            amenities: [...newTags], // Set the new tags as the updated amenities array
+        }))
+    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const validationErrors = validateAllFields();
 
+        console.log(formValues)
 
         if (Object.keys(validationErrors).length === 0) {
             setIsLoading(true);
+
+         
+            
+
             try {
                 const res = await axiosInstance.post(
                     `${moresaloonURL}moreclub/saloon/setup/`,
@@ -221,7 +239,7 @@ const SaloonCreateForm = () => {
                     }
                 );
                 message.success("saloon created");
-                const slug= res.data.data.name.replace(" ", "-");
+                const slug= res.data.data.name.replace(/ /g , "-");
                 navigate(`/saloon/${res.data.data.id}/${slug}`);
             } catch (err) {
                 
@@ -244,7 +262,7 @@ const SaloonCreateForm = () => {
                         <p className="text-warning">All fields are required</p>
                         <Col className="card d-flex flex-column gap-4 p-2">
                             <Row>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                                <Col xs={12} md={6} lg={6} xl={6} xxl={6}>
                                     <Form.Group controlId="formSaloonName">
                                         <Form.Label>Saloon Name</Form.Label>
                                         <Form.Control
@@ -257,7 +275,7 @@ const SaloonCreateForm = () => {
                                         <p className="text-danger">{errors.name}</p>
                                     </Form.Group>
                                 </Col>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                                <Col xs={12} md={6} lg={6} xl={6} xxl={6}>
                                     <Form.Group controlId="formemail">
                                         <Form.Label>Email</Form.Label>
                                         <Form.Control
@@ -270,7 +288,7 @@ const SaloonCreateForm = () => {
                                         <p className="text-danger">{errors.email}</p>
                                     </Form.Group>
                                 </Col>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                                <Col xs={12} md={6} lg={6} xl={6} xxl={6}>
                                     <Form.Group controlId="formContactname">
                                         <Form.Label>Contact no</Form.Label>
                                         <Form.Control
@@ -283,7 +301,7 @@ const SaloonCreateForm = () => {
                                         <p className="text-danger">{errors.contact_no}</p>
                                     </Form.Group>
                                 </Col>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                                <Col xs={12} md={6} lg={6} xl={6} xxl={6}>
                                     <Form.Group controlId="formmin_order ">
                                         <Form.Label>Country</Form.Label>
                                         <Form.Control
@@ -304,43 +322,7 @@ const SaloonCreateForm = () => {
                                         <p className="text-danger">{errors.country}</p>
                                     </Form.Group>
                                 </Col>
-                                {/* <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
-                                    <Form.Group>
-                                        <Form.Label>Minimum Order</Form.Label>
-                                        <InputGroup className="">
-                                            <InputGroup.Text>{symbol}</InputGroup.Text>
-                                            <Form.Control
-                                                type="number"
-                                                name="min_order"
-                                                placeholder={"500"}
-                                                value={formValues.min_order}
-                                                onChange={handleChange}
-                                            />
-                                        </InputGroup>
-                                        <p className="text-danger">{errors.min_order}</p>
-                                    </Form.Group>
-                                </Col>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
-                                    <Form.Group controlId="formDeliveryTime">
-                                        <Form.Label>Maximum Delivery Time</Form.Label>
-                                        <Form.Control
-                                            as="select"
-                                            name="delivery_time"
-                                            value={formValues.delivery_time}
-                                            onChange={handleChange}
-                                            required
-                                        >
-                                            <option value={"15 min"}>15 min</option>
-                                            <option value={"20 min"}>20 min</option>
-                                            <option value={"30 min"}>30 min</option>
-                                            <option value={"45 min"}>45 min</option>
-                                            <option value={"1:00 hrs"}>1:00 hrs</option>
-                                            <option value={"1:30 hrs"}>1:30 hrs</option>
-                                            <option value={"2:00 hrs"}>2:00 hrs</option>
-                                        </Form.Control>
-                                        <p className="text-danger">{errors.delivery_time}</p>
-                                    </Form.Group>
-                                </Col> */}
+                            
                                 <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
 
                                     <Form.Group>
@@ -358,32 +340,14 @@ const SaloonCreateForm = () => {
                                 </Col>
                                 <Col xs={12} md={12} lg={12} xl={6} xxl={6} className="">
                                     <Row className="my-xl-4">
-                                        {/* <Form.Group
-                                            className="d-flex gap-2 my-3 my-xl-0"
-                                            style={{ height: "100%", alignItems: "center" }}
-                                        >
-                                            <Form.Check
-                                                type="checkbox"
-                                                label="Free Delivery"
-                                                name="is_delivery"
-                                                checked={formValues.is_delivery}
-                                                onChange={handleChange}
+                                        <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
+                                            <TagsInput
+                                                label="Amenities"
+                                                initialTags={formValues.amenities}
+                                                onTagsChange={handleTagsChange}
                                             />
-                                            <Form.Check
-                                                type="checkbox"
-                                                label="is_pickup"
-                                                name="is_pickup"
-                                                checked={formValues.is_pickup}
-                                                onChange={handleChange}
-                                            />
-                                            <Form.Check
-                                                type="checkbox"
-                                                label="Dine-In"
-                                                name="is_dine"
-                                                checked={formValues.is_dine}
-                                                onChange={handleChange}
-                                            />
-                                        </Form.Group> */}
+                                            <p className="text-danger">{errors.amenities}</p>
+                                        </Col>
                                         <h6 className="mt-3">Social Media Links</h6>
                                         <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
                                             <Form.Group controlId="formWebsitelink">

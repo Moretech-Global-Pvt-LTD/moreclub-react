@@ -1,66 +1,68 @@
 import React from 'react'
 import Saloonlayout from '../setup/Saloonlayout'
 import OpeningHoursForm from '../../../../components/Moreclub/CommonComponents/OpeningHourForms';
+import { Col, Row } from 'react-bootstrap';
+import { moresaloonURL } from '../../../../config/config';
+import { useParams } from 'react-router-dom';
+import { axiosInstance } from '../../../..';
+import { useQuery } from '@tanstack/react-query';
 
 const WorkinghourPage = () => {
-  const logFormData = (openingHours) => {
-    console.log('Form data:', openingHours);
-  };
+  const { id } = useParams();
 
-  const data = [
-    {
-      day_name: "Monday",
-      "start_time": "08:04",
-      "end_time": "07:05",
-      "is_open": true
+
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["openingHours", id],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`${moresaloonURL}moreclub/users/saloons/${id}/opening-hours/`);
+      const data = await response.data.data;
+      return data;
     },
-    {
-      "day_name": "Tuesday",
-      "start_time": "08:04",
-      "end_time": "07:05",
-      "is_open": true
-    },
-    {
-      "day_name": "Wednesday",
-      "start_time": "08:04",
-      "end_time": "07:05",
-      "is_open": true
-    },
-    {
-      "day_name": "Thursday",
-      "start_time": "08:04",
-      "end_time": "07:05",
-      "is_open": true
-    },
-    {
-      "day_name": "Friday",
-      "start_time": "08:04",
-      "end_time": "07:05",
-      "is_open": true
-    },
-    {
-      "day_name": "Saturday",
-      "start_time": "08:04",
-      "end_time": "07:05",
-      "is_open": true
-    },
-    {
-      "day_name": "Sunday",
-      "start_time": "08:04",
-      "end_time": "07:05",
-      "is_open": true
+    staleTime: 100,
+  });
+
+  if (isLoading) {
+    return <Saloonlayout>Loading...</Saloonlayout>;
+  }
+  if (isError) {
+    return <Saloonlayout>Error</Saloonlayout>;
+  }
+
+
+  const logFormData = async (openingHours) => {
+    try {
+      const res = await axiosInstance.post(`${moresaloonURL}moreclub/users/saloons/${id}/opening-hours/`, openingHours)
+      return res;
+    } catch (err) {
+      return err.response
     }
+  }
 
-  ]
 
+  const UpdateWorkingData = async (openingHours) => {
+    try {
+      const res = await axiosInstance.patch(`${moresaloonURL}moreclub/users/saloons/${id}/opening-hours/`, openingHours)
+      return res
+    } catch (err) {
+      return err.response;
+    }
+  }
 
   return (
-    <Saloonlayout>  {data && data.length > 0 &&
-      <OpeningHoursForm existingdata={data} submitFunction={logFormData}/>
-    }
-      {data && data.length <= 0 &&
-        <OpeningHoursForm />
-      }</Saloonlayout>
+    <Saloonlayout>
+      <Row>
+        <Col xs={12} lg={8} xl={10} xxl={10}>
+          {/* {data && data.length > 0 &&
+            <OpeningHoursForm existingdata={data} submitFunction={UpdateWorkingData} />
+          }
+          {data && data.length <= 0 &&
+            <OpeningHoursForm submitFunction={logFormData} />
+          } */}
+          <OpeningHoursForm submitFunction={logFormData} />
+        </Col>
+      </Row>
+    </Saloonlayout>
   )
 }
 

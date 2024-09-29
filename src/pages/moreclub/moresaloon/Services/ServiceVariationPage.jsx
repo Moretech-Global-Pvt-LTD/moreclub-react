@@ -6,37 +6,36 @@ import { useParams } from 'react-router-dom';
 import { moresaloonURL } from '../../../../config/config';
 import { RestaurantItemskeleton } from '../../../../components/Skeleton/SmallCardSkeleton';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
-import ServiceCreateForm from '../../../../components/Moreclub/Saloon/Service/ServiceCreateForm';
-import CategoryCard from '../../../../components/Moreclub/Resturant/Menu/CategoryCard';
-import ServiceVariationCard  from '../../../../components/Moreclub/Saloon/Service/ServiceVariationCard';
+import ServiceVariationCard from '../../../../components/Moreclub/Saloon/Service/ServiceVariationCard';
+import ServiceVariationCreationForm from '../../../../components/Moreclub/Saloon/Service/ServiceVariationCreationForm';
 
 const ServiceVariationPage = () => {
-    const { id, ser_id, slug , ser_name } = useParams();
+    const { id, ser_id, slug, ser_name } = useParams();
     const [showForm, setShowForm] = useState(false);
-    const service_name = ser_name.replace(/-/g, "");
-    // const { data, isLoading, isError } = useQuery({
-    //     queryKey: [`Saloon service List ${id}`],
-    //     queryFn: async () => {
-    //         const response = await axiosInstance.get(
-    //             `${moresaloonURL}moreclub/user/saloon/${id}/`
-    //         );
-    //         const data = await response.data.data;
-    //         return data;
-    //     },
-    //     staleTime: 100,
-    // });
+    const service_name = ser_name.replace(/-/g, " ");
+    const { data, isLoading, isError } = useQuery({
+        queryKey: [`Saloon variation List ${id} ${ser_id}`],
+        queryFn: async () => {
+            const response = await axiosInstance.get(
+                `${moresaloonURL}moreclub/users/saloons/${id}/services/${ser_id}/variations/`
+            );
+            const data = await response.data.data;
+            return data;
+        },
+        staleTime: 100,
+    });
 
-    // if (isLoading) {
-    //     return (
-    //         <Saloonlayout>
-    //             <RestaurantItemskeleton />
-    //         </Saloonlayout>
-    //     );
-    // }
+    if (isLoading) {
+        return (
+            <Saloonlayout>
+                <RestaurantItemskeleton />
+            </Saloonlayout>
+        );
+    }
 
-    // if (isError) {
-    //     return <Saloonlayout className="text-dynamic-white">Error: retriving</Saloonlayout>;
-    // }
+    if (isError) {
+        return <Saloonlayout className="text-dynamic-white">Error: retriving</Saloonlayout>;
+    }
 
     async function showAddCategory() {
         setShowForm(true);
@@ -70,53 +69,37 @@ const ServiceVariationPage = () => {
                 centered
                 show={showForm}
                 onHide={hideAddCategory}
-
             >
-
                 <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
                         Add Services
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <ServiceCreateForm id={id} onFinish={hideAddCategory} onCancel={hideAddCategory} />
+                    <ServiceVariationCreationForm ser_id={ser_id} sal_id={id} onFinish={hideAddCategory} onCancel={hideAddCategory} />
                 </Modal.Body>
-
             </Modal>
 
+            <div className="service-variation-container" >
+                {data.map((item) => (
+                    <ServiceVariationCard
+                        ser_id={ser_id}
+                        id={item.id}
+                        sal_id={id}
+                        item={item}
+                        key={item.id}
+                    />
 
-            {/* <Row
-                xs={1}
-                sm={1}
-                md={2}
-                lg={3}
-                xl={3}
-                xxl={4}
-                className="gy-3 my-4"
-            > */}
-                <div className="service-variation-container" >
-                <ServiceVariationCard/>
-                 <ServiceVariationCard/> <ServiceVariationCard/> <ServiceVariationCard/> <ServiceVariationCard/>
-                </div>
-                
-              
-                
-                {/* {data.map((item) => (
-          <Col className="d-flex flex-column">
-            <CategoryCard
-              id={item.id}
+                ))}
+            </div>
 
-              res_id={id}
-              logo={item.menu.icon}
-              name={item.menu.name}
-              item={item.no_of_items}
-            />
-          </Col>
-        ))} */}
+
+
+
             {/* </Row> */}
-            {/* {data && data.length === 0 &&
-        <p className="text-center">Add New Menu Category for your Resturant</p>
-      }   */}
+            {data && data.length === 0 &&
+                <p className="text-center">Add New Service Variation for your Saloon</p>
+            }
         </Saloonlayout>
     )
 }

@@ -4,10 +4,12 @@ import axios from "axios";
 
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
-import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry, validateEmail, validateFacebookURL, validateInstagramURL, Validatelogo, validateLongDescription, validateResturantName, validateWebsiteURL } from "../../../validation/resturantValidation";
+import { valdateShortDescription, validateAddress, validateAnemeties, Validatebanner, validateContactNumber, validateCountry, validateEmail, validateFacebookURL, validateInstagramURL, Validatelogo, validateLongDescription, validateResturantName, validateWebsiteURL } from "../../../validation/resturantValidation";
 import MapBoxLocationDisplayAutocomplete from "../../Googlemap/MapLocationInput";
 import { moresaloonURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
+import TagInput from "../CommonComponents/TagInput";
+import TagsInput from "../CommonComponents/TagInput";
 
 const SaloonUpdateInfoForm = ({ data }) => {
     const [isLoading, setIsLoading] = useState(false)
@@ -27,6 +29,7 @@ const SaloonUpdateInfoForm = ({ data }) => {
         website_link: data.website_link ?? "",
         facebook_link: data.facebook_link ?? "",
         instagram_link: data.instagram_link ?? "",
+        amenities: data.amenities ?? [],
     });
     const [errors, setErrors] = useState({});
     const queryClient = useQueryClient();
@@ -73,11 +76,12 @@ const SaloonUpdateInfoForm = ({ data }) => {
         switch (name) {
             case "name":
                 return validateResturantName(value);
-
             case "country":
                 return validateCountry(value);
             case "address":
                 return validateAddress(value);
+            case "amenities":
+                return validateAnemeties(value);
             case "short_description":
                 return valdateShortDescription(value);
             case "long_description":
@@ -179,6 +183,15 @@ const SaloonUpdateInfoForm = ({ data }) => {
         }
     };
 
+
+    const handleTagsChange = (newTags) => {
+        setFormValues((prevValues) => ({
+            ...prevValues, // Spread the previous state
+            amenities: [...newTags], // Set the new tags as the updated amenities array
+        }))
+    };
+
+
     return (
         <div className="d-flex flex-column gap-4 mt-3">
             <Row xs={1} md={2}>
@@ -187,7 +200,7 @@ const SaloonUpdateInfoForm = ({ data }) => {
                         <h3>Saloon Information</h3>
                         <Col className="card d-flex flex-column gap-4 p-2">
                             <Row>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                                <Col xs={12} md={6} lg={6} xl={6} xxl={6}>
                                     <Form.Group controlId="formRestaurantName">
                                         <Form.Label>Saloon Name</Form.Label>
                                         <Form.Control
@@ -200,7 +213,7 @@ const SaloonUpdateInfoForm = ({ data }) => {
                                         <p className="text-danger">{errors.name}</p>
                                     </Form.Group>
                                 </Col>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                                <Col xs={12} md={6} lg={6} xl={6} xxl={6}>
                                     <Form.Group controlId="formemail">
                                         <Form.Label>Email</Form.Label>
                                         <Form.Control
@@ -213,7 +226,7 @@ const SaloonUpdateInfoForm = ({ data }) => {
                                         <p className="text-danger">{errors.email}</p>
                                     </Form.Group>
                                 </Col>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                                <Col xs={12} md={6} lg={6} xl={6} xxl={6}>
                                     <Form.Group controlId="formContactname">
                                         <Form.Label>Contact no</Form.Label>
                                         <Form.Control
@@ -226,7 +239,7 @@ const SaloonUpdateInfoForm = ({ data }) => {
                                         <p className="text-danger">{errors.contact_no}</p>
                                     </Form.Group>
                                 </Col>
-                                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                                <Col xs={12} md={6} lg={6} xl={6} xxl={6}>
                                     <Form.Group controlId="formmin_order ">
                                         <Form.Label>Country</Form.Label>
                                         <Form.Control
@@ -255,12 +268,20 @@ const SaloonUpdateInfoForm = ({ data }) => {
                                             onPlaceSelected={handlePlaceSelected}
                                             initialLat={formValues.lat}
                                             initialLng={formValues.lng}
-                                            initialAddress={formValues.location}
+                                            initialAddress={formValues.address}
                                         />
                                         <p className="text-danger">{errors.address}</p>
                                     </Form.Group>
                                 </Col>
                                 <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
+                                    <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
+                                        <TagsInput
+                                            label="Amenities"
+                                            initialTags={formValues.amenities}
+                                            onTagsChange={handleTagsChange}
+                                        />
+                                        <p className="text-danger">{errors.amenities}</p>
+                                    </Col>
                                     <h6 className="mt-3">Social Media Links</h6>
                                     <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
                                         <Form.Group controlId="formWebsitelink">
@@ -301,8 +322,11 @@ const SaloonUpdateInfoForm = ({ data }) => {
                                             <p className="text-danger">{errors.instagram_link}</p>
                                         </Form.Group>
                                     </Col>
+
                                 </Col>
                             </Row>
+
+
 
                             <Form.Group controlId="formDescription">
                                 <Form.Control
@@ -315,6 +339,10 @@ const SaloonUpdateInfoForm = ({ data }) => {
                                 />
                                 <p className="text-danger">{errors.short_description}</p>
                             </Form.Group>
+
+
+
+
                             <Form.Group controlId="formDescription">
                                 <Form.Control
                                     as="textarea"
@@ -326,6 +354,11 @@ const SaloonUpdateInfoForm = ({ data }) => {
                                 />
                                 <p className="text-danger">{errors.long_description}</p>
                             </Form.Group>
+
+
+
+
+
                         </Col>
                         <Row className="justify-content-end">
                             <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
