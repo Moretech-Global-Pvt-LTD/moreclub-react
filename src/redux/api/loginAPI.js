@@ -306,7 +306,9 @@ export const update_profile_picture = (formData) => async (dispatch) => {
 };
 
 export const update_business_document = (formData) => async (dispatch) => {
+  console.log("calling the function");
   if (getAccessToken()) {
+      console.log("inside the function");
     dispatch(setLoading(true));
     try {
       const res = await axiosInstance.patch(

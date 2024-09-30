@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap';
 import TimeSlotForm from '../../../../components/Moreclub/Saloon/Staff/TimeSlot';
 import { axiosInstance } from '../../../..';
 import { moresaloonURL } from '../../../../config/config';
+import WorkingdaysContent from './WorkingdaysContent';
 
 const StaffDetailPage = () => {
     const { id, slug, staff_id, staff_name } = useParams();
@@ -19,21 +20,14 @@ const StaffDetailPage = () => {
         setShowForm(false);
     }
 
-    async function logFormData(openingHours) {
-        try{
-           const response = await axiosInstance.post(`${moresaloonURL}moreclub/users/saloons/${id}/staff/${staff_id}/working-days/`, openingHours)
-            return response;
-        } catch (err) {
-            return err.response;
-        }
-    }
+  
     
 
 
   return (
       <Saloonlayout>
           <div className="d-flex align-items-center justify-content-between my-2">
-              <h4> {staff_name}</h4>
+              <h4>{staff_name}</h4>
               {showForm ? (
                   <Button variant="danger" onClick={() => hideAddCategory()}>
                       Cancel
@@ -44,8 +38,8 @@ const StaffDetailPage = () => {
                   </Button>
               )}
           </div>
-          <StaffDetail />
-          <TimeSlotForm  submitFunction={logFormData} />
+          {/* <StaffDetail /> */}
+         <WorkingdaysContent/>
     </Saloonlayout>
   )
 }

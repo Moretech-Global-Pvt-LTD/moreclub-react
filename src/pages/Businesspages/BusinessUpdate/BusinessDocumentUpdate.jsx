@@ -39,6 +39,7 @@ const BusinessDocumentUpdate = ({ business }) => {
     const formData = {
       business_documents: inputAvatar,
     };
+    console.log("form data", formData);
     const res = dispatch(update_business_document(formData));
 
     if (res) {

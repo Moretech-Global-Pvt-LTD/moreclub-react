@@ -27,5 +27,5 @@ export const removeToken = () => {
 
 // Function to get access token from cookies
 export const getAccessToken = () => {
-  return Cookies.get("accessToken");
+  return Cookies.get("moretechglobal_access");
 };

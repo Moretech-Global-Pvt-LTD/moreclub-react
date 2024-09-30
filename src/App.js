@@ -684,7 +684,7 @@ const App = () => {
     },
     {
       path: `/saloon/:id/gallery/:slug`,
-      page: <SaloonGalleryPage />,
+      page: <SaloonPhotoUploadGallery />,
     },
     {
       path: `/saloon/:id/gallery/:slug/saloon`,
