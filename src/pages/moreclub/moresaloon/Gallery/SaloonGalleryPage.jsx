@@ -12,7 +12,7 @@ const SaloonGalleryPage = () => {
     <Saloonlayout><div className="d-flex align-items-center my-2">
 
 
-      <Row xs={2} lg={3} xl={4} className="px-1 " >
+      {/* <Row xs={2} lg={3} xl={4} className="px-1 " >
         <Col className="">
           <Link to={`/saloon/${id}/gallery/${slug}/saloon`} className="card bg-secondary">
             <Image
@@ -40,8 +40,8 @@ const SaloonGalleryPage = () => {
 
         </Col>
 
-      </Row>
-
+      </Row> */}
+      
 
 
 

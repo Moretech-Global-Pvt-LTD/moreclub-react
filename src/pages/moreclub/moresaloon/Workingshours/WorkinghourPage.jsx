@@ -15,7 +15,7 @@ const WorkinghourPage = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["openingHours", id],
     queryFn: async () => {
-      const response = await axiosInstance.get(`${moresaloonURL}moreclub/users/saloons/${id}/opening-hours/`);
+      const response = await axiosInstance.get(`${moresaloonURL}moreclub/users/saloons/${id}/opening/hours/`);
       const data = await response.data.data;
       return data;
     },
@@ -32,7 +32,7 @@ const WorkinghourPage = () => {
 
   const logFormData = async (openingHours) => {
     try {
-      const res = await axiosInstance.post(`${moresaloonURL}moreclub/users/saloons/${id}/opening-hours/`, openingHours)
+      const res = await axiosInstance.post(`${moresaloonURL}moreclub/users/saloons/${id}/opening/hours/`, openingHours)
       return res;
     } catch (err) {
       return err.response
@@ -42,7 +42,7 @@ const WorkinghourPage = () => {
 
   const UpdateWorkingData = async (openingHours) => {
     try {
-      const res = await axiosInstance.patch(`${moresaloonURL}moreclub/users/saloons/${id}/opening-hours/`, openingHours)
+      const res = await axiosInstance.patch(`${moresaloonURL}moreclub/users/saloons/${id}/opening/hours/`, openingHours)
       return res
     } catch (err) {
       return err.response;
@@ -53,13 +53,13 @@ const WorkinghourPage = () => {
     <Saloonlayout>
       <Row>
         <Col xs={12} lg={8} xl={10} xxl={10}>
-          {/* {data && data.length > 0 &&
+          {data && data.length > 0 &&
             <OpeningHoursForm existingdata={data} submitFunction={UpdateWorkingData} />
           }
           {data && data.length <= 0 &&
             <OpeningHoursForm submitFunction={logFormData} />
-          } */}
-          <OpeningHoursForm submitFunction={logFormData} />
+          }
+         
         </Col>
       </Row>
     </Saloonlayout>

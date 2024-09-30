@@ -18,17 +18,41 @@ const TimeSlotForm = ({ existingdata, submitFunction }) => {
 
     useEffect(() => {
         if (existingdata) {
-            const initialState = {};
+            const initialState = {
+                Monday: { start_time: '', end_time: '', is_working: false },
+                Tuesday: { start_time: '', end_time: '', is_working: false },
+                Wednesday: { start_time: '', end_time: '', is_working: false },
+                Thursday: { start_time: '', end_time: '', is_working: false },
+                Friday: { start_time: '', end_time: '', is_working: false },
+                Saturday: { start_time: '', end_time: '', is_working: false },
+                Sunday: { start_time: '', end_time: '', is_working: false },
+            };
+
+            // Loop through the existing data and update the relevant days
             existingdata.forEach((item) => {
-                initialState[item.day_name] = {
-                    start_time: item.is_working ? item?.start_time ?? '' : '',
-                    end_time: item.is_working ? item?.end_time ?? '' : '',
-                    is_working: item.is_working,
+                initialState[item.day_of_week] = {
+                    start_time: item?.start_time ?? '',
+                    end_time: item?.end_time ?? '',
+                    is_working: !!item.start_time && !!item.end_time,
                 };
             });
             setOpeningHours(initialState);
         }
     }, [existingdata]);
+
+    // useEffect(() => {
+    //     if (existingdata) {
+    //         const initialState = {};
+    //         existingdata.forEach((item) => {
+    //             initialState[item.day_of_week] = {
+    //                 start_time: item.is_open ? item?.start_time ?? '' : '',
+    //                 end_time: item.is_open ? item?.end_time ?? '' : '',
+    //                 is_open: item.is_open,
+    //             };
+    //         });
+    //         setOpeningHours(initialState);
+    //     }
+    // }, [existingdata]);
 
     const handleDayChange = (day, time, value) => {
         setOpeningHours((prevOpeningHours) => ({
@@ -67,22 +91,41 @@ const TimeSlotForm = ({ existingdata, submitFunction }) => {
         }
     };
 
-    
+
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setIsLoading(true);
+
+    //     const formattedData = Object.keys(openingHours)
+    //         .filter(day => openingHours[day].is_working) // Filter only days with is_working true
+    //         .map(day => ({
+    //             day_of_week: day,
+    //             start_time: openingHours[day].start_time,
+    //             end_time: openingHours[day].end_time,
+    //         }));
+
+    //         if (submitFunction) {
+    //            const res = await submitFunction(formattedData); // Call the passed submit function
+    //             if (res.status === 200) {
+    //                 message.success(res.data?.message || 'working hours set successfully');
+    //             } else {
+    //                 message.error(res.data?.message || 'Error setting working hours');
+    //             }
+    //         } else {
+    //             message.error('No submit function provided');
+    //         }
+    //         setIsLoading(false);
+    // };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        
-        const formattedData = Object.keys(openingHours)
-            .filter(day => openingHours[day].is_working) // Filter only days with is_working true
-            .map(day => ({
-                day_of_week: day,
-                start_time: openingHours[day].start_time,
-                end_time: openingHours[day].end_time,
-            }));
 
+        try {
             if (submitFunction) {
-               const res = await submitFunction(formattedData); // Call the passed submit function
+                const res = await submitFunction(openingHours); // Call the passed submit function
                 if (res.status === 200) {
                     message.success(res.data?.message || 'working hours set successfully');
                 } else {
@@ -91,7 +134,12 @@ const TimeSlotForm = ({ existingdata, submitFunction }) => {
             } else {
                 message.error('No submit function provided');
             }
+        } catch (error) {
+            console.error(error);
+            message.error('Error updating working hours');
+        } finally {
             setIsLoading(false);
+        }
     };
 
     return (
