@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { message } from 'antd';
-import { set } from 'lodash';
 
 const TimeSlotForm = ({ existingdata, submitFunction }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +32,7 @@ const TimeSlotForm = ({ existingdata, submitFunction }) => {
                 initialState[item.day_of_week] = {
                     start_time: item?.start_time ?? '',
                     end_time: item?.end_time ?? '',
-                    is_working: !!item.start_time && !!item.end_time,
+                    is_working: item.is_working,
                 };
             });
             setOpeningHours(initialState);
@@ -93,30 +92,6 @@ const TimeSlotForm = ({ existingdata, submitFunction }) => {
 
 
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     setIsLoading(true);
-
-    //     const formattedData = Object.keys(openingHours)
-    //         .filter(day => openingHours[day].is_working) // Filter only days with is_working true
-    //         .map(day => ({
-    //             day_of_week: day,
-    //             start_time: openingHours[day].start_time,
-    //             end_time: openingHours[day].end_time,
-    //         }));
-
-    //         if (submitFunction) {
-    //            const res = await submitFunction(formattedData); // Call the passed submit function
-    //             if (res.status === 200) {
-    //                 message.success(res.data?.message || 'working hours set successfully');
-    //             } else {
-    //                 message.error(res.data?.message || 'Error setting working hours');
-    //             }
-    //         } else {
-    //             message.error('No submit function provided');
-    //         }
-    //         setIsLoading(false);
-    // };
 
 
     const handleSubmit = async (e) => {

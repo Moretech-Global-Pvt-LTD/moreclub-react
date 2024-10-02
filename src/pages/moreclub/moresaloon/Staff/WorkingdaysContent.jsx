@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { moresaloonURL } from '../../../../config/config';
 import { axiosInstance } from '../../../..';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import Saloonlayout from '../setup/Saloonlayout';
 import { RestaurantItemskeleton } from '../../../../components/Skeleton/SmallCardSkeleton';
 import TimeSlotForm from '../../../../components/Moreclub/Saloon/Staff/TimeSlot';
-import TimeSlotUpdateForm from '../../../../components/Moreclub/Saloon/Staff/TimeSlotUpdate';
+import Workingdays from '../../../../components/Moreclub/Saloon/Staff/TimeSlotUpdate';
 
 const WorkingdaysContent = () => {
 
-    const { id, slug, staff_id, staff_name } = useParams();
+    const { id,  staff_id } = useParams();
+    const [edit, setEdit] = useState(false);
+    const queryClient = useQueryClient();
 
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Saloon Staff Working days ${staff_id}`],
@@ -40,6 +41,10 @@ const WorkingdaysContent = () => {
     async function logFormData(openingHours) {
         try {
             const response = await axiosInstance.post(`${moresaloonURL}moreclub/users/saloons/${id}/staff/${staff_id}/working-days/`, openingHours)
+            queryClient.invalidateQueries({
+                queryKey: [`Saloon Staff Working days ${staff_id}`],
+            });
+            setEdit(false)
             return response;
         } catch (err) {
             return err.response;
@@ -47,37 +52,31 @@ const WorkingdaysContent = () => {
     }
 
     async function updateWokingData(openingHours) {
-        console.log("openingHours", openingHours)
-        // if (openingHours.id) {
-        //     try {
-        //         const response = await axiosInstance.patch(`${moresaloonURL}moreclub/users/saloons/${id}/staff/${staff_id}/working-days/${openingHours.id}/`, openingHours)
-        //         return response;
-        //     } catch (err) {
-        //         return err.response;
-        //     }
-            
-        // } else {
             try {
                 const response = await axiosInstance.patch(`${moresaloonURL}moreclub/users/saloons/${id}/staff/${staff_id}/working-days/detail/`, openingHours)
+                setEdit(false)
                 return response;
             } catch (err) {
                 return err.response;
             }
-        // }
     }
 
+    const openEdit = () => {
+        setEdit(true);
+    }
 
   return (
       <div>
           {data && data.length > 0 &&
-            //   <TimeSlotUpdateForm existingdata={data} submitFunction={updateWokingData} />
-              <TimeSlotForm existingdata={data} submitFunction={updateWokingData} />
-              
+              <>
+              {edit ? <TimeSlotForm existingdata={data} submitFunction={updateWokingData} /> :
+              <Workingdays existingdata={data} edit={openEdit} />
+              }              
+              </>
           }
 
           {data && data.length === 0 &&
               <TimeSlotForm submitFunction={logFormData} />
-              
           }
       </div>
   )

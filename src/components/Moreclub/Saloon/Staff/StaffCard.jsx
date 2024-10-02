@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Badge, Card, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { moresaloonimageURL, moresaloonURL } from "../../../../config/config";
+import { moresaloonURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
@@ -14,8 +14,7 @@ const StaffCard = ({ id, sal_id, profile, name, item, email, contact, services, 
     const queryClient = useQueryClient();
 
     const staffName = name.replace(/ /g, "-");
-
-    console.log("item", services);
+  
     async function handleDelete() {
         try {
             await axiosInstance.delete(
@@ -58,18 +57,18 @@ const StaffCard = ({ id, sal_id, profile, name, item, email, contact, services, 
                         ))
                         }
                     </div>
-                    <div class="service-variation-footer">
-                        <div class="service-variation-admin">
+                    <div className="service-variation-footer">
+                        <div className="service-variation-admin">
                             <Link to={`/saloon/${sal_id}/${sal_name}/staff/${id}/${staffName}`}>
-                            <button class="service-variation-edit">
-                                <i class="bi bi-eye"></i>
+                            <button className="service-variation-edit">
+                                    <i className="bi bi-eye text-primary"></i>
                             </button>
                             </Link>
-                            <button class="service-variation-edit" onClick={showAddCategory}>
-                                <i class="bi bi-pencil"></i>
+                            <button className="service-variation-edit" onClick={showAddCategory}>
+                                <i className="bi bi-pencil text-warning"></i>
                             </button>
-                            <button class="service-variation-delete" onClick={handleDelete}>
-                                <i class="bi bi-trash"></i>
+                            <button className="service-variation-delete" onClick={handleDelete}>
+                                <i className="bi bi-trash text-danger"></i>
                             </button>
                         </div>
                         {/* <span class="service-variation-time">{hours !== '00' ? `${hours} hrs ${minutes} min ` : `${minutes} min `} </span> */}
@@ -82,9 +81,7 @@ const StaffCard = ({ id, sal_id, profile, name, item, email, contact, services, 
                 centered
                 show={showForm}
                 onHide={hideAddCategory}
-
             >
-
                 <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
                         Add Services

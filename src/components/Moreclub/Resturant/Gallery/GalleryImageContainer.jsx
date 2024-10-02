@@ -33,7 +33,7 @@ const ImageContainer = ({ item, onClick }) => {
   const galleryHeight = Math.ceil(150 * widthHeightRatio)
   const photoSpans = Math.ceil(galleryHeight / 18) + 1
   return (
-    <div className="masonry-image-container" style={{ gridRow: `span ${photoSpans}` }}>
+    <div className="masonry-image-container" id={item.id} style={{ gridRow: `span ${photoSpans}` }}>
       <div style={{ display: "grid", placeContent: "center" }}>
         <div
           style={{ overflow: "hidden" }}

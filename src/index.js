@@ -12,7 +12,6 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CookiesProvider } from "react-cookie";
-import { register } from "./utills/serviceworker";
 import Cookies from "js-cookie"
 
 export const axiosInstance = axios.create({

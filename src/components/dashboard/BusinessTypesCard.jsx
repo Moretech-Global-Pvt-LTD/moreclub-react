@@ -1,5 +1,4 @@
 import React from "react";
-import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const BusinessTypesCard = ({ id, logo, name, banner }) => {
@@ -9,7 +8,7 @@ const BusinessTypesCard = ({ id, logo, name, banner }) => {
     return (
         <>
         <Link to={`/partners/${id}/${slug}`} class="business-card-link">
-                <div className={`business-card ${!banner ? "business-card-background" : ""}` } style={{ backgroundImage: `url('${banner ?? ""}` }}>
+            <div className={`business-card ${!banner ? "business-card-background" : ""}` } style={{ backgroundImage: `url('${banner ?? ""}` }}>
             <div className="business-card-logo">
                 {!banner ? <div class="business-card-initial-logo">{name[0]}</div> : <div className="business-card-logo-replacer"></div>}
             </div>

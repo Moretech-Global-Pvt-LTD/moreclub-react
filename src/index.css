@@ -27770,6 +27770,11 @@ span {
   align-items: center;
 }
 
+[data-theme="dark"] .small-link-preview  {
+  background-color: #0c153b;
+  border-color: rgba(194, 212, 248, 0.15);
+}
+
 .small-link-preview-image {
   width: 80px;
   height: 80px;
@@ -28416,13 +28421,25 @@ span {
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 320px;
+    width: 100%;
     padding: 20px;
     display: flex;
     align-items: center;
     transition: all 0.3s ease;
     position: relative;
     margin: 20px;
+}
+
+[data-theme="dark"] .support-card{
+   background-color: #0c153b;
+    color: white;
+}
+
+@media (max-width: 992px) {
+
+  .support-card {
+    width: 100%;
+  }
 }
 
 .support-card:hover {
@@ -28455,6 +28472,11 @@ span {
     font-weight: bold;
     color: #333;
     margin-bottom: 8px;
+}
+
+[data-theme="dark"] .support-title{
+   /* background-color: #0c153b; */
+    color: white;
 }
 
 .support-description {
@@ -28713,7 +28735,7 @@ span {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border: 1px solid transparent;
+  /* border: 1px solid transparent; */
   border-radius: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -28759,7 +28781,7 @@ span {
 .business-card-footer {
   background-color: #fff;
   border-radius: 0px 0px 10px 10px;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0 0.25rem 0;
    color: #000;
 }
 
@@ -29051,8 +29073,6 @@ span {
 .add-btn:hover {
     background-color: #218838;
 }
-
-
 
 
 

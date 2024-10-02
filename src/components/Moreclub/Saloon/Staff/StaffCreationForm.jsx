@@ -60,6 +60,9 @@ const StaffCreationForm = ({id, onFinish , onCancel}) => {
         email: '',
         contact: '',
         image: null,
+        buffer_time: "00:05:00",
+        // break_start_time:"" ,
+        // break_end_time: "",
         services: [],
     });
     const [service, setService] = useState([]);
@@ -122,12 +125,11 @@ const StaffCreationForm = ({id, onFinish , onCancel}) => {
                 email: staff.email,
                 contact_no: staff.contact,
                 image: staff.image,
-                services: staff.services
-                // services:["bda4a915-769b-4bc2-99ee-703fb7430234", "39813ae7-a2c8-40bc-b444-d8f5dd09c174" ]
+                services: staff.services,
+                buffer_time: staff.buffer_time
             }
 
             axiosInstance
-            
                 .post(`${moresaloonURL}moreclub/users/saloons/${id}/staff/`, datas ,{
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -192,6 +194,71 @@ const StaffCreationForm = ({id, onFinish , onCancel}) => {
                     required
                 />
             </Form.Group>
+
+            
+            {/* <div className='d-flex flex-'>
+                <div className='d-flex flex-column flex-md-row gap-2'>
+                    <div>
+                        <Form.Label className=''>Break Start</Form.Label>
+                        <Form.Control
+                            type='time'
+                            name='break_start_time'
+                            value={staff.break_start_time}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div>
+                        <Form.Label className=''>Break End</Form.Label>
+                        <Form.Control
+                            type='time'
+                            name='break_end_time'
+                            value={staff.break_end_time}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className='flex flex-column flex-grow-1'>
+                       
+                    </div>
+                </div>
+            </div> */}
+            <Form.Group controlId="formStaffContact" className="mb-3">
+                <Form.Label>Buffer Time</Form.Label>
+                <Form.Control
+                    as="select"
+                    name="buffer_time"
+                    value={staff.buffer_time}
+                    onChange={handleInputChange}
+                    required
+                >
+                    <option value={"00:01:00"} >
+                        1 min
+                    </option>
+                    <option value={"00:02:00"} >
+                        2 min
+                    </option>
+                    <option value={"00:03:00"} >
+                        3 min
+                    </option>
+                    <option value={"00:04:00"} >
+                        4 min
+                    </option>
+                    <option value={"00:05:00"} >
+                        5 min
+                    </option>
+                    <option value={"00:10:00"} >
+                        10 min
+                    </option>
+                    <option value={"00:15:00"} >
+                        15 min
+                    </option>
+                    <option value={"00:20:00"} >
+                        20 min
+                    </option>
+                    <option value={"00:30:00"} >
+                        30 min
+                    </option>
+                </Form.Control>
+            </Form.Group>
             
             <Form.Group className="mb-4">
                 <Form.Label className="mb-2 fz-16">Services types</Form.Label>
@@ -215,9 +282,6 @@ const StaffCreationForm = ({id, onFinish , onCancel}) => {
             </Form.Group>
 
            
-
-            
-
             <div className='d-flex justify-content-end gap-2'>
                 <Button variant="secondary" onClick={onCancel}>
                     Cancel

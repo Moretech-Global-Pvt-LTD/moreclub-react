@@ -101,12 +101,12 @@ const DashboardContent = () => {
 
   return (
     <div>
-      <AlertNotification />
+      {/* <AlertNotification /> */}
       <div>
-        <div className="d-none d-sm-block">
-          {data.businessData && data.userData && (
-            <Row sm={2} md={4} className=" gx-3 gy-3 gb-3 mb-3">
-              <Topcards
+        {/* <div className="d-none d-sm-block"> */}
+          {/* {data.businessData && data.userData && (
+            <Row sm={2} md={4} className=" gx-3 gy-3 gb-3 mb-3"> */}
+              {/* <Topcards
                 title={"Coupons"}
                 subtitle={"Total coupon"}
                 description={data?.businessData?.coupon}
@@ -117,7 +117,7 @@ const DashboardContent = () => {
                 subtitle={"With Coupon "}
                 description={data?.businessData?.billing_transaction_by_coupon}
                 href={"/transactions"}
-              />
+              /> */}
               {/* <Topcards
                 title={"Transaction"}
                 subtitle={"With Membership"}
@@ -126,13 +126,13 @@ const DashboardContent = () => {
                 }
                 href={"/business-transactions"}
               /> */}
-              <Topcards
+              {/* <Topcards
                 title={"Refers"}
                 subtitle={"Total referals"}
                 description={data?.businessData?.referral}
                 href={"/my-network"}
-              />
-              <Col>
+              /> */}
+              {/* <Col>
                 <Link to={"/profile"}>
                   <Card>
                     <Card.Body>
@@ -162,15 +162,15 @@ const DashboardContent = () => {
                     </Card.Body>
                   </Card>
                 </Link>
-              </Col>
-            </Row>
-          )}
-        </div>
-        <div className="d-none d-sm-block">
+              </Col> */}
+            {/* </Row>
+          )} */}
+        {/* </div> */}
+        {/* <div className="d-none d-sm-block"> */}
         
-        {!data.businessData && data.userData && (
-          <Row sm={2} md={4} className=" gx-3 gy-3 gb-3 ">
-            <Topcards
+        {/* {!data.businessData && data.userData && (
+          <Row sm={2} md={4} className=" gx-3 gy-3 gb-3 "> */}
+            {/* <Topcards
               title={"Coupons"}
               subtitle={"Total coupon"}
               description={data.userData?.coupon}
@@ -181,20 +181,20 @@ const DashboardContent = () => {
               subtitle={"With Coupon "}
               description={data.userData?.billing_transaction_by_coupon}
               href={"/transactions"}
-            />
+            /> */}
             {/* <Topcards
               title={"Transaction"}
               subtitle={"With Membership"}
               description={data.userData?.billing_transaction_by_membership}
               href={"/business-transactions"}
             /> */}
-            <Topcards
+            {/* <Topcards
               title={"Refers"}
               subtitle={"Total refers"}
               description={data.userData?.referral}
               href={"/my-network"}
-            />
-            <Col>
+            /> */}
+            {/* <Col>
               <Link to={"/profile"}>
                 <Card>
                   <Card.Body>
@@ -226,11 +226,11 @@ const DashboardContent = () => {
               </Link>
             </Col>
           </Row>
-        )}
-        </div>
+        )} */}
+        {/* </div> */}
 
       
-        <Row>
+        {/* <Row>
           {user &&
             user.user?.user_type === "BUSINESS" &&
             data?.businessData && (
@@ -256,17 +256,10 @@ const DashboardContent = () => {
               <RefrealChart refersData={data.userData?.referrals_chart_data} />
             </>
           )}
-        </Row>
+        </Row> */}
        
 
-        <Row xs={1} sm={1} md={1} lg={3} className="align-items-center">
-          <Col>
-            <div className="nft-card card shadow-sm mt-4 mb-4 p-4">
-              <Walletlinks />
-            </div>
-          </Col>
-          <QuickLinks />
-        </Row>
+       
         <Row>
           <EventDashboardDisplay />
         </Row>
@@ -283,7 +276,8 @@ const DashboardContent = () => {
           <PopularResturant />
         </Row>
 
-        {/* <Row className="mt-4">
+
+        <Row className="mt-4">
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="mt-4 mb-3">Popular Saloon </h4>
             <Link to="/moresaloon">
@@ -291,7 +285,17 @@ const DashboardContent = () => {
             </Link>
           </div>
           <PopularSaloon />
-        </Row> */}
+        </Row>
+
+        <Row xs={1} sm={1} md={1} lg={3} className="align-items-center">
+          <Col>
+            <div className="nft-card card shadow-sm mt-4 mb-4 p-4">
+              <Walletlinks />
+            </div>
+          </Col>
+          <QuickLinks />
+        </Row>
+
       </div>
     </div>
   );

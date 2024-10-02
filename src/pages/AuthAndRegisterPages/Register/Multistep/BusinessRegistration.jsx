@@ -7,6 +7,8 @@ import {
   updateFormData,
 } from "../../../../redux/slices/RegisterSlice";
 import MapBoxLocationOnlyAutocomplete from "../../../../components/Googlemap/MapLocationOnly";
+import { Button, Col, Modal, Row } from "react-bootstrap";
+import MapBoxLocationDisplayAutocomplete from "../../../../components/Googlemap/MapLocationInput";
 
 const BusinessBasicForm = ({ setBusinessRegistration }) => {
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
   const [companyNameError, setcompanyNameError] = useState("");
   const [registrationNumberError, setRegistrationNumberError] = useState("");
   const [addressError, setAddressError] = useState("");
+  const [showForm, setShowForm] = useState(false);
 
   // for company name
   const handleCompanyNameChange = async (event) => {
@@ -73,21 +76,6 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
     await dispatch(updateFormData({ "lng": place.lon }));
   };
 
-  // for handleAddress
-  // const handleAddressChange = async (event) => {
-  //   setAddress(event.target.value);
-  //   await dispatch(updateFormData({ "business_address": address }));
-  // };
-
-  // const handleAddressValidation = async (event) => {
-  //   const value = event.target.value;
-  //   if (value.trim() === "") {
-  //     setAddressError("Address is Required");
-  //   } else {
-  //     await dispatch(updateFormData({ business_address: address }));
-  //     setAddressError("");
-  //   }
-  // };
 
   const handleNextStep = (value) => {
     dispatch(currentBusinessStep(value));
@@ -97,6 +85,14 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
     dispatch(currentStep(value));
     setBusinessRegistration(false);
   };
+
+  async function showAddressForm() {
+    setShowForm(true);
+  }
+
+  async function hideAddressForm() {
+    setShowForm(false);
+  }
 
   return (
     <>
@@ -141,7 +137,22 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
       </Form.Group>
       <Form.Group className="register-form-container w-100">
         <Form.Label>Address</Form.Label>
-        <div className="w-100">
+
+        
+        <div
+          className="form-control "
+          style={{ height:"2rem"}}
+          type="text"
+          placeholder="Address"
+          value={address}
+          onClick={showAddressForm}
+          required
+          disabled
+        >
+          {address ?? "address"}
+        </div>
+
+        {/* <div className="w-100">
         <MapBoxLocationOnlyAutocomplete
           onPlaceSelected={handlePlaceSelected}
           initialLat={lat}
@@ -149,9 +160,8 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
           initialAddress={address}
         />
         </div>
-        {addressError && <p className="text-danger">{addressError}</p>}
+        {addressError && <p className="text-danger">{addressError}</p>} */}
       </Form.Group>
-
       <button
         className="btn btn-primary m-4"
         disabled={
@@ -169,6 +179,39 @@ const BusinessBasicForm = ({ setBusinessRegistration }) => {
       >
         Setup Business
       </button>
+      <Modal
+        aria-labelledby="contained-modal-title-vcenter"
+        size="md"
+        centered
+        show={showForm}
+        onHide={hideAddressForm}
+
+      >
+
+        <Modal.Header>
+          <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
+            Set Your Location
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="w-100">
+            <MapBoxLocationDisplayAutocomplete
+          onPlaceSelected={handlePlaceSelected}
+          initialLat={lat}
+          initialLng={lng}
+          initialAddress={address}
+        />
+        </div>
+          {addressError && <p className="text-danger">{addressError}</p>}
+          
+              <div className=" d-flex justify-content-end  mt-3">
+            <Button variant="warning" size="sm" onClick={hideAddressForm}>
+              Save
+            </Button>
+          </div>
+            
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

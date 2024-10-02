@@ -98,6 +98,7 @@ const GalleryImageUpload = ({ onSubmit , onCancel }) => {
         } catch (err) {
             console.log(err);
         } finally {
+            onCancel();
             setLoading(false);
         }
     };
