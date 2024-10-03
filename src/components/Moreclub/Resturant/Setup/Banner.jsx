@@ -15,30 +15,36 @@ const Banner = ({data}) => {
   );
   const [bannerError, setBannerError] = useState("");
   const queryClient = useQueryClient();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAvatarSubmit = async (event) => {
     event.preventDefault();
-    const formData = {
-      banner: inputBanner,
-    };
-    const res = await await axiosInstance.patch(
-      `${morefoodURL}moreclub/user/restaurants/${id}/`,
-      formData,{
-
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      
-    );
-
-    if (res.status === 200) {
-      message.success("Banner Updated Successfully");
-       queryClient.invalidateQueries([`Resturant List ${id}`]);
-      
-    } else {
+    try {
+      setIsLoading(true);
+      const formData = {
+        banner: inputBanner,
+      };
+      const res = await await axiosInstance.patch(
+        `${morefoodURL}moreclub/user/restaurants/${id}/`,
+        formData,{
+  
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+      );
+  
+      if (res.status === 200) {
+        message.success("Banner Updated Successfully");
+         queryClient.invalidateQueries([`Resturant List ${id}`]);
+        
+      } else {
+        message.error("Failed to Update Avatar");
+      }
+    }catch (error) {
       message.error("Failed to Update Avatar");
     }
+    setIsLoading(false);
   };
 
   const bannerhandleChange = (event) => {
@@ -87,10 +93,11 @@ const Banner = ({data}) => {
               </div>
               <div className="col-12">
                 <button
-                  className="btn btn-primary w-100 rounded-pill"
+                  className="btn btn-danger w-100 "
                   type="submit"
                   disabled={bannerError !== ""}
                 >
+                  {isLoading && <span className="spinner-border spinner-border-sm me-1"></span>}
                   <i className="bi bi-sd-card-fill me-1" />
                   Upload
                 </button>

@@ -16,6 +16,7 @@ const Logo = ({data}) => {
     `${data}`
   );
   const [bannerError, setBannerError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
 //   useEffect(() => {
 //     if (business.businessProfile.business_logo) {
@@ -25,27 +26,35 @@ const Logo = ({data}) => {
 
   const handleAvatarSubmit = async (event) => {
     event.preventDefault();
-    const formData = {
-      logo: inputBanner,
-    };
-    const res = await await axiosInstance.patch(
-     `${morefoodURL}moreclub/user/restaurants/${id}/`,
-     formData,
-     {
-       headers: {
-         "Content-Type": "multipart/form-data",
-       },
-     }
-   );
+    try {
+      setIsLoading(true);
+      const formData = {
+        logo: inputBanner,
+      };
+      const res = await await axiosInstance.patch(
+        `${morefoodURL}moreclub/user/restaurants/${id}/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (res.status === 200) {
+        message.success("Logo Updated Successfully");
+        queryClient.invalidateQueries([`Resturant List ${id}`]);
+      } else {
+        message.error("Failed to Upload Logo");
+      }
+    }catch (error) {
+      message.error("Failed to Upload Logo");
+    }
+    setIsLoading(false);
+  
 
   
 
-    if (res.status === 200) {
-      message.success("Logo Updated Successfully");
-      queryClient.invalidateQueries([`Resturant List ${id}`]);
-    } else {
-      message.error("Failed to Upload Logo");
-    }
+   
   };
 
   const bannerhandleChange = (event) => {
@@ -94,10 +103,11 @@ const Logo = ({data}) => {
               </div>
               <div className="col-12">
                 <button
-                  className="btn btn-primary w-100 rounded-pill"
+                  className="btn btn-danger w-100 "
                   type="submit"
                   disabled={bannerError !== ""}
                 >
+                  {isLoading && <span className="spinner-border spinner-border-sm me-1"></span>}&nbsp;
                   <i className="bi bi-sd-card-fill me-1" />
                   Upload
                 </button>
