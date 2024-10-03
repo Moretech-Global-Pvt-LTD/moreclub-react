@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { update_business_document } from "../../../redux/api/loginAPI";
 import { Form } from "react-bootstrap";
+import { set } from "lodash";
 
 const BusinessTaxUpdate = ({ business }) => {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ const BusinessTaxUpdate = ({ business }) => {
   const [inputDisplayImage, setInputDisplayImage] = useState(
     `${business.businessProfile?.business_tax_documents}`
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (business.businessProfile.business_logo) {
@@ -21,16 +23,23 @@ const BusinessTaxUpdate = ({ business }) => {
 
   const handleAvatarSubmit = (event) => {
     event.preventDefault();
-    const formData = {
-      business_tax_documents: inputAvatar,
-    };
-    const res = dispatch(update_business_document(formData));
+    try {
+      setIsLoading(true);
+      const formData = {
+        business_tax_documents: inputAvatar,
+      };
+      const res = dispatch(update_business_document(formData));
 
-    if (res) {
-      message.success("Registration Document Updated Successfully");
-    } else {
+      if (res) {
+        message.success("Registration Document Updated Successfully");
+      } else {
+        message.error("Failed to Update Documents");
+      }
+    }catch (error) {
       message.error("Failed to Update Documents");
     }
+    setIsLoading(false);
+    
   };
 
   const AvatarhandleChange = (event) => {
@@ -70,9 +79,10 @@ const BusinessTaxUpdate = ({ business }) => {
           </div>
           <div className="col-12">
             <button
-              className="btn btn-primary w-100 rounded-pill"
+              className="btn btn-warning w-100"
               type="submit"
             >
+              {isLoading && <span className="spinner-border spinner-border-sm" />}
               <i className="bi bi-sd-card-fill me-1" />
               Save changes
             </button>

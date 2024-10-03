@@ -11,6 +11,7 @@ const BussinessLogoUpdate = ({ business }) => {
     `${business.businessProfile?.business_logo}`
   );
   const [avatarError, setAvatarError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (business.businessProfile.business_logo) {
@@ -20,16 +21,22 @@ const BussinessLogoUpdate = ({ business }) => {
 
   const handleAvatarSubmit = async (event) => {
     event.preventDefault();
-    const formData = {
-      business_logo: inputAvatar,
-    };
-    const res = await dispatch(update_business_document(formData));
-
-    if (res.status === 200) {
-      message.success("Logo Updated Successfully");
-    } else {
+    try {
+      setIsLoading(true);
+      const formData = {
+        business_logo: inputAvatar,
+      };
+      const res = await dispatch(update_business_document(formData));
+  
+      if (res.status === 200) {
+        message.success("Logo Updated Successfully");
+      } else {
+        message.error("Failed to Update Avatar");
+      }
+    }catch (error) {
       message.error("Failed to Update Avatar");
     }
+    setIsLoading(false);
   };
 
   const AvatarhandleChange = (event) => {
@@ -77,12 +84,13 @@ const BussinessLogoUpdate = ({ business }) => {
           </div>
           <div className="col-12">
             <button
-              className="btn btn-primary w-100 rounded-pill"
+              className="btn btn-warning w-100 "
               type="submit"
               disabled={avatarError !== ""}
             >
+              {isLoading && <span className="spinner-border spinner-border-sm"></span>}
               <i className="bi bi-sd-card-fill me-1" />
-              Save changes
+              Update Logo
             </button>
           </div>
         </Form>

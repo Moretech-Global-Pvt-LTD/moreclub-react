@@ -67,7 +67,7 @@ export default function AddressForm({ address, onSubmit, setAddress , loading}) 
 
             <div className="buttons mt-3">
                 <button
-                    className="btn btn-warning w-100 rounded-pill"
+                    className="btn btn-warning w-100 rounded"
                     type="submit"
                     disabled={loading}
                 >
