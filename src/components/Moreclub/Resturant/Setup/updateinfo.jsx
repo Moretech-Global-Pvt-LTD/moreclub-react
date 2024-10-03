@@ -166,6 +166,27 @@ const UpdateInfoForm = ({ data }) => {
 
     if (Object.keys(validationErrors).length === 0) {
       
+      // const datas = {
+      //   name: formValues.name ,
+      //   address: formValues.address ,
+      //   min_order: formValues.min_order ,
+      //   delivery_time: formValues.delivery_time ,
+      //   email: formValues.email ,
+      //   contact_no: formValues.contact_no ,
+      //   short_description: formValues.short_description ,
+      //   country: formValues.country,
+      //   currency: formValues.currency,
+      //   is_delivery: formValues.is_delivery ,
+      //   is_pickup: formValues.is_pickup ,
+      //   is_dine: formValues.is_dine ,
+      //   lat: formValues.lat ,
+      //   lng: formValues.lng ,
+      //   long_description: formValues.long_description,
+      //   ...(formValues.website_link !== "" && { website_link : formValues.website_link }),
+      //   ...(formValues.facebook_link !== "" && { facebook_link: formValues.facebook_link }),
+      //   ...(formValues.instagram_link !== "" && { instagram_link: formValues.instagram_link }),
+        
+      // }
 
       try {
         setIsLoading(true);
@@ -292,6 +313,7 @@ const UpdateInfoForm = ({ data }) => {
                     <p className="text-danger">{errors.delivery_time}</p>
                   </Form.Group>
                 </Col>
+
                 <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
                   <Form.Group>
                     <Form.Label>Location</Form.Label>
@@ -304,7 +326,9 @@ const UpdateInfoForm = ({ data }) => {
                     <p className="text-danger">{errors.address}</p>
                   </Form.Group>
                 </Col>
+
                 <Col xs={12} md={12} lg={12} xl={6} xxl={6} className="">
+                  <Row className="my-xl-4" >
                   <Form.Group
                     className="d-flex  gap-2"
                     style={{ height: "100%", alignItems: "center" }}
@@ -331,9 +355,9 @@ const UpdateInfoForm = ({ data }) => {
                       onChange={handleChange}
                     />
                   </Form.Group>
-                </Col>
+                  
                 <h6 className="mt-3">Social Media Links</h6>
-                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                <Col xs={12} md={6} lg={6} xl={6} xxl={12}>
                   <Form.Group controlId="formWebsitelink">
                     <Form.Label>Website Link (optional)</Form.Label>
                     <Form.Control
@@ -346,7 +370,7 @@ const UpdateInfoForm = ({ data }) => {
                     <p className="text-danger">{errors.website_link}</p>
                   </Form.Group>
                 </Col>
-                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                <Col xs={12} md={6} lg={6} xl={6} xxl={12}>
                   <Form.Group controlId="formFacebookLink">
                     <Form.Label>Facebook Link (optional)</Form.Label>
                     <Form.Control
@@ -359,7 +383,7 @@ const UpdateInfoForm = ({ data }) => {
                     <p className="text-danger">{errors.facebook_link}</p>
                   </Form.Group>
                 </Col>
-                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                <Col xs={12} md={6} lg={6} xl={6} xxl={12}>
                   <Form.Group controlId="formInstagramLink">
                     <Form.Label>Instagram Link (optional)</Form.Label>
                     <Form.Control
@@ -371,6 +395,12 @@ const UpdateInfoForm = ({ data }) => {
                     />
                     <p className="text-danger">{errors.instagram_link}</p>
                   </Form.Group>
+                </Col>
+                  
+                  
+                  
+                  </Row>
+
                 </Col>
               </Row>
 

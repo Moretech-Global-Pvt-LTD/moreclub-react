@@ -33,14 +33,14 @@ const Setuppage = ({ data }) => {
               {data.min_order} Minimum | {data.delivery_time} service
             </p>
             <div className="d-flex gap-2">
-              {data.instagram_link && (
+              {data.website_link && (
                 <a href={data.website_link} target="_blank" rel="noreferrer"><Button variant="primary" className="border-primary border-2"><i class="bi bi-globe"></i>&nbsp;&nbsp;Website</Button></a>
               )}
               {data.facebook_link && (
                 <a href={data.facebook_link} target="_blank" rel="noreferrer"><Button variant="primary" className="border-primary border-2"><i class="bi bi-facebook"></i>&nbsp; &nbsp; Facebook</Button></a>
               )}
-              {data.website_link && (
-                <a href={data.website_link} target="_blank" rel="noreferrer"><Button variant="primary" className="border-primary border-2"><i class="bi bi-instagram"></i>&nbsp; &nbsp; Instagram</Button></a>
+              {data.instagram_link && (
+                <a href={data.instagram_link} target="_blank" rel="noreferrer"><Button variant="primary" className="border-primary border-2"><i class="bi bi-instagram"></i>&nbsp; &nbsp; Instagram</Button></a>
               )}
             </div>
             <p>{data.short_description}</p>

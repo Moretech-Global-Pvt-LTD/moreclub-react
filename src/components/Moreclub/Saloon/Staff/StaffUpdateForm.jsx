@@ -60,6 +60,7 @@ const StaffUpdateForm = ({ sal_id, id, data, onFinish, onCancel }) => {
         email: data.email ?? '',
         contact: data.contact_no ?? '',
         image: null,
+        buffer_time: data.buffer_time ?? "",
         services: data.services.map((item) => item.id) ?? [],
     });
     const [service, setService] = useState([]);
@@ -120,6 +121,7 @@ const StaffUpdateForm = ({ sal_id, id, data, onFinish, onCancel }) => {
                 email: staff.email,
                 contact_no: staff.contact,
                 services: staff.services,
+                buffer_time: staff.buffer_time,
                 ...(staff.image && { image: staff.image }),
             }
 
@@ -146,7 +148,6 @@ const StaffUpdateForm = ({ sal_id, id, data, onFinish, onCancel }) => {
         } finally {
             setLoading(false);
         }
-
     };
 
     return (
@@ -186,7 +187,46 @@ const StaffUpdateForm = ({ sal_id, id, data, onFinish, onCancel }) => {
                     required
                 />
             </Form.Group>
-
+        
+            <Form.Group controlId="formStaffContact" className="mb-3">
+                <Form.Label>Buffer Time</Form.Label>
+                <Form.Control
+                    as="select"
+                    name="buffer_time"
+                    value={staff.buffer_time}
+                    onChange={handleInputChange}
+                    required
+                >
+                    <option value={"00:01:00"} >
+                        1 min
+                    </option>
+                    <option value={"00:02:00"} >
+                        2 min
+                    </option>
+                    <option value={"00:03:00"} >
+                        3 min
+                    </option>
+                    <option value={"00:04:00"} >
+                        4 min
+                    </option>
+                    <option value={"00:05:00"} >
+                        5 min
+                    </option>
+                    <option value={"00:10:00"} >
+                        10 min
+                    </option>
+                    <option value={"00:15:00"} >
+                        15 min
+                    </option>
+                    <option value={"00:20:00"} >
+                        20 min
+                    </option>
+                    <option value={"00:30:00"} >
+                        30 min
+                    </option>
+                </Form.Control>
+            </Form.Group>
+            
             <Form.Group className="mb-4">
                 <Form.Label className="mb-2 fz-16">Services types</Form.Label>
                 <Select

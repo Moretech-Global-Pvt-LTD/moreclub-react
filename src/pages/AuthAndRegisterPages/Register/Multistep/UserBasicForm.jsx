@@ -213,6 +213,7 @@ const UserBasicForm = () => {
         {phoneError && <p className="text-danger">{phoneError}</p>}
       </Form.Group>
 
+      
       <Form.Group className="register-form-container">
         <Form.Label>Gender</Form.Label>
         <div>

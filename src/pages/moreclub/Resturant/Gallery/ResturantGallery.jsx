@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button, Card, Col, Placeholder, Row } from "react-bootstrap";
 
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 
 import { morefoodURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
@@ -13,6 +13,7 @@ const RestaurantGalleryContent = () => {
     const { res_id, cat_id, slug } = useParams();
     const [showForm, setShowForm] = useState(false);
 
+    const queryClient = new QueryClient();
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Resturant Gallery ${res_id}`],
         queryFn: async () => {
@@ -51,7 +52,6 @@ const RestaurantGalleryContent = () => {
     }
 
 
-    const datas = data && data.map((e) => ({ ...e, width: "300", height: "200" }));
 
 
     async function showAddPhoto() {
@@ -60,9 +60,11 @@ const RestaurantGalleryContent = () => {
 
     async function hideAddPhoto() {
         setShowForm(false);
+        queryClient.invalidateQueries({ queryKey: [`Resturant Gallery ${res_id}`] });
     }
 
-    const name = slug.replace("-", " ");
+    // const name = slug.replace(/-/g, " ");
+
     return (
         <div>
             <div className="d-flex align-items-center justify-content-end my-2">
@@ -85,12 +87,13 @@ const RestaurantGalleryContent = () => {
 
 
             <div className='masonry-gallery'>
-                {datas.map((item, index) => (
+                {data.map((item, index) => (
                     <ImageContainer key={item.id} item={item} onClick={() => console.log(index)} />
                 ))
                 }
             </div>
-            {datas && datas.length === 0
+            
+            {data && data.length === 0
                 && (<p className='text-center text-dynamic-white'>No Image Found</p>
                 )}
             

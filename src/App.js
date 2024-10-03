@@ -118,6 +118,7 @@ import BlogDetail from "./pages/Support/BlogDetail";
 import BlogDetailPage from "./pages/Support/BlogDetailPage";
 import ServiceVariationPage from "./pages/moreclub/moresaloon/Services/ServiceVariationPage";
 import StaffDetailPage from "./pages/moreclub/moresaloon/Staff/StaffDetailPage";
+import BookingDetailPage from "./pages/moreclub/moresaloon/Bookings/BookingDetailPage";
 
 
 
@@ -681,6 +682,10 @@ const App = () => {
     {
       path: `/saloon/:id/booking/:slug`,
       page: <BookingPage />,
+    },
+    {
+      path: `/saloon/:id/booking/:slug/:book_id/:appoit_id`,
+      page: <BookingDetailPage />,
     },
     {
       path: `/saloon/:id/gallery/:slug`,

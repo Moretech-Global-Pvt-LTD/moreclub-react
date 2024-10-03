@@ -50,7 +50,7 @@ const SaloonPhotoUploadGallery = () => {
     return <Saloonlayout className="text-dynamic-white">Error: retriving</Saloonlayout>;
   }
 
-  const datas = data && data.map((e) => ({ ...e, width: "300", height: "200" }));
+  const datas = data && data.map((e) => ({ ...e, image:e.images, width: "300", height: "200" }));
 
 
   async function showAddPhoto() {

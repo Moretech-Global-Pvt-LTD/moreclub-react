@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
+import FeedsmallPreview from "../../components/feed/FeedsmallPreview";
 
 const PartnerDeatilContent = () => {
 
@@ -38,6 +39,13 @@ const PartnerDeatilContent = () => {
 
   if (isError) {
     <div className="text-dynamic white">Error getting data</div>;
+  }
+
+  const linkPreviews = {
+    title: company?.business_name,
+    image:"",
+    description: `${company?.business_name}`,
+    url: `${company?.business_name}`,
   }
 
   return (
@@ -116,7 +124,7 @@ const PartnerDeatilContent = () => {
           <Card>
             <Card.Body>
               {/* <Card.Title>Company Details</Card.Title> */}
-              <div className="d-flex gap-2 align-items-center">
+              {/* <div className="d-flex gap-2 align-items-center">
                 <img src={company?.qr_code} alt="qr" className="w-25" />
                 <ListGroup className="list-group-flush w-75">
                   <ListGroupItem>
@@ -126,7 +134,9 @@ const PartnerDeatilContent = () => {
                     <strong>Referrals:</strong> {company?.no_of_refer}
                   </ListGroupItem>
                 </ListGroup>
-              </div>
+              </div> */}
+              <FeedsmallPreview linkPreview={linkPreviews} />
+
               <div className="mt-4">
                 <h5>Google Map Location</h5>
                 {company?.lat && company?.lng &&
@@ -136,9 +146,9 @@ const PartnerDeatilContent = () => {
                   detail={company.business_address}
                   title={company.business_name}
                 />
-                  
                }
               </div>
+              
             </Card.Body>
           </Card>
         </Col>

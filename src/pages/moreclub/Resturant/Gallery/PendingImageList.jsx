@@ -46,12 +46,12 @@ const PendingImagelist = () => {
     }
 
 
-    const datas = data && data.map((e) => ({ ...e, width: "300", height: "200" }));
-    console.log(datas)
+    // const datas = data && data.map((e) => ({ ...e, width: "300", height: "200" }));
+    // console.log(datas)
 
     return (
         <div className='d-flex  flex-wrap gap-2'>
-            {datas.map((item, index) => (
+            {data.map((item, index) => (
                 <ImageAccept key={item.id} item={item}  />
             ))
             }

@@ -22,6 +22,24 @@ const PhoneNumberInput = ({ onChange, initialValue = '' }) => {
         fetchCountry();
     }, []);
 
+    useEffect(() => {
+        
+        if (countryList.length > 0 && phoneNumber === '') {
+            const country = countryList[0];
+            setCountry(country);
+            setPhoneNumber(`${country.prefix_number}`);
+        }else if (countryList.length > 0 && phoneNumber !== '') {
+            const countryPrefix = getCountryPrefix(phoneNumber, countryList);
+            if (countryPrefix === phoneNumber) {
+                setPrefix(countryPrefix);
+                const country = countryList.find((country) => country.prefix_number === countryPrefix);
+                setCountry(country);
+            }
+        }
+ 
+    }, [countryList]);
+
+
     const validatePhoneNumber = (phoneNumber) => {
         const phoneRegex = /^\+?[1-9]/; // Allow between 8 and 15 digits total  checks for country code and varying lengths of phone numbers
         if (!phoneNumber) return "Phone number is required";
@@ -87,6 +105,8 @@ const PhoneNumberInput = ({ onChange, initialValue = '' }) => {
         }
         return null;
     };
+
+
 
     return (
         <>
