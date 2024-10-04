@@ -61,7 +61,7 @@ const ServicePage = () => {
           </Button>
         ) : (
           <Button variant="warning" onClick={() => showAddCategory()}>
-            Add Category
+            Add Services
           </Button>
         )}
       </div>

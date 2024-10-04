@@ -36,6 +36,8 @@ const BusinessPartnerContent = ({ partnerId }) => {
     if (isError) {
         <div className="text-dynamic white">Error getting data</div>;
     }
+
+    
     return (
         <div className="mt-4">
             <Row sm={2} md={4} className="gx-3 gy-3">
@@ -56,7 +58,7 @@ const BusinessPartnerContent = ({ partnerId }) => {
             {data && data.length === 0 && (
                 <>
                     <Divider />
-                    <p className="text-center">Partner not Registered yet in title {title} </p>
+                    <p className="text-center">Partner not Registered yet in {title} </p>
                     <Divider />
 
                 </>

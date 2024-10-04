@@ -38,20 +38,16 @@ const BusinessTypes = ({ toppart }) => {
                 <>
                     <div className={`justify-content-between align-items-center ${!!toppart ? 'd-none' : 'd-flex '} `}>
                         <h4 className="mt-4 mb-3">Best Deals in Town</h4>
-                        {/* <Link to="/partners">
-                            <Button variant="link">View All</Button>
-                        </Link> */}
+
                     </div>
                     <Row xs={2} sm={3} md={3} lg={4} xxl={6} className="gx-3 gy-3 px-1 px-lg-3 ">
                         {data.map((item) => (
-                            // <Col>
-                                <BusinessTypesCard
-                                    id={item.id}
-                                    logo={item?.image}
-                                    name={item?.name}
-                                    banner={item?.banner}
-                                />
-                            // </Col>
+                            <BusinessTypesCard
+                                id={item.id}
+                                logo={item?.image}
+                                name={item?.name}
+                                banner={item?.banner}
+                            />
                         ))}
                     </Row>
                 </>

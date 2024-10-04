@@ -142,7 +142,7 @@ const ServiceVariationCreationForm = ({ ser_id, sal_id, onFinish, onCancel }) =>
             })
             .catch((error) => {
                 console.error("There was an error fetching the categories!", error);
-                message.error("error creating Menu");
+                message.error("error creating Service Variation");
             }).finally(() => {
                 setLoading(false);
             });

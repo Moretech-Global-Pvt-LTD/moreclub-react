@@ -89,7 +89,6 @@ const ServiceVariationPage = () => {
                         item={item}
                         key={item.id}
                     />
-
                 ))}
             </div>
 
