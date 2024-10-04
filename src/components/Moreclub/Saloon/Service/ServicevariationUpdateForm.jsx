@@ -4,58 +4,11 @@ import { axiosInstance } from "../../../..";
 import { morefoodURL, moresaloonURL } from "../../../../config/config";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
-import Select from "react-select";
-import { duration } from "moment";
 
 
 
-const customStyles = {
-    control: (provided, state) => ({
-        ...provided,
-        backgroundColor: 'transparent',
-        borderColor: state.isFocused ? '#80bdff' : '#ced4da',
-        boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(0,123,255,.25)' : null,
-        '&:hover': {
-            borderColor: state.isFocused ? '#80bdff' : '#ced4da',
-        },
-    }),
-    menu: (provided) => ({
-        ...provided,
-        backgroundColor: '#f8f9fa',
-        borderRadius: '0.25rem',
-        boxShadow: '0 0.5rem 1rem rgba(0, 0, 0, 0.15)',
-    }),
-    option: (provided, state) => ({
-        ...provided,
-        backgroundColor: state.isSelected
-            ? '#007bff'
-            : state.isFocused
-                ? '#e9ecef'
-                : 'white',
-        color: state.isSelected ? 'white' : 'black',
-        '&:active': {
-            backgroundColor: '#007bff',
-            color: 'white',
-        },
-    }),
-    multiValue: (provided) => ({
-        ...provided,
-        backgroundColor: '#007bff',
-        color: 'white',
-    }),
-    multiValueLabel: (provided) => ({
-        ...provided,
-        color: 'white',
-    }),
-    multiValueRemove: (provided) => ({
-        ...provided,
-        color: 'white',
-        '&:hover': {
-            backgroundColor: '#0056b3',
-            color: 'white',
-        },
-    }),
-};
+
+
 
 
 

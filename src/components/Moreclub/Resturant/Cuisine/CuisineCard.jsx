@@ -29,37 +29,20 @@ const CuisineCard = ({ id, res_id, logo, name, item }) => {
     }
 
     return (
-        <Link to={`/resturant/${res_id}/cuisine/${id}/${rest_name}/${slug}`} className="d-flex flex-column position-relative" style={{ height: "100%" }}>
-        <div className="d-flex flex-column position-relative" style={{ height: "100%" }}>
-            {/* <Badge className="bg-danger position-absolute top-0 end-0" style={{ zIndex: 10, cursor: "pointer" }} onClick={() => handleDelete()}>
-                <i class="bi bi-trash"></i>
-            </Badge> */}
-            <Card className="nearby-offers-card flex-grow-1">
-                <div className="mx-auto mt-2 mb-0">
-                    <img
-                        src={`${logo}`}
-                        style={{
-                            width: "60px",
-                            height: "60px",
-                            objectFit: "contain",
-                            backgroundColor: "#fff",
-                        }}
-                        alt="Profile"
-                        className="img-fluid rounded-circle mb-3 profile-image"
-                    />
-                </div>
-                
-                    <Card.Body className="pt-0">
-                        <Card.Title className="text-dynamic-white text-center line">
-                            {name}
-                        </Card.Title>
-                        {/* <Card.Text className="text-warning">{item} items</Card.Text> */}
-                    </Card.Body>
-              
-            </Card>
-            
-        </div>
-        </Link >
+    
+        
+    
+           <Link to={`/resturant/${res_id}/cuisine/${id}/${rest_name}/${slug}`} class="cuisine-card-link">
+  <div class="cuisine-card">
+    
+    <img src={logo} alt={name} class="cuisine-card-image"/>
+    <div class="cuisine-card-content">
+      <p class="cuisine-card-title">{name}</p>
+    </div>
+  </div>
+</Link>
+
+ 
     );
 };
 

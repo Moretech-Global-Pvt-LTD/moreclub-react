@@ -29074,6 +29074,55 @@ span {
     background-color: #218838;
 }
 
+.cuisine-card-link {
+  display: inline-block;
+  padding-left: 8px; /* px-2 */
+  cursor: pointer;
+  text-decoration: none; /* Remove underline */
+}
+
+.cuisine-card {
+  margin: 16px; /* m-4 */
+  width: 144px; /* w-36 */
+  overflow: hidden;
+  border-radius: 24px; /* rounded-3xl */
+  background-color: white; /* bg-white */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+  transition: box-shadow 0.3s ease-in-out; /* transition-shadow */
+}
+
+.cuisine-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* hover:shadow-xl */
+}
+
+.cuisine-card-image {
+  width: 100%;
+  height: 80px; /* h-20 */
+  object-fit: cover;
+  background-color: #0c153b; /* bg-slate-200 */
+}
+
+.cuisine-card-content {
+  text-align: center;
+  padding: 8px; /* For spacing inside content */
+}
+
+.cuisine-card-title {
+  color: #1f2937; /* text-gray-800 */
+  font-weight: bold; /* To emphasize the title */
+}
+
+/* Dark mode styles */
+[data-theme="dark"] .cuisine-card{
+   
+    background-color: #0c153b;
+  }
+
+ [data-theme="dark"] .cuisine-card-title {
+    color: #e5e7eb; 
+  }
+
+
 
 
 /*# sourceMappingURL=main.c1c39487.css.map*/

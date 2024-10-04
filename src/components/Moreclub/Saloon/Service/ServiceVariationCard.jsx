@@ -7,6 +7,7 @@ import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 import ServiceVariationUpdateForm from "./ServicevariationUpdateForm";
+import Defaultimage from "../../../../images/logo/MembersClubblack.png"
 
 const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
     const [hours, minutes, seconds] = item.duration.split(":");
@@ -40,11 +41,12 @@ const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
         setShowForm(false);
     }
 
-
     return (
-
         <div class="service-variation-card">
-            <img src={item.images[0].image} alt="Service Image" class="service-variation-image" />
+            {(item.images && item.images[0].image) ?
+                <img src={item.images[0].image} alt="Service Image" class="service-variation-image" />
+                : <img src={Defaultimage} alt="Service Image" class="service-variation-image bg-white" />
+            }
             <div class="service-variation-content">
                 <h3 class="service-variation-title">{item.name}</h3>
                 <p class="service-variation-price">{item.discount_price ? `Rs.${item.discount_price}` : `Rs ${item.price}`}{" "}{<span style={{ textDecoration: "line-through" }}>{item.discount_price && `Rs.${item.price}`}</span>}</p>

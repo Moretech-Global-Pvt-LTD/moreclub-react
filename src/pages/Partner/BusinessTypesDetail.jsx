@@ -10,6 +10,7 @@ import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import LandingLayout from "../../components/Layout/LandingLayout";
 import UnauthenticatedBusinessPartnerContent from "./UnauthenticatedPartnerContent";
 import { getAccessToken } from "../../utills/token";
+import RestaurantCusine from "./RestaurantCusine";
 
 
 const BusinessTypesDetail = () => {
@@ -19,12 +20,24 @@ const BusinessTypesDetail = () => {
     
    
     if (!!getAccessToken()) {
-        return (
-            <DashboardLayout title={title}>
-                <BusinessPartnerContent partnerId={partnerId} />
-                <Divider />
-            </DashboardLayout>
-        );
+
+        if (partnerName === "Restaurant") { 
+
+            return (
+                <DashboardLayout title={"cuisine"}>
+                    <RestaurantCusine />
+                    <Divider />
+                </DashboardLayout>
+            );
+        } else {
+            
+            return (
+                <DashboardLayout title={title}>
+                    <BusinessPartnerContent partnerId={partnerId} />
+                    <Divider />
+                </DashboardLayout>
+            );
+        }
    
     } else {
         return (
