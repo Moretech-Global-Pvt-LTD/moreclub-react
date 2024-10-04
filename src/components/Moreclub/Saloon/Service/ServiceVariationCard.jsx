@@ -43,7 +43,7 @@ const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
 
     return (
         <div class="service-variation-card">
-            {(item.images && item.images[0].image) ?
+            {(item?.images && item?.images[0] && item?.images[0].image) ?
                 <img src={item.images[0].image} alt="Service Image" class="service-variation-image" />
                 : <img src={Defaultimage} alt="Service Image" class="service-variation-image bg-white" />
             }
@@ -84,8 +84,6 @@ const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
                 </Modal.Body>
             </Modal>
         </div>
-
-
     );
 };
 

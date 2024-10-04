@@ -2,10 +2,10 @@ import React from "react";
 import { Card} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const OffersCard = ({ id, logo, name, address, email, phone, discounts }) => {
-  const slug = name.replace(" ", "-");
+const OffersCard = ({ id, logo, name, address, email, phone, discounts , partnerName }) => {
+  const slug = name.replace(/ /g, "-");
   return (
-    <Link to={`/partner/detail/${id}/${slug}`} className="d-flex flex-column" style={{height:"100%"}}>
+    <Link to={`/partner/detail/${id}/${slug}/${partnerName}`} className="d-flex flex-column" style={{height:"100%"}}>
       <Card className="nearby-offers-card flex-grow-1">
         <div className="mx-auto mt-2 mb-0">
           {!logo ? (

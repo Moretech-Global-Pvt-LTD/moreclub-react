@@ -45,6 +45,7 @@ const BusinessPartnerContent = ({ partnerId }) => {
                     <Col className="d-flex flex-column">
                         <OffersCard
                             id={item.id}
+                            partnerName={partnerName}
                             logo={item.business_logo}
                             name={item.business_name}
                             address={item.business_address}

@@ -126,6 +126,7 @@ const ServiceVariationCreationForm = ({ ser_id, sal_id, onFinish, onCancel }) =>
                     },
                 })
             .then((response) => {
+                response.status === 201 &&
                 message.success("Service Variation Added Successfully")
                 queryClient.invalidateQueries({
                     queryKey: [`Saloon variation List ${sal_id} ${ser_id}`],
@@ -242,7 +243,7 @@ const ServiceVariationCreationForm = ({ ser_id, sal_id, onFinish, onCancel }) =>
                             ))}
                         </div>
                     )}
-                    <Form.Control type="file" name="image" multiple onChange={handleImageChange} />
+                    <Form.Control type="file" name="image" multiple required onChange={handleImageChange} />
                 </Form.Group>
 
                 <div className='d-flex justify-content-end gap-2'>
@@ -260,6 +261,7 @@ const ServiceVariationCreationForm = ({ ser_id, sal_id, onFinish, onCancel }) =>
                             serviceVariation.price.trim() === "" ||
                             serviceVariation.description.trim() === "" ||
                             serviceVariation.duration.trim() === "" ||
+                            !serviceVariation.image ||
                             // serviceVariation.cuisine_id.length === 0 ||
                             durationerror !== ""
                         }

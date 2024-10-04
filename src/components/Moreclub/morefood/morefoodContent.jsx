@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { morefoodhostURL, morefoodURL } from "../../../config/config";
 import RestaurantCardSkeleton from "../../Skeleton/RestaurantCardSkeleton";
-import { Link } from "react-router-dom";
 
 const MorefoodContent = () => {
   const { data, isLoading, isError } = useQuery({

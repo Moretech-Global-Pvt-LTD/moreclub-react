@@ -6,15 +6,16 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import FeedsmallPreview from "../../components/feed/FeedsmallPreview";
+import SmallPreview from "./PartnerlinkPreviews";
 
 const PartnerDeatilContent = () => {
 
-  const { partnerId } = useParams();
+  const { partnerId, businessName } = useParams();
   const { data:company, isLoading, isError } = useQuery({
     queryKey: [`partners ${partnerId}`],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        `${baseURL}business/our/partners/${partnerId}/`
+        `${baseURL}business/our/partners/${partnerId}/?from=${businessName}`
       );
       return response.data.data;
     },
@@ -47,6 +48,8 @@ const PartnerDeatilContent = () => {
     description: `${company?.business_name}`,
     url: `${company?.business_name}`,
   }
+
+  console.log("data", company)
 
   return (
     <div className="mt-5">
@@ -135,7 +138,7 @@ const PartnerDeatilContent = () => {
                   </ListGroupItem>
                 </ListGroup>
               </div> */}
-              <FeedsmallPreview linkPreview={linkPreviews} />
+              <SmallPreview linkPreview={linkPreviews} />
 
               <div className="mt-4">
                 <h5>Google Map Location</h5>
