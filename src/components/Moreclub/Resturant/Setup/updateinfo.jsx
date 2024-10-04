@@ -321,7 +321,7 @@ const UpdateInfoForm = ({ data }) => {
                       onPlaceSelected={handlePlaceSelected}
                       initialLat={formValues.lat}
                       initialLng={formValues.lng}
-                      initialAddress={formValues.location}
+                      initialAddress={formValues.address}
                     />
                     <p className="text-danger">{errors.address}</p>
                   </Form.Group>

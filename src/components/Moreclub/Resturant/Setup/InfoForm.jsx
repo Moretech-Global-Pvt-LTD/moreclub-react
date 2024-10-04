@@ -7,32 +7,35 @@ import { message } from "antd";
 import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry, validateCuisineType, validateEmail, validateFacebookURL, validateFeatureType, validateInstagramURL, Validatelogo, validateLongDescription, validateMeal, validateMin_order, validatePriceRange, validateProperties, validateResturantName, validateWebsiteURL } from "../../../../validation/resturantValidation";
 import { useNavigate } from "react-router-dom";
 import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
+import { useSelector } from "react-redux";
 
 const InfoForm = () => {
   const navigate = useNavigate();
+  const businessProfiles = useSelector((state) => state.businessReducer.businessProfile);
+  const userProfiles = useSelector((state) => state.userReducer.user);
+
   const [countryList, setCountryList] = useState([]);
   const [inputDisplayLogo, setInputDisplayLogo] = useState();
   const [LogoError, setLogoError] = useState("");
-
 
   const [inputDisplayImage, setInputDisplayImage] = useState();
   const [bannerError, setBannerError] = useState("");
   const [isLoading, setIsLoading] = useState(false)
   const [symbol, setSymbol] = useState("");
   const [formValues, setFormValues] = useState({
-    name: "",
-    address: "",
+    name: businessProfiles?.business_name?? "",
+    address: businessProfiles?.business_address ?? "",
     min_order: "",
     delivery_time: "15 min",
-    email: "",
-    contact_no: "",
-    country: "",
+    email: businessProfiles?.business_email ?? "",
+    contact_no: businessProfiles?.business_phone ?? "",
+    country:"",
     currency: "",
     is_delivery: false,
     is_pickup: false,
     is_dine: false,
-    lat: 0,
-    lng: 0,
+    lat: businessProfiles?.lat ?? 0,
+    lng: businessProfiles?.lng ?? 0,
     banner: null,
     logo: null,
     short_description: "",
@@ -161,6 +164,14 @@ const InfoForm = () => {
   }, []);
 
 
+  useEffect(() => {
+    if (countryList.length > 0) { 
+      if (userProfiles?.user_profile?.country) {
+        handleCountryInitialChange();
+      }
+    }
+
+  }, [countryList, userProfiles]);
 
 
 
@@ -174,6 +185,18 @@ const InfoForm = () => {
   };
 
 
+
+  const handleCountryInitialChange = () => {
+    const currency = countryList.filter((co) => co.name === userProfiles?.user_profile?.country)[0];
+    setSymbol(currency.currency.symbol);
+    
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      currency: currency.currency.id,
+      country: currency.id,
+    }));
+    validateForm({ country: currency.id , currency: currency.currency.id });
+  };
 
 
   const handleCountryChange = (e) => {
@@ -378,7 +401,7 @@ const InfoForm = () => {
                       onPlaceSelected={handlePlaceSelected}
                       initialLat={formValues.lat}
                       initialLng={formValues.lng}
-                      initialAddress={formValues.location}
+                      initialAddress={formValues.address}
                 />
                    
                     <p className="text-danger">{errors.address}</p>

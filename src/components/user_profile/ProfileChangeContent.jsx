@@ -390,7 +390,7 @@ const ProfileChangeContent = ({ user }) => {
 
                       <div className="col-12">
                         <button
-                          className="btn btn-warning w-100 rounded-pill"
+                          className="btn btn-warning w-100 rounded"
                           type="submit"
                           disabled={loading}
                         >
@@ -552,7 +552,7 @@ const ProfileChangeContent = ({ user }) => {
                     </div>
                     <div className="col-12">
                       <button
-                        className="btn btn-warning w-100 rounded-pill"
+                        className="btn btn-warning w-100 rounded"
                         type="submit"
                         disabled={avatarError !== "" || loading}
                       >

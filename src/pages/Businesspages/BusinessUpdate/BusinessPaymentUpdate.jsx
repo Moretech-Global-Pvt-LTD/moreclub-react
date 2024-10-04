@@ -158,7 +158,7 @@ const PaymentForm = () => {
         <div className="d-flex justify-content-end w-100">
           <button
             type="submit"
-            className="btn  rounded-pill btn-primary my-2 mt-4 align-self-end "
+            className="btn  rounded btn-warning my-2 mt-4 align-self-end "
             disabled={!stripe}
           >
             {loading && (

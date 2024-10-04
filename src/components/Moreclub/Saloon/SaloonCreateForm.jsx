@@ -8,10 +8,13 @@ import MapBoxLocationDisplayAutocomplete from "../../Googlemap/MapLocationInput"
 import { moresaloonURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
 import TagsInput from "../CommonComponents/TagInput";
+import { useSelector } from "react-redux";
 
 
 const SaloonCreateForm = () => {
     const navigate = useNavigate();
+    const businessProfiles = useSelector((state) => state.businessReducer.businessProfile);
+    const userProfiles = useSelector((state) => state.userReducer.user);
     const [countryList, setCountryList] = useState([]);
     const [inputDisplayLogo, setInputDisplayLogo] = useState();
     const [LogoError, setLogoError] = useState("");
@@ -22,14 +25,14 @@ const SaloonCreateForm = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [symbol, setSymbol] = useState("");
     const [formValues, setFormValues] = useState({
-        name: "",
-        address: "",
-        email: "",
-        contact_no: "",
+        name: businessProfiles?.business_name ?? "",
+        address: businessProfiles?.business_address ?? "",
+        email: businessProfiles?.business_email ?? "",
+        contact_no: businessProfiles?.business_phone ?? "", 
         country: "",
         currency: "",
-        lat: 0,
-        lng: 0,
+        lat: businessProfiles?.lat ?? 0,
+        lng: businessProfiles?.lng ?? 0,
         banner: null,
         logo: null,
         short_description: "",
@@ -137,7 +140,26 @@ const SaloonCreateForm = () => {
     }, []);
 
 
+    useEffect(() => {
+        if (countryList.length > 0) {
+            if (userProfiles?.user_profile?.country) {
+                handleCountryInitialChange();
+            }
+        }
 
+    }, [countryList, userProfiles]);
+
+    const handleCountryInitialChange = () => {
+        const currency = countryList.filter((co) => co.name === userProfiles?.user_profile?.country)[0];
+        setSymbol(currency.currency.symbol);
+
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            currency: currency.currency.id,
+            country: currency.id,
+        }));
+        validateForm({ country: currency.id, currency: currency.currency.id });
+    };
 
 
     const handleChange = (e) => {
@@ -220,7 +242,6 @@ const SaloonCreateForm = () => {
         e.preventDefault();
         const validationErrors = validateAllFields();
 
-        console.log(formValues)
 
         if (Object.keys(validationErrors).length === 0) {
             setIsLoading(true);
@@ -331,7 +352,7 @@ const SaloonCreateForm = () => {
                                             onPlaceSelected={handlePlaceSelected}
                                             initialLat={formValues.lat}
                                             initialLng={formValues.lng}
-                                            initialAddress={formValues.location}
+                                            initialAddress={formValues.address}
                                         />
 
                                         <p className="text-danger">{errors.address}</p>

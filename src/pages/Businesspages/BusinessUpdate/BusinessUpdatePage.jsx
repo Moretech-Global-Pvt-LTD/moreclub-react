@@ -6,6 +6,7 @@ import { message } from "antd";
 import { alertNotification } from "../../../redux/api/notification";
 import MapBoxLocationDisplayAutocomplete from "../../../components/Googlemap/MapLocationInput";
 import MapboxComponent from "../../../components/Googlemap/MapboxComponent";
+import { set } from "lodash";
 
 const BusinessUpdatePage = ({ business }) => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const BusinessUpdatePage = ({ business }) => {
   const [addressError, setAddressError] = useState("");
   const [bussinessPhoneError, setBussinessPhoneError] = useState("");
   const [bussinessEmailError, setBussinessEmailError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setCompanyName(business.businessProfile?.business_name ?? "");
@@ -146,21 +148,27 @@ const BusinessUpdatePage = ({ business }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = {
-      business_name: companyName,
-      business_address: address,
-      lat: lat,
-      lng: lng,
-      business_registration_number: registrationNumber,
-      business_email: businessEmail,
-      business_phone: businessPhone,
-    };
-    const res = await dispatch(update_business_detail(formData));
-    if (res) {
-      message.success("Business Updated Successfully");
-    } else {
+    try {
+      setIsLoading(true);
+      const formData = {
+        business_name: companyName,
+        business_address: address,
+        lat: lat,
+        lng: lng,
+        business_registration_number: registrationNumber,
+        business_email: businessEmail,
+        business_phone: businessPhone,
+      };
+      const res = await dispatch(update_business_detail(formData));
+      if (res) {
+        message.success("Business Updated Successfully");
+      } else {
+        message.error("Failed to Update Data");
+      }
+    }catch (error) {
       message.error("Failed to Update Data");
     }
+    
   };
 
   return (
@@ -278,7 +286,7 @@ const BusinessUpdatePage = ({ business }) => {
           </Form.Group>
             
           <button
-              className="btn btn-warning w-100  mt-3 rounded-pill"
+              className="btn btn-warning w-100  mt-3 rounded"
             type="submit"
             disabled={
               companyName.trim() === "" ||
@@ -289,7 +297,7 @@ const BusinessUpdatePage = ({ business }) => {
               registrationNumberError !== ""
             }
           >
-            {/* {loading && <span className="spinner-border spinner-border-sm me-1"></span>} */}
+            {isLoading && <span className="spinner-border spinner-border-sm me-1"></span>}
             <i className="bi bi-sd-card-fill me-1" />
 
             Update Business

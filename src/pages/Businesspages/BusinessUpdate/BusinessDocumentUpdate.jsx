@@ -6,6 +6,7 @@ import { Form } from "react-bootstrap";
 import BusinessTaxUpdate from "./BusinessTaxDocumentPage";
 import { alertNotification } from "../../../redux/api/notification";
 import BussinessLogoUpdate from "./BusinessLogoUpdate";
+import { set } from "lodash";
 
 const BusinessDocumentUpdate = ({ business }) => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const BusinessDocumentUpdate = ({ business }) => {
   );
   const [notifications, setNotifications] = useState([]);
   const [avatarError, setAvatarError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const businessverification = useSelector((state) => state.businessReducer);
 
@@ -36,17 +38,24 @@ const BusinessDocumentUpdate = ({ business }) => {
 
   const handleAvatarSubmit = (event) => {
     event.preventDefault();
-    const formData = {
-      business_documents: inputAvatar,
-    };
-    console.log("form data", formData);
-    const res = dispatch(update_business_document(formData));
+    try {
+      setIsLoading(true);
+      const formData = {
+        business_documents: inputAvatar,
+      };
 
-    if (res) {
-      message.success("Registration Document Updated Successfully");
-    } else {
+      const res = dispatch(update_business_document(formData));
+
+      if (res) {
+        message.success("Registration Document Updated Successfully");
+      } else {
+        message.error("Failed to Update Documents");
+      }
+      
+    }catch (error) {
       message.error("Failed to Update Documents");
     }
+    setIsLoading(false);
   };
 
   const AvatarhandleChange = (event) => {
@@ -97,11 +106,12 @@ const BusinessDocumentUpdate = ({ business }) => {
             </div>
             <div className="col-12">
               <button
-                className="btn btn-primary w-100 rounded-pill"
+                className="btn btn-warning w-100"
                 type="submit"
               >
+                {isLoading && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
                 <i className="bi bi-sd-card-fill me-1" />
-                Save changes
+                Update Registration
               </button>
             </div>
           </Form>
