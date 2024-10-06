@@ -26,7 +26,7 @@ const SaloonLogo = ({ data }) => {
                 logo: inputBanner,
             };
             const res = await await axiosInstance.patch(
-                `${moresaloonURL}moreclub/services/${id}/`,
+                `${moresaloonURL}moreclub/users/saloon/${id}/`,
                 formData,
                 {
                     headers: {

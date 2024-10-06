@@ -97,7 +97,7 @@ const SaloonUpdate = () => {
                 }
               >
                 <Col className="gap-4">
-                  <SaloonBanner data={data.banner} />
+                  <SaloonBanner data={data.banner}  />
                   <SaloonLogo data={data.logo} />
                 </Col>
               </div>
