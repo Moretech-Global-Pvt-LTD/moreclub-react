@@ -44,8 +44,8 @@ const MenuItem = () => {
     setShowForm(false);
   }
 
-  const name = slug.replace("-", " ");
-  console.log(data)
+  const name = slug.replace(/-/g, " ");
+
   return (
     <div>
       <div className="d-flex align-items-center justify-content-between my-2">

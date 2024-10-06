@@ -119,6 +119,7 @@ import BlogDetailPage from "./pages/Support/BlogDetailPage";
 import ServiceVariationPage from "./pages/moreclub/moresaloon/Services/ServiceVariationPage";
 import StaffDetailPage from "./pages/moreclub/moresaloon/Staff/StaffDetailPage";
 import BookingDetailPage from "./pages/moreclub/moresaloon/Bookings/BookingDetailPage";
+import BusinessRestaurantPartner from "./pages/Partner/BusinessRestaurantPartner";
 
 
 
@@ -336,6 +337,11 @@ const App = () => {
 
       page: <BusinessTypesDetail />,
     },
+    {
+      path: "/partners/:partnerId/:partnerName/:cuisineName/",
+
+      page: <BusinessRestaurantPartner />,
+    },
 
     {
       path: "/projects/:projectId",
@@ -408,7 +414,7 @@ const App = () => {
       page: <GetMembership />,
     },
     {
-      path: "/partner/detail/:partnerId/:slug",
+      path: "/partner/detail/:partnerId/:slug/:businessName",
 
       page: <PartnerDetail />,
     },

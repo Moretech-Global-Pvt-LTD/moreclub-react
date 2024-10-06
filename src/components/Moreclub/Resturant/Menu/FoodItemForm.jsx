@@ -114,20 +114,44 @@ const FoodItemForm = ({ data }) => {
 
  
 
+  // const handleChange = (e) => {
+  //   if (e.target.name === "offerPrice" && e.target.value) {
+  //     if (parseFloat(menuItem.price) > parseFloat(e.target.value)) {
+  //       setMenuItem({ ...menuItem, [e.target.name]: e.target.value });
+  //       setOfferError("");
+  //     } else {
+  //       setMenuItem({ ...menuItem, [e.target.name]: null });
+  //       setOfferError("Must be less than price")
+  //     }
+  //   } else {
+  //     const { name, value } = e.target;
+  //     setMenuItem({ ...menuItem, [name]: value });
+  //   }
+  // }
+
   const handleChange = (e) => {
-    if (e.target.name === "offerPrice" && e.target.value) {
-      if (parseFloat(menuItem.price) > parseFloat(e.target.value)) {
-        setMenuItem({ ...menuItem, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Offer price validation logic
+    if (name === "offerPrice") {
+      if (value === "") {
+        // Allow empty value to remove the offer price
+        setMenuItem({ ...menuItem, offerPrice: null });
+        setOfferError(""); // Clear any error message
+      } else if (parseFloat(menuItem.price) >= parseFloat(value)) {
+        // Valid offer price
+        setMenuItem({ ...menuItem, offerPrice: value });
         setOfferError("");
       } else {
-        setMenuItem({ ...menuItem, [e.target.name]: null });
-        setOfferError("Must be less than price")
+        // Invalid offer price
+        setMenuItem({ ...menuItem, offerPrice: "" }); // Clear offer price if invalid
+        setOfferError("Must be less than price");
       }
     } else {
-      const { name, value } = e.target;
+      // General input handling for other fields
       setMenuItem({ ...menuItem, [name]: value });
     }
-  }
+  };
 
   const handleImageChange = (e) => {
     setMenuItem({ ...menuItem, image: e.target.files[0] });
@@ -241,7 +265,6 @@ const FoodItemForm = ({ data }) => {
     // formData.append("ingredient", menuItem.ingredient);
     
     
-    
   };
   
   return (
@@ -275,7 +298,7 @@ const FoodItemForm = ({ data }) => {
           </Col>
           <Col>
             <Form.Group controlId="formItemOfferPrice">
-              <Form.Label>Offer Price</Form.Label>
+              <Form.Label>Offer Price&nbsp;<span className="text-muted " style={{ fontSize: "11px" }}>(Optional)</span></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter offer price"

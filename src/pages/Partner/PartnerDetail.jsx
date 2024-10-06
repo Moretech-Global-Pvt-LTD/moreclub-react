@@ -7,7 +7,7 @@ import {useParams } from "react-router-dom";
 const PartnerDetail = () => {
  
   const { slug } = useParams();
-  const name=slug.replace('-',' ')
+  const name=slug.replace(/-/g,' ')
  
   
     return (

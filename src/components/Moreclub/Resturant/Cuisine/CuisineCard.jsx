@@ -32,14 +32,13 @@ const CuisineCard = ({ id, res_id, logo, name, item }) => {
     
         
     
-           <Link to={`/resturant/${res_id}/cuisine/${id}/${rest_name}/${slug}`} class="cuisine-card-link">
-  <div class="cuisine-card">
+  <Link to={`/resturant/${res_id}/cuisine/${id}/${rest_name}/${slug}`}  className="cuisine-card">
     
-    <img src={logo} alt={name} class="cuisine-card-image"/>
-    <div class="cuisine-card-content">
-      <p class="cuisine-card-title">{name}</p>
+    <img src={logo} alt={name} className="cuisine-card-image"/>
+    <div className="cuisine-card-content">
+      <p className="cuisine-card-title">{name}</p>
     </div>
-  </div>
+  
 </Link>
 
  
