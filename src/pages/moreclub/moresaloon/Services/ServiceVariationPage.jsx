@@ -72,7 +72,7 @@ const ServiceVariationPage = () => {
             >
                 <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
-                        Add Services
+                        Add Services Variations
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

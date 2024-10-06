@@ -2,8 +2,7 @@ import React from 'react';
 import { axiosInstance } from '../..';
 import { baseURL } from '../../config/config';
 
-const SmallPreview = ({ linkPreview }) => {
-
+const SmallPreview = ({ linkPreview , urls , name , image , description }) => {
 
     async function handleRedirection() {
         // Open a blank tab immediately
@@ -11,13 +10,13 @@ const SmallPreview = ({ linkPreview }) => {
         try {
             const response = await axiosInstance.post(`${baseURL}auth/code/generate/`);
             if (response.status === 200) {
-                const url = `${linkPreview.link}?redirect=true&&code=${response.data.data.auth_code}`;
+                const url = `${urls}?redirect=true&&code=${response.data.data.auth_code}`;
                 newWindow.location.href = url;
             } else {
-                newWindow.location.href = linkPreview.link;
+                newWindow.location.href = urls;
             }
         } catch (err) {
-            newWindow.location.href = linkPreview.link;
+            newWindow.location.href = urls;
         }
     }
 
@@ -37,8 +36,8 @@ const SmallPreview = ({ linkPreview }) => {
             )}
 
             <div className="small-link-preview-info">
-                <h6 className="small-link-preview-title">{linkPreview.title}</h6>
-                <p className="small-link-preview-description">{linkPreview.description}</p>
+                <h6 className="small-link-preview-title">{name}</h6>
+                <p className="small-link-preview-description">{description}</p>
                 <div className="small-link-preview-actions">
                     {/* <p href={linkPreview.url} target="_blank" rel="noopener noreferrer"> */}
                         <button className="visit-site-button" onClick={handleRedirection} >Visit Site</button>

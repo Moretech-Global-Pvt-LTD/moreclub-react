@@ -54,6 +54,9 @@ const WorkingdaysContent = () => {
     async function updateWokingData(openingHours) {
             try {
                 const response = await axiosInstance.patch(`${moresaloonURL}moreclub/users/saloons/${id}/staff/${staff_id}/working-days/detail/`, openingHours)
+                queryClient.invalidateQueries({
+                    queryKey: [`Saloon Staff Working days ${staff_id}`],
+                });
                 setEdit(false)
                 return response;
             } catch (err) {
@@ -66,7 +69,7 @@ const WorkingdaysContent = () => {
     }
 
   return (
-      <div>
+      <>
           {data && data.length > 0 &&
               <>
               {edit ? <TimeSlotForm existingdata={data} submitFunction={updateWokingData} /> :
@@ -78,7 +81,7 @@ const WorkingdaysContent = () => {
           {data && data.length === 0 &&
               <TimeSlotForm submitFunction={logFormData} />
           }
-      </div>
+      </>
   )
 }
 

@@ -5,13 +5,12 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
-import FeedsmallPreview from "../../components/feed/FeedsmallPreview";
 import SmallPreview from "./PartnerlinkPreviews";
 
 const PartnerDeatilContent = () => {
 
   const { partnerId, businessName } = useParams();
-  const { data:company, isLoading, isError } = useQuery({
+  const { data: company, isLoading, isError } = useQuery({
     queryKey: [`partners ${partnerId}`],
     queryFn: async () => {
       const response = await axiosInstance.get(
@@ -44,7 +43,7 @@ const PartnerDeatilContent = () => {
 
   const linkPreviews = {
     title: company?.business_name,
-    image:"",
+    image: "",
     description: `${company?.business_name}`,
     url: `${company?.business_name}`,
   }
@@ -126,8 +125,14 @@ const PartnerDeatilContent = () => {
         <Col md={8}>
           <Card>
             <Card.Body>
-              {/* <Card.Title>Company Details</Card.Title> */}
-              {/* <div className="d-flex gap-2 align-items-center">
+              
+              {company.urls && company.urls.length > 0 && company.urls.map((item) => (
+                <SmallPreview key={item} linkPreview={linkPreviews} urls={item} description={company.business_name} name={company.business_name} />
+              ))}
+              {/* {company.urls  && company.urls.length === 0 &&
+              <>
+              <Card.Title>Company Details</Card.Title> 
+               <div className="d-flex gap-2 align-items-center">
                 <img src={company?.qr_code} alt="qr" className="w-25" />
                 <ListGroup className="list-group-flush w-75">
                   <ListGroupItem>
@@ -137,21 +142,24 @@ const PartnerDeatilContent = () => {
                     <strong>Referrals:</strong> {company?.no_of_refer}
                   </ListGroupItem>
                 </ListGroup>
-              </div> */}
-              <SmallPreview linkPreview={linkPreviews} />
+              </div>
+              </>
+              
+              } */}
+
 
               <div className="mt-4">
                 <h5>Google Map Location</h5>
                 {company?.lat && company?.lng &&
-                <MapboxComponent
-                  lat={company.lat}
-                  lng={company.lng}
-                  detail={company.business_address}
-                  title={company.business_name}
-                />
-               }
+                  <MapboxComponent
+                    lat={company.lat}
+                    lng={company.lng}
+                    detail={company.business_address}
+                    title={company.business_name}
+                  />
+                }
               </div>
-              
+
             </Card.Body>
           </Card>
         </Col>

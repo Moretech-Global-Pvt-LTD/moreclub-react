@@ -8,7 +8,7 @@ import UnauthenticatedBusinessPartnerContent from './UnauthenticatedPartnerConte
 import Divider from '../../components/divider/Divider';
 import { axiosInstance } from '../..';
 import { useQuery } from '@tanstack/react-query';
-import { baseURL, morefoodhostURL } from '../../config/config';
+import { baseURL } from '../../config/config';
 import { BestDealsinTownSkeleton } from '../../components/Skeleton/SmallCardSkeleton';
 import { Col, Row } from 'react-bootstrap';
 import OffersCard from '../../components/dashboard/Offercard';
