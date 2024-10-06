@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { moresaloonURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
+import { set } from "lodash";
 
 const SaloonBanner = ({ data }) => {
     const { id } = useParams();
@@ -15,29 +16,38 @@ const SaloonBanner = ({ data }) => {
     );
     const [bannerError, setBannerError] = useState("");
     const queryClient = useQueryClient();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleAvatarSubmit = async (event) => {
         event.preventDefault();
+        setIsLoading(true);
         const formData = {
             banner: inputBanner,
         };
-        const res = await await axiosInstance.patch(
-            `${moresaloonURL}api/moreclub/services/${id}/`,
-            formData, {
-
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        }
-
-        );
-
-        if (res.status === 200) {
-            message.success("Banner Updated Successfully");
-            queryClient.invalidateQueries([`Saloon List ${id}`]);
-
-        } else {
-            message.error("Failed to Update Avatar");
+        try {
+            const res = await await axiosInstance.patch(
+                `${moresaloonURL}moreclub/services/${id}/`,
+                formData, {
+    
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }
+    
+            );
+    
+            if (res.status === 200) {
+                message.success("Banner Updated Successfully");
+                queryClient.invalidateQueries([`Saloon List ${id}`]);
+    
+            } else {
+                message.error("Failed to Update Banner");
+            }
+            
+        } catch (error) { 
+            message.error("Failed to Update Banner");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -91,6 +101,7 @@ const SaloonBanner = ({ data }) => {
                                 type="submit"
                                 disabled={bannerError !== ""}
                             >
+                                {isLoading && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
                                 <i className="bi bi-sd-card-fill me-1" />
                                 Upload
                             </button>

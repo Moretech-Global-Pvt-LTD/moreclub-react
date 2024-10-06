@@ -1,7 +1,7 @@
 
 export const validateResturantName = (name) => {
-  if (!name) return "Resturant name is required";
-  if (name.length < 3) return "Resturant name must be at least 3 characters";
+  if (!name) return "Name is required";
+  if (name.length < 3) return "Name must be at least 3 characters";
   return "";
 };
 export const validateMin_order = (min_order) => {
