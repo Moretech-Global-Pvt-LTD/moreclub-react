@@ -87,12 +87,12 @@ const StaffPage = () => {
 
 
       <Row
-        xs={2}
-        sm={3}
-        md={4}
-        lg={4}
-        xl={5}
-        xxl={6}
+        xs={1}
+        sm={2}
+        md={3}
+        lg={3}
+        xl={4}
+        xxl={5}
         className="gx-3 gy-3 my-4"
       >
         {data.map((item) => {

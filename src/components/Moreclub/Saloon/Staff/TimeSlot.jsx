@@ -39,20 +39,6 @@ const TimeSlotForm = ({ existingdata, submitFunction }) => {
         }
     }, [existingdata]);
 
-    // useEffect(() => {
-    //     if (existingdata) {
-    //         const initialState = {};
-    //         existingdata.forEach((item) => {
-    //             initialState[item.day_of_week] = {
-    //                 start_time: item.is_open ? item?.start_time ?? '' : '',
-    //                 end_time: item.is_open ? item?.end_time ?? '' : '',
-    //                 is_open: item.is_open,
-    //             };
-    //         });
-    //         setOpeningHours(initialState);
-    //     }
-    // }, [existingdata]);
-
     const handleDayChange = (day, time, value) => {
         setOpeningHours((prevOpeningHours) => ({
             ...prevOpeningHours,
@@ -102,7 +88,7 @@ const TimeSlotForm = ({ existingdata, submitFunction }) => {
             if (submitFunction) {
                 const res = await submitFunction(openingHours); // Call the passed submit function
                 if (res.status === 200) {
-                    message.success(res.data?.message || 'working hours set successfully');
+                    message.success(res.data?.message || 'working hours updated successfully');
                 } else {
                     message.error(res.data?.message || 'Error setting working hours');
                 }
@@ -118,14 +104,14 @@ const TimeSlotForm = ({ existingdata, submitFunction }) => {
     };
 
     return (
-        <>
+        <Col xs={12} md={10} >
             <Row>
-                <Col md={12}>
+                <Col >
                     <h5 className='my-3'>Working Time Form</h5>
                 </Col>
             </Row>
             <Row>
-                <Col lg={12} xxl={6} className='card p-3'>
+                <Col className='card p-3'>
                     <Form onSubmit={handleSubmit} className='row g-3'>
                         <Form.Group>
                             <Form.Check
@@ -171,14 +157,13 @@ const TimeSlotForm = ({ existingdata, submitFunction }) => {
                             </Form.Group>
                         ))}
 
-
                         <Button type='submit' disabled={isLoading}>
                             {isLoading ? 'Loading...' : 'Submit'}
                         </Button>
                     </Form>
                 </Col>
             </Row>
-        </>
+        </Col>
     );
 };
 

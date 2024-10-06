@@ -2,22 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { Button, Col, Placeholder, Row } from 'react-bootstrap';
-import { moresaloonURL } from '../../../../config/config';
-import { axiosInstance } from '../../../..';
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { Col } from 'react-bootstrap';
+
 import { calculateServiceTime } from '../../../../utills/CalculateServiceTime';
 const localizer = momentLocalizer(moment)
 
 const StaffBookingCalendar = ({ data }) => {
     
-    const { id, staff_id } = useParams();
     const [appointmentList, setAppointmentList] = useState([]);
-
-
- 
-
     useEffect(() => {
         if (data && data.length > 0) {
             const appointmentList = formatEvents(data);
@@ -27,7 +19,7 @@ const StaffBookingCalendar = ({ data }) => {
     }, [data]);
 
 
-    
+
 
     const formatEvents = (bookings) => {
         return Array.isArray(bookings)
@@ -59,13 +51,12 @@ const StaffBookingCalendar = ({ data }) => {
             : [];
     };
 
-  
 
 
 
-  return (
-      <Col xs={12} lg={10} xl={8} xxl={6} className="card">
-          <style jsx global>{`
+    return (
+        <Col xs={12} lg={9} xl={7} xxl={5} className="card">
+            <style jsx global>{`
                 .rbc-calendar {
                     font-family: "Arial", sans-serif;
                  }
@@ -102,15 +93,15 @@ const StaffBookingCalendar = ({ data }) => {
                 background-color: #6c757d;
                 }
                  `}</style>
-          <Calendar
-              localizer={localizer}
-              events={appointmentList}
-              startAccessor="start"
-              endAccessor="end"
-              className='text-dynamic-white'
-              style={{ height: 500, }}
-          />
-      </Col>  )
+            <Calendar
+                localizer={localizer}
+                events={appointmentList}
+                startAccessor="start"
+                endAccessor="end"
+                className='text-dynamic-white'
+                style={{ height: 500, }}
+            />
+        </Col>)
 }
 
 export default StaffBookingCalendar

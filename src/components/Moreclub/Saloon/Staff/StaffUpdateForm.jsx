@@ -231,7 +231,7 @@ const StaffUpdateForm = ({ sal_id, id, data, onFinish, onCancel }) => {
                 <Form.Label className="mb-2 fz-16">Services types</Form.Label>
                 <Select
                     className="mb-4 form-control"
-                    placeholder="select cusine type"
+                    placeholder="select services"
                     styles={customStyles}
                     value={Array.isArray(staff.services)
                         ? service.filter(option => staff.services.includes(option.value))

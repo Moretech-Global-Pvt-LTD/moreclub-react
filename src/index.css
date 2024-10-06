@@ -28944,6 +28944,7 @@ span {
 
 .staff-card {
     display: flex;
+    flex-grow:1;
     flex-direction:column;
     align-items: center;
     background-color: #f9f9f9;
