@@ -1,22 +1,24 @@
-import React from 'react'
+import React from 'react';
 import { axiosInstance } from '../../..';
 import { baseURL } from '../../../config/config';
 
-
 const ResturantCard = ({ res, link }) => {
-  
-    async function handleRedirection() { 
-        try {
-            const response = await axiosInstance.post(`${baseURL}auth/code/generate/`);
-            if (response.status === 200) {  
-                const url = `${link}?redirect=true&&code=${response.data.data.auth_code}`; 
-                window.open(url, '_blank');
-            }
-        } catch(err){
-            const url = `${link}`;
-            window.open(url, '_blank');
-        }
+  async function handleRedirection() {
+    // Open a blank tab immediately
+    const newWindow = window.open('about:blank', '_blank');
+
+    try {
+      const response = await axiosInstance.post(`${baseURL}auth/code/generate/`);
+      if (response.status === 200) {
+        const url = `${link}?redirect=true&&code=${response.data.data.auth_code}`;
+        newWindow.location.href = url;
+      } else {
+        newWindow.location.href = link;
+      }
+    } catch (err) {
+      newWindow.location.href = link;
     }
+  }
 
     return (
         <div className="restaurant-card-container">
@@ -36,4 +38,4 @@ const ResturantCard = ({ res, link }) => {
     );
 }
 
-export default ResturantCard
+export default ResturantCard;
