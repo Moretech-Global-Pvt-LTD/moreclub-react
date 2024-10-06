@@ -16,30 +16,38 @@ const SaloonLogo = ({ data }) => {
     );
     const [bannerError, setBannerError] = useState("");
     const queryClient = useQueryClient();
+    const [isLoading, setIsLoading] = useState(false);
    
 
     const handleAvatarSubmit = async (event) => {
         event.preventDefault();
-        const formData = {
-            logo: inputBanner,
-        };
-        const res = await await axiosInstance.patch(
-            `${moresaloonURL}api/moreclub/services/${id}/`,
-            formData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
+        try {
+            const formData = {
+                logo: inputBanner,
+            };
+            const res = await await axiosInstance.patch(
+                `${moresaloonURL}moreclub/services/${id}/`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+    
+    
+    
+            if (res.status === 200) {
+                message.success("Logo Updated Successfully");
+                queryClient.invalidateQueries([`Saloon List ${id}`]);
+            } else {
+                message.error("Failed to Upload Logo");
             }
-        );
-
-
-
-        if (res.status === 200) {
-            message.success("Logo Updated Successfully");
-            queryClient.invalidateQueries([`Saloon List ${id}`]);
-        } else {
+            
+        } catch (error) { 
             message.error("Failed to Upload Logo");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -93,6 +101,8 @@ const SaloonLogo = ({ data }) => {
                                 type="submit"
                                 disabled={bannerError !== ""}
                             >
+                                {isLoading && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
+
                                 <i className="bi bi-sd-card-fill me-1" />
                                 Upload
                             </button>
