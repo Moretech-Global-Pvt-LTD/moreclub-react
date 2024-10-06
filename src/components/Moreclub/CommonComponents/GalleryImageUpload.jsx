@@ -80,17 +80,9 @@ const GalleryImageUpload = ({ onSubmit , onCancel }) => {
 
         try {
             const res =  await onSubmit(formData);
-            // const res = await axiosInstance.post(
-            //     `${morefoodURL}moreclub/user/restaurants/gallery/${res_id}/`,
-            //     formData,
-            //     {
-            //         headers: {
-            //             "Content-Type": "multipart/form-data",
-            //         },
-            //     }
-            // );
             if (res.status === 200) {
                 message.success(res.data.message || "Images added successfully");
+                onCancel();
             } else {
                 message.error(res.data.message || "Failed to add images");
             }
@@ -98,7 +90,7 @@ const GalleryImageUpload = ({ onSubmit , onCancel }) => {
         } catch (err) {
             console.log(err);
         } finally {
-            onCancel();
+            
             setLoading(false);
         }
     };

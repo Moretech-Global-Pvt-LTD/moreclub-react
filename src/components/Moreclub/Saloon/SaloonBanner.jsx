@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { moresaloonURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
-import { set } from "lodash";
 
 const SaloonBanner = ({ data }) => {
     const { id } = useParams();
@@ -26,7 +25,7 @@ const SaloonBanner = ({ data }) => {
         };
         try {
             const res = await await axiosInstance.patch(
-                `${moresaloonURL}moreclub/services/${id}/`,
+                `${moresaloonURL}moreclub/users/saloon/${id}/`,
                 formData, {
     
                 headers: {

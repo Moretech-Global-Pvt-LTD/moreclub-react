@@ -5,13 +5,14 @@ import ImageContainer from '../../../../components/Moreclub/Resturant/Gallery/Ga
 import { axiosInstance } from '../../../..';
 import { moresaloonURL } from '../../../../config/config';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import GalleryImageUpload from '../../../../components/Moreclub/CommonComponents/GalleryImageUpload';
 import { message } from 'antd';
 
 const SaloonPhotoUploadGallery = () => {
   const { id, slug } = useParams();
   const [showForm, setShowForm] = useState(false);
+  const queryClient = useQueryClient();
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [`Saloon Gallery ${id}`],
@@ -74,11 +75,15 @@ const SaloonPhotoUploadGallery = () => {
               },
           }
       );
-      if (res.status === 200) {
+      if (res.status === 201) {
         message.success(res.data.message || "Images added successfully");
+        queryClient.invalidateQueries({
+          queryKey: [`Saloon Gallery ${id}`],
+        });
         return res;
       } else {
         message.error(res.data.message || "Failed to add images");
+        return res;
       }
 
 
