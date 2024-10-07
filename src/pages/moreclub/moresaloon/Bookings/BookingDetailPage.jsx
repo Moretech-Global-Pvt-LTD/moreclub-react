@@ -183,7 +183,6 @@ const BookingDetailPage = () => {
                     <td className="text-dynamic-white">{items.name}</td>
                     <td className="text-dynamic-white">{hours !== '00' ? `${hours} hrs ${minutes} min ` : `${minutes} min `} </td>
                     <td className="text-dynamic-white">{data?.currency ?? "Rs"}&nbsp;{items.price}</td>
-
                   </tr>
                 )
               })}

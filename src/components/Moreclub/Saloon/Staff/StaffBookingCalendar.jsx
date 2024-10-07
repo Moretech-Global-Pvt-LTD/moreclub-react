@@ -55,7 +55,7 @@ const StaffBookingCalendar = ({ data }) => {
 
 
     return (
-        <Col xs={12} lg={9} xl={7} xxl={5} className="card">
+        <Col xs={12} lg={9} xl={8} xxl={8} className="card">
             <style jsx global>{`
                 .rbc-calendar {
                     font-family: "Arial", sans-serif;
