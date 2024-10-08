@@ -40,7 +40,7 @@ const BusinessPartnerContent = ({ partnerId }) => {
     
     return (
         <div className="mt-4">
-            <Row sm={2} md={4} className="gx-3 gy-3">
+            <Row sm={2} md={3} className="gx-3 gy-3">
                 {data && data.map((item) => (
                     <Col className="d-flex flex-column">
                         <OffersCard
