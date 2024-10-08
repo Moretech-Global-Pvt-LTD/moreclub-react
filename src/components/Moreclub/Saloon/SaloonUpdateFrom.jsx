@@ -197,16 +197,16 @@ const SaloonUpdateInfoForm = ({ data }) => {
             <Row xs={1} md={2}>
                 <Col xs={12} md={12} lg={12} xl={10} xxl={10}>
                     <Form className="restaurant-form card p-2" onSubmit={handleSubmit}>
-                        <h3>Saloon Information</h3>
+                        <h3>Salon Information</h3>
                         <Col className="card d-flex flex-column gap-4 p-2">
                             <Row>
                                 <Col xs={12} md={6} lg={6} xl={6} xxl={6}>
                                     <Form.Group controlId="formRestaurantName">
-                                        <Form.Label>Saloon Name</Form.Label>
+                                        <Form.Label>Salon Name</Form.Label>
                                         <Form.Control
                                             type="text"
                                             name="name"
-                                            placeholder={"Saloon Name"}
+                                            placeholder={"Salon Name"}
                                             value={formValues.name}
                                             onChange={handleChange}
                                         />

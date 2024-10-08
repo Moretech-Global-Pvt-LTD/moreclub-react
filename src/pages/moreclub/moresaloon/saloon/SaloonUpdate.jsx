@@ -66,7 +66,7 @@ const SaloonUpdate = () => {
                 } rounded-pills`}
               onClick={() => openTab("Information")}
             >
-              Saloon Information
+              Salon Information
             </button>
             <button
               className={`${activeTab === "Images" ? "tablinks active" : "tablinks"

@@ -113,7 +113,7 @@ const ServicePage = () => {
       </Row>
       
       {data && data.length === 0 &&
-        <p className="text-center">Add New Service for your Saloon</p>
+        <p className="text-center">Add New Service for your Salon</p>
       }  
 
 

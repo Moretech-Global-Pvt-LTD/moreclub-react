@@ -60,7 +60,7 @@ const ServiceCard = ({ id, sal_id, logo, name, item, sal_name  }) => {
             <Card className="nearby-offers-card flex-grow-1">
                 <div className="mx-auto mt-2 mb-0">
                     <img
-                        src={`${moresaloonimageURL}${logo}`}
+                        src={`${logo}`}
                         style={{
                             width: "60px",
                             height: "60px",

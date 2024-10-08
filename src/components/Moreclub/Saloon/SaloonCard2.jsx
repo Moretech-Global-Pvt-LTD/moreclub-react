@@ -11,6 +11,7 @@ const SaloonCard = ({ sal }) => {
         <Link 
             to={`/saloon/${sal.id}/${slug}`}
             key={sal.id}
+             className="restaurant-card-container"
         >
             <div class="restaurant-card mx-auto mb-2"  >
                 <div class="restaurant-card-image">
