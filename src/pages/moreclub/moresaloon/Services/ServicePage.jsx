@@ -54,7 +54,7 @@ const ServicePage = () => {
   return (
     <Saloonlayout>
       <div className="d-flex align-items-center justify-content-between my-2">
-        <h4> Services Category</h4>
+        <h4> Services</h4>
         {showForm ? (
           <Button variant="danger" onClick={() => hideAddCategory()}>
             Cancel
@@ -113,7 +113,7 @@ const ServicePage = () => {
       </Row>
       
       {data && data.length === 0 &&
-        <p className="text-center">Add New Service Category for your Saloon</p>
+        <p className="text-center">Add New Service for your Saloon</p>
       }  
 
 

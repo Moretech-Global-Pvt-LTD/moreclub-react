@@ -161,7 +161,7 @@ const StaffDetailPage = () => {
 
             <Row className='gap-2'>
                 <StaffBookingCalendar data={data} events={myEventsList} />
-                <Col xs={12} lg={6} xl={6} xxl={6} >
+                <Col xs={12} lg={6} xl={8} xxl={6} >
                     <WorkingdaysContent />
                 </Col>
             </Row>

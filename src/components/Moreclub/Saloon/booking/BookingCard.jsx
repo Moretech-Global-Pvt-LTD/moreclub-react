@@ -17,11 +17,18 @@ const BookingCard = ({ item }) => {
           <td className="text-white">
               {moment(item.date).format("DD MMM YY")}<br />
               <span>
-                  
                   {moment(item.start_time, 'HH:mm:ss').format('hh:mm A')} - {moment(item.end_time, 'HH:mm:ss').format('hh:mm A')}
               </span>
           </td>
-          <td className="text-white">{item.fullname}</td>
+          <td className="text-white">{item.fullname}
+              <br />
+              {item.service_variation.map((items, index) =>(
+                  <Badge className='m-1'>
+                      {items.name}
+                  </Badge>
+                )
+              )}
+          </td>
           <td className="text-white text-center">{item.phone_number}</td>
       </tr>
   )

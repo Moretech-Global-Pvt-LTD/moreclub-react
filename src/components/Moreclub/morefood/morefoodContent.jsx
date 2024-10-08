@@ -5,12 +5,17 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { morefoodhostURL, morefoodURL } from "../../../config/config";
 import RestaurantCardSkeleton from "../../Skeleton/RestaurantCardSkeleton";
+import Cookies from "js-cookie"
 
 const MorefoodContent = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["More Food Resturant List"],
     queryFn: async () => {
-      const response = await axios.get(`${morefoodURL}restaurants/list/`);
+      const response = await axios.get(`${morefoodURL}restaurants/list/`, {
+        headers: {
+          'x-country-code': Cookies.get("countryCode"),
+        }
+      });
       const data = await response.data.data;
       return data;
     },

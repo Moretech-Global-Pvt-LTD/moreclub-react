@@ -2,6 +2,8 @@ import React from 'react'
 import { morefoodURL } from '../../../config/config';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import Cookies from "js-cookie"
+
 
 import PopularresturantCarousel from './PopularresturantCarousel';
 import RestaurantCardSkeleton from '../../Skeleton/RestaurantCardSkeleton';
@@ -10,7 +12,11 @@ const PopularResturant = () => {
       queryKey: ["More Food Popular Resturant List"],
       queryFn: async () => {
         const response = await axios.get(
-          `${morefoodURL}restaurants/popular-restaurants/`
+          `${morefoodURL}restaurants/popular-restaurants/`,{
+            headers: {
+              'x-country-code': Cookies.get("countryCode"),
+            }
+          }
         );
         const data = await response.data.data;
         return data;
