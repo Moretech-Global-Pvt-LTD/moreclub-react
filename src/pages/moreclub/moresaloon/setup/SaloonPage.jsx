@@ -42,7 +42,7 @@ const SaloonPage = () => {
 
 
   return (
-    <DashboardLayout title={"Setup Saloon"}>
+    <DashboardLayout title={"Setup Salon"}>
       <div className="" style={{ minHeight: "50vh", width: "100%" }}>
         <Row xs={1} md={2} lg={3} xl={4} xxl={5} className="g-4">
           <Link to={"/saloon/create"} className="d-flex flex-column">
@@ -50,7 +50,7 @@ const SaloonPage = () => {
               <Card className="p-2 flex-grow-1">
                 <Card.Body className="d-flex flex-column justify-content-center w-full gap-4">
                   <h4 className="text-dynamic-white text-center">
-                    Add new Saloon
+                    Add new Salon
                   </h4>
                   <img
                     src={Plus}

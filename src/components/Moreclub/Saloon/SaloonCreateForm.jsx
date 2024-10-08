@@ -279,17 +279,17 @@ const SaloonCreateForm = () => {
             <Row>
                 <Col xs={12} md={12} lg={12} xl={10} xxl={10}>
                     <Form className="restaurant-form  " onSubmit={handleSubmit}>
-                        <h5>Saloon Information</h5>
+                        <h5>Salon Information</h5>
                         <p className="text-warning">All fields are required</p>
                         <Col className="card d-flex flex-column gap-4 p-2">
                             <Row>
                                 <Col xs={12} md={6} lg={6} xl={6} xxl={6}>
                                     <Form.Group controlId="formSaloonName">
-                                        <Form.Label>Saloon Name</Form.Label>
+                                        <Form.Label>Salon Name</Form.Label>
                                         <Form.Control
                                             type="text"
                                             name="name"
-                                            placeholder={"Saloon Name"}
+                                            placeholder={"Salon Name"}
                                             value={formValues.name}
                                             onChange={handleChange}
                                         />
@@ -440,7 +440,7 @@ const SaloonCreateForm = () => {
                         <Row>
                             <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
                                 <div className="col-12 mt-4">
-                                    <h5>Saloon Logo</h5>
+                                    <h5>Salon Logo</h5>
                                     <div className=" card ">
                                         <div
                                             className="card-body p-4 p-sm-5"
@@ -483,7 +483,7 @@ const SaloonCreateForm = () => {
 
                             <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
                                 <div className="col-12 mb-4 mt-4">
-                                    <h5>Saloon Banner</h5>
+                                    <h5>Salon Banner</h5>
                                     <div className=" card ">
                                         <div
                                             className="card-body p-4 p-sm-5"

@@ -31,13 +31,12 @@ const MoreSaloonContent = () => {
 
   return (
       <>
-          <h4 className="mx-auto mt-3 ">Saloons</h4>
+          <h4 className="mx-auto mt-3 ">Salons</h4>
 
           <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={5} className=" px-2">
               {data?.map((item) => (
-                  <>
-                      <SaloonCard key={item.id} link={`${moresaloonhostURL}/saloon/${item.id}`} sal={item} />
-                  </>
+                  <SaloonCard key={item.id} link={`${moresaloonhostURL}/saloon/${item.id}`} sal={item} />
+                  
               ))}
           </Row>
 

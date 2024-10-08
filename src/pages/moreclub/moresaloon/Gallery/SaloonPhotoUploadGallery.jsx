@@ -123,7 +123,7 @@ const SaloonPhotoUploadGallery = () => {
 
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
-            Add Services
+            Add Photos
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

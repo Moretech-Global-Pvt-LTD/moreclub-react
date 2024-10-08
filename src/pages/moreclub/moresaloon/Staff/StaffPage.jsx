@@ -118,7 +118,7 @@ const StaffPage = () => {
 
 
       {data && data.length === 0 &&
-        <p className="text-center">Add Staff for your Saloon</p>
+        <p className="text-center">Add Staff for your Salon</p>
       }
 
 

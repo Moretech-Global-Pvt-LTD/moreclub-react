@@ -97,7 +97,7 @@ const ServiceVariationPage = () => {
 
             {/* </Row> */}
             {data && data.length === 0 &&
-                <p className="text-center">Add New Service Variation for your Saloon</p>
+                <p className="text-center">Add New Service Variation for your Salon</p>
             }
         </Saloonlayout>
     )
