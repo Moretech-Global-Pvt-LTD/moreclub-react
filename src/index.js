@@ -65,6 +65,7 @@ root.render(
       <Provider store={store}>
         <CookiesProvider defaultSetOptions={{ path: "/" }}>
             <QueryClientProvider client={queryClient}>
+              
               <App />
             </QueryClientProvider>
         </CookiesProvider>

@@ -120,6 +120,7 @@ import ServiceVariationPage from "./pages/moreclub/moresaloon/Services/ServiceVa
 import StaffDetailPage from "./pages/moreclub/moresaloon/Staff/StaffDetailPage";
 import BookingDetailPage from "./pages/moreclub/moresaloon/Bookings/BookingDetailPage";
 import BusinessRestaurantPartner from "./pages/Partner/BusinessRestaurantPartner";
+import Locationretrive from "./components/ui/Locationset";
 
 
 
@@ -719,6 +720,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <Locationretrive/>
       <Routes basename="#">
         {publicRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.page} />
