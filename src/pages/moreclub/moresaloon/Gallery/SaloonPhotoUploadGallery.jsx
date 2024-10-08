@@ -80,6 +80,7 @@ const SaloonPhotoUploadGallery = () => {
         queryClient.invalidateQueries({
           queryKey: [`Saloon Gallery ${id}`],
         });
+        setShowForm(false);
         return res;
       } else {
         message.error(res.data.message || "Failed to add images");

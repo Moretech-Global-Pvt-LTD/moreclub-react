@@ -45,7 +45,7 @@ const StaffCard = ({ id, sal_id, profile, name, item, email, contact, services, 
         <>
             <div className="staff-card">
                 <div className="staff-profile-pic">
-                    <img src={profile} alt={profile} />
+                    <img src={profile} alt={name} />
                 </div>
                 <div className="staff-info">
                     <h3 className="staff-name">{name}</h3>

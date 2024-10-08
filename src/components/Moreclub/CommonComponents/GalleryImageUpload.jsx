@@ -144,18 +144,12 @@ const GalleryImageUpload = ({ onSubmit , onCancel }) => {
                 </Form.Group>
                 <div className="d-flex justify-content-end gap-2">
                     <Button variant="secondary" onClick={onCancel} size="sm">
-                        {loading && (
-                            <span
-                                class="spinner-border spinner-border-sm text-primary"
-                                role="status"
-                            ></span>
-                        )}
                         Cancel
                     </Button>
                     <Button variant="primary" type="submit" size="sm">
                     {loading && (
                         <span
-                            class="spinner-border spinner-border-sm text-primary"
+                            class="spinner-border spinner-border-sm text-white"
                             role="status"
                         ></span>
                     )}
