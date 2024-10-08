@@ -5,16 +5,17 @@ import { axiosInstance } from '../../..';
 const SaloonCard = ({ sal, link }) => {
 
     async function handleRedirection() {
+        const newWindow = window.open('about:blank', '_blank');
         try {
             const response = await axiosInstance.post(`${baseURL}auth/code/generate/`);
             if (response.status === 200) {
                 const url = `${link}?redirect=true&&code=${response.data.data.auth_code}`;
-                window.open(url, '_blank');
+                newWindow.location.href = url;
             }
         } catch (err) {
             console.log("error getting code ", err.response.status)
-            const url = `${link}`;
-            window.open(url, '_blank');
+            
+            newWindow.location.href = link;
         }
     }
 
