@@ -4,6 +4,8 @@ import CuisineCard from '../../components/Moreclub/Resturant/Cuisine/CuisineCard
 import { axiosInstance } from '../..';
 import { useQuery } from '@tanstack/react-query';
 import { morefoodURL } from '../../config/config';
+import Cookies from "js-cookie"
+
 
 const RestaurantCusine = () => {
    
@@ -11,7 +13,11 @@ const RestaurantCusine = () => {
         queryKey: [`morefood Cuisine List `],
         queryFn: async () => {
             const response = await axiosInstance.get(
-                `${morefoodURL}menus/cuisines/`
+                `${morefoodURL}menus/cuisines/`, {
+                headers: {
+                    'x-country-code': Cookies.get("countryCode"),
+                }
+            }
             );
             const data = await response.data.data;
             return data;
