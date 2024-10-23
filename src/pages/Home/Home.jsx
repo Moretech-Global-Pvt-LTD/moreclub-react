@@ -10,6 +10,8 @@ import PartnerSection from "../../components/home/PartnerSection";
 import Footer from "../../components/footer/Footer";
 import About1 from "../../images/about/expectation.png";
 import About2 from "../../images/about/ourmission.png";
+import playstore from "../../images/about/1.png";
+import appstore from "../../images/about/2.png";
 
 const Infodata1 = [
   {
@@ -21,7 +23,7 @@ const Infodata1 = [
         description:
           "More Deals Club gives you everything you need to save money and earn rewards effortlessly. Manage your referrals, track your rewards, and enjoy exclusive discounts all in one place.",
       },
-      
+
       {
         title: "Sign Up Today and Start Earning!",
         description:
@@ -44,7 +46,7 @@ const Infodata1 = [
         description:
           "More Deals Club offers a complete solution for maximizing your savings and rewards. Easily manage your referrals, track rewards, and access exclusive discounts all in one place.",
       },
-      
+
       {
         title: "Sign Up Today and Start Earning!",
         description:
@@ -155,17 +157,49 @@ const Home = () => {
       {/* <PricingCards /> */}
       <InfoContainer data={Infodata3} />
       <Divider />
-      <Featuredtext>
-{/*         <h2 className="text-white">Want to hear more success stories?</h2>
-
-        <Testimonials /> */}
-        <div className="container">
+      <section className="download-app-section">
+        <Divider/>
+        <div className="download-app-content">
+          <h2 className="text-white">Download the app for free.</h2>
+          <div className="download-app-buttons">
+            <a href="#" className="download-app-button">
+              <img src={playstore} alt="google play" style={{ width: "40px", height: "40px" }} />
+              <h6 className="text-white">
+                Available in<br />
+                Google Play
+              </h6>
+            </a>
+            <a href="#" className="download-app-button">
+              <img src={appstore} alt="Apple Store" style={{ width: "40px", height: "40px" }} />
+              <h6 className="text-white">
+                Download from<br />
+                App Store
+              </h6>
+            </a>
+          </div>
+          
+          <div className="mt-4">
+             <div className="container">
           <FreeButton />
         </div>
         <p className="text-white" style={{ fontSize: "10px" }}>
           NO OBLIGATIONS, NO CONTRACTS, CANCEL AT ANY TIME
         </p>
-      </Featuredtext>
+            </div>
+        </div>
+
+      </section>
+      {/* <Featuredtext> */}
+      {/*         <h2 className="text-white">Want to hear more success stories?</h2>
+
+        <Testimonials /> */}
+        {/* <div className="container">
+          <FreeButton />
+        </div>
+        <p className="text-white" style={{ fontSize: "10px" }}>
+          NO OBLIGATIONS, NO CONTRACTS, CANCEL AT ANY TIME
+        </p>
+      </Featuredtext> */}
       <Divider />
       <PartnerSection />
       {/* <Project heading="Our Projects" /> */}

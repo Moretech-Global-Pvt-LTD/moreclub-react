@@ -38,11 +38,32 @@ const FeedCard = ({ post }) => {
                         <FeedMediaCarousel media={post.media_url} />}
                 </div>
 
-                <div className="feed-actions">
-                    <div className="feed-action-btn"><Crown /></div>
-                    <div className="feed-action-btn">Comment</div>
-                    <div className="feed-action-btn">Share</div>
-                </div>
+                 <div className="feed-reactions">
+        <div className="reactions-summary">
+            <span className="reaction-icon">&#x1F44D;</span> {/* Thumbs Up Emoji as Example */}
+            <span className="reaction-count">1.7K</span>
+        </div>
+        <div className="comments-summary">
+            <span>92 Comments</span>
+            <span>42 Shares</span>
+        </div>
+    </div>
+
+    {/* Feed Actions */}
+    <div className="feed-actions">
+        <div className="feed-action-btn">
+            <span className="action-icon">&#x1F44D;</span> {/* Thumbs Up Icon */}
+            <span>Like</span>
+        </div>
+        <div className="feed-action-btn">
+            <span className="action-icon">&#x1F4AC;</span> {/* Comment Icon */}
+            <span>Comment</span>
+        </div>
+        <div className="feed-action-btn">
+            <span className="action-icon">&#x1F4E4;</span> {/* Share Icon */}
+            <span>Share</span>
+        </div>
+    </div>
             </div>
 
         </div>

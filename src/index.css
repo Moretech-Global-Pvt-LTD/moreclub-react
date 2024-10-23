@@ -27442,7 +27442,103 @@ span {
     display: block;
 }
 
+.feed-reactions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    color: #555;
+}
 
+.reactions-summary {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.reaction-icon {
+    font-size: 18px;
+    color: #1877f2; /* Facebook-like blue color */
+}
+
+.reaction-count {
+    font-weight: bold;
+    color: #333;
+}
+
+.comments-summary {
+    font-size: 14px;
+    color: #888;
+    display: flex;
+    gap: 15px;
+}
+
+/* Feed Actions - User Interaction Buttons */
+.feed-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.feed-action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.3s ease;
+    color: #555;
+    gap: 5px;
+}
+
+.feed-action-btn:hover {
+    background-color: #f0f0f0;
+}
+
+[data-theme="dark"] .feed-action-btn:hover {
+    background-color: #333;
+    color: #ccc;
+}
+
+.action-icon {
+    font-size: 18px;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .feed-reactions {
+        font-size: 13px;
+    }
+
+    .comments-summary {
+        gap: 10px;
+    }
+
+    .feed-action-btn {
+        padding: 8px 0;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .feed-reactions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .feed-action-btn {
+        padding: 6px 0;
+        font-size: 12px;
+    }
+}
+
+/* 
 .feed-actions {
     display: flex;
     justify-content: space-between;
@@ -27466,7 +27562,7 @@ span {
 
 [data-theme="dark"].feed-action-btn:hover {
     background-color: #555;
-}
+} */
 
 
 
@@ -27490,10 +27586,10 @@ span {
         font-size: 13px;
     }
 
-    .feed-action-btn {
+    /* .feed-action-btn {
         padding: 6px 0;
         font-size: 14px;
-    }
+    } */
 }
 
 @media screen and (max-width: 480px) {
@@ -27515,10 +27611,10 @@ span {
         font-size: 12px;
     }
 
-    .action-btn {
+    /* .action-btn {
         padding: 5px 0;
         font-size: 12px;
-    }
+    } */
 }
 
 /* FeedMediaCarousel.css */
@@ -29173,6 +29269,87 @@ span {
 
 
 
+.download-app-section {
+  background: url('https://cdn.pixabay.com/photo/2024/01/31/10/46/ai-generated-8543844_1280.jpg') center center / cover no-repeat;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  position: relative;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+@media (max-width: 500px) { /* "lg" breakpoint */
+  .download-app-section {
+    height: 500px;
+  }
+}
+
+.download-app-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0c153b; /* Dark overlay for better contrast */
+  opacity: 0.80
+}
+
+.download-app-content {
+  position: relative;
+  z-index: 2; /* Ensures the text and buttons are above the background overlay */
+}
+
+.download-app-section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.download-app-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+  align-items:center;
+}
+
+@media (min-width: 500px) { /* "lg" breakpoint */
+  .download-app-buttons {
+    flex-direction: row;
+  }
+}
+
+
+
+.download-app-button {
+  display: flex;
+  align-items: center;
+  background-color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+@media (max-width: 500px) { /* "lg" breakpoint */
+  .download-app-button {
+    width:14rem;
+  }
+}
+
+.download-app-button img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.download-app-button:hover {
+  background-color: #333;
+}
 
 
 /*# sourceMappingURL=main.c1c39487.css.map*/
