@@ -3,14 +3,17 @@ import CategoryForm from "./Addcategory";
 import CategoryCard from "./CategoryCard";
 import { Button, Col, Placeholder, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
 import { RestaurantItemskeleton } from "../../../Skeleton/SmallCardSkeleton";
+import StationMenuForm from "../station/StationMenuForm";
+import MenuCategoryAddForm from "../common/MenuCategoryAddForm";
 
 const MenuCategory = () => {
   const { res_id } = useParams();
   const [showForm, setShowForm] = useState(false);
+  const queryClient = useQueryClient();
 
     const { data, isLoading, isError } = useQuery({
       queryKey: [`Resturant Menu List ${res_id}`],
@@ -42,7 +45,41 @@ const MenuCategory = () => {
     setShowForm(false);
   }
 
-  console.log(data)
+
+
+
+  const submit = async (data) => {
+    try {
+      const response = await axiosInstance.post(
+        `${morefoodURL}moreclub/user/menus/${res_id}/`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      queryClient.invalidateQueries({
+        queryKey: [`Resturant Menu List ${res_id}`],
+      });
+      console.log("Form submitted successfully menu:", response);
+      return response; // Return the response directly
+    } catch (error) {
+      console.error("There was an error submitting the form:", error);
+      throw error; // Rethrow the error to be caught in the calling function
+    }
+    };
+
+  const handleSuccess = (data) => {
+    console.log('Form submitted successfully:', data);
+  };
+
+  const handleError = (error) => {
+    console.error('Form submission failed:', error);
+  };
+
+  
+
   return (
     <div>
       <div className="d-flex align-items-center justify-content-between my-2">
@@ -59,7 +96,17 @@ const MenuCategory = () => {
       </div>
       <Row>
         <Col xs={12} sm={8} md={6} lg={4}>
-          {showForm && <CategoryForm res_id={res_id} onFinish={hideAddCategory} />}
+          {showForm &&
+            <div className="card p-2">
+              <MenuCategoryAddForm
+                onSubmit={submit}
+                onSuccess={handleSuccess}
+                onError={handleError}
+                initialMenuName="My Menu"
+                buttonText="Create Menu"
+              />
+            </div>
+          }
         </Col>
       </Row>
 
@@ -76,10 +123,9 @@ const MenuCategory = () => {
           <Col className="d-flex flex-column">
             <CategoryCard
               id={item.id}
-             
               res_id={res_id}
-              logo={item.menu.icon}
-              name={item.menu.name}
+              logo={item.icon?? ""}
+              name={item.name?? ""}
               item={item.no_of_items}
             />
           </Col>

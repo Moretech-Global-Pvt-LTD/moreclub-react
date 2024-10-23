@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import { moresaloonURL } from '../../../../config/config';
 import { RestaurantItemskeleton } from '../../../../components/Skeleton/SmallCardSkeleton';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
-import ServiceCard from '../../../../components/Moreclub/Saloon/Service/ServiceCard';
 import StaffCreationForm from '../../../../components/Moreclub/Saloon/Staff/StaffCreationForm';
 import StaffCard from '../../../../components/Moreclub/Saloon/Staff/StaffCard';
 

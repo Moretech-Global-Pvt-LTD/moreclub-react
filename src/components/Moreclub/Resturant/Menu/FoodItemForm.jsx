@@ -112,22 +112,7 @@ const FoodItemForm = ({ data }) => {
     }
   };
 
- 
 
-  // const handleChange = (e) => {
-  //   if (e.target.name === "offerPrice" && e.target.value) {
-  //     if (parseFloat(menuItem.price) > parseFloat(e.target.value)) {
-  //       setMenuItem({ ...menuItem, [e.target.name]: e.target.value });
-  //       setOfferError("");
-  //     } else {
-  //       setMenuItem({ ...menuItem, [e.target.name]: null });
-  //       setOfferError("Must be less than price")
-  //     }
-  //   } else {
-  //     const { name, value } = e.target;
-  //     setMenuItem({ ...menuItem, [name]: value });
-  //   }
-  // }
 
   const handleChange = (e) => {
     const { name, value } = e.target;

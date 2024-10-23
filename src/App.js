@@ -121,6 +121,8 @@ import StaffDetailPage from "./pages/moreclub/moresaloon/Staff/StaffDetailPage";
 import BookingDetailPage from "./pages/moreclub/moresaloon/Bookings/BookingDetailPage";
 import BusinessRestaurantPartner from "./pages/Partner/BusinessRestaurantPartner";
 import Locationretrive from "./components/ui/Locationset";
+import StationPage from "./pages/moreclub/Resturant/station/station";
+import StationMenu from "./pages/moreclub/Resturant/station/StationMenu";
 
 
 
@@ -583,6 +585,14 @@ const App = () => {
     {
       path: "/resturant/:res_id/orders/:slug",
       page: <ResturantOrder />,
+    },
+    {
+      path: "/resturant/:res_id/station/:slug",
+      page: <StationPage />,
+    },
+    {
+      path: "/resturant/:res_id/station/:stationId/:slug",
+      page: <StationMenu />,
     },
     {
       path: "/resturant/:res_id/cuisine/:slug",

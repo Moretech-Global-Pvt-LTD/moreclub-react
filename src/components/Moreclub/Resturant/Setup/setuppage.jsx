@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 const Setuppage = ({ data }) => {
   const { id } = useParams();
 
-  const slug = data.name.replace(" ", "-");
+  const slug = data.name.replace(/ /g, "-");
 
   return (
     <div>
@@ -117,6 +117,26 @@ const Setuppage = ({ data }) => {
             </Card>
           </Col>
         </Link>
+        {/* <Link
+          to={`/resturant/${id}/station/${slug}`}
+          className="d-flex flex-column my-2"
+        >
+          <Col className="d-flex flex-column my-2">
+            <Card className="p-2 flex-grow-1">
+              <Card.Body className="d-flex justify-content-center">
+                <img
+                  src={'/images/moreclub/morefood/offers.png'}
+                  alt="offer"
+                  className="px-2 py-1 rounded "
+                  style={{ height: "5rem", width: "5rem" }}
+                />
+              </Card.Body>
+              <Card.Title className="text-dynamic-white text-center fs-6">
+                Station
+              </Card.Title>
+            </Card>
+          </Col>
+        </Link> */}
         <Link
           to={`/resturant/${id}/orders/${slug}`}
           className="d-flex flex-column my-2 "
