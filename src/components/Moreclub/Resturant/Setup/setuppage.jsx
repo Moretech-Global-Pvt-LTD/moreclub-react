@@ -1,11 +1,13 @@
 import React from "react";
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
 const Setuppage = ({ data }) => {
   const { id } = useParams();
 
   const slug = data.name.replace(/ /g, "-");
+  const user = useSelector((state) => state.userReducer);
 
   return (
     <div>
@@ -117,26 +119,9 @@ const Setuppage = ({ data }) => {
             </Card>
           </Col>
         </Link>
-        {/* <Link
-          to={`/resturant/${id}/station/${slug}`}
-          className="d-flex flex-column my-2"
-        >
-          <Col className="d-flex flex-column my-2">
-            <Card className="p-2 flex-grow-1">
-              <Card.Body className="d-flex justify-content-center">
-                <img
-                  src={'/images/moreclub/morefood/offers.png'}
-                  alt="offer"
-                  className="px-2 py-1 rounded "
-                  style={{ height: "5rem", width: "5rem" }}
-                />
-              </Card.Body>
-              <Card.Title className="text-dynamic-white text-center fs-6">
-                Station
-              </Card.Title>
-            </Card>
-          </Col>
-        </Link> */}
+        
+        
+        
         <Link
           to={`/resturant/${id}/orders/${slug}`}
           className="d-flex flex-column my-2 "
@@ -197,7 +182,53 @@ const Setuppage = ({ data }) => {
             </Card>
           </Col>
         </Link>
+        {user.isSuperAdmin &&
+        <>
+          <Link
+            to={`/resturant/${id}/station/${slug}`}
+            className="d-flex flex-column my-2"
+          >
+            <Col className="d-flex flex-column my-2">
+              <Card className="p-2 flex-grow-1">
+                <Card.Body className="d-flex justify-content-center">
+                  <img
+                    src={'/images/moreclub/morefood/offers.png'}
+                    alt="offer"
+                    className="px-2 py-1 rounded "
+                    style={{ height: "5rem", width: "5rem" }}
+                  />
+                </Card.Body>
+                <Card.Title className="text-dynamic-white text-center fs-6">
+                  Station
+                </Card.Title>
+              </Card>
+            </Col>
+          </Link>
+
+          {/* <Link
+            to={`/resturant/${id}/allorders/${slug}`}
+            className="d-flex flex-column my-2"
+          >
+            <Col className="d-flex flex-column my-2">
+              <Card className="p-2 flex-grow-1">
+                <Card.Body className="d-flex justify-content-center">
+                  <img
+                    src={'/images/moreclub/morefood/offers.png'}
+                    alt="offer"
+                    className="px-2 py-1 rounded "
+                    style={{ height: "5rem", width: "5rem" }}
+                  />
+                </Card.Body>
+                <Card.Title className="text-dynamic-white text-center fs-6">
+                  Food Orders
+                </Card.Title>
+              </Card>
+            </Col>
+          </Link> */}
+        </>
+        }
       </Row>
+
     </div>
   );
 };

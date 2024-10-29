@@ -43,12 +43,13 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       if (error.response.data.data?.code !== "token_not_valid") {
-        if (!!Cookies.get("moretechglobal_access")) {
-          localStorage.setItem("sessionExpired", "true");
-          Cookies.remove("moretechglobal_access");
-          const event = new Event("sessionExpired");
-          window.dispatchEvent(event);
-        }
+        if (error.response.data.message !== "Permissions list")
+          if (!!Cookies.get("moretechglobal_access")) {
+            localStorage.setItem("sessionExpired", "true");
+            Cookies.remove("moretechglobal_access");
+            const event = new Event("sessionExpired");
+            window.dispatchEvent(event);
+          }
       }
     }
     return Promise.reject(error);

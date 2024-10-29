@@ -10,40 +10,24 @@ const SupportBotPage = () => {
   const [searchParams, setSearchParams] = useSearchParams(); // Hook for managing query parameters
   const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || ''); // Set initial search value from URL
   const searchQuery = searchParams.get('search') || ''; // Extract search query from URL
+ 
+  useEffect(() => {
+    // Creating a script element to add the Tawk.to script
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = 'https://embed.tawk.to/66e6f46750c10f7a00aa6185/1i7r2le2k';
+    script.charset = 'UTF-8';
+    script.setAttribute('crossorigin', '*');
 
-  // useEffect(() => {
-  //   // Step 1: Create the external script element
-  //   const script = document.createElement('script');
-  //   script.src = "https://humanchat.net/build/js/hb_latest.js?v=1.5.22";
-  //   script.async = true;
-  //   script.crossOrigin = 'anonymous';
+    // Append the script to the body or any other suitable element
+    document.body.appendChild(script);
 
-  //   // Step 2: Append the script to the body
-  //   document.body.appendChild(script);
-
-  //   // Step 3: Wait until the script is fully loaded, then initialize AiBot
-  //   script.onload = () => {
-  //     // console.log('Bot script loaded');
-
-  //     // Ensure that AiBot exists before calling it
-  //     if (window.AiBot) {
-  //       // Step 4: Initialize AiBot
-  //       var aiBot = new window.AiBot({
-  //         embedId: 'z9MnK5W3syhq',  // Replace with your embedId
-  //         remoteBaseUrl: 'https://humanchat.net/',
-  //         version: '1.5.22',
-  //       });
-
-  //     } else {
-  //       console.error('AiBot is not available on window');
-  //     }
-  //   };
-
-  //   // Step 5: Cleanup - remove the script when the component unmounts
-  //   return () => {
-  //     document.body.removeChild(script);
-  //   };
-  // }, []); // Empty dependency array ensures this runs only once
+    // Cleanup function to remove the script when the component is unmounted
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
 
   const { data, isLoading, isError , refetch , isRefetching} = useQuery({

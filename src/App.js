@@ -114,15 +114,22 @@ import SaloonCreate from "./pages/moreclub/moresaloon/saloon/SaloonCreate";
 import SupportPage from "./pages/Support/SupportPage";
 import SaloonPhotoUploadGallery from "./pages/moreclub/moresaloon/Gallery/SaloonPhotoUploadGallery";
 import SaloonUserUploadGallery from "./pages/moreclub/moresaloon/Gallery/SaloonUserUploadGallery";
-import BlogDetail from "./pages/Support/BlogDetail";
 import BlogDetailPage from "./pages/Support/BlogDetailPage";
 import ServiceVariationPage from "./pages/moreclub/moresaloon/Services/ServiceVariationPage";
 import StaffDetailPage from "./pages/moreclub/moresaloon/Staff/StaffDetailPage";
 import BookingDetailPage from "./pages/moreclub/moresaloon/Bookings/BookingDetailPage";
 import BusinessRestaurantPartner from "./pages/Partner/BusinessRestaurantPartner";
 import Locationretrive from "./components/ui/Locationset";
-import StationPage from "./pages/moreclub/Resturant/station/station";
+// import StationPage from "./pages/moreclub/Resturant/station/station";
 import StationMenu from "./pages/moreclub/Resturant/station/StationMenu";
+import StationOrder from "./pages/moreclub/Resturant/station/StationOrders";
+import OrderDetailsPage from "./pages/moreclub/Resturant/station/OrderDetailPage";
+import AllOrdersPage from "./pages/moreclub/Resturant/Allorders/AllOrdersPage";
+import StationPage from "./pages/moreclub/Station/StationPage";
+import SetupStationPage from "./pages/moreclub/Station/SetupStationPage";
+import StationDetailPage from "./pages/moreclub/Station/StationDetailPage";
+import StationUpdatePage from "./pages/moreclub/Station/StationUpdatePage";
+import StationMenuItems from "./pages/moreclub/Station/StationMenuItem";
 
 
 
@@ -591,9 +598,29 @@ const App = () => {
       page: <StationPage />,
     },
     {
-      path: "/resturant/:res_id/station/:stationId/:slug",
-      page: <StationMenu />,
+      path: "/resturant/:res_id/opening-duration/:slug",
+      page: <OpeninghoursPage />,
     },
+    // {
+    //   path: "/resturant/:res_id/station/:stationId/:slug",
+    //   page: <StationMenu />,
+    // },
+    // {
+    //   path: "/resturant/:res_id/station/:stationId/:menuId/:slug/:menuSlug",
+    //   page: <StationMenuItems />,
+    // },
+    // {
+    //   path: "/resturant/:res_id/station/:stationId/orders/:slug",
+    //   page: <StationOrder />,
+    // },
+    // {
+    //   path: "/resturant/:res_id/station/:stationId/orders/:slug/:ord_id",
+    //   page: <OrderDetailsPage />,
+    // },
+    // {
+    //   path: "/resturant/:res_id/station/:stationId/:menuId/:slug/:menuSlug",
+    //   page: <StationMenuItems />,
+    // },
     {
       path: "/resturant/:res_id/cuisine/:slug",
       page: <Cuisine />,
@@ -627,11 +654,12 @@ const App = () => {
 
       page: <GalleryPage />,
     },
-    {
-      path: "/resturant/:res_id/opening-duration/:slug",
 
-      page: <OpeninghoursPage />,
-    },
+    // {
+    //   path: "/resturant/:res_id/:stationId/allorders/:slug/",
+
+    //   page: <AllOrdersPage />,
+    // },
     {
       path: "/resturant/:res_id/gallery/:slug/restaurant",
 
@@ -656,7 +684,45 @@ const App = () => {
       path: "/resturant/:res_id/:cat_id/:id",
       page: <FoodItem />,
     },
+    {
+      path: "/station/",
+      page: <StationPage />,
+    },
+    {
+      path: "/station/setup",
+      page: <SetupStationPage />,
+    },
+    {
+      path: "/station/:id/:name",
+      page: <StationDetailPage />,
+    },
+    {
+      path: "/station/:id/:name/update",
+      page: <StationUpdatePage />,
+    },
+    {
+      path: "/station/:id/menu/:name",
+      page: <StationMenu />,
+    },
+    {
+      path: "/station/:id/menu/:name/:menu_id/:menu_name",
+      page: <StationMenuItems />,
+    },
+    {
+      path: "/station/:id/orders/:name",
+      page: <StationOrder />,
+    },
+    {
+      path: "/station/:id/orders/:ord_id/:name",
+      page: <OrderDetailsPage />,
+    },
+    {
+      path: "/station/:id/allorders/:name",
+      page: <AllOrdersPage />,
+    },
   ];
+
+
 
   const Saloon = [
     {

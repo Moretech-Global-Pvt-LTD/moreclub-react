@@ -28217,11 +28217,18 @@ span {
 }
 
 /* Footer section with the delete button aligned to the left */
-.delete-button {
+.actionButtons{
   position: absolute;
   top: 8px;
   right: 8px;
-  background: none;
+  display: flex; 
+  flex-direction:column;
+}
+
+.delete-button {
+  background: #fdfdfd;
+  border-radius: 50%;
+  padding: 0px 3px 0px 3px;
   border: none;
   font-size: 24px;
   color: #f44336;
@@ -28231,6 +28238,23 @@ span {
 }
 
 .delete-button:hover {
+  color: #d32f2f;
+}
+
+.edit-button {
+  background: #fdfdfd !important;
+  border-radius: 50%;
+  padding: 0px 3px 0px 3px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: blue;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-top: 10px;
+}
+
+.edit-button:hover {
   color: #d32f2f;
 }
 

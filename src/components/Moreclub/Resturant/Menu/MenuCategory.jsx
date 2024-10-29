@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import CategoryForm from "./Addcategory";
 import CategoryCard from "./CategoryCard";
-import { Button, Col, Placeholder, Row } from "react-bootstrap";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
 import { RestaurantItemskeleton } from "../../../Skeleton/SmallCardSkeleton";
-import StationMenuForm from "../station/StationMenuForm";
 import MenuCategoryAddForm from "../common/MenuCategoryAddForm";
 
 const MenuCategory = () => {
@@ -70,13 +68,9 @@ const MenuCategory = () => {
     }
     };
 
-  const handleSuccess = (data) => {
-    console.log('Form submitted successfully:', data);
-  };
+ 
 
-  const handleError = (error) => {
-    console.error('Form submission failed:', error);
-  };
+
 
   
 
@@ -94,21 +88,31 @@ const MenuCategory = () => {
           </Button>
         )}
       </div>
-      <Row>
-        <Col xs={12} sm={8} md={6} lg={4}>
-          {showForm &&
-            <div className="card p-2">
-              <MenuCategoryAddForm
-                onSubmit={submit}
-                onSuccess={handleSuccess}
-                onError={handleError}
-                initialMenuName="My Menu"
-                buttonText="Create Menu"
-              />
-            </div>
-          }
-        </Col>
-      </Row>
+      <Modal
+        aria-labelledby="contained-modal-title-vcenter"
+        size="lg"
+        centered
+        show={showForm}
+        onHide={hideAddCategory}
+      >
+
+        <Modal.Header>
+          <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
+            Add Menu
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <MenuCategoryAddForm
+            onSubmit={submit}
+            onFinish={hideAddCategory}
+            onCancel={hideAddCategory}
+            initialMenuName=""
+            buttonText="Create Menu"
+          />
+        </Modal.Body>
+
+      </Modal>
+     
 
       <Row
         xs={2}

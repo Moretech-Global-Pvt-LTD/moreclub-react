@@ -47,13 +47,13 @@ const OrderDetails = () => {
     );
   }
 
-  // if (isError) {
-  //   return (
-  //     <DashboardLayout className="text-dynamic-white">
-  //       Error: retriving
-  //     </DashboardLayout>
-  //   );
-  // }
+  if (isError) {
+    return (
+      <DashboardLayout className="text-dynamic-white">
+        Error: retriving
+      </DashboardLayout>
+    );
+  }
 
   // Sample data, replace with actual data fetching logic
 

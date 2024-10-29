@@ -1,29 +1,29 @@
 import React, { useState } from 'react'
 import DashboardLayout from '../../../../components/Layout/DashboardLayout'
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import RestaurantCardSkeleton from '../../../../components/Skeleton/RestaurantCardSkeleton';
 import { axiosInstance } from '../../../..';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { morefoodURL } from '../../../../config/config';
 import Cookies from "js-cookie"
-import MenuCategoryAddForm from '../../../../components/Moreclub/Resturant/common/MenuCategoryAddForm';
-import StationMenuCard from '../../../../components/Moreclub/Resturant/station/StationMenuCard';
-import StationLayout from '../../Station/StationLayout';
+import StationMenuFoodForm from '../../../../components/Moreclub/Resturant/station/StationMenuFoodForm';
+import StationFoodCard from '../../../../components/Moreclub/Resturant/station/StationFoodCard';
 
 
-const StationMenu = () => {
+const StationMenuItems = () => {
 
-    const { id, name } = useParams();
-    const SlugName = name.replace(/-/g, " ");
+    const { res_id, stationId, slug , menuId , menuSlug} = useParams();
+    const name = slug.replace(/-/g, " ");
+    const menu= menuSlug.replace(/-/g, " ");
     const [showForm, setShowForm] = useState(false);
     const queryClient = useQueryClient();
-    
+
     const { data, isLoading, isError } = useQuery({
-        queryKey: [`Station Menu List  ${id}`],
+        queryKey: [`Station Menu List for ${menuId}`],
         queryFn: async () => {
             const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${id}/menu/`, {
+                `${morefoodURL}moreclub/user/station/${stationId}/${menuId}/food-items/`, {
                 headers: {
                     'x-country-code': Cookies.get("countryCode"),
                 }
@@ -32,20 +32,24 @@ const StationMenu = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 1000,
     });
 
     if (isLoading) {
         return (
-            <StationLayout title={`${SlugName} `
-    } >
+            <DashboardLayout>
                 <RestaurantCardSkeleton />
-            </StationLayout>
+            </DashboardLayout>
         );
     }
 
     if (isError) {
-        return <StationLayout title={`${SlugName} `} className="text-dynamic-white">Error: retriving</StationLayout>;
+        return <DashboardLayout title={`${name} ${menu}`} className="text-dynamic-white">
+            
+        
+            Error: retriving
+        
+        </DashboardLayout>;
     }
 
     async function showAddCategory() {
@@ -59,7 +63,7 @@ const StationMenu = () => {
     const submit = async (datas) => {
         try {
             const response = await axiosInstance.post(
-                `${morefoodURL}moreclub/station/${id}/menu/`,
+                `${morefoodURL}moreclub/user/station/${stationId}/${menuId}/food-items/`,
                 datas,
                 {
                     headers: {
@@ -68,7 +72,7 @@ const StationMenu = () => {
                 }
             );
             queryClient.invalidateQueries({
-                queryKey: [`Station Menu List  ${id}`],
+                queryKey: [`Station Menu List for ${menuId}`],
             });
 
             return response; // Return the response directly
@@ -79,22 +83,10 @@ const StationMenu = () => {
     };
 
 
+
+
     return (
-        <StationLayout title={`${SlugName} `}>
-            <div className="d-flex align-items-center justify-content-start my-2 gap-2">
-                {/* <Link to={`/resturant/${res_id}/station/${stationId}/orders/${slug}`} >
-                    <Button variant="warning">
-                        Station Orders
-                    </Button>
-
-                </Link>
-                <Link to={`/resturant/${res_id}/${stationId}/allorders/${slug}`} >
-                    <Button variant="warning">
-                        All Food Orders
-                    </Button>
-
-                </Link> */}
-            </div>
+        <DashboardLayout title={`${name} ${menu}`}>
             <div className="d-flex align-items-center justify-content-end my-2">
 
                 {showForm ? (
@@ -115,53 +107,51 @@ const StationMenu = () => {
                 show={showForm}
                 onHide={hideAddCategory}
             >
-
                 <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
-                        Add Station Menu
+                        Add Station MenuItems
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <MenuCategoryAddForm
-                        onSubmit={submit}
-                        onFinish={hideAddCategory}
-                        onCancel={hideAddCategory}
-                        initialMenuName=""
-                        buttonText="Create Menu"
-                    />
-                    {/* <StationMenuFoodForm/> */}
+                    <StationMenuFoodForm onSubmit={submit} onCancel={hideAddCategory} ButtonText={"Add Menu Items"} onFinish={hideAddCategory}/>
                 </Modal.Body>
-
             </Modal>
 
             <Row
-                xs={2}
-                sm={3}
-                md={4}
-                lg={4}
-                xl={5}
-                xxl={6}
+                xs={1}
+                sm={1}
+                md={1}
+                lg={2}
+                xl={2}
+                xxl={3}
                 className="gx-3 gy-3 my-4"
             >
                 {data.map((item) => (
                     <Col className="d-flex flex-column">
-                        <StationMenuCard
+
+                        <StationFoodCard
                             id={item.id}
-                            slug={SlugName}
-                            stationId={id}
-                            logo={item.icon ?? ""}
-                            name={item.name ?? ""}
-                            item={item.no_of_items}
+                            logo={item.image}
+                            name={item.name}
+                            price={item.item_price}
+                            short_description={item.short_description}
+                            currency_Symbol={item.currency_symbol}
+                            actual_price={item.actual_price}
+                            discount_percentage={item.discount_percentage}
+                            ingredient={item.ingredient}
                         />
                     </Col>
                 ))}
             </Row>
-            {data && data.length === 0 &&
-                <p className="text-center">Add New Menu Category for your Station</p>
-            }
 
-        </StationLayout>
+            {data && data.length === 0 && (
+                <p className="normal-case text-center">
+                    Add some food items in your {name} Menu
+                </p>
+            )}
+
+        </DashboardLayout>
     )
 }
 
-export default StationMenu
+export default StationMenuItems

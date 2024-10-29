@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
-import { QRCode } from "antd";
+import { message, QRCode } from "antd";
 import { hostURL } from "../../../config/config";
 import Logos from "../../../images/logo/logoblack.png";
 import { Form } from "react-bootstrap";
@@ -9,6 +9,16 @@ import { Link } from "react-router-dom";
 const QRcontent = () => {
   const user = useSelector((state) => state.userReducer);
   const [switchvalue, setSwitchValue] = React.useState(true);
+  const linkInputRef = useRef(null);
+
+  const copyLink = () => {
+    const linkInput = linkInputRef.current;
+    if (linkInput) {
+      linkInput.select();
+      document.execCommand("copy");
+      message.success("Link copied to clipboard:");
+    }
+  };
 
   return (
     <div className="row mt-0 mt-lg-5">
@@ -54,7 +64,29 @@ const QRcontent = () => {
                 </div>
               </div>
             )}
-            <p className="text-center text-danger"> Use this Qr to build your network and refer your friends</p>
+            <p className="text-center text-danger"> Use this Qr to build your network and refer your friends else use the link below</p>
+            <div className="d-flex align-items-center">
+              <input
+                type="text"
+                // defaultValue= {`${hostURL}/register-membership?referral=${user.user.referral_code}`}
+                defaultValue={user.user.link}
+                style={{
+                  backgroundColor: "black",
+                  color: "white",
+                  border: "0px",
+                  padding: "4px",
+                  width: "80%",
+                }}
+                ref={linkInputRef}
+                readOnly
+              />
+              <span
+                className=" p-1 ms-2 ps-2 pe-2  copy-button"
+                onClick={copyLink}
+              >
+                <i class="bi bi-clipboard"></i>
+              </span>
+            </div>
           </>
         )}
         {!switchvalue && (
