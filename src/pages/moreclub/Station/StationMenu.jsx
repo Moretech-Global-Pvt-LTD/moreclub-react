@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import DashboardLayout from '../../../../components/Layout/DashboardLayout'
 import { Link, useParams } from 'react-router-dom';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import RestaurantCardSkeleton from '../../../../components/Skeleton/RestaurantCardSkeleton';
@@ -9,21 +8,21 @@ import { morefoodURL } from '../../../../config/config';
 import Cookies from "js-cookie"
 import MenuCategoryAddForm from '../../../../components/Moreclub/Resturant/common/MenuCategoryAddForm';
 import StationMenuCard from '../../../../components/Moreclub/Resturant/station/StationMenuCard';
-import StationLayout from '../../Station/StationLayout';
+import StationLayout from './StationLayout';
 
 
 const StationMenu = () => {
 
-    const { id, name } = useParams();
-    const SlugName = name.replace(/-/g, " ");
+    const { stationId, slug } = useParams();
+    const name = slug.replace(/-/g, " ");
     const [showForm, setShowForm] = useState(false);
     const queryClient = useQueryClient();
-    
+
     const { data, isLoading, isError } = useQuery({
-        queryKey: [`Station Menu List  ${id}`],
+        queryKey: [`Station Menu List  ${stationId}`],
         queryFn: async () => {
             const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${id}/menu/`, {
+                `${morefoodURL}moreclub/user/station/${stationId}/menu/`, {
                 headers: {
                     'x-country-code': Cookies.get("countryCode"),
                 }
@@ -37,15 +36,14 @@ const StationMenu = () => {
 
     if (isLoading) {
         return (
-            <StationLayout title={`${SlugName} `
-    } >
+            <StationLayout title={`${name} Menu`}>
                 <RestaurantCardSkeleton />
             </StationLayout>
         );
     }
 
     if (isError) {
-        return <StationLayout title={`${SlugName} `} className="text-dynamic-white">Error: retriving</StationLayout>;
+        return <StationLayout title={`${name} Menu`} className="text-dynamic-white">Error: retriving</StationLayout>;
     }
 
     async function showAddCategory() {
@@ -59,7 +57,7 @@ const StationMenu = () => {
     const submit = async (datas) => {
         try {
             const response = await axiosInstance.post(
-                `${morefoodURL}moreclub/station/${id}/menu/`,
+                `${morefoodURL}moreclub/user/station/${stationId}/menu/`,
                 datas,
                 {
                     headers: {
@@ -68,7 +66,7 @@ const StationMenu = () => {
                 }
             );
             queryClient.invalidateQueries({
-                queryKey: [`Station Menu List  ${id}`],
+                queryKey: [`Station Menu List  ${stationId}`],
             });
 
             return response; // Return the response directly
@@ -80,15 +78,15 @@ const StationMenu = () => {
 
 
     return (
-        <StationLayout title={`${SlugName} `}>
+        <StationLayout title={`${name} Menu`}>
             <div className="d-flex align-items-center justify-content-start my-2 gap-2">
-                {/* <Link to={`/resturant/${res_id}/station/${stationId}/orders/${slug}`} >
+                {/* <Link to={`/station/${stationId}/orders/${slug}`} >
                     <Button variant="warning">
                         Station Orders
                     </Button>
 
                 </Link>
-                <Link to={`/resturant/${res_id}/${stationId}/allorders/${slug}`} >
+                <Link to={`/station/${stationId}/allorders/${slug}`} >
                     <Button variant="warning">
                         All Food Orders
                     </Button>
@@ -129,7 +127,6 @@ const StationMenu = () => {
                         initialMenuName=""
                         buttonText="Create Menu"
                     />
-                    {/* <StationMenuFoodForm/> */}
                 </Modal.Body>
 
             </Modal>
@@ -147,8 +144,8 @@ const StationMenu = () => {
                     <Col className="d-flex flex-column">
                         <StationMenuCard
                             id={item.id}
-                            slug={SlugName}
-                            stationId={id}
+                            slug={slug}
+                            stationId={stationId}
                             logo={item.icon ?? ""}
                             name={item.name ?? ""}
                             item={item.no_of_items}

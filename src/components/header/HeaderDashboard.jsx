@@ -6,7 +6,7 @@ import useStickyHeader from "./StickyHeader";
 
 import { useDispatch, useSelector } from "react-redux";
 import { baseURL, imageURL } from "../../config/config";
-import { logout } from "../../redux/api/loginAPI";
+import { isSuperAdmin, logout } from "../../redux/api/loginAPI";
 import { getWallet } from "../../redux/api/wallets";
 import DropNotificationContent from "../Notifications/DropNotificationContent";
 import HeaderDashboardMenu from "./HeaderDashboardMenu";
@@ -50,6 +50,7 @@ const HeaderDashboard = () => {
       if (businessResponse.status === "fulfilled") {
         businessData = businessResponse.value.data.data;
         await dispatch(businessProfileSucess(businessData));
+        await dispatch(isSuperAdmin());
       } else if (
         businessResponse.status === "rejected" &&
         businessResponse.reason.response.status === 403

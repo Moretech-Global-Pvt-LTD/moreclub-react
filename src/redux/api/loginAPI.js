@@ -11,6 +11,7 @@ import {
   // removeMesage,
   userFail,
   logMeOut,
+  superAdmin,
   // setVerified,
 } from "../slices/userSlice";
 import { redirect } from "react-router-dom";
@@ -28,8 +29,9 @@ export const load_user = () => async (dispatch) => {
     try {
       const res = await axiosInstance.get(`${baseURL}auth/user/all/details/`);
       
-      
       await dispatch(userSuccess(res.data?.data));
+      await dispatch(isSuperAdmin());
+
       await dispatch(setLoading(false));
     } catch (err) {
       const error = err.response?.data?.code;
@@ -58,6 +60,7 @@ export const login = (username, password ,next) => async (dispatch) => {
       });
       await dispatch(loginSuccess(res.data.data));
       await dispatch(load_user());
+      await dispatch(isSuperAdmin());
       await dispatch(loadMembershipType());
       await dispatch(CurrencySet());
       await dispatch(getBusinessProfile());
@@ -74,6 +77,17 @@ export const login = (username, password ,next) => async (dispatch) => {
   } else {
     dispatch(setError("All fields required"));
     dispatch(setProcessing(false));
+  }
+};
+
+export const isSuperAdmin =()=> async (dispatch) => {
+  try {
+    const res = await axiosInstance.get(`${baseURL}permissions/superuser/`);
+    await dispatch(superAdmin(res.data.data.is_superuser));
+  } catch (err) {
+    if(err.response.status === 401) {
+      await dispatch(superAdmin(false));
+    }
   }
 };
 
@@ -190,6 +204,7 @@ export const otpVerify = (username, code , callbackUrl) => async (dispatch) => {
       localStorage.removeItem("otp_username");
       await dispatch(load_user());
       await dispatch(userMembership());
+      await dispatch(isSuperAdmin());
       await dispatch(CurrencySet());
       await dispatch(loadMembershipType());
       await dispatch(getBusinessProfile());

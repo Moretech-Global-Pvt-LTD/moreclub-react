@@ -6,47 +6,50 @@ import { Button, Form, Row } from 'react-bootstrap';
 
 const MenuCategoryAddForm = ({
     onSubmit,
-    onSuccess,
-    onCancel,
-    onError,
+    onFinish,
+    onCancel,  
     initialMenuName = '',
-    initialMenuImage = null,
+    initialMenuImage = '',
+    
     buttonText = 'Add Menu',
 }) => {
     const [menu_name, setMenuName] = useState(initialMenuName);
-    const [menu_image, setMenuImage] = useState(initialMenuImage);
+    const [menu_image, setMenuImage] = useState(null);
+    const [imageURL, setImageUrl] = useState(initialMenuImage);
+    const [isLoading, setIsLoading] = useState(false);
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             setMenuImage(e.target.files[0]);
+            setImageUrl(URL.createObjectURL(e.target.files[0]));
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setIsLoading(true);
             const formData = {
                 'name': menu_name,
                 'icon': menu_image
             }
-            console.log("in form ",formData)
+
             const res = await onSubmit(formData);
-            console.log('Form submitted successfully:', res);
 
             if (res.data.success) {
-                onSuccess();
+                
                 message.success('Menu added successfully');
                 setMenuName("");
                 setMenuImage(null);
+                onFinish();
             } else {
                 throw new Error('Failed to submit form');
             }
 
         } catch (error) {
             console.error('There was an error submitting the form:', error);
-            message.success('Error Menu added successfully');
-            if (onError) {
-                onError(error);
-            }
+            message.success('Error adding menu');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -68,25 +71,23 @@ const MenuCategoryAddForm = ({
                     <Form.Group controlId="formItemImage">
                         <Form.Label>Item Image</Form.Label>
                         <br />
-                        {menu_image ? (
+                         
                             <img
-                                src={URL.createObjectURL(menu_image)}
+                                src={imageURL}
                                 alt="Foodimage"
                                 style={{ height: '5rem', width: '5rem' }}
                                 className=""
                             />
-                        ) : (
-                            <div>No image selected</div>
-                        )}
+                       
                         <Form.Control type="file" name="image" onChange={handleImageChange} />
                     </Form.Group>
 
                     <div className='d-flex justify-content-end gap-2'>
-                        <Button variant="secondary" onAbort={() => onCancel()}>
-                            {buttonText}
+                        <Button variant="secondary" onClick={() => onCancel()}>
+                            Cancel
                         </Button>
                         <Button variant="success" type="submit" disabled={!menu_name}>
-                            {buttonText}
+                            {isLoading  && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}{buttonText}
                         </Button>
                     </div>
                 </Row>

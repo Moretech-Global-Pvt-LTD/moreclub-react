@@ -1,67 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Row, Col, Card } from "react-bootstrap";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
+import { Form, Button, Row, Col, Card, Spinner } from "react-bootstrap";
 import { message } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
-import Select from "react-select";
 
-const customStyles = {
-    control: (provided, state) => ({
-        ...provided,
-        backgroundColor: 'transparent',
-        borderColor: state.isFocused ? '#80bdff' : '#ced4da',
-        boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(0,123,255,.25)' : null,
-        '&:hover': {
-            borderColor: state.isFocused ? '#80bdff' : '#ced4da',
-        },
-    }),
-    menu: (provided) => ({
-        ...provided,
-        backgroundColor: '#f8f9fa',
-        borderRadius: '0.25rem',
-        boxShadow: '0 0.5rem 1rem rgba(0, 0, 0, 0.15)',
-    }),
-    option: (provided, state) => ({
-        ...provided,
-        backgroundColor: state.isSelected
-            ? '#007bff'
-            : state.isFocused
-                ? '#e9ecef'
-                : 'white',
-        color: state.isSelected ? 'white' : 'black',
-        '&:active': {
-            backgroundColor: '#007bff',
-            color: 'white',
-        },
-    }),
-    multiValue: (provided) => ({
-        ...provided,
-        backgroundColor: '#007bff',
-        color: 'white',
-    }),
-    multiValueLabel: (provided) => ({
-        ...provided,
-        color: 'white',
-    }),
-    multiValueRemove: (provided) => ({
-        ...provided,
-        color: 'white',
-        '&:hover': {
-            backgroundColor: '#0056b3',
-            color: 'white',
-        },
-    }),
-};
-
-
-const StationMenuFoodForm = () => {
-    const { cat_id, res_id, id } = useParams()
-    const queryClient = useQueryClient();
-    const [imageUrl, setImageUrl] = useState("")
-    const [cuisineOption, setCuisineOption] = useState([]);
-
+const StationMenuFoodForm = ({ ButtonText, initialData, onSubmit, onCancel , onFinish}) => {
     const [menuItem, setMenuItem] = useState({
         name: "",
         price: "",
@@ -70,162 +11,71 @@ const StationMenuFoodForm = () => {
         image: null,
         ingredient: ""
     });
+    const [imageUrl, setImageUrl] = useState("");
     const [offererror, setOfferError] = useState("");
+    const [isLoading, setIsLoading]= useState(false);
 
-    const navigate = useNavigate();
-
-   
-
-    // const handleChange = (e) => {
-    //   const { name, value } = e.target;
-    //   setMenuItem({ ...menuItem, [name]: value });
-    // };
-
-    const [loading, setLoading] = useState(false)
-
-
+    useEffect(() => {
+        if (initialData) {
+            setMenuItem({
+                name: initialData?.name || "",
+                price: initialData?.price || "",
+                offerPrice: initialData?.actual_price || "",
+                short_description: initialData?.short_description || "",
+                image: null,
+                ingredient: initialData?.ingredient || ""
+            });
+            setImageUrl(initialData?.image || ""); // If image URL is provided
+        }
+    }, [initialData]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        // Offer price validation logic
         if (name === "offerPrice") {
             if (value === "") {
-                // Allow empty value to remove the offer price
                 setMenuItem({ ...menuItem, offerPrice: null });
-                setOfferError(""); // Clear any error message
+                setOfferError("");
             } else if (parseFloat(menuItem.price) >= parseFloat(value)) {
-                // Valid offer price
                 setMenuItem({ ...menuItem, offerPrice: value });
                 setOfferError("");
             } else {
-                // Invalid offer price
-                setMenuItem({ ...menuItem, offerPrice: "" }); // Clear offer price if invalid
+                setMenuItem({ ...menuItem, offerPrice: "" });
                 setOfferError("Must be less than price");
             }
         } else {
-            // General input handling for other fields
             setMenuItem({ ...menuItem, [name]: value });
         }
     };
 
     const handleImageChange = (e) => {
-        setMenuItem({ ...menuItem, image: e.target.files[0] });
-        setImageUrl(URL.createObjectURL(e.target.files[0]));
+        const file = e.target.files[0];
+        setMenuItem({ ...menuItem, image: file });
+        setImageUrl(URL.createObjectURL(file));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        setLoading(true);
-        if (!menuItem.image) {
-            const data = {
-                name: menuItem.name,
-                price: menuItem.price,
-                discount_price: menuItem.offerPrice ?? null,
-                short_description: menuItem.short_description,
-                image: menuItem.image,
-                cuisine_id: menuItem.cuisine_id,
-                ingredient: menuItem.ingredient,
-                restaurant_id: res_id,
-                menu: cat_id
-            }
-            axiosInstance
-                .patch(
-                    `${morefoodURL}moreclub/user/food/items/${cat_id}/${id}/${res_id}/`,
-                    data,
-                    {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                )
-                .then((response) => {
-                    message.success("Food Items Updated Successfully");
-                    // setMenuItem({
-                    //   name: "",
-                    //   price: "",
-                    //   short_description: "",
-                    //   image: null,
-                    // });
-                    queryClient.invalidateQueries({
-                        queryKey: [`Resturant SubMenu List ${cat_id}`],
-                    });
-                    queryClient.invalidateQueries({
-                        queryKey: [`Resturant SubMenu ${id}`],
-                    });
-                    navigate(`/resturant/${res_id}/menu/${cat_id}/Menu/`);
-
-                })
-                .catch((error) => {
-                    console.error("There was an error updating the foodItems!", error);
-                    message.error("error Updating Food Items");
-                }).finally(() => {
-                    setLoading(false)
-                });
-        } else {
-            const data = {
-                name: menuItem.name,
-                price: menuItem.price,
-                discount_price: menuItem.offerPrice ?? null,
-                short_description: menuItem.short_description,
-                cuisine_id: menuItem.cuisine_id,
-                ingredient: menuItem.ingredient,
-                restaurant_id: res_id,
-                menu: cat_id,
-                image: menuItem.image
-            }
-
-            axiosInstance
-                .patch(
-                    `${morefoodURL}moreclub/user/food/items/${cat_id}/${id}/${res_id}/`,
-                    data,
-                    {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                )
-                .then((response) => {
-                    message.success("Food Items Updated Successfully");
-                    // setMenuItem({
-                    //   name: "",
-                    //   price: "",
-                    //   short_description: "",
-                    //   image: null,
-                    // });
-                    queryClient.invalidateQueries({
-                        queryKey: [`Resturant SubMenu List ${cat_id}`],
-                    });
-                    queryClient.invalidateQueries({
-                        queryKey: [`Resturant SubMenu ${id}`],
-                    });
-
-                })
-                .catch((error) => {
-                    console.error("There was an error updating the foodItems!", error);
-                    message.error("error Updating Food Items");
-                }).finally(() => {
-                    setLoading(false)
-                });
+        setIsLoading(true);
+        if (offererror) {
+            message.error("Please fix the errors before submitting.");
+            return;
         }
+        const res = await onSubmit(menuItem);
 
-        // const formData = new FormData();
-        // formData.append("name", menuItem.name);
-        // formData.append("price", menuItem.price);
-        // formData.append("short_description", menuItem.short_description);
-        // formData.append("menu", cat_id);
-        // formData.append("restaurant_id", res_id);
-        // formData.append("discount_price", menuItem.offerPrice ?? "");
-        //  menuItem.image && formData.append("image", menuItem.image);
-        // formData.append("cuisine", menuItem.cuisine);
-        // formData.append("ingredient", menuItem.ingredient);
+        if (res.data.success) {
 
-
+            message.success('Menu added successfully');
+            onFinish();
+        } else {
+            message.error(res.data.message || 'Error adding menu');
+            throw new Error('Failed to submit form');
+        }
+        setIsLoading(false);
     };
 
     return (
         <Card className="p-3">
-            {/* <h1>Add Menu Item to {category}</h1> */}
             <Form onSubmit={handleSubmit}>
                 <Row xs={1} sm={2} lg={3}>
                     <Col>
@@ -254,7 +104,7 @@ const StationMenuFoodForm = () => {
                     </Col>
                     <Col>
                         <Form.Group controlId="formItemOfferPrice">
-                            <Form.Label>Offer Price&nbsp;<span className="text-muted " style={{ fontSize: "11px" }}>(Optional)</span></Form.Label>
+                            <Form.Label>Offer Price (Optional)</Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Enter offer price"
@@ -266,7 +116,6 @@ const StationMenuFoodForm = () => {
                         </Form.Group>
                     </Col>
                 </Row>
-
 
                 <Form.Group controlId="formItemIngredients" className="my-3">
                     <Form.Label>Ingredients</Form.Label>
@@ -280,12 +129,12 @@ const StationMenuFoodForm = () => {
                     />
                 </Form.Group>
 
-                <Form.Group controlId="formItemIngredients" className="my-3">
-                    <Form.Label>short Description</Form.Label>
+                <Form.Group controlId="formItemShortDescription" className="my-3">
+                    <Form.Label>Short Description</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={3}
-                        placeholder="short Description"
+                        placeholder="Short description"
                         name="short_description"
                         value={menuItem.short_description}
                         onChange={handleChange}
@@ -295,31 +144,25 @@ const StationMenuFoodForm = () => {
                 <Form.Group controlId="formItemImage">
                     <Form.Label>Item Image</Form.Label>
                     <br />
-                    {menuItem.image ? (
+                    {imageUrl && (
                         <img
                             src={imageUrl}
-                            alt="Foodimage"
+                            alt="Food-image"
                             style={{ height: "5rem", width: "5rem" }}
-                            className=""
                         />
-                    ) : (
-                        <>
-                            {/* {data.image && (
-                                <img
-                                    src={data.image}
-                                    alt="Foodimage"
-                                    style={{ height: "5rem", width: "5rem" }}
-                                    className=""
-                                />
-                            )} */}
-                        </>
                     )}
                     <Form.Control type="file" name="image" onChange={handleImageChange} />
                 </Form.Group>
 
-                <Button variant="success" disabled={offererror !== ""} type="submit" className="my-3">
-                    Update
+                <div className="d-flex justify-content-end gap-2">
+                <Button variant="secondary"  className="my-3" onClick={onCancel}>
+                    Cancel
                 </Button>
+                <Button variant="success" disabled={offererror !== ""} type="submit" className="my-3">
+                   {isLoading ? <Spinner animation="border" size="sm" /> : null} {ButtonText}
+                </Button>
+
+                </div>
             </Form>
         </Card>
     );

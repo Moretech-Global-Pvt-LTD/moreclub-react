@@ -13,6 +13,7 @@ const initialState = {
   message: null,
   profileUser: null,
   membershipType: null,
+  isSuperAdmin: false,
 };
 export const userRegister = createSlice({
   name: "userRegister",
@@ -83,6 +84,11 @@ export const userRegister = createSlice({
     authSuccess: (state) => {
       state.isAuthenticated = true;
     },
+
+    superAdmin: (state, { payload }) => { 
+      state.isSuperAdmin = payload;
+    },
+
     setMeta: (state, { payload }) => {
       state.meta = payload;
     },
@@ -117,6 +123,7 @@ export const {
   profileUserSuccess,
   passwordChangeSuccess,
   setError,
+  superAdmin,
   setMessage,
   setMembershipType,
 } = userRegister.actions;
