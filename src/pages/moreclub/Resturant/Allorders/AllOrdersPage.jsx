@@ -8,16 +8,16 @@ import { morefoodURL } from '../../../../config/config';
 
 const AllOrdersPage = () => {
 
-    const { ord_id, res_id, slug, stationId } = useParams();
-    const name = slug.replace(/-/g, " ");
+    const { name, id } = useParams();
+    const slug = name.replace(/-/g, " ");
     const navigate = useNavigate();
 
 
     const { data, isLoading, isError } = useQuery({
-        queryKey: [`All food orders ${ord_id}`],
+        queryKey: [`All food orders ${id}`],
         queryFn: async () => {
             const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/user/station/${stationId}/all/orders/`
+                `${morefoodURL}moreclub/station/${id}/all/orders/`
             );
             const data = await response.data.data;
             return data;

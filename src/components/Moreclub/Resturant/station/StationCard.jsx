@@ -18,7 +18,7 @@ const StationCard = ({ station }) => {
                     </p>
                 </div>
             </div>
-            </Link>
+        </Link>
     );
 }
 

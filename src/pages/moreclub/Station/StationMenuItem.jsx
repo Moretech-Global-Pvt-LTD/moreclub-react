@@ -17,7 +17,7 @@ const StationMenuItems = () => {
     const {  id , name,  menu_id , menu_name} = useParams();
     const slug = name.replace(/-/g, " ");
     const menu = menu_name.replace(/-/g, " ");
-    console.log()
+
     const [showForm, setShowForm] = useState(false);
     const queryClient = useQueryClient();
 

@@ -130,6 +130,11 @@ import SetupStationPage from "./pages/moreclub/Station/SetupStationPage";
 import StationDetailPage from "./pages/moreclub/Station/StationDetailPage";
 import StationUpdatePage from "./pages/moreclub/Station/StationUpdatePage";
 import StationMenuItems from "./pages/moreclub/Station/StationMenuItem";
+import RestroStationMenu from "./pages/moreclub/Resturant/stationmenus/RestroStationMenu";
+import NearbyStationPage from "./pages/moreclub/Resturant/nearbyStation/NearbyStationPage";
+import NearbyStationDetail from "./pages/moreclub/Resturant/nearbyStation/NearbyStationDetail";
+import NearbyStationMenuPage from "./pages/moreclub/Resturant/nearbyStation/NearbyStationMenuPage";
+import NearbyStationMyMenuPage from "./pages/moreclub/Resturant/nearbyStation/NearbyStationMyMenuPage";
 
 
 
@@ -601,26 +606,6 @@ const App = () => {
       path: "/resturant/:res_id/opening-duration/:slug",
       page: <OpeninghoursPage />,
     },
-    // {
-    //   path: "/resturant/:res_id/station/:stationId/:slug",
-    //   page: <StationMenu />,
-    // },
-    // {
-    //   path: "/resturant/:res_id/station/:stationId/:menuId/:slug/:menuSlug",
-    //   page: <StationMenuItems />,
-    // },
-    // {
-    //   path: "/resturant/:res_id/station/:stationId/orders/:slug",
-    //   page: <StationOrder />,
-    // },
-    // {
-    //   path: "/resturant/:res_id/station/:stationId/orders/:slug/:ord_id",
-    //   page: <OrderDetailsPage />,
-    // },
-    // {
-    //   path: "/resturant/:res_id/station/:stationId/:menuId/:slug/:menuSlug",
-    //   page: <StationMenuItems />,
-    // },
     {
       path: "/resturant/:res_id/cuisine/:slug",
       page: <Cuisine />,
@@ -654,12 +639,6 @@ const App = () => {
 
       page: <GalleryPage />,
     },
-
-    // {
-    //   path: "/resturant/:res_id/:stationId/allorders/:slug/",
-
-    //   page: <AllOrdersPage />,
-    // },
     {
       path: "/resturant/:res_id/gallery/:slug/restaurant",
 
@@ -719,6 +698,22 @@ const App = () => {
     {
       path: "/station/:id/allorders/:name",
       page: <AllOrdersPage />,
+    },
+    {
+      path: "/station/:resid/nearby/",
+      page: <NearbyStationPage />,
+    },
+    {
+      path: "/restaurant/:resid/station/:stationid/:name",
+      page: <NearbyStationDetail />,
+    },
+    {
+      path: "/restaurant/:resid/station/:stationid/:name/menu",
+      page: <NearbyStationMenuPage />,
+    },
+    {
+      path: "/restaurant/:resid/station/:stationid/:name/my-menu",
+      page: <NearbyStationMyMenuPage />,
     },
   ];
 
