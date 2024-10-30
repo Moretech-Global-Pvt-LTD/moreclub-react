@@ -2,9 +2,10 @@ import React from 'react'
 import { Badge } from 'react-bootstrap';
 
 import { useNavigate, useParams } from 'react-router-dom';
+import moment from 'moment';
 
 const StationOrderCard = ({ item }) => {
-    const { res_id, slug, stationId } = useParams()
+    const { id, name } = useParams()
     const navigate = useNavigate()
 
     return (
@@ -12,11 +13,11 @@ const StationOrderCard = ({ item }) => {
             <tr
                 className="text-dynamic-white clickable-row"
                 onClick={() =>
-                    navigate(`/resturant/${res_id}/station/${stationId}/orders/${slug}/${item.id}`)
+                    navigate(`/station/${id}/orders/${item.id}/${name}/`)
                 }
             >
                 <td className="text-dynamic-white">{item.order_id}</td>
-                <td className="text-dynamic-white">{item.ordered_date}</td>
+                <td className="text-dynamic-white">{moment.utc(item.ordered_date).local().format('MMM DD YYYY')} {moment.utc(item.ordered_date).local().format("h:mm a")}</td>
                 <td className="text-dynamic-white">
                     {item.full_name}&nbsp;&nbsp;
                     <Badge

@@ -14,7 +14,7 @@ import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
 
 const StationOrderDetailsContent = ({ item }) => {
-    const { ord_id, res_id, slug , stationId} = useParams();
+    const { ord_id, id, name } = useParams();
 
     const [orderStatus, setOrderStatus] = useState(item.order_status);
     const [showModal, setShowModal] = useState(false);
@@ -23,12 +23,11 @@ const StationOrderDetailsContent = ({ item }) => {
         e.preventDefault();
         try {
             const res = await axiosInstance.patch(
-                `${morefoodURL}moreclub/user/station/${stationId}/orders/${ord_id}`,
+                `${morefoodURL}moreclub/user/station/${id}/orders/${ord_id}`,
                 {
                     order_status: orderStatus,
                 }
             );
-            console.log(res);
         } catch (err) {
             console.log(err);
         }

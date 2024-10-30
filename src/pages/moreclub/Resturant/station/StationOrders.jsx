@@ -4,19 +4,18 @@ import { axiosInstance } from '../../../..';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import DashboardLayout from '../../../../components/Layout/DashboardLayout';
-import OrderCard from '../../../../components/Moreclub/Resturant/Orders/orderCard';
 import { Placeholder, Table } from 'react-bootstrap';
 import Divider from '../../../../components/divider/Divider';
 import StationOrderCard from '../../../../components/Moreclub/Resturant/station/StationOrderCard';
 
 const StationOrder = () => {
-    const { res_id, stationId, slug } = useParams();
-    const name = slug.replace(/-/g, " ");
+    const { id, name} = useParams();
+    const slug = name.replace(/-/g, " ");
     const { data, isLoading, isError } = useQuery({
-        queryKey: [`Station order ${stationId}`],
+        queryKey: [`Station order ${id}`],
         queryFn: async () => {
             const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/user/station/${stationId}/orders/`
+                `${morefoodURL}moreclub/station/${id}/orders/`
             );
             const data = await response.data.data;
             return data;
@@ -44,7 +43,6 @@ const StationOrder = () => {
 
                 </Table>
                 <div className="row gap-2">
-
                     <Placeholder as="p" animation="glow" className="rounded my-1 w-100">
                         <Placeholder xs={12} style={{ height: "2rem" }} />
                     </Placeholder>

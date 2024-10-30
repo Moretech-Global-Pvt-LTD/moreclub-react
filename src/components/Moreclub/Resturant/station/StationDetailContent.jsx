@@ -123,8 +123,8 @@ const StationDetailContent = ({ data }) => {
                         </Card>
                     </Col>
                 </Link>
-                {/* <Link
-                    to={`/station/${id}/gallery/${slug}`}
+                <Link
+                    to={`/station/${id}/allorders/${slug}`}
                     className="d-flex flex-column my-2 "
                 >
                     <Col className="d-flex flex-column my-2">
@@ -138,11 +138,11 @@ const StationDetailContent = ({ data }) => {
                                 />
                             </Card.Body>
                             <Card.Title className="text-dynamic-white text-center fs-6">
-                                Gallery
+                                All Orders
                             </Card.Title>
                         </Card>
                     </Col>
-                </Link> */}
+                </Link>
                 {/* <Link
                     to={`/station/${id}/opening-duration/${slug}`}
                     className="d-flex flex-column my-2 "
