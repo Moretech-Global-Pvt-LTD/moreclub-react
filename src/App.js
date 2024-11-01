@@ -135,6 +135,8 @@ import NearbyStationPage from "./pages/moreclub/Resturant/nearbyStation/NearbySt
 import NearbyStationDetail from "./pages/moreclub/Resturant/nearbyStation/NearbyStationDetail";
 import NearbyStationMenuPage from "./pages/moreclub/Resturant/nearbyStation/NearbyStationMenuPage";
 import NearbyStationMyMenuPage from "./pages/moreclub/Resturant/nearbyStation/NearbyStationMyMenuPage";
+import StationOrderList from "./pages/moreclub/Resturant/Allorders/StationOrderList";
+import StationOrderDetailPage from "./pages/moreclub/Resturant/Orders/StationOrderDetailPage";
 
 
 
@@ -714,6 +716,14 @@ const App = () => {
     {
       path: "/restaurant/:resid/station/:stationid/:name/my-menu",
       page: <NearbyStationMyMenuPage />,
+    },
+    {
+      path: "/station/:id/stationorders/:name",
+      page: <StationOrderList />,
+    },
+    {
+      path: "/station/:id/stationorders/:ord_id/:name/details",
+      page: <StationOrderDetailPage />,
     },
   ];
 

@@ -76,7 +76,7 @@ const NearbyStationDetail = () => {
                           <Card className="p-2 flex-grow-1">
                               <Card.Body className="d-flex justify-content-center">
                                   <img
-                                      src={'/images/moreclub/morefood/menus.png'}
+                                      src={'/images/moreclub/morefood/stationMenu.png'}
                                       alt="menu"
                                       className="px-2 py-1 rounded  "
                                       style={{ height: "5rem", width: "5rem" }}
@@ -97,7 +97,7 @@ const NearbyStationDetail = () => {
                           <Card className="p-2 px-2 flex-grow-1">
                               <Card.Body className="d-flex justify-content-center">
                                   <img
-                                      src={'/images/moreclub/morefood/orders.png'}
+                                      src={'/images/moreclub/morefood/myMenu.png'}
                                       alt="orders"
                                       className="  rounded "
                                       style={{ height: "5rem", width: "5rem" }}
