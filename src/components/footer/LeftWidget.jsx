@@ -47,11 +47,11 @@ export default function LeftWidget(props) {
           />
         </Link>
 
-        <p dangerouslySetInnerHTML={{ __html: subText }}></p>
-{/*         <p
+        <p dangerouslySetInnerHTML={{ __html: subText }}></p>        
+        <p
           className="mb-0"
           dangerouslySetInnerHTML={{ __html: contactInfo }}
-        ></p> */}
+        ></p>
 
         <div className={`section-${socialVisibility}`}>
           <h5 className="mt-4 mb-3">{socialTitle}</h5>
