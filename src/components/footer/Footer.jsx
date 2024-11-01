@@ -61,7 +61,7 @@ export default function Footer() {
             lightLogo={`${metainfo.meta?.black_logo}`}
             darkLogo={`${metainfo.meta?.white_logo}`}
             subText={`${metainfo.meta?.description}`}
-            contactInfo={`Whatsapp: ${metainfo.meta?.phone} <br /> Email: ${metainfo.meta?.email}`}
+            contactInfo={`Email: ${metainfo.meta?.email}`}
             socialVisibility="visible"
             socialTitle="Join the community"
             socialLists={[
