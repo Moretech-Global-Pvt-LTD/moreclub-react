@@ -29395,6 +29395,9 @@ span {
     cursor: pointer;
     text-align: center;
 }
+[data-theme="dark"] .nearby-station-card {
+   background-color: #0c153b; 
+  }
 
 /* Hover effect */
 .nearby-station-card:hover {
@@ -29424,6 +29427,150 @@ span {
     font-weight: 400;
     margin: 0;
 }
+
+.station-order-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+}
+
+/* Individual Card */
+.station-order-card {
+    display: flex;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    align-items: center;
+}
+
+[data-theme="dark"] .station-order-card {
+   background-color: #0c153b; 
+  }
+
+/* Image Section */
+.station-order-card-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+/* Content Section */
+.station-order-card-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    color: #000000;
+}
+
+[data-theme="dark"] .station-order-card-content {
+   color: #f1f1f1;
+  }
+
+/* Header Section */
+.station-order-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.station-order-card-restaurant {
+    color: #000000;
+}
+[data-theme="dark"] .station-order-card-restaurant {
+   color: #f1f1f1;
+  }
+
+.station-order-card-status {
+    font-size: 0.8em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-transform: capitalize;
+    color: #fff;
+    background-color: #ffa500;
+}
+
+[data-theme="dark"] .station-order-card-status {
+   color: #f1f1f1;
+  }
+
+/* Date */
+.station-order-card-date {
+    font-size: 0.9em;
+    color: #222;
+    margin: 4px 0;
+}
+
+[data-theme="dark"] .station-order-card-date {
+   color: #ccc;
+  }
+
+/* Food Item Name */
+.station-order-card-food-name {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Footer Section */
+.station-order-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1em;
+}
+
+/* Received Status and Quantity */
+.station-order-card-received {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.station-order-card-received-status {
+    font-size: 0.9em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.station-order-card-received-status.received {
+    background-color: #28a745;
+}
+
+.station-order-card-received-status.not-received {
+    background-color: #dc3545;
+}
+
+/* Quantity */
+.station-order-card-quantity {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #000;
+}
+[data-theme="dark"] .station-order-card-quantity {
+   color: #f1f1f1;
+  }
+
+/* Price */
+.station-order-card-price {
+    font-weight: bold;
+    color: #222;
+}
+
+[data-theme="dark"] .station-order-card-price {
+   color: #f1f1f1;
+  }
 
 
 

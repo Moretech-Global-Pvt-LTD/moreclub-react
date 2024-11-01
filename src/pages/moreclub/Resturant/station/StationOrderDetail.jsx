@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
+import StationOrderCards from "../../../../components/Moreclub/Resturant/station/StationOrderCards";
 
 const StationOrderDetailsContent = ({ item }) => {
     const { ord_id, id, name } = useParams();
@@ -33,15 +34,51 @@ const StationOrderDetailsContent = ({ item }) => {
         }
     }
 
-   
-
-    const totalAmount = item.order_items.reduce(
-        (total, item) => total + item.quantity * item.price,
-        0
-    );
 
 
-    return ( 
+    // const totalAmount = item.order_items.reduce(
+    //     (total, item) => total + item.quantity * item.price,
+    //     0
+    // );
+    const orderItems = {
+        "Into The Wild": [
+            {
+                id: "1f453065-e725-4cfc-9210-6c2679675384",
+                food_item: {
+                    id: "6767dac5-0be0-4676-bf69-bc650db9178b",
+                    name: "Sandwich box",
+                    image: "https://res.cloudinary.com/duehpgb6o/image/upload/v1/media/food_item/diwine_p9icep",
+                    short_description: "sandwich adjha dajkd ca ckja",
+                },
+                quantity: 2,
+                price: 200,
+                is_received_from_restaurant: false,
+                received_item_quantity_restaurant: 0,
+                received_item_from_restaurant_date: null,
+                is_paid_to_restaurant: false,
+            },
+        ],
+        "Mountain Feast": [
+            {
+                id: "2a2e6f5c-6b7f-4563-92bf-9a4974c0b5d2",
+                food_item: {
+                    id: "0bd27f0c-7b6f-4d1f-87d1-8f123e1de56e",
+                    name: "Pizza box",
+                    image: "https://res.cloudinary.com/duehpgb6o/image/upload/v1/media/food_item/another_item_image",
+                    short_description: "Delicious cheese pizza with toppings",
+                },
+                quantity: 1,
+                price: 150,
+                is_received_from_restaurant: true,
+                received_item_quantity_restaurant: 1,
+                received_item_from_restaurant_date: "2024-10-20",
+                is_paid_to_restaurant: true,
+            },
+        ],
+    };
+
+
+    return (
         <div className="pe-4">
             <Row className="mt-4  flex-xl-row-reverse ">
                 <Card className="col-12 col-lg-8 col-xl-6 p-2">
@@ -76,8 +113,8 @@ const StationOrderDetailsContent = ({ item }) => {
                                 <strong>Order Type: </strong>
                                 <Badge
                                     className={`ml-2 ${item.order_type === "dine-here"
-                                            ? "bg-success"
-                                            : "bg-warning"
+                                        ? "bg-success"
+                                        : "bg-warning"
                                         }`}
                                 >
                                     {item.order_type}
@@ -87,12 +124,12 @@ const StationOrderDetailsContent = ({ item }) => {
                                 <strong>Order Status: </strong>
                                 <Badge
                                     className={`ml-2 ${item.order_status === "Pending"
-                                            ? "bg-warning"
-                                            : item.order_status === "Cooked"
-                                                ? "bg-primary"
-                                                : item.order_status === "Delivered"
-                                                    ? "bg-success"
-                                                    : "bg-danger"
+                                        ? "bg-warning"
+                                        : item.order_status === "Cooked"
+                                            ? "bg-primary"
+                                            : item.order_status === "Delivered"
+                                                ? "bg-success"
+                                                : "bg-danger"
                                         }`}
                                 >
                                     {item.order_status}
@@ -108,44 +145,22 @@ const StationOrderDetailsContent = ({ item }) => {
                         </Row>
                     </Card.Body>
                 </Card>
-
+                
                 <Col className="col-12 col-lg-8 col-xl-6 my-xl-0 my-4">
                     <h5>Items Ordered</h5>
-                    <Table responsive className="bg-white text-dynamic-white">
-                        <thead>
-                            <tr className="text-dynamic-white">
-                                <th className="text-dynamic-white">Item Name</th>
-                                <th className="text-dynamic-white">Quantity</th>
-                                <th className="text-dynamic-white">Price</th>
-                                <th className="text-dynamic-white">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {item.order_items.map((items, index) => (
-                                <tr key={index}>
-                                    <td className="text-dynamic-white">{items.food_item.name}</td>
-                                    <td className="text-dynamic-white">{items.quantity}</td>
-                                    <td className="text-dynamic-white">{item.currency_symbol} {items.price}</td>
-                                    <td className="text-dynamic-white">
-                                        {item.currency_symbol}{" "}
-                                        {items.price * items.quantity}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colSpan={3} className="text-dynamic-white">
-                                    Total
-                                </td>
-                                <td className="text-dynamic-white">{item.currency_symbol} {totalAmount}</td>
-                            </tr>
-                        </tfoot>
-                    </Table>
+                    
+                    <div className="station-order-card-container">
+                        {Object.entries(item.order_items).map(([restaurant, items]) =>
+                            items.map((orders) => (
+                                <StationOrderCards item={orders} restaurant={restaurant} stationId={item.station} />
+                            ))
+                        )}
+                    </div>
                 </Col>
+
             </Row>
             <Row>
-                
+
             </Row>
             <Modal
                 aria-labelledby="contained-modal-title-vcenter"
@@ -181,7 +196,7 @@ const StationOrderDetailsContent = ({ item }) => {
                         <div className="d-flex justify-content-end gap-2">
                             <Button
                                 onClick={() => {
-                                     setShowModal(false);
+                                    setShowModal(false);
                                 }}
                                 className="mt-4"
                                 variant="secondary"

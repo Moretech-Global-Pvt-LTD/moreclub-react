@@ -34,21 +34,6 @@ const OrderDetailsContent = ({item}) => {
     }
   }
 
-  // Sample data, replace with actual data fetching logic
-  // const order = {
-  //   order_id: ord_id,
-  //   ordered_date: "2024-08-04",
-  //   full_name: "John Doe",
-  //   address: "1234 Main St, Anytown, USA",
-  //   order_type: "dine-here",
-  //   order_status: "Delivered",
-  //   items: [
-  //     { name: "Burger", quantity: 2, price: 5.99 },
-  //     { name: "Fries", quantity: 1, price: 2.99 },
-  //     { name: "Soda", quantity: 2, price: 1.5 },
-  //   ],
-  // };
-
   const totalAmount = item.items.reduce(
     (total, item) => total + item.quantity * item.price,
     0
