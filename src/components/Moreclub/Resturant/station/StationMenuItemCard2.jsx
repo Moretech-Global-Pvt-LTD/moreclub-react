@@ -18,6 +18,7 @@ const StationFoodCard = ({
     actual_price,
     discount_percentage,
     ingredient,
+    retailer_price,
     menu
 }) => {
     const { resid, stationid} = useParams();
@@ -56,6 +57,7 @@ const StationFoodCard = ({
     const initialValues = {
         name: name,
         price: price,
+        retailer_price: retailer_price,
         short_description: short_description,
         actual_price: actual_price,
         discount_percentage: discount_percentage,
@@ -63,6 +65,7 @@ const StationFoodCard = ({
         image: logo,
         menu: menu
     };
+    
 
 
     return (
@@ -72,7 +75,8 @@ const StationFoodCard = ({
                     {/* <Link to={`/resturant/${res_id}/${cat_id}/${id}`}> */}
                     <h3 className="food-name">{name}</h3>
                     {/* </Link> */}
-                    <span className="food-price">{currency_Symbol}&nbsp;{price}{" "}
+                    <span className="food-price">{currency_Symbol}&nbsp;{retailer_price}</span>
+                    {/* <span className="food-price">{currency_Symbol}&nbsp;{price}{" "}
                         <>
                             {actual_price !== price && discount_percentage !== 0 && (
                                 <>
@@ -87,7 +91,7 @@ const StationFoodCard = ({
                                     </span>
                                 </>
                             )}
-                        </></span>
+                        </></span> */}
                     <p className="food-description line-clamp-1">{short_description}</p>
                     <p className="food-description"><strong>Menu:</strong> {menu}</p>
                 </div>
