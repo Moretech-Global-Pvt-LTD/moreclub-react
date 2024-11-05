@@ -29570,7 +29570,100 @@ span {
 
 [data-theme="dark"] .station-order-card-price {
    color: #f1f1f1;
+}
+
+
+
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom:10px;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-section {
+  flex: 1 1 100%;
+  max-width: 250px;
+}
+
+.select-section {
+  flex: 1 1 100%;
+  display: flex;
+  gap: 16px;
+}
+
+.date-filter-section {
+  flex: 1 1 100%;
+  display: flex;
+  gap: 8px;
+}
+
+/* Styles for different screen sizes */
+@media (min-width: 1500px) {
+  .filter-form {
+    flex-wrap: nowrap;
   }
+  .filter-item {
+    flex: none;
+  }
+  .search-section {
+    flex-basis: auto;
+  }
+  .select-section, .date-filter-section {
+    flex-basis: auto;
+  }
+}
+
+
+
+
+
+@media (max-width: 768px) {
+  .filter-form {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .search-section, .select-section, .date-filter-section {
+    flex: 1 1 auto;
+  }
+}
+
+/* Styles for active buttons */
+.date-btn.active {
+  background-color: yellow;
+  color: black;
+}
+
+.clear-btn,
+.clear-filters-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+}
+
+.search-btn,
+.date-btn {
+  padding: 4px 12px;
+}
+
+.search-input,
+.order-status-select,
+.order-type-select,
+.date-input {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 
 
 

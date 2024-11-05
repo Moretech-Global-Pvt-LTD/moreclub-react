@@ -112,7 +112,7 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
             .then((response) => {
                 message.success("Menu Updated Successfully")
                 queryClient.invalidateQueries({
-                    queryKey: [`Nearby Station menu ${stationId}`],
+                    queryKey: [`Nearby Station my menu ${stationId}`],
                 });
                 setMenuItem({
                     name: "",

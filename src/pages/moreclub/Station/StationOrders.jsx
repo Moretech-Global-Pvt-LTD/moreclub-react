@@ -2,20 +2,34 @@ import React from 'react'
 import { morefoodURL } from '../../../../config/config';
 import { axiosInstance } from '../../../..';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import DashboardLayout from '../../../../components/Layout/DashboardLayout';
 import { Placeholder, Table } from 'react-bootstrap';
 import Divider from '../../../../components/divider/Divider';
 import StationOrderCard from '../../../../components/Moreclub/Resturant/station/StationOrderCard';
+import FilterComponent from '../../../components/Moreclub/CommonComponents/FilterComponents';
 
 const StationOrder = () => {
-    const {  stationId, slug } = useParams();
+    const { stationId, slug } = useParams();
     const name = slug.replace(/-/g, " ");
+    const location = useLocation();
+
+    const queryParams = new URLSearchParams(location.search);
+    const searchQuery = queryParams.get('q') || '';
+    const filterDate = queryParams.get('date') || '';
+    const orderStatus = queryParams.get('order_status') || '';
+    const orderType = queryParams.get('order_type') || '';
+
+
+    const OrderStatusType = ["Pending", "Cooked", "Delivered", "Cancalled", "Confirmed"]
+    const OrderType = ["dine-here", "packed", "delivery"]
+
+
     const { data, isLoading, isError } = useQuery({
-        queryKey: [`Station order ${stationId}`],
+        queryKey: [`Station order ${stationId}`, searchQuery, filterDate, orderStatus, orderType],
         queryFn: async () => {
             const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/user/station/${stationId}/orders/`
+                `${morefoodURL}moreclub/user/station/${stationId}/orders/?${queryParams.toString()}`
             );
             const data = await response.data.data;
             return data;
@@ -26,7 +40,7 @@ const StationOrder = () => {
     if (isLoading) {
         return (
             <DashboardLayout>
-
+                <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
                 <Table responsive className="bg-white">
                     <thead className="border-bottom-0">
                         <tr className="pricingcard-premium">
@@ -68,7 +82,7 @@ const StationOrder = () => {
 
     if (isError) {
         return <DashboardLayout>
-
+            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
             <Table responsive className="bg-white">
                 <thead className="border-bottom-0">
                     <tr className="pricingcard-premium">
@@ -94,6 +108,7 @@ const StationOrder = () => {
 
     return (
         <DashboardLayout title={`${name} orders`}>
+            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
             <Table responsive className="bg-white">
                 <thead className="border-bottom-0">
                     <tr className="pricingcard-premium">

@@ -17,7 +17,7 @@ const StationOrderCard = ({ item }) => {
                 }
             >
                 <td className="text-dynamic-white">{item.order_id}</td>
-                <td className="text-dynamic-white">{moment.utc(item.ordered_date).local().format('MMM DD YYYY')} {moment.utc(item.ordered_date).local().format("h:mm a")}</td>
+                <td className="text-dynamic-white">{moment.utc(item.arrival_time).local().format('MMM DD YYYY')} {moment.utc(item.arrival_time).local().format("h:mm a")}</td>
                 <td className="text-dynamic-white">
                     {item.full_name}&nbsp;&nbsp;
                     <Badge

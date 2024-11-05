@@ -14,6 +14,7 @@ import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
 import StationOrderCards from "../../../../components/Moreclub/Resturant/station/StationOrderCards";
 import { message } from "antd";
+import moment from "moment";
 
 const StationOrderDetailsContent = ({ item }) => {
     const { ord_id, id, name } = useParams();
@@ -53,7 +54,7 @@ const StationOrderDetailsContent = ({ item }) => {
                                 <strong>Order ID:</strong> {item.order_id}
                             </Col>
                             <Col>
-                                <strong>Ordered Date:</strong> {item.ordered_date}
+                                <strong>Ordered Date:</strong> {moment.utc(item.arrival_time).local().format('MMM DD YYYY')}  {moment.utc(item.arrival_time).local().format("h:mm a")}
                             </Col>
                         </Row>
                         <Row className="mb-3">
@@ -98,9 +99,12 @@ const StationOrderDetailsContent = ({ item }) => {
                                 >
                                     {orderStatus}
                                 </Badge>
+                                {orderStatus !== "Cancalled" && (
+                                    
                                 <Button variant="link" onClick={() => setShowModal(true)}>
                                     <i class="bi bi-pencil-square"></i>
                                 </Button>
+                                )}
                             </Col>
                         </Row>
 
@@ -116,7 +120,7 @@ const StationOrderDetailsContent = ({ item }) => {
                     <div className="station-order-card-container">
                         {Object.entries(item.order_items).map(([restaurant, items]) =>
                             items.map((orders) => (
-                                <StationOrderCards item={orders} restaurant={restaurant} stationId={item.station} />
+                                <StationOrderCards item={orders} restaurant={restaurant} stationId={item.station} orderStatus={orderStatus}/>
                             ))
                         )}
                     </div>

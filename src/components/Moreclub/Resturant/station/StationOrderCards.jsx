@@ -5,7 +5,7 @@ import { morefoodURL } from '../../../../config/config';
 import { message } from 'antd';
 import moment from 'moment';
 
-const StationOrderCards = ({ item, restaurant, stationId }) => {
+const StationOrderCards = ({ item, restaurant, stationId, orderStatus }) => {
 
     const [showResturant, setShowResturant] = useState(false);
     const [received, setReceived] = useState(item.received_item_quantity_restaurant);
@@ -17,7 +17,9 @@ const StationOrderCards = ({ item, restaurant, stationId }) => {
     }
     const viewShowRestaurant = () => {
         if (!item.is_received_from_restaurant) {
-            setShowResturant(true);
+            if (orderStatus !== "Cancalled") { 
+                setShowResturant(true);
+            }
         }
     }
 

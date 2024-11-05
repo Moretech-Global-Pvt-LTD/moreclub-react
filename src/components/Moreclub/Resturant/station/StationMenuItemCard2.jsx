@@ -98,9 +98,7 @@ const StationFoodCard = ({
                 <div className="food-card-image-container bg-secondary">
                     <img src={logo} alt={name} className="food-card-image bg-secondary" />
                     <div className="actionButtons">
-
                         <button className=" bookmark-icon delete-button " onClick={handleDelete}>&#128465;</button>
-
                         <button className=" bookmark-icon edit-button" onClick={() => showAddCategory()}>&#9997;</button>
                     </div>
                 </div>
@@ -119,8 +117,6 @@ const StationFoodCard = ({
                 </Modal.Header>
                 <Modal.Body>
                     <StationMyMenuItemsUpdateForm food_id={foodid} res_id={resid} stationId={stationid} onFinish={hideAddCategory}  data={initialValues}  />
-                   
-
                 </Modal.Body>
             </Modal>
         </>

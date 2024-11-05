@@ -54,6 +54,7 @@ const StationOrderDetailContent = ({ item }) => {
             );
             message.success(`${items.food_item.name} rejected successfully`);
             setRejectedItems((prev) => ({ ...prev, [items.id]: true }));
+            setOrderStatus(res.data.data.station_order_status);
         } catch (err) {
             message.error(`Error rejecting ${items.food_item.name}`);
         } finally {
@@ -136,9 +137,11 @@ const StationOrderDetailContent = ({ item }) => {
                                 >
                                     {orderStatus}
                                 </Badge>
+                                {orderStatus !== "Rejected" && 
                                 <Button variant="link" onClick={() => setShowModal(true)}>
                                     <i class="bi bi-pencil-square"></i>
                                 </Button>
+                                }
                             </Col>
                         </Row>
 

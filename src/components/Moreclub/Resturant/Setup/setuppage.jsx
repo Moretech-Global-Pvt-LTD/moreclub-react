@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
 const Setuppage = ({ data }) => {
@@ -218,6 +217,26 @@ const Setuppage = ({ data }) => {
               </Card.Body>
               <Card.Title className="text-dynamic-white text-center fs-6">
                 Station Orders
+              </Card.Title>
+            </Card>
+          </Col>
+        </Link>
+        <Link
+          to={`/resturant/${id}/station/allOrders/${slug}`}
+          className="d-flex flex-column my-2"
+        >
+          <Col className="d-flex flex-column my-2">
+            <Card className="p-2 flex-grow-1">
+              <Card.Body className="d-flex justify-content-center">
+                <img
+                  src={'/images/moreclub/morefood/StationOrders2.png'}
+                  alt="working"
+                  className="px-2 py-1 rounded "
+                  style={{ height: "5rem", width: "5rem" }}
+                />
+              </Card.Body>
+              <Card.Title className="text-dynamic-white text-center fs-6">
+                Station Orders Summary
               </Card.Title>
             </Card>
           </Col>
