@@ -300,7 +300,7 @@ const HeaderDashboardMenu = () => {
                         &nbsp; More Food
                       </NavLink>
                   </li>
-                  {user.isSuperAdmin && (   
+                  {(user.isSuperAdmin || user.isStationOwner) && (   
                   <li>
                     <NavLink to={"/station"}>
                       <svg

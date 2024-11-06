@@ -7,7 +7,7 @@ import { morefoodURL } from '../../../../config/config';
 import ImageAccept from '../../../../components/Moreclub/Resturant/Gallery/ImageAccept';
 
 const PendingImagelist = () => {
-    const { res_id, cat_id, slug } = useParams();
+    const { res_id } = useParams();
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Resturant Unverified images ${res_id}`],
         queryFn: async () => {

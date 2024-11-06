@@ -14,6 +14,7 @@ const initialState = {
   profileUser: null,
   membershipType: null,
   isSuperAdmin: false,
+  isStationOwner: false,
 };
 export const userRegister = createSlice({
   name: "userRegister",
@@ -86,7 +87,8 @@ export const userRegister = createSlice({
     },
 
     superAdmin: (state, { payload }) => { 
-      state.isSuperAdmin = payload;
+      state.isSuperAdmin = payload.is_superuser;
+      state.isStationOwner = payload.is_station_owner;
     },
 
     setMeta: (state, { payload }) => {

@@ -4,11 +4,10 @@ import { Placeholder } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { axiosInstance } from '../../../..';
 import { morefoodURL } from '../../../../config/config';
-import ImageContainer from '../../../../components/Moreclub/Resturant/Gallery/GalleryImageContainer';
 import ImageAccept from '../../../../components/Moreclub/Resturant/Gallery/ImageAccept';
 
 const AcceptedImagelist = () => {
-    const { res_id, cat_id, slug } = useParams();
+    const { res_id } = useParams();
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Resturant Accepted images Gallery ${res_id}`],
         queryFn: async () => {

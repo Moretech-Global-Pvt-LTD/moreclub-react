@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const StationOrderDetailPage = () => {
     const { ord_id, id, name } = useParams();
-    // const slug = name.replace(/-/g, " ");
+    const slug = name.replace(/-/g, " ");
 
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Resturant Station order detail ${ord_id}`],
@@ -53,7 +53,7 @@ const StationOrderDetailPage = () => {
     }
 
   return (
-      <DashboardLayout><StationOrderDetailContent item={data}/></DashboardLayout>
+      <DashboardLayout title={slug}><StationOrderDetailContent item={data}/></DashboardLayout>
   )
 }
 

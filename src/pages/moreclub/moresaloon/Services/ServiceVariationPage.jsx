@@ -5,12 +5,12 @@ import { axiosInstance } from '../../../..';
 import { useParams } from 'react-router-dom';
 import { moresaloonURL } from '../../../../config/config';
 import { RestaurantItemskeleton } from '../../../../components/Skeleton/SmallCardSkeleton';
-import { Button, Col, Modal, Row } from 'react-bootstrap';
+import { Button, Modal} from 'react-bootstrap';
 import ServiceVariationCard from '../../../../components/Moreclub/Saloon/Service/ServiceVariationCard';
 import ServiceVariationCreationForm from '../../../../components/Moreclub/Saloon/Service/ServiceVariationCreationForm';
 
 const ServiceVariationPage = () => {
-    const { id, ser_id, slug, ser_name } = useParams();
+    const { id, ser_id, ser_name } = useParams();
     const [showForm, setShowForm] = useState(false);
     const service_name = ser_name.replace(/-/g, " ");
     const { data, isLoading, isError } = useQuery({

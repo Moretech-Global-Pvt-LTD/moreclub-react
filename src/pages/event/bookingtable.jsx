@@ -1,6 +1,5 @@
 import React, { useState, createContext } from "react";
-import { Table, Button, Row, Col } from "react-bootstrap";
-import Pagination from "../../components/ui/pagination/pagination";
+import { Table, Button, } from "react-bootstrap";
 import * as XLSX from "xlsx";
 
 import { useDispatch } from "react-redux";

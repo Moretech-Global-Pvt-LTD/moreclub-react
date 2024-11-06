@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import Accordion from "react-bootstrap/Accordion";
 import FAQimage from "../../images/about/expectation.png";
 import { baseURL } from "../../config/config";
 import axios from "axios";
@@ -17,9 +16,7 @@ const FAQContent = () => {
   // const [activeKey, setActiveKey] = useState(null);
   const [showdelete, setShowDelete] = useState(false);
 
-  const handleSelect = () => {
-    setShowDelete(!showdelete);
-  };
+ 
 
   useEffect(() => {
     const fetchFaq = async () => {
@@ -62,7 +59,7 @@ const FAQContent = () => {
 
   async function handleDelete() {
     try {
-      const res = await axiosInstance.post(
+      await axiosInstance.post(
         `${baseURL}auth/delete/user/account/`,
         {
           remark: deletionReason,

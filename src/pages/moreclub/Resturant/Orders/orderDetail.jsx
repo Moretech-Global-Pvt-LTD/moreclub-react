@@ -11,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import OrderDetailsContent from "./OrderDetailContent";
 
 const OrderDetails = () => {
-  const { ord_id, res_id, slug } = useParams();
+  const { ord_id, slug } = useParams();
   const name = slug.replace("-", " ");
 
   const { data, isLoading, isError } = useQuery({
