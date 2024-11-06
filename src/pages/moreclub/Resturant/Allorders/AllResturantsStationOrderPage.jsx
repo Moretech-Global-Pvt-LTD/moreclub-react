@@ -6,23 +6,23 @@ import { axiosInstance } from '../../../..';
 import { useQuery } from '@tanstack/react-query';
 import { morefoodURL } from '../../../../config/config';
 
-const AllOrdersPage = () => {
+const AllResturantsStationOrderPage = () => {
 
-    const { name, id } = useParams();
+    const { name, res_id } = useParams();
     // const slug = name.replace(/-/g, " ");
     // const navigate = useNavigate();
 
 
     const { data, isLoading, isError } = useQuery({
-        queryKey: [`All food orders ${id}`],
+        queryKey: [`All food orders ${res_id}`],
         queryFn: async () => {
             const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${id}/all/orders/`
+                `${morefoodURL}moreclub/station/restro/${res_id}/all/orders/summary/`
             );
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 1000,
     });
 
     if (isLoading) {
@@ -48,7 +48,7 @@ const AllOrdersPage = () => {
 
     if (isError) {
         return (
-            <DashboardLayout title={`${name} All Orders`}  className="text-dynamic-white">
+            <DashboardLayout title={`${name} All Orders`} className="text-dynamic-white">
                 Error: retriving
             </DashboardLayout>
         );
@@ -114,4 +114,4 @@ const AllOrdersPage = () => {
     )
 }
 
-export default AllOrdersPage
+export default AllResturantsStationOrderPage

@@ -1,31 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { morefoodURL } from '../../../../config/config';
 import { axiosInstance } from '../../../..';
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import DashboardLayout from '../../../../components/Layout/DashboardLayout';
-import { Badge, Placeholder, Table } from 'react-bootstrap';
+import { Badge, Placeholder, Table, } from 'react-bootstrap';
 import Divider from '../../../../components/divider/Divider';
 import moment from 'moment';
+import FilterComponent from '../../../../components/Moreclub/CommonComponents/FilterComponents';
 const StationOrderList = () => {
     const { id, name } = useParams();
     const navigate = useNavigate()
+    const location = useLocation();
+
+    // Read the search and date parameters directly from the URL
+    const queryParams = new URLSearchParams(location.search);
+    const searchQuery = queryParams.get('q') || '';
+    const filterDate = queryParams.get('date') || '';
+    const orderStatus = queryParams.get('order_status') || '';
+    const orderType = queryParams.get('order_type') || '';
+
+
+    const OrderStatusType = ["Pending", "Confirmed", "Ready", "Rejected", "Delivered to boy"]
+    const OrderType = ["dine-here", "packed", "delivery"]
+
+
     const { data, isLoading, isError } = useQuery({
-        queryKey: [`Station order ${id}`],
+        queryKey: [`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType],
         queryFn: async () => {
             const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/restro/${id}/all/orders/`
+                `${morefoodURL}moreclub/station/restro/${id}/all/orders/?${queryParams.toString()}`
             );
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 1000,
     });
+
+
 
     if (isLoading) {
         return (
             <DashboardLayout>
-
+                <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
                 <Table responsive className="bg-white">
                     <thead className="border-bottom-0">
                         <tr className="pricingcard-premium">
@@ -66,7 +83,7 @@ const StationOrderList = () => {
 
     if (isError) {
         return <DashboardLayout>
-
+            <FilterComponent />
             <Table responsive className="bg-white">
                 <thead className="border-bottom-0">
                     <tr className="pricingcard-premium">
@@ -92,6 +109,7 @@ const StationOrderList = () => {
 
     return (
         <DashboardLayout title={`${name} orders`}>
+            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
             <Table responsive className="bg-white">
                 <thead className="border-bottom-0">
                     <tr className="pricingcard-premium">
@@ -113,7 +131,7 @@ const StationOrderList = () => {
                             }
                         >
                             <td className="text-dynamic-white">{item.order.order_id}</td>
-                            <td className="text-dynamic-white">{moment.utc(item.order.ordered_date).local().format('MMM DD YYYY')} {moment.utc(item.order.ordered_date).local().format("h:mm a")}</td>
+                            <td className="text-dynamic-white">{moment.utc(item.order.arrival_time).local().format('MMM DD YYYY')} {moment.utc(item.order.arrival_time).local().format("h:mm a")}</td>
                             <td className="text-dynamic-white">
                                 {item.order.full_name}&nbsp;&nbsp;
                                 <Badge
@@ -129,19 +147,21 @@ const StationOrderList = () => {
                             </td>
                             <td className="text-dynamic-white">
                                 <Badge
-                                    className={`fs-5 rounded-pill ${item.order.order_status === "Pending"
+                                    className={`fs-5 rounded-pill ${item.order_status === "Pending"
                                         ? "bg-warning text-black"
-                                        : item.order_status === "Cooked"
+                                        : item.order_status === "Confirmed"
                                             ? "bg-primary"
-                                            : item.order.order_status === "Delivered"
+                                            : item.order_status === "Delivered to boy"
                                                 ? "bg-success"
-                                                : item.order.order_status === "Cancalled"
+                                                : item.order_status === "Rejected"
                                                     ? "bg-danger"
                                                     : "bg-secondary"
+
                                         }
                    `}
                                 >
-                                    {item.order.order_status}
+
+                                    {item.order_status}
                                 </Badge>
                             </td>
 

@@ -79,8 +79,9 @@ const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish }) => {
 
         const data = {
             name: menuItem.name,
-            price: menuItem.price,
-            discount_price: menuItem.offerPrice ?? null,
+            // price: menuItem.price,
+            // discount_price: menuItem.offerPrice ?? null,
+            retailer_price: menuItem.price,
             short_description: menuItem.short_description,
             image: menuItem.image,
             ingredient: menuItem.ingredient,
@@ -98,7 +99,7 @@ const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish }) => {
             .then((response) => {
                 message.success("Menu Added Successfully")
                 queryClient.invalidateQueries({
-                    queryKey: [`Nearby Station menu ${stationId}`],
+                    queryKey: [`Nearby Station my menu ${stationId}`],
                 });
                 setMenuItem({
                     name: "",
@@ -137,7 +138,7 @@ const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish }) => {
                     </Col>
                     <Col>
                         <Form.Group controlId="formItemPrice">
-                            <Form.Label>Item Price</Form.Label>
+                            <Form.Label>Retailer Price</Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Enter item price"
@@ -147,7 +148,7 @@ const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish }) => {
                             />
                         </Form.Group>
                     </Col>
-                    <Col>
+                    {/* <Col>
                         <Form.Group controlId="formItemOfferPrice">
                             <Form.Label>Offer Price <span style={{ fontSize: "11px" }}>(optional)</span></Form.Label>
                             <Form.Control
@@ -159,7 +160,7 @@ const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish }) => {
                             />
                             {offererror && <p className="text-danger" style={{ fontSize: "11px" }}>{offererror}</p>}
                         </Form.Group>
-                    </Col>
+                    </Col> */}
                 </Row>
 
                 <Form.Group className="my-4">

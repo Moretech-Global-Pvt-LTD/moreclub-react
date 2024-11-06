@@ -13,6 +13,7 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
     const [menuItem, setMenuItem] = useState({
         name: data.name,
         price: data.price.toString(),
+        retailer_price: data.retailer_price,
         offerPrice: null,
         short_description: data.short_description,
         menu_id: "",
@@ -23,6 +24,7 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
     const [uiLoading, setUIloading] = useState(false);
     const [cuisineOption, setCuisineOption] = useState([]);
     const [offererror, setOfferError] = useState("");
+    const [defaultMenu_id, setDefaultMenu_id] = useState("");
 
 
     async function getCuisineList() {
@@ -47,10 +49,12 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
     }, [cat_id, res_id])
 
     useEffect(() => {
-        
-        if (cuisineOption.length > 0) { 
+
+        if (cuisineOption.length > 0) {
             const menu_id = cuisineOption.filter((item) => item.name === data.menu)[0]?.id
             setMenuItem({ ...menuItem, menu_id: menu_id });
+            setDefaultMenu_id(menu_id);
+
         }
 
 
@@ -88,8 +92,9 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
 
         const data = {
             name: menuItem.name,
-            price: menuItem.price,
-            discount_price: menuItem.offerPrice ?? null,
+            // price: menuItem.price,
+            // discount_price: menuItem.offerPrice ?? null,
+            retailer_price: menuItem.retailer_price,
             short_description: menuItem.short_description,
             image: menuItem.image,
             ingredient: menuItem.ingredient,
@@ -107,7 +112,7 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
             .then((response) => {
                 message.success("Menu Updated Successfully")
                 queryClient.invalidateQueries({
-                    queryKey: [`Nearby Station menu ${stationId}`],
+                    queryKey: [`Nearby Station my menu ${stationId}`],
                 });
                 setMenuItem({
                     name: "",
@@ -147,6 +152,18 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
                     </Col>
                     <Col>
                         <Form.Group controlId="formItemPrice">
+                            <Form.Label>Retailer Price</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter item price"
+                                name="retailer_price"
+                                value={menuItem.retailer_price}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                    </Col>
+                    {/* <Col>
+                        <Form.Group controlId="formItemPrice">
                             <Form.Label>Item Price</Form.Label>
                             <Form.Control
                                 type="text"
@@ -169,7 +186,7 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
                             />
                             {offererror && <p className="text-danger" style={{ fontSize: "11px" }}>{offererror}</p>}
                         </Form.Group>
-                    </Col>
+                    </Col> */}
                 </Row>
 
                 <Form.Group className="my-4">
@@ -241,11 +258,17 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
                     className="my-3"
                     disabled={
                         loading ||
-                        menuItem.name.trim() === "" ||
-                        menuItem.price.trim() === "" ||
-                        menuItem.short_description.trim() === "" ||
-                        menuItem.image === null ||
-                        offererror !== ""
+                        (
+                            menuItem.name === data.name &&
+                            menuItem.ingredient === data.ingredient &&
+                            menuItem.short_description === data.short_description &&
+                            menuItem.menu_id === defaultMenu_id &&
+                            menuItem.image === null &&
+                            menuItem.retailer_price === data.retailer_price)
+                        // menuItem.price.trim() === "" ||
+                        // menuItem.short_description.trim() === "" 
+                        // menuItem.retailer_price.trim() === ""
+                        // offererror !== ""
                     }
                 >
                     {loading && (

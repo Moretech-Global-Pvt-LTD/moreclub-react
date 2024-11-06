@@ -1,7 +1,8 @@
 import React from 'react'
 import { Badge } from 'react-bootstrap';
 
-import {  useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import moment from 'moment';
 
 const OrderCard = ({ item }) => {
     const {res_id , slug}= useParams()
@@ -16,7 +17,7 @@ const OrderCard = ({ item }) => {
         }
       >
         <td className="text-dynamic-white">{item.order_id}</td>
-        <td className="text-dynamic-white">{item.ordered_date}</td>
+        <td className="text-dynamic-white">{moment.utc(item.arrival_time).local().format('MMM DD YYYY')} {moment.utc(item.arrival_time).local().format("h:mm a")}</td>
         <td className="text-dynamic-white">
           {item.full_name}&nbsp;&nbsp;
           <Badge

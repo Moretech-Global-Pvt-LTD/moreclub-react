@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
+import { message } from "antd";
 
 const OrderDetailsContent = ({item}) => {
   const { ord_id, res_id, slug } = useParams();
@@ -28,8 +29,13 @@ const OrderDetailsContent = ({item}) => {
           order_status: orderStatus,
         }
       );
-      console.log(res);
+
+      message.success('status updated successfully');
+      setOrderStatus(res.data?.data?.order_status);
+      setShowModal(false);
     } catch (err) {
+      message.error('error updating status');
+      setOrderStatus(item.order_status);
       console.log(err);
     }
   }
@@ -86,16 +92,16 @@ const OrderDetailsContent = ({item}) => {
                 <strong>Order Status:</strong>
                 <Badge
                   className={`ml-2 ${
-                    item.order_status === "Pending"
+                    orderStatus === "Pending"
                       ? "bg-warning"
-                      : item.order_status === "Cooked"
+                      : orderStatus === "Cooked"
                       ? "bg-primary"
-                      : item.order_status === "Delivered"
+                      : orderStatus === "Delivered"
                       ? "bg-success"
                       : "bg-danger"
                   }`}
                 >
-                  {item.order_status}
+                  {orderStatus}
                 </Badge>
                 <Button variant="link" onClick={() => setShowModal(true)}>
                   <i class="bi bi-pencil-square"></i>
@@ -125,7 +131,7 @@ const OrderDetailsContent = ({item}) => {
                 <tr key={index}>
                   <td className="text-dynamic-white">{items.food_item.name}</td>
                   <td className="text-dynamic-white">{items.quantity}</td>
-                  <td className="text-dynamic-white">${items.price}</td>
+                  <td className="text-dynamic-white">{items.price}</td>
                   <td className="text-dynamic-white">
                     {" "}
                     ${items.price * items.quantity}
@@ -138,7 +144,7 @@ const OrderDetailsContent = ({item}) => {
                 <td colSpan={3} className="text-dynamic-white">
                   Total
                 </td>
-                <td className="text-dynamic-white">${totalAmount}</td>
+                <td className="text-dynamic-white">{totalAmount}</td>
               </tr>
             </tfoot>
           </Table>

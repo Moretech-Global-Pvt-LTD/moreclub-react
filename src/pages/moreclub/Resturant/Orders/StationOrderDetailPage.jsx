@@ -20,7 +20,7 @@ const StationOrderDetailPage = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 10000,
     });
 
     if (isLoading) {

@@ -102,6 +102,7 @@ const NearbyStationMyMenuPage = () => {
                           currency_Symbol={item.currency_symbol}
                           actual_price={item.actual_price}
                           discount_percentage={item.discount_percentage}
+                          retailer_price={item.retailer_price}
                           menu={item.menu}
                           ingredient={item.ingredient}
                       />
