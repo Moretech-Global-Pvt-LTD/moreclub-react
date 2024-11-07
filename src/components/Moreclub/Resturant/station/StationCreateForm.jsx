@@ -41,7 +41,6 @@ const StationCreateForm = () => {
         user: "",
         short_description: "",
         long_description: "",
-        station_no_of_packed_item: 0,
         station_country: "",
         
         first_name: "",
@@ -50,6 +49,7 @@ const StationCreateForm = () => {
         password: "",
         phone_prefix: "",
         gender: "",
+        country_code: "",
         username: "",
     });
 
@@ -167,14 +167,6 @@ const StationCreateForm = () => {
                 country_code: data.countryCode,
                 country: data.country,
             }));
-            // dispatch(
-            //     updateFormData({
-            //         phone_number: data.fullNumber,
-            //         phone_prefix: data.prefix,
-            //         country_code: data.countryCode,
-            //         country: data.country,
-            //     })
-            // );
             handlePhoneCheck(data.fullNumber);
         }
 
@@ -402,8 +394,10 @@ const StationCreateForm = () => {
                 password: formValues.password,
                 prefix_code: formValues.phone_prefix,
                 gender: formValues.gender,
+                moreclub_country_code: formValues.country_code,
+                moreclub_country_name: formValues.country,
                 username: formValues.username,
-                station_no_of_packed_item: formValues.station_no_of_packed_item
+               
             }
 
 
@@ -417,19 +411,18 @@ const StationCreateForm = () => {
                         },
                     }
                 );
-                message.success("Resturant created");
+                message.success("Station created");
                 const slug = res.data.data.name.replace(/ /g, "-");
                 navigate(`/station/${res.data.data.id}/${slug}`);
             } catch (err) {
                 console.log(err);
-                message.error("Error Creating Resturant");
+                message.error("Error Creating Station");
             } finally {
                 setIsLoading(false);
             }
         } else {
             message.error("Please Provide the valid information")
         }
-
     };
 
     return (
@@ -622,23 +615,7 @@ const StationCreateForm = () => {
                                 {/* <Col xs={12} md={6} lg={6} xl={6} >
                                     
                                 </Col> */}
-                                <Col xs={12} md={6} lg={6} xl={6} className="">
-                                    <Row>
-                                    <Col xs={4}>
-                                    <Form.Group controlId="formContactname">
-                                        <Form.Label>Max Packages</Form.Label>
-                                        <Form.Control
-                                            type="number"
-                                            name="station_no_of_packed_item"
-                                            placeholder={"50"}
-                                            value={formValues.station_no_of_packed_item}
-                                            onChange={handleChange}
-                                        />
-                                        <p className="text-danger">{errors.station_no_of_packed_item}</p>
-                                    </Form.Group>
-                                    </Col>
-                                    <Col xs={8} >
-                                        
+                                <Col xs={12} md={6} lg={6} xl={6} className=""> 
                                     <Form.Group controlId="formmin_order ">
                                         <Form.Label>Country</Form.Label>
                                         <Form.Control
@@ -657,10 +634,7 @@ const StationCreateForm = () => {
                                             ))}
                                         </Form.Control>
                                         <p className="text-danger">{errors.country}</p>
-                                    </Form.Group>
-                                    </Col>
-
-                                    </Row>
+                                    </Form.Group>                                    
                                 </Col>
 
 

@@ -87,6 +87,13 @@ export const validateInstagramURL = (url) => {
   return "";
 };
 
+export const ValidationStationNoofPackedItem = (value) => {
+  if (!value) return ""; // Optional field, so no error if empty
+  
+  if (parseInt(value) <= 0) return "Invalid number";
+  return "";
+};
+
 export const validateFeatureType = (value) => {
   if (!value) {
     return "Feature Type is required.";

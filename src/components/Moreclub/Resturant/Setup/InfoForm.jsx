@@ -4,7 +4,7 @@ import axios from "axios";
 import { morefoodURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
 import { message } from "antd";
-import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry, validateCuisineType, validateEmail, validateFacebookURL, validateFeatureType, validateInstagramURL, Validatelogo, validateLongDescription, validateMeal, validateMin_order, validatePriceRange, validateProperties, validateResturantName, validateWebsiteURL } from "../../../../validation/resturantValidation";
+import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry, validateCuisineType, validateEmail, validateFacebookURL, validateFeatureType, validateInstagramURL, Validatelogo, validateLongDescription, validateMeal, validateMin_order, validatePriceRange, validateProperties, validateResturantName, validateWebsiteURL, ValidationStationNoofPackedItem } from "../../../../validation/resturantValidation";
 import { useNavigate } from "react-router-dom";
 import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
 import { useSelector } from "react-redux";
@@ -43,6 +43,7 @@ const InfoForm = () => {
     website_link: "",
     facebook_link: "",
     instagram_link: "",
+    station_no_of_packed_item: 0
   });
 
 
@@ -99,6 +100,8 @@ const InfoForm = () => {
       tempErrors.contact_no = validateContactNumber(fieldValues.contact_no);
     if ("email" in fieldValues)
       tempErrors.email = validateEmail(fieldValues.email);
+    if ("station_no_of_packed_item" in fieldValues)
+      tempErrors.station_no_of_packed_item = ValidationStationNoofPackedItem(fieldValues.station_no_of_packed_item);
     setErrors({ ...tempErrors });
   };
 
@@ -130,6 +133,8 @@ const InfoForm = () => {
         return Validatebanner(value);
       case "logo":
         return Validatelogo(value);
+      case "station_no_of_packed_item":
+        return ValidationStationNoofPackedItem(value);
       default:
         return "";
     }
@@ -356,7 +361,7 @@ const InfoForm = () => {
                     <p className="text-danger">{errors.country}</p>
                   </Form.Group>
                 </Col>
-                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                <Col xs={6} md={3} lg={3} xl={3} xxl={2}>
                   <Form.Group>
                     <Form.Label>Minimum Order</Form.Label>
                     <InputGroup className="">
@@ -370,6 +375,19 @@ const InfoForm = () => {
                       />
                     </InputGroup>
                     <p className="text-danger">{errors.min_order}</p>
+                  </Form.Group>
+                </Col>
+                <Col xs={6} md={3} lg={3} xl={3} xxl={2}>
+                  <Form.Group controlId="formRestaurantName">
+                    <Form.Label>Max Station Package</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="station_no_of_packed_item"
+                      placeholder={"50"}
+                      value={formValues.station_no_of_packed_item}
+                      onChange={handleChange}
+                    />
+                    <p className="text-danger">{errors.station_no_of_packed_item}</p>
                   </Form.Group>
                 </Col>
                 <Col xs={12} md={6} lg={6} xl={6} xxl={4}>

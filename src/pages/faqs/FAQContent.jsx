@@ -66,6 +66,7 @@ const FAQContent = () => {
         }
       );
       message.error("account deleted Successfully");
+      window.location.replace("/login");
     } catch (err) {
       message.error(err.response?.data?.errors?.non_fields_error[0]);
     }

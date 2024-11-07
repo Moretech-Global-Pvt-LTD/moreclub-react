@@ -28,7 +28,7 @@ const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish }) => {
     async function getCuisineList() {
         try {
             const res = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${stationId}/menu/`, {
+                `${morefoodURL}moreclub/station/restro/${stationId}/by/restaurant/menu/`, {
                 headers: {
                     'x-country-code': Cookies.get("countryCode"),
                 }

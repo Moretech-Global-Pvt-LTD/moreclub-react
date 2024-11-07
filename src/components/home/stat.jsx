@@ -33,7 +33,7 @@ export default function Stat() {
                 ref={iframeRef}
                 id="ytplayer"
                 type="text/html"
-                src="https://www.youtube.com/embed/QagusmnC0Fs?si=v9MmeW8Nv85wzoRm?autoplay=1&loop=1&controls=0&showinfo=0&modestbranding=0&rel=0"
+                src="https://www.youtube.com/embed/pZ5rVUQGiy4?si=pIqh530XA2HtHLnm?autoplay=1&loop=1&controls=0&showinfo=0&modestbranding=0&rel=0"
                 title="Membersclub - Save and Make Money with More Deals Club"
                 frameborder="0"
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

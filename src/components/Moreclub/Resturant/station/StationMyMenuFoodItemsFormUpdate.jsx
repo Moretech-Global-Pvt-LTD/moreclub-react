@@ -132,7 +132,6 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
             });
     };
 
-    console.log(food_id)
 
     return (
         <div className="p-3">

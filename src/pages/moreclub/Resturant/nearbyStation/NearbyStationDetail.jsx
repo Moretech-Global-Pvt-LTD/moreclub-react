@@ -16,7 +16,7 @@ const NearbyStationDetail = () => {
         queryKey: [`Station detail ${resid}`],
         queryFn: async () => {
             const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${stationid}/`
+                `${morefoodURL}moreclub/station/restro/${stationid}/by/restaurant/`
             );
             const data = await response.data.data;
             return data;

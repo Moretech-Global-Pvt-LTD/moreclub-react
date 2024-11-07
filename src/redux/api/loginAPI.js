@@ -83,7 +83,6 @@ export const login = (username, password ,next) => async (dispatch) => {
 export const isSuperAdmin =()=> async (dispatch) => {
   try {
     const res = await axiosInstance.get(`${morefoodURL}permissions/station/owner/superuser/`);
-    console.log("permission",res)
     await dispatch(superAdmin(res.data.data));
   } catch (err) {
     if(err.response.status === 401) {
