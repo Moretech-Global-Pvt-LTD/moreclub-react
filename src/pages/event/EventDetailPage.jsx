@@ -1,6 +1,6 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, {  useState } from "react";
 import {
-  Container,
+ 
   Row,
   Col,
   Carousel,
@@ -10,7 +10,7 @@ import {
   Modal,
 } from "react-bootstrap";
 import LandingLayout from "../../components/Layout/LandingLayout";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../../config/config";
@@ -28,9 +28,9 @@ import MapboxComponent from "../../components/Googlemap/MapboxComponent";
 const EventDetailPage = () => {
   const { eventId } = useParams();
   const [showDetails, setShowDetails] = useState();
-  const currencyData = useSelector(
-    (state) => state.currencyReducer.currencyDetail
-  );
+  // const currencyData = useSelector(
+  //   (state) => state.currencyReducer.currencyDetail
+  // );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState("");
@@ -42,7 +42,7 @@ const EventDetailPage = () => {
   const fetchEventData = async () => {
     try {
       // Attempt to fetch both business and user data
-      const [events, userResponse, membership] = await Promise.allSettled([
+      const [events, userResponse] = await Promise.allSettled([
         axios.get(`${baseURL}events/detail/${eventId}`),
         axiosInstance.get(`${baseURL}events/check-book/${eventId}/`),
       ]);

@@ -256,9 +256,9 @@ const FilterComponent = ({ OrderStatusTypes, OrderTypes }) => {
           }}
           customInput={<Form.Control type="text" className="date-input"  placeholder="Select date" />}
         />
-        <button type="button" onClick={clearFilters} className="clear-filters-btn">
+        <Button type="button" variant='danger' onClick={clearFilters} className="clear-filters-btn">
           Clear
-        </button>
+        </Button>
       </div>
     </Form>
     );

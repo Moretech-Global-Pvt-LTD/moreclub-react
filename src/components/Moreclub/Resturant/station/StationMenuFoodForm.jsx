@@ -6,9 +6,11 @@ const StationMenuFoodForm = ({ ButtonText, initialData, onSubmit, onCancel , onF
     const [menuItem, setMenuItem] = useState({
         name: "",
         price: "",
+        retailer_price: "",
         offerPrice: "",
         short_description: "",
         image: null,
+        isActive: false,
         ingredient: ""
     });
     const [imageUrl, setImageUrl] = useState("");
@@ -20,8 +22,10 @@ const StationMenuFoodForm = ({ ButtonText, initialData, onSubmit, onCancel , onF
             setMenuItem({
                 name: initialData?.name || "",
                 price: initialData?.price || "",
+                retailer_price:initialData?.retailer_price || "",
                 offerPrice: initialData?.actual_price || "",
                 short_description: initialData?.short_description || "",
+                isActive: initialData?.isActive || false,
                 image: null,
                 ingredient: initialData?.ingredient || ""
             });
@@ -30,7 +34,7 @@ const StationMenuFoodForm = ({ ButtonText, initialData, onSubmit, onCancel , onF
     }, [initialData]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value , type , checked} = e.target;
 
         if (name === "offerPrice") {
             if (value === "") {
@@ -44,7 +48,11 @@ const StationMenuFoodForm = ({ ButtonText, initialData, onSubmit, onCancel , onF
                 setOfferError("Must be less than price");
             }
         } else {
-            setMenuItem({ ...menuItem, [name]: value });
+            setMenuItem((prevMenuItem) => ({
+                ...prevMenuItem,
+                [name]: type === "checkbox" ? checked : value,
+            }));
+            // setMenuItem({ ...menuItem, [name]: value });
         }
     };
 
@@ -91,6 +99,20 @@ const StationMenuFoodForm = ({ ButtonText, initialData, onSubmit, onCancel , onF
                         </Form.Group>
                     </Col>
                     <Col>
+                        <Form.Group controlId="formItemName">
+                            <Form.Label>Retailer Price</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter retailer price"
+                                name="retailer_price"
+                                readOnly
+                                disabled
+                                value={menuItem.retailer_price}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col>
                         <Form.Group controlId="formItemPrice">
                             <Form.Label>Item Price</Form.Label>
                             <Form.Control
@@ -113,6 +135,26 @@ const StationMenuFoodForm = ({ ButtonText, initialData, onSubmit, onCancel , onF
                                 onChange={handleChange}
                             />
                             {offererror && <p className="text-danger" style={{ fontSize: "11px" }}>{offererror}</p>}
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group controlId="formItemOfferPrice">
+                            
+                            <Form.Label>Active </Form.Label>
+                            <input
+                                type="checkbox"
+                                name="isActive"
+                                checked={menuItem.isActive}
+                                onChange={handleChange}
+                                className="ms-2"
+                            />
+                            {/* <Form.Control
+                                type=""
+                                placeholder="Enter offer price"
+                                name="offerPrice"
+                                value={menuItem.offerPrice}
+                                onChange={handleChange}
+                            /> */}
                         </Form.Group>
                     </Col>
                 </Row>

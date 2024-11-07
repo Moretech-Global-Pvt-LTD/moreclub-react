@@ -89,7 +89,7 @@ const StationMenuItems = () => {
 
     return (
         <StationLayout title={`${slug} ${menu}`}>
-            <div className="d-flex align-items-center justify-content-end my-2">
+            {/* <div className="d-flex align-items-center justify-content-end my-2">
 
                 {showForm ? (
                     <Button variant="danger" onClick={() => hideAddCategory()}>
@@ -100,7 +100,7 @@ const StationMenuItems = () => {
                         Add Station Menu
                     </Button>
                 )}
-            </div>
+            </div> */}
 
             <Modal
                 aria-labelledby="contained-modal-title-vcenter"
@@ -135,6 +135,8 @@ const StationMenuItems = () => {
                             foodid={item.id}
                             logo={item.image}
                             name={item.name}
+                            isActive={item.is_active}
+                            retailer_price={item.retailer_price}
                             price={item.item_price}
                             short_description={item.short_description}
                             currency_Symbol={item.currency_symbol}

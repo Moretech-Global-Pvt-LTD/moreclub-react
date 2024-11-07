@@ -54,7 +54,7 @@ const ResturantOrder = () => {
                    <th className="text-white">Location</th>
 
                    <th className="text-white text-center">Order Status</th>
-                   <th className="text-white text-center">Action</th>
+                   
                    {/* )} */}
                  </tr>
                </thead>
@@ -96,7 +96,7 @@ const ResturantOrder = () => {
                <th className="text-white">Location</th>
 
                <th className="text-white text-center">Order Status</th>
-               <th className="text-white text-center">Action</th>
+               
                {/* )} */}
              </tr>
            </thead>
@@ -120,7 +120,7 @@ const ResturantOrder = () => {
             <th className="text-white">Location</th>
 
             <th className="text-white text-center">Order Status</th>
-            <th className="text-white text-center">Action</th>
+            
             {/* )} */}
           </tr>
           {data && data.length > 0 && data.map((row) => (

@@ -1,21 +1,6 @@
-// import React from 'react'
-// import FeedCard from '../../components/feed/FeedCard'
-
-
-// const FeedContent = () => {
-//   return (
-//     <div>
-//         <FeedCard/>
-//     </div>
-//   )
-// }
-
-// export default FeedContent
-
 import React, { useRef, useCallback } from 'react';
 import FeedCard from '../../components/feed/FeedCard';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../..';
 import axios from 'axios';
 import { baseURL } from '../../config/config';
 import FeedCardSkeleton from '../../components/Skeleton/feedCardSkeleton';

@@ -13,11 +13,13 @@ const StationFoodCard = ({
     logo,
     name,
     price,
+    retailer_price,
     short_description,
     currency_Symbol,
     actual_price,
     discount_percentage,
-    ingredient
+    ingredient,
+    isActive
 }) => {
     const { id, menu_id,  } = useParams();
     const queryClient = useQueryClient();
@@ -57,14 +59,15 @@ const StationFoodCard = ({
         const formDatas = {
             name: datas.name,
             price: datas.price,
-            offerPrice: datas.offerPrice,
+            retailer_price: datas.retailer_price,
+            discount_price: datas.offerPrice,
             short_description: datas.short_description,
             ingredient: datas.ingredient,
+            is_active: datas.isActive,
             ...(datas.image && { image: datas.image })
         }
 
         
-
         try {
             const response = await axiosInstance.patch(
                 `${morefoodURL}moreclub/station/${id}/${menu_id}/${foodid}/food-items/`,
@@ -89,11 +92,13 @@ const StationFoodCard = ({
     const initialValues = {
         name: name,
         price: price,
+        retailer_price: retailer_price,
         short_description: short_description,
         actual_price: actual_price,
         discount_percentage: discount_percentage,
         ingredient: ingredient,
-        image: logo
+        image: logo,
+        isActive: isActive
     };
 
 

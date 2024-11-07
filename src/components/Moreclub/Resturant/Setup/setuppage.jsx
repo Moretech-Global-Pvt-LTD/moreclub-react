@@ -118,9 +118,6 @@ const Setuppage = ({ data }) => {
             </Card>
           </Col>
         </Link>
-        
-        
-        
         <Link
           to={`/resturant/${id}/orders/${slug}`}
           className="d-flex flex-column my-2 "
@@ -229,7 +226,7 @@ const Setuppage = ({ data }) => {
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
-                  src={'/images/moreclub/morefood/StationOrders2.png'}
+                  src={'/images/moreclub/morefood/stationOrders.png'}
                   alt="working"
                   className="px-2 py-1 rounded "
                   style={{ height: "5rem", width: "5rem" }}

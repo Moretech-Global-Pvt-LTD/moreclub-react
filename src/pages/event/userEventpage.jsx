@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
-import { Button, Col, Placeholder, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import UserEventCard from "../../components/cards/userEventcard";
 import { Link, useLocation } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";

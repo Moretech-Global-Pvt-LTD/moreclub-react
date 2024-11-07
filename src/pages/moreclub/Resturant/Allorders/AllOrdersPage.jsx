@@ -1,7 +1,7 @@
 import React from 'react'
 import DashboardLayout from '../../../../components/Layout/DashboardLayout'
-import { useNavigate, useParams } from 'react-router-dom';
-import { Badge, Col, Placeholder, Row, Table } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import {Col, Placeholder, Row, Table } from 'react-bootstrap';
 import { axiosInstance } from '../../../..';
 import { useQuery } from '@tanstack/react-query';
 import { morefoodURL } from '../../../../config/config';

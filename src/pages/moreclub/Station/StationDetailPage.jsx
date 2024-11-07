@@ -21,7 +21,7 @@ const StationDetailPage = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 10000,
+        staleTime: 300000,
     });
 
     if (isLoading) {

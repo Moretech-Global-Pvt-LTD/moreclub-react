@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseURL } from "../../config/config";
+import { baseURL, morefoodURL } from "../../config/config";
 import { axiosInstance } from "../../index";
 import {
   setLoading,
@@ -82,8 +82,9 @@ export const login = (username, password ,next) => async (dispatch) => {
 
 export const isSuperAdmin =()=> async (dispatch) => {
   try {
-    const res = await axiosInstance.get(`${baseURL}permissions/superuser/`);
-    await dispatch(superAdmin(res.data.data.is_superuser));
+    const res = await axiosInstance.get(`${morefoodURL}permissions/station/owner/superuser/`);
+    console.log("permission",res)
+    await dispatch(superAdmin(res.data.data));
   } catch (err) {
     if(err.response.status === 401) {
       await dispatch(superAdmin(false));

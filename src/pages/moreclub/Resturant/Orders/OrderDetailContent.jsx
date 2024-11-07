@@ -15,7 +15,7 @@ import { morefoodURL } from "../../../../config/config";
 import { message } from "antd";
 
 const OrderDetailsContent = ({item}) => {
-  const { ord_id, res_id, slug } = useParams();
+  const { ord_id, res_id,  } = useParams();
   
   const [orderStatus, setOrderStatus] = useState(item.order_status);
   const [showModal, setShowModal] = useState(false);
@@ -131,10 +131,10 @@ const OrderDetailsContent = ({item}) => {
                 <tr key={index}>
                   <td className="text-dynamic-white">{items.food_item.name}</td>
                   <td className="text-dynamic-white">{items.quantity}</td>
-                  <td className="text-dynamic-white">{items.price}</td>
+                  <td className="text-dynamic-white">{item.currency_symbol} {items.price}</td>
                   <td className="text-dynamic-white">
                     {" "}
-                    ${items.price * items.quantity}
+                    {item.currency_symbol} {items.price * items.quantity}
                   </td>
                 </tr>
               ))}
@@ -144,7 +144,7 @@ const OrderDetailsContent = ({item}) => {
                 <td colSpan={3} className="text-dynamic-white">
                   Total
                 </td>
-                <td className="text-dynamic-white">{totalAmount}</td>
+                <td className="text-dynamic-white">{item.currency_symbol} {totalAmount}</td>
               </tr>
             </tfoot>
           </Table>

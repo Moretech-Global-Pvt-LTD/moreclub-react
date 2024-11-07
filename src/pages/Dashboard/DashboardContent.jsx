@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
 
-import { Button, Card, Col, Row } from "react-bootstrap";
-import Chart from "../../components/dashboard/chart";
+import { Button, Col, Row } from "react-bootstrap";
+// import Chart from "../../components/dashboard/chart";
 import QuickLinks from "../../components/dashboard/quickLinks";
-import Topcards from "../../components/dashboard/topcards";
-import AlertNotification from "../../components/alert_notification/AlertNotification";
+// import Topcards from "../../components/dashboard/topcards";
+// import AlertNotification from "../../components/alert_notification/AlertNotification";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import { get_transaction } from "../../redux/api/transactionAPI";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useQuery } from "@tanstack/react-query";
-import UserChart from "../../components/dashboard/ChartUser";
-import RefrealChart from "../../components/dashboard/RefrealChart";
+// import UserChart from "../../components/dashboard/ChartUser";
+// import RefrealChart from "../../components/dashboard/RefrealChart";
 import Walletlinks from "../../components/dashboard/Walletlinks";
 import { setMembershipType } from "../../redux/slices/userSlice";
 import { Link } from "react-router-dom";
-import Blackqr from "../../images/Qr/qrblack.png";
-import Whiteqr from "../../images/Qr/qrwhite.png";
+// import Blackqr from "../../images/Qr/qrblack.png";
+// import Whiteqr from "../../images/Qr/qrwhite.png";
 import EventDashboardDisplay from "../../components/event/EventDashboardDisplay";
 import PopularResturant from "../../components/Moreclub/morefood/PopularResturant";
 import BusinessTypes from "../../components/dashboard/BusinessTypes";
@@ -25,7 +25,7 @@ import { DashboardSkeleton } from "../../components/Skeleton/DashboardLayout";
 import PopularSaloon from "../../components/Moreclub/Saloon/PopularSaloon";
 
 const DashboardContent = () => {
-  const user = useSelector((state) => state.userReducer);
+  // const user = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {

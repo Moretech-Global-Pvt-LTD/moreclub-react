@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { baseURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Card, Placeholder } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
 import PricingSkeleton from "../../components/Skeleton/PricingSkeleton";
 

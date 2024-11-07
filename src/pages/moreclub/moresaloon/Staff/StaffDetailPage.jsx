@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Saloonlayout from '../setup/Saloonlayout'
 import { useParams } from 'react-router-dom';
-import { Button, Col, Placeholder, Row } from 'react-bootstrap';
+import { Col, Placeholder, Row } from 'react-bootstrap';
 
 import WorkingdaysContent from './WorkingdaysContent';
 import StaffBookingCalendar from '../../../../components/Moreclub/Saloon/Staff/StaffBookingCalendar';
@@ -108,7 +108,7 @@ export const myEventsList = [
 ]
 
 const StaffDetailPage = () => {
-    const { id, slug, staff_id, staff_name } = useParams();
+    const { id, staff_id, staff_name } = useParams();
 
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Saloon staff appointments ${id} ${staff_id}`],

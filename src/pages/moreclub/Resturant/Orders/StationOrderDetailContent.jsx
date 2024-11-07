@@ -160,7 +160,10 @@ const StationOrderDetailContent = ({ item }) => {
                                 <th className="text-dynamic-white">Quantity</th>
                                 <th className="text-dynamic-white">Price</th>
                                 <th className="text-dynamic-white">Total</th>
-                                <th className="text-dynamic-white">Action</th>
+                                
+                                {orderStatus === "Pending" &&
+                                    <th className="text-dynamic-white">Action</th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -168,17 +171,19 @@ const StationOrderDetailContent = ({ item }) => {
                                 <tr key={index} className={`${rejectedItems[items.id] ? "bg-secondary":""}`}>
                                     <td className="text-dynamic-white">{items.food_item.name}</td>
                                     <td className="text-dynamic-white">{items.quantity}</td>
-                                    <td className="text-dynamic-white">{items.price}</td>
+                                    <td className="text-dynamic-white">{items.food_item.currency_symbol} {items.price}</td>
                                     <td className="text-dynamic-white">
                                         {" "}
-                                        {items.price * items.quantity}
+                                        {items.food_item.currency_symbol} {items.price * items.quantity}
                                     </td>
+                                    {orderStatus === "Pending" &&
                                     <td className="text-dynamic-white">
                                         <Button size='sm' variant={rejectedItems[items.id] ? "danger" : "success"}
                                             disabled={rejectedItems[items.id] || rejectloading} onClick={() => handleReject(items)}>
                                             {rejectloading && <span className='spinner-border spinner-border-sm'></span>} Reject
                                         </Button>
                                     </td>
+                                    }
                                 </tr>
                             ))}
                         </tbody>
@@ -187,7 +192,7 @@ const StationOrderDetailContent = ({ item }) => {
                                 <td colSpan={3} className="text-dynamic-white">
                                     Total
                                 </td>
-                                <td className="text-dynamic-white">{item.total_price}</td>
+                                <td className="text-dynamic-white">{item.order_items[0].food_item.currency_symbol} {item.total_price}</td>
                             </tr>
                         </tfoot>
                     </Table>

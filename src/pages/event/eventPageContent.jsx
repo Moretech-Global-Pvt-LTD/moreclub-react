@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EventCard from "../../components/cards/Eventcard";
-import { Button, Col, Form, Placeholder, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";

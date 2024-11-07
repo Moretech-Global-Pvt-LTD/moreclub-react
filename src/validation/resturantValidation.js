@@ -68,24 +68,21 @@ export const Validatelogo = (logo) => {
 
 export const validateFacebookURL = (url) => {
   if (!url) return ""; // Optional field, so no error if empty
-  const facebookRegex =
-    /^(https?:\/\/)?(www\.)?facebook\.com\/[A-Za-z0-9\.\-_]+\/?$/;
+  const facebookRegex = /^(https?:\/\/)?(www\.)?facebook\.com\/[A-Za-z0-9.\-_]+\/?$/;
   if (!facebookRegex.test(url)) return "Invalid Facebook URL";
   return "";
 };
 
 export const validateWebsiteURL = (url) => {
   if (!url) return ""; // Optional field, so no error if empty
-  const websiteRegex =
-    /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+  const websiteRegex =    /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
   if (!websiteRegex.test(url)) return "Invalid Website URL";
   return "";
 };
 
 export const validateInstagramURL = (url) => {
   if (!url) return ""; // Optional field, so no error if empty
-  const instagramRegex =
-    /^(https?:\/\/)?(www\.)?instagram\.com\/[A-Za-z0-9\._-]+\/?$/;
+  const instagramRegex =/^(https?:\/\/)?(www\.)?instagram\.com\/[A-Za-z0-9._-]+\/?$/;
   if (!instagramRegex.test(url)) return "Invalid Instagram URL";
   return "";
 };

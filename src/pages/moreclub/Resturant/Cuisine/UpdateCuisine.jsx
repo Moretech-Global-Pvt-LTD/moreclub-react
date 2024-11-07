@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Col, Placeholder, Row } from "react-bootstrap";
+import React from "react";
+import { Col, Placeholder, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../..";
@@ -10,7 +10,7 @@ import UpdateCuisineForm from "../../../../components/Moreclub/Resturant/Cuisine
 import Divider from "../../../../components/divider/Divider";
 
 const UpdateCuisineItem = () => {
-  const { res_id, cuisine_id, slug , rest_name } = useParams();
+  const { res_id, cuisine_id } = useParams();
 
 
   const { data, isLoading, isError } = useQuery({

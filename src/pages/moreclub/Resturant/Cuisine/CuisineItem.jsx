@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Col, Placeholder, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../..";

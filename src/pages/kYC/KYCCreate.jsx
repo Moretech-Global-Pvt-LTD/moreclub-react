@@ -30,7 +30,7 @@ const KYCFrom = () => {
     }
   };
 
-  const { data, isLoading, isError, refetch } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["kycStatus"],
     queryFn: fetchDashboardData,
     staleTime: 100,
