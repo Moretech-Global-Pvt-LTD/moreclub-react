@@ -1,12 +1,24 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Placeholder } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, Placeholder } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { isSuperAdmin } from "../../redux/api/loginAPI";
 
 
 const HeaderUserInfo = () => {
   const user = useSelector((state) => state.userReducer);
   const business = useSelector((state) => state.businessReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      await dispatch(isSuperAdmin());
+    };
+
+    fetchUser();
+
+  }, [dispatch]);
+
 
   function capitalizeFirstLetterOfEachWord(str) {
     return str
@@ -63,7 +75,9 @@ const HeaderUserInfo = () => {
             </div>
           </div>
         ) : (
+            
           <div className="d-flex align-items-center">
+           
             {!business.businessProfile?.business_logo ? (
               <div
                 className="partner-logo-wrapper ms-0 me-0 d-flex justify-content-center align-items-center text-uppercase"
@@ -74,11 +88,10 @@ const HeaderUserInfo = () => {
                   backgroundColor: "#fff",
                 }}
               >
-                {`${
-                  !!business?.businessProfile?.business_name
+                {`${!!business?.businessProfile?.business_name
                     ? business?.businessProfile?.business_name[0]
-                    : ""
-                }`}
+                    : user.user?.first_name[0] 
+                  }`}
               </div>
             ) : (
               <img
@@ -94,14 +107,28 @@ const HeaderUserInfo = () => {
               />
             )}
 
+              
             <div className="ms-3">
-              <Link to="/business-profile">
-                <h6 className="lh-1 text-dark fz-18 line-clamp-1 ">
-                  {capitalizeFirstLetterOfEachWord(
-                    `${business?.businessProfile?.business_name ?? ""}`
-                  )}
-                </h6>
-              </Link>
+                {business?.businessProfile?.business_name ?
+                  <Link to="/business-profile">
+                    <h6 className="lh-1 text-dark fz-18 line-clamp-1 ">
+                      {capitalizeFirstLetterOfEachWord(
+                        `${business?.businessProfile?.business_name ?? ""}`
+                      )}
+                    </h6>
+                  </Link> :
+                  <Button className="btn btn-warning btn-sm">
+                    Add Business Info
+                  </Button>
+                  // <Link to="/profile">
+                  //   <h6 className="lh-1 text-dark fz-18">
+                  //     {capitalizeFirstLetterOfEachWord(
+                  //       `${user.user?.first_name} ${user.user?.last_name ?? ""}`
+                  //     )}
+                  //   </h6>
+                  // </Link>
+              }
+                
               <Link to="/pricing">
                 <span className="badge bg-primary fz-12">
                   {`${user?.membershipType?.membership_type?.name ?? ""}`}

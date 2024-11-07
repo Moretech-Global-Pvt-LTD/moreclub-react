@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 import ScrollToTop from "react-scroll-to-top";
-import { load_user, logout } from "./redux/api/loginAPI";
+import { isSuperAdmin, load_user, logout } from "./redux/api/loginAPI";
 import Home from "./pages/Home/Home";
 import ProjectDetail from "./pages/Project/ProjectDetail";
 import ProjectPage from "./pages/Project/ProjectPage";

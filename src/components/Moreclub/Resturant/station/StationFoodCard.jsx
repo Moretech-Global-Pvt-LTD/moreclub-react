@@ -91,10 +91,10 @@ const StationFoodCard = ({
 
     const initialValues = {
         name: name,
-        price: price,
+        price: actual_price ? actual_price : price,
         retailer_price: retailer_price,
         short_description: short_description,
-        actual_price: actual_price,
+        actual_price: actual_price ? price : actual_price,
         discount_percentage: discount_percentage,
         ingredient: ingredient,
         image: logo,

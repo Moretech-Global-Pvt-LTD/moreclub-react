@@ -111,7 +111,7 @@ const AddCuisineForm = ({onFinish}) => {
                 </Form.Group>
 
                 <Button variant="success" type="submit" className="my-3">
-                    Add Cuisine
+                   {loading && <span className="spinner-border spinner-border-sm"></span>} Add Cuisine
                 </Button>
             </Form>
         </Card>
