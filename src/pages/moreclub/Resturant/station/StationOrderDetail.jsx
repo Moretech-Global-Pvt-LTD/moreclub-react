@@ -42,6 +42,7 @@ const StationOrderDetailsContent = ({ item }) => {
         }
     }
 
+    const nonEditableStatuses = ["Delivered", "Cancelled"];
 
     return (
         <div className="pe-4">
@@ -99,7 +100,7 @@ const StationOrderDetailsContent = ({ item }) => {
                                 >
                                     {orderStatus}
                                 </Badge>
-                                {orderStatus !== "Cancalled" && (
+                                {!nonEditableStatuses.includes(orderStatus) && (
                                     
                                 <Button variant="link" onClick={() => setShowModal(true)}>
                                     <i class="bi bi-pencil-square"></i>
@@ -139,13 +140,13 @@ const StationOrderDetailsContent = ({ item }) => {
             >
                 <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter text-center text-dynamic-white">
-                        Update Order Status
+                        <h4 className="fw-bold text-dynamic-white text-center">Update Order Status</h4>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formOrderStatus">
-                            <Form.Label className="text-black">Order Status</Form.Label>
+                            <Form.Label>Order Status</Form.Label>
                             <Form.Control
                                 as="select"
                                 name="orderstatus"
