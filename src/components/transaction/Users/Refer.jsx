@@ -15,33 +15,15 @@ const ReferCard = ({
     <div className="d-flex w-100 justify-content-between border-bottom border-warning ">
       <div className="d-flex align-items-center mb-1 w-100 text-dynamic-white">
         <div
-          className="partner-logo-wrapper bg-primary ms-0 me-2 d-flex justify-content-center align-items-center text-uppercase"
+          className="partner-logo-wrapper bg-white ms-0 me-2  d-flex justify-content-center align-items-center text-uppercase"
           style={{
-            width: "35px",
-            height: "35px",
+            width: "50px",
+            height: "50px",
             objectFit: "contain",
-            // backgroundColor: "#fff",
+            padding: "0.5rem",
           }}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="1em"
-            height="1em"
-            viewBox="0 0 24 24"
-          >
-            <g
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-            >
-              <rect width="6" height="6" x="16" y="16" rx="1" />
-              <rect width="6" height="6" x="2" y="16" rx="1" />
-              <rect width="6" height="6" x="9" y="2" rx="1" />
-              <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3m-7-4V8" />
-            </g>
-          </svg>
+          <img src={'./images/moredeals/increase.svg'} alt="R" />
         </div>
         <div className="d-grid w-100">
           <span className="fw-medium mb-2 d-flex justify-content-between">

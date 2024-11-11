@@ -9,6 +9,7 @@ import { getWallet } from "../../redux/api/wallets";
 import CurrencyInput from "../ui/CurrencyInput";
 import PINInput from "../ui/GridPinInput";
 import moment from "moment";
+import { fetchNewNotifications } from "../../redux/api/notificationApi";
 
 function TransferForm() {
   const [step, setStep] = useState(1);
@@ -24,6 +25,7 @@ function TransferForm() {
   const [remarkField, setRemarkField] = useState(false);
   const [remarks, setRemarks] = useState("");
   const metainfo = useSelector((state) => state.metaReducer);
+  const notification = useSelector((state) => state.notification.notifications);
 
 
   const [convertedRate, setCovertedRate] = useState();
@@ -92,6 +94,7 @@ function TransferForm() {
       setStep(3);
       dispatch(getWallet());
       sessionStorage.removeItem("bpms");
+      
       message.success("Funds Transferred Successfully");
     } catch (err) {
       setIsLoading(false);
@@ -196,6 +199,7 @@ function TransferForm() {
   };
 
   const ResetForm = async () => {
+    dispatch(fetchNewNotifications(notification))
     console.log("reset");
   };
 

@@ -138,10 +138,8 @@ import NearbyStationMyMenuPage from "./pages/moreclub/Resturant/nearbyStation/Ne
 import StationOrderList from "./pages/moreclub/Resturant/Allorders/StationOrderList";
 import StationOrderDetailPage from "./pages/moreclub/Resturant/Orders/StationOrderDetailPage";
 import AllResturantsStationOrderPage from "./pages/moreclub/Resturant/Allorders/AllResturantsStationOrderPage";
-
-
-
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to={`/login`} />;
@@ -733,8 +731,6 @@ const App = () => {
     },
   ];
 
-
-
   const Saloon = [
     {
       path: "/saloon",
@@ -807,7 +803,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Locationretrive/>
+      <Locationretrive />
       <Routes basename="#">
         {publicRoutes.map((route) => (
           <Route key={route.path} path={route.path} element={route.page} />
@@ -907,6 +903,18 @@ const App = () => {
           onLogout={handleLogout}
         />
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <ScrollToTop
         id="scrollTopButton"
         width="14"
