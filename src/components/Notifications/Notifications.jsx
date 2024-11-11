@@ -150,14 +150,14 @@ const Notifications = () => {
   return (
     <div>
       <div className="notification-header ">
-        {/* {notification.unreadCount > 0 && ( */}
+        {notification.unreadCount > 0 && (
           <div className="d-flex justify-content-between align-items-center text-dynamic-white p-2">
             <span className="unread-count text-dynamic-white">Unread Notifications: {notification.unreadCount}</span>
             <Button size="sm" variant="link" onClick={handleReadall} className="text-dynamic-white">
               Mark all as read
             </Button>
           </div>
-        {/* )} */}
+        )}
       </div>
 
       {notification.notifications.map((notif) => (
