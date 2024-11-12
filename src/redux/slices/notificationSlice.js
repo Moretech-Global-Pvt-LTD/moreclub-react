@@ -60,9 +60,13 @@ export const notificationsSlice = createSlice({
               existingNotification.id === newNotification.id
           )
       );
+
+      const audio = new Audio("./audio/ui-bell-ding.mp3");
+
       state.notifications = [...newNotifications, ...state.notifications];
       state.unreadCount += newNotifications.filter((n) => !n.is_read).length;
       newNotifications.forEach((notif) => {
+        audio.play();
         toast.info(`${notif.title}: ${notif.message}`, {
           position: "top-right",
           autoClose: 5000,

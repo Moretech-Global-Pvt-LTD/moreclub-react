@@ -16,6 +16,7 @@ import currencyReducer from './slices/CurrencySlice'
 import commentsReducer from './slices/commentsSlice'
 import notificationReducer from './slices/notificationSlice'
 
+
 const store = configureStore({
   reducer: {
     membershipTypeReducer: membershipTypeReducer,
@@ -33,7 +34,7 @@ const store = configureStore({
     metaReducer: infoSlice,
     currencyReducer: currencyReducer,
     comments: commentsReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
   },
 });
 

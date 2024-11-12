@@ -4,7 +4,7 @@ import { axiosInstance } from '../../../..';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useParams } from 'react-router-dom';
 import DashboardLayout from '../../../../components/Layout/DashboardLayout';
-import { Placeholder, Table } from 'react-bootstrap';
+import { Button, Placeholder, Table } from 'react-bootstrap';
 import Divider from '../../../../components/divider/Divider';
 import StationOrderCard from '../../../../components/Moreclub/Resturant/station/StationOrderCard';
 import FilterComponent from '../../../../components/Moreclub/CommonComponents/FilterComponents';
@@ -34,13 +34,13 @@ const StationOrder = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 6000,
     });
 
     if (isLoading) {
         return (
             <DashboardLayout title={`${name} orders`}>
-                <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
+                <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType]} />
                 <Table responsive className="bg-white">
                     <thead className="border-bottom-0">
                         <tr className="pricingcard-premium">
@@ -81,7 +81,7 @@ const StationOrder = () => {
 
     if (isError) {
         return <DashboardLayout title={`${name} orders`}>
-            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
+            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType]} />
             <Table responsive className="bg-white">
                 <thead className="border-bottom-0">
                     <tr className="pricingcard-premium">
@@ -107,7 +107,7 @@ const StationOrder = () => {
 
     return (
         <DashboardLayout title={`${name} orders`}>
-            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
+            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType]} />
             <Table responsive className="bg-white">
                 <thead className="border-bottom-0">
                     <tr className="pricingcard-premium">
@@ -133,6 +133,7 @@ const StationOrder = () => {
                 </thead>
 
             </Table>
+           
             <Divider />
         </DashboardLayout>
     );

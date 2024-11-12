@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
-import debounce from 'lodash.debounce';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { useQueryClient } from '@tanstack/react-query';
 
-const FilterComponent = ({ OrderStatusTypes, OrderTypes }) => {
+const FilterComponent = ({ OrderStatusTypes, OrderTypes, invalidatekey }) => {
     const navigate = useNavigate();
-    const location = useLocation();
+  const location = useLocation();
+  const queryClient = useQueryClient();
 
     // Parse query parameters from the URL
     const queryParams = new URLSearchParams(location.search);
@@ -63,103 +64,14 @@ const FilterComponent = ({ OrderStatusTypes, OrderTypes }) => {
         setOrderType('');
         navigate({ search: '' });
     };
+  
+  const handleRefresh = () => {
+    queryClient.invalidateQueries({
+      queryKey: invalidatekey,
+    });
+  };
 
     return (
-        // <Form className="row  mb-3">
-        //     <div className='col-12'>
-        //         <div className='d-flex flex-wrap justify-content-between'>
-        //             <div className='d-flex mb-3'>
-        //                 <div className='d-flex position-relative'>
-        //                     <Form.Control
-        //                         type="text"
-        //                         placeholder="Search by Order ID or Name "
-        //                         value={searchInput}
-        //                         onChange={(e) => setSearchInput(e.target.value)} // Track input locally
-        //                         className="me-2 position-relative "
-        //                         style={{ width: '250px' }}
-        //                     />
-        //                     {searchInput && <Button onClick={handleSearchClearButtonClick} size='sm' variant="secondary" className="me-2 position-absolute " style={{ top: '50%', right: '10px', transform: 'translateY(-50%)' }}>X</Button>}
-        //                 </div>
-        //                 <Button onClick={handleSearchButtonClick} size='sm' className="me-2">Search</Button>
-        //             </div>
-        //             <div className='d-flex mb-3'>
-        //                 <Form.Select
-        //                     value={orderStatus}
-        //                     onChange={(e) => { setOrderStatus(e.target.value); handleOderStatusChange(e.target.value) }}
-        //                     className="me-2"
-        //                 >
-        //                     <option value="">Select Order Status</option>
-        //                     {OrderStatusTypes &&
-        //                         OrderStatusTypes.map((option) => (
-        //                             <option value={option}>{option}</option>
-        //                         ))
-
-        //                     }
-        //                     {!OrderStatusTypes
-        //                         &&
-        //                         <>
-        //                             <option value="Pending">Pending</option>
-        //                             <option value="Cooked">Cooked</option>
-        //                             <option value="Delivered">Delivered</option>
-        //                             <option value="Cancelled">Cancelled</option>
-        //                         </>
-        //                     }
-        //                 </Form.Select>
-        //                 <Form.Select
-        //                     value={orderType}
-        //                     onChange={(e) => {setOrderType(e.target.value); handleOdertypeChange(e.target.value) }}
-        //                     className="me-2"
-        //                 >
-        //                     <option value="">Select Order Type</option>
-        //                     {OrderTypes &&
-        //                         OrderTypes.map((option) => (
-        //                             <option value={option}>{option}</option>
-        //                         ))
-
-        //                     }
-        //                     {!OrderTypes
-        //                         &&
-        //                         <>
-        //                         <option value="dine-here">Dine Here</option>
-        //                         <option value="packed">Packed</option>
-        //                         <option value="takeaway">Takeaway</option>
-        //                         </>
-        //                     }
-                            
-        //                 </Form.Select>
-        //             </div>
-
-        //         </div>
-
-        //     </div>
-        //     <div className='d-flex flex-wrap mb-3 align-items-center justify-content-between'>
-        //     <div className='d-flex'>
-        //         <Button onClick={() => handleDateFilter('today')} size='sm' variant={moment().format('YYYY-MM-DD') === filterDate ? 'warning' : 'primary'} className="me-2">Today</Button>
-        //         <Button onClick={() => handleDateFilter('tomorrow')} size='sm' variant={moment().add(1, 'day').format('YYYY-MM-DD') === filterDate ? 'warning' : 'primary'} className="me-2">Tomorrow</Button>
-        //         {/* <Form.Control
-        //             type="date"
-        //             value={filterDate}
-        //             onChange={(e) => {
-        //                 setFilterDate(e.target.value);
-        //                 updateUrlParams(searchQuery, e.target.value);
-        //             }}
-        //             className="me-2"
-        //         /> */}
-        //         <DatePicker dateFormat={"yyyy-MM-dd"} selected={filterDate} onChange={(date) => {
-        //             if (date) {
-        //                 const formattedDate = moment(date).format('YYYY-MM-DD');
-        //                 setFilterDate(formattedDate);
-        //                 updateUrlParams(searchQuery, formattedDate);
-        //             } }}
-        //             customInput={<Form.Control type="text"  className="me-2" />}
-        //         />
-                
-        //         </div>
-        //         <div className='d-flex my-2'>
-        //             <Button onClick={clearFilters} variant="danger" size='sm'>Clear</Button>
-        //         </div>
-        //     </div>
-        // </Form>
         <Form className="filter-form">
       {/* Search Input Section */}
       <div className="filter-item search-section">
@@ -256,9 +168,12 @@ const FilterComponent = ({ OrderStatusTypes, OrderTypes }) => {
           }}
           customInput={<Form.Control type="text" className="date-input"  placeholder="Select date" />}
         />
-        <Button type="button" variant='danger' onClick={clearFilters} className="clear-filters-btn">
+        <Button type="button" size='sm' variant='danger' onClick={clearFilters} className="clear-filters-btn">
           Clear
-        </Button>
+          </Button>
+          <Button type="button" size='sm' variant='secondary' onClick={handleRefresh} className="clear-filters-btn">
+            <i class="bi bi-arrow-repeat"></i> Refresh
+          </Button>
       </div>
     </Form>
     );

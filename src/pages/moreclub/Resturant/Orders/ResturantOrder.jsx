@@ -2,7 +2,7 @@ import React from 'react'
 import { morefoodURL } from '../../../../config/config';
 import { axiosInstance } from '../../../..';
 import { useQuery } from '@tanstack/react-query';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation,  useParams } from 'react-router-dom';
 import DashboardLayout from '../../../../components/Layout/DashboardLayout';
 import OrderCard from '../../../../components/Moreclub/Resturant/Orders/orderCard';
 import { Placeholder, Table } from 'react-bootstrap';
@@ -12,7 +12,6 @@ import FilterComponent from '../../../../components/Moreclub/CommonComponents/Fi
 const ResturantOrder = () => {
   const { res_id, slug } = useParams(); 
 
-  const navigate = useNavigate()
   const location = useLocation();
 
   // Read the search and date parameters directly from the URL
@@ -44,7 +43,7 @@ const ResturantOrder = () => {
      if (isLoading) {
        return (
          <DashboardLayout title={`${name} orders`}>
-           <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
+           <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Resturant order ${res_id}`, searchQuery, filterDate, orderStatus, orderType]}/>
              <Table responsive className="bg-white">
                <thead className="border-bottom-0">
                  <tr className="pricingcard-premium">
@@ -86,7 +85,7 @@ const ResturantOrder = () => {
 
      if (isError) {
        return <DashboardLayout title={`${name} orders`} className="text-dynamic-white">
-         <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />  
+         <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Resturant order ${res_id}`, searchQuery, filterDate, orderStatus, orderType]} />
          <Table responsive className="bg-white">
            <thead className="border-bottom-0">
              <tr className="pricingcard-premium">
@@ -110,7 +109,7 @@ const ResturantOrder = () => {
 
   return (
     <DashboardLayout title={`${name} orders`}>
-      <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
+      <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Resturant order ${res_id}`, searchQuery, filterDate, orderStatus, orderType]} />
       <Table responsive className="bg-white">
         <thead className="border-bottom-0">
           <tr className="pricingcard-premium">

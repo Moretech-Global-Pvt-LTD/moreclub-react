@@ -140,9 +140,8 @@ const Notifications = () => {
     return <div className="text-dynamic-white">{notification.error}</div>;
   }
 
-  const handleReadall = (e) => {
+  const handleReadall = async(e) => {
     e.preventDefault();
-    console.log("clicked");
     dispatch(markAllAsReadApi());
   }
 
