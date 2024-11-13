@@ -11,7 +11,7 @@ import FilterComponent from '../../../../components/Moreclub/CommonComponents/Fi
 
 const StationOrder = () => {
     const { id, name} = useParams();
-    const slug = name.replace(/-/g, " ");
+    // const slug = name.replace(/-/g, " ");
 
 
     const location = useLocation();
@@ -114,7 +114,7 @@ const StationOrder = () => {
                         <th className="text-white">Order ID</th>
                         <th className="text-white">Date</th>
                         <th className="text-white">Customer Name</th>
-                        {/* <th className="text-white">Location</th> */}
+                        <th className="text-white">Restaurant</th>
 
                         <th className="text-white text-center">Order Status</th>
                         {/* <th className="text-white text-center">Action</th> */}

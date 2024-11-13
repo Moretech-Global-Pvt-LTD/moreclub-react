@@ -121,7 +121,7 @@ const StationOrderDetailsContent = ({ item }) => {
                     <div className="station-order-card-container">
                         {Object.entries(item.order_items).map(([restaurant, items]) =>
                             items.map((orders) => (
-                                <StationOrderCards item={orders} restaurant={restaurant} stationId={item.station} orderStatus={orderStatus} setOrderStatus={setOrderStatus}/>
+                                <StationOrderCards item={orders}  restaurant={restaurant} stationId={item.station} orderStatus={orderStatus} setOrderStatus={setOrderStatus}/>
                             ))
                         )}
                     </div>

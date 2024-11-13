@@ -6,7 +6,6 @@ import { message } from 'antd';
 import moment from 'moment';
 
 const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderStatus }) => {
-
     const [showResturant, setShowResturant] = useState(false);
     const [received, setReceived] = useState(item.received_item_quantity_restaurant);
     const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +29,7 @@ const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderS
         e.preventDefault();
         setIsLoading(true);
         try {
-            const res = await axiosInstance.patch(`${morefoodURL}moreclub/station/${stationId}/order-item/${item.id}/confirm/`, {
+            const res = await axiosInstance.patch(`${morefoodURL}moreclub/station/${stationId}/order-item/${item.id}/${item.restaurant_id}/confirm/`, {
                 is_received_from_restaurant: true,
                 received_item_quantity_restaurant: received
             });
@@ -38,7 +37,7 @@ const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderS
             setIsRecieved(res.data.data.is_received_from_restaurant);
             setReceived(res.data.data.received_item_quantity_restaurant);
             setIsPaid(res.data.data.is_paid_to_restaurant);
-            setOrderStatus("Cooked");
+            // setOrderStatus("Cooked");
         } catch (err) {
             console.log(err);
             setReceived(item.received_item_quantity_restaurant);

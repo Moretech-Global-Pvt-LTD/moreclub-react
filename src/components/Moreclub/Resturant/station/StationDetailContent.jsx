@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
 const StationDetailContent = ({ data }) => {
@@ -118,11 +117,31 @@ const StationDetailContent = ({ data }) => {
                                 />
                             </Card.Body>
                             <Card.Title className="text-dynamic-white text-center fs-6">
-                                Orders
+                                User Orders
                             </Card.Title>
                         </Card>
                     </Col>
                 </Link>
+                {/* <Link
+                    to={`/station/${id}/restro/orders/${slug}`}
+                    className="d-flex flex-column my-2 "
+                >
+                    <Col className="d-flex flex-column my-2">
+                        <Card className="p-2 px-2 flex-grow-1">
+                            <Card.Body className="d-flex justify-content-center">
+                                <img
+                                    src={'/images/moreclub/morefood/orders.png'}
+                                    alt="orders"
+                                    className="  rounded "
+                                    style={{ height: "5rem", width: "5rem" }}
+                                />
+                            </Card.Body>
+                            <Card.Title className="text-dynamic-white text-center fs-6">
+                                Resturants Summary
+                            </Card.Title>
+                        </Card>
+                    </Col>
+                </Link> */}
                 <Link
                     to={`/station/${id}/allorders/${slug}`}
                     className="d-flex flex-column my-2 "

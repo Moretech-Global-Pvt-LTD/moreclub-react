@@ -6,14 +6,14 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useQueryClient } from '@tanstack/react-query';
 
-const FilterComponent = ({ OrderStatusTypes, OrderTypes, invalidatekey }) => {
+const FilterComponent = ({ OrderStatusTypes, OrderTypes, invalidatekey, showStatus=true, showType=true,  showDateFilter=true  }) => {
     const navigate = useNavigate();
   const location = useLocation();
   const queryClient = useQueryClient();
 
     // Parse query parameters from the URL
     const queryParams = new URLSearchParams(location.search);
-    const initialSearch = queryParams.get('search') || '';
+    const initialSearch = queryParams.get('q') || '';
     const initialDate = queryParams.get('date') || '';
     const initialOrderStatus = queryParams.get('order_status') || '';
     const initialOrderType = queryParams.get('order_type') || '';
@@ -96,7 +96,9 @@ const FilterComponent = ({ OrderStatusTypes, OrderTypes, invalidatekey }) => {
 
       {/* Order Status and Order Type Select */}
       <div className="filter-item select-section">
-        <Form.Select
+          {showStatus && (
+            
+          <Form.Select
           value={orderStatus}
           onChange={(e) => {
             setOrderStatus(e.target.value);
@@ -116,7 +118,10 @@ const FilterComponent = ({ OrderStatusTypes, OrderTypes, invalidatekey }) => {
             </>
           )}
         </Form.Select>
+          )}
 
+          {showType && (
+            
         <Form.Select
           value={orderType}
           onChange={(e) => {
@@ -136,9 +141,11 @@ const FilterComponent = ({ OrderStatusTypes, OrderTypes, invalidatekey }) => {
             </>
           )}
         </Form.Select>
+          )}
       </div>
 
-      {/* Date Filter Section */}
+        {/* Date Filter Section */}
+        {showDateFilter && (
       <div className="filter-item date-filter-section">
         <Button onClick={() => handleDateFilter('today')} size='sm' variant={moment().format('YYYY-MM-DD') === filterDate ? 'warning' : 'primary'} className="me-2">Today</Button>
         <Button onClick={() => handleDateFilter('tomorrow')} size='sm' variant={moment().add(1, 'day').format('YYYY-MM-DD') === filterDate ? 'warning' : 'primary'} className="me-2">Tomorrow</Button>
@@ -175,6 +182,7 @@ const FilterComponent = ({ OrderStatusTypes, OrderTypes, invalidatekey }) => {
             <i class="bi bi-arrow-repeat"></i> Refresh
           </Button>
       </div>
+        )}
     </Form>
     );
 };

@@ -53,8 +53,8 @@ const StationOrderDetailPage = () => {
     }
 
   return (
-      <DashboardLayout title={slug}><StationOrderDetailContent item={data}/></DashboardLayout>
+      <DashboardLayout title={`${slug} #${data.order.order_id}`}><StationOrderDetailContent item={data}/></DashboardLayout>
   )
 }
 
-export default StationOrderDetailPage
+export default StationOrderDetailPage;

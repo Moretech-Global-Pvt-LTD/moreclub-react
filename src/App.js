@@ -697,10 +697,12 @@ const App = () => {
       path: "/station/:id/orders/:name",
       page: <StationOrder />,
     },
+    
     {
       path: "/station/:id/orders/:ord_id/:name",
       page: <OrderDetailsPage />,
     },
+
     {
       path: "/station/:id/allorders/:name",
       page: <AllOrdersPage />,
