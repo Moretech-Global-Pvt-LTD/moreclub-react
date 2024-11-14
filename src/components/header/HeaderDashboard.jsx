@@ -18,6 +18,7 @@ import { setMembershipType, userSuccess } from "../../redux/slices/userSlice";
 import { useQuery } from "@tanstack/react-query";
 import { CurrencySet } from "../../redux/api/CurrencyConvertorAPI";
 import { Placeholder } from "react-bootstrap";
+import { fetchNotifications } from "../../redux/api/notificationApi";
 // import Notification from "../Notifications/Notification";
 
 const HeaderDashboard = () => {
@@ -32,6 +33,7 @@ const HeaderDashboard = () => {
   const wallet = useSelector((state) => state.walletReducer);
   const metainfo = useSelector((state) => state.metaReducer);
   const currency = useSelector((state) => state.currencyReducer.currencyDetail);
+  const notification = useSelector((state) => state.notification);
 
   // const dispatch = useDispatch();
 
@@ -105,6 +107,7 @@ const HeaderDashboard = () => {
 
   useEffect(() => {
     dispatch(getWallet());
+    dispatch(fetchNotifications());
   }, [dispatch]);
 
   const handleToggle = () => {
@@ -197,6 +200,11 @@ const HeaderDashboard = () => {
               <Dropdown className="user-dropdown me-2 points-show">
                 <Dropdown.Toggle className="user-btn" id="userDropdown">
                   <i className="bi bi-bell" />
+                  {notification.unreadCount > 0 && 
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "10px" }} >
+                    {notification.unreadCount}
+                  </span>
+                  }
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import HeaderUserInfo from "../header/HeaderUserInfo";
 import HeaderDashboardMenu from "../header/HeaderDashboardMenu";
+import { useSelector } from "react-redux";
 
 const Footbar = () => {
   const loaction = useLocation();
   const [isActive, setActive] = useState(false);
+  const notification = useSelector((state) => state.notification);
 
   const Menus = [
     {
@@ -81,8 +83,11 @@ const Footbar = () => {
                     : "footbar-inactive"
                 }`}
               >
-                <span class="footbar-item-icon">
-                  <i className={`bi bi-bell `}></i>
+                <span class="footbar-item-icon position-relative">
+                <i className={`bi bi-bell `}></i>
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "10px" }} >
+                  {notification.unreadCount}
+                </span>
                 </span>
                 <span class="footbar-item-name">&nbsp;Notification</span>
               </div>

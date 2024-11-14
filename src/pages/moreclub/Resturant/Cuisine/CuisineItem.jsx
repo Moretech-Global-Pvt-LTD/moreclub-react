@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../..";
@@ -21,7 +21,7 @@ const CuisineItem = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 60000,
     });
 
     if (isLoading) {
@@ -56,12 +56,24 @@ const CuisineItem = () => {
                     </Button>
                 )}
             </div>
-            <Row>
-                <Col xs={12} sm={8} md={6} lg={4}>
-                    {showForm && <AddCuisineForm res_id={res_id}  onFinish={hideAddCategory}/>}
-                </Col>
-            </Row>
+            <Modal
+                aria-labelledby="contained-modal-title-vcenter"
+                size=""
+                centered
+                show={showForm}
+                onHide={hideAddCategory}
+            >
 
+                <Modal.Header>
+                    <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
+                        Add Cuisines
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <AddCuisineForm res_id={res_id} onFinish={hideAddCategory} />
+                </Modal.Body>
+
+            </Modal>
             <Row
                 xs={2}
                 sm={3}
@@ -79,7 +91,7 @@ const CuisineItem = () => {
                             logo={item.image}
                             name={item.name}
                             item={item.no_of_items}
-                            
+
                         />
                     </Col>
                 ))}

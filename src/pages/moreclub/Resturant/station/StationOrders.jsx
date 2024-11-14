@@ -4,14 +4,14 @@ import { axiosInstance } from '../../../..';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useParams } from 'react-router-dom';
 import DashboardLayout from '../../../../components/Layout/DashboardLayout';
-import { Placeholder, Table } from 'react-bootstrap';
+import { Button, Placeholder, Table } from 'react-bootstrap';
 import Divider from '../../../../components/divider/Divider';
 import StationOrderCard from '../../../../components/Moreclub/Resturant/station/StationOrderCard';
 import FilterComponent from '../../../../components/Moreclub/CommonComponents/FilterComponents';
 
 const StationOrder = () => {
     const { id, name} = useParams();
-    const slug = name.replace(/-/g, " ");
+    // const slug = name.replace(/-/g, " ");
 
 
     const location = useLocation();
@@ -34,13 +34,13 @@ const StationOrder = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 6000,
     });
 
     if (isLoading) {
         return (
             <DashboardLayout title={`${name} orders`}>
-                <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
+                <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType]} />
                 <Table responsive className="bg-white">
                     <thead className="border-bottom-0">
                         <tr className="pricingcard-premium">
@@ -81,7 +81,7 @@ const StationOrder = () => {
 
     if (isError) {
         return <DashboardLayout title={`${name} orders`}>
-            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
+            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType]} />
             <Table responsive className="bg-white">
                 <thead className="border-bottom-0">
                     <tr className="pricingcard-premium">
@@ -107,14 +107,14 @@ const StationOrder = () => {
 
     return (
         <DashboardLayout title={`${name} orders`}>
-            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
+            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType]} />
             <Table responsive className="bg-white">
                 <thead className="border-bottom-0">
                     <tr className="pricingcard-premium">
                         <th className="text-white">Order ID</th>
                         <th className="text-white">Date</th>
                         <th className="text-white">Customer Name</th>
-                        {/* <th className="text-white">Location</th> */}
+                        <th className="text-white">Restaurant</th>
 
                         <th className="text-white text-center">Order Status</th>
                         {/* <th className="text-white text-center">Action</th> */}
@@ -133,6 +133,7 @@ const StationOrder = () => {
                 </thead>
 
             </Table>
+           
             <Divider />
         </DashboardLayout>
     );

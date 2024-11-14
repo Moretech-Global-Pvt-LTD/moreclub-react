@@ -1,37 +1,23 @@
-import React from "react";
-import { Card } from "react-bootstrap";
+
+import React from 'react';
 import moment from "moment";
 
-const Notificationcard = ({ title, message, time }) => {
+
+const NotificationCard = ({ title, message, time, isUnread }) => {
   return (
-    <div
-      className="notification-card text-dynamic-white p-1"
-      style={{ minWidth: "300px" }}
-    >
-      <Card.Body className="p-2 d-flex ">
-        <div className="me-3">
-          <i className="bi bi-bell fs-3"></i>
-        </div>
-        <div>
-          <Card.Title
-            className="mb-0 py-0"
-            style={{ fontSize: "14px", lineHeight: "12px" }}
-          >
-            {title}
-          </Card.Title>
-          <Card.Text
-            className="mt-1 mb-0  py-0"
-            style={{ fontSize: "12px", lineHeight: "12px" }}
-          >
-            {message}
-          </Card.Text>
-          <small className="text-muted my-0  py-0" style={{ fontSize: "10px" }}>
-            {moment.utc(time).local().fromNow()}
-          </small>
-        </div>
-      </Card.Body>
+    <div className={`moredeals-notification-card ${isUnread ? 'moredeals-notification-card--unread' : ''}`}>
+      <div className="moredeals-notification-card__icon">
+         <i className={`bi fs-3  ${isUnread ? 'text-danger  bi-bell-fill' : 'text-dynamic-white bi-bell'}`}></i>
+        {/* <i className={`icon ${isUnread ? 'icon--unread' : 'icon--read'}`}></i> */}
+      </div>
+      <div className="moredeals-notification-card__content">
+        <div className="moredeals-notification-card__title">{title}</div>
+        <div className="moredeals-notification-card__message">{message}</div>
+      </div>
+      <div className="moredeals-notification-card__time">{moment.utc(time).local().fromNow()}</div>
     </div>
   );
 };
 
-export default Notificationcard;
+export default NotificationCard;
+

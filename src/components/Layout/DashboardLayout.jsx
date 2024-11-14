@@ -7,12 +7,17 @@ import Footbar from "../footbar/footbar";
 import { useLocation } from "react-router-dom";
 import ReactGA from "react-ga4";
 import InactivityLogout from "../HOC/inactivity";
+import { fetchNewNotifications } from "../../redux/api/notificationApi";
+import { useDispatch, useSelector } from "react-redux";
+import 'react-toastify/dist/ReactToastify.css';
 // import { setupNotifications } from "../../utills/firebase";
 // import useVisibilityChange from "../../Hooks/useVisibilityChange";
 // import { sendNativeNotification, toastNotification } from "../../utills/notificationhelper";
 
 const DashboardLayout = ({ children, title }) => {
   const location = useLocation()
+  const dispatch = useDispatch();
+  const notifications = useSelector((state) => state.notification);
   // const isForeground = useVisibilityChange();
   const removebpms = () => {
 
@@ -33,11 +38,26 @@ const DashboardLayout = ({ children, title }) => {
 
   }, [location.pathname]);
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (notifications.currentpage !== 0 && notifications.checkForUpdate) {
+        dispatch(fetchNewNotifications(notifications.notifications))
+      };
+    }, 60000); // Fetch every 1 minute
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, [dispatch]);
+
+
+ 
+
+
 
   return (
     <>
       <HeaderDashboard />
-      <InactivityLogout/>
+      <InactivityLogout />
+
       <div className="admin-wrapper">
         <Breadcrumb
           breadcrumbTitle={title}
@@ -48,7 +68,9 @@ const DashboardLayout = ({ children, title }) => {
             },
           ]}
         />
-        <div className="container">{children}</div>
+        <div className="container">
+          {children}
+        </div>
         <Divider />
         <Footer />
       </div>

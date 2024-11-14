@@ -16,6 +16,7 @@ import ReferCard from "./Refer";
 
 import EventTransCard from "./Event";
 import TransactionCardSkeleton from "../../Skeleton/TransactionCardSkeleton";
+import TransactionCard from "./transactionCard";
 
 const PointsTransactions = () => {
   const location = useLocation();
@@ -112,11 +113,8 @@ const PointsTransactions = () => {
                     {moment(notification.day).format("dddd DD MMM, YY")}
                   </h6>
                   {notification.transactions.map((row) => (
-                    <>
-                      {row.transaction_type === "RECEIVE" ? (
-                        <ReceiveCard
-                          // receiver={`${row.recipient.first_name} ${row.recipient.last_name}`}
-                          // sender={`${row.sender.first_name} ${row.sender.last_name}`}
+                    <TransactionCard
+                          transactionType={row.transaction_type}
                           narration={row.narration}
                           transactiontime={row.timestamp}
                           transactionamount={row.amount}
@@ -124,88 +122,101 @@ const PointsTransactions = () => {
                           currency={row.currency}
                           currency_received={row.currency_received_symbol}
                           currency_send={row.currency_sent_symbol}
+                          transaction_id={row.id}
                         />
-                      ) : (
-                        <>
-                          {row.transaction_type === "WITHDRAW" ? (
-                            <WithDrawCard
-                              narration={row.narration}
-                              transactiontime={row.timestamp}
-                              transactionamount={row.amount}
-                              previousbalance={row.previous_balance}
-                              currency_received={row?.currency_received_symbol}
-                              currency_send={row?.currency_sent_symbol}
-                            />
-                          ) : (
-                            <>
-                              {row.transaction_type === "SEND" ? (
-                                <SendCard
-                                  narration={row.narration}
-                                  transactiontime={row.timestamp}
-                                  transactionamount={row.amount}
-                                  previousbalance={row.previous_balance}
-                                  currency_received={row?.currency_received_symbol}
-                                  currency_send={row?.currency_sent_symbol}
-                                />
-                              ) : (
-                                <>
-                                  {row.transaction_type === "MEMBERSHIP" ||
-                                    row.transaction_type === "COUPON" ? (
-                                    <MembershipCouponCard
-                                      narration={row.narration}
-                                      transactiontime={row.timestamp}
-                                      transactionamount={row.amount}
-                                      previousbalance={row.previous_balance}
-                                      currency_received={row?.currency_received_symbol}
-                                      currency_send={row?.currency_sent_symbol}
-                                    />
-                                  ) : (
-                                    <>
-                                      {row.transaction_type === "BUY" ? (
-                                        <BuyCard
-                                          narration={row.narration}
-                                          transactiontime={row.timestamp}
-                                          transactionamount={row.amount}
-                                          previousbalance={row.previous_balance}
-                                          currency_received={row?.currency_received_symbol}
-                                          currency_send={row?.currency_sent_symbol}
-                                        />
-                                      ) : (
-                                        <>
-                                          {row.transaction_type === "REFER" ? (
-                                            <ReferCard
-                                              narration={row.narration}
-                                              transactiontime={row.timestamp}
-                                              transactionamount={row.amount}
-                                              previousbalance={
-                                                row.previous_balance
-                                              }
-                                              currency_received={row?.currency_received_symbol}
-                                              currency_send={row?.currency_sent_symbol}
-                                            />
-                                          ) : (
-                                            <EventTransCard
-                                              narration={row.narration}
-                                              transactiontime={row.timestamp}
-                                              transactionamount={row.amount}
-                                              previousbalance={
-                                                row.previous_balance
-                                              }
-                                              currency_received={row?.currency_received_symbol}
-                                              currency_send={row?.currency_sent_symbol}
-                                            />
-                                          )}
-                                        </>
-                                      )}
-                                    </>
-                                  )}
-                                </>
-                              )}
-                            </>
-                          )}
-                        </>
-                      )}
-                    </>
+                    // <>
+                    //   {row.transaction_type === "RECEIVE" ? (
+                    //     <TransactionCard
+                    //       transactionType={row.transaction_type}
+                    //       narration={row.narration}
+                    //       transactiontime={row.timestamp}
+                    //       transactionamount={row.amount}
+                    //       previousbalance={row.previous_balance}
+                    //       currency={row.currency}
+                    //       currency_received={row.currency_received_symbol}
+                    //       currency_send={row.currency_sent_symbol}
+                    //     />
+                    //   ) : (
+                    //     <>
+                    //       {row.transaction_type === "WITHDRAW" ? (
+                    //         <WithDrawCard
+                    //           narration={row.narration}
+                    //           transactiontime={row.timestamp}
+                    //           transactionamount={row.amount}
+                    //           previousbalance={row.previous_balance}
+                    //           currency_received={row?.currency_received_symbol}
+                    //           currency_send={row?.currency_sent_symbol}
+                    //         />
+                    //       ) : (
+                    //         <>
+                    //           {row.transaction_type === "SEND" ? (
+                    //             <SendCard
+                    //               narration={row.narration}
+                    //               transactiontime={row.timestamp}
+                    //               transactionamount={row.amount}
+                    //               previousbalance={row.previous_balance}
+                    //               currency_received={row?.currency_received_symbol}
+                    //               currency_send={row?.currency_sent_symbol}
+                    //             />
+                    //           ) : (
+                    //             <>
+                    //               {row.transaction_type === "MEMBERSHIP" ||
+                    //                 row.transaction_type === "COUPON" ? (
+                    //                 <MembershipCouponCard
+                    //                   narration={row.narration}
+                    //                   transactiontime={row.timestamp}
+                    //                   transactionamount={row.amount}
+                    //                   previousbalance={row.previous_balance}
+                    //                   currency_received={row?.currency_received_symbol}
+                    //                   currency_send={row?.currency_sent_symbol}
+                    //                 />
+                    //               ) : (
+                    //                 <>
+                    //                   {row.transaction_type === "BUY" ? (
+                    //                     <BuyCard
+                    //                       narration={row.narration}
+                    //                       transactiontime={row.timestamp}
+                    //                       transactionamount={row.amount}
+                    //                       previousbalance={row.previous_balance}
+                    //                       currency_received={row?.currency_received_symbol}
+                    //                       currency_send={row?.currency_sent_symbol}
+                    //                     />
+                    //                   ) : (
+                    //                     <>
+                    //                       {row.transaction_type === "REFER" ? (
+                    //                         <ReferCard
+                    //                           narration={row.narration}
+                    //                           transactiontime={row.timestamp}
+                    //                           transactionamount={row.amount}
+                    //                           previousbalance={
+                    //                             row.previous_balance
+                    //                           }
+                    //                           currency_received={row?.currency_received_symbol}
+                    //                           currency_send={row?.currency_sent_symbol}
+                    //                         />
+                    //                       ) : (
+                    //                         <EventTransCard
+                    //                           narration={row.narration}
+                    //                           transactiontime={row.timestamp}
+                    //                           transactionamount={row.amount}
+                    //                           previousbalance={
+                    //                             row.previous_balance
+                    //                           }
+                    //                           currency_received={row?.currency_received_symbol}
+                    //                           currency_send={row?.currency_sent_symbol}
+                    //                         />
+                    //                       )}
+                    //                     </>
+                    //                   )}
+                    //                 </>
+                    //               )}
+                    //             </>
+                    //           )}
+                    //         </>
+                    //       )}
+                    //     </>
+                    //   )}
+                    // </>
                   ))}
                 </>
               ))}

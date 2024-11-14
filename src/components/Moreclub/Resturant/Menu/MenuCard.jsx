@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Link, useParams } from "react-router-dom";
 import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { morefoodURL } from "../../../../config/config";
 import { useQueryClient } from "@tanstack/react-query";
-import DefaultImage from "../../../../images/logo/MembersClubblack.png"
+import { Modal } from "react-bootstrap";
+import FoodItemForm from "./FoodItemForm";
+// import DefaultImage from "../../../../images/logo/MembersClubblack.png"
 
 const MenuCard = ({
+  data,
   id,
   logo,
   name,
@@ -20,6 +23,7 @@ const MenuCard = ({
   const { res_id, cat_id } = useParams();
   const queryClient = useQueryClient();
 
+  const [showForm, setShowForm] = useState();
 
   async function handleDelete() {
     try {
@@ -37,15 +41,21 @@ const MenuCard = ({
     }
   }
 
+  async function showAddCategory() {
+    setShowForm(true);
+  }
+
+  async function hideAddCategory() {
+    setShowForm(false);
+  }
+
   return (
     <>
-     
-
       <div className="food-card">
         <div className="food-card-body">
-          <Link to={`/resturant/${res_id}/${cat_id}/${id}`}>
+          {/* <Link to={`/resturant/${res_id}/${cat_id}/${id}`}> */}
             <h3 className="food-name">{name}</h3>
-          </Link>
+          {/* </Link> */}
           <span className="food-price">{currency_Symbol}&nbsp;{price}{" "}
             <>
               {actual_price !== price && discount_percentage !== 0 && (
@@ -67,12 +77,27 @@ const MenuCard = ({
         </div>
         <div className="food-card-image-container bg-secondary">
           <img src={logo} alt={name} className="food-card-image bg-secondary" />
-          <button className=" bookmark-icon delete-button " onClick={handleDelete}>&#128465;</button>
-        </div>
+          <div className="actionButtons">
+            <button className=" bookmark-icon delete-button " onClick={handleDelete}>&#128465;</button>
+            <button className=" bookmark-icon edit-button" onClick={() => showAddCategory()}>&#9997;</button>
+          </div>        </div>
       </div>
-
-
-
+      <Modal
+        aria-labelledby="contained-modal-title-vcenter"
+        size="lg"
+        centered
+        show={showForm}
+        onHide={hideAddCategory}
+      >
+        <Modal.Header>
+          <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
+            Update MenuItems
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <FoodItemForm data={data} onCancel={hideAddCategory} />
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

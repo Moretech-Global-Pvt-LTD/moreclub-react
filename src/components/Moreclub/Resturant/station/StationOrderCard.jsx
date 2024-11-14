@@ -32,6 +32,13 @@ const StationOrderCard = ({ item }) => {
                     </Badge>
                 </td>
                 <td className="text-dynamic-white">
+                    {item.order_items.map((items, index) => (
+                        <span key={index}>
+                            {items.restaurant_name}<br />
+                        </span>
+                    ))}
+                </td>
+                <td className="text-dynamic-white">
                     <Badge
                         className={`fs-5 rounded-pill ${item.order_status === "Pending"
                                 ? "bg-warning text-black"

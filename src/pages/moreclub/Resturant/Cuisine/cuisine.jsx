@@ -20,7 +20,7 @@ const Cuisine = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 6000,
     });
 
     if (isLoading) {

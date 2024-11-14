@@ -271,6 +271,14 @@ const MenuItemsForm = ({ res_id, cat_id , onFinish }) => {
           <Form.Control type="file" name="image" onChange={handleImageChange} />
         </Form.Group>
 
+        <div className="d-flex justify-content-end gap-2">
+        <Button
+          variant="secondary"
+            className="my-3"
+            onClick={onFinish}
+          >
+          Cancel
+        </Button>
         <Button
           variant="success"
           type="submit"
@@ -293,6 +301,7 @@ const MenuItemsForm = ({ res_id, cat_id , onFinish }) => {
           )}
           Submit
         </Button>
+        </div>
       </Form>
     </Card>
   );

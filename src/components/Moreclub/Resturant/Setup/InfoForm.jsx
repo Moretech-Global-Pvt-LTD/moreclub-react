@@ -377,6 +377,7 @@ const InfoForm = () => {
                     <p className="text-danger">{errors.min_order}</p>
                   </Form.Group>
                 </Col>
+                
                 <Col xs={6} md={3} lg={3} xl={3} xxl={2}>
                   <Form.Group controlId="formRestaurantName">
                     <Form.Label>Max Station Package</Form.Label>
@@ -390,6 +391,7 @@ const InfoForm = () => {
                     <p className="text-danger">{errors.station_no_of_packed_item}</p>
                   </Form.Group>
                 </Col>
+
                 <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
                   <Form.Group controlId="formDeliveryTime">
                     <Form.Label>Maximum Delivery Time</Form.Label>
@@ -411,6 +413,7 @@ const InfoForm = () => {
                     <p className="text-danger">{errors.delivery_time}</p>
                   </Form.Group>
                 </Col>
+
                 <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
                   
                   <Form.Group>
@@ -426,6 +429,7 @@ const InfoForm = () => {
                   </Form.Group>
 
                 </Col>
+
                 <Col xs={12} md={12} lg={12} xl={6} xxl={6} className="">
                   <Row className="my-xl-4">
                   <Form.Group
@@ -497,6 +501,7 @@ const InfoForm = () => {
 
                   </Row>
                 </Col>
+
               </Row>
 
               <Form.Group controlId="formDescription">

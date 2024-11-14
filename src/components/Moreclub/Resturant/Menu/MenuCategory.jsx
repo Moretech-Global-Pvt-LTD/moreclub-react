@@ -110,10 +110,8 @@ const MenuCategory = () => {
             buttonText="Create Menu"
           />
         </Modal.Body>
-
       </Modal>
      
-
       <Row
         xs={2}
         sm={3}

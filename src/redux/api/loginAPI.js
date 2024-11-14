@@ -14,13 +14,13 @@ import {
   superAdmin,
   // setVerified,
 } from "../slices/userSlice";
-import { redirect } from "react-router-dom";
 import { userMembership } from "./userMembershipAPI";
 import { getBusinessProfile } from "./userDetailAPI";
 import { loadMembershipType } from "./membershipTypeAPI";
 import { loadUserPermissions } from "./PermissionsAPI";
 import { CurrencySet } from "./CurrencyConvertorAPI";
 import { getAccessToken, removeToken, setAccessToken, setRefressToken } from "../../utills/token";
+import { fetchNotifications } from "./notificationApi";
 // import { setupNotifications } from "../../utills/firebase";
 
 export const load_user = () => async (dispatch) => {
@@ -30,9 +30,11 @@ export const load_user = () => async (dispatch) => {
       const res = await axiosInstance.get(`${baseURL}auth/user/all/details/`);
       
       await dispatch(userSuccess(res.data?.data));
+
       await dispatch(isSuperAdmin());
 
       await dispatch(setLoading(false));
+     await dispatch(fetchNotifications())
     } catch (err) {
       const error = err.response?.data?.code;
       console.log(error);
@@ -263,7 +265,9 @@ export const otpPhoneVerify = (phone_number, code) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
   dispatch(logMeOut());
-  redirect("/login");
+ 
+  // window.location.href = "/login";
+  // redirect("/login");
 };
 
 export const update_profile = (formData) => async (dispatch) => {

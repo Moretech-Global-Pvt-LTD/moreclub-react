@@ -14,6 +14,8 @@ import PurchaseSlice from './slices/PurchaseSlice'
 import infoSlice from './slices/infoSlice'
 import currencyReducer from './slices/CurrencySlice'
 import commentsReducer from './slices/commentsSlice'
+import notificationReducer from './slices/notificationSlice'
+
 
 const store = configureStore({
   reducer: {
@@ -31,7 +33,8 @@ const store = configureStore({
     purchaseReducer: PurchaseSlice,
     metaReducer: infoSlice,
     currencyReducer: currencyReducer,
-    comments: commentsReducer
+    comments: commentsReducer,
+    notification: notificationReducer,
   },
 });
 

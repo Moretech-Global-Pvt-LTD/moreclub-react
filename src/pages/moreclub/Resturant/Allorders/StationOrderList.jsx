@@ -41,8 +41,8 @@ const StationOrderList = () => {
 
     if (isLoading) {
         return (
-            <DashboardLayout>
-                <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
+            <DashboardLayout title={`${name} Station Orders`}>
+                <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType]}/>
                 <Table responsive className="bg-white">
                     <thead className="border-bottom-0">
                         <tr className="pricingcard-premium">
@@ -82,8 +82,8 @@ const StationOrderList = () => {
     }
 
     if (isError) {
-        return <DashboardLayout>
-            <FilterComponent />
+        return <DashboardLayout title={`${name} Station Orders`}>
+            <FilterComponent invalidatekey={[`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType]} />
             <Table responsive className="bg-white">
                 <thead className="border-bottom-0">
                     <tr className="pricingcard-premium">
@@ -108,8 +108,8 @@ const StationOrderList = () => {
 
 
     return (
-        <DashboardLayout title={`${name} orders`}>
-            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} />
+        <DashboardLayout title={`${name} Station Orders`}>
+            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType]} />
             <Table responsive className="bg-white">
                 <thead className="border-bottom-0">
                     <tr className="pricingcard-premium">
