@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row, Form, InputGroup, Spinner } from "react-bootstrap";
-import AddressInputWithAutocomplete from "../../../Googlemap/LocationInputonly";
+import { Button, Col, Row, Form, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { morefoodURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
-import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry, validateFacebookURL, validateInstagramURL, Validatelogo, validateLongDescription, validateMin_order, validateResturantName, validateWebsiteURL } from "../../../../validation/resturantValidation";
+import { valdateShortDescription, validateAddress,  validateContactNumber, validateCountry , validateLongDescription,  validateResturantName } from "../../../../validation/resturantValidation";
 import { validateEmail } from "../../../../validation/addaccountvalidation";
 import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
 
@@ -145,11 +144,11 @@ const StationUpdateInfoForm = ({ data }) => {
                             <Row>
                                 <Col xs={12} md={6} lg={6} xl={6} >
                                     <Form.Group controlId="formRestaurantName">
-                                        <Form.Label>Resturant Name</Form.Label>
+                                        <Form.Label>Station Name</Form.Label>
                                         <Form.Control
                                             type="text"
                                             name="name"
-                                            placeholder={"Resturant Name"}
+                                            placeholder={"Station Name"}
                                             value={formValues.name}
                                             onChange={handleChange}
                                         />

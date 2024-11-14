@@ -7,6 +7,7 @@ import { imageURL, morefoodURL } from "../../../../config/config";
 import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "react-bootstrap";
 import StationMenuFoodForm from "./StationMenuFoodForm";
+import { useSelector } from "react-redux";
 
 const StationFoodCard = ({
     foodid,
@@ -21,11 +22,12 @@ const StationFoodCard = ({
     ingredient,
     isActive
 }) => {
-    const { id, menu_id,  } = useParams();
+    const { id, menu_id, } = useParams();
     const queryClient = useQueryClient();
     const [showForm, setShowForm] = useState();
+    const user = useSelector((state) => state.userReducer);
 
-    const[ hidemenu, setHideMenu]= useState(false)
+    const [hidemenu, setHideMenu] = useState(false)
 
 
     async function handleDelete() {
@@ -67,7 +69,7 @@ const StationFoodCard = ({
             ...(datas.image && { image: datas.image })
         }
 
-        
+
         try {
             const response = await axiosInstance.patch(
                 `${morefoodURL}moreclub/station/${id}/${menu_id}/${foodid}/food-items/`,
@@ -130,12 +132,12 @@ const StationFoodCard = ({
                 </div>
                 <div className="food-card-image-container bg-secondary">
                     <img src={logo} alt={name} className="food-card-image bg-secondary" />
-                    <div className="actionButtons">
-
-                        <button className=" bookmark-icon delete-button " onClick={handleDelete}>&#128465;</button>
-
-                        <button className=" bookmark-icon edit-button" onClick={() => showAddCategory()}>&#9997;</button>
-                    </div>
+                    {user.isSuperAdmin &&
+                        <div className="actionButtons">
+                            <button className=" bookmark-icon delete-button " onClick={handleDelete}>&#128465;</button>
+                            <button className=" bookmark-icon edit-button" onClick={() => showAddCategory()}>&#9997;</button>
+                        </div>
+                    }
                 </div>
             </div>
             <Modal

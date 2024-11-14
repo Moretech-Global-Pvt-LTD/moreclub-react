@@ -5505,6 +5505,7 @@ textarea.form-control-lg {
 
 /* Autofill styles for light theme */
 input:-webkit-autofill {
+  color:black !important;
   -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
   -webkit-text-fill-color: black !important;
 }
@@ -5514,6 +5515,7 @@ input:-webkit-autofill:hover {
 }
 /* Autofill styles for dark theme */
 [data-theme="dark"] input:-webkit-autofill {
+  color:white !important;
   -webkit-box-shadow: 0 0 0px 1000px #0c153b inset !important;
   -webkit-text-fill-color: white !important;
 }

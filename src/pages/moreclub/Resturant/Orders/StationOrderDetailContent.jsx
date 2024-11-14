@@ -10,6 +10,7 @@ const StationOrderDetailContent = ({ item }) => {
     const { ord_id, id } = useParams();
 
     const [orderStatus, setOrderStatus] = useState(item.order_status);
+    const [actualorderStatus, setActualOrderStatus] = useState(item.order_status);
     const [showModal, setShowModal] = useState(false);
     const [rejectloading, setRejectLoading] = useState(false);
     const [rejectedItems, setRejectedItems] = useState(
@@ -18,7 +19,7 @@ const StationOrderDetailContent = ({ item }) => {
             return acc;
         }, {})
     );
-    const [statusLoading, setStatusLoading]= useState(false)
+    const [statusLoading, setStatusLoading] = useState(false)
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -32,6 +33,7 @@ const StationOrderDetailContent = ({ item }) => {
             );
             message.success('status updated successfully');
             setOrderStatus(res.data.data.order_status);
+            setActualOrderStatus(res.data.data.order_status);
             setShowModal(false);
 
         } catch (err) {
@@ -68,6 +70,7 @@ const StationOrderDetailContent = ({ item }) => {
         setShowModal(false);
     }
 
+    const nonEditableStatuses = ["Delivered", "Rejected", "Delivered to boy"];
 
     return (
         <div className="pe-4">
@@ -87,7 +90,7 @@ const StationOrderDetailContent = ({ item }) => {
                             <Col>
                                 <strong>Customer Name:</strong> {item.order.full_name}
                             </Col>
-                            
+
                             <Col>
                                 <strong>Customer Address:</strong> {item.order.address}
                             </Col>
@@ -109,7 +112,7 @@ const StationOrderDetailContent = ({ item }) => {
                                 <strong>Phone No:</strong> {item.order.phone_no}
                             </Col>
                         </Row>
-                        
+
                         <Row className="mb-3">
                             <Col>
                                 <strong>Order Type:</strong>
@@ -132,16 +135,26 @@ const StationOrderDetailContent = ({ item }) => {
                                             : orderStatus === "Ready"
                                                 ? "bg-success"
                                                 : orderStatus === "Delivered to boy" ?
-                                                    "bg-secondary":"bg-danger"
+                                                    "bg-secondary" :
+                                                    orderStatus === "Delivered to boy" ? "bg-success" : "bg-danger"
                                         }`}
                                 >
                                     {orderStatus}
                                 </Badge>
-                                {orderStatus !== "Rejected" && 
-                                <Button variant="link" onClick={() => setShowModal(true)}>
-                                    <i class="bi bi-pencil-square"></i>
-                                </Button>
-                                }
+                                {!nonEditableStatuses.includes(orderStatus) && (
+
+                                    <Button variant="link" onClick={() => setShowModal(true)}>
+                                        <i class="bi bi-pencil-square"></i>
+                                    </Button>
+                                )}
+                                {/* {orderStatus !== "Rejected" ?
+                               
+                                     orderStatus !== "Delivered to boy" &&
+                                    <Button variant="link" onClick={() => setShowModal(true)}>
+                                    <i class="bi bi-pencil-square"></i> 
+                                    </Button> :
+                                    <></>
+                                } */}
                             </Col>
                         </Row>
 
@@ -160,7 +173,7 @@ const StationOrderDetailContent = ({ item }) => {
                                 <th className="text-dynamic-white">Quantity</th>
                                 <th className="text-dynamic-white">Price</th>
                                 <th className="text-dynamic-white">Total</th>
-                                
+
                                 {orderStatus === "Pending" &&
                                     <th className="text-dynamic-white">Action</th>
                                 }
@@ -168,7 +181,7 @@ const StationOrderDetailContent = ({ item }) => {
                         </thead>
                         <tbody>
                             {item.order_items.map((items, index) => (
-                                <tr key={index} className={`${rejectedItems[items.id] ? "bg-secondary":""}`}>
+                                <tr key={index} className={`${rejectedItems[items.id] ? "bg-secondary" : ""}`}>
                                     <td className="text-dynamic-white">{items.food_item.name}</td>
                                     <td className="text-dynamic-white">{items.quantity}</td>
                                     <td className="text-dynamic-white">{items.food_item.currency_symbol} {items.price}</td>
@@ -177,12 +190,12 @@ const StationOrderDetailContent = ({ item }) => {
                                         {items.food_item.currency_symbol} {items.price * items.quantity}
                                     </td>
                                     {orderStatus === "Pending" &&
-                                    <td className="text-dynamic-white">
-                                        <Button size='sm' variant={rejectedItems[items.id] ? "danger" : "success"}
-                                            disabled={rejectedItems[items.id] || rejectloading} onClick={() => handleReject(items)}>
-                                            {rejectloading && <span className='spinner-border spinner-border-sm'></span>} Reject
-                                        </Button>
-                                    </td>
+                                        <td className="text-dynamic-white">
+                                            <Button size='sm' variant={rejectedItems[items.id] ? "danger" : "success"}
+                                                disabled={rejectedItems[items.id] || rejectloading} onClick={() => handleReject(items)}>
+                                                {rejectloading && <span className='spinner-border spinner-border-sm'></span>} Reject
+                                            </Button>
+                                        </td>
                                     }
                                 </tr>
                             ))}
@@ -207,7 +220,7 @@ const StationOrderDetailContent = ({ item }) => {
             >
                 <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter text-center">
-                        Update Order Status
+                        <h4 className="text-dynamic-white">Update Order Status</h4>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -222,11 +235,36 @@ const StationOrderDetailContent = ({ item }) => {
                                 onChange={(e) => setOrderStatus(e.target.value)}
                                 required
                             >
-                                <option value="Pending">Pending</option>
-                                <option value="Confirmed">Confirmed</option>
-                                <option value="Ready">Ready</option>
-                                <option value="Rejected">Rejected</option>
-                                <option value="Delivered to boy">Delivered to boy</option>
+                                {actualorderStatus === "Pending" &&
+                                    <>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Rejected">Rejected</option>
+                                        <option value="Confirmed">Confirmed</option>
+                                    </>
+                                }
+
+                                {actualorderStatus === "Confirmed" &&
+                                    <>
+                                        <option value="Confirmed">Confirmed</option>
+                                        <option value="Ready">Ready</option>
+
+                                    </>
+                                }
+                                {actualorderStatus === "Ready" &&
+                                    <>
+                                        <option value="Ready">Ready</option>
+                                        <option value="Delivered to boy">Delivered to boy</option>
+                                       
+                                    </>
+                                }
+                                {actualorderStatus === "Delivered to boy" &&
+                                    <>
+                                        <option value="Delivered to boy">Delivered to boy</option>
+                                    </>
+                                }
+
+
+
                             </Form.Control>
                         </Form.Group>
                         <div className="d-flex justify-content-end gap-2">
@@ -237,8 +275,8 @@ const StationOrderDetailContent = ({ item }) => {
                             >
                                 Cancel
                             </Button>
-                            <Button type="submit" className="mt-4">
-                                { statusLoading && <span className='spinner-border spinner-border-sm'></span>} Confirm
+                            <Button type="submit" disabled={statusLoading || orderStatus === actualorderStatus} className="mt-4">
+                                {statusLoading && <span className='spinner-border spinner-border-sm'></span>} Confirm
                             </Button>
                         </div>
                     </Form>

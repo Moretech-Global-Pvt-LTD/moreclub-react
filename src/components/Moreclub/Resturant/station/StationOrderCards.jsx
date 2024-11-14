@@ -1,25 +1,30 @@
 import React, { useState } from 'react'
-import { Button, Form, Modal } from 'react-bootstrap'
+import { Badge, Button, Form, Modal } from 'react-bootstrap'
 import { axiosInstance } from '../../../..';
 import { morefoodURL } from '../../../../config/config';
 import { message } from 'antd';
 import moment from 'moment';
 
-const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderStatus }) => {
+const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderStatus, resturant_status }) => {
     const [showResturant, setShowResturant] = useState(false);
     const [received, setReceived] = useState(item.received_item_quantity_restaurant);
     const [isLoading, setIsLoading] = useState(false);
     const [isRecieved, setIsRecieved] = useState(item.is_received_from_restaurant);
     const [isPaid, setIsPaid] = useState(item.is_paid_to_restaurant);
+    const [restaurantStatus, setRestaurantStatus]= useState(resturant_status);
+
+  
 
     const hideShowRestaurant = () => {
         setShowResturant(false);
     }
     const viewShowRestaurant = () => {
         if (!item.is_received_from_restaurant) {
-            if (orderStatus !== "Cancalled") { 
+            if (orderStatus !== "Cancalled" || resturant_status !== "Delivered to boy" || resturant_status !== "Delivered" || resturant_status !== "Rejected") {
                 setShowResturant(true);
-            }
+            } 
+                
+            
         }
     }
 
@@ -62,11 +67,13 @@ const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderS
                 />
                 <div className="station-order-card-content">
                     <div className="station-order-card-header">
-                        <div className="station-order-card-restaurant">{restaurant}</div>
-                        <span className={`station-order-card-received-status ${isPaid ? "received" : "not-received"}`}>Payment: {isPaid ? "Received" : "Pending"}</span>
+                        <div className="station-order-card-restaurant">{item.food_item.name}</div>
+                        {/* <span className={`station-order-card-received-status ${isPaid ? "received" : "not-received"}`}>Payment: {isPaid ? "Received" : "Pending"}</span> */}
                     </div>
-                    <div className="station-order-card-date">{item.received_item_from_restaurant_date ? <>Received on :{moment.utc(item.received_item_from_restaurant_date).local().format('MMM DD YYYY')}  {moment.utc(item.received_item_from_restaurant_date).local().format("h:mm a") }</>:<>Pending</> } </div>
-                    <div className="station-order-card-food-name">{item.food_item.name}</div>
+                    <div className="station-order-card-date">{item.received_item_from_restaurant_date ? <>Received on :{moment.utc(item.received_item_from_restaurant_date).local().format('MMM DD YYYY')}  {moment.utc(item.received_item_from_restaurant_date).local().format("h:mm a")}</> : <></>} </div>
+                    <div className="station-order-card-date line-clamp-1">{item.food_item.short_description} </div>
+
+                    {/* <div className="station-order-card-food-name">{item.food_item.name}</div> */}
                     <div className="station-order-card-footer">
                         <div className="station-order-card-received">
                             <span className={`station-order-card-received-status ${isRecieved ? "received" : "not-received"}`}
