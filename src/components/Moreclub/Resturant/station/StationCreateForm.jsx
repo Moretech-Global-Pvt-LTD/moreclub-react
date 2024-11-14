@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row, Form, InputGroup, Spinner, Card } from "react-bootstrap";
+import { Button, Col, Row, Form, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { baseURL, morefoodURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
 import { message } from "antd";
-import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry, validateCuisineType, validateEmail, validateFacebookURL, validateFeatureType, validateInstagramURL, Validatelogo, validateLongDescription, validateMeal, validateMin_order, validatePriceRange, validateProperties, validateResturantName, validateWebsiteURL } from "../../../../validation/resturantValidation";
+import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry, validateEmail,   Validatelogo, validateLongDescription, validateResturantName } from "../../../../validation/resturantValidation";
 import { useNavigate } from "react-router-dom";
 import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
 import { useSelector } from "react-redux";
-import { set } from "lodash";
 import { validateFirstName, validateGender, validateLastName, validatePassword, validateUserEmail, validateUserPhone } from "../../../../validation/userRegisterValidation";
 import PhoneNumberInput from "../../../ui/PhoneInput2";
 
@@ -69,7 +68,7 @@ const StationCreateForm = () => {
         if ("address" in fieldValues)
             tempErrors.address = validateAddress(fieldValues.address, formValues.lat, formValues.lng);
         if ("short_description" in fieldValues)
-            tempErrors.short_description = valdateShortDescription(fieldValues.description);
+            tempErrors.short_description = valdateShortDescription(fieldValues.short_description);
         if ("long_description" in fieldValues)
             tempErrors.long_description = validateLongDescription(
                 fieldValues.long_description
@@ -447,11 +446,11 @@ const StationCreateForm = () => {
                                 </Col> */}
                                 <Col xs={12} md={6} lg={6} xl={6}>
                                     <Form.Group controlId="formUsername">
-                                        <Form.Label>Username</Form.Label>
+                                        <Form.Label>Email</Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            type="email"
                                             name="username"
-                                            placeholder="Username"
+                                            placeholder="Login Email"
                                             value={formValues.username}
                                             onChange={handleChange}
                                         />
@@ -553,11 +552,11 @@ const StationCreateForm = () => {
                             <Row>
                                 <Col xs={12} md={6} lg={6} xl={6} >
                                     <Form.Group controlId="formRestaurantName">
-                                        <Form.Label>Resturant Name</Form.Label>
+                                        <Form.Label>Station Name</Form.Label>
                                         <Form.Control
                                             type="text"
                                             name="name"
-                                            placeholder={"Resturant Name"}
+                                            placeholder={"Station Name"}
                                             value={formValues.name}
                                             onChange={handleChange}
                                         />

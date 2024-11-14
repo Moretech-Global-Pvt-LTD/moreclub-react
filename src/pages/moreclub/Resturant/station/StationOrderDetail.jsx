@@ -20,6 +20,8 @@ const StationOrderDetailsContent = ({ item }) => {
     const { ord_id, id, name } = useParams();
 
     const [orderStatus, setOrderStatus] = useState(item.order_status);
+    
+   
     const [showModal, setShowModal] = useState(false);
 
     async function handleSubmit(e) {
@@ -42,7 +44,7 @@ const StationOrderDetailsContent = ({ item }) => {
         }
     }
 
-    const nonEditableStatuses = ["Delivered", "Cancelled"];
+    const nonEditableStatuses = ["Delivered", "Cancalled"];
 
     return (
         <div className="pe-4">
@@ -107,11 +109,10 @@ const StationOrderDetailsContent = ({ item }) => {
                                 </Button>
                                 )}
                             </Col>
+                            
                         </Row>
 
-                        <Row className="mt-3">
-                            <Col></Col>
-                        </Row>
+                       
                     </Card.Body>
                 </Card>
                 
@@ -120,9 +121,34 @@ const StationOrderDetailsContent = ({ item }) => {
                     
                     <div className="station-order-card-container">
                         {Object.entries(item.order_items).map(([restaurant, items]) =>
-                            items.map((orders) => (
-                                <StationOrderCards item={orders}  restaurant={restaurant} stationId={item.station} orderStatus={orderStatus} setOrderStatus={setOrderStatus}/>
-                            ))
+                            <div>
+                                
+                                   
+                                <div className="station-order-card-header mb-2">
+                                    <div className="station-order-card-restaurant">{restaurant} &nbsp; &nbsp;<Badge
+                                        size="lg"
+                                    className={`ml-2 ${items?.restaurant_status === "Pending"
+                                        ? "bg-warning"
+                                        : items?.restaurant_status === "Confirmed"
+                                            ? "bg-primary"
+                                            : items?.restaurant_status === "Ready"
+                                                ? "bg-success"
+                                                : items?.restaurant_status === "Delivered to boy" ? "bg-success" :
+                                                    items?.restaurant_status === "Delivered to boy"?   "bg-success":
+                                                    "bg-danger"
+                                        }`}
+                                >
+                                    {items?.restaurant_status} 
+                                    </Badge>
+                                </div>
+                                    <span className={`station-order-card-received-status ${items?.restaurant_payment ? "received" : "not-received"}`}>Payment: {items?.restaurant_payment ? "Received" : "Pending"}</span>
+                                </div>
+                                
+                                {items.food_item.map((orders) => (
+                                    <StationOrderCards item={orders} resturant_status={items.restaurant_status} restaurant={restaurant} stationId={item.station} orderStatus={orderStatus} setOrderStatus={setOrderStatus} />
+                                ))}
+                                </div>
+                            
                         )}
                     </div>
                 </Col>
