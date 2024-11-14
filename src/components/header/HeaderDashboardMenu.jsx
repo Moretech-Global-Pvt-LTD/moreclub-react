@@ -203,7 +203,7 @@ const HeaderDashboardMenu = () => {
             </li>
           </>
         )}
-        {(user.isSuperAdmin || user.isStationOwner) && (
+        {(user.isSuperAdmin || user.isStationOwner) && business.businessProfile.business_types?.some(type => type.name !== "Restaurant") &&(
           <li>
             <NavLink to={"/station"}>
               <svg

@@ -56,7 +56,7 @@ const customStyles = {
 };
 
 
-const FoodItemForm = ({ data }) => {
+const FoodItemForm = ({ data , onCancel}) => {
   const { cat_id, res_id, id } = useParams()
   const queryClient = useQueryClient();
   const [imageUrl, setImageUrl] = useState("")
@@ -170,20 +170,14 @@ const FoodItemForm = ({ data }) => {
         )
         .then((response) => {
           message.success("Food Items Updated Successfully");
-          // setMenuItem({
-          //   name: "",
-          //   price: "",
-          //   short_description: "",
-          //   image: null,
-          // });
           queryClient.invalidateQueries({
             queryKey: [`Resturant SubMenu List ${cat_id}`],
           });
           queryClient.invalidateQueries({
             queryKey: [`Resturant SubMenu ${id}`],
           });
-          navigate(`/resturant/${res_id}/menu/${cat_id}/Menu/`);
-
+          // navigate(`/resturant/${res_id}/menu/${cat_id}/Menu/`);
+          onCancel();
         })
         .catch((error) => {
           console.error("There was an error updating the foodItems!", error);
@@ -228,6 +222,7 @@ const FoodItemForm = ({ data }) => {
           queryClient.invalidateQueries({
             queryKey: [`Resturant SubMenu ${id}`],
           });
+          onCancel();
 
         })
         .catch((error) => {
@@ -236,20 +231,7 @@ const FoodItemForm = ({ data }) => {
         }).finally(() => {
           setLoading(false)
         });
-    }
-
-    // const formData = new FormData();
-    // formData.append("name", menuItem.name);
-    // formData.append("price", menuItem.price);
-    // formData.append("short_description", menuItem.short_description);
-    // formData.append("menu", cat_id);
-    // formData.append("restaurant_id", res_id);
-    // formData.append("discount_price", menuItem.offerPrice ?? "");
-    //  menuItem.image && formData.append("image", menuItem.image);
-    // formData.append("cuisine", menuItem.cuisine);
-    // formData.append("ingredient", menuItem.ingredient);
-    
-    
+    }    
   };
   
   return (
@@ -361,9 +343,15 @@ const FoodItemForm = ({ data }) => {
           <Form.Control type="file" name="image" onChange={handleImageChange} />
         </Form.Group>
 
-        <Button variant="success" disabled={offererror !== ""} type="submit" className="my-3">
-          Update
+        <div className="d-flex justify-content-end gap-2">
+
+        <Button variant="secondary" disabled={offererror !== ""} onClick={onCancel} className="my-3">
+          cancel
         </Button>
+        <Button variant="success" disabled={offererror !== "" || loading} type="submit" className="my-3">
+          {loading && <span className="spinner-border spinner-border-sm me-2"></span> }Update
+        </Button>
+        </div>
       </Form>
     </Card>
   );

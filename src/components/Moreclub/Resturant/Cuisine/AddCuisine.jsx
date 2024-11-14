@@ -5,7 +5,6 @@ import { morefoodURL } from "../../../../config/config";
 import { message } from "antd";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import Select from "react-select";
 
 
 
@@ -110,9 +109,15 @@ const AddCuisineForm = ({onFinish}) => {
                     <Form.Control type="file" name="image" onChange={handleImageChange}  className="my-4"/>
                 </Form.Group>
 
+                <div className="d-flex justify-content-end gap-2">
+                    <Button variant="secondary" onClick={onFinish} className="my-3">
+                    Cancel
+                </Button>
                 <Button variant="success" type="submit" className="my-3">
                    {loading && <span className="spinner-border spinner-border-sm"></span>} Add Cuisine
                 </Button>
+
+                </div>
             </Form>
         </Card>
     );

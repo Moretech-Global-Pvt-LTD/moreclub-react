@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, Col, Placeholder, Row } from "react-bootstrap";
+import { Button, Col, Modal, Placeholder, Row } from "react-bootstrap";
 import MenuItemsForm from "./MenuItemForm";
 import MenuCard from "./MenuCard";
 import { useParams } from "react-router-dom";
@@ -60,12 +60,26 @@ const MenuItem = () => {
           </Button>
         )}
       </div>
-      <Row>
-        <Col xs={12} lg={8} xxl={6}>
-          {showForm && <MenuItemsForm res_id={res_id} cat_id={cat_id} onFinish={hideAddCategory} />}
-        </Col>
-      </Row>
+      <Modal
+        aria-labelledby="contained-modal-title-vcenter"
+        size="lg"
+        centered
+        show={showForm}
+        onHide={hideAddCategory}
+      >
 
+        <Modal.Header>
+          <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
+            Add Menu
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <MenuItemsForm res_id={res_id} cat_id={cat_id} 
+          onFinish={hideAddCategory}
+          />
+        </Modal.Body>
+
+      </Modal>
       <Row
         xs={1}
         sm={1}
@@ -79,6 +93,7 @@ const MenuItem = () => {
           <Col className="d-flex flex-column">
             
             <MenuCard
+              data={item}
               id={item.id}
               logo={item.image}
               name={item.name}
