@@ -20,13 +20,14 @@ const StationOrderDetailsContent = ({ item }) => {
     const { ord_id, id, name } = useParams();
 
     const [orderStatus, setOrderStatus] = useState(item.order_status);
-    
-   
+    const [actualorderStatus, setActualOrderStatus] = useState(item.order_status);
+    const [statusloading, setStatusLoading] = useState(false)
     const [showModal, setShowModal] = useState(false);
 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
+            setStatusLoading(true);
             const res = await axiosInstance.patch(
                 `${morefoodURL}moreclub/station/${id}/orders/${ord_id}/status/update/`,
                 {
@@ -35,16 +36,20 @@ const StationOrderDetailsContent = ({ item }) => {
             );
             message.success('status updated successfully');
             setOrderStatus(res.data.data.order_status);
+            setActualOrderStatus(res.data.data.order_status);
+
             setShowModal(false);
         } catch (err) {
             console.log(err);
             message.error('error updating status');
             setOrderStatus(item.order_status);
+            setActualOrderStatus(item.order_status);
             setShowModal(false);
         }
+        setStatusLoading(false);
     }
 
-    const nonEditableStatuses = ["Delivered", "Cancalled"];
+    const nonEditableStatuses = ["Delivered", "Pending", "Cooked","Confirmed","Cancalled"];
 
     return (
         <div className="pe-4">
@@ -103,52 +108,52 @@ const StationOrderDetailsContent = ({ item }) => {
                                     {orderStatus}
                                 </Badge>
                                 {!nonEditableStatuses.includes(orderStatus) && (
-                                    
-                                <Button variant="link" onClick={() => setShowModal(true)}>
-                                    <i class="bi bi-pencil-square"></i>
-                                </Button>
+
+                                    <Button variant="link" onClick={() => setShowModal(true)}>
+                                        <i class="bi bi-pencil-square"></i>
+                                    </Button>
                                 )}
                             </Col>
-                            
+
                         </Row>
 
-                       
+
                     </Card.Body>
                 </Card>
-                
+
                 <Col className="col-12 col-lg-8 col-xl-6 my-xl-0 my-4">
                     <h5>Items Ordered</h5>
-                    
+
                     <div className="station-order-card-container">
                         {Object.entries(item.order_items).map(([restaurant, items]) =>
                             <div>
-                                
-                                   
+
+
                                 <div className="station-order-card-header mb-2">
                                     <div className="station-order-card-restaurant">{restaurant} &nbsp; &nbsp;<Badge
                                         size="lg"
-                                    className={`ml-2 ${items?.restaurant_status === "Pending"
-                                        ? "bg-warning"
-                                        : items?.restaurant_status === "Confirmed"
-                                            ? "bg-primary"
-                                            : items?.restaurant_status === "Ready"
-                                                ? "bg-success"
-                                                : items?.restaurant_status === "Delivered to boy" ? "bg-success" :
-                                                    items?.restaurant_status === "Delivered to boy"?   "bg-success":
-                                                    "bg-danger"
-                                        }`}
-                                >
-                                    {items?.restaurant_status} 
+                                        className={`ml-2 ${items?.restaurant_status === "Pending"
+                                            ? "bg-warning"
+                                            : items?.restaurant_status === "Confirmed"
+                                                ? "bg-primary"
+                                                : items?.restaurant_status === "Ready"
+                                                    ? "bg-success"
+                                                    : items?.restaurant_status === "Delivered to boy" ? "bg-success" :
+                                                        items?.restaurant_status === "Delivered to boy" ? "bg-success" :
+                                                            "bg-danger"
+                                            }`}
+                                    >
+                                        {items?.restaurant_status}
                                     </Badge>
-                                </div>
+                                    </div>
                                     <span className={`station-order-card-received-status ${items?.restaurant_payment ? "received" : "not-received"}`}>Payment: {items?.restaurant_payment ? "Received" : "Pending"}</span>
                                 </div>
-                                
+
                                 {items.food_item.map((orders) => (
                                     <StationOrderCards item={orders} resturant_status={items.restaurant_status} restaurant={restaurant} stationId={item.station} orderStatus={orderStatus} setOrderStatus={setOrderStatus} />
                                 ))}
-                                </div>
-                            
+                            </div>
+
                         )}
                     </div>
                 </Col>
@@ -181,11 +186,34 @@ const StationOrderDetailsContent = ({ item }) => {
                                 onChange={(e) => setOrderStatus(e.target.value)}
                                 required
                             >
-                                <option value="Pending">Pending</option>
-                                <option value="Confirmed">Confirmed</option>
-                                <option value="Cooked">Cooked</option>
-                                <option value="Delivered">Delivered</option>
-                                <option value="Cancalled">Cancelled</option>
+                                {actualorderStatus === "Pending" &&
+                                    <>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Cancalled">Cancelled</option>
+                                        <option value="Confirmed">Confirmed</option>
+                                    </>
+                                }
+
+                                {actualorderStatus === "Confirmed" &&
+                                    <>
+                                        <option value="Confirmed">Confirmed</option>
+                                        <option value="Cooked">Cooked</option>
+                                        <option value="Ready">Ready</option>
+
+                                    </>
+                                }
+                                {actualorderStatus === "Ready" &&
+                                    <>
+                                        <option value="Ready">Ready</option>
+                                        {/* <option value="Delivered to boy">Delivered to boy</option> */}
+                                        <option value="Delivered">Delivered</option>
+                                    </>
+                                }
+                                {actualorderStatus === "Delivered" &&
+                                    <>
+                                        <option value="Delivered">Delivered</option>
+                                    </>
+                                }
                             </Form.Control>
                         </Form.Group>
                         <div className="d-flex justify-content-end gap-2">
@@ -199,7 +227,7 @@ const StationOrderDetailsContent = ({ item }) => {
                                 Cancel
                             </Button>
                             <Button type="submit" className="mt-4">
-                                Confirm
+                                {statusloading && <span className="spinner-border spinner-border-sm"></span>} Confirm
                             </Button>
                         </div>
                     </Form>

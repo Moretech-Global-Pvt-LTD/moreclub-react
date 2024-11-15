@@ -38,7 +38,8 @@ const StationOrderDetailContent = ({ item }) => {
 
         } catch (err) {
             message.error('error updating status');
-
+            setOrderStatus(item.order_status);
+            setActualOrderStatus(item.order_status);
         } finally {
             setStatusLoading(false);
             setShowModal(false);
@@ -70,7 +71,13 @@ const StationOrderDetailContent = ({ item }) => {
         setShowModal(false);
     }
 
-    const nonEditableStatuses = ["Delivered", "Rejected", "Delivered to boy"];
+    const nonEditableStatuses = ["Delivered", "Rejected", "Delivered to boy", "Confirm on hold"];
+
+    const calculatedTotal = item.order_items.reduce((acc, currentItem) => {
+            acc += (parseFloat(currentItem.food_item.retailer_price) * currentItem.quantity);
+            return acc;
+        }, 0);
+    
 
     return (
         <div className="pe-4">
@@ -136,10 +143,11 @@ const StationOrderDetailContent = ({ item }) => {
                                                 ? "bg-success"
                                                 : orderStatus === "Delivered to boy" ?
                                                     "bg-secondary" :
-                                                    orderStatus === "Delivered to boy" ? "bg-success" : "bg-danger"
+                                                    orderStatus === "Delivered to boy" ? "bg-success" :
+                                                        orderStatus === "Confirm on hold" ? "":"bg-danger"
                                         }`}
                                 >
-                                    {orderStatus}
+                                    {orderStatus === "Confirm on hold" ? "Waiting for Station Confirmation" : orderStatus}
                                 </Badge>
                                 {!nonEditableStatuses.includes(orderStatus) && (
 
@@ -184,10 +192,10 @@ const StationOrderDetailContent = ({ item }) => {
                                 <tr key={index} className={`${rejectedItems[items.id] ? "bg-secondary" : ""}`}>
                                     <td className="text-dynamic-white">{items.food_item.name}</td>
                                     <td className="text-dynamic-white">{items.quantity}</td>
-                                    <td className="text-dynamic-white">{items.food_item.currency_symbol} {items.price}</td>
+                                    <td className="text-dynamic-white">{items.food_item.currency_symbol} {parseFloat(items.food_item.retailer_price)}</td>
                                     <td className="text-dynamic-white">
                                         {" "}
-                                        {items.food_item.currency_symbol} {items.price * items.quantity}
+                                        {items.food_item.currency_symbol} {parseFloat(items.food_item.retailer_price) * items.quantity}
                                     </td>
                                     {orderStatus === "Pending" &&
                                         <td className="text-dynamic-white">
@@ -205,7 +213,7 @@ const StationOrderDetailContent = ({ item }) => {
                                 <td colSpan={3} className="text-dynamic-white">
                                     Total
                                 </td>
-                                <td className="text-dynamic-white">{item.order_items[0].food_item.currency_symbol} {item.total_price}</td>
+                                <td className="text-dynamic-white">{item.order_items[0].food_item.currency_symbol} {calculatedTotal}</td>
                             </tr>
                         </tfoot>
                     </Table>
