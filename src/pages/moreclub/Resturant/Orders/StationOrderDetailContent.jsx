@@ -38,7 +38,8 @@ const StationOrderDetailContent = ({ item }) => {
 
         } catch (err) {
             message.error('error updating status');
-
+            setOrderStatus(item.order_status);
+            setActualOrderStatus(item.order_status);
         } finally {
             setStatusLoading(false);
             setShowModal(false);
@@ -70,7 +71,7 @@ const StationOrderDetailContent = ({ item }) => {
         setShowModal(false);
     }
 
-    const nonEditableStatuses = ["Delivered", "Rejected", "Delivered to boy"];
+    const nonEditableStatuses = ["Delivered", "Rejected", "Delivered to boy", "Confirm on hold"];
 
     return (
         <div className="pe-4">
@@ -136,10 +137,11 @@ const StationOrderDetailContent = ({ item }) => {
                                                 ? "bg-success"
                                                 : orderStatus === "Delivered to boy" ?
                                                     "bg-secondary" :
-                                                    orderStatus === "Delivered to boy" ? "bg-success" : "bg-danger"
+                                                    orderStatus === "Delivered to boy" ? "bg-success" :
+                                                        orderStatus === "Confirm on hold" ? "":"bg-danger"
                                         }`}
                                 >
-                                    {orderStatus}
+                                    {orderStatus === "Confirm on hold" ? "Waiting for Station Confirmation" : orderStatus}
                                 </Badge>
                                 {!nonEditableStatuses.includes(orderStatus) && (
 

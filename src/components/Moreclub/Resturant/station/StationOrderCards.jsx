@@ -4,6 +4,8 @@ import { axiosInstance } from '../../../..';
 import { morefoodURL } from '../../../../config/config';
 import { message } from 'antd';
 import moment from 'moment';
+import { useQueryClient } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 
 const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderStatus, resturant_status }) => {
     const [showResturant, setShowResturant] = useState(false);
@@ -12,17 +14,19 @@ const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderS
     const [isRecieved, setIsRecieved] = useState(item.is_received_from_restaurant);
     const [isPaid, setIsPaid] = useState(item.is_paid_to_restaurant);
     const [restaurantStatus, setRestaurantStatus]= useState(resturant_status);
-
-  
+    const { ord_id } = useParams();
+    const queryClient = useQueryClient();
 
     const hideShowRestaurant = () => {
         setShowResturant(false);
     }
     const viewShowRestaurant = () => {
         if (!item.is_received_from_restaurant) {
-            if (orderStatus !== "Cancalled" || resturant_status !== "Delivered to boy" || resturant_status !== "Delivered" || resturant_status !== "Rejected") {
-                setShowResturant(true);
-            } 
+            if (resturant_status === "Ready" || resturant_status === "Delivered to boy") {
+                if (orderStatus !== "Cancalled") {
+                    setShowResturant(true);
+                } 
+            }
                 
             
         }
@@ -43,6 +47,9 @@ const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderS
             setReceived(res.data.data.received_item_quantity_restaurant);
             setIsPaid(res.data.data.is_paid_to_restaurant);
             // setOrderStatus("Cooked");
+            queryClient.invalidateQueries({
+                queryKey: [`Station order detail ${ord_id}`],
+            });
         } catch (err) {
             console.log(err);
             setReceived(item.received_item_quantity_restaurant);
