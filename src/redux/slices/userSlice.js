@@ -95,10 +95,10 @@ export const userRegister = createSlice({
       state.meta = payload;
     },
     logMeOut: (state) => {
-
+      window.location.reload();
       Cookies.remove("moretechglobal_access");
       Cookies.remove("moretechglobal_refresh");
-      window.location.reload();
+     
 
       // localStorage.removeItem("moretechglobal_access");
       state.user = null;

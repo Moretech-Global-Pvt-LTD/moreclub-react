@@ -9,6 +9,7 @@ import RestaurantLayoutSkeleton from '../../../../components/Skeleton/Restaurant
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import StationMyMenuItemsForm from '../../../../components/Moreclub/Resturant/station/StationMyMenuFoodItemsForm';
 import StationMenuItemCard from '../../../../components/Moreclub/Resturant/station/StationMenuItemCard2';
+import ResturantpackageUpdate from '../../../../components/Moreclub/Resturant/common/resturantpackageUpdate';
 
 const NearbyStationMyMenuPage = () => {
     const { resid, stationid, name } = useParams();
@@ -52,7 +53,7 @@ const NearbyStationMyMenuPage = () => {
   return (
       <StationLayout title={`${stationName}`}>
           <div className="d-flex align-items-center justify-content-end my-2">
-
+              <ResturantpackageUpdate id={resid} />
               {showForm ? (
                   <Button variant="danger" onClick={() => hideAddCategory()}>
                       Cancel
