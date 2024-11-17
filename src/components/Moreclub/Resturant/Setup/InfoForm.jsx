@@ -85,7 +85,7 @@ const InfoForm = () => {
     if ("address" in fieldValues)
       tempErrors.address = validateAddress(fieldValues.address, formValues.lat, formValues.lng);
     if ("short_description" in fieldValues)
-      tempErrors.short_description = valdateShortDescription(fieldValues.description);
+      tempErrors.short_description = valdateShortDescription(fieldValues.short_description);
     if ("long_description" in fieldValues)
       tempErrors.long_description = validateLongDescription(
         fieldValues.long_description
