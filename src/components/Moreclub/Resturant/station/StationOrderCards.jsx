@@ -44,7 +44,7 @@ const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderS
             });
             message.success("Quantity updated successfully");
             queryClient.invalidateQueries({
-                queryKey:[`Station order detail ${ord_id}`],
+                queryKey: [`Station order detail ${ord_id}`],
             });
             setIsRecieved(res.data.data.is_received_from_restaurant);
             setReceived(res.data.data.received_item_quantity_restaurant);
