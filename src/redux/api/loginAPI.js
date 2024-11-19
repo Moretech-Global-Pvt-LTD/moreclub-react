@@ -51,6 +51,24 @@ export const load_user = () => async (dispatch) => {
   }
 };
 
+
+export const business_account = (accessToken) => async (dispatch) => {
+  console.log(accessToken);
+  try{
+    const res = await axios.get(`${baseURL}permissions/business/exist/`,{
+      headers:{
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+    if(res.data.data.user_type === "BUSINESS"){
+      localStorage.setItem("business_exists", res.data.data.business_exists);
+    }
+  }catch(err){
+    console.log(err);
+  }
+
+}
+
 export const login = (username, password ,next) => async (dispatch) => {
   dispatch(setProcessing(true));
   if (username && password) {
@@ -60,6 +78,7 @@ export const login = (username, password ,next) => async (dispatch) => {
         password,
         return_url: next,
       });
+      await dispatch(business_account(res.data.data.token));
       await dispatch(loginSuccess(res.data.data));
       await dispatch(load_user());
       await dispatch(isSuperAdmin());

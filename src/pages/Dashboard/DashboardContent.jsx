@@ -260,11 +260,12 @@ const DashboardContent = () => {
        
 
        
-        <Row>
-          <EventDashboardDisplay />
-        </Row>
+        
         <Row>
           <BusinessTypes />
+        </Row>
+        <Row>
+          <EventDashboardDisplay />
         </Row>
         <Row className="mt-4">
           <div className="d-flex justify-content-between align-items-center">

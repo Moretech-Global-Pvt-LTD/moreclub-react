@@ -57,6 +57,7 @@ export const userRegister = createSlice({
     },
     userSuccess: (state, action) => {
       sessionStorage.setItem("username", action.payload.username);
+      localStorage.setItem("usertype", action.payload.user_type);
       state.user = action.payload;
       state.isAuthenticated = true;
     },
@@ -95,7 +96,7 @@ export const userRegister = createSlice({
       state.meta = payload;
     },
     logMeOut: (state) => {
-
+      localStorage.removeItem("business_exists");
       Cookies.remove("moretechglobal_access");
       Cookies.remove("moretechglobal_refresh");
       window.location.reload();

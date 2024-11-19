@@ -89,7 +89,6 @@ const Walletlinks = () => {
             </Link>
           )}
         </>
-      
     );
   } else {
     return (

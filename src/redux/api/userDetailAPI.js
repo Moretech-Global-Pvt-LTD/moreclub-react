@@ -31,6 +31,9 @@ export const getBusinessProfile =() => async (dispatch) => {
     const res = await axiosInstance.get(`${baseURL}business/profile/`);
     await dispatch(businessProfileSucess(res?.data?.data))
   } catch (err) {
+    if(err.response.status === 403) {
+      err.response.data.detail = "You do not have permission to perform this action.";
+    }
     await dispatch(setError(err?.response?.data));
   }
 };

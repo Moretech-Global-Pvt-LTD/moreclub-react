@@ -60,7 +60,6 @@ const BusinessDiscountsForm = ({ handleSubmit, loading }) => {
     }
   };
   const handleNextStep = (value) => {
-    console.log("after discounts", formData);
     dispatch(currentBusinessStep(value));
   };
 

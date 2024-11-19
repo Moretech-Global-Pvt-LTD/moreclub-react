@@ -6,7 +6,7 @@ import { MapboxAPIKey } from "../../config/config";
 import { FormControl } from "react-bootstrap";
 
 
-const MapBoxLocationDisplayAutocomplete = ({ onPlaceSelected, initialLat, initialLng, initialAddress }) => {
+const MapBoxLocationDisplayAutocomplete = ({ onPlaceSelected, initialLat, initialLng, initialAddress ,height }) => {
     const mapContainerRef = useRef(null);
     const mapRef = useRef(null);
     const markerRef = useRef(null);
@@ -234,7 +234,7 @@ const MapBoxLocationDisplayAutocomplete = ({ onPlaceSelected, initialLat, initia
             </div>
             <div
                 ref={mapContainerRef}
-                style={{ height: "300px", width: "100%" }}
+                style={{ height: height?? "300px", width: "100%" }}
                 className="map-container"
             />
         </div>
