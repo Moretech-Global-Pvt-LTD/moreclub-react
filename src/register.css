@@ -1,0 +1,143 @@
+.disable-scroll {
+  overflow: hidden;
+  height: 100%; /* Prevent vertical scrolling */
+}
+
+.multistep-form-container{
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: relative;
+  overflow: hidden; /* Prevents scrolling within the container */
+}
+
+.register-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500; /* Ensures it stays above other elements */
+}
+
+.multi-step-register-containers {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    overflow: hidden;
+    background-color: inherit;
+  }
+
+.multi-step-registration {
+    min-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+
+  .form-layout{
+    display: grid;
+    padding:20px;
+    grid-template-columns: calc(50% - 10px) calc(50% - 10px);
+    gap: 20px;
+  }
+
+  @media (max-width: 764px) {
+    .form-layout{
+        display: grid;
+        padding:20px;
+        grid-template-columns: calc(100% - 10px);
+        gap: 20px;
+      }
+  }
+
+  .form-container {
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+    padding: 0px 0px;
+    box-shadow: 0px 4px 6px #fff;
+  }
+  
+  @media (min-width: 640px) and (max-width: 1499px) {
+    .form-container {
+      width: 80%;
+      
+      padding: 20px 30px;
+    
+    }
+  }
+  
+  @media (min-width: 1500px) {
+    .form-container {
+      width: 60%;
+     
+      padding: 20px 30px;
+    
+    }
+  }
+  
+  h2 {
+    font-size: 24px;
+    
+    margin-bottom: 20px;
+  }
+  
+  .form-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-container .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-container .form-control {
+   
+    border: 1px solid #444;
+   
+  }
+  
+  /* .form-container .form-label {
+    color: #aaa;
+  } */
+  
+  .multi-step-registration-button-container{
+    display: grid;
+    grid-template-columns: calc(50% - 10px) calc(50% - 10px);
+    gap: 20px;
+  }
+
+  .multi-step-registration-button-container-single{
+    grid-template-columns: calc(100% - 10px);
+  }
+
+  
+
+
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .button-group .btn {
+    width: 48%;
+  }
+
+  [data-theme="dark"] .form-container {
+    background: #0c153b !important;
+    box-shadow: 0px 4px 6px #0c153b !important;
+  }
+  

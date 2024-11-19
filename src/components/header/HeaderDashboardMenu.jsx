@@ -3,6 +3,7 @@ import {  useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import SidebarDropDownMenu from "./dropdownmenu";
+import CheckUserDiscounts from "./CheckUserDiscounts";
 
 const HeaderDashboardMenu = () => {
   const user = useSelector((state) => state.userReducer);
@@ -51,6 +52,10 @@ const HeaderDashboardMenu = () => {
 
   return (
     <div className="sidenav pb-5 " style={{ zIndex: "200px" }}>
+       {(user.user?.user_type !== "NORMAL") && !business.businessProfile.business_types?.length === 0
+       &&
+       <CheckUserDiscounts/>
+       }
       <ul>
         <li>User Menu</li>
         <li>

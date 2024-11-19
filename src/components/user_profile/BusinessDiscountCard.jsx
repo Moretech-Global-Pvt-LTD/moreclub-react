@@ -2,12 +2,18 @@ import React from 'react'
 import { Button, Image, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import QRDownload from '../QR/QRDownload';
+import { update } from 'lodash';
+import BusinessDiscountForm from './BusinessDiscountForm';
 
 const BusinessDiscountCard = ({ item }) => {
-
-
     const [modalShow, setModalShow] = React.useState(false);
+    const [updateModalShow, setUpdateModalShow] = React.useState(false);
 
+
+    const data = {
+        business_type: item.business_type_name,
+        discount: item.business_type_discount,
+    };
 
     return (
         <div className="d-flex align-items-center user-profile w-100 border-bottom p-3">
@@ -44,14 +50,15 @@ const BusinessDiscountCard = ({ item }) => {
                             {item.business_type_name}
                         </h6>
                     </Link>
-                    <Link to="/profile">
+                    {/* <Link to="/profile"> */}
                         <p className="text-dynamic-white my-0">
                             Discount: <span className='text-warning'>{item.business_type_discount}%</span>
+                            <span onClick={() => setUpdateModalShow(true)} style={{ cursor: "pointer" }}> <i className="bi bi-pencil" aria-hidden="true"></i></span>
                         </p>
-                    </Link>
+                    {/* </Link> */}
                 </div>
                 <div className=''>
-                    <Button variant="secondary" onClick={() => setModalShow(true)}>
+                    <Button variant="secondary" size='sm' onClick={() => setModalShow(true)}>
                         View QR
                     </Button>
                 </div>
@@ -85,6 +92,27 @@ const BusinessDiscountCard = ({ item }) => {
                             name={`Merchant-qr_${item.business_type_name}}`}
                         />
                     </div>
+                </Modal.Body>
+
+            </Modal>
+
+            <Modal
+                show={updateModalShow}
+                onHide={() => setUpdateModalShow(false)}
+                size="md"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header >
+                    <Modal.Title closeButton id="contained-modal-title-vcenter " className='w-100' >
+                        <div className='d-flex justify-content-between w-100 text-dynamic-white '>
+                            {item.business_type_name} update
+                            </div>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='d-flex flex-column justify-content-center'>
+
+                <BusinessDiscountForm initialValues={item} onClose={() => setUpdateModalShow(false)}/>
                 </Modal.Body>
 
             </Modal>

@@ -140,6 +140,7 @@ import StationOrderDetailPage from "./pages/moreclub/Resturant/Orders/StationOrd
 import AllResturantsStationOrderPage from "./pages/moreclub/Resturant/Allorders/AllResturantsStationOrderPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import BusinessSetupPage from "./pages/AuthAndRegisterPages/BusinessRegistration/BusinessSetupPage";
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to={`/login`} />;
@@ -255,6 +256,7 @@ const App = () => {
   // }, [])
 
   const authRoutes = [
+    
     {
       path: "/login",
 
@@ -419,6 +421,10 @@ const App = () => {
   ];
 
   const userRoutes = [
+    {
+      path:"/businessSetup",
+      page:<BusinessSetupPage/>
+    },
     {
       path: "/feed",
 

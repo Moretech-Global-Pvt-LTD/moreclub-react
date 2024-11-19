@@ -3,6 +3,7 @@ import axios from "axios";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import "./App.css";
+import "./register.css";
 import App from "./App";
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -13,6 +14,7 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CookiesProvider } from "react-cookie";
 import Cookies from "js-cookie"
+import ErrorBoundary from "./components/Layout/ErrorBoundaries";
 
 export const axiosInstance = axios.create({
   baseURL: baseURL,
@@ -66,8 +68,10 @@ root.render(
       <Provider store={store}>
         <CookiesProvider defaultSetOptions={{ path: "/" }}>
             <QueryClientProvider client={queryClient}>
-              
+            <ErrorBoundary>
+
               <App />
+            </ErrorBoundary>
             </QueryClientProvider>
         </CookiesProvider>
       </Provider>

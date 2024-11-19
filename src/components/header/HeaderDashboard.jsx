@@ -19,6 +19,7 @@ import { useQuery } from "@tanstack/react-query";
 import { CurrencySet } from "../../redux/api/CurrencyConvertorAPI";
 import { Placeholder } from "react-bootstrap";
 import { fetchNotifications } from "../../redux/api/notificationApi";
+import CheckUserDiscounts from "./CheckUserDiscounts";
 // import Notification from "../Notifications/Notification";
 
 const HeaderDashboard = () => {
@@ -263,6 +264,7 @@ const HeaderDashboard = () => {
       <div className={`admin-sidebar-wrap sidebar-hidden `}>
         <div className="overflowY-scroll  ">
           <HeaderUserInfo />
+         
           <HeaderDashboardMenu/>
         </div>
       </div>
@@ -278,7 +280,6 @@ const HeaderDashboard = () => {
             
             >
               <HeaderUserInfo />
-              
               <HeaderDashboardMenu />
             </div>
           </div>
