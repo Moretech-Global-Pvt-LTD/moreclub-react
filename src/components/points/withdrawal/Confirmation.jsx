@@ -18,6 +18,7 @@ import { axiosInstance } from "../../..";
 import { getWallet } from "../../../redux/api/wallets";
 import { useNavigate } from "react-router-dom";
 import PINInput from "../../ui/GridPinInput";
+import { fetchNewNotifications } from "../../../redux/api/notificationApi";
 
 const ConfirmationForm = () => {
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ const ConfirmationForm = () => {
       dispatch(setWithdrawalStep(1));
       dispatch(getWallet());
       navigate('/wallet')
+      dispatch(fetchNewNotifications())
     } catch (err) {
       setIsLoading(false);
       const errors = err.response?.data?.errors?.non_field_errors[0];
@@ -209,7 +211,7 @@ const ConfirmationForm = () => {
         {isLoading && (
           <span className="spinner-border spinner-border-sm text-danger"></span>
         )}
-        &nbsp;Confirm Pin
+        &nbsp;Confirm
       </Button>
     </Form>
   );

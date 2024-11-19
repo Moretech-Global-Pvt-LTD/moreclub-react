@@ -42,14 +42,7 @@ const BusinessSetupmodal = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const validBusinessDiscount = formData.business_discount.filter((item) => {
-      return (
-        item.business_type &&
-        item.business_type.trim() !== "" &&
-        item.discount &&
-        item.discount.trim() !== ""
-      );
-    });
+   
     const data = {
       business_name: formData.companyName,
       business_address: formData.address,

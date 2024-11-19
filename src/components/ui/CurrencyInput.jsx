@@ -37,8 +37,8 @@ const CurrencyInput = ({
     }
   };
 
-  useEffect(() => {
-    fetchCurrency();
+  useEffect(() => {    
+      fetchCurrency();
   }, []);
 
   useEffect(() => {
