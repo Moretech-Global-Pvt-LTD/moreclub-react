@@ -100,8 +100,6 @@ export const userRegister = createSlice({
       Cookies.remove("moretechglobal_access");
       Cookies.remove("moretechglobal_refresh");
       window.location.reload();
-
-      // localStorage.removeItem("moretechglobal_access");
       state.user = null;
       state.access = null;
       state.isAuthenticated = false;
