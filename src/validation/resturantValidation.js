@@ -39,7 +39,7 @@ export const valdateShortDescription = (description) => {
 export const validateLongDescription = (description) => {
   if (!description) return "Long Description is Required";
   const wordCount = description.trim().split(/\s+/).length;
-  if (wordCount < 30) return "Long Description must be at least 20 words";
+  if (wordCount < 30) return "Long Description must be at least 30 words";
    if (wordCount > 500) return "Short Description must be less than 500 words ";
   return "";
 };
