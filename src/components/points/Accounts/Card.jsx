@@ -12,8 +12,9 @@ import { useDebounce } from "../../../Hooks/useDebounce";
 import { useDispatch } from "react-redux";
 import { fetchMethodCredentials } from "../../../redux/api/userAccountAPI";
 import { message } from "antd";
+import { set } from "lodash";
 
-const AddCardaccounts = () => {
+const AddCardaccounts = ({ onfinish }) => {
   const [accountNameHolder, setAccountNameHolder] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [cvc, setCvc] = useState("");
@@ -24,6 +25,7 @@ const AddCardaccounts = () => {
   const [expiryError, setExpiryError] = useState("");
   const [expired, setExpired] = useState("");
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const debouncedAccountName = useDebounce(accountNameHolder, 500);
   const debouncedCardNumber = useDebounce(cardNumber, 500);
@@ -92,7 +94,7 @@ const AddCardaccounts = () => {
   const isExpired = (expiry) => {
     if (!expiry) return false;
     const [month, year] = expiry.split("/");
-    
+
     const expiryDate = new Date(parseInt("20" + year), parseInt(month) - 1, 1);
     const currentDate = new Date();
     return expiryDate < currentDate;
@@ -100,6 +102,7 @@ const AddCardaccounts = () => {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
     const [month, year] = expiry.split("/");
     const data = {
       payment_method: "card",
@@ -109,7 +112,7 @@ const AddCardaccounts = () => {
       expiry_month: month,
       expiry_year: year,
     };
-    
+
     try {
       const res = await axiosInstance.post(
         `${baseURL}withdrawal/user/method/`,
@@ -125,137 +128,113 @@ const AddCardaccounts = () => {
       setCvcError("");
       setExpiryError("");
       setExpired("");
-      message.success("Card Added Successfully")
+      message.success("Card Added Successfully");
+      onfinish();
     } catch (error) {
-      message.error("error Adding card ")
+      message.error(error.response?.data?.errors?.non_field_errors[0] || "Error adding Card")
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
-    <div className="card p-2" style={{ maxWidth: "300px" }}>
-      <img
-        src={Card}
-        style={{
-          width: "45px",
-          height: "45px",
-          objectFit: "contain",
-          backgroundColor: "#fff",
-          margin: "auto",
-        }}
-        alt="paypal"
-        className="img-fluid rounded-circle mb-3 profile-image"
+    <Form onSubmit={handleSubmit}>
+      <Form.Label>Account Name </Form.Label>
+      <Form.Control
+        type="text"
+        value={accountNameHolder}
+        onChange={(e) => setAccountNameHolder(e.target.value)}
+        required
       />
-      <div>
-        <h4 className="text-center">Add Card</h4>
-        <Form onSubmit={handleSubmit}>
-          <Form.Label>Account Name </Form.Label>
-          <Form.Control
-            type="text"
-            value={accountNameHolder}
-            onChange={(e) => setAccountNameHolder(e.target.value)}
-            required
-          />
-          {accountNameHolderError && (
-            <p className="text-danger" style={{ fontSize: "10px" }}>
-              {accountNameHolderError}
-            </p>
-          )}
-          <Form.Label>Card Number</Form.Label>
-          <Form.Control
-            type="text"
-            value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
-            required
-          />
-          {cardNumberError && (
-            <p className="text-danger" style={{ fontSize: "10px" }}>
-              {cardNumberError}
-            </p>
-          )}
-          <Form.Label>CVC Number</Form.Label>
-          <Form.Control
-            type="number"
-            value={cvc}
-            onChange={(e) => setCvc(e.target.value)}
-            required
-          />
-          {cvcError && (
-            <p className="text-danger" style={{ fontSize: "10px" }}>
-              {cvcError}
-            </p>
-          )}
-          <Form.Label>ExpiryDate</Form.Label>
-          <Form.Control
-            type="text"
-            value={expiry}
-            onChange={handleExpiryChange}
-            placeholder="MM/YY"
-            maxLength={5}
-            required
-          />
-          {expiryError && (
-            <p className="text-danger" style={{ fontSize: "10px" }}>
-              {expiryError}
-            </p>
-          )}
-          {expired && (
-            <p className="text-danger" style={{ fontSize: "10px" }}>
-              {"date seems to be expired"}
-            </p>
-          )}
-          <Button type="submit" className="mt-3">
-            Add Paypal Account
-          </Button>
-        </Form>
+      {accountNameHolderError && (
+        <p className="text-danger" style={{ fontSize: "10px" }}>
+          {accountNameHolderError}
+        </p>
+      )}
+      <Form.Label>Card Number</Form.Label>
+      <Form.Control
+        type="text"
+        value={cardNumber}
+        onChange={(e) => setCardNumber(e.target.value)}
+        required
+      />
+      {cardNumberError && (
+        <p className="text-danger" style={{ fontSize: "10px" }}>
+          {cardNumberError}
+        </p>
+      )}
+      <Form.Label>CVC Number</Form.Label>
+      <Form.Control
+        type="number"
+        value={cvc}
+        onChange={(e) => setCvc(e.target.value)}
+        required
+      />
+      {cvcError && (
+        <p className="text-danger" style={{ fontSize: "10px" }}>
+          {cvcError}
+        </p>
+      )}
+      <Form.Label>ExpiryDate</Form.Label>
+      <Form.Control
+        type="text"
+        value={expiry}
+        onChange={handleExpiryChange}
+        placeholder="MM/YY"
+        maxLength={5}
+        required
+      />
+      {expiryError && (
+        <p className="text-danger" style={{ fontSize: "10px" }}>
+          {expiryError}
+        </p>
+      )}
+      {expired && (
+        <p className="text-danger" style={{ fontSize: "10px" }}>
+          {"date seems to be expired"}
+        </p>
+      )}
+      <div className="d-flex justify-content-end gap-2">
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          onClick={() => {
+            onfinish();
+          }}
+          className="mt-3"
+        >
+          Cancel
+        </Button>
+        <Button
+          type="submit"
+          size="sm"
+          disabled={
+            loading ||
+            accountNameHolderError ||
+            cardNumberError ||
+            cvcError ||
+            expiryError ||
+            accountNameHolder === "" ||
+      cardNumber === ""||
+      cvc === ""||
+      expiry=== "" 
+          }
+          className="mt-3"
+        >
+          {loading && (
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          )}{" "}
+          Add Card
+        </Button>
       </div>
-    </div>
+    </Form>
   );
 };
 
 export default AddCardaccounts;
-
-// const useDebounce = (value, delay) => {
-//     const [debouncedValue, setDebouncedValue] = useState(value);
-
-//     useEffect(() => {
-//       const handler = setTimeout(() => {
-//         setDebouncedValue(value);
-//       }, delay);
-
-//       return () => {
-//         clearTimeout(handler);
-//       };
-//     }, [value, delay]);
-
-//     return debouncedValue;
-//   };
-
-//   // Validation functions
-//   const validateAccountName = (name) => {
-//     if (!name) return "Account name is required";
-//     if (name.length < 3) return "Account name must be at least 3 characters";
-//     return "";
-//   };
-
-//   const validateCardNumber = (number) => {
-//     const regex = /^\d{16}$/;
-//     if (!number) return "Card number is required";
-//     if (!regex.test(number)) return "Card number must be 16 digits";
-//     return "";
-//   };
-
-//   const validateCVC = (cvc) => {
-//     const regex = /^\d{3,4}$/;
-//     if (!cvc) return "CVC is required";
-//     if (!regex.test(cvc)) return "CVC must be 3 or 4 digits";
-//     return "";
-//   };
-
-//   const validateExpiry = (expiry) => {
-//     if (!expiry) return "Expiry date is required";
-//     const now = new Date();
-//     const expDate = new Date(expiry);
-//     if (expDate < now) return "Expiry date must be in the future";
-//     return "";
-//   };

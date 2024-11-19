@@ -7,8 +7,12 @@ import {
   AccordionButton,
   Row,
   Col,
+  Modal,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import Paypal from "../../../images/Payments/Paypal.png";
+import Swish from "../../../images/Payments/swish.png";
+import Card from "../../../images/Payments/cards.png";
 import {
   setCard,
   setMethodCredentials,
@@ -28,6 +32,8 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
 
   const [selectedId, setSelectedId] = useState("");
   const [selectedCard, setSelectedCard] = useState();
+
+  const [showForm, setShowForm] = useState();
 
   useEffect(() => {
     if (withdrawaldata?.method) {
@@ -87,35 +93,51 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
     dispatch(setWithdrawalStep(value));
   };
 
+  async function showAddCategory() {
+    setShowForm(true);
+  }
+
+  async function hideAddCategory() {
+    setShowForm(false);
+  }
+
   return (
-    <div className="  row row-cols-1">
-      <Form className="mx-auto mx-md-0 col">
-        <div className="radio-body mb-3">
-          <h6 className="my-3">
-            {" "}
-            Your existing {withdrawaldata.method} Accounts
-          </h6>
-          
-          <div style={{ maxWidth: "1200px" }}>
-          <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={4}>
-          {withdrawaldata.paypalAccount &&
-            withdrawaldata.method === "paypal" &&
-            withdrawaldata.paypalAccount?.map((acc, index) => (
-              <Col>
-              
-              <div 
-                class={`cols custom-radio-card card text-dynamic-white p-4 m-2 ${
-                  acc.email === selectedId ? "bg-warning text-black" : ""
-                } ${
-                  withdrawaldata.paypal === acc.email
-                    ? "bg-warning text-black"
-                    : ""
-                }`}
-                style={{ maxWidth: "16rem" }}
-                key={index}
-                onClick={() => handleRadioChange(acc.email)}
+    <>
+      <div className="  row row-cols-1">
+        <Form className="mx-auto mx-md-0 col">
+          <div className="radio-body mb-3">
+            <h6 className="my-3">
+              {" "}
+              Your existing {withdrawaldata.method} Accounts
+              <Button
+                className="btn btn-primary btn-sm ms-2"
+                onClick={showAddCategory}
               >
-                {/* <div>
+                Add {withdrawaldata.method} Account
+              </Button>
+            </h6>
+
+            <div style={{ maxWidth: "1200px" }}>
+              <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={4}>
+                {withdrawaldata.paypalAccount &&
+                  withdrawaldata.method === "paypal" &&
+                  withdrawaldata.paypalAccount?.map((acc, index) => (
+                    <Col>
+                      <div
+                        class={`cols custom-radio-card card text-dynamic-white p-4 m-2 ${
+                          acc.email === selectedId
+                            ? "bg-warning text-black"
+                            : ""
+                        } ${
+                          withdrawaldata.paypal === acc.email
+                            ? "bg-warning text-black"
+                            : ""
+                        }`}
+                        style={{ maxWidth: "16rem" }}
+                        key={index}
+                        onClick={() => handleRadioChange(acc.email)}
+                      >
+                        {/* <div>
                   <img
                   src={Paypal}
                   alt="paypal"
@@ -125,214 +147,290 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
                   />
                 </div> */}
 
-                <div class="custom-radio">
-                  <input
-                    type="radio"
-                    name="pricing"
-                    checked={acc.email === selectedId}
-                    onChange={() => handleRadioChange(acc.email)}
-                    id={acc.id}
-                    class="custom-radio-input "
-                  />
-                  <label className="radio-label" for={`${acc.id}`}>
-                    <h5
-                      className={`radio-h5 ${
-                        acc.email === selectedId
-                          ? " text-black"
-                          : "text-dynamic-white"
-                      } ${
-                        withdrawaldata.paypal === acc.email
-                          ? " text-black"
-                          : "text-dynamic-white"
-                      }`}
-                    >
-                      {acc.email}
-                    </h5>
-                    {/* <h2 className="radio-h2">
+                        <div class="custom-radio">
+                          <input
+                            type="radio"
+                            name="pricing"
+                            checked={acc.email === selectedId}
+                            onChange={() => handleRadioChange(acc.email)}
+                            id={acc.id}
+                            class="custom-radio-input "
+                          />
+                          <label className="radio-label" for={`${acc.id}`}>
+                            <h5
+                              className={`radio-h5 ${
+                                acc.email === selectedId
+                                  ? " text-black"
+                                  : "text-dynamic-white"
+                              } ${
+                                withdrawaldata.paypal === acc.email
+                                  ? " text-black"
+                                  : "text-dynamic-white"
+                              }`}
+                            >
+                              {acc.email}
+                            </h5>
+                            {/* <h2 className="radio-h2">
         
                     </h2> */}
-                  </label>
-                </div>
-              </div>
-              </Col>
-            ))}
-           
+                          </label>
+                        </div>
+                      </div>
+                    </Col>
+                  ))}
 
-          {withdrawaldata.swishAccount &&
-            withdrawaldata.method === "swish" &&
-            withdrawaldata.swishAccount?.map((acc, index) => (
-              <Col>
-              <div
-                class={`custom-radio-card card text-dynamic-white p-4 m-2 ${
-                  acc.phone_number === selectedId ? "bg-warning text-black" : ""
-                } ${
-                  withdrawaldata.paypal === acc.email
-                    ? "bg-warning text-black"
-                    : ""
-                }`}
-                style={{ maxWidth: "16rem" }}
-                key={index}
-                onClick={() => handleRadioChange(acc.phone_number)}
-              >
-                <div class="custom-radio">
-                  <input
-                    type="radio"
-                    name="pricing"
-                    checked={acc.phone_number === selectedId}
-                    onChange={() => handleRadioChange(acc.phone_number)}
-                    id={acc.id}
-                    class="custom-radio-input "
-                  />
-                  <label className="radio-label" for={`${acc.id}`}>
-                    <h5
-                      className={`radio-h5 ${
-                        acc.phone_number === selectedId
-                          ? " text-black"
-                          : "text-dynamic-white"
-                      } ${
-                        withdrawaldata.swiss === acc.phone_number
-                          ? " text-black"
-                          : "text-dynamic-white"
-                      }`}
-                    >
-                      {acc.phone_number}
-                    </h5>
-                    {/* <h2 className="radio-h2">
+                {withdrawaldata.swishAccount &&
+                  withdrawaldata.method === "swish" &&
+                  withdrawaldata.swishAccount?.map((acc, index) => (
+                    <Col>
+                      <div
+                        class={`custom-radio-card card text-dynamic-white p-4 m-2 ${
+                          acc.phone_number === selectedId
+                            ? "bg-warning text-black"
+                            : ""
+                        } ${
+                          withdrawaldata.paypal === acc.email
+                            ? "bg-warning text-black"
+                            : ""
+                        }`}
+                        style={{ maxWidth: "16rem" }}
+                        key={index}
+                        onClick={() => handleRadioChange(acc.phone_number)}
+                      >
+                        <div class="custom-radio">
+                          <input
+                            type="radio"
+                            name="pricing"
+                            checked={acc.phone_number === selectedId}
+                            onChange={() => handleRadioChange(acc.phone_number)}
+                            id={acc.id}
+                            class="custom-radio-input "
+                          />
+                          <label className="radio-label" for={`${acc.id}`}>
+                            <h5
+                              className={`radio-h5 ${
+                                acc.phone_number === selectedId
+                                  ? " text-black"
+                                  : "text-dynamic-white"
+                              } ${
+                                withdrawaldata.swiss === acc.phone_number
+                                  ? " text-black"
+                                  : "text-dynamic-white"
+                              }`}
+                            >
+                              {acc.phone_number}
+                            </h5>
+                            {/* <h2 className="radio-h2">
         
                     </h2> */}
-                  </label>
-                </div>
-                </div>
-              </Col>
-            ))}
+                          </label>
+                        </div>
+                      </div>
+                    </Col>
+                  ))}
 
-          {withdrawaldata.CardAccount &&
-            withdrawaldata.method === "card" &&
-            withdrawaldata.CardAccount?.map((acc, index) => (
-              <Col>
-              <div
-                class={`custom-radio-card card text-dynamic-white p-4 m-2 ${
-                  acc === selectedCard ? "bg-warning text-black" : ""
-                } ${
-                  withdrawaldata.paypal === acc.email
-                    ? "bg-warning text-black"
-                    : ""
-                }`}
-                style={{ maxWidth: "16rem" }}
-                key={index}
-                onClick={() => handleRadioChange(acc)}
-              >
-                <div class="custom-radio">
-                  <input
-                    type="radio"
-                    name="pricing"
-                    checked={acc === selectedCard}
-                    onChange={() => handleRadioChange(acc)}
-                    id={acc.id}
-                    class="custom-radio-input "
-                  />
-                  <label className="radio-label" for={`${acc.id}`}>
-                    <h5
-                      className={`radio-h5 mb-0 ${
-                        acc === selectedCard
-                          ? " text-black"
-                          : "text-dynamic-white"
-                      } ${
-                        withdrawaldata.card === acc
-                          ? " text-black"
-                          : "text-dynamic-white"
-                      }`}
-                    >
-                      {acc.account_holder}
-                    </h5>
-                    <p
-                      className={`radio-h5 mb-0 ${
-                        acc === selectedCard
-                          ? " text-black"
-                          : "text-dynamic-white"
-                      } ${
-                        withdrawaldata.card === acc
-                          ? " text-black"
-                          : "text-dynamic-white"
-                      }`}
-                    >
-                      {acc.card_no}
-                    </p>
-                    <p
-                      className={`radio-h5 mb-0 ${
-                        acc === selectedCard
-                          ? " text-black"
-                          : "text-dynamic-white"
-                      } ${
-                        withdrawaldata === acc
-                          ? " text-black"
-                          : "text-dynamic-white"
-                      }`}
-                    >
-                      {acc.expiry_month}/{acc.expiry_year}
-                    </p>
-                  </label>
-                </div>
-                </div>
-              </Col>
-            ))}
-            </Row>
+                {withdrawaldata.CardAccount &&
+                  withdrawaldata.method === "card" &&
+                  withdrawaldata.CardAccount?.map((acc, index) => (
+                    <Col>
+                      <div
+                        class={`custom-radio-card card text-dynamic-white p-4 m-2 ${
+                          acc === selectedCard ? "bg-warning text-black" : ""
+                        } ${
+                          withdrawaldata.paypal === acc.email
+                            ? "bg-warning text-black"
+                            : ""
+                        }`}
+                        style={{ maxWidth: "16rem" }}
+                        key={index}
+                        onClick={() => handleRadioChange(acc)}
+                      >
+                        <div class="custom-radio">
+                          <input
+                            type="radio"
+                            name="pricing"
+                            checked={acc === selectedCard}
+                            onChange={() => handleRadioChange(acc)}
+                            id={acc.id}
+                            class="custom-radio-input "
+                          />
+                          <label className="radio-label" for={`${acc.id}`}>
+                            <h5
+                              className={`radio-h5 mb-0 ${
+                                acc === selectedCard
+                                  ? " text-black"
+                                  : "text-dynamic-white"
+                              } ${
+                                withdrawaldata.card === acc
+                                  ? " text-black"
+                                  : "text-dynamic-white"
+                              }`}
+                            >
+                              {acc.account_holder}
+                            </h5>
+                            <p
+                              className={`radio-h5 mb-0 ${
+                                acc === selectedCard
+                                  ? " text-black"
+                                  : "text-dynamic-white"
+                              } ${
+                                withdrawaldata.card === acc
+                                  ? " text-black"
+                                  : "text-dynamic-white"
+                              }`}
+                            >
+                              {acc.card_no}
+                            </p>
+                            <p
+                              className={`radio-h5 mb-0 ${
+                                acc === selectedCard
+                                  ? " text-black"
+                                  : "text-dynamic-white"
+                              } ${
+                                withdrawaldata === acc
+                                  ? " text-black"
+                                  : "text-dynamic-white"
+                              }`}
+                            >
+                              {acc.expiry_month}/{acc.expiry_year}
+                            </p>
+                          </label>
+                        </div>
+                      </div>
+                    </Col>
+                  ))}
+              </Row>
+            </div>
+            <div className="ms-2" style={{ maxWidth: "18rem" }}></div>
           </div>
-          <div className="ms-2" style={{ maxWidth: "18rem" }}></div>
+        </Form>
+        {/* <div
+          style={{ maxWidth: "300px", marginBottom: "1rem", marginTop: "1rem" }}
+        >
+          {withdrawaldata.method === "paypal" && (
+            <Accordion id="paypal">
+              <AccordionButton>Add Paypal Account</AccordionButton>
+              <AccordionBody className="px-0 mx-0">
+                <AddPaypalaccounts />
+              </AccordionBody>
+            </Accordion>
+          )}
+          {withdrawaldata.method === "swish" && (
+            <Accordion id="swish">
+              <AccordionButton>Add Swish</AccordionButton>
+              <AccordionBody className="px-0 mx-0">
+                <AddSwishaccounts />
+              </AccordionBody>
+            </Accordion>
+          )}
+          {withdrawaldata.method === "card" && (
+            <Accordion id="card">
+              <AccordionButton>Add Card</AccordionButton>
+              <AccordionBody className="px-0 mx-0">
+                <AddCardaccounts />
+              </AccordionBody>
+            </Accordion>
+          )}
+        </div> */}
+        <div>
+          <Button
+            variant="secondary"
+            className="me-2"
+            onClick={(e) => {
+              handleBacknavigation(e);
+            }}
+            type="button"
+          >
+            Back
+          </Button>
+          <Button
+            variant="primary"
+            onClick={(e) => {
+              e.preventDefault();
+              handleStep(3);
+            }}
+            type="button"
+            disabled={isButtonDisabled}
+          >
+            Next
+          </Button>
         </div>
-      </Form>
-      <div
-        style={{ maxWidth: "300px", marginBottom: "1rem", marginTop: "1rem" }}
+      </div>
+      <Modal
+        aria-labelledby="contained-modal-title-vcenter"
+        size="md"
+        centered
+        show={showForm}
+        onHide={hideAddCategory}
       >
-        {withdrawaldata.method === "paypal" && (
-          <Accordion id="paypal">
-            <AccordionButton>Add Paypal Account</AccordionButton>
-            <AccordionBody className="px-0 mx-0">
-              <AddPaypalaccounts />
-            </AccordionBody>
-          </Accordion>
-        )}
-        {withdrawaldata.method === "swish" && (
-          <Accordion id="swish">
-            <AccordionButton>Add Swish</AccordionButton>
-            <AccordionBody className="px-0 mx-0">
-              <AddSwishaccounts />
-            </AccordionBody>
-          </Accordion>
-        )}
-        {withdrawaldata.method === "card" && (
-          <Accordion id="card">
-            <AccordionButton>Add Card</AccordionButton>
-            <AccordionBody className="px-0 mx-0">
-              <AddCardaccounts />
-            </AccordionBody>
-          </Accordion>
-        )}
-      </div>
-      <div>
-        <Button
-          variant="secondary"
-          className="me-2"
-          onClick={(e) => {
-            handleBacknavigation(e);
-          }}
-          type="button"
-        >
-          Back
-        </Button>
-        <Button
-          variant="primary"
-          onClick={(e) => {
-            e.preventDefault();
-            handleStep(3);
-          }}
-          type="button"
-          disabled={isButtonDisabled}
-        >
-          Next
-        </Button>
-      </div>
-    </div>
+        <Modal.Header>
+          <Modal.Title
+            id="contained-modal-title-vcenter text-center"
+            className="text-dynamic-white"
+          >
+            <h4>
+              {withdrawaldata.method === "paypal" && (
+                <>
+                  <img
+                    src={Paypal}
+                    style={{
+                      width: "45px",
+                      height: "45px",
+                      objectFit: "contain",
+                      backgroundColor: "#fff",
+                      margin: "auto",
+                    }}
+                    alt="paypal"
+                    className="img-fluid rounded-circle me-3 profile-image"
+                  />
+                  <>Add Paypal Account</>
+                </>
+              )}
+              {withdrawaldata.method === "swish" && (
+                <>
+                  <img
+                    src={Swish}
+                    style={{
+                      width: "45px",
+                      height: "45px",
+                      objectFit: "contain",
+                      backgroundColor: "#fff",
+                      margin: "auto",
+                    }}
+                    alt="paypal"
+                    className="img-fluid rounded-circle me-3 profile-image"
+                  />
+                  <>Add Swish Account</>
+                </>
+              )}
+              {withdrawaldata.method === "card" && (
+                <>
+                  <img
+                    src={Card}
+                    style={{
+                      width: "45px",
+                      height: "45px",
+                      objectFit: "contain",
+                      backgroundColor: "#fff",
+                      margin: "auto",
+                    }}
+                    alt="paypal"
+                    className="img-fluid rounded-circle me-3 profile-image"
+                  />
+                  <>Add Card</>
+                </>
+              )}
+              
+            </h4>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {withdrawaldata.method === "paypal" && <AddPaypalaccounts onfinish={hideAddCategory}/>}
+          {withdrawaldata.method === "swish" && <AddSwishaccounts onfinish={hideAddCategory}/>}
+          {withdrawaldata.method === "card" && <AddCardaccounts onfinish={hideAddCategory}/>}
+        </Modal.Body>
+      </Modal>
+    </>
   );
 };
 

@@ -8,11 +8,13 @@ import { validateEmail } from "../../../validation/addaccountvalidation";
 import { useDispatch } from "react-redux";
 import { fetchMethodCredentials } from "../../../redux/api/userAccountAPI";
 import { message } from "antd";
+import { set } from "lodash";
 
-const AddPaypalaccounts = () => {
+const AddPaypalaccounts = ({onfinish}) => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError]= useState("");
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const debouncedEmail = useDebounce(email, 500);
 
@@ -26,42 +28,30 @@ const AddPaypalaccounts = () => {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
     const data = {
       payment_method: "paypal",
       email: email,
     };
     try {
+
       const res = await axiosInstance.post(
         `${baseURL}withdrawal/user/method/`,
         data
       );
       setEmail("");
       setEmailError("");
+      onfinish();
       dispatch(fetchMethodCredentials());
       message.success("Paypal accound added successfully")
     } catch (error) {
-      message.error("Error adding account")
-      console.log(error);
+      message.error(error.response?.data?.errors?.non_field_errors[0] || "Error adding account")
+    }finally{
+      setLoading(false);
     }
   }
 
-  return (
-    <div className="card p-2" style={{ maxWidth: "300px" }}>
-        <img
-          src={Paypal}
-          style={{
-            width: "45px",
-            height: "45px",
-            objectFit: "contain",
-            backgroundColor: "#fff",
-            margin:"auto"
-          }}
-          alt="paypal"
-          className="img-fluid rounded-circle mb-3 profile-image"
-          
-        />
-      <div>
-        <h4 className="text-center">Add Paypal</h4>
+  return (      
         <Form onSubmit={handleSubmit}>
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -71,12 +61,18 @@ const AddPaypalaccounts = () => {
             required
           />
           {emailError && <p className="text-danger" style={{fontSize:"10px"}}>{emailError} </p>}
-          <Button type="submit" disabled={email === ""} className="mt-3">
-            Add Paypal Account
+          
+          <div className="d-flex justify-content-end gap-2">
+
+          <Button type="button" variant="secondary" size="sm" onClick={()=>{onfinish()}}  className="mt-3">
+            Cancel
           </Button>
+          <Button type="submit" size="sm" disabled={email === ""} className="mt-3">
+           {loading && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>} Add account
+          </Button>
+          </div>
         </Form>
-      </div>
-    </div>
+ 
   );
 };
 

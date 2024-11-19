@@ -8,26 +8,28 @@ import { useDebounce } from "../../../Hooks/useDebounce";
 import { useDispatch } from "react-redux";
 import { fetchMethodCredentials } from "../../../redux/api/userAccountAPI";
 import { message } from "antd";
+import { set } from "lodash";
 
-const AddSwishaccounts = () => {
+const AddSwishaccounts = ({ onfinish }) => {
   const [phonenumber, setPhoneNumber] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [phoneNumberError, setPhoneNumberError]= useState("");
+  const [phoneNumberError, setPhoneNumberError] = useState("");
 
   const debouncedPhoneNumber = useDebounce(phonenumber, 500);
-  const dispatch= useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (debouncedPhoneNumber) {
       setPhoneNumberError(validatePhoneNumber(debouncedPhoneNumber));
     } else {
-      setPhoneNumberError('');
+      setPhoneNumberError("");
     }
   }, [debouncedPhoneNumber, phonenumber]);
 
-
   async function handleSubmit(event) {
     event.preventDefault();
+    setIsLoading(true);
     const data = {
       payment_method: "swish",
       phone_number: phonenumber,
@@ -40,45 +42,61 @@ const AddSwishaccounts = () => {
       dispatch(fetchMethodCredentials());
       setPhoneNumber("");
       setPhoneNumberError("");
-      message.success("Swish account added Successfully")
+      onfinish();
+      message.success("Swish account added Successfully");
     } catch (error) {
-      message.error("Error adding account")
-      console.log(error);
+      message.error(error.response?.data?.errors?.non_field_errors[0] || "Error adding account")
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
-    <div className="card p-2" style={{ maxWidth: "300px" }}>
-        <img
-          src={Swish}
-          style={{
-            width: "45px",
-            height: "45px",
-            objectFit: "contain",
-            backgroundColor: "#fff",
-            margin:"auto"
+    <Form onSubmit={handleSubmit}>
+      <Form.Label>Swish Id</Form.Label>
+      <Form.Control
+        type="text"
+        value={phonenumber}
+        onChange={(e) => setPhoneNumber(e.target.value)}
+        placeholder="Phonenumber with country code"
+        required
+      />
+      {phoneNumberError && (
+        <p className="text-danger" style={{ fontSize: "10px" }}>
+          {phoneNumberError}{" "}
+        </p>
+      )}
+
+      <div className="d-flex justify-content-end gap-2">
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          onClick={() => {
+            onfinish();
           }}
-          alt="paypal"
-          className="img-fluid rounded-circle mb-3 profile-image"
-        />
-      <div>
-        <h4 className="text-center">Add Swish</h4>
-        <Form onSubmit={handleSubmit}>
-            <Form.Label>Swish Id</Form.Label>
-          <Form.Control
-            type="text"
-            value={phonenumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="Phonenumber with country code"
-            required
-          />
-          {phoneNumberError && <p className="text-danger" style={{fontSize:"10px"}}>{phoneNumberError} </p>}
-          <Button type="submit" className="mt-3" disabled={phonenumber === "" || phoneNumberError !== ""}>
-            Add Swish Account
-          </Button>
-        </Form>
+          className="mt-3"
+        >
+          Cancel
+        </Button>
+
+        <Button
+          type="submit"
+          className="mt-3"
+          size="sm"
+          disabled={phonenumber === "" || phoneNumberError !== ""}
+        >
+          {isLoading && (
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          )}{" "}
+          Add account
+        </Button>
       </div>
-    </div>
+    </Form>
   );
 };
 

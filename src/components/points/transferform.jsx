@@ -199,7 +199,7 @@ function TransferForm() {
   };
 
   const ResetForm = async () => {
-    dispatch(fetchNewNotifications(notification))
+    dispatch(fetchNewNotifications())
     console.log("reset");
   };
 

@@ -14,6 +14,7 @@ import {
 import { baseURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
 import { useDebounce } from "../../../Hooks/useDebounce";
+import { message } from "antd";
 
 
 const WithdrawalAmountForm = ({ onNext }) => {
@@ -29,6 +30,7 @@ const WithdrawalAmountForm = ({ onNext }) => {
   const [convertedRate, setConvertedRate] = useState(0);
   const [convert, setConvert] = useState(0);
   const [showConversion, setShowConversion] = useState(false);
+  const [loading , setIsLoading]= useState(false)
 
   const wallet = useSelector((state) => state.walletReducer);
   const currencyData = useSelector(
@@ -174,6 +176,7 @@ const WithdrawalAmountForm = ({ onNext }) => {
   };
 
   const handleStep = async (value) => {
+    setIsLoading(true)
     if (
       withdrawaldata.withdrawalAmount === 0 ||
       withdrawaldata.withdrawalAmount === ""
@@ -183,15 +186,27 @@ const WithdrawalAmountForm = ({ onNext }) => {
       setAmountError("Insufficent fund");
     } else {
       await dispatch(setConversion(convert));
-      dispatch(setWithdrawalStep(value));
+      try{
+        const res = await axiosInstance.post(
+          `${baseURL}withdrawal/check/`,{
+            amount: withdrawaldata.withdrawalAmount,
+            currency_code: withdrawaldata.currency
+          }
+        )
+        dispatch(setWithdrawalStep(value));
+      }catch(err){
+        setAmountError(err?.response?.data?.errors?.non_field_errors[0])
+      }
+      
     }
+    setIsLoading(false)
   };
 
   return (
     <div className="row" >
       <div className="col-12 col-md-6">
     <Form  className="">
-      <Form.Group controlId="withdrawalAmount">
+      <Form.Group controlId="withdrawalAmount" className="col-12 col-md-10 pe-md-4 mb-2 ms-1 me-1 mx-auto mx-md-0">
         <Form.Label>Amount to Withdraw</Form.Label>
         <div className="d-flex align-items-center">
           <Form.Control
@@ -265,7 +280,7 @@ const WithdrawalAmountForm = ({ onNext }) => {
           handleStep(2);
         }}
       >
-        Withdraw
+        {loading && <span className="spinner-border spinner-border-sm"></span>}Withdraw
       </Button>
         </Form>
         </div></div>
