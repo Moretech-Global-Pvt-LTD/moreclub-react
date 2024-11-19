@@ -96,6 +96,7 @@ export const userRegister = createSlice({
       state.meta = payload;
     },
     logMeOut: (state) => {
+      
       localStorage.removeItem("business_exists");
       Cookies.remove("moretechglobal_access");
       Cookies.remove("moretechglobal_refresh");
