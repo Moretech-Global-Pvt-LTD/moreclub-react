@@ -42,7 +42,7 @@ const DashboardLayout = ({ children, title , showBreadCrumb}) => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (notifications.currentpage !== 0 && notifications.checkForUpdate) {
-        dispatch(fetchNewNotifications(notifications.notifications))
+        dispatch(fetchNewNotifications())
       };
     }, 60000); // Fetch every 1 minute
 

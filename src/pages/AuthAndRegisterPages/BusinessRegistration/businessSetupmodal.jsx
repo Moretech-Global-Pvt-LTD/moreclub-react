@@ -6,9 +6,10 @@ import BusinessRegistration3 from "./BusinessRegistration3";
 import BusinessRegistration4 from "./BusinessRegistration4";
 import { axiosInstance } from "../../..";
 import { baseURL } from "../../../config/config";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { forEach } from "lodash";
+import { logout } from "../../../redux/api/loginAPI";
 
 const BusinessSetupmodal = () => {
   const [showForm, setShowForm] = useState(
@@ -16,6 +17,11 @@ const BusinessSetupmodal = () => {
   );
   const [loading, setLoading] = useState(false);
   const formData = useSelector((state) => state.registerReducer.formData);
+  const dispatch = useDispatch();
+
+  const logOut = async() => {
+    dispatch(logout());
+  };
 
   useEffect(() => {
     if (showForm) {
@@ -94,6 +100,16 @@ const BusinessSetupmodal = () => {
                     information will be the Check to verified your business, so
                     make it as comprehensive and accurate as possible.
                   </p>
+                  <button
+                      className="btn btn-warning btn-sm rounded-pill cursor-pointer"
+                      onClick={() => logOut()}
+                    >
+                      <i
+                        className={`me-2 bi bi-box-arrow-right`}
+                      
+                      />
+                      {"Log out"}
+                    </button>
                 </div>
               )}
               {step === 2 && (
@@ -107,6 +123,16 @@ const BusinessSetupmodal = () => {
                     they want to make inquiries, seek support, or provide
                     feedback.
                   </p>
+                  <button
+                      className="btn btn-warning btn-sm rounded-pill cursor-pointer"
+                      onClick={() => logOut()}
+                    >
+                      <i
+                        className={`me-2 bi bi-box-arrow-right`}
+                      
+                      />
+                      {"Log out"}
+                    </button>
                 </div>
               )}
               {step === 3 && (
@@ -121,6 +147,16 @@ const BusinessSetupmodal = () => {
                     details also improve your visibility in local search
                     results, which is essential for driving foot traffic.
                   </p>
+                  <button
+                      className="btn btn-warning btn-sm rounded-pill cursor-pointer"
+                      onClick={() => logOut()}
+                    >
+                      <i
+                        className={`me-2 bi bi-box-arrow-right`}
+                      
+                      />
+                      {"Log out"}
+                    </button>
                 </div>
               )}
               {/* {step === 4 && (

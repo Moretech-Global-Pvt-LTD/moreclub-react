@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BrandLogo from "../../../images/logo/MembersClubblack.png";
 
 import { message } from "antd";
@@ -12,6 +12,7 @@ import { baseURL } from "../../../config/config";
 import SkeletonPayment from "../../../components/Skeleton/Skeleton";
 import { axiosInstance } from "../../..";
 import { useNavigate } from "react-router-dom";
+import { fetchNewNotifications } from "../../../redux/api/notificationApi";
 
 const PurchasePaymentContent = ({ buyAmount, currency }) => {
   const [clientSecret, setClientSecret] = useState("");
@@ -25,6 +26,7 @@ const PurchasePaymentContent = ({ buyAmount, currency }) => {
     (state) => state.currencyReducer.currencyDetail
   );
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   useEffect(() => {
@@ -88,7 +90,7 @@ const PurchasePaymentContent = ({ buyAmount, currency }) => {
         setErrorMessage(`${response.data.message}`);
       } else {
         message.success("Payment Success");
-        console.log("navigate", response.data.data);
+        dispatch(fetchNewNotifications());
         navigate(`/points/buy/success?amount=${response.data.data.currency_symbol}${response.data.data.amount}`);
       }
 
@@ -97,7 +99,6 @@ const PurchasePaymentContent = ({ buyAmount, currency }) => {
       const errorMessage = error?.response?.data?.errors?.non_field_errors[0];
       navigate(`/points/buy/failed?error=${errorMessage}`);
       setErrorMessage(error.message || "An unknown error occurred.");
-
     }
 
     setIsLoading(false);

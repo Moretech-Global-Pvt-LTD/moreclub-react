@@ -5,9 +5,13 @@ import { useParams } from 'react-router-dom';
 import { axiosInstance } from '../../../..';
 import { morefoodURL } from '../../../../config/config';
 import ImageAccept from '../../../../components/Moreclub/Resturant/Gallery/ImageAccept';
+import { setUserGalleryPending } from '../../../../redux/slices/gallerySlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const PendingImagelist = () => {
     const { res_id } = useParams();
+    const dispatch = useDispatch();
+   const  gallery = useSelector(state => state.gallery)
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Resturant Unverified images ${res_id}`],
         queryFn: async () => {
@@ -15,9 +19,10 @@ const PendingImagelist = () => {
                 `${morefoodURL}moreclub/user/restaurants/gallery/user/upload/${res_id}/?status=unverified`
             );
             const data = await response.data.data;
+            dispatch(setUserGalleryPending(data));
             return data;
         },
-        staleTime: 60000,
+        staleTime: 300000,
     });
 
     if (isLoading) {
@@ -45,16 +50,18 @@ const PendingImagelist = () => {
         return <div className="text-dynamic-white">Error: retriving</div>;
     }
 
+    console.log("redux",gallery)
 
-    // const datas = data && data.map((e) => ({ ...e, width: "300", height: "200" }));
-    // console.log(datas)
+    console.log("data",data)
 
+   
     return (
         <div className='d-flex  flex-wrap gap-2'>
-            {data.map((item, index) => (
+            {gallery.userGalleryPending && gallery.userGalleryPending.map((item, index) => (
                 <ImageAccept key={item.id} item={item}  />
             ))
             }
+            {gallery.userGalleryPending.length === 0 && <div className="text-dynamic-white">No Pending Images</div>}
         </div>
     )
 }

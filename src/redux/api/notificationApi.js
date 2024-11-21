@@ -43,33 +43,10 @@ export const fetchNextPage = (currentPage) => async (dispatch) => {
   }
 };
 
-export const fetchNewNotifications = (currentnotifications) => async (dispatch) => {
+export const fetchNewNotifications = () => async (dispatch) => {
   try {
     const data = await fetchNotificationsApi(1); // Fetch page 1 periodically
     const notifications = data.data;
-    // const newNotifications = notifications.filter(
-    //   (newNotification) =>
-    //     !currentnotifications.some(
-    //       (existingNotification) =>
-    //         existingNotification.id === newNotification.id
-    //     )
-    // );
-
-    // // Only dispatch addNewNotifications if there are new notifications
-    // if (newNotifications.length > 0) {
-    //   dispatch(addNewNotifications({ notifications: newNotifications }));
-    //     newNotifications.forEach((notif) => {
-    //       toast.info(`${notif.title}: ${notif.message}`, {
-    //         position: "top-right",
-    //         autoClose: 5000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //       });
-    //     });
-    // } 
     dispatch(addNewNotifications({ notifications }));
   } catch (error) {
     console.error("Failed to fetch new notifications:", error);

@@ -105,7 +105,6 @@ const FoodItemForm = ({ data , onCancel}) => {
     if (selectedOptions) {
       const selectedValues = selectedOptions.map(option => option.value);
       setMenuItem({ ...menuItem, cuisine_id: selectedValues });
-      console.log("selected option", selectedValues)
     } else {
       setMenuItem({ ...menuItem, "cuisine_id": [] });
       console.log("selected option", selectedOptions)
@@ -147,7 +146,7 @@ const FoodItemForm = ({ data , onCancel}) => {
     e.preventDefault();
     setLoading(true);
     if (!menuItem.image) {
-      const data = {
+      const datas = {
         name: menuItem.name,
         price: menuItem.price,
         discount_price: menuItem.offerPrice ?? null,
@@ -160,8 +159,8 @@ const FoodItemForm = ({ data , onCancel}) => {
       }
       axiosInstance
         .patch(
-          `${morefoodURL}moreclub/user/food/items/${cat_id}/${id}/${res_id}/`,
-          data,
+          `${morefoodURL}moreclub/user/food/items/${cat_id}/${data.id}/${res_id}/`,
+          datas,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -186,7 +185,7 @@ const FoodItemForm = ({ data , onCancel}) => {
           setLoading(false)
         });
     } else {
-      const data = {
+      const datas = {
         name: menuItem.name,
         price: menuItem.price,
         discount_price: menuItem.offerPrice ?? null,
@@ -201,7 +200,7 @@ const FoodItemForm = ({ data , onCancel}) => {
       axiosInstance
         .patch(
           `${morefoodURL}moreclub/user/food/items/${cat_id}/${id}/${res_id}/`,
-          data,
+          datas,
           {
             headers: {
               "Content-Type": "multipart/form-data",

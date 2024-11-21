@@ -14,7 +14,7 @@ const RestroOffer = () => {
   const { res_id , slug} = useParams();
  
 
-  const name=slug.replace("-"," ")
+  const name=slug.replace(/-/g," ")
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [`Resturant offer List ${res_id}`],
@@ -25,7 +25,7 @@ const RestroOffer = () => {
       const data = await response.data.data;
       return data;
     },
-    staleTime: 100,
+    staleTime: 60000,
   });
 
   if (isLoading) {

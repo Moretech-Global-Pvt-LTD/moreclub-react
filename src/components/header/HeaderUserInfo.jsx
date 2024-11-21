@@ -2,22 +2,13 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Placeholder } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { isSuperAdmin } from "../../redux/api/loginAPI";
 
 
 const HeaderUserInfo = () => {
   const user = useSelector((state) => state.userReducer);
   const business = useSelector((state) => state.businessReducer);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      await dispatch(isSuperAdmin());
-    };
-
-    fetchUser();
-
-  }, [dispatch]);
+ 
+ 
 
 
   function capitalizeFirstLetterOfEachWord(str) {

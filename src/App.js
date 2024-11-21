@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 import ScrollToTop from "react-scroll-to-top";
-import { isSuperAdmin, load_user, logout } from "./redux/api/loginAPI";
+import {load_user, logout } from "./redux/api/loginAPI";
 import Home from "./pages/Home/Home";
 import ProjectDetail from "./pages/Project/ProjectDetail";
 import ProjectPage from "./pages/Project/ProjectPage";
@@ -113,7 +113,6 @@ import SaloonUpdate from "./pages/moreclub/moresaloon/saloon/SaloonUpdate";
 import SaloonCreate from "./pages/moreclub/moresaloon/saloon/SaloonCreate";
 import SupportPage from "./pages/Support/SupportPage";
 import SaloonPhotoUploadGallery from "./pages/moreclub/moresaloon/Gallery/SaloonPhotoUploadGallery";
-import SaloonUserUploadGallery from "./pages/moreclub/moresaloon/Gallery/SaloonUserUploadGallery";
 import BlogDetailPage from "./pages/Support/BlogDetailPage";
 import ServiceVariationPage from "./pages/moreclub/moresaloon/Services/ServiceVariationPage";
 import StaffDetailPage from "./pages/moreclub/moresaloon/Staff/StaffDetailPage";
@@ -793,10 +792,7 @@ const App = () => {
       path: `/saloon/:id/gallery/:slug/saloon`,
       page: <SaloonPhotoUploadGallery />,
     },
-    {
-      path: `/saloon/:id/gallery/:slug/user-upload`,
-      page: <SaloonUserUploadGallery />,
-    },
+  
     {
       path: `/saloon/:id/opening-duration/:slug`,
       page: <WorkinghourPage />,

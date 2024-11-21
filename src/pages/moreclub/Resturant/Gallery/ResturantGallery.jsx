@@ -8,12 +8,15 @@ import { QueryClient, useQuery } from "@tanstack/react-query";
 import { morefoodURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
 import ImageContainer from "../../../../components/Moreclub/Resturant/Gallery/GalleryImageContainer";
+import { useDispatch, useSelector } from "react-redux";
+import { setRestaurantGallery } from "../../../../redux/slices/gallerySlice";
 
 const RestaurantGalleryContent = () => {
     const { res_id, cat_id, slug } = useParams();
     const [showForm, setShowForm] = useState(false);
-
+    const dispatch = useDispatch();
     const queryClient = new QueryClient();
+    const gallery = useSelector(state => state.gallery)
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Resturant Gallery ${res_id}`],
         queryFn: async () => {
@@ -21,9 +24,10 @@ const RestaurantGalleryContent = () => {
                 `${morefoodURL}moreclub/user/restaurants/gallery/${res_id}/`
             );
             const data = await response.data.data;
+            dispatch(setRestaurantGallery(data));
             return data;
         },
-        staleTime: 100,
+        staleTime: 300000,
     });
 
     if (isLoading) {
@@ -87,13 +91,13 @@ const RestaurantGalleryContent = () => {
 
 
             <div className='masonry-gallery'>
-                {data.map((item, index) => (
+                {gallery.restaurantGallery && gallery.restaurantGallery.map((item, index) => (
                     <ImageContainer key={item.id} item={item} onClick={() => console.log(index)} />
                 ))
                 }
             </div>
             
-            {data && data.length === 0
+            {gallery.restaurantGallery && gallery.restaurantGallery.length === 0
                 && (<p className='text-center text-dynamic-white'>No Image Found</p>
                 )}
             

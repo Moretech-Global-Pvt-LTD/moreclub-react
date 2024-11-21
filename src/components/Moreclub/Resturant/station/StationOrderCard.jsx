@@ -32,9 +32,9 @@ const StationOrderCard = ({ item }) => {
                     </Badge>
                 </td>
                 <td className="text-dynamic-white">
-                    {item.order_items.map((items, index) => (
+                    {item.restaurant.map((items, index) => (
                         <span key={index}>
-                            {items.restaurant_name}<br />
+                            {items}<br />
                         </span>
                     ))}
                 </td>
