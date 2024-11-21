@@ -8,6 +8,7 @@ import OrderCard from '../../../../components/Moreclub/Resturant/Orders/orderCar
 import { Placeholder, Table } from 'react-bootstrap';
 import Divider from '../../../../components/divider/Divider';
 import FilterComponent from '../../../../components/Moreclub/CommonComponents/FilterComponents';
+import CustomPagination from '../../../../components/ui/pagination/pagination';
 
 const ResturantOrder = () => {
   const { res_id, slug } = useParams(); 
@@ -20,14 +21,16 @@ const ResturantOrder = () => {
   const filterDate = queryParams.get('date') || '';
   const orderStatus = queryParams.get('order_status') || '';
   const orderType = queryParams.get('order_type') || '';
+  const page = queryParams.get('page') || '';
+
 
 
   const OrderStatusType = ["Pending", "Cooked", "Delivered", "Cancalled", "Confirmed"]
   const OrderType = ["dine-here", "packed", "delivery"]
 
-  const name = slug.replace("-", " ");
-      const { data, isLoading, isError } = useQuery({
-        queryKey: [`Resturant order ${res_id}`, searchQuery, filterDate, orderStatus, orderType],
+  const name = slug.replace(/-/g, " ");
+      const { data, isLoading, isError , isRefetching } = useQuery({
+        queryKey: [`Resturant order ${res_id}`, searchQuery, filterDate, orderStatus, orderType, page],
         queryFn: async () => {
           const response = await axiosInstance.get(
             `${morefoodURL}moreclub/user/orders/${res_id}/?${queryParams.toString()}`
@@ -40,7 +43,7 @@ const ResturantOrder = () => {
   
   
     
-     if (isLoading) {
+     if (isLoading || isRefetching) {
        return (
          <DashboardLayout title={`${name} orders`}>
            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Resturant order ${res_id}`, searchQuery, filterDate, orderStatus, orderType]}/>
@@ -106,7 +109,6 @@ const ResturantOrder = () => {
        </DashboardLayout>;
      }
 
-
   return (
     <DashboardLayout title={`${name} orders`}>
       <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Resturant order ${res_id}`, searchQuery, filterDate, orderStatus, orderType]} />
@@ -133,6 +135,13 @@ const ResturantOrder = () => {
             </tr>
           )}
         </thead>
+        <tfoot>
+        <CustomPagination
+                    totalItems={40}
+                    totalPages={2}
+                    itemsPerPage={20}
+                  />
+        </tfoot>
 
       </Table>
       <Divider/>

@@ -5,6 +5,9 @@ import { baseURL } from "../../config/config";
 import { message } from "antd";
 import { Link } from "react-router-dom";
 import PINInput from "../ui/GridPinInput";
+import { useDispatch } from "react-redux";
+import { fetchNewNotifications } from "../../redux/api/notificationApi";
+import { set } from "lodash";
 
 function ChangePinForm() {
   const [pin, setPin] = useState("");
@@ -13,6 +16,8 @@ function ChangePinForm() {
   const [pinError, setPinError] = useState("");
   const [oldpinError, setoldpinError] = useState("");
   const [confirmPinError, setConfirmPinError] = useState("");
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const validateoldPin = (value) => {
     if (value.length !== 4) {
@@ -76,6 +81,7 @@ function ChangePinForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const oldPinvalidationError = validateoldPin(oldPin);
     const pinValidationError = validatePin(pin);
     const confirmPinValidationError = validateConfirmPin(confirmPin);
@@ -100,9 +106,13 @@ function ChangePinForm() {
           `${baseURL}auth/change/user/pin/`,
           data
         );
-        console.log("res", res);
         if (res.status === 200) {
+
           message.success("pin changed successfully");
+          setOldPin("");
+          setPin("");
+          setConfirmPin("");
+          dispatch(fetchNewNotifications());
         }
       } catch (err) {
         console.log(err);
@@ -116,6 +126,7 @@ function ChangePinForm() {
         }
       }
     }
+    setLoading(false);
   };
 
   return (
@@ -134,7 +145,7 @@ function ChangePinForm() {
       </Form.Group>
       <div className="d-flex gap-2 align-items-center">
         <Button variant="primary" type="submit" className="mt-3">
-          Change PIN
+        {loading && <span className="spinner-border spinner-border-sm"></span>} Change PIN
         </Button>
         <Link to="/forget/pin" className="mt-3 t">
           <Button variant="ghost" className="text-primary">

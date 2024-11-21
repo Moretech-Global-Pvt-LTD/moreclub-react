@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 
 const SaloonCard = ({ sal }) => {
-
-
     const slug = sal.name.replace(/ /g, "-");
 
     return (

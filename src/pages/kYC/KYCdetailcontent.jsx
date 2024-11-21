@@ -77,7 +77,7 @@ const KYCdetailcontent = ({ data }) => {
               {/* <p><strong>Father's/Husband's Name:</strong> {data.user.fatherHusbandName}</p> */}
               {/* <p><strong>Grandfather's/Father-in-law's Name:</strong> {data.user.grandfatherFatherInLawName}</p> */}
               <p>
-                <strong>Marital Status:</strong> {data.kyc.maritalStatus}
+                <strong>Marital Status:</strong> {data.kyc.marital_status}
               </p>
               <p>
                 <strong>Occupation:</strong> {data.kyc.occupation}

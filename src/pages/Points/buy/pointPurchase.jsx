@@ -16,8 +16,6 @@ const PointPurchase = () => {
   const purchaseData = useSelector((state)=>state.purchaseReducer)
   const createPaymentIntent = async () => {
     
-    
-      
       const url = window.location.href;
       const extractedId = url.substring(url.lastIndexOf('/') + 1);
       const rate = parseFloat(extractedId.substring(5, extractedId.length - 5)) 

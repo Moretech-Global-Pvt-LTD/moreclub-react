@@ -34,6 +34,7 @@ const OfferForm = () => {
   };
 
   const { data: categories } = useQuery({ queryKey: 'categories', queryFn: fetchCategories });
+  
   const { data: submenuItems } = useQuery(
     { 
       queryKey: ['submenuItems', selectedCategory],
@@ -47,7 +48,7 @@ const OfferForm = () => {
   };
 
   const addItem = (item) => {
-    console.log("added",item);
+    // console.log("added",item);
     if (!selectedItems.includes(item)) {
       setSelectedItems([...selectedItems, item.id]);
       setSelectedItemsName([
@@ -84,11 +85,9 @@ const OfferForm = () => {
     
     try {
       const res = await axiosInstance.post(`${morefoodURL}moreclub/user/offers/${res_id}/`, data, {
-        
           headers: {
             "Content-Type": "multipart/form-data",
           },
-  
       })
       message.success("Offer added successfully");
       navigate(`/resturant/${res_id}/offer/${slug}`)
@@ -119,7 +118,7 @@ const OfferForm = () => {
           {categories &&
             categories.map((category) => (
               <option key={category.id} value={category.id}>
-                {category.menu.name}
+                {category?.name}
               </option>
             ))}
         </Form.Control>
@@ -143,13 +142,30 @@ const OfferForm = () => {
                 {item.name}
               </div>
             ))}
+
+            {selectedCategory === "" && (
+              <div className="text-dynamic-white p-2 text-muted">
+                Choose any one category from the Category to get started!
+              </div>
+            )}
+            {selectedCategory !== "" && submenuItems && submenuItems.length === 0 && (
+              <div className="text-dynamic-white p-2 border-bottom">
+                No Food items available in this category
+              </div>
+            )}
         </div>
       </Form.Group>
 
       <Form.Group controlId="formSelectedItems">
         <Form.Label>Selected Items</Form.Label>
-        <div id="d-flex flex-wrap">
-          {selectedItemsName.map((item) => (
+       
+        <div
+          id="submenu-list"
+          className="border p-2"
+          style={{ height: "100px", overflowY: "auto" }}
+        >
+           <div id="d-flex flex-wrap">
+          {selectedItemsName && selectedItemsName.map((item) => (
             <Badge
               key={item}
               className="badge  m-1"
@@ -161,6 +177,13 @@ const OfferForm = () => {
               </span>
             </Badge>
           ))}
+           {selectedItemsName && selectedItemsName.length === 0 && (
+            <div className="text-dynamic-white p-2 text-muted">
+              No Food items selected!
+            </div>
+          )}
+        </div>
+          
         </div>
       </Form.Group>
 

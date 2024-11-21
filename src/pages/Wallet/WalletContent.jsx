@@ -8,7 +8,7 @@ import { getWallet } from "../../redux/api/wallets";
 import Walletlinks from "../../components/dashboard/Walletlinks";
 
 import WalletAlertNotification from "../../components/alert_notification/WalletAlerts";
-import Websockettest from "../../components/socket/websockettest";
+// import Websockettest from "../../components/socket/websockettest";
 
 const WalletContent = () => {
   const dispatch = useDispatch();

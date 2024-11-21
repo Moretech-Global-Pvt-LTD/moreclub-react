@@ -8,6 +8,7 @@ import { Badge, Placeholder, Table, } from 'react-bootstrap';
 import Divider from '../../../../components/divider/Divider';
 import moment from 'moment';
 import FilterComponent from '../../../../components/Moreclub/CommonComponents/FilterComponents';
+import CustomPagination from '../../../../components/ui/pagination/pagination';
 const StationOrderList = () => {
     const { id, name } = useParams();
     const navigate = useNavigate()
@@ -19,27 +20,28 @@ const StationOrderList = () => {
     const filterDate = queryParams.get('date') || '';
     const orderStatus = queryParams.get('order_status') || '';
     const orderType = queryParams.get('order_type') || '';
+    const page = queryParams.get('page') || 1;
 
 
     const OrderStatusType = ["Pending", "Confirmed", "Ready", "Rejected", "Delivered to boy"]
     const OrderType = ["dine-here", "packed", "delivery"]
 
 
-    const { data, isLoading, isError } = useQuery({
-        queryKey: [`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType],
+    const { data, isLoading, isError, isRefetching } = useQuery({
+        queryKey: [`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType, page],
         queryFn: async () => {
             const response = await axiosInstance.get(
                 `${morefoodURL}moreclub/station/restro/${id}/all/orders/?${queryParams.toString()}`
             );
-            const data = await response.data.data;
+            const data = await response.data;
             return data;
         },
-        staleTime: 1000,
+        staleTime: page === 1 ? 1000 : 60000,
     });
 
 
 
-    if (isLoading) {
+    if (isLoading || isRefetching) {
         return (
             <DashboardLayout title={`${name} Station Orders`}>
                 <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType]}/>
@@ -105,6 +107,7 @@ const StationOrderList = () => {
 
         </DashboardLayout>;
     }
+    console.log(data);
 
 
     return (
@@ -122,7 +125,7 @@ const StationOrderList = () => {
                         {/* <th className="text-white text-center">Action</th> */}
                         {/* )} */}
                     </tr>
-                    {data && data.length > 0 && data.map((item) => (
+                    {data.data && data.data.length > 0 && data.data.map((item) => (
                         // <StationOrderCard item={row} key={row.id} />
                         <tr
                             className="text-dynamic-white clickable-row"
@@ -167,15 +170,32 @@ const StationOrderList = () => {
 
                         </tr>
                     ))}
-                    {data.length === 0 && (
+                    {data.data.length === 0 && (
                         <tr>
                             <td colSpan="5" className="text-center text-dynamic-white align-middle " style={{ height: "8rem" }}>
                                 No Orders yet
                             </td>
                         </tr>
                     )}
+                    
                 </thead>
+                <tfoot>
+          <tr>
+            <td colSpan={4} className="p-1">
+              <div className="d-flex justify-content-center">
+              {data.meta &&  (
+                        <CustomPagination          
+                            totalPages={data.meta.total_pages}
+                            totalItems={data.meta.count}
+                            itemsPerPage={10}
+                        />
+                    )}
 
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+                
             </Table>
             <Divider />
         </DashboardLayout>
