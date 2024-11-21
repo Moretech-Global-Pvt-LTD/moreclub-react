@@ -187,7 +187,7 @@ const StationOrderList = () => {
                         <CustomPagination          
                             totalPages={data.meta.total_pages}
                             totalItems={data.meta.count}
-                            itemsPerPage={10}
+                            itemsPerPage={15}
                         />
                     )}
 

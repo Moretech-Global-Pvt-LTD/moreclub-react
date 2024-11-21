@@ -21,7 +21,7 @@ const ResturantOrder = () => {
   const filterDate = queryParams.get('date') || '';
   const orderStatus = queryParams.get('order_status') || '';
   const orderType = queryParams.get('order_type') || '';
-  const page = queryParams.get('page') || '';
+  const page = queryParams.get('page') || 1;
 
 
 
@@ -35,10 +35,10 @@ const ResturantOrder = () => {
           const response = await axiosInstance.get(
             `${morefoodURL}moreclub/user/orders/${res_id}/?${queryParams.toString()}`
           );
-          const data = await response.data.data;
+          const data = await response.data;
           return data;
         },
-        staleTime: 1000,
+        staleTime: page === 1 ? 1000 : 60000,
       });
   
   
@@ -124,10 +124,10 @@ const ResturantOrder = () => {
             
             {/* )} */}
           </tr>
-          {data && data.length > 0 && data.map((row) => (
+          {data.data && data.data.length > 0 && data.data.map((row) => (
             <OrderCard item={row} key={row.id}  />
           ))}
-          {data.length === 0 && (
+          {data.data.length === 0 && (
             <tr>
               <td colSpan="5"  className="text-center text-dynamic-white align-middle " style={{ height: "8rem" }}>
                 No Orders yet
@@ -136,13 +136,21 @@ const ResturantOrder = () => {
           )}
         </thead>
         <tfoot>
-        <CustomPagination
-                    totalItems={40}
-                    totalPages={2}
-                    itemsPerPage={20}
-                  />
-        </tfoot>
+        <tr>
+            <td colSpan={4} className="p-1">
+              <div className="d-flex justify-content-center">
+              {data.meta &&  (
+                        <CustomPagination          
+                            totalPages={data.meta.total_pages}
+                            totalItems={data.meta.count}
+                            itemsPerPage={15}
+                        />
+                    )}
 
+              </div>
+            </td>
+          </tr>
+          </tfoot>
       </Table>
       <Divider/>
     </DashboardLayout>

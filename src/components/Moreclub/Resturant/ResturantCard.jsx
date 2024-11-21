@@ -6,9 +6,7 @@ const ResturantCard = ({res, link}) => {
       <Link
         to={link}
         key={res.id}
-     
       >
-        
           <div class="restaurant-card mx-auto mb-2" >
             <div class="restaurant-card-image">
               <img src={`${res.banner}`} alt="Restaurant Image" />

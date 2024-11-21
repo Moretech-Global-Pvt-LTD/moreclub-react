@@ -15,6 +15,7 @@ import infoSlice from './slices/infoSlice'
 import currencyReducer from './slices/CurrencySlice'
 import commentsReducer from './slices/commentsSlice'
 import notificationReducer from './slices/notificationSlice'
+import galleryReducer  from './slices/gallerySlice'
 
 
 const store = configureStore({
@@ -35,6 +36,7 @@ const store = configureStore({
     currencyReducer: currencyReducer,
     comments: commentsReducer,
     notification: notificationReducer,
+    gallery: galleryReducer
   },
 });
 

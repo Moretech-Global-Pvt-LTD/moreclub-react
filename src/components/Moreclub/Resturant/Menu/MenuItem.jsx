@@ -10,7 +10,7 @@ import { morefoodURL } from "../../../../config/config";
 import { FoodItemSkeleton } from "../../../Skeleton/SmallCardSkeleton";
 
 const MenuItem = () => {
-  const {res_id,cat_id, slug}= useParams()
+  const {res_id, cat_id, slug}= useParams()
   const [showForm, setShowForm] = useState(false);
 
 
@@ -93,6 +93,7 @@ const MenuItem = () => {
           <Col className="d-flex flex-column">
             
             <MenuCard
+            key={item.id}
               data={item}
               id={item.id}
               logo={item.image}

@@ -24,13 +24,15 @@ const MenuCard = ({
   const queryClient = useQueryClient();
 
   const [showForm, setShowForm] = useState();
+  console.log("data", data);
+  console.log("id", id);
 
   async function handleDelete() {
     try {
       await axiosInstance
         .delete
         // `${morefoodURL}moreclub/user/menus/${id}/${res_id}/`
-        (`${morefoodURL}moreclub/user/food/items/${cat_id}/${id}/${res_id}/`)
+        (`${morefoodURL}moreclub/user/food/items/${cat_id}/${data.id}/${res_id}/`)
 
       message.success("Menu Deleted successfully");
       queryClient.invalidateQueries({
