@@ -199,7 +199,7 @@ const FoodItemForm = ({ data , onCancel}) => {
      
       axiosInstance
         .patch(
-          `${morefoodURL}moreclub/user/food/items/${cat_id}/${id}/${res_id}/`,
+          `${morefoodURL}moreclub/user/food/items/${cat_id}/${data.id}/${res_id}/`,
           datas,
           {
             headers: {
