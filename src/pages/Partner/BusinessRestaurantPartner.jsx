@@ -12,6 +12,7 @@ import { baseURL } from '../../config/config';
 import { BestDealsinTownSkeleton } from '../../components/Skeleton/SmallCardSkeleton';
 import { Col, Row } from 'react-bootstrap';
 import OffersCard from '../../components/dashboard/Offercard';
+import Cookies from "js-cookie"
 
 const BusinessRestaurantPartner = () => {
     const { partnerId, partnerName, cuisineName } = useParams();
@@ -63,7 +64,11 @@ const BusinessPartnerContent = ({ partnerId, CuisineName }) => {
         queryFn: async () => {
 
             const response = await axiosInstance.get(
-                `${baseURL}business/partners/${partnerId}/?cuisine=${cuisineName}`
+                `${baseURL}business/partners/${partnerId}/?cuisine=${cuisineName}`,{
+                    headers: {
+                        'x-country-code': Cookies.get("countryCode"),
+                    }
+                }
             );
             return response.data.data;
         },

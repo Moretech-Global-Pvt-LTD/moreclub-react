@@ -22,7 +22,7 @@ const RestaurantCusine = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 240000,
     });
 
     if (isLoading) {
