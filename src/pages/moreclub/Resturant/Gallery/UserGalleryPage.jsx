@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import UserGalleryContent from './UserGallery';
 
 const UserPage = () => {
-    const { res_id, slug } = useParams();
-    const name = slug.replace("-", " ");
+    const {slug } = useParams();
+    const name = slug.replace(/-/g, " ");
     return (
         <DashboardLayout title={`${name} Gallery`}>
             <h4 className='my-2'>User Upload Gallery</h4>

@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 
 
 
-const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFinish, data }) => {
+const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFinish, data, cuisineOption }) => {
     const queryClient = useQueryClient();
     const [menuItem, setMenuItem] = useState({
         name: data.name,
@@ -22,31 +22,30 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
     });
     const [loading, setLoading] = useState(false)
     const [uiLoading, setUIloading] = useState(false);
-    const [cuisineOption, setCuisineOption] = useState([]);
     const [offererror, setOfferError] = useState("");
     const [defaultMenu_id, setDefaultMenu_id] = useState("");
 
 
-    async function getCuisineList() {
-        try {
-            const res = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${stationId}/menu/`, {
-                headers: {
-                    'x-country-code': Cookies.get("countryCode"),
-                }
-            }
-            );
+    // async function getCuisineList() {
+    //     try {
+    //         const res = await axiosInstance.get(
+    //             `${morefoodURL}moreclub/station/${stationId}/menu/`, {
+    //             headers: {
+    //                 'x-country-code': Cookies.get("countryCode"),
+    //             }
+    //         }
+    //         );
 
-            setCuisineOption(res.data.data);
-        } catch (err) {
-            console.error(err);
-            setCuisineOption([]);
-        }
-    }
+    //         setCuisineOption(res.data.data);
+    //     } catch (err) {
+    //         console.error(err);
+    //         setCuisineOption([]);
+    //     }
+    // }
 
-    useEffect(() => {
-        getCuisineList();
-    }, [cat_id, res_id])
+    // useEffect(() => {
+    //     getCuisineList();
+    // }, [cat_id, res_id])
 
     useEffect(() => {
 

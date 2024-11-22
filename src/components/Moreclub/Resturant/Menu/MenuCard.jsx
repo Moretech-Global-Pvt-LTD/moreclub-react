@@ -24,8 +24,6 @@ const MenuCard = ({
   const queryClient = useQueryClient();
 
   const [showForm, setShowForm] = useState();
-  console.log("data", data);
-  console.log("id", id);
 
   async function handleDelete() {
     try {

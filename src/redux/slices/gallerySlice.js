@@ -9,6 +9,16 @@ const initialState = {
   error: null,
 };
 
+const prependUniqueItems = (gallery, newItems) => {
+  return [
+    ...newItems.filter(
+      (newItem) =>
+        !gallery.some((existingItem) => existingItem.id === newItem.id)
+    ),
+    ...gallery,
+  ];
+};
+
 export const gallerySlice = createSlice({
   name: "gallery",
   initialState,
@@ -38,12 +48,24 @@ export const gallerySlice = createSlice({
     },
     setRestaurantGallery: (state, { payload }) => {
       // Replace all items with unique ones
-      state.restaurantGallery = payload.filter(
-        (newItem) =>
-          !state.restaurantGallery.some(
-            (existingItem) => existingItem.id === newItem.id
-          )
+      state.restaurantGallery = payload
+    },
+    updateRestaurantGallery: (state, { payload }) => {
+      // Replace all items with unique ones
+      state.restaurantGallery = prependUniqueItems(state.restaurantGallery, payload);
+    },
+
+    deleteRestaurantGallery: (state, { payload }) => {
+     
+      const exists = state.restaurantGallery.some(
+        (item) => item.id === payload
       );
+
+      if(exists) {
+      state.restaurantGallery = state.restaurantGallery.filter(
+        (item) => item.id !== payload
+      );
+    }
     },
 
     addNewPendingItem: (state, { payload }) => {
@@ -106,6 +128,8 @@ export const {
   setRestaurantGallery,
   addNewPendingItem,
   approvePendingItem,
+  updateRestaurantGallery,
+  deleteRestaurantGallery,
   deleteItem,
   setError,
   resetGallery,
