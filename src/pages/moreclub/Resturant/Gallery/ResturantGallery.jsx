@@ -10,6 +10,7 @@ import { axiosInstance } from "../../../..";
 import ImageContainer from "../../../../components/Moreclub/Resturant/Gallery/GalleryImageContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { setRestaurantGallery } from "../../../../redux/slices/gallerySlice";
+import FewImage from "../../../../components/Moreclub/Resturant/Gallery/fewimage";
 
 const RestaurantGalleryContent = () => {
     const { res_id} = useParams();
@@ -89,9 +90,16 @@ const RestaurantGalleryContent = () => {
                 </Col>
             </Row>
 
+            <div className='d-flex flex-wrap gap-2'>
+          {gallery.restaurantGallery && gallery.restaurantGallery.length <= 10 && gallery.restaurantGallery.map((item, index) => (
+              <FewImage key={item.id} item={item} />
+          ))
+          }
+      </div>
+
 
             <div className='masonry-gallery'>
-                {gallery.restaurantGallery && gallery.restaurantGallery.map((item, index) => (
+                {gallery.restaurantGallery && gallery.restaurantGallery && gallery.restaurantGallery.length > 10 && gallery.restaurantGallery.map((item, index) => (
                     <ImageContainer key={item.id} item={item} onClick={() => console.log(index)} />
                 ))
                 }
