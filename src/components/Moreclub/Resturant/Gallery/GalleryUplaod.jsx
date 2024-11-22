@@ -5,10 +5,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { message } from "antd";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
+import { useDispatch } from "react-redux";
+import { updateRestaurantGallery } from "../../../../redux/slices/gallerySlice";
 
 
 const GalleryImageUpload = ({onFinish}) => {
   const { res_id } = useParams();
+  const dispatch = useDispatch();
  
   const [formData, setFormData] = useState({
     id: res_id,
@@ -18,11 +21,13 @@ const GalleryImageUpload = ({onFinish}) => {
 
   const [imagePreviews, setImagePreviews] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [imagesError,setImagesError] = useState(false)
 
   const handleImageChange = (e, index = null) => {
     const files = Array.from(e.target.files);
     let updatedImages = [...formData.images];
     let updatedPreviews = [...imagePreviews];
+
 
     if (index !== null) {
       // Updating a specific image
@@ -89,7 +94,8 @@ const GalleryImageUpload = ({onFinish}) => {
             },
           }
         );
-       onFinish();
+      onFinish();
+      dispatch(updateRestaurantGallery(res.data.data));
       message.success("Image added successfully");
     } catch (err) {
       console.log(err);
@@ -142,13 +148,15 @@ const GalleryImageUpload = ({onFinish}) => {
                   onChange={(e) => handleImageChange(e)}
                   className=""
                 />
+                {imagesError && <p className="text-danger">{imagesError}</p>}
               </Col>
+
             </Row>
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" disabled={loading}>
             {loading && (
               <span
-                class="spinner-border spinner-border-sm text-primary"
+                class="spinner-border spinner-border-sm text-white me-2"
                 role="status"
               ></span>
             )}
