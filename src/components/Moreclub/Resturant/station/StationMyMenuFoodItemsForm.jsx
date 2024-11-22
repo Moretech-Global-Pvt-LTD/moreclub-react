@@ -4,11 +4,11 @@ import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
 
 
-const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish }) => {
+const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish , cuisineOption}) => {
     const queryClient = useQueryClient();
     const [menuItem, setMenuItem] = useState({
         name: "",
@@ -21,30 +21,29 @@ const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish }) => {
     });
     const [loading, setLoading] = useState(false)
     const [uiLoading, setUIloading] = useState(false);
-    const [cuisineOption, setCuisineOption] = useState([]);
+    // const [cuisineOption, setCuisineOption] = useState([]);
     const [offererror, setOfferError] = useState("");
 
 
-    async function getCuisineList() {
-        try {
-            const res = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/restro/${stationId}/by/restaurant/menu/`, {
-                headers: {
-                    'x-country-code': Cookies.get("countryCode"),
-                }
-            }
-            );
-            
-            setCuisineOption(res.data.data);
-        } catch (err) {
-            console.error(err);
-            setCuisineOption([]);
-        }
-    }
+    // async function getCuisineList() {
+    //     try {
+    //         const res = await axiosInstance.get(
+    //             `${morefoodURL}moreclub/station/restro/${stationId}/by/restaurant/menu/`, {
+    //             headers: {
+    //                 'x-country-code': Cookies.get("countryCode"),
+    //             }
+    //         }
+    //         );
+    //         setCuisineOption(res.data.data);
+    //     } catch (err) {
+    //         console.error(err);
+    //         setCuisineOption([]);
+    //     }
+    // }
 
-    useEffect(() => {
-        getCuisineList();
-    }, [cat_id, res_id])
+    // useEffect(() => {
+    //     getCuisineList();
+    // }, []);
 
 
 

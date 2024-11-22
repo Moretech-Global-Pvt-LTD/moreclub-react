@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setRestaurantGallery } from "../../../../redux/slices/gallerySlice";
 
 const RestaurantGalleryContent = () => {
-    const { res_id, cat_id, slug } = useParams();
+    const { res_id} = useParams();
     const [showForm, setShowForm] = useState(false);
     const dispatch = useDispatch();
     const queryClient = new QueryClient();

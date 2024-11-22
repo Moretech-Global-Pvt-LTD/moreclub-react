@@ -9,6 +9,7 @@ import { Modal } from "react-bootstrap";
 import StationMyMenuItemsUpdateForm from "./StationMyMenuFoodItemsFormUpdate";
 
 const StationFoodCard = ({
+    cuisineOption,
     foodid,
     logo,
     name,
@@ -116,7 +117,7 @@ const StationFoodCard = ({
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <StationMyMenuItemsUpdateForm food_id={foodid} res_id={resid} stationId={stationid} onFinish={hideAddCategory}  data={initialValues}  />
+                    <StationMyMenuItemsUpdateForm food_id={foodid} res_id={resid} stationId={stationid} onFinish={hideAddCategory}  data={initialValues}  cuisineOption={cuisineOption} />
                 </Modal.Body>
             </Modal>
         </>

@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import DashboardLayout from '../../../../components/Layout/DashboardLayout'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '../../../..';
@@ -9,11 +8,33 @@ import RestaurantLayoutSkeleton from '../../../../components/Skeleton/Restaurant
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import StationMyMenuItemsForm from '../../../../components/Moreclub/Resturant/station/StationMyMenuFoodItemsForm';
 import StationMenuItemCard from '../../../../components/Moreclub/Resturant/station/StationMenuItemCard2';
+import Cookies from "js-cookie";
 
 const NearbyStationMyMenuPage = () => {
     const { resid, stationid, name } = useParams();
     const stationName = name.replace(/-/g, " ");
     const [showForm, setShowForm] = useState(false);
+    const [cuisineOption, setCuisineOption] = useState([]);
+
+    async function getCuisineList() {
+        try {
+            const res = await axiosInstance.get(
+                `${morefoodURL}moreclub/station/restro/${stationid}/by/restaurant/menu/`, {
+                headers: {
+                    'x-country-code': Cookies.get("countryCode"),
+                }
+            }
+            );
+            setCuisineOption(res.data.data);
+        } catch (err) {
+            console.error(err);
+            setCuisineOption([]);
+        }
+    }
+
+    useEffect(() => {
+        getCuisineList();
+    }, [stationid]);
 
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Nearby Station my menu ${stationid}`],
@@ -77,7 +98,7 @@ const NearbyStationMyMenuPage = () => {
                   </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                  <StationMyMenuItemsForm res_id={resid}  stationId={stationid} onFinish={hideAddCategory}/>
+                  <StationMyMenuItemsForm res_id={resid}  stationId={stationid} onFinish={hideAddCategory} cuisineOption={cuisineOption}/>
               </Modal.Body>
           </Modal>
         
@@ -94,6 +115,7 @@ const NearbyStationMyMenuPage = () => {
                   <Col className="d-flex flex-column">
 
                       <StationMenuItemCard
+                        cuisineOption={cuisineOption}
                           foodid={item.id}
                           logo={item.image}
                           name={item.name}
