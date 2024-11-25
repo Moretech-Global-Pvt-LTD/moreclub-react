@@ -134,6 +134,7 @@ const UserSecondForm = ({ handleSubmit, loading }) => {
           <option value="">Select User Type</option>
           <option value="NORMAL">Personal</option>
           <option value="BUSINESS">Business</option>
+          <option value="DELIVERY">Delivery</option>
         </Form.Control>
         {user_typeError && <p className="text-danger">{user_typeError}</p>}
       </Form.Group>

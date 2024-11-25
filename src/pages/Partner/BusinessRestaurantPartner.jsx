@@ -64,7 +64,7 @@ const BusinessPartnerContent = ({ partnerId, CuisineName }) => {
         queryFn: async () => {
 
             const response = await axiosInstance.get(
-                `${baseURL}business/partners/${partnerId}/?cuisine=${cuisineName}`,{
+                `${baseURL}business/partners/${partnerId}/list/?cuisine=${cuisineName}`,{
                     headers: {
                         'x-country-code': Cookies.get("countryCode"),
                     }
@@ -72,7 +72,7 @@ const BusinessPartnerContent = ({ partnerId, CuisineName }) => {
             );
             return response.data.data;
         },
-        staleTime: 1000,
+        staleTime: 360000,
     });
 
     if (isLoading) {

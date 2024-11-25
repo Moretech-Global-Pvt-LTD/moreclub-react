@@ -170,7 +170,7 @@ const HeaderDashboardMenu = () => {
           </>
         }
 
-        {(user.user?.user_type !== "NORMAL") && (!business.businessProfile.business_types?.some(type => type.name === "Saloon")) && (
+        {(user.user?.user_type !== "NORMAL") && (!business.businessProfile.business_types?.some(type => type.name === "Salons")) && (
           <>
             <li>
               <NavLink to={"/moresaloon"}>
@@ -328,7 +328,7 @@ const HeaderDashboardMenu = () => {
                    
                   </SidebarDropDownMenu>
                 }
-                {business.businessProfile.business_types?.some(type => type.name === "Saloon") &&
+                {business.businessProfile.business_types?.some(type => type.name === "Salons") &&
                   <SidebarDropDownMenu
                     menuIcon={"bi-scissors"}
                     menuTitle="More Salon"

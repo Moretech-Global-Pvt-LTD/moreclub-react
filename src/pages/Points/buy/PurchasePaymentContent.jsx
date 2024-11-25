@@ -43,7 +43,6 @@ const PurchasePaymentContent = ({ buyAmount, currency }) => {
       .then((res) => res.json())
 
       .then((data) => {
-        console.log("data", data);
         setClientSecret(data.clientSecret);
         setPaymentIntent(data.payment_intent);
       })
@@ -166,7 +165,7 @@ const PurchasePaymentContent = ({ buyAmount, currency }) => {
                         className="name d-block hover-primary text-truncate text-center text-dynamic-white"
                         style={{ fontSize: "20px" }}
                       >
-                        <b>&nbsp;{"Load Points"}</b>
+                        <b>&nbsp;{"Load Money"}</b>
                       </div>
                     </div>
                   </div>

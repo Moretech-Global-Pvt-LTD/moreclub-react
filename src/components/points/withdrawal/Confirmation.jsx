@@ -61,7 +61,7 @@ const ConfirmationForm = () => {
         data
       );
       
-      message.success("Points withdrawn successfully")
+      message.success("Money withdrawn successfully")
       setIsLoading(false);
       dispatch(setConversion(""));
       dispatch(setMethod(""));
