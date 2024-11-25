@@ -18,11 +18,11 @@ const BusinessPartnerContent = ({ partnerId }) => {
         queryFn: async () => {
 
             const response = await axiosInstance.get(
-                `${baseURL}business/partners/${partnerId}/`
+                `${baseURL}business/partners/${partnerId}/list/`
             );
             return response.data.data;
         },
-        staleTime: 1000,
+        staleTime: 360000,
     });
 
     if (isLoading) {

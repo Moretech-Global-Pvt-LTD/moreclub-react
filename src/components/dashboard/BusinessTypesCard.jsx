@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const BusinessTypesCard = ({ id, logo, name, banner }) => {
 
-    const slug = name.replace(" ", "-");
+    const slug = name.replace(/ /g, "-");
 
     return (
         <>
