@@ -1,12 +1,12 @@
 import React from "react";
-import DashboardLayout from "../../../../components/Layout/DashboardLayout";
 import InfoUpdateTabs from "./UpdateTabs";
+import RestaurantLayout from "../../../../components/Layout/RestaurantLayout";
 
 const RestroUpdateInfo = () => {
   return (
-    <DashboardLayout title={"Update Restaurant"}>
+    <RestaurantLayout title={"Update Restaurant"}>
       <InfoUpdateTabs />
-    </DashboardLayout>
+    </RestaurantLayout>
   );
 };
 

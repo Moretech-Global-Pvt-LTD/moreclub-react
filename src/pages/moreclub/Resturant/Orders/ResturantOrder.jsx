@@ -3,7 +3,7 @@ import { morefoodURL } from '../../../../config/config';
 import { axiosInstance } from '../../../..';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation,  useParams } from 'react-router-dom';
-import DashboardLayout from '../../../../components/Layout/DashboardLayout';
+import RestaurantLayout from '../../../../components/Layout/RestaurantLayout';
 import OrderCard from '../../../../components/Moreclub/Resturant/Orders/orderCard';
 import { Placeholder, Table } from 'react-bootstrap';
 import Divider from '../../../../components/divider/Divider';
@@ -45,7 +45,7 @@ const ResturantOrder = () => {
     
      if (isLoading || isRefetching) {
        return (
-         <DashboardLayout title={`${name} orders`}>
+         <RestaurantLayout title={`${name} orders`}>
            <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Resturant order ${res_id}`, searchQuery, filterDate, orderStatus, orderType]}/>
              <Table responsive className="bg-white">
                <thead className="border-bottom-0">
@@ -82,12 +82,12 @@ const ResturantOrder = () => {
 
            </div>
           
-         </DashboardLayout>
+         </RestaurantLayout>
        );
      }
 
      if (isError) {
-       return <DashboardLayout title={`${name} orders`} className="text-dynamic-white">
+       return <RestaurantLayout title={`${name} orders`} className="text-dynamic-white">
          <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Resturant order ${res_id}`, searchQuery, filterDate, orderStatus, orderType]} />
          <Table responsive className="bg-white">
            <thead className="border-bottom-0">
@@ -106,11 +106,11 @@ const ResturantOrder = () => {
          </Table>
          Error: retriving
        
-       </DashboardLayout>;
+       </RestaurantLayout>;
      }
 
   return (
-    <DashboardLayout title={`${name} orders`}>
+    <RestaurantLayout>
       <FilterComponent OrderStatusTypes={OrderStatusType} OrderTypes={OrderType} invalidatekey={[`Resturant order ${res_id}`, searchQuery, filterDate, orderStatus, orderType]} />
       <Table responsive className="bg-white">
         <thead className="border-bottom-0">
@@ -153,7 +153,7 @@ const ResturantOrder = () => {
           </tfoot>
       </Table>
       <Divider/>
-    </DashboardLayout>
+    </RestaurantLayout>
   );
 }
 

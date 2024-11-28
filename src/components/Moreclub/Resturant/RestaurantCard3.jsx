@@ -8,7 +8,7 @@ const ResturantCard = ({ res, link }) => {
     let links = link
 
     if(Cookies.get("countryCode") === "NP"){
-      links = `${morefoodhostNepalURL}/${res.id}`
+      links = `${morefoodhostNepalURL}/resturants/${res.id}`
     }
 
     // Open a blank tab immediately

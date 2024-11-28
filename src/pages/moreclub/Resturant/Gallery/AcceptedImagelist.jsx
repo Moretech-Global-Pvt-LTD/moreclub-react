@@ -27,21 +27,37 @@ const AcceptedImagelist = () => {
 
     if (isLoading) {
         return (
-            <div className="">
-                <div className="row gap-2">
+            <div className="d-flex  flex-wrap gap-2">
                     <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-                        <Placeholder xs={12} style={{ height: "8rem" }} />
-                    </Placeholder>
-                    <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
-                        <Placeholder xs={12} style={{ height: "8rem" }} />
-                    </Placeholder>
-                    <Placeholder as="p" animation="glow" className="rounded  w-25">
-                        <Placeholder xs={12} style={{ height: "8rem" }} />
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
                     </Placeholder>
                     <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
-                        <Placeholder xs={12} style={{ height: "8rem" }} />
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
+                    </Placeholder><Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
+                    </Placeholder><Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
+                    </Placeholder><Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
+                    </Placeholder><Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
                     </Placeholder>
-                </div>
+                    <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
+                    </Placeholder>
+                    <Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
+                    </Placeholder><Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
+                    </Placeholder><Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
+                    </Placeholder><Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
+                    </Placeholder><Placeholder as="p" animation="glow" className="rounded w-25 me-2">
+                        <Placeholder xs={12} style={{ width: "16rem", height: "16rem", }} />
+                    </Placeholder>
+                   
+              
             </div>
         );
     }

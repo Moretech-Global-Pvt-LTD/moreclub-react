@@ -76,7 +76,6 @@ import ForgetPinOTP from "./pages/Transactionpin/ForgetPinOtp";
 import SessionExpiredModal from "./components/sessiondialog";
 import Resturant from "./pages/moreclub/Resturant/resturant";
 import RestroInfo from "./pages/moreclub/Resturant/Info/info";
-import RestroDiscount from "./pages/moreclub/Resturant/discount";
 import RestroOffer from "./pages/moreclub/Resturant/Offers/offer";
 import RestroMenu from "./pages/moreclub/Resturant/Menu/menu";
 import ReactGA from "react-ga4";
@@ -85,7 +84,6 @@ import Setup from "./pages/moreclub/Resturant/setup";
 import RestroMenuItem from "./pages/moreclub/Resturant/Menu/MenuItem";
 import RestroOfferCreate from "./pages/moreclub/Resturant/Offers/CreateOffer";
 import RestroUpdateInfo from "./pages/moreclub/Resturant/Info/Update";
-import FoodItem from "./components/Moreclub/Resturant/Menu/FoodItem";
 import ResturantOrder from "./pages/moreclub/Resturant/Orders/ResturantOrder";
 import Morefood from "./pages/moreclub/morefood/morefood";
 import OrderDetails from "./pages/moreclub/Resturant/Orders/orderDetail";
@@ -98,7 +96,7 @@ import UserPage from "./pages/moreclub/Resturant/Gallery/UserGalleryPage";
 import OpeninghoursPage from "./pages/moreclub/Resturant/openinghours/OpeninghoursPage";
 import Failed from "./pages/Points/buy/Failed";
 import FeedPage from "./pages/feed/feedPage";
-// import DisableDevtool from "disable-devtool";
+import DisableDevtool from "disable-devtool";
 
 import Cookies from "js-cookie";
 import MoreSaloon from "./pages/moreclub/moresaloon/saloon/moreSaloon";
@@ -107,7 +105,6 @@ import SaloonDetail from "./pages/moreclub/moresaloon/setup/SaloonDetail";
 import ServicePage from "./pages/moreclub/moresaloon/Services/ServicePage";
 import StaffPage from "./pages/moreclub/moresaloon/Staff/StaffPage";
 import BookingPage from "./pages/moreclub/moresaloon/Bookings/BookingPage";
-import SaloonGalleryPage from "./pages/moreclub/moresaloon/Gallery/SaloonGalleryPage";
 import WorkinghourPage from "./pages/moreclub/moresaloon/Workingshours/WorkinghourPage";
 import SaloonUpdate from "./pages/moreclub/moresaloon/saloon/SaloonUpdate";
 import SaloonCreate from "./pages/moreclub/moresaloon/saloon/SaloonCreate";
@@ -129,7 +126,6 @@ import SetupStationPage from "./pages/moreclub/Station/SetupStationPage";
 import StationDetailPage from "./pages/moreclub/Station/StationDetailPage";
 import StationUpdatePage from "./pages/moreclub/Station/StationUpdatePage";
 import StationMenuItems from "./pages/moreclub/Station/StationMenuItem";
-import RestroStationMenu from "./pages/moreclub/Resturant/stationmenus/RestroStationMenu";
 import NearbyStationPage from "./pages/moreclub/Resturant/nearbyStation/NearbyStationPage";
 import NearbyStationDetail from "./pages/moreclub/Resturant/nearbyStation/NearbyStationDetail";
 import NearbyStationMenuPage from "./pages/moreclub/Resturant/nearbyStation/NearbyStationMenuPage";
@@ -152,66 +148,38 @@ const App = () => {
   const key = GoogleAnalytics;
   // Notification.requestPermission();
 
-  // const location = useLocation();
+  const location = useLocation();
 
-  // useEffect(() => {
-  //   const botWidget = document.querySelector(".ai-bot-widget");
+  useEffect(() => {
+    const botWidget = document.querySelector(".ai-bot-widget");
 
-  //   // If we're on the support page, show the bot
-  //   if (location.pathname === "/support") {
-  //     if (botWidget) botWidget.style.display = "block"; // Show the bot
-  //   } else {
-  //     if (botWidget) botWidget.style.display = "none"; // Hide the bot on other pages
-  //   }
-  // }, [location.pathname]); // Run the effect when the path changes
+    // If we're on the support page, show the bot
+    if (location.pathname === "/support") {
+      if (botWidget) botWidget.style.display = "block"; // Show the bot
+    } else {
+      if (botWidget) botWidget.style.display = "none"; // Hide the bot on other pages
+    }
+  }, [location.pathname]); // Run the effect when the path changes
 
-  // DisableDevtool({
-  //   url:'https://_blank',
+  DisableDevtool({
+    url:'https://_blank',
 
-  //   ondevtoolopen: (type, next) => {
-  //     next();
-  //   },
+    ondevtoolopen: (type, next) => {
+      next();
+    },
 
-  //   ondevtoolclose: () => {
-  //     console.log("Developer tools closed");
-  //   },
+    ondevtoolclose: () => {
+      console.log("Developer tools closed");
+    },
 
-  //   interval: 1,
-  //   disableMenu: true,
-  //   disableSelect: false,
-  //   disableCopy: false,
-  //   disableCut: false,
-  //   disablePaste: false,
-  // });
+    interval: 1,
+    disableMenu: true,
+    disableSelect: false,
+    disableCopy: false,
+    disableCut: false,
+    disablePaste: false,
+  });
 
-  // disableDevtool({
-  //   md5: "0b9e05caf5000360ec1c263335bd83fe",
-  //   interval: 200,
-  //   disableMenu: true,
-  //   clearLog: true,
-  //   disableSelect: true,
-  //   disableCopy: true,
-  //   disableCut: true,
-  //   disablePaste: true,
-  // });
-  // function configureDisableDevtool() {
-  //   disableDevtool({
-
-  //     clearIntervalWhenDevOpenTrigger: true,
-  //     ondevtoolopen: (type, next) => {
-  //       alert('DevTools opened! Type: ' + type , next);
-  //       console.log("DevTools opened! Type:", type);
-  //       // next(); // Uncomment to close the page when DevTools is detected
-  //     },
-  //     ondevtoolclose: () => {
-  //       console.log("DevTools closed!");
-  //     },
-  //     ignore: () => window.ignore === undefined,
-  //   });
-  // }
-  // useEffect(() => {
-  //   configureDisableDevtool();
-  // }, []);
 
   useEffect(() => {
     ReactGA.initialize(key);
@@ -576,70 +544,79 @@ const App = () => {
 
   const resturant = [
     {
-      path: "/resturant",
-
-      page: <Resturant />,
-    },
-    {
       path: "/morefood",
 
       page: <Morefood />,
     },
     {
-      path: "/resturant/info/",
+      path: "/restaurant",
+
+      page: <Resturant />,
+    },
+    {
+      path: "/restaurant/create/",
 
       page: <RestroInfo />,
     },
     {
-      path: "/resturant/info/:id",
-
-      page: <RestroUpdateInfo />,
-    },
-    {
-      path: "/resturant/setup/:id",
+      path: "/restaurant/:id/:slug",
 
       page: <Setup />,
     },
     {
-      path: "/resturant/:res_id/orders/:slug",
-      page: <ResturantOrder />,
+      path: "/resturant/update/:id/:slug",
+
+      page: <RestroUpdateInfo />,
+    },
+
+    //menu
+    {
+      path: "/resturant/:res_id/menu/:slug",
+
+      page: <RestroMenu />,
     },
     {
-      path: "/resturant/:res_id/station/:slug",
-      page: <StationPage />,
+      path: "/resturant/:res_id/menu/:cat_id/:slug/:menu_name",
+
+      page: <RestroMenuItem />,
     },
-    {
-      path: "/resturant/:res_id/opening-duration/:slug",
-      page: <OpeninghoursPage />,
-    },
+
+
+
+    // cuisines
     {
       path: "/resturant/:res_id/cuisine/:slug",
       page: <Cuisine />,
     },
     {
-      path: "/resturant/:res_id/cuisine/:cuisine_id/:rest_name/:slug",
+      path: "/resturant/:res_id/cuisine/:cuisine_id/:slug/:name",
       page: <UpdateCuisine />,
+    },
+
+    //offer
+
+    {
+      path: "/resturant/:res_id/offer/:slug",
+
+      page: <RestroOffer />,
+    },
+    {
+      path: "/restaurant/:res_id/offer/create/:slug",
+
+      page: <RestroOfferCreate />,
+    },
+
+    //orders
+    {
+      path: "/resturant/:res_id/orders/:slug",
+      page: <ResturantOrder />,
     },
     {
       path: "/resturant/:res_id/orders/:slug/:ord_id",
       page: <OrderDetails />,
     },
 
-    {
-      path: "/resturant/:res_id/discount",
-
-      page: <RestroDiscount />,
-    },
-    {
-      path: "/resturant/:res_id/offer/create/:slug",
-
-      page: <RestroOfferCreate />,
-    },
-    {
-      path: "/resturant/:res_id/offer/:slug",
-
-      page: <RestroOffer />,
-    },
+    //gallery
     {
       path: "/resturant/:res_id/gallery/:slug",
 
@@ -655,25 +632,52 @@ const App = () => {
 
       page: <UserPage />,
     },
-    {
-      path: "/resturant/:res_id/menu",
 
-      page: <RestroMenu />,
+    {
+      path: "/resturant/:res_id/opening-duration/:slug",
+      page: <OpeninghoursPage />,
     },
+
+    //nearby station
+
+    {
+      path: "/station/:resid/nearby/",
+      page: <NearbyStationPage />,
+    },
+    {
+      path: "/restaurant/:resid/station/:stationid/:name",
+      page: <NearbyStationDetail />,
+    },
+    {
+      path: "/restaurant/:resid/station/:stationid/:name/menu",
+      page: <NearbyStationMenuPage />,
+    },
+    {
+      path: "/restaurant/:resid/station/:stationid/:name/my-menu",
+      page: <NearbyStationMyMenuPage />,
+    },
+
+    //station orders
+    {
+      path: "/station/:id/stationorders/:name",
+      page: <StationOrderList />,
+    },
+    
+    {
+      path: "/station/:id/stationorders/:ord_id/:name/details",
+      page: <StationOrderDetailPage />,
+    },
+
+
+    //station all orders
     {
       path: "/resturant/:res_id/station/allOrders/:name",
 
       page: <AllResturantsStationOrderPage />,
     },
-    {
-      path: "/resturant/:res_id/menu/:cat_id/:slug",
 
-      page: <RestroMenuItem />,
-    },
-    {
-      path: "/resturant/:res_id/:cat_id/:id",
-      page: <FoodItem />,
-    },
+
+   //station
     {
       path: "/station/",
       page: <StationPage />,
@@ -702,39 +706,13 @@ const App = () => {
       path: "/station/:id/orders/:name",
       page: <StationOrder />,
     },
-    
     {
       path: "/station/:id/orders/:ord_id/:name",
       page: <OrderDetailsPage />,
     },
-
     {
       path: "/station/:id/allorders/:name",
       page: <AllOrdersPage />,
-    },
-    {
-      path: "/station/:resid/nearby/",
-      page: <NearbyStationPage />,
-    },
-    {
-      path: "/restaurant/:resid/station/:stationid/:name",
-      page: <NearbyStationDetail />,
-    },
-    {
-      path: "/restaurant/:resid/station/:stationid/:name/menu",
-      page: <NearbyStationMenuPage />,
-    },
-    {
-      path: "/restaurant/:resid/station/:stationid/:name/my-menu",
-      page: <NearbyStationMyMenuPage />,
-    },
-    {
-      path: "/station/:id/stationorders/:name",
-      page: <StationOrderList />,
-    },
-    {
-      path: "/station/:id/stationorders/:ord_id/:name/details",
-      page: <StationOrderDetailPage />,
     },
   ];
 

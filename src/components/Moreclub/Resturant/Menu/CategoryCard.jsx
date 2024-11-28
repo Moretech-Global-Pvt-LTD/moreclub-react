@@ -6,10 +6,10 @@ import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 
-const CategoryCard = ({ id, res_id, logo, name, item }) => {
+const CategoryCard = ({ id, res_id, logo, name, item, slug }) => {
 
   const queryClient = useQueryClient();
-  const slug = name.replace(/ /g, "-");
+  const menuname = name.replace(/ /g, "-");
   
    async function handleDelete() {
      try {
@@ -47,7 +47,7 @@ const CategoryCard = ({ id, res_id, logo, name, item }) => {
             className="img-fluid rounded-circle mb-3 profile-image"
           />
         </div>
-        <Link to={`/resturant/${res_id}/menu/${id}/${slug}`}>
+        <Link to={`/resturant/${res_id}/menu/${id}/${slug}/${menuname}/`}>
           <Card.Body className="pt-0">
             <Card.Title className="text-dynamic-white text-center line">
               {name}

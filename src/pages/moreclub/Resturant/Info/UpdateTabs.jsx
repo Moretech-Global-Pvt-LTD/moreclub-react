@@ -12,7 +12,7 @@ const InfoUpdateTabs = () => {
   const [activeTab, setActiveTab] = useState("Information");
     const { id } = useParams();
       const { data, isLoading, isError } = useQuery({
-        queryKey: [`Resturant List ${id}`],
+        queryKey: [`Resturant ${id}`],
         queryFn: async () => {
           const response = await axiosInstance.get(
             `${morefoodURL}moreclub/user/restaurants/${id}/`
@@ -20,7 +20,7 @@ const InfoUpdateTabs = () => {
           const data = await response.data.data;
           return data;
         },
-        staleTime: 100,
+        staleTime: 300000,
       });
 
       if (isLoading) {
