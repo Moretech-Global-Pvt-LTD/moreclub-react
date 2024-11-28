@@ -6,6 +6,7 @@ import { message } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
+import { valdateShortDescription, valdateShortDescriptionCharater } from "../../../../validation/resturantValidation";
 
 const customStyles = {
   control: (provided, state) => ({
@@ -72,8 +73,8 @@ const FoodItemForm = ({ data , onCancel}) => {
     ingredient: data.ingredient?? ""
   });
   const [offererror, setOfferError] = useState("");
+  const [shortDescriptionError, setShortDescriptionError] = useState("");
 
-  const navigate = useNavigate();
   async function getCuisineList() {
     try {
       const res = await axiosInstance.get(`${morefoodURL}moreclub/user/cuisines/${res_id}/`);
@@ -107,7 +108,30 @@ const FoodItemForm = ({ data , onCancel}) => {
       setMenuItem({ ...menuItem, cuisine_id: selectedValues });
     } else {
       setMenuItem({ ...menuItem, "cuisine_id": [] });
-      console.log("selected option", selectedOptions)
+      
+    }
+  };
+
+  const validateForm = (fieldValues = menuItem) => {
+    // const tempErrors  = { ...errors };
+   
+    let error = ""
+    if ("short_description" in fieldValues){
+
+      error = valdateShortDescriptionCharater(fieldValues.short_description);
+    }
+
+    setShortDescriptionError(error)
+   
+    // setErrors({ ...tempErrors });
+  };
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case "short_description":
+        return valdateShortDescriptionCharater(value);
+      default:
+        return "";
     }
   };
 
@@ -134,6 +158,7 @@ const FoodItemForm = ({ data , onCancel}) => {
     } else {
       // General input handling for other fields
       setMenuItem({ ...menuItem, [name]: value });
+      validateForm({ ...menuItem, [name]: value });
     }
   };
 
@@ -145,6 +170,15 @@ const FoodItemForm = ({ data , onCancel}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+
+    const error = validateField("short_description", menuItem.short_description);
+
+    if (error) {
+      setShortDescriptionError(error);
+      setLoading(false);
+      return;
+    }
+
     if (!menuItem.image) {
       const datas = {
         name: menuItem.name,
@@ -315,6 +349,7 @@ const FoodItemForm = ({ data , onCancel}) => {
             value={menuItem.short_description}
             onChange={handleChange}
           />
+          {shortDescriptionError && <p className="text-danger" style={{ fontSize: "11px" }}>{shortDescriptionError}</p>}
         </Form.Group>
 
         <Form.Group controlId="formItemImage">

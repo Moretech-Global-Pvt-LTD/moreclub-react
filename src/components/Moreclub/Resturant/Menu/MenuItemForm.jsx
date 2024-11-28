@@ -5,6 +5,7 @@ import { morefoodURL } from "../../../../config/config";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
+import { valdateShortDescription, valdateShortDescriptionCharater } from "../../../../validation/resturantValidation";
 
 
 
@@ -73,6 +74,8 @@ const MenuItemsForm = ({ res_id, cat_id , onFinish }) => {
   const [uiLoading, setUIloading] = useState(false);
   const [cuisineOption, setCuisineOption] = useState([]);
   const [offererror, setOfferError] = useState("");
+  const [shortDescriptionError, setShortDescriptionError] = useState("");
+
 
 
   async function getCuisineList() {
@@ -107,6 +110,7 @@ const MenuItemsForm = ({ res_id, cat_id , onFinish }) => {
     } else {
       const { name, value } = e.target;
       setMenuItem({ ...menuItem, [name]: value });
+      validateForm({ ...menuItem, [name]: value });
     }
   }
 
@@ -121,6 +125,32 @@ const MenuItemsForm = ({ res_id, cat_id , onFinish }) => {
     }
   };
 
+  const validateForm = (fieldValues = menuItem) => {
+    // const tempErrors  = { ...errors };
+    console.log(fieldValues)
+   
+    let error = ""
+    if ("short_description" in fieldValues){
+
+      error = valdateShortDescriptionCharater(fieldValues.short_description);
+    }
+    console.log(error)
+
+    setShortDescriptionError(error)
+   
+    // setErrors({ ...tempErrors });
+  };
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case "short_description":
+        return valdateShortDescriptionCharater(value);
+      default:
+        return "";
+    }
+  };
+
+
 
   const handleImageChange = (e) => {
     setMenuItem({ ...menuItem, image: e.target.files[0] });
@@ -130,6 +160,16 @@ const MenuItemsForm = ({ res_id, cat_id , onFinish }) => {
     e.preventDefault();
     setLoading(true);
    
+
+    const error = validateField("short_description", menuItem.short_description);
+
+    if (error) {
+      setShortDescriptionError(error);
+      setLoading(false);
+      return;
+    }
+
+
     const data = {
       name: menuItem.name,
       price: menuItem.price,
@@ -255,6 +295,7 @@ const MenuItemsForm = ({ res_id, cat_id , onFinish }) => {
             value={menuItem.short_description}
             onChange={handleChange}
           />
+          {shortDescriptionError && <p className="text-danger" style={{ fontSize: "11px" }}>{shortDescriptionError}</p>}
         </Form.Group>
 
         <Form.Group controlId="formItemImage" className="my-3">

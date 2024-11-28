@@ -35,6 +35,17 @@ export const valdateShortDescription = (description) => {
   return "";
 };
 
+
+export const valdateShortDescriptionCharater = (description) => {
+  if (!description) return "Short Description is Required";
+  if (description.length < 5) {
+    return `Short Description must contain at least 5 to 255 characters long.`;
+  }
+  if (description.length > 255) {
+    return `Short Description must contain at most 255 characters long.`;
+  }
+  return "";
+};
 // Long Description Validation with Word Count Check
 export const validateLongDescription = (description) => {
   if (!description) return "Long Description is Required";
