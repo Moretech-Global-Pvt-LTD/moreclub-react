@@ -26,7 +26,6 @@ export const validateAddress = (address, lat, lng) => {
 }
 
 export const valdateShortDescription = (description) => {
-  console.log("description", description);
   if (!description) return "Short Description is Required";
   const wordCount = description.trim().split(/\s+/).length;
   // const wordCount = description.trim().split(/\s+/).length;

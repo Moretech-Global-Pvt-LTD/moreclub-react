@@ -134,7 +134,6 @@ const MenuItemsForm = ({ res_id, cat_id , onFinish }) => {
 
       error = valdateShortDescriptionCharater(fieldValues.short_description);
     }
-    console.log(error)
 
     setShortDescriptionError(error)
    
