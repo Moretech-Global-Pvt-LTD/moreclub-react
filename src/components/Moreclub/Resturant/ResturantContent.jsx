@@ -31,7 +31,7 @@ const ResturantContent = () => {
   return (
     <div className="" style={{ minHeight: "50vh", width: "100%" }}>
       <Row xs={1} md={2} lg={3} xl={4} xxl={5} className="g-4">
-        <Link to={"/resturant/info"} className="d-flex flex-column">
+        <Link to={"/restaurant/create"} className="d-flex flex-column">
           <Col className="d-flex flex-column ">
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex flex-column justify-content-center w-full gap-4">
@@ -50,7 +50,7 @@ const ResturantContent = () => {
           </Col>
         </Link>
         {data.map((res) => (
-          <ResturantCard res={res} link={`/resturant/setup/${res.id}`} />
+          <ResturantCard res={res} />
         ))}
       </Row>
     </div>

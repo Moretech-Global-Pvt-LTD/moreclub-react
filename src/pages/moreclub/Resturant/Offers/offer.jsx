@@ -1,6 +1,4 @@
 import React from "react";
-import DashboardLayout from "../../../../components/Layout/DashboardLayout";
-
 import { Button, Col, Placeholder, Row } from "react-bootstrap";
 
 import { Link, useParams } from "react-router-dom";
@@ -8,6 +6,7 @@ import { morefoodURL } from "../../../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../../../..";
 import OfferCard from "../../../../components/Moreclub/Resturant/Offer/OfferCard";
+import RestaurantLayout from "../../../../components/Layout/RestaurantLayout";
 
 
 const RestroOffer = () => {
@@ -30,7 +29,7 @@ const RestroOffer = () => {
 
   if (isLoading) {
     return (
-      <DashboardLayout>
+      <RestaurantLayout>
         <div className=" card row gap-2">
           <Placeholder as="p" animation="glow" className="rounded w-50 me-2">
             <Placeholder xs={12} style={{ height: "4rem" }} />
@@ -42,7 +41,7 @@ const RestroOffer = () => {
             <Placeholder xs={12} style={{ height: "4rem" }} />
           </Placeholder>
         </div>
-      </DashboardLayout>
+      </RestaurantLayout>
     );
   }
 
@@ -56,11 +55,11 @@ const RestroOffer = () => {
  
 
   return (
-    <DashboardLayout title={`${ name } Offers`}>
+    <RestaurantLayout title={`${ name } Offers`}>
       <div>
         <div className="d-flex align-items-center justify-content-between my-2">
           <div></div>
-          <Link to={`/resturant/${res_id}/offer/create/${slug}`}>
+          <Link to={`/restaurant/${res_id}/offer/create/${slug}`}>
             <Button variant="warning">
               Add New Offers
             </Button>
@@ -99,7 +98,7 @@ const RestroOffer = () => {
           )}
         </Row>
       </div>
-    </DashboardLayout>
+    </RestaurantLayout>
   );
 };
 

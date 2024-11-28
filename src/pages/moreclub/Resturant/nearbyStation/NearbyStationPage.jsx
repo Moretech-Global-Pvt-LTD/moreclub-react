@@ -41,7 +41,7 @@ const NearbyStationPage = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 60000,
     });
 
     if (isLoading) {

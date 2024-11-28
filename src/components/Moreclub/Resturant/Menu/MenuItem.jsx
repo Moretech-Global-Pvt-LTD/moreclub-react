@@ -10,7 +10,7 @@ import { morefoodURL } from "../../../../config/config";
 import { FoodItemSkeleton } from "../../../Skeleton/SmallCardSkeleton";
 
 const MenuItem = () => {
-  const {res_id, cat_id, slug}= useParams()
+  const {res_id, cat_id, menu_name}= useParams()
   const [showForm, setShowForm] = useState(false);
 
 
@@ -23,7 +23,7 @@ const MenuItem = () => {
         const data = await response.data.data;
         return data;
       },
-      staleTime: 100,
+      staleTime: 240000,
     });
 
     if (isLoading) {
@@ -44,7 +44,7 @@ const MenuItem = () => {
     setShowForm(false);
   }
 
-  const name = slug.replace(/-/g, " ");
+  const name = menu_name.replace(/-/g, " ");
 
   return (
     <div>

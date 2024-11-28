@@ -1,17 +1,15 @@
 import React from 'react'
-import DashboardLayout from '../../../../components/Layout/DashboardLayout';
-import { useParams } from 'react-router-dom';
 import RestaurantGalleryContent from './ResturantGallery';
+import RestaurantLayout from '../../../../components/Layout/RestaurantLayout';
 
 const RestaurantPage = () => {
     
-    const { slug } = useParams();
-    const name = slug.replace(/-/g, " ");
+    
     return (
-        <DashboardLayout title={`${name} Gallery`}>
+        <RestaurantLayout >
             <h4 className='my-2'>Restaurant Gallery</h4>
             <RestaurantGalleryContent />
-        </DashboardLayout>
+        </RestaurantLayout>
     );
 }
 

@@ -8,6 +8,7 @@ import { morefoodURL } from "../../../../config/config";
 import DashboardLayout from "../../../../components/Layout/DashboardLayout";
 import UpdateCuisineForm from "../../../../components/Moreclub/Resturant/Cuisine/UpdateCuisine";
 import Divider from "../../../../components/divider/Divider";
+import RestaurantLayout from "../../../../components/Layout/RestaurantLayout";
 
 const UpdateCuisineItem = () => {
   const { res_id, cuisine_id } = useParams();
@@ -27,7 +28,7 @@ const UpdateCuisineItem = () => {
 
   if (isLoading) {
     return (
-      <DashboardLayout className="">
+      <RestaurantLayout className="">
         <div className="row gap-2">
           <Placeholder as="p" animation="glow" className="rounded w-25">
             <Placeholder xs={12} style={{ height: "4rem" }} />
@@ -50,19 +51,19 @@ const UpdateCuisineItem = () => {
           <Divider />
           <Divider />
         </div>
-      </DashboardLayout>
+      </RestaurantLayout>
     );
   }
 
   if (isError) {
 
     return(
-    <DashboardLayout>
+    <RestaurantLayout>
 
         <div className="text-dynamic-white">Error: retriving</div>;
         <Divider />
         <Divider />
-      </DashboardLayout>
+      </RestaurantLayout>
     )
   }
 
@@ -70,7 +71,7 @@ const UpdateCuisineItem = () => {
 
 
   return (
-    <DashboardLayout>
+    <RestaurantLayout>
       {/* <div className="d-flex align-items-center justify-content-between my-2"> */}
         <h4> Cuisines</h4>
       <Row>
@@ -82,7 +83,7 @@ const UpdateCuisineItem = () => {
      
         
      
-    </DashboardLayout>
+    </RestaurantLayout>
   );
 };
 

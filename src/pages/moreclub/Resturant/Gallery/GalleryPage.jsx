@@ -1,15 +1,14 @@
 import React from 'react'
-import DashboardLayout from '../../../../components/Layout/DashboardLayout';
-import { useParams } from 'react-router-dom';
+
 import GalleryContent from './GalleryContent';
+import RestaurantLayout from '../../../../components/Layout/RestaurantLayout';
 
 const GalleryPage = () => {
-    const {  slug } = useParams();
-    const name = slug.replace("-", " ");
+
   return (
-    <DashboardLayout title={`${name} Gallery`}>
+    <RestaurantLayout>
      <GalleryContent/>
-    </DashboardLayout>
+    </RestaurantLayout>
   );
 }
 

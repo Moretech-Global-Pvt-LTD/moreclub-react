@@ -6,6 +6,7 @@ import { axiosInstance } from '../../..';
 import { morefoodURL } from '../../../config/config';
 import { useParams } from 'react-router-dom';
 import RestaurantLayoutSkeleton from '../../../components/Skeleton/RestaurantLayout';
+import RestaurantLayout from '../../../components/Layout/RestaurantLayout';
 
 const Setup = () => {
    const { id } = useParams();
@@ -24,22 +25,22 @@ const Setup = () => {
 
   if (isLoading) {
     return (
-      <DashboardLayout>
+      <RestaurantLayout>
         <RestaurantLayoutSkeleton/>
-      </DashboardLayout>
+      </RestaurantLayout>
     );
   }
 
   if (isError) {
-    return <DashboardLayout className="text-dynamic-white">Error: retriving</DashboardLayout>;
+    return <RestaurantLayout className="text-dynamic-white">Error: retriving</RestaurantLayout>;
   }
 
 
 
   return (
-    <DashboardLayout title={data?.name}>
+    <RestaurantLayout>
       <Setuppage data={data} />
-    </DashboardLayout>
+    </RestaurantLayout>
   );
 }
 

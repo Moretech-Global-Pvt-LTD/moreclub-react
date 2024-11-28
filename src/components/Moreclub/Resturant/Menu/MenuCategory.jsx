@@ -9,7 +9,7 @@ import { RestaurantItemskeleton } from "../../../Skeleton/SmallCardSkeleton";
 import MenuCategoryAddForm from "../common/MenuCategoryAddForm";
 
 const MenuCategory = () => {
-  const { res_id } = useParams();
+  const { res_id , slug} = useParams();
   const [showForm, setShowForm] = useState(false);
   const queryClient = useQueryClient();
 
@@ -22,7 +22,7 @@ const MenuCategory = () => {
         const data = await response.data.data;
         return data;
       },
-      staleTime: 100,
+      staleTime: 360000,
     });
 
     if (isLoading) {
@@ -129,6 +129,7 @@ const MenuCategory = () => {
               logo={item.icon?? ""}
               name={item.name?? ""}
               item={item.no_of_items}
+              slug={slug}
             />
           </Col>
         ))}

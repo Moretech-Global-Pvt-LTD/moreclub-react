@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Row, Form, InputGroup, Spinner, Card } from "react-bootstrap";
+import { Button, Col, Row, Form, InputGroup, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { morefoodURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
 import { message } from "antd";
-import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry, validateCuisineType, validateEmail, validateFacebookURL, validateFeatureType, validateInstagramURL, Validatelogo, validateLongDescription, validateMeal, validateMin_order, validatePriceRange, validateProperties, validateResturantName, validateWebsiteURL, ValidationStationNoofPackedItem } from "../../../../validation/resturantValidation";
+import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry,  validateEmail, validateFacebookURL,  validateInstagramURL, Validatelogo, validateLongDescription,  validateMin_order,   validateResturantName, validateWebsiteURL, ValidationStationNoofPackedItem } from "../../../../validation/resturantValidation";
 import { useNavigate } from "react-router-dom";
 import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
 import { useSelector } from "react-redux";
@@ -45,30 +45,6 @@ const InfoForm = () => {
     instagram_link: "",
     station_no_of_packed_item: 0
   });
-
-
-  const [features, setFeatures] = useState([
-    {
-      featureType: "",
-      priceRange: { min: "", max: "" },
-      cuisineType: "",
-      meal: "",
-      properties: ""
-    }
-  ]);
-
-  const handleFeatureChange = (index, e) => {
-    const { name, value } = e.target;
-    const updatedFeatures = [...features];
-
-    if (name === "min" || name === "max") {
-      updatedFeatures[index].priceRange[name] = value;
-    } else {
-      updatedFeatures[index][name] = value;
-    }
-
-    setFeatures(updatedFeatures);
-  };
 
 
   const [errors, setErrors] = useState({});
@@ -220,8 +196,6 @@ const InfoForm = () => {
   };
 
 
-
-
   const handlePlaceSelected = async (place, address) => {
     setFormValues((prevValues) => ({
       ...prevValues,
@@ -279,7 +253,8 @@ const InfoForm = () => {
           }
         );
         message.success("Resturant created");
-        navigate(`/resturant/setup/${res.data.data.id}`);
+        const name= res.data.data.name.replce(/ /g,"-")
+        navigate(`/restaurant/${res.data.data.id}/${name}`);
       } catch (err) {
         console.log(err);
         message.error("Error Creating Resturant");

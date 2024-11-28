@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom';
 import { axiosInstance } from '../../../..';
 import { morefoodURL } from '../../../../config/config';
-import DashboardLayout from '../../../../components/Layout/DashboardLayout';
 import { Placeholder } from 'react-bootstrap';
 import OpeningHoursForm from '../../../../components/Moreclub/Resturant/openingHours/openinghourform';
+import RestaurantLayout from '../../../../components/Layout/RestaurantLayout';
 
 const OpeninghoursPage = () => {
     const { res_id } = useParams();
@@ -20,12 +20,12 @@ const OpeninghoursPage = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 420000,
     });
 
     if (isLoading) {
         return (
-            <DashboardLayout>
+            <RestaurantLayout>
                 <div className="row gap-2">
                     <Placeholder as="p" animation="glow" className="rounded  w-25 me-2">
                         <Placeholder xs={12} style={{ height: "10rem" }} />
@@ -37,28 +37,28 @@ const OpeninghoursPage = () => {
                         <Placeholder xs={12} style={{ height: "10rem" }} />
                     </Placeholder>
                 </div>
-            </DashboardLayout>
+            </RestaurantLayout>
         );
     }
 
     if (isError) {
         return (
-            <DashboardLayout className="text-dynamic-white">
+            <RestaurantLayout className="text-dynamic-white">
                 Error: retriving
-            </DashboardLayout>
+            </RestaurantLayout>
         );
     }
 
     
     return (
-        <DashboardLayout title={data.name}>
+        <RestaurantLayout>
             {data && data.length > 0 &&
                 <OpeningHoursForm existingdata={data} />
             }
             {data && data.length <= 0 &&
                 <OpeningHoursForm />
             }
-        </DashboardLayout>
+        </RestaurantLayout>
     );
 }
 

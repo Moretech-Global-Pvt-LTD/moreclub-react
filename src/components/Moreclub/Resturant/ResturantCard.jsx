@@ -2,9 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 const ResturantCard = ({res, link}) => {
+  const slug = res.name.replace(/ /g, "-");
     return (
       <Link
-        to={link}
+        to={`/restaurant/${res.id}/${slug}`}
         key={res.id}
       >
           <div class="restaurant-card mx-auto mb-2" >

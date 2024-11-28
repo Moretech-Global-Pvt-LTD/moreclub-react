@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import {
  
   Placeholder,
 } from "react-bootstrap";
-import DashboardLayout from "../../../../components/Layout/DashboardLayout";
 import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import OrderDetailsContent from "./OrderDetailContent";
+import RestaurantLayout from "../../../../components/Layout/RestaurantLayout";
 
 const OrderDetails = () => {
   const { ord_id, slug } = useParams();
@@ -23,12 +23,12 @@ const OrderDetails = () => {
       const data = await response.data.data;
       return data;
     },
-    staleTime: 100,
+    staleTime: 60000,
   });
 
   if (isLoading) {
     return (
-      <DashboardLayout>
+      <RestaurantLayout>
         <div className="row gap-2">
           <Placeholder as="p" animation="glow" className="rounded w-50 me-2">
             <Placeholder xs={12} lg={6} style={{ height: "10rem" }} />
@@ -43,15 +43,15 @@ const OrderDetails = () => {
             <Placeholder xs={12} style={{ height: "10rem" }} />
           </Placeholder>
         </div>
-      </DashboardLayout>
+      </RestaurantLayout>
     );
   }
 
   if (isError) {
     return (
-      <DashboardLayout className="text-dynamic-white">
+      <RestaurantLayout className="text-dynamic-white">
         Error: retriving
-      </DashboardLayout>
+      </RestaurantLayout>
     );
   }
 
@@ -60,9 +60,9 @@ const OrderDetails = () => {
 
 
   return (
-    <DashboardLayout title={`${name} order`}>
+    <RestaurantLayout>
       <OrderDetailsContent item={data} />
-    </DashboardLayout>
+    </RestaurantLayout>
   );
 };
 

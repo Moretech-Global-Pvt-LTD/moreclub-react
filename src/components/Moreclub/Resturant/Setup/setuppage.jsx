@@ -3,9 +3,9 @@ import { Button, Card, Col, Image, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 
 const Setuppage = ({ data }) => {
-  const { id } = useParams();
+  const { id , slug} = useParams();
 
-  const slug = data.name.replace(/ /g, "-");
+  const name = slug.replace(/ /g, "-");
  
 
   return (
@@ -46,7 +46,7 @@ const Setuppage = ({ data }) => {
             </div>
             <p>{data.short_description}</p>
           </div>
-          <Link to={`/resturant/info/${id}`}>
+          <Link to={`/resturant/update/${id}/${name}-update`}>
             <Button variant="warning">{"Edit"}</Button>
           </Link>
         </Col>
@@ -61,7 +61,7 @@ const Setuppage = ({ data }) => {
       </Row>
 
       <Row xs={2} sm={2} md={3} lg={4} xl={5} xxl={6}  className="mt-4">
-        <Link to={`/resturant/${id}/menu/`} className="d-flex flex-column my-2 ">
+        <Link to={`/resturant/${id}/menu/${name}-menu`} className="d-flex flex-column my-2 ">
           <Col className="d-flex flex-column my-2 ">
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
@@ -79,7 +79,7 @@ const Setuppage = ({ data }) => {
           </Col>
         </Link>
         <Link
-          to={`/resturant/${id}/cuisine/${slug}`}
+          to={`/resturant/${id}/cuisine/${name}-cuisine`}
           className="d-flex flex-column my-2 "
         >
           <Col className="d-flex flex-column my-2">
@@ -99,7 +99,7 @@ const Setuppage = ({ data }) => {
           </Col>
         </Link>
         <Link
-          to={`/resturant/${id}/offer/${slug}`}
+          to={`/resturant/${id}/offer/${name}-offers`}
           className="d-flex flex-column my-2 "
         >
           <Col className="d-flex flex-column my-2">
@@ -119,7 +119,7 @@ const Setuppage = ({ data }) => {
           </Col>
         </Link>
         <Link
-          to={`/resturant/${id}/orders/${slug}`}
+          to={`/resturant/${id}/orders/${name}-orders`}
           className="d-flex flex-column my-2 "
         >
           <Col className="d-flex flex-column my-2">
@@ -139,7 +139,7 @@ const Setuppage = ({ data }) => {
           </Col>
         </Link>
         <Link
-          to={`/resturant/${id}/gallery/${slug}`}
+          to={`/resturant/${id}/gallery/${name}-gallery`}
           className="d-flex flex-column my-2 "
         >
           <Col className="d-flex flex-column my-2">
@@ -159,7 +159,7 @@ const Setuppage = ({ data }) => {
           </Col>
         </Link>
         <Link
-          to={`/resturant/${id}/opening-duration/${slug}`}
+          to={`/resturant/${id}/opening-duration/${name}-opening-duration`}
           className="d-flex flex-column my-2 "
         >
           <Col className="d-flex flex-column my-2">
@@ -199,7 +199,7 @@ const Setuppage = ({ data }) => {
           </Col>
         </Link>
         <Link
-          to={`/station/${id}/stationorders/${slug}`}
+          to={`/station/${id}/stationorders/${name}-Station-Orders`}
           className="d-flex flex-column my-2"
         >
           <Col className="d-flex flex-column my-2">
@@ -219,7 +219,7 @@ const Setuppage = ({ data }) => {
           </Col>
         </Link>
         <Link
-          to={`/resturant/${id}/station/allOrders/${slug}`}
+          to={`/resturant/${id}/station/allOrders/${name}-Station-All-Orders`}
           className="d-flex flex-column my-2"
         >
           <Col className="d-flex flex-column my-2">
