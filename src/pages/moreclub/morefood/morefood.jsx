@@ -5,7 +5,7 @@ import PopularResturant from '../../../components/Moreclub/morefood/PopularRestu
 
 const Morefood = () => {
   return (
-    <DashboardLayout title={"More Food"}>
+    <DashboardLayout title={"MORE FOOD"}>
       <div className="w-full mx-auto">
 
         <h4 className="mx-auto mt-3 ">Popular Restaurants</h4>
