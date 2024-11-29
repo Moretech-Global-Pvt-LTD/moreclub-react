@@ -1,7 +1,5 @@
 import { message } from "antd";
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { update_business_document } from "../../../../redux/api/loginAPI";
+import React, {useState } from "react";
 import { Form } from "react-bootstrap";
 import { morefoodURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
@@ -10,7 +8,6 @@ import { useQueryClient } from "@tanstack/react-query";
 
 const Logo = ({data}) => {
   const { id } = useParams();
-  const dispatch = useDispatch();
   const [inputBanner, setInputBanner] = useState("");
   const [inputDisplayImage, setInputDisplayImage] = useState(
     `${data}`
@@ -70,7 +67,7 @@ const Logo = ({data}) => {
 
     return (
       <div className="col-12 col-md-8 col-lg-6 ">
-        <h4>Resturant Logo</h4>
+        <h4>Restaurant Logo</h4>
         <div className=" card ">
           <div className="card-body p-4 p-sm-5" style={{ marginTop: "-25px" }}>
             <div className=" card-body">

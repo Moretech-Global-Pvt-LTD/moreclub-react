@@ -223,11 +223,11 @@ const UpdateInfoForm = ({ data }) => {
               <Row>
                 <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
                   <Form.Group controlId="formRestaurantName">
-                    <Form.Label>Resturant Name</Form.Label>
+                    <Form.Label>Restaurant Name</Form.Label>
                     <Form.Control
                       type="text"
                       name="name"
-                      placeholder={"Resturant Name"}
+                      placeholder={"Restaurant Name"}
                       value={formValues.name}
                       onChange={handleChange}
                     />
