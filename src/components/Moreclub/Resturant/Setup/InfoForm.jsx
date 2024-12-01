@@ -252,12 +252,12 @@ const InfoForm = () => {
             },
           }
         );
-        message.success("Resturant created");
+        message.success("Restaurant created");
         const name= res.data.data.name.replce(/ /g,"-")
         navigate(`/restaurant/${res.data.data.id}/${name}`);
       } catch (err) {
         console.log(err);
-        message.error("Error Creating Resturant");
+        message.error("Error Creating Restaurant");
       } finally {
         setIsLoading(false);
       }
@@ -272,17 +272,17 @@ const InfoForm = () => {
       <Row>
         <Col xs={12} md={12} lg={12} xl={10} xxl={10}>
           <Form className="restaurant-form  " onSubmit={handleSubmit}>
-            <h5>Resturant Information</h5>
+            <h5>Restaurant Information</h5>
             <p className="text-warning">All fields are required</p>
             <Col className="card d-flex flex-column gap-4 p-2">
               <Row>
                 <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
                   <Form.Group controlId="formRestaurantName">
-                    <Form.Label>Resturant Name</Form.Label>
+                    <Form.Label>Restaurant Name</Form.Label>
                     <Form.Control
                       type="text"
                       name="name"
-                      placeholder={"Resturant Name"}
+                      placeholder={"Restaurant Name"}
                       value={formValues.name}
                       onChange={handleChange}
                     />
@@ -505,7 +505,7 @@ const InfoForm = () => {
             <Row>
               <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
                 <div className="col-12 mt-4">
-                  <h5>Resturant Logo</h5>
+                  <h5>Restaurant Logo</h5>
                   <div className=" card ">
                     <div
                       className="card-body p-4 p-sm-5"
@@ -548,7 +548,7 @@ const InfoForm = () => {
 
               <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
                 <div className="col-12 mb-4 mt-4">
-                  <h5>Resturant Banner</h5>
+                  <h5>Restaurant Banner</h5>
                   <div className=" card ">
                     <div
                       className="card-body p-4 p-sm-5"

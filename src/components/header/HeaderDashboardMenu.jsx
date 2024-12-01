@@ -183,7 +183,7 @@ const HeaderDashboardMenu = () => {
                     <path d="m2 10l8.6 8.6M18 2h2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2h-2m0-16h4m-4 4h4m-4 4h4m-4 4h4" />
                   </g>
                 </svg>
-                &nbsp; MORE SALONS
+                &nbsp;MORE SALONS
               </NavLink>
             </li>
           </>
@@ -314,7 +314,7 @@ const HeaderDashboardMenu = () => {
                 {business.businessProfile.business_types?.some(type => type.name === "Salons") &&
                   <SidebarDropDownMenu
                     menuIcon={"bi-scissors"}
-                    menuTitle=""
+                    menuTitle="MORE SALONS"
                     links={MoreClubLinks}
                   >
                     <li>

@@ -269,7 +269,7 @@ const DashboardContent = () => {
         </Row>
         <Row className="mt-4">
           <div className="d-flex justify-content-between align-items-center">
-            <h4 className="mt-4 mb-3">Popular Resturants </h4>
+            <h4 className="mt-4 mb-3">Popular Restaurants </h4>
             <Link to="/morefood">
               <Button variant="link">View All</Button>
             </Link>
@@ -280,7 +280,7 @@ const DashboardContent = () => {
 
         <Row className="mt-4">
           <div className="d-flex justify-content-between align-items-center">
-            <h4 className="mt-4 mb-3">Popular Saloon </h4>
+            <h4 className="mt-4 mb-3">Popular Salons </h4>
             <Link to="/moresaloon">
               <Button variant="link">View All</Button>
             </Link>
