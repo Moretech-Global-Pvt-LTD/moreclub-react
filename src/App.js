@@ -136,6 +136,7 @@ import AllResturantsStationOrderPage from "./pages/moreclub/Resturant/Allorders/
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BusinessSetupPage from "./pages/AuthAndRegisterPages/BusinessRegistration/BusinessSetupPage";
+import UpdateOffer from "./pages/moreclub/Resturant/Offers/UpdateOffer";
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to={`/login`} />;
@@ -161,24 +162,24 @@ const App = () => {
     }
   }, [location.pathname]); // Run the effect when the path changes
 
-  DisableDevtool({
-    url:'https://_blank',
+  // DisableDevtool({
+  //   url:'https://_blank',
 
-    ondevtoolopen: (type, next) => {
-      next();
-    },
+  //   ondevtoolopen: (type, next) => {
+  //     next();
+  //   },
 
-    ondevtoolclose: () => {
-      console.log("Developer tools closed");
-    },
+  //   ondevtoolclose: () => {
+  //     console.log("Developer tools closed");
+  //   },
 
-    interval: 1,
-    disableMenu: true,
-    disableSelect: false,
-    disableCopy: false,
-    disableCut: false,
-    disablePaste: false,
-  });
+  //   interval: 1,
+  //   disableMenu: true,
+  //   disableSelect: false,
+  //   disableCopy: false,
+  //   disableCut: false,
+  //   disablePaste: false,
+  // });
 
 
   useEffect(() => {
@@ -604,6 +605,11 @@ const App = () => {
       path: "/restaurant/:res_id/offer/create/:slug",
 
       page: <RestroOfferCreate />,
+    },
+    {
+      path: "/restaurant/:res_id/offer/update/:offer_id/:slug",
+
+      page: <UpdateOffer />,
     },
 
     //orders

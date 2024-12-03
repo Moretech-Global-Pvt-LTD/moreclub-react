@@ -13,6 +13,10 @@ export const validateCountry = (country) => {
       if (!country) return "Country is required";
       return "";
 };
+export const validateCurrency = (country) => {
+  if (!country) return "Currency is required";
+  return "";
+};
 
 export const validateAnemeties = (animities) => {
   if (animities.length === 0) return "animities is required";
@@ -27,10 +31,10 @@ export const validateAddress = (address, lat, lng) => {
 
 export const valdateShortDescription = (description) => {
   if (!description) return "Short Description is Required";
-  const wordCount = description.trim().split(/\s+/).length;
   // const wordCount = description.trim().split(/\s+/).length;
-  if (wordCount < 20) return "Short Description must be at least 20 words";
-  if (wordCount > 60) return "Short Description must be less than 60 words ";
+  // // const wordCount = description.trim().split(/\s+/).length;
+  // if (wordCount < 20) return "Short Description must be at least 20 words";
+  // if (wordCount > 60) return "Short Description must be less than 60 words ";
   return "";
 };
 
@@ -48,9 +52,9 @@ export const valdateShortDescriptionCharater = (description) => {
 // Long Description Validation with Word Count Check
 export const validateLongDescription = (description) => {
   if (!description) return "Long Description is Required";
-  const wordCount = description.trim().split(/\s+/).length;
-  if (wordCount < 30) return "Long Description must be at least 30 words";
-   if (wordCount > 500) return "Short Description must be less than 500 words ";
+  // const wordCount = description.trim().split(/\s+/).length;
+  // if (wordCount < 30) return "Long Description must be at least 30 words";
+  //  if (wordCount > 500) return "Short Description must be less than 500 words ";
   return "";
 };
 
@@ -90,6 +94,11 @@ export const validateWebsiteURL = (url) => {
   if (!url) return ""; // Optional field, so no error if empty
   const websiteRegex =    /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
   if (!websiteRegex.test(url)) return "Invalid Website URL";
+  return "";
+};
+
+export const validateTimeZone = (timezone) => {
+  if (!timezone) return "Timezone is required";
   return "";
 };
 

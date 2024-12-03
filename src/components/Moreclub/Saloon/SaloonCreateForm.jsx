@@ -10,6 +10,7 @@ import {
   Validatebanner,
   validateContactNumber,
   validateCountry,
+  validateCurrency,
   validateEmail,
   validateFacebookURL,
   validateInstagramURL,
@@ -105,6 +106,8 @@ const SaloonCreateForm = () => {
         return validateResturantName(value);
       case "country":
         return validateCountry(value);
+      case "currency":
+        return validateCurrency(value);
       case "address":
         return validateAddress(value);
       case "short_description":
@@ -382,7 +385,7 @@ const SaloonCreateForm = () => {
                           </option>
                         ))}
                       </Form.Control>
-                      <p className="text-danger">{errors.country}</p>
+                      <p className="text-danger">{errors.currency}</p>
                     </Form.Group>
                   </div>
                 </Col>

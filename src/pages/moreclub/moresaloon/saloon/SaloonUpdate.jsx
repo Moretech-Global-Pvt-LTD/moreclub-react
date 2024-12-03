@@ -14,7 +14,7 @@ const SaloonUpdate = () => {
   const [activeTab, setActiveTab] = useState("Information");
   const { id } = useParams();
   const { data, isLoading, isError } = useQuery({
-    queryKey: [`saloon detail ${id}`],
+    queryKey: ["Saloon detail", id],
     queryFn: async () => {
       const response = await axiosInstance.get(
         `${moresaloonURL}moreclub/users/saloon/${id}/`
@@ -22,7 +22,7 @@ const SaloonUpdate = () => {
       const data = await response.data.data;
       return data;
     },
-    staleTime: 100,
+    staleTime: 360000,
   });
 
   if (isLoading) {
