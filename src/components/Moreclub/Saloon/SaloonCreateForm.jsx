@@ -108,6 +108,7 @@ const SaloonCreateForm = () => {
         return validateCountry(value);
       case "currency":
         return validateCurrency(value);
+
       case "address":
         return validateAddress(value);
       case "short_description":
