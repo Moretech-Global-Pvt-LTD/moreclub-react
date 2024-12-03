@@ -24697,6 +24697,40 @@ textarea.form-control {
   color: #333;
 }
 
+.sidebar-dropdown-body li .redirectlink{
+  
+  color: #6c757d;
+}
+
+.sidebar-dropdown-body li .redirectlink:hover{
+  color: #0d6efd;
+}
+
+[data-theme="dark"] .sidebar-dropdown-body li .redirectlink:hover{
+  color: #ffc107;
+}
+
+[data-theme="dark"] .sidebar-dropdown-body li .redirectlink{
+  color: #6c757d;
+}
+
+.redirectlink{
+  
+  color: #6c757d;
+}
+
+.redirectlink:hover{
+  color: #0d6efd;
+}
+
+[data-theme="dark"] .redirectlink:hover{
+  color: #ffc107;
+}
+
+[data-theme="dark"] .redirectlink{
+  color: #6c757d;
+}
+
 
 /* @media only screen and (min-width: 992px) {
     .header-sidebar-wrap {

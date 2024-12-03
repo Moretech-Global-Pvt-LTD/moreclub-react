@@ -1,10 +1,11 @@
 import Cookies from "js-cookie";
-import { morefoodhostNepalURL, morefoodhostURL, moresaloonhostURL } from "../config/config";
+import { marketPlaceadminhostURL, marketPlacehostURL, morefoodhostNepalURL, morefoodhostURL, moresaloonhostURL } from "../config/config";
 
-function GetURL(props) {
+export function GetURL(props) {
   // Get the country code from cookies; default to "default"
   const countryCode = Cookies.get("countryCode") || "default";
 
+  console.log("countryCode", marketPlaceadminhostURL);
   // Define URLs based on props and country codes
   const urls = {
     morefood: {
@@ -14,7 +15,8 @@ function GetURL(props) {
     },
     moresaloon: moresaloonhostURL,
     moreliving: "https:moreliving.com",
-    marketplace: "https:marketplace.com",
+    marketplace: marketPlacehostURL,
+    marketplaceadmin: marketPlaceadminhostURL,
     hotel: "https:morehotel.com",
   };
 
@@ -24,7 +26,7 @@ function GetURL(props) {
   // Fetch the config for the provided props
   const urlConfig = urls[props];
  
-  
+    console.log("urlConfig", urlConfig);
 
   if (!urlConfig) {
     // Return fallback if props is invalid
@@ -45,7 +47,7 @@ export function parseMembershipData(data, additionalLinks = []) {
     const features = Object.entries(data || {})
       .filter(
         ([key, value]) =>
-          (key.endsWith("_discount") || key.endsWith("_precentage")) 
+          (key.endsWith("_discount") || key.endsWith("_precentage")) && value !== 0
       )
       .map(([key, value]) => {
         let formattedKey = key.replace(/_/g, " ");
