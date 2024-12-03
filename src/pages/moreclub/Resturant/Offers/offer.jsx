@@ -72,22 +72,26 @@ const RestroOffer = () => {
           md={2}
           lg={2}
           xl={3}
-          xxl={3}
+          xxl={4}
           className="gx-3 gy-3 my-4"
         >
           {data.map((item) => (
-            <Col className="d-flex flex-column">
+            <Col className="d-flex flex-column ">
               <OfferCard
-                id={item.id}
-                food_item={item.food_item}
-                name={item.name}
-                banner={item.banner}
-                price={item.price}
-                description={item.description}
-                start_offer={item.start_offer}
-                end_offer={item.end_offer}
-                currency_Symbol={item.currency}
-                restaurant={item.restaurant}
+              slug={slug}
+              offer_id={item.id}
+              res_id={res_id}
+              id={item.id}
+              food_item={item.food_item}
+              isEveryDay={item.is_every_day}
+              name={item.name}
+              banner={item.banner}
+              price={item.price}
+              description={item.description}
+              start_offer={item.start_offer}
+              end_offer={item.end_offer}
+              currency_Symbol={item.currency}
+              customDays={item.applicable_days}      
               />
             </Col>
           ))}

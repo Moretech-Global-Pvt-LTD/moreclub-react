@@ -17,7 +17,7 @@ const SaloonDetail = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 360000,
     });
 
     if (isLoading) {

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form, InputGroup, Spinner } from "react-bootstrap";
-import AddressInputWithAutocomplete from "../../../Googlemap/LocationInputonly";
 import axios from "axios";
 import { morefoodURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
-import { valdateShortDescription, validateAddress, validateContactNumber, validateCountry, validateFacebookURL, validateInstagramURL, validateLongDescription, validateMin_order, validateResturantName, validateWebsiteURL, ValidationStationNoofPackedItem } from "../../../../validation/resturantValidation";
+import { valdateShortDescription, validateAddress, validateContactNumber, validateCountry, validateFacebookURL, validateInstagramURL, validateLongDescription, validateMin_order, validateResturantName, validateTimeZone, validateWebsiteURL, ValidationStationNoofPackedItem } from "../../../../validation/resturantValidation";
 import { validateEmail } from "../../../../validation/addaccountvalidation";
 import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
+import TimezoneSelector from "../../CommonComponents/TimeZoneInput";
+import moment from "moment-timezone";
 
 const UpdateInfoForm = ({ data }) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -33,7 +34,8 @@ const UpdateInfoForm = ({ data }) => {
     website_link: data.website_link ?? "",
     facebook_link: data.facebook_link ?? "",
     instagram_link: data.instagram_link ?? "",
-    station_no_of_packed_item: 0
+    station_no_of_packed_item: 0,
+    restro_timezone: data.restro_timezone || moment.tz.guess() || "",
   });
   const [errors, setErrors] = useState({});
   const queryClient = useQueryClient();
@@ -93,6 +95,8 @@ const UpdateInfoForm = ({ data }) => {
             return valdateShortDescription(value);
           case "long_description":
             return validateLongDescription(value);
+          case "restro_timezone":
+            return validateTimeZone(value);
           case "contact_no":
             return validateContactNumber(value);
           case "email":
@@ -161,6 +165,14 @@ const UpdateInfoForm = ({ data }) => {
       lat: place.lat,
       lng: place.lon,
     }));
+  };
+
+  const handleTimezoneChange = (timezone) => {
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      restro_timezone: timezone,
+    }));
+    validateForm({ restro_timezone: timezone });
   };
 
   const handleSubmit = async (e) => {
@@ -326,9 +338,9 @@ const UpdateInfoForm = ({ data }) => {
                     <p className="text-danger">{errors.station_no_of_packed_item}</p>
                   </Form.Group>
                 </Col>
-                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                <Col xs={6} md={2} lg={2} xl={2} xxl={1}>
                   <Form.Group controlId="formDeliveryTime">
-                    <Form.Label>Maximum Delivery Time</Form.Label>
+                    <Form.Label>Max Delivery Time</Form.Label>
                     <Form.Control
                       as="select"
                       name="delivery_time"
@@ -345,6 +357,15 @@ const UpdateInfoForm = ({ data }) => {
                       <option value={"2:00 hrs"}>2:00 hrs</option>
                     </Form.Control>
                     <p className="text-danger">{errors.delivery_time}</p>
+                  </Form.Group>
+                </Col>
+                <Col xs={6} md={4} lg={4} xl={4} xxl={3}>
+                  <Form.Group controlId="formDeliveryTime">
+                    <TimezoneSelector
+                      selectedTimezone={formValues.restro_timezone}
+                      onTimezoneChange={handleTimezoneChange}
+                    />
+                    <p className="text-danger">{errors.restro_timezone}</p>
                   </Form.Group>
                 </Col>
 

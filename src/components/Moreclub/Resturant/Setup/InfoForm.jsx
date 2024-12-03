@@ -4,14 +4,34 @@ import axios from "axios";
 import { morefoodURL } from "../../../../config/config";
 import { axiosInstance } from "../../../..";
 import { message } from "antd";
-import { valdateShortDescription, validateAddress, Validatebanner, validateContactNumber, validateCountry,  validateEmail, validateFacebookURL,  validateInstagramURL, Validatelogo, validateLongDescription,  validateMin_order,   validateResturantName, validateWebsiteURL, ValidationStationNoofPackedItem } from "../../../../validation/resturantValidation";
+import {
+  valdateShortDescription,
+  validateAddress,
+  Validatebanner,
+  validateContactNumber,
+  validateCountry,
+  validateEmail,
+  validateFacebookURL,
+  validateInstagramURL,
+  Validatelogo,
+  validateLongDescription,
+  validateMin_order,
+  validateResturantName,
+  validateTimeZone,
+  validateWebsiteURL,
+  ValidationStationNoofPackedItem,
+} from "../../../../validation/resturantValidation";
 import { useNavigate } from "react-router-dom";
 import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
 import { useSelector } from "react-redux";
+import moment from "moment-timezone";
+import TimezoneSelector from "../../CommonComponents/TimeZoneInput";
 
 const InfoForm = () => {
   const navigate = useNavigate();
-  const businessProfiles = useSelector((state) => state.businessReducer.businessProfile);
+  const businessProfiles = useSelector(
+    (state) => state.businessReducer.businessProfile
+  );
   const userProfiles = useSelector((state) => state.userReducer.user);
 
   const [countryList, setCountryList] = useState([]);
@@ -20,16 +40,16 @@ const InfoForm = () => {
 
   const [inputDisplayImage, setInputDisplayImage] = useState();
   const [bannerError, setBannerError] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [symbol, setSymbol] = useState("");
   const [formValues, setFormValues] = useState({
-    name: businessProfiles?.business_name?? "",
+    name: businessProfiles?.business_name ?? "",
     address: businessProfiles?.business_address ?? "",
     min_order: "",
     delivery_time: "15 min",
     email: businessProfiles?.business_email ?? "",
     contact_no: businessProfiles?.business_phone ?? "",
-    country:"",
+    country: "",
     currency: "",
     is_delivery: false,
     is_pickup: false,
@@ -43,12 +63,11 @@ const InfoForm = () => {
     website_link: "",
     facebook_link: "",
     instagram_link: "",
-    station_no_of_packed_item: 0
+    station_no_of_packed_item: 0,
+    restro_timezone: moment.tz.guess() || "",
   });
 
-
   const [errors, setErrors] = useState({});
-
 
   const validateForm = (fieldValues = formValues) => {
     const tempErrors = { ...errors };
@@ -59,9 +78,15 @@ const InfoForm = () => {
     if ("country" in fieldValues)
       tempErrors.country = validateCountry(fieldValues.country);
     if ("address" in fieldValues)
-      tempErrors.address = validateAddress(fieldValues.address, formValues.lat, formValues.lng);
+      tempErrors.address = validateAddress(
+        fieldValues.address,
+        formValues.lat,
+        formValues.lng
+      );
     if ("short_description" in fieldValues)
-      tempErrors.short_description = valdateShortDescription(fieldValues.short_description);
+      tempErrors.short_description = valdateShortDescription(
+        fieldValues.short_description
+      );
     if ("long_description" in fieldValues)
       tempErrors.long_description = validateLongDescription(
         fieldValues.long_description
@@ -71,13 +96,19 @@ const InfoForm = () => {
     if ("facebook_link" in fieldValues)
       tempErrors.facebook_link = validateFacebookURL(fieldValues.facebook_link);
     if ("instagram_link" in fieldValues)
-      tempErrors.instagram_link = validateInstagramURL(fieldValues.instagram_link);
+      tempErrors.instagram_link = validateInstagramURL(
+        fieldValues.instagram_link
+      );
     if ("contact_no" in fieldValues)
       tempErrors.contact_no = validateContactNumber(fieldValues.contact_no);
+    if ("restro_timezone" in fieldValues)
+      tempErrors.restro_timezone = validateTimeZone(fieldValues.restro_timezone);
     if ("email" in fieldValues)
       tempErrors.email = validateEmail(fieldValues.email);
     if ("station_no_of_packed_item" in fieldValues)
-      tempErrors.station_no_of_packed_item = ValidationStationNoofPackedItem(fieldValues.station_no_of_packed_item);
+      tempErrors.station_no_of_packed_item = ValidationStationNoofPackedItem(
+        fieldValues.station_no_of_packed_item
+      );
     setErrors({ ...tempErrors });
   };
 
@@ -99,6 +130,8 @@ const InfoForm = () => {
         return validateContactNumber(value);
       case "email":
         return validateEmail(value);
+      case "restro_timezone":
+        return validateTimeZone(value);
       case "website_link":
         return validateWebsiteURL(value);
       case "facebook_link":
@@ -123,8 +156,6 @@ const InfoForm = () => {
       if (error) tempErrors[key] = error;
     }
 
-   
-
     setErrors(tempErrors);
     return tempErrors;
   };
@@ -138,23 +169,17 @@ const InfoForm = () => {
     }
   };
 
-
-
   useEffect(() => {
     fetchCountry();
   }, []);
 
-
   useEffect(() => {
-    if (countryList.length > 0) { 
+    if (countryList.length > 0) {
       if (userProfiles?.user_profile?.country) {
         handleCountryInitialChange();
       }
     }
-
   }, [countryList, userProfiles]);
-
-
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -165,20 +190,19 @@ const InfoForm = () => {
     validateForm({ [name]: type === "checkbox" ? checked : value });
   };
 
-
-
   const handleCountryInitialChange = () => {
-    const currency = countryList.filter((co) => co.name === userProfiles?.user_profile?.country)[0];
+    const currency = countryList.filter(
+      (co) => co.name === userProfiles?.user_profile?.country
+    )[0];
     setSymbol(currency.currency.symbol);
-    
+
     setFormValues((prevValues) => ({
       ...prevValues,
       currency: currency.currency.id,
       country: currency.id,
     }));
-    validateForm({ country: currency.id , currency: currency.currency.id });
+    validateForm({ country: currency.id, currency: currency.currency.id });
   };
-
 
   const handleCountryChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -195,6 +219,13 @@ const InfoForm = () => {
     validateForm({ [name]: type === "checkbox" ? checked : value });
   };
 
+  const handleTimezoneChange = (timezone) => {
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      restro_timezone: timezone,
+    }));
+    validateForm({ restro_timezone: timezone });
+  };
 
   const handlePlaceSelected = async (place, address) => {
     setFormValues((prevValues) => ({
@@ -233,12 +264,9 @@ const InfoForm = () => {
     }
   };
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateAllFields();
-
 
     if (Object.keys(validationErrors).length === 0) {
       setIsLoading(true);
@@ -253,7 +281,7 @@ const InfoForm = () => {
           }
         );
         message.success("Restaurant created");
-        const name= res.data.data.name.replce(/ /g,"-")
+        const name = res.data.data.name.replce(/ /g, "-");
         navigate(`/restaurant/${res.data.data.id}/${name}`);
       } catch (err) {
         console.log(err);
@@ -262,9 +290,8 @@ const InfoForm = () => {
         setIsLoading(false);
       }
     } else {
-      message.error("Please Provide the valid information")
+      message.error("Please Provide the valid information");
     }
-
   };
 
   return (
@@ -352,7 +379,7 @@ const InfoForm = () => {
                     <p className="text-danger">{errors.min_order}</p>
                   </Form.Group>
                 </Col>
-                
+
                 <Col xs={6} md={3} lg={3} xl={3} xxl={2}>
                   <Form.Group controlId="formRestaurantName">
                     <Form.Label>Max Station Package</Form.Label>
@@ -363,13 +390,15 @@ const InfoForm = () => {
                       value={formValues.station_no_of_packed_item}
                       onChange={handleChange}
                     />
-                    <p className="text-danger">{errors.station_no_of_packed_item}</p>
+                    <p className="text-danger">
+                      {errors.station_no_of_packed_item}
+                    </p>
                   </Form.Group>
                 </Col>
 
-                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                <Col xs={6} md={2} lg={2} xl={2} xxl={1}>
                   <Form.Group controlId="formDeliveryTime">
-                    <Form.Label>Maximum Delivery Time</Form.Label>
+                    <Form.Label>Max Delivery Time</Form.Label>
                     <Form.Control
                       as="select"
                       name="delivery_time"
@@ -388,9 +417,17 @@ const InfoForm = () => {
                     <p className="text-danger">{errors.delivery_time}</p>
                   </Form.Group>
                 </Col>
+                <Col xs={6} md={4} lg={4} xl={4} xxl={3}>
+                  <Form.Group controlId="formDeliveryTime">
+                    <TimezoneSelector
+                      selectedTimezone={formValues.restro_timezone}
+                      onTimezoneChange={handleTimezoneChange}
+                    />
+                    <p className="text-danger">{errors.restro_timezone}</p>
+                  </Form.Group>
+                </Col>
 
                 <Col xs={12} md={12} lg={12} xl={6} xxl={6}>
-                  
                   <Form.Group>
                     <Form.Label>Location</Form.Label>
                     <MapBoxLocationDisplayAutocomplete
@@ -398,85 +435,82 @@ const InfoForm = () => {
                       initialLat={formValues.lat}
                       initialLng={formValues.lng}
                       initialAddress={formValues.address}
-                />
-                   
+                    />
+
                     <p className="text-danger">{errors.address}</p>
                   </Form.Group>
-
                 </Col>
 
                 <Col xs={12} md={12} lg={12} xl={6} xxl={6} className="">
                   <Row className="my-xl-4">
-                  <Form.Group
-                    className="d-flex gap-2 my-3 my-xl-0"
-                    style={{ height: "100%", alignItems: "center" }}
-                  >
-                    <Form.Check
-                      type="checkbox"
-                      label="Free Delivery"
-                      name="is_delivery"
-                      checked={formValues.is_delivery}
-                      onChange={handleChange}
-                    />
-                    <Form.Check
-                      type="checkbox"
-                      label="is_pickup"
-                      name="is_pickup"
-                      checked={formValues.is_pickup}
-                      onChange={handleChange}
-                    />
-                    <Form.Check
-                      type="checkbox"
-                      label="Dine-In"
-                      name="is_dine"
-                      checked={formValues.is_dine}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                <h6 className="mt-3">Social Media Links</h6>
-                <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
-                  <Form.Group controlId="formWebsitelink">
-                    <Form.Label>Website Link (optional)</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="website_link"
-                      placeholder={"https://example.com"}
-                      value={formValues.website_link}
-                      onChange={handleChange}
-                    />
-                    <p className="text-danger">{errors.website_link}</p>
-                  </Form.Group>
-                </Col>
-                <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
-                  <Form.Group controlId="formFacebookLink">
-                    <Form.Label>Facebook Link (optional)</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="facebook_link"
-                      placeholder={"Facebook Link"}
-                      value={formValues.facebook_link}
-                      onChange={handleChange}
-                    />
-                    <p className="text-danger">{errors.facebook_link}</p>
-                  </Form.Group>
-                </Col>
-                <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
-                  <Form.Group controlId="formInstagramLink">
-                    <Form.Label>Instagram Link (optional)</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="instagram_link"
-                      placeholder={"Instagram Link"}
-                      value={formValues.instagram_link}
-                      onChange={handleChange}
-                    />
-                    <p className="text-danger">{errors.instagram_link}</p>
-                  </Form.Group>
-                </Col>
-
+                    <Form.Group
+                      className="d-flex gap-2 my-3 my-xl-0"
+                      style={{ height: "100%", alignItems: "center" }}
+                    >
+                      <Form.Check
+                        type="checkbox"
+                        label="Free Delivery"
+                        name="is_delivery"
+                        checked={formValues.is_delivery}
+                        onChange={handleChange}
+                      />
+                      <Form.Check
+                        type="checkbox"
+                        label="is_pickup"
+                        name="is_pickup"
+                        checked={formValues.is_pickup}
+                        onChange={handleChange}
+                      />
+                      <Form.Check
+                        type="checkbox"
+                        label="Dine-In"
+                        name="is_dine"
+                        checked={formValues.is_dine}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <h6 className="mt-3">Social Media Links</h6>
+                    <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
+                      <Form.Group controlId="formWebsitelink">
+                        <Form.Label>Website Link (optional)</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="website_link"
+                          placeholder={"https://example.com"}
+                          value={formValues.website_link}
+                          onChange={handleChange}
+                        />
+                        <p className="text-danger">{errors.website_link}</p>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
+                      <Form.Group controlId="formFacebookLink">
+                        <Form.Label>Facebook Link (optional)</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="facebook_link"
+                          placeholder={"Facebook Link"}
+                          value={formValues.facebook_link}
+                          onChange={handleChange}
+                        />
+                        <p className="text-danger">{errors.facebook_link}</p>
+                      </Form.Group>
+                    </Col>
+                    <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
+                      <Form.Group controlId="formInstagramLink">
+                        <Form.Label>Instagram Link (optional)</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="instagram_link"
+                          placeholder={"Instagram Link"}
+                          value={formValues.instagram_link}
+                          onChange={handleChange}
+                        />
+                        <p className="text-danger">{errors.instagram_link}</p>
+                      </Form.Group>
+                    </Col>
                   </Row>
                 </Col>
-
               </Row>
 
               <Form.Group controlId="formDescription">

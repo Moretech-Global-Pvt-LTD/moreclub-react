@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap); /*!
 Animate.css - http://daneden.me/animate
@@ -29914,6 +29915,135 @@ visibility: hidden;
   50% {
     opacity: 1;
   }
+}
+
+
+
+.offercard {
+  display: flex;
+  flex-grow: 1;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease-in-out;
+}
+
+.offercard:hover {
+  transform: scale(1.02);
+}
+
+.offercard-card {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+[data-theme="dark"] .offercard-card {
+  background: #0c153b;
+  border: 1px solid #1565c0;
+}
+
+
+.offercard-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background-color: #f4f4f4;
+}
+
+.offercard-card-body {
+  padding: 16px;
+}
+
+.offercard-card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.offercard-card-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.offercard-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.offercard-tag {
+  background: #efefef;
+  color: #333;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 16px;
+}
+
+.offercard-card-validity {
+  font-size: 0.85rem;
+  color: #007bff;
+  margin-bottom: 8px;
+}
+
+.offercard-card-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.offercard-card-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.offercard-edit-btn {
+  display: inline-block;
+  background: #007bff;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.offercard-edit-btn:hover {
+  background: #0056b3;
+  color:white;
+}
+
+
+
+.offercard-delete-btn {
+  background: #dc3545;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.offercard-delete-btn:hover {
+  background: #b02a37;
+  color: #fff;
+}
+
+[data-theme="dark"] .offercard-edit-btn {
+  background: #007bff;
+  color: #fff;
 }
 
 
