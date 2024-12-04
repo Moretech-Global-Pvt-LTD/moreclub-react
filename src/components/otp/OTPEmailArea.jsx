@@ -11,6 +11,8 @@ const OTPEmailArea = ({ handleback }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isResending, setIsResending] = useState(true);
+  const [resendLoading, setResendLoading] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -34,10 +36,11 @@ const OTPEmailArea = ({ handleback }) => {
   // Function to handle resend OTP
   async function handleResendOTP() {
     try {
+      setResendLoading(true)
       const result = await dispatch(
         otpEmailResend(localStorage.getItem("otp_email"))
       );
-      if(result.success){
+      if(result.data.success){
       message.success("OTP has been sent");
       setIsResending(true);
     }
@@ -47,7 +50,7 @@ const OTPEmailArea = ({ handleback }) => {
     } catch (err) {
       message.error("error sending otp");
     } finally{
-      setIsLoading(false)
+      setResendLoading(false)
     }
   }
 
@@ -109,13 +112,13 @@ const OTPEmailArea = ({ handleback }) => {
             </Form.Item>
           </Form>
           <p>The OTP code valid for only 5 minutes.</p>
-          <p>{isResending ? `Resend OTP in ${timer} seconds` : ""}</p>
+          {/* <p>{isResending ? `Resend OTP in ${timer} seconds` : ""}</p> */}
           <button
             onClick={handleResendOTP}
             disabled={isResending}
             className="btn btn-sm btn-danger"
           >
-            {isResending ? "Resending..." : "Resend OTP"}
+            {resendLoading && <span className="spinner-border spinner-border-sm"></span>}{isResending ? resendLoading ? "Resending...":`Wait ${timer} seconds to Resend OTP` : "Resend OTP"}
           </button>
         </div>
       </div>

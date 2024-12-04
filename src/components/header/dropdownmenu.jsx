@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import {  useLocation } from "react-router-dom";
 
 const SidebarDropDownMenu = ({
@@ -45,9 +44,9 @@ const SidebarDropDownMenu = ({
           &nbsp;&nbsp;&nbsp;{menuTitle}
         </h6>
         {isOpen ? (
-          <i class="bi bi-caret-up-fill"></i>
+          <i className="bi bi-caret-up-fill"></i>
         ) : (
-          <i class="bi bi-caret-down-fill"></i>
+          <i className="bi bi-caret-down-fill"></i>
         )}
       </div>
       {isOpen && (

@@ -44,7 +44,6 @@ const OTPEmailAddress = ({ handleNext, errorMessage }) => {
       message.success("OTP has been sent");
       handleNext()
     } catch (err) {
-      console.log(err);
       setemailError(err.response?.data?.message);
     }
     setLoading(false)
