@@ -11,7 +11,7 @@ import Cookies from "js-cookie"
 
    if (parts.length > 1) {
      const suffix = parts.slice(-1)[0]; // Get the last part of the domain (TLD)
-     console.log(`Domain suffix: .${suffix}`);
+    //  console.log(`Domain suffix: .${suffix}`);
      return suffix;
    }
    return null;
@@ -60,11 +60,11 @@ const Locationretrive = () => {
             const countryCode = Cookies.get("countryCode");;
         if (!countryCode) {
           // Cookie doesn't exist, fetch and set it
-          console.log("Cookie expired or not found, fetching location...");
+          // console.log("Cookie expired or not found, fetching location...");
           const code = fetchLiveLocation();
         } else {
           // Cookie is valid, no need to fetch
-          console.log("Cookie is still valid, no need to fetch.");
+          // console.log("Cookie is still valid, no need to fetch.");
         }
       }
     

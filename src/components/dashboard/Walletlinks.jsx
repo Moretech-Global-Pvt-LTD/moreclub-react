@@ -63,8 +63,6 @@ const Walletlinks = () => {
     return <div>error retriving transaction pin status</div>;
   }
 
-  console.log(data);
-
   if (!data.pinAlertdata?.status || !data.phoneAlertdata) {
     return (
       <>
