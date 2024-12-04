@@ -28,7 +28,7 @@ const Walletlinks = () => {
       }
 
       if (phoneAlert.status === "fulfilled") {
-        const phoneAlertdata = phoneAlert.value.data.data?.phone_verified;
+        const phoneAlertdata = phoneAlert.value.data.data?.email_verified;
         return {
           pinAlertdata,
           phoneAlertdata,
@@ -63,13 +63,15 @@ const Walletlinks = () => {
     return <div>error retriving transaction pin status</div>;
   }
 
+  console.log(data);
+
   if (!data.pinAlertdata?.status || !data.phoneAlertdata) {
     return (
       <>
           <div className="text-dynamic-white text-center">
             You need to set {!data.pinAlertdata?.status && "transaction Pin"}{" "}
             {!data.pinAlertdata?.status && !data.phoneAlertdata && "and"}{" "}
-            {!data.phoneAlertdata && "verify your phone number"} to access
+            {!data.phoneAlertdata && "verify your Email"} to access
             wallet permissions
           </div>
           {!data.pinAlertdata?.status && (
@@ -83,9 +85,9 @@ const Walletlinks = () => {
           {!data.phoneAlertdata && (
             <Link
               className="btn btn-danger rounded-pill btn-sm w-100 mt-3"
-              to="/otp-phone"
+              to="/otp-email"
             >
-              Verify Phone Number
+              Verify Email
             </Link>
           )}
         </>

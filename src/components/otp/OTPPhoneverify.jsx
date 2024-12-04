@@ -35,7 +35,7 @@ const OTPPhoneArea = ({ handleback }) => {
   async function handleResendOTP() {
     try {
       const result = await dispatch(
-        otpPhoneResend(localStorage.getItem("otp_phonenumber"))
+        otpPhoneResend(localStorage.getItem("otp_email"))
       );
       message.success("OTP has been sent");
       setIsResending(true);
@@ -47,11 +47,11 @@ const OTPPhoneArea = ({ handleback }) => {
   const onFinish = async (values) => {
     setIsLoading(true);
     const result = await dispatch(
-      otpPhoneVerify(localStorage.getItem("otp_phonenumber"), values.code)
+      otpPhoneVerify(localStorage.getItem("otp_email"), values.code)
     );
     if (result.status === 200) {
       message.success(result.data.message);
-      localStorage.removeItem("otp_phonenumber");
+      localStorage.removeItem("otp_email");
       navigate("/dashboard");
     } else {
       if (result.success === false) {
@@ -75,7 +75,7 @@ const OTPPhoneArea = ({ handleback }) => {
       <div className="register-card">
         <h5>OTP Verify</h5>
         <p>
-          Confirm your otp here. OTP is send to your registered phone number.
+          Confirm your otp here. OTP is send to your email address. (please check your spam folder as well) 
         </p>
         <div className="register-form mt-2">
           <Form
@@ -103,7 +103,7 @@ const OTPPhoneArea = ({ handleback }) => {
           <p>{isResending ? `Resend OTP in ${timer} seconds` : ""}</p>
           <button
             onClick={handleResendOTP}
-            disabled={isResending}
+            // disabled={isResending}
             className="btn btn-sm btn-danger"
           >
             {isResending ? "Resending..." : "Resend OTP"}

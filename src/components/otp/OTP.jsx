@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { redirect, useNavigate } from "react-router-dom";
 import { otpResend, otpVerify } from "../../redux/api/loginAPI";
+import { set } from "lodash";
 
 const OTPArea = () => {
   const [timer, setTimer] = useState(5);
@@ -11,6 +12,7 @@ const OTPArea = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isResending, setIsResending] = useState(true);
+  const [isVerifying, setIsVerifying] = useState(false);
 
   const nextParam = new URLSearchParams(window.location.search).get("next") ?? "";
   
@@ -56,9 +58,11 @@ const OTPArea = () => {
   }
   const formRef = React.createRef();
   const onFinish = async (values) => {
+    setIsVerifying(true);
     const result = await dispatch(
       otpVerify(localStorage.getItem("otp_username"), values.code ,nextParam)
     );
+   
     if (result.status === 200) {
       message.success(result.data.message);
       localStorage.removeItem("otp_username");
@@ -67,7 +71,6 @@ const OTPArea = () => {
         const token = tokens;
         const nextUrl = new URL(nextParam, window.location.origin);
         nextUrl.searchParams.append('token', token);
-        console.log(nextUrl.href);
         window.location.href = nextUrl.href;
       } else {
         redirect("/dashboard");
@@ -81,6 +84,7 @@ const OTPArea = () => {
         }
       }
     }
+    setIsVerifying(false)
   };
 
   return (
@@ -100,10 +104,8 @@ const OTPArea = () => {
             <div className="register-card">
               <h2>OTP Verify</h2>
               <p>
-                Confirm your otp here. OTP is send to your registered email and
-                phone number.
+                Confirm your otp here. OTP is send to your registered Phone number.
               </p>
-
               <div className="register-form mt-2">
                 <Form
                   ref={formRef}
@@ -125,7 +127,7 @@ const OTPArea = () => {
                     </Button>
 
                     <Button type="submit" className="btn btn-sm pull-right">
-                      Verify OTP
+                      {isVerifying && <span className="spinner-border spinner-border-sm"></span>}Verify OTP
                     </Button>
                   </Form.Item>
                 </Form>
@@ -134,7 +136,7 @@ const OTPArea = () => {
                 <p>{isResending ? `Resend OTP in ${timer} seconds` : ""}</p>
                 <button
                   onClick={handleResendOTP}
-                  disabled={isResending}
+                  // disabled={isResending}
                   className="btn btn-sm btn-danger"
                 >
                   {isResending ? "Resending..." : "Resend OTP"}

@@ -8,7 +8,6 @@ import axios from "axios";
 import { Card } from "react-bootstrap";
 import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
 import PricingSkeleton from "../../components/Skeleton/PricingSkeleton";
-import { features } from "process";
 import { parseMembershipData } from "../../utills/utility";
 
 export default function PricingPlans({ title }) {
@@ -37,17 +36,17 @@ export default function PricingPlans({ title }) {
         `${baseURL}members/all/membership_type/`
       );
       const data = await response.data.data;
+      
       return data;
     },
-    staleTime:60*1000,
+    staleTime: 420000,
     fallback: (lastData) => lastData || [],
   });
 
   if (isLoading) {
     return (
       <>
-        
-        <PricingSkeleton/>
+        <PricingSkeleton />
       </>
     );
   }
@@ -55,7 +54,6 @@ export default function PricingPlans({ title }) {
   if (isError) {
     return <div className="text-dynamic-white">Error: retriving</div>;
   }
-
 
   const planConfig = {
     1: {
@@ -90,53 +88,27 @@ export default function PricingPlans({ title }) {
       discountsColorClass: "text-warning",
       periodClass: "pricing-text-color",
     },
-  
   };
 
-  const PricingsCard = ({ mst ,index}) => {
+  const PricingsCard = ({ mst, index }) => {
     const monthlyRate = mst.price * rate;
     const yearlyRate = mst.yearly_price * rate;
-
-    console.log("mst", mst);
-
     const item = {
       plan: mst.name,
-      price: activeTab === "monthly" ? monthlyRate.toFixed(0) : yearlyRate.toFixed(0),
+      price:
+        activeTab === "monthly"
+          ? monthlyRate.toFixed(0)
+          : yearlyRate.toFixed(0),
       period: `/${activeTab}`,
-      // features: [
-      //   ...(mst.project_discounts?.map(pd => `${pd.project.project_name} ${parseInt(pd.discount)}%`) || []),
-      //   ...Object.entries(mst)
-      //     .filter(([key, value]) => 
-      //       (key.endsWith("_discount") || key.endsWith("_precentage")) && value !== 0
-      //     )
-      //     .map(([key, value]) => {
-      //       let formattedKey = key.replace(/_/g, " "); // Replace underscores with spaces
-            
-      //       if (key === "business_discount") {
-      //         formattedKey = "Morefood Discount";
-      //       } else if (key === "referral_precentage") {
-      //         formattedKey = "Morefood Referral";
-      //       } else {
-      //         // For other keys, capitalize keywords
-      //         formattedKey = formattedKey
-      //           .replace(/discount/, "Discount")
-      //           .replace(/precentage/, "")
-      //           .replace(/business/, "")
-      //           .replace(/referral/, "Referral");
-      //       }
-            
-      //       return `${formattedKey.toUpperCase()}: ${value}%`;
-      //     }),
-          
-      // ],
-      features: mst ? parseMembershipData(mst): []
+      features: mst ? parseMembershipData(mst) : [],
     };
-    
 
     const config = planConfig[index] || planConfig["1"];
 
-    const isSubscribedToNonFreePlan = user?.membershipType?.membership_type?.code !== "free";
-    const isSubscribedToNonFreeBusinessPlan = user?.membershipType?.membership_type?.code !== "free_business";
+    const isSubscribedToNonFreePlan =
+      user?.membershipType?.membership_type?.code !== "free";
+    const isSubscribedToNonFreeBusinessPlan =
+      user?.membershipType?.membership_type?.code !== "free_business";
     // Hide the free plan if the user is subscribed to any other plan
     const shouldHideFreePlan = mst.code === "free" && isSubscribedToNonFreePlan;
     const shouldHideFreeBusinessPlan =
@@ -145,7 +117,7 @@ export default function PricingPlans({ title }) {
       <div
         className={`col my-2 pricing-width mx-auto mx-sm-0 ${
           shouldHideFreePlan ? "d-none" : ""
-        } ${shouldHideFreeBusinessPlan ? "d-none":""}`}
+        } ${shouldHideFreeBusinessPlan ? "d-none" : ""}`}
       >
         <Card className={`pricingcard ${config.cardClass} px-0 pb-0`}>
           <Card.Body>
@@ -156,46 +128,49 @@ export default function PricingPlans({ title }) {
               <h1 className={`${config.priceColorClass} text-center mb-0 mt-0`}>
                 {currency.symbol} {item.price}
               </h1>
-              <small><strong className={config.periodClass}>{item.period}</strong></small>
+              <small>
+                <strong className={config.periodClass}>{item.period}</strong>
+              </small>
             </div>
             <ul className="pricingcard-features">
               {item.features.map((feature, index) => (
-                <li key={index} className={`${config.discountsColorClass} fw-bold`}>
+                <li
+                  key={index}
+                  className={`${config.discountsColorClass} fw-bold`}
+                >
                   <Link to={feature.websiteUrl} target="_blank">
-                  
-                  {feature.discounts}
+                    {feature.discounts}
                   </Link>
                 </li>
               ))}
             </ul>
           </Card.Body>
-          
         </Card>
-          <div className="">
-            {mst.id !== user?.membershipType?.membership_type?.id ? (
-              <Link to={`/buy/plan/${mst.id}/${activeTab}`}>
-                <div className={`bg-danger px-1 py-2 `}>
-                  <h5 className="text-white text-center">
-                    <i className={`bi bi-cart me-1`}></i>
-                    Buy
-                  </h5>
-                  <p className="fw-thin text-white text-center my-0">
-                    TAKE YOUR BUSINESS TO NEXT LEVEL
-                  </p>
-                </div>
-              </Link>
-            ) : (
-              <div className={`bg-success px-1 py-2 `}>
-                <h5 className="text-white text-center">Subscribed</h5>
+        <div className="">
+          {mst.id !== user?.membershipType?.membership_type?.id ? (
+            <Link to={`/buy/plan/${mst.id}/${activeTab}`}>
+              <div className={`bg-danger px-1 py-2 `}>
+                <h5 className="text-white text-center">
+                  <i className={`bi bi-cart me-1`}></i>
+                  Buy
+                </h5>
                 <p className="fw-thin text-white text-center my-0">
-                  MAKE YOUR BUSINESS NEXT LEVEL
+                  TAKE YOUR BUSINESS TO NEXT LEVEL
                 </p>
               </div>
-            )}
-          </div>
+            </Link>
+          ) : (
+            <div className={`bg-success px-1 py-2 `}>
+              <h5 className="text-white text-center">Subscribed</h5>
+              <p className="fw-thin text-white text-center my-0">
+                MAKE YOUR BUSINESS NEXT LEVEL
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     );
-  }
+  };
   const normalPricingCards = data
     .filter((item) => item.type === "NORMAL")
     .sort((a, b) => a.price - b.price)

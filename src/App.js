@@ -413,8 +413,9 @@ const App = () => {
 
       page: <Eventpage />,
     },
+    //for email verification
     {
-      path: "/otp-phone",
+      path: "/otp-email",
 
       page: <OTPPhone />,
     },

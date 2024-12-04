@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import OTPPhoneArea from "./OTPPhoneverify";
 import OTPPhoneNumbers from "./OTPPhoneNumber";
-import { useDispatch } from "react-redux";
 
 
 const OTPContent = () => {
@@ -15,12 +14,12 @@ const OTPContent = () => {
    
     
       if (otpStep === 1) {
-        if (localStorage.getItem("otp_phonenumber") !== "") {
+        if (localStorage.getItem("otp_email") !== "") {
           
           setOtpStep((prevValue) => prevValue + 1);
         } else {
           setTimeout(async () => {
-            if (localStorage.getItem("otp_phonenumber") !== "") {
+            if (localStorage.getItem("otp_email") !== "") {
               setOtpStep((prevValue) => prevValue + 1);
             }
           }, 5000);
@@ -30,7 +29,7 @@ const OTPContent = () => {
   };
   const handleback = async () => {
     if (otpStep === 2) {
-        localStorage.removeItem("otp_phonenumber")
+        localStorage.removeItem("otp_email")
         setOtpStep((prevValue) => prevValue - 1);
       } 
   };

@@ -84,9 +84,10 @@ const PointsPayment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (planId && planTime) {
+      setIsLoading(true);
       const data = {
         membership_type: planId,
-        planTime: planTime,
+        plan_time: planTime,
         pin: pin,
       };
       try {
@@ -100,10 +101,14 @@ const PointsPayment = () => {
         dispatch(planDetailSuccess({}));
       } catch (err) {
         message.error(err.response.data.errors?.non_field_errors[0]);
+        setPinError(err.response.data.errors?.non_field_errors[0]);
+      } finally {
+        setIsLoading(false);
       }
     }
 
     if (couponId) {
+      setIsLoading(true);
       const data = {
         coupon: couponId,
         pin: pin,
@@ -117,6 +122,9 @@ const PointsPayment = () => {
         navigate("/my-coupons");
       } catch (err) {
         message.error(err.response.data.errors?.non_field_errors[0]);
+        setPinError(err.response.data.errors?.non_field_errors[0]);
+      } finally{
+        setIsLoading(false);
       }
     }
   };
