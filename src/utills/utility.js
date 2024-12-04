@@ -4,8 +4,6 @@ import { marketPlaceadminhostURL, marketPlacehostURL, morefoodhostNepalURL, more
 export function GetURL(props) {
   // Get the country code from cookies; default to "default"
   const countryCode = Cookies.get("countryCode") || "default";
-
-  console.log("countryCode", marketPlaceadminhostURL);
   // Define URLs based on props and country codes
   const urls = {
     morefood: {
@@ -26,7 +24,6 @@ export function GetURL(props) {
   // Fetch the config for the provided props
   const urlConfig = urls[props];
  
-    console.log("urlConfig", urlConfig);
 
   if (!urlConfig) {
     // Return fallback if props is invalid
