@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { otpPhoneResend, otpPhoneVerify } from "../../redux/api/loginAPI";
+import { otpEmailResend, otpEmailVerify } from "../../redux/api/loginAPI";
 
-const OTPPhoneArea = ({ handleback }) => {
+const OTPEmailArea = ({ handleback }) => {
   const [timer, setTimer] = useState(5);
 
   const dispatch = useDispatch();
@@ -35,19 +35,28 @@ const OTPPhoneArea = ({ handleback }) => {
   async function handleResendOTP() {
     try {
       const result = await dispatch(
-        otpPhoneResend(localStorage.getItem("otp_email"))
+        otpEmailResend(localStorage.getItem("otp_email"))
       );
+      if(result.success){
       message.success("OTP has been sent");
       setIsResending(true);
+    }
+      else{
+        throw new Error(result.message)
+      }
     } catch (err) {
       message.error("error sending otp");
+    } finally{
+      setIsLoading(false)
     }
   }
+
+
   const formRef = React.createRef();
   const onFinish = async (values) => {
     setIsLoading(true);
     const result = await dispatch(
-      otpPhoneVerify(localStorage.getItem("otp_email"), values.code)
+      otpEmailVerify(localStorage.getItem("otp_email"), values.code)
     );
     if (result.status === 200) {
       message.success(result.data.message);
@@ -103,7 +112,7 @@ const OTPPhoneArea = ({ handleback }) => {
           <p>{isResending ? `Resend OTP in ${timer} seconds` : ""}</p>
           <button
             onClick={handleResendOTP}
-            // disabled={isResending}
+            disabled={isResending}
             className="btn btn-sm btn-danger"
           >
             {isResending ? "Resending..." : "Resend OTP"}
@@ -114,4 +123,4 @@ const OTPPhoneArea = ({ handleback }) => {
   );
 };
 
-export default OTPPhoneArea;
+export default OTPEmailArea;

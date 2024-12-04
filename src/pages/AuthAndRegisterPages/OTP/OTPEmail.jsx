@@ -4,7 +4,7 @@ import OTPContent from "../../../components/otp/OTPContent";
 
 import DashboardLayout from "../../../components/Layout/DashboardLayout";
 
-const OTPPhone = () => {
+const OTPEmail = () => {
   return (
     <DashboardLayout title={"Phone verification"}>
       <OTPContent />
@@ -12,4 +12,4 @@ const OTPPhone = () => {
   );
 };
 
-export default OTPPhone;
+export default OTPEmail;
