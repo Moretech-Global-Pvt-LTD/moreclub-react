@@ -88,7 +88,6 @@ const UserBasicForm = () => {
 
   //  phone check weather it exist or not
   const handlePhoneCheck = async (value) => {
-    console.log("value", value);
     if (value !== "") {
       // if (prefix === null) {
       //   try {

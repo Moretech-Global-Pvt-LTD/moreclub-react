@@ -49,12 +49,12 @@ const WalletAlertNotification = () => {
                 </li>
               )}
 
-              {!notifications.phone_verified && (
+              {!notifications.email_verified && (
                 <li className="col-12 col-lg-6 col-xl-6">
-                  <Link to="/otp-phone" className="bg-danger">
+                  <Link to="/otp-email" className="bg-danger">
                     <i class="me-2 bg- bi bi-phone"></i>
                     <span style={{ fontSize: "12px" }}>
-                      Please verify your phone Number.
+                      Please verify your email.
                     </span>
                     <span class="badge bg-warning text-dark fz-12 rounded-pill ms-auto">
                       Click Here

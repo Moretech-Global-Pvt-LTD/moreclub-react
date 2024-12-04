@@ -73,7 +73,9 @@ const RegistrationForm = (props) => {
       );
       if (result.status === 200) {
         message.success("Registered sucessfully");
-        localStorage.setItem("otp_username", formData.email);
+        // localStorage.setItem("otp_username", formData.email);
+        localStorage.setItem("otp_username", formData.phone_number);
+
         if (nextParam) { 
           const targetUrl = `/otp?next=${encodeURIComponent(nextParam)}`;
           navigate(targetUrl);

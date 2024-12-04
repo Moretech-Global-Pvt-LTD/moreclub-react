@@ -199,10 +199,49 @@ export const register =
     }
   };
 
+// export const otpResend = (username) => async (dispatch) => {
+//   try {
+//     const res = await axios.post(`${baseURL}auth/resend-otp/`, {
+//       username,
+//     });
+//     return res;
+//   } catch (err) {
+//     return err.response.data;
+//   }
+// };
+
+// export const otpVerify = (username, code , callbackUrl) => async (dispatch) => {
+//   try {
+//     const res = await axios.post(`${baseURL}auth/register/verify/`, {
+//       username,
+//       code,
+//       return_url: callbackUrl
+//     });
+//     if (res.status === 200) {
+//       setAccessToken(res.data.data.token);
+//       setRefressToken(res.data.data.refresh_token);
+      
+      
+//       localStorage.removeItem("otp_username");
+//       await dispatch(load_user());
+//       await dispatch(userMembership());
+//       await dispatch(isSuperAdmin());
+//       await dispatch(CurrencySet());
+//       await dispatch(loadMembershipType());
+//       await dispatch(getBusinessProfile());
+//       // await setupNotifications();
+//     }
+//     return res;
+//   } catch (err) {
+//     return err.response.data;
+//   }
+// };
+
+// phone otp resend at the register 
 export const otpResend = (username) => async (dispatch) => {
   try {
-    const res = await axios.post(`${baseURL}auth/resend-otp/`, {
-      username,
+    const res = await axios.post(`${baseURL}auth/resend/otp/phone/`, {
+     phone_number: username,
     });
     return res;
   } catch (err) {
@@ -210,10 +249,11 @@ export const otpResend = (username) => async (dispatch) => {
   }
 };
 
+// phone otp verify at the register 
 export const otpVerify = (username, code , callbackUrl) => async (dispatch) => {
   try {
-    const res = await axios.post(`${baseURL}auth/register/verify/`, {
-      username,
+    const res = await axios.post(`${baseURL}auth/otp/phone/verify/confirm/`, {
+      phone_number: username,
       code,
       return_url: callbackUrl
     });
@@ -237,21 +277,24 @@ export const otpVerify = (username, code , callbackUrl) => async (dispatch) => {
   }
 };
 
-export const otpPhoneSend = (phone_number) => async (dispatch) => {
-  try {
-    const res = await axiosInstance.post(`${baseURL}auth/otp/phone/verify/`, {
-      phone_number,
-    });
-    return res;
-  } catch (err) {
-    return err;
-  }
-};
+
+
+
+// export const otpPhoneSend = (phone_number) => async (dispatch) => {
+//   try {
+//     const res = await axiosInstance.post(`${baseURL}auth/otp/phone/verify/`, {
+//       phone_number,
+//     });
+//     return res;
+//   } catch (err) {
+//     return err;
+//   }
+// };
 
 export const otpPhoneResend = (phone_number) => async (dispatch) => {
   try {
-    const res = await axiosInstance.post(`${baseURL}auth/resend/otp/phone/`, {
-      phone_number,
+    const res = await axiosInstance.post(`${baseURL}auth/resend-otp/`, {
+      username:phone_number,
     });
     return res;
   } catch (err) {
@@ -262,9 +305,9 @@ export const otpPhoneResend = (phone_number) => async (dispatch) => {
 export const otpPhoneVerify = (phone_number, code) => async (dispatch) => {
   try {
     const res = await axiosInstance.post(
-      `${baseURL}auth/otp/phone/verify/confirm/`,
+      `${baseURL}auth/register/verify/`,
       {
-        phone_number,
+        username:phone_number,
         code,
       }
     );
