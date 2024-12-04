@@ -87,7 +87,8 @@ const ForgetPinOTP = () => {
               <h2>OTP Verify</h2>
               <p>
                 Confirm your otp here. OTP is send to your registered email and
-                phone number.
+                phone number.(Please check your spam folder if you don't find it
+                in inbox)
               </p>
               <div className="register-form mt-4">
                 <Form

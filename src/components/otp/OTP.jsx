@@ -67,7 +67,6 @@ const OTPArea = () => {
         const token = tokens;
         const nextUrl = new URL(nextParam, window.location.origin);
         nextUrl.searchParams.append('token', token);
-        console.log(nextUrl.href);
         window.location.href = nextUrl.href;
       } else {
         redirect("/dashboard");
@@ -101,7 +100,7 @@ const OTPArea = () => {
               <h2>OTP Verify</h2>
               <p>
                 Confirm your otp here. OTP is send to your registered email and
-                phone number.
+                phone number.(Please check your spam folder if you don't find it in inbox)
               </p>
 
               <div className="register-form mt-2">
