@@ -1,35 +1,11 @@
 import React from 'react';
-import { axiosInstance } from '../../..';
-import { baseURL, morefoodhostNepalURL } from '../../../config/config';
-import Cookies from "js-cookie"
+import handleRedirection from '../../../utills/redircting';
 
 const ResturantCard = ({ res, link }) => {
-  async function handleRedirection() {
-    let links = link
-
-    if(Cookies.get("countryCode") === "NP"){
-      links = `${morefoodhostNepalURL}/resturants/${res.id}`
-    }
-
-    // Open a blank tab immediately
-    const newWindow = window.open('about:blank', '_blank');
-
-    try {
-      const response = await axiosInstance.post(`${baseURL}auth/code/generate/`);
-      if (response.status === 200) {
-        const url = `${links}?redirect=true&&code=${response.data.data.auth_code}`;
-        newWindow.location.href = url;
-      } else {
-        newWindow.location.href = link;
-      }
-    } catch (err) {
-      newWindow.location.href = link;
-    }
-  }
 
     return (
     <div className="restaurant-card-container">
-            <div class="restaurant-card" onClick={handleRedirection}>
+            <div class="restaurant-card" onClick={()=>handleRedirection("morefood" , `/resturants/${res.id}`)}>
                 <div class="restaurant-card-image">
                     <img src={`${res.banner}`} alt="Restaurant-Image"/>
                     <span class={`open-status ${res.open_hrs === "Open" ? "restro-open" : ""}`}>{res.open_hrs }</span>

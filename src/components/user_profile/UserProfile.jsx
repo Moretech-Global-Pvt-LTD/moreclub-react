@@ -7,6 +7,7 @@ import { get_user_coupon_list } from "../../redux/api/couponAPI";
 import { useSelector } from "react-redux";
 import QRDownload from "../QR/QRDownload";
 import { Button } from "react-bootstrap";
+import SubscriptionInfo from "./SubscriptionInfo";
 
 
 const UserProfile = ({ users }) => {
@@ -128,43 +129,7 @@ const UserProfile = ({ users }) => {
               </div>
               {/* subscription  */}
               <div className="nft-card card shadow-sm mb-4 p-4">
-                <h4 className="linked-heading">
-                  Subscription{" "}
-                  <Link className="btn btn-link" to={`/pricing`}>
-                    Change Plan
-                  </Link>
-                </h4>
-                <div class="name-info d-flex align-items-center mb-3">
-                  <div className="author-img position-relative">
-                    <img
-                      className="shadow"
-                      src={`${user.membershipType.membership_type?.icon}`}
-                      alt=""
-                    />
-                    <i class="bi bi-check position-absolute bg-success true"></i>
-                  </div>
-                  <div class="name-author">
-                    <span
-                      class="name d-block hover-primary text-truncate text-dynamic-white fw-bold"
-                      // href={`/buy/coupon/${coupon.id}`}
-                    >
-                      {user.membershipType.membership_type?.name}
-                    </span>
-                    <Link className="author d-block fz-12 hover-primary text-truncate">
-                      {user.membershipType.membership_type?.code === "free" ? (
-                        <>
-                          Expires at: <i className="bi bi-calendar-date" /> No
-                          expiry date
-                        </>
-                      ) : (
-                        <>
-                          Expires at: <i className="bi bi-calendar-date" />{" "}
-                          {user.membershipType?.expiration_date?.slice(0, 10)}
-                        </>
-                      )}
-                    </Link>
-                  </div>
-                </div>
+                <SubscriptionInfo user={user}/>
               </div>
 
               {/* coupons  */}

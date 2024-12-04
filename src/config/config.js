@@ -17,6 +17,8 @@ export const morefoodhostURL = process.env.REACT_APP_MORE_FOOD_HOST_URL;
 export const morefoodhostNepalURL = process.env.REACT_APP_MORE_FOOD_HOST_NEPAL_URL;
 
 export const moresaloonhostURL = process.env.REACT_APP_MORE_SALOON_HOST_URL;
+export const marketPlacehostURL = process.env.REACT_APP_MARKETPLACE_HOST_URL;
+export const marketPlaceadminhostURL = process.env.REACT_APP_MARKETPLACE_ADMIN_HOST_URL;
 
 export const moresaloonURL = process.env.REACT_APP_MORE_SALOON_BASE_URL;
 export const moresaloonimageURL = process.env.REACT_APP_MORE_SALOON_IMAGE_URL;

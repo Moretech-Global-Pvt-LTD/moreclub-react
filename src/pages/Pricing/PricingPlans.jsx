@@ -8,6 +8,8 @@ import axios from "axios";
 import { Card } from "react-bootstrap";
 import { currencyConvertor } from "../../redux/api/CurrencyConvertorAPI";
 import PricingSkeleton from "../../components/Skeleton/PricingSkeleton";
+import { features } from "process";
+import { parseMembershipData } from "../../utills/utility";
 
 export default function PricingPlans({ title }) {
   const user = useSelector((state) => state.userReducer);
@@ -62,6 +64,7 @@ export default function PricingPlans({ title }) {
       bgColorClass: "pricingcard-premium text-white",
       priceColorClass: "text-white",
       discountsColorClass: "pricing-text-color",
+      periodClass: "text-white",
     },
     2: {
       cardClass: "pricingcard-premium",
@@ -69,6 +72,7 @@ export default function PricingPlans({ title }) {
       bgColorClass: "bg-warning text-white",
       priceColorClass: "pricing-text-color",
       discountsColorClass: "text-warning",
+      periodClass: "pricing-text-color",
     },
     3: {
       cardClass: "pricingcard-starter",
@@ -76,6 +80,7 @@ export default function PricingPlans({ title }) {
       bgColorClass: "bg-gray text-warning",
       priceColorClass: "text-dynamic-white",
       discountsColorClass: "text-primary",
+      periodClass: "text-dynamic-white",
     },
     4: {
       cardClass: "pricingcard-premium",
@@ -83,6 +88,7 @@ export default function PricingPlans({ title }) {
       bgColorClass: "bg-warning text-white",
       priceColorClass: "pricing-text-color",
       discountsColorClass: "text-warning",
+      periodClass: "pricing-text-color",
     },
   
   };
@@ -95,8 +101,35 @@ export default function PricingPlans({ title }) {
       plan: mst.name,
       price: activeTab === "monthly" ? monthlyRate.toFixed(0) : yearlyRate.toFixed(0),
       period: `/${activeTab}`,
-      features: mst.project_discounts?.map(pd => `${pd.project.project_name} ${parseInt(pd.discount)}%`) || [],
+      features: [
+        ...(mst.project_discounts?.map(pd => `${pd.project.project_name} ${parseInt(pd.discount)}%`) || []),
+        ...Object.entries(mst)
+          .filter(([key, value]) => 
+            (key.endsWith("_discount") || key.endsWith("_precentage")) && value !== 0
+          )
+          .map(([key, value]) => {
+            let formattedKey = key.replace(/_/g, " "); // Replace underscores with spaces
+            
+            if (key === "business_discount") {
+              formattedKey = "Morefood Discount";
+            } else if (key === "referral_precentage") {
+              formattedKey = "Morefood Referral";
+            } else {
+              // For other keys, capitalize keywords
+              formattedKey = formattedKey
+                .replace(/discount/, "Discount")
+                .replace(/precentage/, "")
+                .replace(/business/, "")
+                .replace(/referral/, "Referral");
+            }
+            
+            return `${formattedKey.toUpperCase()}: ${value}%`;
+          }),
+          
+      ],
+      // features: mst ? parseMembershipData(mst): []
     };
+    
 
     const config = planConfig[index] || planConfig["1"];
 
@@ -121,16 +154,21 @@ export default function PricingPlans({ title }) {
               <h1 className={`${config.priceColorClass} text-center mb-0 mt-0`}>
                 {currency.symbol} {item.price}
               </h1>
-              <small>{item.period}</small>
+              <small><strong className={config.periodClass}>{item.period}</strong></small>
             </div>
             <ul className="pricingcard-features">
               {item.features.map((feature, index) => (
                 <li key={index} className={`${config.discountsColorClass} fw-bold`}>
-                  {feature}
+                  <Link to={feature.websiteUrl} target="_blank">
+                  
+                  {feature.discounts}
+                  </Link>
                 </li>
               ))}
             </ul>
           </Card.Body>
+          
+        </Card>
           <div className="">
             {mst.id !== user?.membershipType?.membership_type?.id ? (
               <Link to={`/buy/plan/${mst.id}/${activeTab}`}>
@@ -153,7 +191,6 @@ export default function PricingPlans({ title }) {
               </div>
             )}
           </div>
-        </Card>
       </div>
     );
   }
