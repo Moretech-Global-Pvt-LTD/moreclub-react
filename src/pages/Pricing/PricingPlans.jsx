@@ -97,37 +97,39 @@ export default function PricingPlans({ title }) {
     const monthlyRate = mst.price * rate;
     const yearlyRate = mst.yearly_price * rate;
 
+    console.log("mst", mst);
+
     const item = {
       plan: mst.name,
       price: activeTab === "monthly" ? monthlyRate.toFixed(0) : yearlyRate.toFixed(0),
       period: `/${activeTab}`,
-      features: [
-        ...(mst.project_discounts?.map(pd => `${pd.project.project_name} ${parseInt(pd.discount)}%`) || []),
-        ...Object.entries(mst)
-          .filter(([key, value]) => 
-            (key.endsWith("_discount") || key.endsWith("_precentage")) && value !== 0
-          )
-          .map(([key, value]) => {
-            let formattedKey = key.replace(/_/g, " "); // Replace underscores with spaces
+      // features: [
+      //   ...(mst.project_discounts?.map(pd => `${pd.project.project_name} ${parseInt(pd.discount)}%`) || []),
+      //   ...Object.entries(mst)
+      //     .filter(([key, value]) => 
+      //       (key.endsWith("_discount") || key.endsWith("_precentage")) && value !== 0
+      //     )
+      //     .map(([key, value]) => {
+      //       let formattedKey = key.replace(/_/g, " "); // Replace underscores with spaces
             
-            if (key === "business_discount") {
-              formattedKey = "Morefood Discount";
-            } else if (key === "referral_precentage") {
-              formattedKey = "Morefood Referral";
-            } else {
-              // For other keys, capitalize keywords
-              formattedKey = formattedKey
-                .replace(/discount/, "Discount")
-                .replace(/precentage/, "")
-                .replace(/business/, "")
-                .replace(/referral/, "Referral");
-            }
+      //       if (key === "business_discount") {
+      //         formattedKey = "Morefood Discount";
+      //       } else if (key === "referral_precentage") {
+      //         formattedKey = "Morefood Referral";
+      //       } else {
+      //         // For other keys, capitalize keywords
+      //         formattedKey = formattedKey
+      //           .replace(/discount/, "Discount")
+      //           .replace(/precentage/, "")
+      //           .replace(/business/, "")
+      //           .replace(/referral/, "Referral");
+      //       }
             
-            return `${formattedKey.toUpperCase()}: ${value}%`;
-          }),
+      //       return `${formattedKey.toUpperCase()}: ${value}%`;
+      //     }),
           
-      ],
-      // features: mst ? parseMembershipData(mst): []
+      // ],
+      features: mst ? parseMembershipData(mst): []
     };
     
 
