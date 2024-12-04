@@ -171,7 +171,7 @@ const HeaderDashboardMenu = () => {
             (type) => type.name === "Salons"
           ) && (
             <>
-              <li>
+              {/* <li>
                 <NavLink to={"/moresaloon"}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -195,7 +195,7 @@ const HeaderDashboardMenu = () => {
                   </svg>
                   &nbsp;MORE SALONS
                 </NavLink>
-              </li>
+              </li> */}
             </>
           )}
 
@@ -204,7 +204,7 @@ const HeaderDashboardMenu = () => {
             (type) => type.name === "Marketplace"
           ) && (
             <>
-              <li>
+              {/* <li>
                 <NavLink to={"/moresaloon"}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -228,10 +228,10 @@ const HeaderDashboardMenu = () => {
                   </svg>
                   &nbsp;MARKETPLACE
                 </NavLink>
-              </li>
+              </li> */}
             </>
           )}
-        {user.user?.user_type === "NORMAL" && (
+        {/* {user.user?.user_type === "NORMAL" && (
           <>
             <li>
               <NavLink to={"/moresaloon"}>
@@ -259,7 +259,7 @@ const HeaderDashboardMenu = () => {
               </NavLink>
             </li>
           </>
-        )}
+        )} */}
         {/* salons business */}
         {user.user?.user_type !== "NORMAL" && (
           <>
@@ -378,7 +378,7 @@ const HeaderDashboardMenu = () => {
                   </li>
                 </SidebarDropDownMenu>
               )}
-              {business.businessProfile.business_types?.some(
+              {/* {business.businessProfile.business_types?.some(
                 (type) => type.name === "Salons"
               ) && (
                 <SidebarDropDownMenu
@@ -429,7 +429,7 @@ const HeaderDashboardMenu = () => {
                     </NavLink>
                   </li>
                 </SidebarDropDownMenu>
-              )}
+              )} */}
             </>
             {/* )} */}
           </>
@@ -470,13 +470,13 @@ const HeaderDashboardMenu = () => {
         )}
 
         {/* market place business */}
-        {user.user?.user_type !== "NORMAL" && (
+        {/* {user.user?.user_type !== "NORMAL" && (
           <>
             {business.businessProfile.business_types?.some(
               (type) => type.name === "Marketplace"
             ) && <MarketplaceLinks MoreClubLinks={MoreClubLinks} />}
           </>
-        )}
+        )} */}
 
         {(user.isSuperAdmin || user.isStationOwner) && (
           <li>
