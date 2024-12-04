@@ -46,7 +46,7 @@ const RestroOffer = () => {
   }
 
   if (isError) {
-    return <div className="text-dynamic-white">Error: retriving</div>;
+    return <RestaurantLayout className="text-dynamic-white">Error: retriving</RestaurantLayout>;
   }
 
 
@@ -55,7 +55,7 @@ const RestroOffer = () => {
  
 
   return (
-    <RestaurantLayout title={`${ name } Offers`}>
+    <RestaurantLayout>
       <div>
         <div className="d-flex align-items-center justify-content-between my-2">
           <div></div>

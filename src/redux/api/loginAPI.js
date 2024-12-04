@@ -291,23 +291,23 @@ export const otpVerify = (username, code , callbackUrl) => async (dispatch) => {
 //   }
 // };
 
-export const otpPhoneResend = (phone_number) => async (dispatch) => {
+export const otpEmailResend = (phone_number) => async (dispatch) => {
   try {
     const res = await axiosInstance.post(`${baseURL}auth/resend-otp/`, {
       username:phone_number,
     });
     return res;
   } catch (err) {
-    return err.response.data;
+    return err.response;
   }
 };
 
-export const otpPhoneVerify = (phone_number, code) => async (dispatch) => {
+export const otpEmailVerify = (email, code) => async (dispatch) => {
   try {
     const res = await axiosInstance.post(
       `${baseURL}auth/register/verify/`,
       {
-        username:phone_number,
+        username:email,
         code,
       }
     );

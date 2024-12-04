@@ -120,7 +120,7 @@ const OfferCard = ({
     try {
       setIsDeleting(true);
       const res = await axiosInstance.delete(
-        `${morefoodURL}moreclub/user/offers/${res_id}/${offer_id}/`
+        `${morefoodURL}moreclub/user/offers/${res_id}/${offer_id}/delete/`
       );
       message.success("Offer Deleted successfully");
       queryClient.invalidateQueries({

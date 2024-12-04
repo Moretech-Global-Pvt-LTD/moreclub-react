@@ -7,17 +7,17 @@ import { baseURL } from "../../config/config";
 import { axiosInstance } from "../..";
 import { validateEmail } from "../../validation/RegistrationValidation";
 
-const OTPPhoneNumbers = ({ handleNext, errorMessage }) => {
+const OTPEmailAddress = ({ handleNext, errorMessage }) => {
   const [email, setemail] = useState("");
-  const [phoneError, setPhoneError] = useState("");
+  const [emailError, setemailError] = useState("");
   const debouncedemail = useDebounce(email, 500);
   const [loading, setLoading]= useState(false)
 
   useEffect(() => {
     if (debouncedemail) {
-      setPhoneError(validateEmail(debouncedemail));
+      setemailError(validateEmail(debouncedemail));
     } else {
-      setPhoneError("");
+      setemailError("");
     }
   }, [debouncedemail, email, ]);
 
@@ -27,9 +27,9 @@ const OTPPhoneNumbers = ({ handleNext, errorMessage }) => {
     setemail(e.target.value);
     const error = await validateEmail(e.target.value)
     if (error.trim() !== "") {
-      setPhoneError(error);
+      setemailError(error);
     } else {
-      setPhoneError("");
+      setemailError("");
     }
   };
 
@@ -45,7 +45,7 @@ const OTPPhoneNumbers = ({ handleNext, errorMessage }) => {
       handleNext()
     } catch (err) {
       console.log(err);
-      setPhoneError(err.response?.data?.message);
+      setemailError(err.response?.data?.message);
     }
     setLoading(false)
 
@@ -57,7 +57,7 @@ const OTPPhoneNumbers = ({ handleNext, errorMessage }) => {
     e.preventDefault();
    
     if (email.trim() === "") {
-      setPhoneError("Email is required");
+      setemailError("Email is required");
     } else {
       localStorage.setItem("otp_email", `${email}`);
       handleSendOTP()
@@ -83,13 +83,13 @@ const OTPPhoneNumbers = ({ handleNext, errorMessage }) => {
               className="form-control"
               required
             />
-            {phoneError && <p className="text-danger">{phoneError}</p>}
+            {emailError && <p className="text-danger">{emailError}</p>}
             
           </Form.Group>
           <button
             className="btn btn-primary mt-4 rounded"
             onClick={handleSubmit}
-            disabled={phoneError !== "" || email.trim() === ""}
+            disabled={emailError !== "" || email.trim() === ""}
           >
             {loading && <Spinner variant="danger" animation="border" size="sm" /> }  Next
           </button>
@@ -99,4 +99,4 @@ const OTPPhoneNumbers = ({ handleNext, errorMessage }) => {
   );
 };
 
-export default OTPPhoneNumbers;
+export default OTPEmailAddress;

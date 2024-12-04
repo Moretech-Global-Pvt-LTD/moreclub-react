@@ -53,7 +53,7 @@ import TermsPage from "./pages/terms/TermsPage";
 import { getMetadata } from "./redux/api/infoApi";
 import PrivacyPage from "./pages/Privacy/privacy";
 import NotificationPage from "./pages/UserPages/notification/NotificationPage";
-import OTPPhone from "./pages/AuthAndRegisterPages/OTP/OTPPhone";
+import OTPEmail from "./pages/AuthAndRegisterPages/OTP/OTPEmail";
 import PartnerDetail from "./pages/Partner/PartnerDetail";
 import LiscencePage from "./pages/Liscence/LiscencePage";
 import NotFound from "./pages/notfound";
@@ -417,7 +417,7 @@ const App = () => {
     {
       path: "/otp-email",
 
-      page: <OTPPhone />,
+      page: <OTPEmail />,
     },
     {
       path: "/dashboard/",
