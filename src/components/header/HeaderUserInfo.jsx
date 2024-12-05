@@ -120,11 +120,13 @@ const HeaderUserInfo = () => {
                   // </Link>
               }
                 
-              <Link to="/pricing">
+              {/* <Link to="/pricing"> */}
                 <span className="badge bg-primary fz-12">
-                  {`${user?.membershipType?.membership_type?.name ?? ""}`}
+                  {/* {`${user?.membershipType?.membership_type?.name ?? ""}`} */}
+                  {`${user.user?.user_type}`}
+
                 </span>
-              </Link>
+              {/* </Link> */}
             </div>
           </div>
         )}

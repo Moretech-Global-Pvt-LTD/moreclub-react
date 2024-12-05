@@ -452,9 +452,9 @@ const HeaderDashboardMenu = () => {
                   <g
                     fill="none"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                   >
                     <path d="M6 2C5 5 7 5 6 8m4-6c-1 3 1 3 0 6" />
                     <circle cx="4" cy="20" r="2" />

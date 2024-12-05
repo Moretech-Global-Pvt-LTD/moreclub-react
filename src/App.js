@@ -162,24 +162,24 @@ const App = () => {
     }
   }, [location.pathname]); // Run the effect when the path changes
 
-  DisableDevtool({
-    url:'https://_blank',
+  // DisableDevtool({
+  //   url:'https://_blank',
 
-    ondevtoolopen: (type, next) => {
-      next();
-    },
+  //   ondevtoolopen: (type, next) => {
+  //     next();
+  //   },
 
-    ondevtoolclose: () => {
-      console.log("Developer tools closed");
-    },
+  //   ondevtoolclose: () => {
+  //     console.log("Developer tools closed");
+  //   },
 
-    interval: 1,
-    disableMenu: true,
-    disableSelect: false,
-    disableCopy: false,
-    disableCut: false,
-    disablePaste: false,
-  });
+  //   interval: 1,
+  //   disableMenu: true,
+  //   disableSelect: false,
+  //   disableCopy: false,
+  //   disableCut: false,
+  //   disablePaste: false,
+  // });
 
 
   useEffect(() => {
@@ -798,7 +798,7 @@ const App = () => {
           <Route key={route.path} path={route.path} element={route.page} />
         ))}
 
-        <Route
+        {/* <Route
           path="/pricing"
           element={
             !Cookies.get("moretechglobal_access") ? (
@@ -807,7 +807,7 @@ const App = () => {
               <PricingPage />
             )
           }
-        />
+        /> */}
 
         {authRoutes.map((route) => (
           <Route

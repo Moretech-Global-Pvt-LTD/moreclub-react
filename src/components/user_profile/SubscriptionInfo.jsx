@@ -11,9 +11,9 @@ const SubscriptionInfo = ({ user }) => {
     <>
       <h4 className="linked-heading">
         Subscription{" "}
-        <Link className="btn btn-link" to={`/pricing`}>
+        {/* <Link className="btn btn-link" to={`/pricing`}>
           Change Plan
-        </Link>
+        </Link> */}
       </h4>
       <div class="name-info d-flex align-items-center mb-3">
         <div className="author-img position-relative">

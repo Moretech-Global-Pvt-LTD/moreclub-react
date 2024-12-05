@@ -28,7 +28,7 @@ const SidebarDropDownMenu = ({
   }, [location, links, menuTitle, isOpen]);
 
   return (
-    <div className={`sidebar-dropdown-item ${isOpen ? "open" : ""}`}>
+    <div className={`sidebar-dropdown-item ${isOpen ? "open " : ""}`}>
       <div
         className="sidebar-dropdown-header d-flex justify-content-between mb-0"
         onClick={handleMenuClick}
@@ -39,6 +39,7 @@ const SidebarDropDownMenu = ({
               ? "text-danger"
               : ""
           }`}
+          // style={{ marginBottom: isOpen ? "10px" : "0px" }}
         >
           {menuSvg ? menuSvg : <i className={`bi ${menuIcon}`} />}
           &nbsp;&nbsp;&nbsp;{menuTitle}
