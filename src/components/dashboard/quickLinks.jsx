@@ -38,7 +38,7 @@ const QuickLinks = () => {
                 </Card>
               </Col>
             </Link> */}
-            <Link to={`/pricing`} className="d-flex flex-column my-2 ">
+            {/* <Link to={`/pricing`} className="d-flex flex-column my-2 ">
               <Col className="d-flex flex-column  ">
                 <Card className=" flex-grow-1 p-0">
                   <div className="d-flex justify-content-center py-2 px-0">
@@ -49,7 +49,7 @@ const QuickLinks = () => {
                   </Card.Title>
                 </Card>
               </Col>
-            </Link>
+            </Link> */}
             <Link to={`/my-network`} className="d-flex flex-column my-2 ">
               <Col className="d-flex flex-column  ">
                 <Card className=" flex-grow-1 p-0">

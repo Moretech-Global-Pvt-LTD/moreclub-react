@@ -128,9 +128,9 @@ const UserProfile = ({ users }) => {
                 </div>
               </div>
               {/* subscription  */}
-              <div className="nft-card card shadow-sm mb-4 p-4">
+              {/* <div className="nft-card card shadow-sm mb-4 p-4">
                 <SubscriptionInfo user={user}/>
-              </div>
+              </div> */}
 
               {/* coupons  */}
               <div className="nft-card card shadow-sm mb-4 p-4">

@@ -34,7 +34,7 @@ const BusinessProfile = ({ businessProfiles }) => {
           </div>
           <div className="col-12 col-lg-5 col-xl-6 col-xxl-5">
             {/* subscription  */}
-            <div className="nft-card card shadow-sm mb-4 p-4">
+            {/* <div className="nft-card card shadow-sm mb-4 p-4">
               <h4 className="linked-heading">
                 Subscription{" "}
                 <Link className="btn btn-link" to={`/pricing`}>
@@ -72,7 +72,7 @@ const BusinessProfile = ({ businessProfiles }) => {
                   </Link>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* coupons  */}
             <div className="nft-card card shadow-sm mb-4 p-4">
