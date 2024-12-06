@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import useStickyHeader from "./StickyHeader";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import ThemeToggler from "./themeToggler";
 import Navbutton from "./Navbutton";
 import Logos from "./Logos";
@@ -10,13 +9,6 @@ const UniverslNavbar = () => {
   let [check] = useState(true);
   const sticky = useStickyHeader(10);
   const stickyClass = `${sticky && check ? "sticky-on" : ""}`;
-
-  const [isActive, setActive] = useState(false);
-  const metainfo = useSelector((state) => state.metaReducer);
-
-  const handleToggle = () => {
-    setActive(!isActive);
-  };
 
   return (
     <header

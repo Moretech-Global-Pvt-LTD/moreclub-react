@@ -1,5 +1,4 @@
 import React from 'react'
-import { Crown } from '../../images/svg/crown'
 import FeedMediaCarousel from './FeedCarousel'
 
 

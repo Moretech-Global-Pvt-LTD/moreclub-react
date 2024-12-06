@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { useEffect, useState } from "react";
 import { forget_password } from "../../redux/api/loginAPI";

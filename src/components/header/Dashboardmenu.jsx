@@ -47,8 +47,6 @@ const DashboardMenu = () => {
   const business = useSelector((state) => state.businessReducer);
   const permissions = useSelector((state) => state.permissionReducer);
 
-  const userType = user.user?.user_type;
-  const businessTypes = business.businessProfile.business_types || [];
 
   const generateMenuItem = (to, icon, label, hasPermission = true, onClick) => (
     <li>

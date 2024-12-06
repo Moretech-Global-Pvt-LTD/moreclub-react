@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import {
   forget_password_otp_verify,
   otpChangePasswordResend,
-  otpResend,
 } from "../../redux/api/loginAPI";
 import { setAccessToken, setRefressToken } from "../../utills/token";
 

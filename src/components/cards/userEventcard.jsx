@@ -8,9 +8,9 @@ const UserEventCard = ({ events }) => {
       <div class="event-card">
         <div class="event-card-image">
           {events?.event_photo[0]?.image ? 
-          <img src={events.event_photo[0].image} alt="Event Image"/>
+          <img src={events.event_photo[0].image} alt="Event-Image"/>
           :
-            <img src={DefaultImage} alt="Event Image" className="bg-secondary" />
+            <img src={DefaultImage} alt="Event-Image" className="bg-secondary" />
         
         }
         </div>
