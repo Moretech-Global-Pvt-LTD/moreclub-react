@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 import HeaderDashboard from "../../components/header/HeaderDashboard";
 import Footbar from "../../components/footbar/footbar";
 import Footer from "../../components/footer/Footer";
+import Cookies from "js-cookie";
 
 const PrivacyPage = () => {
-  const user = useSelector((state) => state.userReducer);
-  if (user.isAuthenticated) {
+  if (Cookies.get("moretechglobal_access")) {
     return (
       <>
         <HeaderDashboard />

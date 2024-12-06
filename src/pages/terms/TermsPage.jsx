@@ -5,11 +5,10 @@ import Divider from "../../components/divider/Divider";
 import HeaderDashboard from "../../components/header/HeaderDashboard";
 import Footer from "../../components/footer/Footer";
 import Footbar from "../../components/footbar/footbar";
-import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 const TermsPage = () => {
-  const user = useSelector((state) => state.userReducer);
-  if (user.isAuthenticated) {
+  if (Cookies.get("moretechglobal_access")) {
     return (
       <>
         <HeaderDashboard />

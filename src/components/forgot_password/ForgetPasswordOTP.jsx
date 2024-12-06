@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   forget_password_otp_verify,
+  otpChangePasswordResend,
   otpResend,
 } from "../../redux/api/loginAPI";
 import { setAccessToken, setRefressToken } from "../../utills/token";
@@ -15,6 +16,9 @@ const ForgetPasswordOTP = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isResending, setIsResending] = useState(true);
+  const [verifying , setVerifying] = useState(false)
+  const [loading, setLoading] = useState(false);
+  
   useEffect(() => {
     let interval;
     if (isResending) {
@@ -35,20 +39,36 @@ const ForgetPasswordOTP = () => {
 
   // Function to handle resend OTP
   async function handleResendOTP() {
-    const result = await dispatch(
-      otpResend(localStorage.getItem("otp_username"))
-    );
+    setLoading(true)
+    
     message.success("OTP has been sent");
     setIsResending(true);
+    try {
+      setLoading(true)
+      const result = await dispatch(
+        otpChangePasswordResend(localStorage.getItem("otp_username"))
+      );
+      if(result.data.success){
+      message.success("OTP has been sent");
+      setIsResending(true);
+    }
+      else{
+        throw new Error(result.message)
+      }
+    } catch (err) {
+      message.error("error sending otp");
+    } finally{
+      setLoading(false)
+    }
   }
   const formRef = React.createRef();
   const onFinish = async (values) => {
+    setVerifying(true);
     const formData = {
       username: localStorage.getItem("otp_username"),
       code: values.code,
     };
     const result = await dispatch(forget_password_otp_verify(formData));
-    console.log(result);
     if (result.status === 200) {
       setAccessToken(result.data.data.token);
       setRefressToken(result.data.data.refresh_token);
@@ -64,6 +84,7 @@ const ForgetPasswordOTP = () => {
         }
       }
     }
+    setVerifying(false);
   };
 
   return (
@@ -83,8 +104,7 @@ const ForgetPasswordOTP = () => {
             <div className="register-card">
               <h2>OTP Verify</h2>
               <p>
-                Confirm your otp here. OTP is send to your registered email and
-                phone number.
+                Confirm your otp here. OTP is send to your registered Email address.
               </p>
               <div className="register-form mt-2">
                 <Form
@@ -107,18 +127,18 @@ const ForgetPasswordOTP = () => {
                   </Form.Item>
                   <Form.Item>
                     <Button type="submit" className="btn btn-sm pull-right">
-                      Verify OTP
+                     {verifying && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>} Verify OTP
                     </Button>
                   </Form.Item>
                 </Form>
                 <p>The OTP code valid for only 5 minutes.</p>
-                <p>{isResending ? `Resend OTP in ${timer} seconds` : ""}</p>
                 <button
                   onClick={handleResendOTP}
                   disabled={isResending}
                   className="btn btn-sm btn-danger"
                 >
-                  {isResending ? "Resending..." : "Resend OTP"}
+                  
+                  {loading && <span className="spinner-border spinner-border-sm"></span>}{isResending ? loading ? "Resending...":`Wait ${timer} seconds to Resend OTP` : "Resend OTP"}
                 </button>
               </div>
             </div>

@@ -1,11 +1,12 @@
 import React from "react";
-import { Button, Placeholder } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../../config/config";
 import Divider from "../../components/divider/Divider";
 import EventCarousel from "./EventCarousel";
 import { Link } from "react-router-dom";
+import RestaurantCardSkeleton from "../Skeleton/RestaurantCardSkeleton";
 
 const EventDashboardDisplay = () => {
   const { data, isLoading, isError } = useQuery({
@@ -14,17 +15,13 @@ const EventDashboardDisplay = () => {
       const response = await axios.get(`${baseURL}events/?page=${pageParam}`);
       return response.data;
     },
+    staleTime: 60000,
   });
 
   if (isLoading) {
     return (
       <>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
-        <Placeholder as="p" animation="glow" className="rounded">
-          <Placeholder xs={12} style={{ height: "4rem" }} />
-        </Placeholder>
+        <RestaurantCardSkeleton />
       </>
     );
   }
