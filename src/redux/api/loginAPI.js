@@ -199,16 +199,16 @@ export const register =
     }
   };
 
-// export const otpResend = (username) => async (dispatch) => {
-//   try {
-//     const res = await axios.post(`${baseURL}auth/resend-otp/`, {
-//       username,
-//     });
-//     return res;
-//   } catch (err) {
-//     return err.response.data;
-//   }
-// };
+export const otpChangePasswordResend = (username) => async (dispatch) => {
+  try {
+    const res = await axios.post(`${baseURL}auth/resend-otp/forget/password/`, {
+      username,
+    });
+    return res;
+  } catch (err) {
+    return err.response;
+  }
+};
 
 // export const otpVerify = (username, code , callbackUrl) => async (dispatch) => {
 //   try {

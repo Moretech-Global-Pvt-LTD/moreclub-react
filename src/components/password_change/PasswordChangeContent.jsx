@@ -16,6 +16,7 @@ export default function ChangePasswordContent(props) {
   const { title, subTitle } = props;
   const [inputPassword1, setInputPassword1] = useState();
   const [inputPassword2, setInputPassword2] = useState();
+  const [loading , setLoading] = useState(false)
 
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -42,6 +43,7 @@ export default function ChangePasswordContent(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const formData = {
       new_password: inputPassword1,
       confirm_password: inputPassword2,
@@ -60,6 +62,8 @@ export default function ChangePasswordContent(props) {
       navigate("/dashboard");
     } catch (error) {
       message.error(error.response.data.new_password2);
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -114,7 +118,7 @@ export default function ChangePasswordContent(props) {
                   disabled={!!confirmPasswordError || !!passwordError}
                   type="submit"
                 >
-                  Change Password
+                  {loading && <span className="spinner-border spinner-border-sm"></span>}Change Password
                 </button>
               </Form>
             </div>

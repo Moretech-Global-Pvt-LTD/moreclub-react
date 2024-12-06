@@ -5,7 +5,7 @@ const Workingdays = ({ existingdata , edit}) => {
   
     return (
      
-            <Col xs={12} md={10} xl={8} xxl={6}>
+            <Col xs={12} md={10} lg={12} xl={8} xxl={6}>
                 <div className='card p-3'>
                     <div className='d-flex align-items-center justify-content-between'>
                         <h5 className='my-3 text-dynamic-white'>Working Time</h5>

@@ -49,12 +49,26 @@ const WorkinghourPage = () => {
     }
   }
 
+  const daysOfWeek = [
+    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+];
+
+  const result = daysOfWeek.map(day => {
+    const preloadedDay = data.find(data => data.day_of_week === day);
+    return preloadedDay || {
+        day_of_week: day,
+        start_time: "",
+        end_time: "",
+        is_open: false
+    };
+});
+
   return (
     <Saloonlayout>
       <Row>
         <Col xs={12} lg={8} xl={10} xxl={10}>
           {data && data.length > 0 &&
-            <OpeningHoursForm existingdata={data} submitFunction={UpdateWorkingData} />
+            <OpeningHoursForm existingdata={result} submitFunction={UpdateWorkingData} />
           }
           {data && data.length <= 0 &&
             <OpeningHoursForm submitFunction={logFormData} />

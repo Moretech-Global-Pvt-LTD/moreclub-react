@@ -139,7 +139,7 @@ const OpeningHoursForm = ({ existingdata, submitFunction }) => {
                             </Form.Group>
                         ))}
                         <Button type='submit' disabled={isLoading}>
-                            {isLoading ? 'Loading...' : 'Submit'}
+                            {isLoading ? 'Loading...' : existingdata ? 'Update' : 'Submit'}
                         </Button>
                     </Form>
                 </Col>

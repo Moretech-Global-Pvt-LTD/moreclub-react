@@ -151,7 +151,6 @@ const StaffDetailPage = () => {
     if (isError) {
         return <Saloonlayout className="text-dynamic-white">Error: retriving</Saloonlayout>;
     }
-    console.log(data)
 
     return (
         <Saloonlayout>
@@ -161,7 +160,7 @@ const StaffDetailPage = () => {
 
             <Row className='gap-2'>
                 <StaffBookingCalendar data={data} events={myEventsList} />
-                <Col xs={12} lg={6} xl={8} xxl={6} >
+                <Col xs={12} lg={10} xl={10} xxl={8} >
                     <WorkingdaysContent />
                 </Col>
             </Row>
