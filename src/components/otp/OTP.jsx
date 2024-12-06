@@ -104,7 +104,7 @@ const OTPArea = () => {
             <div className="register-card">
               <h2>OTP Verify</h2>
               <p>
-                Confirm your otp here. OTP is send to your registered Phone number.
+                Confirm your otp here. Check your Phone number or your Email address for the OTP.
               </p>
               <div className="register-form mt-2">
                 <Form
