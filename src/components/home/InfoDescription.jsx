@@ -3,8 +3,6 @@ import React from "react";
 const InfoDescription = ({ item }) => {
   return (
     <div className="about-content">
-      {/* <h2>{item.title}</h2>
-      <p>{item.description}</p> */}
       {item.heading && <h2 className="mb-4">{item.heading}</h2>}
       {item.subheadings &&
         item.subheadings.map((sub, subIndex) => (

@@ -11,17 +11,14 @@ import { baseURL } from "../../config/config";
 
 const PartnerSection = () => {
 
-    const { data, isLoading, isError } = useQuery({
-      queryKey: ["partnerlogos"],
-      queryFn: async () => {
-        const response = await axios.get(
-          `${baseURL}partners/list/`
-        );
-        const data = await response.data.data;
-        return data;
-      },
-      staleTime: 100,
-    });
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["business types"],
+    queryFn: async () => {
+      const response = await axios.get(`${baseURL}business/all/types/`);
+      return response.data.data;
+    },
+    staleTime: 200000,
+  });
 
     if (isLoading) {
       return (
@@ -75,18 +72,15 @@ const PartnerSection = () => {
         {data.map((partner, index) => (
           <Col xs={6} sm={3} lg={3} xxl={2} key={index} className="partner-logo">
             
-            <a href={partner.web_link} target="_blank" rel="noreferrer">
+            {/* <a href={partner.web_link} target="_blank" rel="noreferrer"> */}
             <img
-              className="nav-light-logo partner-logo"
-              src={`${partner.black_logo}`}
+              className="partner-logo "
+              src={`${partner.banner}`}
               alt="Light"
+              style={{ height: "100px",  width: "100px", objectFit: "cover", borderRadius: "50%" }}
             />
-            <img
-              className=" nav-dark-logo partner-logo "
-              src={`${partner.white_logo}`}
-              alt="Dark"
-              />
-              </a>
+            <p>{partner.name}</p>
+              {/* </a> */}
           </Col>
         ))}
       </Row>

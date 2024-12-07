@@ -42,17 +42,3 @@ NotificationCard.propTypes = {
 };
 
 export default NotificationCard;
-
-
-{/* <div className="row">
-        {notifications.map((notification, index) => (
-          <div className="col-md-4" key={index}>
-            <NotificationCard
-              icon={notification.icon}
-              title={notification.title}
-              date={notification.date}
-              description={notification.description}
-            />
-          </div>
-        ))}
-      </div> */}

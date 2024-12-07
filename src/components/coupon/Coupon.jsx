@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CouponCard from './CouponCard';
 import { baseURL } from "../../config/config";
 import { Button, Placeholder } from "react-bootstrap";
@@ -16,6 +16,7 @@ export default function Coupon() {
       const data = await response.data.data;
       return data;
     },
+    staleTime: 60000,
   });
 
 

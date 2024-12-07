@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import Dropdown from "react-bootstrap/Dropdown";
 import useStickyHeader from "./StickyHeader";
-
 import { useDispatch, useSelector } from "react-redux";
 import { baseURL, imageURL } from "../../config/config";
 import { isSuperAdmin, logout } from "../../redux/api/loginAPI";
@@ -19,9 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { CurrencySet } from "../../redux/api/CurrencyConvertorAPI";
 import { Placeholder } from "react-bootstrap";
 import { fetchNotifications } from "../../redux/api/notificationApi";
-import DashboardMenu from "./Dashboardmenu";
-// import CheckUserDiscounts from "./CheckUserDiscounts";
-// import Notification from "../Notifications/Notification";
+
 
 const HeaderDashboard = () => {
   let [check] = useState(true);

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Button, Placeholder } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -8,8 +8,6 @@ const HeaderUserInfo = () => {
   const user = useSelector((state) => state.userReducer);
   const business = useSelector((state) => state.businessReducer);
  
- 
-
 
   function capitalizeFirstLetterOfEachWord(str) {
     return str

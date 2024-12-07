@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Placeholder, Row } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
 import { baseURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ const BusinessTypes = ({ toppart }) => {
       const response = await axios.get(`${baseURL}business/all/types/`);
       return response.data.data;
     },
-    staleTime: 1000,
+    staleTime: 200000,
   });
 
   if (isLoading) {
