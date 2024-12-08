@@ -403,6 +403,7 @@ const StationCreateForm = () => {
       setIsLoading(true);
 
       const formData = {
+        is_new_user:true,
         name: formValues.name,
         address: formValues.address,
         email: formValues.email,
