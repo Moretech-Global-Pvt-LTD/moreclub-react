@@ -53,14 +53,28 @@ const BusinessDiscountsForm = ({ handleSubmit, loading }) => {
     console.log("selected option",selectedOptions)
     if(selectedOptions){
       setSelectedBusinessType(selectedOptions);
-      console.log("selected option",selectedOptions)
     }else{
       setSelectedBusinessType([]);
-      console.log("selected option",selectedOptions)
     }
   };
   const handleNextStep = (value) => {
     dispatch(currentBusinessStep(value));
+  };
+
+  const isFormValid = () => {
+    // Ensure all discounts have valid values
+    const hasInvalidDiscounts = selectedBusinessType.some((type) => {
+      const discount = selectedBusinessDiscounts.find(
+        (d) => d.business_type === type.value
+      )?.discount;
+      return !discount || parseFloat(discount) <= 0;
+    });
+  
+    return (
+      !loading &&
+      selectedBusinessType.length > 0 && // At least one business type selected
+      !hasInvalidDiscounts // No invalid discounts
+    );
   };
 
   return (
@@ -127,7 +141,12 @@ const BusinessDiscountsForm = ({ handleSubmit, loading }) => {
 
       <button
         className="btn btn-primary m-4 "
-        disabled={loading || selectedBusinessType.length===0 }
+        // disabled={loading || selectedBusinessType.length===0 ||
+        //   selectedBusinessDiscounts.some((d) => !d.discount || parseFloat(d.discount) < 0)
+        //  }
+         disabled={
+          !isFormValid()
+        }
         type="submit"
         onClick={handleSubmit}
       >

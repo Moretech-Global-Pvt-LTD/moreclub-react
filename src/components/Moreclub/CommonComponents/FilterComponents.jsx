@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useQueryClient } from '@tanstack/react-query';
 
 const FilterComponent = ({ OrderStatusTypes, OrderTypes, invalidatekey, showStatus=true, showType=true,  showDateFilter=true  }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const queryClient = useQueryClient();
 
