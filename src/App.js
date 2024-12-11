@@ -161,7 +161,8 @@ const App = () => {
       if (botWidget) botWidget.style.display = "none"; // Hide the bot on other pages
     }
   }, [location.pathname]); // Run the effect when the path changes
-
+  
+  
   // DisableDevtool({
   //   url:'https://_blank',
 
