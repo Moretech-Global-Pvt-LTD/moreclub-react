@@ -79,7 +79,7 @@ const BusinessRegisterForm = ({ setBusinessRegistration }) => {
 
     if (result.status === 200) {
       message.success("Registered Successfully");
-      localStorage.setItem("otp_username", formData.email);
+      localStorage.setItem("otp_username", formData.phone_number);
       if (nextParam) {
         const targetUrl = `/otp?next=${encodeURIComponent(nextParam)}`;
         navigate(targetUrl);
