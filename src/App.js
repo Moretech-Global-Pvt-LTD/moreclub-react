@@ -161,26 +161,25 @@ const App = () => {
       if (botWidget) botWidget.style.display = "none"; // Hide the bot on other pages
     }
   }, [location.pathname]); // Run the effect when the path changes
-  
-  
-  // DisableDevtool({
-  //   url:'https://_blank',
 
-  //   ondevtoolopen: (type, next) => {
-  //     next();
-  //   },
+  DisableDevtool({
+    url:'https://_blank',
 
-  //   ondevtoolclose: () => {
-  //     console.log("Developer tools closed");
-  //   },
+    ondevtoolopen: (type, next) => {
+      next();
+    },
 
-  //   interval: 1,
-  //   disableMenu: true,
-  //   disableSelect: false,
-  //   disableCopy: false,
-  //   disableCut: false,
-  //   disablePaste: false,
-  // });
+    ondevtoolclose: () => {
+      console.log("Developer tools closed");
+    },
+
+    interval: 1,
+    disableMenu: true,
+    disableSelect: false,
+    disableCopy: false,
+    disableCut: false,
+    disablePaste: false,
+  });
 
 
   useEffect(() => {
