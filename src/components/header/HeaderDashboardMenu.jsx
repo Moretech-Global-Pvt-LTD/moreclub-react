@@ -230,7 +230,7 @@ const HeaderDashboardMenu = () => {
               </li> */}
             </>
           )}
-        {/* {user.user?.user_type === "NORMAL" && (
+        {user.user?.user_type === "NORMAL" && (
           <>
             <li>
               <NavLink to={"/moresaloon"}>
@@ -258,7 +258,7 @@ const HeaderDashboardMenu = () => {
               </NavLink>
             </li>
           </>
-        )} */}
+        )}
         {/* salons business */}
         {user.user?.user_type !== "NORMAL" && (
           <>
@@ -377,7 +377,7 @@ const HeaderDashboardMenu = () => {
                   </li>
                 </SidebarDropDownMenu>
               )}
-              {/* {business.businessProfile.business_types?.some(
+              {business.businessProfile.business_types?.some(
                 (type) => type.name === "Salons"
               ) && (
                 <SidebarDropDownMenu
@@ -428,7 +428,7 @@ const HeaderDashboardMenu = () => {
                     </NavLink>
                   </li>
                 </SidebarDropDownMenu>
-              )} */}
+              )}
             </>
             {/* )} */}
           </>
