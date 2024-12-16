@@ -178,7 +178,7 @@ const Setuppage = ({ data }) => {
             </Card>
           </Col>
         </Link>
-        <Link
+        {/* <Link
           to={`/station/${id}/nearby?lat=${data.lat}&lng=${data.lng}`}
           className="d-flex flex-column my-2"
         >
@@ -237,7 +237,7 @@ const Setuppage = ({ data }) => {
               </Card.Title>
             </Card>
           </Col>
-        </Link>
+        </Link> */}
       </Row>
 
     </div>

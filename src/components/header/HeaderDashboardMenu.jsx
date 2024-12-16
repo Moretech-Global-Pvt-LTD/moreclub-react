@@ -477,7 +477,9 @@ const HeaderDashboardMenu = () => {
           </>
         )} */}
 
-        {(user.isSuperAdmin || user.isStationOwner) && (
+        {/* station */}
+
+        {/* {(user.isSuperAdmin || user.isStationOwner) && (
           <li>
             <NavLink to={"/station"}>
               <svg
@@ -494,7 +496,7 @@ const HeaderDashboardMenu = () => {
               &nbsp; Setup Station
             </NavLink>
           </li>
-        )}
+        )} */}
       </ul>
     </div>
   );
