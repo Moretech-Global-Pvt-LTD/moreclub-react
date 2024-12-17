@@ -231,6 +231,16 @@ const HeaderDashboard = () => {
 
                 <Dropdown.Menu className="mt-3" align="end">
                   {userDropdownList}
+
+                  
+
+                  
+                  <Link className="dropdown-item" to={"/support"}>
+          {/* <i className={`me-2 bi ${elem.icon}`} /> */}
+          <img src="/images/moreclub/morefood/support.png" alt="Support Icon"  style={{width:"20px", height:"20px"}} className="me-2 bi"/>
+         &nbsp;Support
+        </Link>
+                  
                   <li onClick={() => logOut()}>
                     <div
                       className="dropdown-item cursor-pointer"
