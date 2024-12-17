@@ -158,10 +158,10 @@ export default function Footer() {
                     text: "FAQ's",
                     url: "/faq",
                   },
-                  // {
-                  //     text: "Careers",
-                  //     url: "#"
-                  // },
+                  {
+                    text: "Support",
+                    url: "/support",
+                  },
                   {
                     text: "Conditions",
                     url: "/terms",
