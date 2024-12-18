@@ -47,13 +47,13 @@ const BusinessRegisterForm = ({ setBusinessRegistration }) => {
     const selectedCountry = countryList.find(
       (country) => country.prefix_number === formData.phone_prefix
     );
-
+    const validPhoneNumber = formData.phone_number.replace(/[^+\d]/g, "");     
     // Handle form submission here
     const combinedFormData = {
       first_name: formData.first_name,
       last_name: formData.last_name,
       email: formData.email,
-      phone_number: `${formData.phone_number}`,
+      phone_number: validPhoneNumber,
       password: formData.password,
       user_type: formData.user_type,
       user_profile: {

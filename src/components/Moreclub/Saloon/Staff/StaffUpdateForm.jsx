@@ -6,7 +6,7 @@ import Select from "react-select";
 import { message } from 'antd';
 import { useQueryClient } from '@tanstack/react-query';
 
-const customStyles = {
+export const customStyles = {
     control: (provided, state) => ({
         ...provided,
         backgroundColor: 'transparent',
