@@ -37,16 +37,32 @@ const UserBasicForm = () => {
   };
 
   // for full name validation
+  // const handleFullnameValidation = async (event) => {
+  //   const value = event.target.value;
+  //   if (value.trim() === "") {
+  //     setFullNameError("Name is Required");
+  //   } else if (value.trim().split(" ").length === 1) {
+  //     setFullNameError("Last Name is Required");
+  //   } else {
+  //     const [firstName, ...lastNameArr] = fullName.split(" ");
+  //     const lastName = lastNameArr.join(" ");
+  //     dispatch(updateFormData({ firstName: fullName }));
+  //     dispatch(updateFormData({ first_name: firstName }));
+  //     dispatch(updateFormData({ last_name: lastName }));
+  //     setFullNameError("");
+  //   }
+  // };
+
   const handleFullnameValidation = async (event) => {
-    const value = event.target.value;
-    if (value.trim() === "") {
+    const value = event.target.value.trim(); // Trim the input to avoid leading/trailing spaces
+    if (value === "") {
       setFullNameError("Name is Required");
-    } else if (value.trim().split(" ").length === 1) {
+    } else if (value.split(" ").length === 1) {
       setFullNameError("Last Name is Required");
     } else {
-      const [firstName, ...lastNameArr] = fullName.split(" ");
-      const lastName = lastNameArr.join("");
-      dispatch(updateFormData({ firstName: fullName }));
+      const [firstName, ...lastNameArr] = value.split(" "); // Use 'value' instead of 'fullName'
+      const lastName = lastNameArr.join(" ");
+      dispatch(updateFormData({ firstName: value })); // Corrected 'fullName' to 'value'
       dispatch(updateFormData({ first_name: firstName }));
       dispatch(updateFormData({ last_name: lastName }));
       setFullNameError("");
@@ -89,25 +105,16 @@ const UserBasicForm = () => {
   //  phone check weather it exist or not
   const handlePhoneCheck = async (value) => {
     if (value !== "") {
-      // if (prefix === null) {
-      //   try {
-      //     const res = await axios.post(`${baseURL}auth/check/username/`, {
-      //       username: `${prefix}${value}`,
-      //     });
-      //     if (res.status === 200) {
-      //       setPhoneError("");
-      //       await dispatch(updateFormData({ phone_number: value }));
-      //     }
-      //   } catch (error) {
-      //     setPhoneError(error.response.data?.errors?.username[0]);
-      //   }
-      // } else {
       try {
+
+        const validPhoneNumber = value.replace(/[^+\d]/g, "");
+         console.log(validPhoneNumber);
         const res = await axios.post(`${baseURL}auth/check/username/`, {
-          username: `${value}`,
+          username: `${validPhoneNumber}`,
         });
         if (res.status === 200) {
           setPhoneError("");
+
           await dispatch(updateFormData({ phone_number: value }));
         }
       } catch (error) {
