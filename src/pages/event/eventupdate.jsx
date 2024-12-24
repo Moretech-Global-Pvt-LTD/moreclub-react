@@ -12,7 +12,6 @@ const EventUpdate = () => {
   const { eventId } = useParams();
 
   const fetchEventDetail = async () => {
-    console.log(eventId);
     const response = await axios.get(`${baseURL}events/detail/${eventId}`);
     return response.data.data;
   };

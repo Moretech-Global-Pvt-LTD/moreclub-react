@@ -1,6 +1,5 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import {
- 
   Row,
   Col,
   Carousel,
@@ -19,7 +18,6 @@ import moment from "moment";
 import { axiosInstance } from "../..";
 
 import { message } from "antd";
-import { useSelector } from "react-redux";
 import PINInput from "../../components/ui/GridPinInput";
 
 import DashboardLayout from "../../components/Layout/DashboardLayout";
@@ -110,7 +108,6 @@ const EventDetailPage = () => {
     );
   }
 
-
   const handlePInChange = async (newPin) => {
     const value = newPin;
     setPin(value);
@@ -127,7 +124,6 @@ const EventDetailPage = () => {
   };
 
   const handleBooking = async (e) => {
-
     e.preventDefault();
     try {
       const res = await axiosInstance.post(
@@ -144,170 +140,146 @@ const EventDetailPage = () => {
   };
   const position = { lat: 28.2123042, lng: 83.9721532 };
 
+  // Function to format the text
+ 
+
+  // const splitText = data.eventdata.description.split(/(?=🎶|🎄|🍷|🎅)/g);
+  
   return (
     <DashboardLayout>
-      <div class="welcome-area" style={{ marginTop: "10px" }}>
-        <div class="row align-items-center">
-          <div class="col-12 col-sm-12 col-md-6">
-            <div className="row  bg-white mb-4">
-              <Carousel>
-                {data.eventdata.event_photo &&
-                  data.eventdata.event_photo.map((item) => (
-                    <Carousel.Item key={item.id}>
-                      <img
-                        className="d-block w-100"
-                        src={item.image}
-                        alt="First slide"
-                        style={{ objectFit: "fit" }}
-                      />
-                    </Carousel.Item>
-                  ))}
-              </Carousel>
-            </div>
-          </div>
-          <div class="col-12 col-sm-10 col-md-6">
-            <div class="welcome-content mb-5 mb-md-0">
-              <div
-                class="animated fadeInUp"
-                style={{ animationDuration: "1s" }}
-              >
-                <h2>{data.eventdata?.name}</h2>
-              </div>
-              <div
-                class="animated fadeInUp "
-                style={{ animationDuration: "1s" }}
-              >
-                <p class="mb-4 ">{data.eventdata.description}</p>
-              </div>
-              <p className="text-dynamic-white fs-6">
-                <i class="ms-2 bi-geo-alt-fill"></i>&nbsp;
-                {data.eventdata.location}
-              </p>
-              <div className="fs-6">
-                <i class="bi bi-calendar2-minus text-dynamic-white"></i>&nbsp;
-                <span
-                  className="text-dynamic-white"
-                  style={{ fontSize: "14px" }}
-                >
-                  Start From:&nbsp;
-                  {moment(data.eventdata.start_date).format(
-                    "dddd DD MMM, YY"
-                  )}{" "}
-                  at{" "}
-                  {moment
-                    .utc(data.eventdata.start_date)
-                    .local()
-                    .format("h:mm a")}
-                  &nbsp;
-                  <br />
-                  &nbsp;&nbsp;&nbsp;&nbsp; Ends At:&nbsp;
-                  {moment(data.eventdata.end_date).format(
-                    "dddd DD MMM, YY"
-                  )}{" "}
-                  till{" "}
-                  {moment.utc(data.eventdata.end_date).local().format("h:mm a")}
-                </span>
-              </div>
-              <div
-                class="animated fadeInUp"
-                style={{ animationDuration: "1s" }}
-              >
-                <div class="hero-btn-group">
-                  <button
-                    className="btn btn-success rounded-pill mt-3 me-3"
-                    style={{ whiteSpace: "nowrap" }}
-                    onClick={() => {
-                      setShowDetails(!showDetails);
-                    }}
-                  >
-                    {!showDetails ? (
-                      <>
-                        View Detail<i class="ms-2 bi bi-arrow-down"></i>
-                      </>
-                    ) : (
-                      <>
-                        View Less<i class="ms-2 bi bi-arrow-up"></i>
-                      </>
-                    )}
-                  </button>
-                  {data.userdata.booked ? (
-                    <button
-                      className="btn btn-warning rounded-pill mt-3 me-3 "
-                      style={{ whiteSpace: "nowrap" }}
-                    >
-                      Booked
-                    </button>
-                  ) : (
-                    <>
-                        <button
-                          className="btn btn-danger rounded-pill mt-3 me-3 "
-                          style={{ whiteSpace: "nowrap" }}
-                          // onClick={()=>{handleBooking(data.eventdata.id)}}
-                          onClick={() => toggleModal(true)}
-                        >
-                          Book Now
-                        </button>
-                        <Modal
-                          aria-labelledby="contained-modal-title-vcenter"
-                          size="md"
-                          centered
-                          show={isModalOpen}
-                          onHide={toggleModal}
-                        
-                        >
-                          <Modal.Header>
-                            <Modal.Title id="contained-modal-title-vcenter text-center" className="text-dynamic-white">
-                              Book your Ticket
-                            </Modal.Title>
-                          </Modal.Header>
-                          <Modal.Body>
-                          <form onSubmit={handleBooking}>
-                            <div className="d-flex flex-column justify-content-center">
-                              <label className="form-label text-center">Enter PIN</label>
-                              <div className=" mx-auto">
+      <div className="event-container">
+        {/* Carousel for Images Only */}
+        <Carousel className="carousel-container">
+          {data.eventdata.event_photo &&
+            data.eventdata.event_photo.map((item) => (
+              <Carousel.Item key={item.id}>
+                <img
+                  className="d-block w-100"
+                  src={item.image}
+                  alt="First slide"
+                  style={{ objectFit: "contain" }}
+                />
+              </Carousel.Item>
+            ))}
+        </Carousel>
 
-                              <PINInput length={4} value={pin} onChange={handlePInChange} error={pinError} />
-                                </div>
-                              </div>
-                              <div className="d-flex justify-content-end my-2 gap-2">
-                                <Button
-                                  variant="secondary"
-                                  onClick={(e) => { e.preventDefault(); toggleModal(false) }}
-                                  className="mt-4 "
-                                >
-                                  {isLoading && (
-                                    <span className="spinner-border spinner-border-sm text-danger"></span>
-                                  )}
-                                  &nbsp;Cancel 
-                                </Button>
-                              <Button
-                            variant="primary"
-                            type="submit"
-                            className="mt-4 "
-                          >
-                            {isLoading && (
-                              <span className="spinner-border spinner-border-sm text-danger"></span>
-                            )}
-                            &nbsp;Confirm buy
-                          </Button>
-                                
-                         </div>
-                            </form>
-                            </Modal.Body>
-                      </Modal>
-                    </>
-                  )}
-                </div>
-                <p className="my-4">
-                  Price&nbsp;
-                  <span style={{ fontSize: "24px" }}>
-                    {data.eventdata.currency?.symbol}&nbsp;
-                    {data.eventdata.price}
-                  </span>
-                </p>
-              </div>
-            </div>
+        {/* Static Event Details */}
+        <div className="event-details-container">
+          <h1 className="event-title">{data.eventdata?.name}</h1>
+          <p className="event-description" style={{ whiteSpace: "pre-wrap" }}>{data.eventdata.description}</p>
+          <div className="event-details">
+            <p>
+              📍 <strong>Location:</strong> {data.eventdata.location}
+            </p>
+            <p>
+              📅 <strong>Start Date & Time:</strong>{" "}
+              {moment(data.eventdata.start_date).format("dddd DD MMM, YY")} at{" "}
+              {moment.utc(data.eventdata.start_date).local().format("h:mm a")}
+            </p>
+            <p>
+              📅 <strong>End Date & Time:</strong>{" "}
+              {moment(data.eventdata.end_date).format("dddd DD MMM, YY")} at{" "}
+              {moment.utc(data.eventdata.end_date).local().format("h:mm a")}
+            </p>
           </div>
+          <div className="event-buttons">
+            <Button
+              variant="success"
+              className="me-2 rounded-pill"
+              onClick={() => {
+                setShowDetails(!showDetails);
+              }}
+            >
+              {!showDetails ? (
+                <>
+                  View Detail<i class="ms-2 bi bi-arrow-down"></i>
+                </>
+              ) : (
+                <>
+                  View Less<i class="ms-2 bi bi-arrow-up"></i>
+                </>
+              )}
+            </Button>
+
+            {data.userdata.booked ? (
+              <button
+                className="btn btn-warning rounded-pill "
+                style={{ whiteSpace: "nowrap" }}
+              >
+                Booked
+              </button>
+            ) : (
+              <>
+                <button
+                  className="btn btn-danger rounded-pill  "
+                  style={{ whiteSpace: "nowrap" }}
+                  // onClick={()=>{handleBooking(data.eventdata.id)}}
+                  onClick={() => toggleModal(true)}
+                >
+                  Book Now
+                </button>
+                <Modal
+                  aria-labelledby="contained-modal-title-vcenter"
+                  size="md"
+                  centered
+                  show={isModalOpen}
+                  onHide={toggleModal}
+                >
+                  <Modal.Header>
+                    <Modal.Title
+                      id="contained-modal-title-vcenter text-center"
+                      className="text-dynamic-white"
+                    >
+                      Book your Ticket
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <form onSubmit={handleBooking}>
+                      <div className="d-flex flex-column justify-content-center">
+                        <label className="form-label text-center">
+                          Enter PIN
+                        </label>
+                        <div className=" mx-auto">
+                          <PINInput
+                            length={4}
+                            value={pin}
+                            onChange={handlePInChange}
+                            error={pinError}
+                          />
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-end my-2 gap-2">
+                        <Button
+                          variant="secondary"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggleModal(false);
+                          }}
+                          className="mt-4 "
+                        >
+                          {isLoading && (
+                            <span className="spinner-border spinner-border-sm text-danger"></span>
+                          )}
+                          &nbsp;Cancel
+                        </Button>
+                        <Button
+                          variant="primary"
+                          type="submit"
+                          className="mt-4 "
+                        >
+                          {isLoading && (
+                            <span className="spinner-border spinner-border-sm text-danger"></span>
+                          )}
+                          &nbsp;Confirm buy
+                        </Button>
+                      </div>
+                    </form>
+                  </Modal.Body>
+                </Modal>
+              </>
+            )}
+          </div>
+          <p className="event-price">Price: Rs. 0.00</p>
         </div>
       </div>
 
@@ -319,7 +291,7 @@ const EventDetailPage = () => {
                 <Card>
                   <Card.Body>
                     <h3>{data.eventdata.event_highlights_title}</h3>
-                    <p>{data.eventdata.event_highlights_description}</p>
+                    <p style={{ whiteSpace: "pre-wrap" }}>{data.eventdata.event_highlights_description}</p>
                   </Card.Body>
                 </Card>
               </Col>
@@ -327,7 +299,7 @@ const EventDetailPage = () => {
           </div>
         )}
       </div>
-      <div>
+      <div className="my-3">
         <div class="animated fadeInUp " style={{ animationDuration: "1s" }}>
           <MapboxComponent
             lat={data.eventdata.lat}
@@ -349,8 +321,6 @@ const EventDetailPage = () => {
               ${moment.utc(data.eventdata.end_date).local().format("h:mm a")}
             </span>`}
           />
-
-          
         </div>
       </div>
 

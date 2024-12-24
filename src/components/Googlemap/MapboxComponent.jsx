@@ -35,9 +35,9 @@ const MapboxComponent = ({ lat, lng, title, detail, extraInfo }) => {
     
     const popup = new mapboxgl.Popup({ offset: 25 }) // offset to avoid overlapping with marker
       .setHTML(`
-        <h6>${title}</h6>
-        <p style="font-size: 10px">${detail}</p>
-         <p>${extraInfo?? ""}</p>
+        <h6 style="color: #06ae5a; font-size: 12px">  ${title}</h6>
+        <p style="color: #09150f; font-size: 10px">${detail}</p>
+         <p style="color: #09150f; font-size: 10px">${extraInfo?? ""}</p>
       `);
 
     marker.setPopup(popup); 

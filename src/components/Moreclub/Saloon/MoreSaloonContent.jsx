@@ -5,13 +5,20 @@ import RestaurantCardSkeleton from '../../Skeleton/RestaurantCardSkeleton';
 import { Row } from 'react-bootstrap';
 import SaloonCard from './SaloonCard';
 import axios from 'axios';
+import Cookies from "js-cookie"
 
 const MoreSaloonContent = () => {
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["More Saloon List"],
         queryFn: async () => {
-            const response = await axios.get(`${moresaloonURL}saloons/lists/`);
+            const response = await axios.get(`${moresaloonURL}saloons/lists/`,
+                {
+                    headers: {
+                        'x-country-code': Cookies.get("countryCode"),
+                    }
+                }
+            );
             const data = await response.data.data;
             return data;
         },
