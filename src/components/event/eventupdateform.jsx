@@ -27,19 +27,18 @@ const UpdateEventForm = ({ existingEventData, id }) => {
   useEffect(() => {
     if (existingEventData) {
       setFormData({
-        name: existingEventData.name,
-        description: existingEventData.description,
-        location: existingEventData.location,
-        lat: parseFloat(existingEventData.lat),
-        lng: parseFloat(existingEventData.lng),
-        start_date: existingEventData.start_date,
-        end_date: existingEventData.end_date,
-        images: existingEventData.images,
-        max_limit: existingEventData.limit,
+        name:existingEventData.name,
+        description:existingEventData.description,
+        location:existingEventData.location,
+        lat:parseFloat(existingEventData.lat),
+        lng:parseFloat(existingEventData.lng),
+        start_date:existingEventData.start_date,
+        end_date:existingEventData.end_date,
+        images:existingEventData.images,
+        max_limit:existingEventData.limit,
         price: existingEventData.price,
         event_highlights_title: existingEventData.event_highlights_title,
-        event_highlights_description:
-        existingEventData.event_highlights_description,
+        event_highlights_description:existingEventData.event_highlights_description,
       });
     }
   }, [existingEventData]);
@@ -164,7 +163,7 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                   type="text"
                   placeholder="Enter event name"
                   name="max_limit"
-                  value={formData.name}
+                  value={formData.max_limit}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -240,7 +239,6 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                   onChange={handleChange}
                 />
               </Form.Group>
-
               <Form.Group
                 controlId="formEventHighlightsDescription"
                 className="mb-3"

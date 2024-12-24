@@ -28093,7 +28093,7 @@ span {
 .event-card-container {
   /* max-width: 720px; */
   width:500px;
-  margin: 0px auto;
+  margin: 0px ;
 }
 
 
@@ -30139,6 +30139,8 @@ visibility: hidden;
   margin: 10px 0;
   line-height: 1.6;
   color: #555;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
 }
 
 .event-details p {

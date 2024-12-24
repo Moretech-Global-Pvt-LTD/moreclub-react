@@ -22,7 +22,6 @@ import PINInput from "../../components/ui/GridPinInput";
 
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 import MapboxComponent from "../../components/Googlemap/MapboxComponent";
-import TextFormator from "./TextFormator";
 
 const EventDetailPage = () => {
   const { eventId } = useParams();
@@ -167,9 +166,7 @@ const EventDetailPage = () => {
         {/* Static Event Details */}
         <div className="event-details-container">
           <h1 className="event-title">{data.eventdata?.name}</h1>
-          <p className="event-description">
-            <TextFormator text={data.eventdata.description} />
-          </p>
+          <p className="event-description" style={{ whiteSpace: "pre-wrap" }}>{data.eventdata.description}</p>
           <div className="event-details">
             <p>
               📍 <strong>Location:</strong> {data.eventdata.location}
@@ -294,9 +291,7 @@ const EventDetailPage = () => {
                 <Card>
                   <Card.Body>
                     <h3>{data.eventdata.event_highlights_title}</h3>
-                    <TextFormator text={data.eventdata.event_highlights_description} />
-                    {/* <p>{data.eventdata.event_highlights_description}</p> */}
-                    
+                    <p style={{ whiteSpace: "pre-wrap" }}>{data.eventdata.event_highlights_description}</p>
                   </Card.Body>
                 </Card>
               </Col>
