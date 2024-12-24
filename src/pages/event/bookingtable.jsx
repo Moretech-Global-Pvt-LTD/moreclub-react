@@ -1,11 +1,11 @@
 import React, { useState, createContext } from "react";
-import { Table, Button, } from "react-bootstrap";
+import { Table, Button, Modal } from "react-bootstrap";
 import * as XLSX from "xlsx";
 
 import { useDispatch } from "react-redux";
 import { updateSelctionData } from "../../redux/slices/NetworkListSlice";
 import MembershipCodeReader from "../../components/QR/membershipcodeScanner";
-import { Modal, Space } from "antd";
+import { Result, Space } from "antd";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 
@@ -14,16 +14,10 @@ const BookingTable = ({ list, eventId }) => {
   const [loading, setLoading] = useState(false);
   const [membership, setMembership] = useState("");
   const dispatch = useDispatch();
-  const [modal, contextHolder] = Modal.useModal();
-
-  // const { data: bookings, isLoading, isError } = useQuery({
-  //   queryKey: ["booking list", username],
-  //   queryFn: async () => {
-  //     const response = await axiosInstance.get(`${baseURL}permissions/list/`);
-  //     return response.data.data;
-  //   },
-  //   staleTime: 1000,
-  // });
+  // const [modal, contextHolder] = Modal.useModal();
+  const [scannerModal, setScannerModal] = useState(false);
+  const [scannerResult, setScannerResult] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleCheckboxChange = (e, rowData) => {
     if (e.target.checked) {
@@ -70,27 +64,8 @@ const BookingTable = ({ list, eventId }) => {
   //   console.log("searching");
   // };
 
-  const success = () => {
-    Modal.success({
-      title: "Welcome, You have your booking",
-      content: (
-        <div>
-          <Button variant="sucess" className="align-self-center">
-            Entry
-          </Button>
-        </div>
-      ),
-      onOk() {},
-    });
-  };
-
-  const error = () => {
-    Modal.error({
-      title: "You have not booked",
-      content: <div></div>,
-      onOk() {},
-    });
-  };
+  
+ 
 
   const ScannerResult = async (result) => {
     const resultObject = JSON.parse(result.data);
@@ -101,28 +76,37 @@ const BookingTable = ({ list, eventId }) => {
         const res = await axiosInstance.get(
           `${baseURL}events/book/check/?event_id=${eventId}&&username=${membershipCode}`
         );
-        success();
+        setMessage('Welcome! You have your booking Confirmed' )
       } catch (err) {
-        error();
+        setMessage('Sorry Your booking was not found')
+      }finally{
+        handleScannerClose();
+        handleResultShow();
       }
     } else {
       setMembership("");
     }
   };
 
-  const ReachableContext = createContext(null);
-  const UnreachableContext = createContext(null);
-
-  const config = {
-    title: "Scan the MemberCode",
-    content: (
-      <div style={{ width: "300px", height: "300px", position: "relative" }}>
-        <MembershipCodeReader onScansSuccess={ScannerResult} />
-      </div>
-    ),
+  const handleScannerClose = () => {
+    setScannerModal(false);
   };
 
+  const handleScannerShow = () => {
+    setScannerModal(true);
+  };
+
+  const handleResultClose = () => {
+    setScannerResult(false);
+  };
+
+  const handleResultShow = () => {
+    setScannerResult(true);
+  };
+
+
   return (
+    <>
     <div>
       <div className="table-controls d-flex align-items-center justify-content-between mb-3 gap-2">
         {/* <Form>
@@ -154,37 +138,22 @@ const BookingTable = ({ list, eventId }) => {
           </Row>
         </Form> */}
         <h4>View your Bookings for the events</h4>
-        <div className="d-flex gap-2">
-        <ReachableContext.Provider value="Light">
-          <Space>
-            <Button
-              onClick={async () => {
-                modal.info(config);
-              }}
-              className="btn-sm"
-            >
-              <i class="bi bi-qr-code-scan"></i>
-            </Button>
-          </Space>
-          {/* `contextHolder` should always be placed under the context you want to access */}
-          {contextHolder}
-
-          {/* Can not access this context since `contextHolder` is not in it */}
-          <UnreachableContext.Provider value="Bamboo" />
-        </ReachableContext.Provider>
-
-        <div className="my-4">
-          <Button
-            onClick={handleDownloadCSV}
-            disabled={selectedRows.length === 0 || loading}
-            className="btn btn-secondary btn-sm"
-          >
-            <i className="bi bi-arrow-down-circle"></i>
+        <div className="d-flex gap-2 align-items-center">
+          <Button onClick={handleScannerShow} className="btn-sm">
+            <i class="bi bi-qr-code-scan"></i>
           </Button>
-          {/* )} */}
-        </div>
-        </div>
 
+          <div className="my-4">
+            <Button
+              onClick={handleDownloadCSV}
+              disabled={selectedRows.length === 0 || loading}
+              className="btn btn-secondary btn-sm"
+            >
+              <i className="bi bi-arrow-down-circle"></i>
+            </Button>
+            {/* )} */}
+          </div>
+        </div>
       </div>
       <Table responsive className="bg-white">
         <thead className="border-bottom-0">
@@ -252,8 +221,79 @@ const BookingTable = ({ list, eventId }) => {
           </tr>
         </tfoot>
       </Table>
-    
+      <Modal
+        aria-labelledby="contained-modal-title-vcenter"
+        size="md"
+        centered
+        show={scannerModal}
+        onHide={handleScannerClose}
+      >
+        <Modal.Header>
+          <Modal.Title
+            id="contained-modal-title-vcenter text-center"
+            className="text-dynamic-white"
+          >
+            Scan the MemberCode
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div
+            style={{ width: "300px", height: "300px", position: "relative", justifyContent: "center", margin: "auto" }}
+          >
+            <MembershipCodeReader onScansSuccess={ScannerResult} />
+          </div>
+          <div className="d-flex justify-content-center">
+
+          <Button
+          size="sm"
+          className="mx-auto mt-3 btn btn-warning "
+            onClick={handleScannerClose}
+          >Close</Button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
+    <Modal
+        aria-labelledby="contained-modal-title-vcenter"
+        size="sm"
+        centered
+        show={scannerResult}
+        onHide={handleResultClose}
+      >
+        <Modal.Header>
+          <Modal.Title
+            id="contained-modal-title-vcenter text-center"
+            className="text-dynamic-white text-center  d-flex justify-content-center"
+          >
+            <h4 className="text-center">
+            Booking Status
+            </h4>
+           
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p className="text-center w-100">{message}</p>
+          <div className="d-flex justify-content-center">
+            {message === "You have not booked" ? (
+             <Button
+             size="sm"
+             className="mx-auto mt-3 btn btn-danger "
+               onClick={handleResultClose}
+             >Close</Button>
+            ):
+            <Button
+             size="sm"
+             className="mx-auto mt-3 btn btn-success "
+               onClick={handleResultClose}
+             >Close</Button>
+            }
+          
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
+
+    
   );
 };
 

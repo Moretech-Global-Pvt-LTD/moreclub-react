@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import { Form, Button, Row, Col,  } from "react-bootstrap";
 import { axiosInstance } from "../..";
 import { message } from "antd";
 import { baseURL } from "../../config/config";
@@ -10,38 +10,39 @@ import MapBoxLocationDisplayAutocomplete from "../Googlemap/MapLocationInput";
 const UpdateEventForm = ({ existingEventData, id }) => {
   const [currencyList, setCurrencyList] = useState([]);
   const [currency, setCurrency] = useState("");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    location: "",
-    lng: null,
-    lnt: null,
-    start_date: "",
-    end_date: "",
-    price: "",
-    max_limit: "",
-    event_highlights_title: "",
-    event_highlights_description: "",
+    name: existingEventData.name ??"",
+    description: existingEventData.description ?? "",
+    location: existingEventData.location ??"",
+    lng: existingEventData.lat ? parseFloat(existingEventData.lat) : null,
+    lnt: existingEventData.lng ? parseFloat(existingEventData.lng) : null,
+    start_date: existingEventData.start_date ?? "",
+    end_date: existingEventData.end_date ?? "",
+    price: existingEventData.price ?? "",
+    max_limit: existingEventData.max_limit ?? "",
+    event_highlights_title: existingEventData.event_highlights_title ??"",
+    event_highlights_description: existingEventData.event_highlights_description ??"",
   });
 
-  useEffect(() => {
-    if (existingEventData) {
-      setFormData({
-        name:existingEventData.name,
-        description:existingEventData.description,
-        location:existingEventData.location,
-        lat:parseFloat(existingEventData.lat),
-        lng:parseFloat(existingEventData.lng),
-        start_date:existingEventData.start_date,
-        end_date:existingEventData.end_date,
-        images:existingEventData.images,
-        max_limit:existingEventData.limit,
-        price: existingEventData.price,
-        event_highlights_title: existingEventData.event_highlights_title,
-        event_highlights_description:existingEventData.event_highlights_description,
-      });
-    }
-  }, [existingEventData]);
+  // useEffect(() => {
+  //   if (existingEventData) {
+  //     setFormData({
+  //       name:existingEventData.name,
+  //       description:existingEventData.description,
+  //       location:existingEventData.location,
+  //       lat:parseFloat(existingEventData.lat),
+  //       lng:parseFloat(existingEventData.lng),
+  //       start_date:existingEventData.start_date,
+  //       end_date:existingEventData.end_date,
+  //       images:existingEventData.images,
+  //       max_limit:existingEventData.limit,
+  //       price: existingEventData.price,
+  //       event_highlights_title: existingEventData.event_highlights_title,
+  //       event_highlights_description:existingEventData.event_highlights_description,
+  //     });
+  //   }
+  // }, [existingEventData]);
 
   const fetchCurrency = async () => {
     try {
@@ -104,7 +105,7 @@ const UpdateEventForm = ({ existingEventData, id }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+      
     if (
       formData.name !== existingEventData.name ||
       formData.description !== existingEventData.description ||
@@ -119,6 +120,7 @@ const UpdateEventForm = ({ existingEventData, id }) => {
       formData.event_highlights_description !==
         existingEventData.event_highlights_description
     ) {
+      setLoading(true);
       try {
         const res = await axiosInstance.put(
           `${baseURL}events/${id}/update`,
@@ -127,6 +129,8 @@ const UpdateEventForm = ({ existingEventData, id }) => {
         message.success("Event detail Updated successfully");
       } catch (err) {
         message.error(err?.response.data?.errors?.non_field_errors[0]);
+      } finally {
+        setLoading(false);
       }
     } else {
       message.warning("You have not update anything");
@@ -161,7 +165,7 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                 <Form.Label>Maximum limit</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter event name"
+                  placeholder="Enter event limit"
                   name="max_limit"
                   value={formData.max_limit}
                   onChange={handleChange}
@@ -281,7 +285,7 @@ const UpdateEventForm = ({ existingEventData, id }) => {
           </Row>  
           
             <Button variant="primary" type="submit">
-              Update Event
+             {loading && <span className="spinner-border spinner-border-sm"></span>} Update Event
             </Button>
           </Form>
         </Col>

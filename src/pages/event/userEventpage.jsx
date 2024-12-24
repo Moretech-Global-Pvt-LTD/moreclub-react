@@ -7,6 +7,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import EventCardSkeleton from "../../components/Skeleton/EventCardSkeleton";
+import Divider from "../../components/divider/Divider";
 
 const UserEventpage = () => {
   const location = useLocation();
@@ -95,10 +96,16 @@ const UserEventpage = () => {
         <Col>
           <div>
             {data.pages.map((data) => (
-              <div className="d-flex flex-wrap ">
+              <div className="d-flex flex-wrap gap-3">
                 {data.data.map((event) => (
                   <UserEventCard events={event} />
                 ))}
+                {data.data.length === 0 && (
+                  <>
+                  <p className="text-dynamic-white text-center w-100 my-5 ">You have no events.</p>
+                  <Divider/>
+                  </>
+                )}
               </div>
             ))}
             <div
