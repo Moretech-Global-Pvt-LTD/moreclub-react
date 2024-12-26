@@ -34,7 +34,7 @@ const UpdateInfoForm = ({ data }) => {
     website_link: data.website_link ?? "",
     facebook_link: data.facebook_link ?? "",
     instagram_link: data.instagram_link ?? "",
-    station_no_of_packed_item: 0,
+    station_no_of_packed_item: data.station_no_of_packed_item ?? 0,
     restro_timezone: data.restro_timezone || moment.tz.guess() || "",
   });
   const [errors, setErrors] = useState({});
