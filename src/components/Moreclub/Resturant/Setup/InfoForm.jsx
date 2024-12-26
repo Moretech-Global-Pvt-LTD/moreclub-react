@@ -284,7 +284,6 @@ const InfoForm = () => {
         const name = res.data.data.name.replace(/ /g, "-");
         navigate(`/restaurant/${res.data.data.id}/${name}`);
       } catch (err) {
-        console.log(err);
         message.error("Error Creating Restaurant");
       } finally {
         setIsLoading(false);

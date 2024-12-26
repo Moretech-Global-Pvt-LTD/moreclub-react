@@ -152,3 +152,28 @@ export const validateProperties = (value) => {
 };
 
 
+export const validateRequiredField = (value, fieldName = "Field") => {
+ 
+  if (!value || value.trim() === "") {
+    return `${fieldName} is required.`;
+  }
+  return "";
+};
+
+export const validateRequiredDateField = (value, fieldName = "Field") => {
+ 
+  if (!value) {
+    return `${fieldName} is required.`;
+  }
+  return "";
+};
+
+
+export const validateServiceField = (value) => {
+  if (!value || value.length === 0) {
+    return "Services is required.";
+  }
+  return "";
+};
+
+

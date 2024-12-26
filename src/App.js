@@ -137,6 +137,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BusinessSetupPage from "./pages/AuthAndRegisterPages/BusinessRegistration/BusinessSetupPage";
 import UpdateOffer from "./pages/moreclub/Resturant/Offers/UpdateOffer";
+import CouponsPage from "./pages/moreclub/moresaloon/Coupons/CouponsPage";
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to={`/login`} />;
@@ -756,6 +757,10 @@ const App = () => {
     {
       path: `/saloon/:id/staff/:slug`,
       page: <StaffPage />,
+    },
+    {
+      path: `/saloon/:id/coupon/:slug`,
+      page: <CouponsPage />,
     },
     {
       path: `/saloon/:id/:slug/staff/:staff_id/:staff_name`,
