@@ -30093,8 +30093,10 @@ visibility: hidden;
 
 @media (min-width: 1340px) {
   .event-container {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 16px;
+    margin: 0px;
+    max-width: 1024px;
   }
   
 }
