@@ -30171,8 +30171,43 @@ visibility: hidden;
 
 .Coupon-Container{
   display:grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+  justify-content: center;
   gap:4px;
+}
+
+
+@media screen and (min-width: 640px) {
+  .Coupon-Container{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .Coupon-Container{
+    grid-template-columns: 1fr 1fr ;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .Coupon-Container{
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:10px;
+  }
+}
+
+@media screen and (min-width: 1260px) {
+  .Coupon-Container{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:10px;
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  .Coupon-Container{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap:10px;
+  }
 }
 
 /* General styling for smaller text sizes */
@@ -30185,6 +30220,7 @@ visibility: hidden;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   max-width: 300px;
   background-color: #fff;
+  position: relative;
 }
 
 [data-theme="dark"] .saloon-coupons-card  {
@@ -30212,6 +30248,17 @@ visibility: hidden;
 .saloon-coupons-active {
   color: green; /* Active status */
   font-weight: bold;
+  
+}
+
+.coupons-activity {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  
+}
+.coupons-inactive {
+  background-color: red;
 }
 
 .saloon-coupons-inactive {
@@ -30231,12 +30278,13 @@ visibility: hidden;
 }
 
 .saloon-coupons-badge {
-  font-size: 0.75rem; /* Small badge text */
+  font-size: 1rem; /* Small badge text */
   display: inline-block;
-  background-color: #f0f8ff;
-  color: #007bff;
+  background-color: #007bff;
+  color: #fff;
   padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
+
   border: 1px solid #007bff;
 }
 
@@ -30260,9 +30308,11 @@ visibility: hidden;
   cursor: pointer;
 }
 
+
+
 .saloon-coupons-edit-btn {
   background-color: #4caf50;
-  color: white;
+  color: #000;
 }
 
 .saloon-coupons-edit-btn:hover {

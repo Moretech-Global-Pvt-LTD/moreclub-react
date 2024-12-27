@@ -104,7 +104,7 @@ const SaloonDetailContent = ({data}) => {
                         <Card className="p-2 flex-grow-1">
                             <Card.Body className="d-flex justify-content-center">
                                 <img
-                                    src={'/images/moreclub/morefood/Staff.png'}
+                                    src={'/images/moreclub/morefood/Coupons.png'}
                                     alt="staff"
                                     className="px-2 py-1 rounded "
                                     style={{ height: "5rem", width: "5rem" }}

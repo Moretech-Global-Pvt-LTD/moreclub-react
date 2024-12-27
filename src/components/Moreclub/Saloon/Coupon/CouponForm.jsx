@@ -24,7 +24,7 @@ const CouponForm = ({ mode = "create", initialData = {} ,onFinish }) => {
     startDate: initialData?.start_date ? new Date(initialData.start_date) : "",
     endDate: initialData?.end_date ? new Date(initialData.end_date) : "",
     isGlobal: initialData?.is_global !== false,
-    services: initialData?.services || [],
+    services: initialData?.services ? initialData.services.map((item) => item.id) : [],
   });
 
   const [errors, setErrors] = useState({});
@@ -287,12 +287,17 @@ const CouponForm = ({ mode = "create", initialData = {} ,onFinish }) => {
           </Form.Group>
         )}
       </div>
+      <div className="d-flex justify-content-end gap-2">
 
-      
+      <Button variant="secondary" disabled={isLoading} onClick={onFinish} className="mt-3">
+        Cancel
+      </Button>
 
       <Button type="submit" disabled={isLoading} className="mt-3">
         {isLoading ? <Spinner size="sm" animation="border" /> : "Submit"}
       </Button>
+      </div>
+
     </Form>
   );
 };
