@@ -96,6 +96,26 @@ const SaloonDetailContent = ({data}) => {
                         </Card>
                     </Col>
                 </Link>
+                <Link
+                    to={`/saloon/${id}/coupon/${slug}-coupon`}
+                    className="d-flex flex-column my-2 "
+                >
+                    <Col className="d-flex flex-column my-2">
+                        <Card className="p-2 flex-grow-1">
+                            <Card.Body className="d-flex justify-content-center">
+                                <img
+                                    src={'/images/moreclub/morefood/Coupons.png'}
+                                    alt="staff"
+                                    className="px-2 py-1 rounded "
+                                    style={{ height: "5rem", width: "5rem" }}
+                                />
+                            </Card.Body>
+                            <Card.Title className="text-dynamic-white text-center fs-6">
+                                Coupons
+                            </Card.Title>
+                        </Card>
+                    </Col>
+                </Link>
                 {/* <Link
                     to={`/resturant/${id}/offer/${slug}`}
                     className="d-flex flex-column my-2 "

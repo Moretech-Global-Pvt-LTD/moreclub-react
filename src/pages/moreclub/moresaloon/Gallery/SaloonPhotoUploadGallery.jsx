@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import GalleryImageUpload from '../../../../components/Moreclub/CommonComponents/GalleryImageUpload';
 import { message } from 'antd';
+import FewImage from '../../../../components/Moreclub/Resturant/Gallery/fewimage';
 
 const SaloonPhotoUploadGallery = () => {
   const { id, slug } = useParams();
@@ -95,8 +96,6 @@ const SaloonPhotoUploadGallery = () => {
    
   }
 
-  const name = slug.replace(/-/g, " ");
-
   return (
     <Saloonlayout>
       <div className="d-flex align-items-center justify-content-end my-2">
@@ -133,12 +132,28 @@ const SaloonPhotoUploadGallery = () => {
       </Modal>
 
 
-      <div className='masonry-gallery'>
-        {datas && datas.map((item, index) => (
-          <ImageContainer key={item.id} item={item} onClick={() => console.log(index)} />
-        ))
-        }
+      <div className="d-flex flex-wrap gap-2">
+        {datas &&
+          datas.length <= 10 &&
+          datas.map((item, index) => (
+            
+            <FewImage key={item.id} item={item} />
+            
+          ))}
       </div>
+
+      <div className="masonry-gallery">
+        {datas &&
+          datas.length > 10 &&
+          datas.map((item, index) => (
+            <ImageContainer
+              key={item.id}
+              item={item}
+              onClick={() => console.log(index)}
+            />
+          ))}
+      </div>
+
       {datas && datas.length === 0
         && (<p className='text-center text-dynamic-white'>No Image Found</p>
         )}

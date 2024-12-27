@@ -13,7 +13,6 @@ const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderS
     const [isLoading, setIsLoading] = useState(false);
     const [isRecieved, setIsRecieved] = useState(item.is_received_from_restaurant);
     const [isPaid, setIsPaid] = useState(item.is_paid_to_restaurant);
-    const [restaurantStatus, setRestaurantStatus]= useState(resturant_status);
     const { ord_id } = useParams();
     const queryClient = useQueryClient();
 

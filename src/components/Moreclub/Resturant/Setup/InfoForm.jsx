@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+  import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form, InputGroup, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { morefoodURL } from "../../../../config/config";
@@ -281,10 +281,9 @@ const InfoForm = () => {
           }
         );
         message.success("Restaurant created");
-        const name = res.data.data.name.replce(/ /g, "-");
+        const name = res.data.data.name.replace(/ /g, "-");
         navigate(`/restaurant/${res.data.data.id}/${name}`);
       } catch (err) {
-        console.log(err);
         message.error("Error Creating Restaurant");
       } finally {
         setIsLoading(false);

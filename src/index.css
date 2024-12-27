@@ -30163,6 +30163,171 @@ visibility: hidden;
 }
 
 
+.Coupon-form-Container{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:4px;
+}
+
+.Coupon-Container{
+  display:grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  gap:4px;
+}
+
+
+@media screen and (min-width: 640px) {
+  .Coupon-Container{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .Coupon-Container{
+    grid-template-columns: 1fr 1fr ;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .Coupon-Container{
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:10px;
+  }
+}
+
+@media screen and (min-width: 1260px) {
+  .Coupon-Container{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap:10px;
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  .Coupon-Container{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap:10px;
+  }
+}
+
+/* General styling for smaller text sizes */
+.saloon-coupons-card {
+  font-family: Arial, sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  background-color: #fff;
+  position: relative;
+}
+
+[data-theme="dark"] .saloon-coupons-card  {
+  background-color: #0c153b;
+}
+
+.saloon-coupons-content {
+  font-size: 0.875rem; /* Small text size */
+  color: #333;
+}
+
+.saloon-coupons-name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.saloon-coupons-discount,
+.saloon-coupons-dates,
+.saloon-coupons-status,
+.saloon-coupons-global {
+  margin: 0.25rem 0;
+}
+
+.saloon-coupons-active {
+  color: green; /* Active status */
+  font-weight: bold;
+  
+}
+
+.coupons-activity {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  
+}
+.coupons-inactive {
+  background-color: red;
+}
+
+.saloon-coupons-inactive {
+  color: red; /* Inactive status */
+  font-weight: bold;
+}
+
+.saloon-coupons-services h4 {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.saloon-coupons-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.saloon-coupons-badge {
+  font-size: 1rem; /* Small badge text */
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+
+  border: 1px solid #007bff;
+}
+
+.saloon-coupons-badge:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.saloon-coupons-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.saloon-coupons-edit-btn,
+.saloon-coupons-delete-btn {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+.saloon-coupons-edit-btn {
+  background-color: #4caf50;
+  color: #000;
+}
+
+.saloon-coupons-edit-btn:hover {
+  background-color: #45a049;
+}
+
+.saloon-coupons-delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.saloon-coupons-delete-btn:hover {
+  background-color: #e53935;
+}
+
 
 
 
