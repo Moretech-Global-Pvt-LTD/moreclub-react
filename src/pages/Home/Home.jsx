@@ -162,7 +162,7 @@ const Home = () => {
         <div className="download-app-content">
           <h2 className="text-white">Download the app for free.</h2>
           <div className="download-app-buttons">
-            <a href="#" className="download-app-button">
+            <a href="https://play.google.com/store/apps/details?id=com.moredelas.app&pcampaignid=web_share" className="download-app-button">
               <img src={playstore} alt="google play" style={{ width: "40px", height: "40px" }} />
               <h6 className="text-white">
                 Available in<br />
