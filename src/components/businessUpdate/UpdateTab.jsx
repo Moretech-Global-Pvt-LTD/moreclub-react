@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import BusinessDocumentUpdate from "../../pages/Businesspages/BusinessUpdate/BusinessDocumentUpdate";
-import BusinessUpdatePage from "../../pages/Businesspages/BusinessUpdate/BusinessUpdatePage";
-import PaymentForm from "../../pages/Businesspages/BusinessUpdate/BusinessPaymentUpdate";
+import PaymentForm from "./BusinessPaymentUpdate";
+import BusinessUpdateForm from "./BusinessUpdateForm";
+import BusinessDocumentUpdate from "./BusinessDocumentUpdate";
 
 const UpdateTab = ({ business }) => {
   const [activeTab, setActiveTab] = useState("Business-Details");
@@ -25,12 +25,6 @@ const UpdateTab = ({ business }) => {
             >
               Business Details
             </button>
-            {/* <button
-              className={`${activeTab === "Business-Logo" ? "tablinks active" : "tablinks"} `}
-              onClick={() => openTab("Business-Logo")}
-            >
-              Logo
-            </button> */}
             <button
               className={
                 activeTab === "Business-Documents"
@@ -62,20 +56,11 @@ const UpdateTab = ({ business }) => {
                 } `}
               >
                 {business.businessProfile && (
-                  <BusinessUpdatePage business={business} />
+                  <BusinessUpdateForm business={business} />
                 )}
               </div>
 
-              {/* <div
-              id="Business-Logo"
-              className={
-                activeTab === "Business-Logo" ? "tabcontent active" : "tabcontent"
-              }
-            >
-                {business.businessProfile && 
-            <BussinessLogoUpdate business={business}/>
-                }
-            </div> */}
+              
 
               <div
                 id="Business-Documents"
@@ -99,7 +84,6 @@ const UpdateTab = ({ business }) => {
               >
                 {
                   business.businessProfile && <PaymentForm />
-                  // <BussinessCardaccounts />
                 }
               </div>
             </div>

@@ -2,9 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import {
   Form,
   Button,
-  Accordion,
-  AccordionBody,
-  AccordionButton,
   Row,
   Col,
   Modal,
@@ -15,7 +12,6 @@ import Swish from "../../../images/Payments/swish.png";
 import Card from "../../../images/Payments/cards.png";
 import {
   setCard,
-  setMethodCredentials,
   setPaypal,
   setSwiss,
   setWithdrawalStep,
@@ -41,14 +37,6 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
     }
   }, [withdrawaldata.method, dispatch]);
 
-  // const handleCredentialsChange = (e) => {
-  //   dispatch(
-  //     setMethodCredentials({
-  //       ...withdrawaldata?.methodCredentials,
-  //       value: e.target.value,
-  //     })
-  //   );
-  // };
 
   const handleRadioChange = async (accvalue) => {
     if (withdrawaldata.method === "paypal") {
@@ -137,15 +125,6 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
                         key={index}
                         onClick={() => handleRadioChange(acc.email)}
                       >
-                        {/* <div>
-                  <img
-                  src={Paypal}
-                  alt="paypal"
-                  className="position-absolute"
-                  style={{width:"1.5rem", height:"1.5rem", top:"0px", left:"0px"}}
-                  
-                  />
-                </div> */}
 
                         <div class="custom-radio">
                           <input
@@ -170,9 +149,7 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
                             >
                               {acc.email}
                             </h5>
-                            {/* <h2 className="radio-h2">
-        
-                    </h2> */}
+                            
                           </label>
                         </div>
                       </div>
@@ -220,9 +197,7 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
                             >
                               {acc.phone_number}
                             </h5>
-                            {/* <h2 className="radio-h2">
-        
-                    </h2> */}
+                            
                           </label>
                         </div>
                       </div>
@@ -304,34 +279,6 @@ const MethodCredentialForm = ({ onNext, onBack }) => {
             <div className="ms-2" style={{ maxWidth: "18rem" }}></div>
           </div>
         </Form>
-        {/* <div
-          style={{ maxWidth: "300px", marginBottom: "1rem", marginTop: "1rem" }}
-        >
-          {withdrawaldata.method === "paypal" && (
-            <Accordion id="paypal">
-              <AccordionButton>Add Paypal Account</AccordionButton>
-              <AccordionBody className="px-0 mx-0">
-                <AddPaypalaccounts />
-              </AccordionBody>
-            </Accordion>
-          )}
-          {withdrawaldata.method === "swish" && (
-            <Accordion id="swish">
-              <AccordionButton>Add Swish</AccordionButton>
-              <AccordionBody className="px-0 mx-0">
-                <AddSwishaccounts />
-              </AccordionBody>
-            </Accordion>
-          )}
-          {withdrawaldata.method === "card" && (
-            <Accordion id="card">
-              <AccordionButton>Add Card</AccordionButton>
-              <AccordionBody className="px-0 mx-0">
-                <AddCardaccounts />
-              </AccordionBody>
-            </Accordion>
-          )}
-        </div> */}
         <div>
           <Button
             variant="secondary"

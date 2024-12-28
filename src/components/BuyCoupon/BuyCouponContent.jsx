@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { baseURL, hostURL } from "../../config/config";
+import { hostURL } from "../../config/config";
 
 import {
   PaymentElement,

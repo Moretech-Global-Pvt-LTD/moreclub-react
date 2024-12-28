@@ -8,8 +8,6 @@ const EventCard = ({ events }) => {
 
 
   return (
-    // { moment(events.end_date).format("dddd DD MMM, YY") }
-
     <div class="event-card-container">
       <div class="event-card">
         <div class="event-card-image">

@@ -21,20 +21,28 @@ import { loadUserPermissions } from "./PermissionsAPI";
 import { CurrencySet } from "./CurrencyConvertorAPI";
 import { getAccessToken, removeToken, setAccessToken, setRefressToken } from "../../utills/token";
 import { fetchNotifications } from "./notificationApi";
+import { businessProfileSucess } from "../slices/businessSlice";
 // import { setupNotifications } from "../../utills/firebase";
 
-export const load_user = () => async (dispatch) => {
+export const load_user = (allFetching = true) => async (dispatch) => {
   if (getAccessToken()) {
     dispatch(setLoading(true));
     try {
       const res = await axiosInstance.get(`${baseURL}auth/user/all/details/`);
       
       await dispatch(userSuccess(res.data?.data));
-
-      await dispatch(isSuperAdmin());
-
+      if(allFetching){
+        if(res.data.data.user_type === "BUSINESS"){
+          await dispatch(getBusinessProfile());
+        }
+        await dispatch(isSuperAdmin());
+        await dispatch(userMembership());
+        await dispatch(loadMembershipType());
+        await dispatch(CurrencySet());
+        await dispatch(loadUserPermissions());
+      }
       await dispatch(setLoading(false));
-     await dispatch(fetchNotifications())
+      await dispatch(fetchNotifications())
     } catch (err) {
       const error = err.response?.data?.code;
       console.log(error);
@@ -53,7 +61,6 @@ export const load_user = () => async (dispatch) => {
 
 
 export const business_account = (accessToken) => async (dispatch) => {
-  console.log(accessToken);
   try{
     const res = await axios.get(`${baseURL}permissions/business/exist/`,{
       headers:{
@@ -81,11 +88,6 @@ export const login = (username, password ,next) => async (dispatch) => {
       await dispatch(business_account(res.data.data.token));
       await dispatch(loginSuccess(res.data.data));
       await dispatch(load_user());
-      await dispatch(isSuperAdmin());
-      await dispatch(loadMembershipType());
-      await dispatch(CurrencySet());
-      await dispatch(getBusinessProfile());
-      await dispatch(loadUserPermissions());
       await dispatch(setProcessing(false));
       // await setupNotifications()
       localStorage.removeItem("otp_username");
@@ -175,22 +177,8 @@ export const register =
       const res = await axios.post(
         Url,
         data
-        // {
-        //   headers: {
-        //     'Content-Type': 'multipart/form-data'
-        //   }
-        // }
       );
-      //  const res =await fetch(`${baseURL}auth/email/register/`, {
-      //     method: 'POST',
-      //     body: data,
-      //     // headers: {
-      //     //   'Content-Type': 'multipart/form-data'
-      //     // }
-      //   })
-
       dispatch(setMessage("Account Created Successfully"));
-
       dispatch(setLoading(false));
       return res;
     } catch (err) {
@@ -264,11 +252,6 @@ export const otpVerify = (username, code , callbackUrl) => async (dispatch) => {
       
       localStorage.removeItem("otp_username");
       await dispatch(load_user());
-      await dispatch(userMembership());
-      await dispatch(isSuperAdmin());
-      await dispatch(CurrencySet());
-      await dispatch(loadMembershipType());
-      await dispatch(getBusinessProfile());
       // await setupNotifications();
     }
     return res;
@@ -314,10 +297,6 @@ export const otpEmailVerify = (email, code) => async (dispatch) => {
     if (res.status === 200) {
       localStorage.removeItem("otp_phonenumber");
       await dispatch(load_user());
-      await dispatch(userMembership());
-      await dispatch(CurrencySet());
-      await dispatch(loadMembershipType());
-      await dispatch(getBusinessProfile());
     }
     return res;
   } catch (err) {
@@ -341,9 +320,6 @@ export const update_profile = (formData) => async (dispatch) => {
         formData
       );
       await dispatch(userSuccess(res.data.data));
-      await dispatch(load_user());
-      await dispatch(loadMembershipType());
-      await dispatch(CurrencySet());
       await dispatch(setLoading(false));
       return res.data;
     } catch (err) {
@@ -371,10 +347,8 @@ export const update_profile_picture = (formData) => async (dispatch) => {
           },
         }
       );
-      // dispatch(userSuccess(res.data.data));
       await dispatch(setLoading(false));
-      await dispatch(load_user());
-      await dispatch(loadMembershipType());
+      await dispatch(load_user(false));
       return res.data.success;
     } catch (error) {
       dispatch(setLoading(false));
@@ -399,12 +373,9 @@ export const update_business_document = (formData) => async (dispatch) => {
           },
         }
       );
-      // dispatch(userSuccess(res.data.data));
+     
+      await dispatch(businessProfileSucess(res?.data?.data))
       await dispatch(setLoading(false));
-      await dispatch(load_user());
-      await dispatch(loadMembershipType());
-      await dispatch(getBusinessProfile());
-      await dispatch(CurrencySet());
       return res;
     } catch (error) {
       dispatch(setLoading(false));
@@ -427,12 +398,8 @@ export const update_business_detail = (formData) => async (dispatch) => {
           },
         }
       );
-      // dispatch(userSuccess(res.data.data));
-      await dispatch(load_user());
-      await dispatch(loadMembershipType());
-      await dispatch(getBusinessProfile());
+      await dispatch(businessProfileSucess(res?.data?.data))
       await dispatch(setLoading(false));
-      await dispatch();
       return res.data.success;
     } catch (error) {
       dispatch(setLoading(false));
@@ -478,9 +445,6 @@ export const change_password = (formData) => async (dispatch) => {
     );
     dispatch(setLoading(false));
     await dispatch(load_user());
-    await dispatch(userMembership());
-    await dispatch(loadMembershipType());
-    await dispatch(getBusinessProfile());
     return res.data.success;
   } catch (error) {
     dispatch(setLoading(false));

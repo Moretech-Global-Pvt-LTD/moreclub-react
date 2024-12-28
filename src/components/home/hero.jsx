@@ -43,16 +43,6 @@ const Hero = () => {
                 class="animated fadeInUp "
                 style={{ animationDuration: "1s" }}
               >
-                {/* <p class="mb-4 text-center">
-                  Gain access to exclusive resources, mentorship, and
-                  opprtunities to build wealth and secure your financial future.
-                  <Link
-                    class="btn btn-link rounded-pill me-3 ms-0"
-                    to="/learnmore"
-                  >
-                    Learn More<i class="ms-2 bi bi-arrow-right"></i>
-                  </Link>
-                </p> */}
                 <a href="/login">
                   <div className="bg-danger px-4 py-2 mx-5 ">
                     <h3 className="text-white text-center">SIGNUP FOR FREE</h3>
@@ -81,12 +71,7 @@ const Hero = () => {
                 allowfullscreen
               ></iframe>
             </div>
-            {/* <div class="animated fadeInUp" style={{ animationDuration: "1s" }}>
-              <div class="welcome-thumb">
-               
-                <img src={HomeImageWhite} alt="Welcome" />
-              </div>
-            </div> */}
+           
           </div>
         </div>
       </div>

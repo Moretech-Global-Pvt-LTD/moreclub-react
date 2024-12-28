@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import PINInput from "../ui/GridPinInput";
 import { useDispatch } from "react-redux";
 import { fetchNewNotifications } from "../../redux/api/notificationApi";
-import { set } from "lodash";
 
 function ChangePinForm() {
   const [pin, setPin] = useState("");
@@ -115,13 +114,14 @@ function ChangePinForm() {
           dispatch(fetchNewNotifications());
         }
       } catch (err) {
-        console.log(err);
         if (
           err.response.data.errors.non_field_errors[0] ===
           "Invalid current PIN."
         ) {
           setoldpinError(err.response.data.errors.non_field_errors[0]);
-        } else {
+        } else if(err.response?.data?.errors?.non_field_errors[0] ==="Cannot be a current PIN"){
+          setPinError(err.response?.data?.errors?.non_field_errors[0]);
+        }else {
           setoldpinError(err.response.data.errors.non_field_errors[0]);
         }
       }

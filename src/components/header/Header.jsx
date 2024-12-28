@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import useStickyHeader from "./StickyHeader";
-import { useSelector } from "react-redux";
+
 import ThemeToggler from "./themeToggler";
 import Navbutton from "./Navbutton";
 import Logos from "./Logos";
 
-const UniverslNavbar = () => {
+const UniversalNavbar = () => {
   let [check] = useState(true);
   const sticky = useStickyHeader(10);
   const stickyClass = `${sticky && check ? "sticky-on" : ""}`;
@@ -31,4 +31,4 @@ const UniverslNavbar = () => {
   );
 };
 
-export default UniverslNavbar;
+export default UniversalNavbar;

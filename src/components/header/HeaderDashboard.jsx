@@ -17,6 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { CurrencySet } from "../../redux/api/CurrencyConvertorAPI";
 import { Placeholder } from "react-bootstrap";
 import { fetchNotifications } from "../../redux/api/notificationApi";
+import DashboardMenu from "./Dashboardmenu";
 
 
 const HeaderDashboard = () => {
@@ -93,7 +94,7 @@ const HeaderDashboard = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["dashboarddatas"],
     queryFn: fetchUsersdashboardData,
-    staleTime: 100,
+    staleTime: 420000,
   });
 
   if (isLoading) {
@@ -272,8 +273,8 @@ const HeaderDashboard = () => {
         <div className="overflowY-scroll  ">
           <HeaderUserInfo />
          
-          {/* <DashboardMenu/> */}
-          <HeaderDashboardMenu/>
+          <DashboardMenu/>
+          {/* <HeaderDashboardMenu/> */}
         </div>
       </div>
 
@@ -288,7 +289,8 @@ const HeaderDashboard = () => {
             
             >
               <HeaderUserInfo />
-              <HeaderDashboardMenu />
+              <DashboardMenu/>
+          {/* <HeaderDashboardMenu/> */}
             </div>
           </div>
           <div

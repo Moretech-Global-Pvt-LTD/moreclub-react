@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Card, Button, Container, CardFooter } from "react-bootstrap";
+import { Row, Col, Card,  Container } from "react-bootstrap";
 import FreeButton from "../home/FreeButton";
 
 const pricingData = [

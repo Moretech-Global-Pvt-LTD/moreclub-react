@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Form, Placeholder } from 'react-bootstrap';
-import Divider from '../divider/Divider';
+import React, {  useState } from 'react'
+import { Button, Form,  } from 'react-bootstrap';
+
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '../..';
 import { baseURL } from '../../config/config';
 import { message } from 'antd';
@@ -19,50 +18,7 @@ const EventImageUploadform = ({datas}) => {
   
     const [imagePreviews, setImagePreviews] = useState([]);
     const [Loading, setLoading] = useState(false);
-  
-    // const { data, isLoading, isError } = useQuery({
-    //   queryKey: ["images", eventId],
-    //   queryFn: async () => {
-    //     const res = await axiosInstance.get(
-    //       `${baseURL}events/event-photos/${eventId}/`
-    //     );
-    //     return res.data.data;
-    //   },
-    // });
-  
-    // useEffect(() => {
-    //   if (data) {
-    //     setServerImage(data);
-    //   }
-    // }, [data]);
-
-    // if (isLoading) {
-    //     return (
-    //         <>
-            
-    //         <Placeholder as="p" animation="glow" className="rounded">
-    //           <Placeholder xs={12} style={{ height: "4rem" }} />
-    //         </Placeholder>
-    //         <Placeholder as="p" animation="glow" className="rounded">
-    //           <Placeholder xs={12} style={{ height: "4rem" }} />
-    //         </Placeholder>
     
-    //         <Divider />
-    //         </>
-    //     );
-    //   }
-    
-    //   if (isError) {
-    //     return (
-    //         <>
-            
-    //         <Divider />
-    //         <h6 className="text-dynamic-white text-center">Error: reteriving</h6>
-    //         <Divider />
-    //         </>
-    //     );
-    //   }
-  
 
     const handleImageChange = (e, index = null) => {
         const files = Array.from(e.target.files);

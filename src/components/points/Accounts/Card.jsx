@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { axiosInstance } from "../../..";
 import { baseURL } from "../../../config/config";
-import Card from "../../../images/Payments/cards.png";
 import {
   validateAccountName,
   validateCVC,
@@ -12,7 +11,7 @@ import { useDebounce } from "../../../Hooks/useDebounce";
 import { useDispatch } from "react-redux";
 import { fetchMethodCredentials } from "../../../redux/api/userAccountAPI";
 import { message } from "antd";
-import { set } from "lodash";
+
 
 const AddCardaccounts = ({ onfinish }) => {
   const [accountNameHolder, setAccountNameHolder] = useState("");
@@ -114,7 +113,7 @@ const AddCardaccounts = ({ onfinish }) => {
     };
 
     try {
-      const res = await axiosInstance.post(
+      await axiosInstance.post(
         `${baseURL}withdrawal/user/method/`,
         data
       );

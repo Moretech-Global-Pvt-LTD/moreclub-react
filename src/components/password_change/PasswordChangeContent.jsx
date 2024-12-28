@@ -55,9 +55,9 @@ export default function ChangePasswordContent(props) {
       );
 
       await dispatch(load_user());
-      await dispatch(userMembership());
-      await dispatch(loadMembershipType());
-      await dispatch(getBusinessProfile());
+      // await dispatch(userMembership());
+      // await dispatch(loadMembershipType());
+      // await dispatch(getBusinessProfile());
       message.success(res.data.detail);
       navigate("/dashboard");
     } catch (error) {

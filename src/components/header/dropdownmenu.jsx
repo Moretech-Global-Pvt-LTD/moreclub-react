@@ -39,7 +39,7 @@ const SidebarDropDownMenu = ({
               ? "text-danger"
               : ""
           }`}
-          // style={{ marginBottom: isOpen ? "10px" : "0px" }}
+          style={{ marginBottom: isOpen ? "10px" : "0px" }}
         >
           {menuSvg ? menuSvg : <i className={`bi ${menuIcon}`} />}
           &nbsp;&nbsp;&nbsp;{menuTitle}

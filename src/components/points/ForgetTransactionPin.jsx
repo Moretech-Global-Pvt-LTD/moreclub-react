@@ -15,12 +15,6 @@ function ForgetPinForm() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const validateoldPin = (value) => {
-    if (value.length !== 4) {
-      return "PIN must be 4 digits";
-    }
-    return "";
-  };
 
   const validatePin = (value) => {
     if (value.length !== 4) {
@@ -105,34 +99,6 @@ function ForgetPinForm() {
           {oldpinError}
         </p>
       )}
-      {/* <Form.Group controlId="pin">
-        <Form.Label>Set New PIN</Form.Label>
-        <Form.Control
-          type="number"
-          value={pin}
-          onChange={(e) => setPin(e.target.value)}
-          onBlur={handleBlurPin}
-          min={0}
-          maxLength={4}
-          max={9999}
-          required
-        />
-        {pinError && <p className="text-danger">{pinError}</p>}
-      </Form.Group>
-      <Form.Group controlId="confirmPin">
-        <Form.Label>Confirm New PIN</Form.Label>
-        <Form.Control
-          type="number"
-          value={confirmPin}
-          onChange={(e) => setConfirmPin(e.target.value)}
-          onBlur={handleBlurConfirmPin}
-          maxLength={4}
-          min={0}
-          max={9999}
-          required
-        />
-        {confirmPinError && <p className="text-danger">{confirmPinError}</p>}
-      </Form.Group> */}
       <Form.Group controlId="pin">
         <Form.Label>Set PIN</Form.Label>
         <PINInput length={4} value={pin} onChange={handlePIn} error={pinError} />

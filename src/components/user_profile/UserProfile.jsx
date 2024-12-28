@@ -1,37 +1,37 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef } from "react";
 import { Link } from "react-router-dom";
 import { message } from "antd";
 import ProfileCard from "./ProfileCard";
-import { useDispatch } from "react-redux";
-import { get_user_coupon_list } from "../../redux/api/couponAPI";
+// import { useDispatch } from "react-redux";
+// import { get_user_coupon_list } from "../../redux/api/couponAPI";
 import { useSelector } from "react-redux";
 import QRDownload from "../QR/QRDownload";
 import { Button } from "react-bootstrap";
-import SubscriptionInfo from "./SubscriptionInfo";
+
 
 
 const UserProfile = ({ users }) => {
-  const dispatch = useDispatch();
-  const [userCoupons, setUserCoupons] = useState([]);
+  // const dispatch = useDispatch();
+  // const [userCoupons, setUserCoupons] = useState([]);
   const user = useSelector((state) => state.userReducer);
-  const currency = useSelector((state) => state.currencyReducer.currencyDetail);
+  // const currency = useSelector((state) => state.currencyReducer.currencyDetail);
 
-  useEffect(() => {
-    const fetchCoupons = async () => {
-      try {
-        const res = await dispatch(get_user_coupon_list());
-        if (res.data.data) {
-          setUserCoupons(res.data.data);
-        } else {
-          setUserCoupons([]);
-        }
-      } catch (err) {
-        console.log("error getting coupons", err);
-        setUserCoupons([]);
-      }
-    };
-    fetchCoupons();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const fetchCoupons = async () => {
+  //     try {
+  //       const res = await dispatch(get_user_coupon_list());
+  //       if (res.data.data) {
+  //         setUserCoupons(res.data.data);
+  //       } else {
+  //         setUserCoupons([]);
+  //       }
+  //     } catch (err) {
+  //       console.log("error getting coupons", err);
+  //       setUserCoupons([]);
+  //     }
+  //   };
+  //   fetchCoupons();
+  // }, [dispatch]);
 
   const linkInputRef = useRef(null);
 
@@ -133,14 +133,14 @@ const UserProfile = ({ users }) => {
               </div> */}
 
               {/* coupons  */}
-              <div className="nft-card card shadow-sm mb-4 p-4">
+              {/* <div className="nft-card card shadow-sm mb-4 p-4">
                 <h4 className="linked-heading">
                   Your Coupons{" "}
                   <Link className="btn btn-link" to={`/my-coupons`}>
                     View All
                   </Link>
                 </h4>
-                {/* <span className="btn btn-link">View All</span> */}
+                
                 {userCoupons.length > 0 ? (
                   <>
                     {userCoupons?.slice(0, 4).map((coupon) => (
@@ -183,8 +183,6 @@ const UserProfile = ({ users }) => {
                           </div>
                         </div>
                       </div>
-
-                      // <CouponCards key={coupon.id} coupon={coupon} />
                     ))}
                   </>
                 ) : (
@@ -194,7 +192,7 @@ const UserProfile = ({ users }) => {
                     </Link>
                   </>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </>

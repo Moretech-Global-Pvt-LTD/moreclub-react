@@ -3,8 +3,6 @@ import WithMembershipCard from "../Users/WithMembership";
 import WithCouponCard from "../Users/WithCoupon";
 
 import React, { useEffect, useState } from "react";
-
-import { Placeholder } from "react-bootstrap";
 import { axiosInstance } from "../../..";
 import { baseURL } from "../../../config/config";
 

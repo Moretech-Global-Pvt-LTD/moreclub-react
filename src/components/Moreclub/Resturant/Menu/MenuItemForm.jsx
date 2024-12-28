@@ -5,11 +5,11 @@ import { morefoodURL } from "../../../../config/config";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
-import { valdateShortDescription, valdateShortDescriptionCharater } from "../../../../validation/resturantValidation";
+import { valdateShortDescriptionCharater } from "../../../../validation/resturantValidation";
 
 
 
-const customStyles = {
+export const customStyles = {
   control: (provided, state) => ({
     ...provided,
     backgroundColor: 'transparent',

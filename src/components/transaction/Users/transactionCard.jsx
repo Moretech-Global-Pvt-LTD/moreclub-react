@@ -7,14 +7,11 @@ import TransactionDetailView from "./transactionDetail";
 const TransactionCard = ({
     transaction_id,
     transactionType,
-    receiver,
-    sender,
     narration,
     transactiontime,
     transactionamount,
     previousbalance,
     currency_received,
-    currency_send
 }) => {
     const currency = useSelector((state) => state.currencyReducer.currencyDetail);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +45,7 @@ const TransactionCard = ({
                 <div className="d-grid w-100">
                     <span className="fw-medium mb-2 d-flex justify-content-between">
                         <span className="fw-medium">
-                            {/* {transactionType === "RECEIVE" ? "Received" : "Sent"} */}
+                            
                         </span>
                         <span className="fw-medium">
                             {transactionType === "RECEIVE" ? "+" : transactionType === "REFER" ? "+" : "-"}&nbsp;
@@ -56,8 +53,6 @@ const TransactionCard = ({
                             {transactionamount}
                         </span>
                     </span>
-                    {/* Optionally display receiver/sender if needed */}
-                    {/* <span>{transactionType === "RECEIVE" ? `Receiver: ${receiver}` : `Sender: ${sender}`}</span> */}
                     <span style={{ fontSize: "16px" }}>{narration}</span>
                     <span>
                         <i className="bi bi-calendar"></i>&nbsp;&nbsp;

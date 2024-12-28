@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Footer from "../footer/Footer";
 import Divider from "../divider/Divider";
-import UniverslNavbar from "../header/Header";
+import UniversalNavbar from "../header/Header";
 import { useLocation } from "react-router-dom";
 
 const LandingLayout = ({ children }) => {
@@ -24,7 +24,7 @@ const LandingLayout = ({ children }) => {
 
   return (
     <>
-      <UniverslNavbar />
+      <UniversalNavbar />
       <Divider />
       <div className="divider-mobile" />
       <div className="mt-3">{children}</div>

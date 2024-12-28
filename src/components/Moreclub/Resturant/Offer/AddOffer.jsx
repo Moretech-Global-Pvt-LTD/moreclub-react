@@ -38,25 +38,23 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
     isEveryDay: initialData?.isEveryDay !== false,
     startDate: initialData?.startDate ? new Date(initialData.startDate) : "",
     endDate: initialData?.endDate ? new Date(initialData.endDate) : "",
-    customDays:
-    initialData.customDays
-    ? Object.entries(initialData.customDays).reduce((acc, [day, times]) => {
-        acc[day] = {
-          start_time: times.start_time ? new Date(times.start_time) : "",
-          end_time: times.end_time ? new Date(times.end_time) : "",
-        };
-        return acc;
-      }, {})
-    :
-    {
-      Monday: { start_time: "", end_time: "" },
-      Tuesday: { start_time: "", end_time: "" },
-      Wednesday: { start_time: "", end_time: "" },
-      Thursday: { start_time: "", end_time: "" },
-      Friday: { start_time: "", end_time: "" },
-      Saturday: { start_time: "", end_time: "" },
-      Sunday: { start_time: "", end_time: "" },
-    },
+    customDays: initialData.customDays
+      ? Object.entries(initialData.customDays).reduce((acc, [day, times]) => {
+          acc[day] = {
+            start_time: times.start_time ? new Date(times.start_time) : "",
+            end_time: times.end_time ? new Date(times.end_time) : "",
+          };
+          return acc;
+        }, {})
+      : {
+          Monday: { start_time: "", end_time: "" },
+          Tuesday: { start_time: "", end_time: "" },
+          Wednesday: { start_time: "", end_time: "" },
+          Thursday: { start_time: "", end_time: "" },
+          Friday: { start_time: "", end_time: "" },
+          Saturday: { start_time: "", end_time: "" },
+          Sunday: { start_time: "", end_time: "" },
+        },
   });
 
   const navigate = useNavigate();
@@ -86,57 +84,56 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
     enabled: !!formData.selectedCategory,
   });
 
-
   const validateField = (field, value) => {
     const newErrors = { ...errors };
-  
+
     switch (field) {
-      case 'offerName':
-        newErrors.offerName = value ? '' : 'Offer Name is required.';
+      case "offerName":
+        newErrors.offerName = value ? "" : "Offer Name is required.";
         break;
-      case 'description':
-        newErrors.description = value ? '' : 'Description is required.';
+      case "description":
+        newErrors.description = value ? "" : "Description is required.";
         break;
-      case 'price':
+      case "price":
         newErrors.price =
           value && !isNaN(value) && Number(value) > 0
-            ? ''
-            : 'Valid price is required.';
+            ? ""
+            : "Valid price is required.";
         break;
-      case 'selectedItems':
+      case "selectedItems":
         newErrors.selectedItems =
-          value.length > 0 ? '' : 'At least one food item must be selected.';
+          value.length > 0 ? "" : "At least one food item must be selected.";
         break;
-      case 'bannerImage':
+      case "bannerImage":
         // Check if bannerImage is a File object
         if (value instanceof File) {
-          newErrors.bannerImage = '';
-        }else{
-          if(formData.previewImage !== null){
-            newErrors.bannerImage = '';
-          }else{
-            newErrors.bannerImage = 'Banner Image is required.'
+          newErrors.bannerImage = "";
+        } else {
+          if (formData.previewImage !== null) {
+            newErrors.bannerImage = "";
+          } else {
+            newErrors.bannerImage = "Banner Image is required.";
           }
-        }       
-        break;
-      case 'startDate':
-        if(formData.isEveryDay){
-          newErrors.startDate = '';
-        }else{
-          newErrors.startDate = value ? '' : 'Start Date is required.';
         }
         break;
-      case 'endDate':
-        if(formData.isEveryDay){
-          newErrors.endDate = '';
-        }else{
-          newErrors.endDate = value ? '' : 'End Date is required.';
+      case "startDate":
+        if (formData.isEveryDay) {
+          newErrors.startDate = "";
+        } else {
+          newErrors.startDate = value ? "" : "Start Date is required.";
+        }
+        break;
+      case "endDate":
+        if (formData.isEveryDay) {
+          newErrors.endDate = "";
+        } else {
+          newErrors.endDate = value ? "" : "End Date is required.";
         }
         break;
       default:
         break;
     }
-  
+
     setErrors(newErrors);
   };
 
@@ -144,14 +141,14 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
     const hasValidDay = Object.values(formData.customDays).some(
       (day) => day.start_time && day.end_time
     );
-  
+
     setErrors((prevErrors) => ({
       ...prevErrors,
       customDays: hasValidDay
-        ? ''
-        : 'At least one weekday must have start and end times.',
+        ? ""
+        : "At least one weekday must have start and end times.",
     }));
-  
+
     return hasValidDay;
   };
 
@@ -161,20 +158,20 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
       const newSelectedItems = [...selectedItems, item.id];
       const newSelectedItemsName = [
         ...selectedItemsName,
-        { name: item.name, id: item.id },
+        { name: `${item.name} (${item.value})`, id: item.id },
       ];
-  
+
       setFormData((prev) => ({
         ...prev,
         selectedItems: newSelectedItems,
         selectedItemsName: newSelectedItemsName,
       }));
-  
+
       // Validate selected items
-      validateField('selectedItems', newSelectedItems);
+      validateField("selectedItems", newSelectedItems);
     }
   };
-  
+
   const removeItem = (item) => {
     const newSelectedItems = formData.selectedItems.filter(
       (prev) => prev !== item.id
@@ -182,15 +179,15 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
     const newSelectedItemsName = formData.selectedItemsName.filter(
       (prev) => prev.id !== item.id
     );
-  
+
     setFormData((prev) => ({
       ...prev,
       selectedItems: newSelectedItems,
       selectedItemsName: newSelectedItemsName,
     }));
-  
+
     // Validate selected items
-    validateField('selectedItems', newSelectedItems);
+    validateField("selectedItems", newSelectedItems);
   };
 
   const handleChange = (field, value) => {
@@ -232,7 +229,7 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
       previewImage: URL.createObjectURL(file),
     }));
 
-    validateField('bannerImage', file);
+    validateField("bannerImage", file);
   };
 
   const validate = () => {
@@ -246,7 +243,7 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
       endDate,
       isEveryDay,
       customDays,
-      bannerImage
+      bannerImage,
     } = formData;
 
     if (!offerName) newErrors.offerName = "Offer Name is required.";
@@ -256,11 +253,10 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
     if (selectedItems.length === 0)
       newErrors.selectedItems = "At least one food item must be selected.";
     if (!bannerImage)
-      
-        if(formData.previewImage === null){
-         newErrors.bannerImage = 'Banner Image is required.'
-        }
-        
+      if (formData.previewImage === null) {
+        newErrors.bannerImage = "Banner Image is required.";
+      }
+
     if (isEveryDay) {
       if (!startDate) newErrors.startDate = "Start Date is required.";
       if (!endDate) newErrors.endDate = "End Date is required.";
@@ -276,19 +272,18 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-   
-const filterApplicableDays = () => {
-  return Object.entries(formData.customDays)
-    .filter(([_, times]) => times.start_time !== '' && times.end_time !== '') // Check for empty strings
-    .reduce((acc, [day, times]) => {
-      acc[day] = {
-        start_time: times.start_time,
-        end_time: times.end_time,
-      };
-      return acc;
-    }, {});
-};
-  
+  const filterApplicableDays = () => {
+    return Object.entries(formData.customDays)
+      .filter(([_, times]) => times.start_time !== "" && times.end_time !== "") // Check for empty strings
+      .reduce((acc, [day, times]) => {
+        acc[day] = {
+          start_time: times.start_time,
+          end_time: times.end_time,
+        };
+        return acc;
+      }, {});
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
@@ -302,36 +297,40 @@ const filterApplicableDays = () => {
       food_item_ids: formData.selectedItems,
       name: formData.offerName,
       is_every_day: formData.isEveryDay,
-      ...(formData.isEveryDay === true && {start_offer: formData.startDate,
-      end_offer: formData.endDate}),
+      ...(formData.isEveryDay === true && {
+        start_offer: formData.startDate,
+        end_offer: formData.endDate,
+      }),
       ...(formData.isEveryDay === false && {
         applicable_days: filterApplicableDays(),
       }),
       ...(initialData?.id && { id: initialData.id }),
     };
-   
+
     try {
       const endpoint =
-        mode === 'create'
+        mode === "create"
           ? `${morefoodURL}moreclub/user/offers/${res_id}/`
           : `${morefoodURL}moreclub/user/offers/${res_id}/${initialData.id}/`;
-      const method = mode === 'create' ? 'post' : 'patch';
+      const method = mode === "create" ? "post" : "patch";
 
-      const res= await axiosInstance[method](endpoint, offerData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const res = await axiosInstance[method](endpoint, offerData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
-      message.success(`Offer ${mode === 'create' ? 'added' : 'updated'} successfully`);
+      message.success(
+        `Offer ${mode === "create" ? "added" : "updated"} successfully`
+      );
       queryClient.invalidateQueries({
         queryKey: [`Resturant offer List ${res_id}`],
-      })
+      });
       queryClient.invalidateQueries({
         queryKey: [`Resturant offer detail ${res.data.data.id}`],
-      })
+      });
       navigate(`/resturant/${res_id}/offer/${slug}`);
     } catch (err) {
       console.error(err);
-      message.error(`Error ${mode === 'create' ? 'adding' : 'updating'} offer`);
+      message.error(`Error ${mode === "create" ? "adding" : "updating"} offer`);
     } finally {
       setIsLoading(false);
     }
@@ -379,7 +378,14 @@ const filterApplicableDays = () => {
                     style={{ cursor: "pointer" }}
                     onClick={() => addItem(item)}
                   >
-                    {item.name}
+                    {item.name} ({item.value}){" "}
+                    <span className="font-italic">
+                      price: {item.currency_symbol}{" "}
+                      {Number(item.discount_price) < Number(item.price) &&
+                      Number(item.discount_price) > 0
+                        ? item.discount_price
+                        : item.price}
+                    </span>
                   </div>
                 ))}
 
@@ -409,7 +415,9 @@ const filterApplicableDays = () => {
             <Form.Label>Selected Items</Form.Label>
             <div
               id="submenu-list"
-              className={`border p-2 ${errors.selectedItems ? "border-danger": "border-secondary"}`}
+              className={`border p-2 ${
+                errors.selectedItems ? "border-danger" : "border-secondary"
+              }`}
               style={{ height: "100px", overflowY: "auto" }}
             >
               <div id="d-flex flex-wrap">
@@ -437,12 +445,7 @@ const filterApplicableDays = () => {
                   )}
               </div>
             </div>
-              <p className="text-danger">
-                {errors.selectedItems}
-              </p>
-            
-              
-            
+            <p className="text-danger">{errors.selectedItems}</p>
           </Form.Group>
           <Form.Group as={Col} controlId="offerName">
             <Form.Label>Offer Name</Form.Label>
@@ -465,10 +468,10 @@ const filterApplicableDays = () => {
               value={formData.price}
               onChange={(e) => handleChange("price", e.target.value)}
               isInvalid={!!errors.price}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.price}
-              </Form.Control.Feedback>
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.price}
+            </Form.Control.Feedback>
           </Form.Group>
         </div>
       </div>
@@ -483,16 +486,20 @@ const filterApplicableDays = () => {
             value={formData.description}
             onChange={(e) => handleChange("description", e.target.value)}
             isInvalid={!!errors.description}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.description}
-            </Form.Control.Feedback>
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.description}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="bannerImage">
           <Form.Label>Banner Image</Form.Label>
           {formData.previewImage && (
-            <div className={`my-2 border ${errors.bannerImage ? "border-danger" : "border-secondary"} `}>
+            <div
+              className={`my-2 border ${
+                errors.bannerImage ? "border-danger" : "border-secondary"
+              } `}
+            >
               <img
                 src={formData.previewImage}
                 alt="Banner Preview"
@@ -507,7 +514,9 @@ const filterApplicableDays = () => {
           )}
           {!formData.previewImage && (
             <div
-              className={`my-2 border ${errors.bannerImage ? "border-danger" : "border-secondary"} `}
+              className={`my-2 border ${
+                errors.bannerImage ? "border-danger" : "border-secondary"
+              } `}
               style={{
                 maxWidth: "100%",
                 height: "5rem",
@@ -515,15 +524,18 @@ const filterApplicableDays = () => {
                 borderRadius: "8px",
               }}
             >
-             <p className="text-center mt-3">No Preview </p> 
+              <p className="text-center mt-3">No Preview </p>
             </div>
           )}
-          <Form.Control type="file" name="bannerImage" onChange={handleImageChange} isInvalid={!!errors.bannerImage}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.bannerImage}
-            </Form.Control.Feedback>
-          
+          <Form.Control
+            type="file"
+            name="bannerImage"
+            onChange={handleImageChange}
+            isInvalid={!!errors.bannerImage}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.bannerImage}
+          </Form.Control.Feedback>
         </Form.Group>
       </div>
 
@@ -537,10 +549,10 @@ const filterApplicableDays = () => {
               checked={!formData.isEveryDay}
               onChange={() => handleChange("isEveryDay", !formData.isEveryDay)}
               isInvalid={!!errors.isEveryDay}
-              />
-              <Form.Control.Feedback type="invalid">
-                {errors.isEveryDay}
-              </Form.Control.Feedback>
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.isEveryDay}
+            </Form.Control.Feedback>
           </Form.Group>
         </Row>
 
@@ -556,11 +568,8 @@ const filterApplicableDays = () => {
                 placeholderText="Select Start Date"
                 className="form-control"
                 isInvalid={!!errors.startDate}
-
               />
-              <p className="text-danger">  
-                {errors.startDate}
-              </p>
+              <p className="text-danger">{errors.startDate}</p>
             </Form.Group>
             <Form.Group as={Col} controlId="endDate">
               <Form.Label>End Date</Form.Label>
@@ -573,9 +582,7 @@ const filterApplicableDays = () => {
                 className="form-control"
                 isInvalid={!!errors.endDate}
               />
-              <p className="text-danger">
-              {errors.endDate}
-              </p>
+              <p className="text-danger">{errors.endDate}</p>
             </Form.Group>
           </Row>
         ) : (
@@ -623,9 +630,7 @@ const filterApplicableDays = () => {
                 </Col>
               </Row>
             ))}
-            <p className="text-danger">
-              {errors.customDays}
-              </p>
+            <p className="text-danger">{errors.customDays}</p>
           </div>
         )}
       </Row>
@@ -634,7 +639,6 @@ const filterApplicableDays = () => {
         {isLoading ? <Spinner size="sm" animation="border" /> : "Submit"}
       </Button>
     </Form>
-    
   );
 };
 

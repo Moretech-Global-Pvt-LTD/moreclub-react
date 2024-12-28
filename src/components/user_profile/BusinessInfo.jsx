@@ -5,7 +5,7 @@ import { baseURL } from '../../config/config';
 import { Button, Card, Modal, Placeholder } from 'react-bootstrap';
 import { businessQRInfoSuccess } from '../../redux/slices/businessSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import BusinessDiscountCard from './BusinessDiscountCard';
 import BusinessDiscountForm from './BusinessDiscountForm';
 

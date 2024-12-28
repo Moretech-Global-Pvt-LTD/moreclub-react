@@ -1,6 +1,5 @@
 import React from "react";
 import moment from "moment";
-import { useSelector } from "react-redux";
 
 const WithCouponCard = ({receiver, discount, dated, total, paid, currencyCode}) => {
   // const currency = useSelector((state)=>state.currencyReducer.currencyDetail)
