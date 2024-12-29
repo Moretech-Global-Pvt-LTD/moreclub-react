@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { axiosInstance } from "../../..";
 import { baseURL } from "../../../config/config";
-import Paypal from "../../../images/Payments/Paypal.png";
 import { useDebounce } from "../../../Hooks/useDebounce";
 import { validateEmail } from "../../../validation/addaccountvalidation";
 import { useDispatch } from "react-redux";
 import { fetchMethodCredentials } from "../../../redux/api/userAccountAPI";
 import { message } from "antd";
-import { set } from "lodash";
+
 
 const AddPaypalaccounts = ({onfinish}) => {
   const [email, setEmail] = useState("");
@@ -35,7 +34,7 @@ const AddPaypalaccounts = ({onfinish}) => {
     };
     try {
 
-      const res = await axiosInstance.post(
+       await axiosInstance.post(
         `${baseURL}withdrawal/user/method/`,
         data
       );

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import "./About.css"; // Import your CSS file for styling
+import "../../css/About.css";
 import About1 from "../../images/about/expectation.png";
 import About2 from "../../images/about/ourmission.png";
 
@@ -65,7 +65,7 @@ const AboutContent = () => {
                 ref={iframeRef}
                 id="ytplayer"
                 type="text/html"
-                src="https://www.youtube.com/embed/QagusmnC0Fs?si=v9MmeW8Nv85wzoRm?autoplay=1&loop=1&controls=0&showinfo=0&modestbranding=0&rel=0"
+                src="https://www.youtube.com/embed/pZ5rVUQGiy4?si=pIqh530XA2HtHLnm?autoplay=1&loop=1&controls=0&showinfo=0&modestbranding=0&rel=0"
                 title="Membersclub - Save and Make Money with More Deals Club"
                 frameborder="0"
                 allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -73,16 +73,6 @@ const AboutContent = () => {
                 allowfullscreen
               ></iframe>
             </div>
-
-            {/* <iframe
-              width="100%"
-              height="315"
-              src="https://www.youtube.com/embed/0EUKcQFSzAs?si=FSKaSdjWwYx7ogUc"
-              title="About Us Video"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe> */}
           </div>
         </Col>
       </Row>

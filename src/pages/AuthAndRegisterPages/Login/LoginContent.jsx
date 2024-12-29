@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { login } from "../../../redux/api/loginAPI";
@@ -31,6 +31,8 @@ const LoginContent = (props) => {
 
   const url = new URL(window.location.href);
   const nextParam = url.searchParams.get("next");
+
+  const navigate = useNavigate();
 
   ReactGA.send("page_view", {
     page_path: '/login',
@@ -73,12 +75,6 @@ const LoginContent = (props) => {
     validateAndCheckPhone();
   }, [debouncedEmail]);
 
-  // useEffect(() => {
-  //   const storedAttempts = cookies.get('failedAttempts');
-  //   if (storedAttempts) {
-  //     setFailedAttempts(parseInt(storedAttempts, 10));
-  //   }
-  // }, []);
 
   useEffect(() => {
     const storedAttempts = cookies.failedAttempts;
@@ -104,13 +100,11 @@ const LoginContent = (props) => {
           const token = tokens;
           const nextUrl = new URL(nextParam, window.location.origin);
           nextUrl.searchParams.append('token', token);
-          console.log(nextUrl.href);
           window.location.href = nextUrl.href;
         } else {
-          redirect("/dashboard");
+          navigate("/dashboard");
         }
-
-        redirect("/dashboard");
+        navigate("/dashboard");
       } else {
         message.warning(`${5 - failedAttempts - 1} attempt remaining`);
         message.error("invalid credentials");

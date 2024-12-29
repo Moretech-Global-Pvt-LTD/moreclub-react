@@ -1,4 +1,8 @@
 import React from "react";
+import DashboardLayout from "./DashboardLayout";
+import Cookies from "js-cookie";
+import LandingLayout from "./LandingLayout";
+import Divider from "../divider/Divider";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -19,7 +23,23 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       // Render fallback UI
-      return <h1>Something went wrong.</h1>;
+      if (Cookies.get("moretechglobal_access")) {
+        return (
+          <DashboardLayout>
+            <Divider />
+            <h3>Something went wrong.</h3>;
+            <Divider />
+          </DashboardLayout>
+        );
+      } else {
+        return (
+          <LandingLayout>
+            <Divider />
+            <h3>Something went wrong.</h3>;
+            <Divider />
+          </LandingLayout>
+        );
+      }
     }
 
     // Render children components

@@ -1,5 +1,5 @@
 import Divider from "../../components/divider/Divider";
-import Process from "../../components/process/Process";
+import Process from "../../components/home/Process";
 import Hero from "../../components/home/hero";
 import Navbar from "../../components/header/Navbar";
 import Stat from "../../components/home/stat";
@@ -162,7 +162,7 @@ const Home = () => {
         <div className="download-app-content">
           <h2 className="text-white">Download the app for free.</h2>
           <div className="download-app-buttons">
-            <a href="#" className="download-app-button">
+            <a href="https://play.google.com/store/apps/details?id=com.moredelas.app&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="download-app-button">
               <img src={playstore} alt="google play" style={{ width: "40px", height: "40px" }} />
               <h6 className="text-white">
                 Available in<br />

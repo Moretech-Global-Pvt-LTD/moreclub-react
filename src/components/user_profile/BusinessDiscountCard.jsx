@@ -2,18 +2,11 @@ import React from 'react'
 import { Button, Image, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import QRDownload from '../QR/QRDownload';
-import { update } from 'lodash';
 import BusinessDiscountForm from './BusinessDiscountForm';
 
 const BusinessDiscountCard = ({ item }) => {
     const [modalShow, setModalShow] = React.useState(false);
     const [updateModalShow, setUpdateModalShow] = React.useState(false);
-
-
-    const data = {
-        business_type: item.business_type_name,
-        discount: item.business_type_discount,
-    };
 
     return (
         <div className="d-flex align-items-center user-profile w-100 border-bottom p-3">

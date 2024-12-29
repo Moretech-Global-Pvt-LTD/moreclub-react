@@ -25,7 +25,6 @@ function TransferForm() {
   const [remarkField, setRemarkField] = useState(false);
   const [remarks, setRemarks] = useState("");
   const metainfo = useSelector((state) => state.metaReducer);
-  const notification = useSelector((state) => state.notification.notifications);
 
 
   const [convertedRate, setCovertedRate] = useState();
@@ -36,7 +35,6 @@ function TransferForm() {
     (state) => state.currencyReducer.currencyDetail
   );
 
-  const user = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
   const currentUrl = window.location.href;
@@ -200,7 +198,6 @@ function TransferForm() {
 
   const ResetForm = async () => {
     dispatch(fetchNewNotifications())
-    console.log("reset");
   };
 
   const HandleBack = async () => {

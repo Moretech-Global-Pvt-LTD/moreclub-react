@@ -35,8 +35,6 @@ const DashboardContent = () => {
           </div>
           <PopularResturant />
         </Row>
-
-
         <Row className="mt-4">
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="mt-4 mb-3">Popular Salons </h4>
@@ -47,12 +45,12 @@ const DashboardContent = () => {
           <PopularSaloon />
         </Row>
 
-        <Row xs={1} sm={1} md={1} lg={3} className="align-items-center">
-          <Col>
+        <Row  className="align-items-center">
+          {/* <Col>
             <div className="nft-card card shadow-sm mt-4 mb-4 p-4">
               <Walletlinks />
             </div>
-          </Col>
+          </Col> */}
           <QuickLinks />
         </Row>
 

@@ -11,7 +11,7 @@ import BusinessInfo from "./BusinessInfo";
 const BusinessProfile = ({ businessProfiles }) => {
   // const businessProfiles = useSelector((state) => state.businessReducer);
 
-  const user = useSelector((state) => state.userReducer);
+  // const user = useSelector((state) => state.userReducer);
   const permission = useSelector((state) => state.permissionReducer);
   const linkInputRef = useRef(null);
 

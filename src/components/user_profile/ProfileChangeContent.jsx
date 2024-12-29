@@ -33,17 +33,7 @@ const ProfileChangeContent = ({ user }) => {
   );
   const [inputUserType, setInputUserType] = useState(user.user?.user_type);
 
-  // const [inputState, setInputState] = useState(user.user?.user_profile?.street);
-  // const [inputCity, setInputCity] = useState(user.user?.user_profile?.city);
-  // const [inputAddress, setInputAddress] = useState(
-  //   user.user?.user_profile?.address
-  // );
-  // const [inputZipCode, setInputZipCode] = useState(
-  //   user.user?.user_profile?.zip_code
-  // );
-  // const [inputHouseNumber, setInputHouseNumber] = useState(
-  //   user.user?.user_profile?.house_no
-  // );
+
 
   const [inputAvatar, setInputAvatar] = useState("");
   const [inputDisplayImage, setInputDisplayImage] = useState(
@@ -90,28 +80,6 @@ const ProfileChangeContent = ({ user }) => {
     }
   };
 
-  // const handleAddressSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   const userProfileData = {
-  //     street: inputState,
-  //     city: inputCity,
-  //     address: inputAddress,
-  //     zip_code: inputZipCode,
-  //     house_no: inputHouseNumber,
-  //   };
-
-  //   const formData = {
-  //     user_profile: userProfileData,
-  //   };
-  //   const res = await dispatch(update_profile(formData));
-
-  //   if (res.success) {
-  //     message.success("Address Updated Successfully");
-  //   } else {
-  //     message.error("Failed to Update Address");
-  //   }
-  // };
 
   const AvatarhandleChange = (event) => {
     const file = event.target.files[0];
@@ -126,6 +94,7 @@ const ProfileChangeContent = ({ user }) => {
 
   const handleAvatarSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const formData = {
       display_picture: inputAvatar,
     };
@@ -135,6 +104,7 @@ const ProfileChangeContent = ({ user }) => {
     } else {
       message.error("Failed to Update Avatar");
     }
+    setLoading(false);
   };
 
   const [address, setAddress] = useState({
@@ -417,87 +387,6 @@ const ProfileChangeContent = ({ user }) => {
                   style={{ marginTop: "-25px" }}
                 >
                   <h4>Update Address</h4>
-                  {/* <Form onSubmit={handleAddressSubmit}>
-                    <div className="row g-4">
-                      
-                      <div className="col-12">
-                        <Form.Group>
-                          <Form.Label className="fz-16 ">State</Form.Label>
-                          <Form.Control
-                            id="street"
-                            type="text"
-                            value={inputState}
-                            onChange={(e) => setInputState(e.target.value)}
-                            placeholder="Your State"
-                            required
-                          />
-                        </Form.Group>
-                      </div>
-                      <div className="col-12">
-                        <Form.Group>
-                          <Form.Label className="fz-16 ">City</Form.Label>
-                          <Form.Control
-                            id="city"
-                            type="text"
-                            value={inputCity}
-                            onChange={(e) => setInputCity(e.target.value)}
-                            placeholder="Your City"
-                            required
-                          />
-                        </Form.Group>
-                      </div>
-                      <div className="col-12">
-                        <Form.Group>
-                          <Form.Label className="fz-16 ">Address</Form.Label>
-                          <Form.Control
-                            id="address"
-                            type="text"
-                            value={inputAddress}
-                            onChange={(e) => setInputAddress(e.target.value)}
-                            placeholder="Your full address"
-                            required
-                          />
-                        </Form.Group>
-                      </div>
-                      <div className="col-12">
-                        <Form.Group>
-                          <Form.Label className="fz-16 ">Zip Code</Form.Label>
-                          <Form.Control
-                            id="zip_code"
-                            type="text"
-                            value={inputZipCode}
-                            onChange={(e) => setInputZipCode(e.target.value)}
-                            placeholder="Your zip code"
-                            required
-                          />
-                        </Form.Group>
-                      </div>
-                      <div className="col-12">
-                        <Form.Group>
-                          <Form.Label className="fz-16 ">House No</Form.Label>
-                          <Form.Control
-                            id="house_no"
-                            type="text"
-                            value={inputHouseNumber}
-                            onChange={(e) =>
-                              setInputHouseNumber(e.target.value)
-                            }
-                            placeholder="Your house number (Optional)"
-                          />
-                        </Form.Group>
-                      </div>
-                      <div className="col-12">
-                        <button
-                          className="btn btn-primary w-100 rounded-pill"
-                          type="submit"
-                        >
-                          <i className="bi bi-sd-card-fill me-1" />
-                          Save changes
-                        </button>
-                      </div>
-                    </div>
-
-                  </Form> */}
                   <AddressForm
                     onSubmit={handleAddressSubmit}
                     address={address}

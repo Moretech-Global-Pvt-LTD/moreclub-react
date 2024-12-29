@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { businessType } from "../../redux/api/userDetailAPI";
-import {
-  validateMin_order,
-  validateResturantName,
-} from "../../validation/resturantValidation";
 import { Button, Form } from "react-bootstrap";
 import { message } from "antd";
 import { axiosInstance } from "../..";

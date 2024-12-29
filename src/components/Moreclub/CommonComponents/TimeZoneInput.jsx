@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import moment from "moment-timezone";
+import { useSelector } from "react-redux";
 
 const TimezoneSelector = ({ selectedTimezone, onTimezoneChange }) => {
 
+ const theme = useSelector((state) => state.theme);
+
+  
+
+  console.log(theme);
 
   const customStyles = {
     control: (provided, state) => ({
@@ -11,10 +17,13 @@ const TimezoneSelector = ({ selectedTimezone, onTimezoneChange }) => {
       backgroundColor: 'transparent',
       borderColor: state.isFocused ? '#80bdff' : '#ced4da',
       boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(0,123,255,.25)' : null,
+      color: state.isFocused ? '#0056b3' : '#495057', // Change input text color
       '&:hover': {
         borderColor: state.isFocused ? '#80bdff' : '#ced4da',
       },
+    
     }),
+
     menu: (provided) => ({
       ...provided,
       backgroundColor: '#f8f9fa',
@@ -33,6 +42,10 @@ const TimezoneSelector = ({ selectedTimezone, onTimezoneChange }) => {
         backgroundColor: '#007bff',
         color: 'white',
       },
+    }),
+    input: (provided) => ({
+      ...provided,
+      color: '#0056b3', // Set the input text color here
     }),
     multiValue: (provided) => ({
       ...provided,
@@ -73,6 +86,7 @@ const TimezoneSelector = ({ selectedTimezone, onTimezoneChange }) => {
         onChange={(selectedOption) => onTimezoneChange(selectedOption.value)}
         placeholder="select a timezone"
       />
+
     </div>
   );
 };

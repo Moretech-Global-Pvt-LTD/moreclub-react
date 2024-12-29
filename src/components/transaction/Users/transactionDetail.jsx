@@ -10,7 +10,6 @@ import { Placeholder } from "react-bootstrap";
 const TransactionDetailView = ({
   transaction_id
 }) => {
-  // console.log("transcation_id", transaction_id)
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [`USER transaction detail ${transaction_id}`],

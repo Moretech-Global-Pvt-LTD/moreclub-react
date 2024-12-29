@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { baseURL, hostURL } from "../../config/config";
+import { baseURL } from "../../config/config";
 import axios from "axios";
 import { message } from "antd";
 import { useDebounce } from "../../Hooks/useDebounce";
@@ -10,7 +10,6 @@ const getQueryParams = () => {
 
   const queryString = new URL(currentUrl);
   const urlParams = new URLSearchParams(queryString);
-  console.log("urlparams", urlParams);
   return urlParams;
 };
 

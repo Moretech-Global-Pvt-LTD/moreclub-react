@@ -14,7 +14,6 @@ import {
 import { baseURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
 import { useDebounce } from "../../../Hooks/useDebounce";
-import { message } from "antd";
 
 
 const WithdrawalAmountForm = ({ onNext }) => {

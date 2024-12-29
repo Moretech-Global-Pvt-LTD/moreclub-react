@@ -1,9 +1,7 @@
 import React from "react";
 import moment from "moment";
-import { useSelector } from "react-redux";
 
 const WithMembershipCard = ({receiver, discount, dated, total, paid, currencyCode}) => {
-  const currency = useSelector((state)=>state.currencyReducer.currencyDetail)
   return (
     <div className="d-flex w-100 justify-content-between border-bottom border-warning ">
       <div className="d-flex align-items-center my-3  text-dynamic-white">

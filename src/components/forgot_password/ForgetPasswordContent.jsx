@@ -10,7 +10,6 @@ import axios from "axios";
 
 export default function ForgetPasswordContent(props) {
   const { title, subTitle } = props;
-  //   const [inputUsername, setInputUsername] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");

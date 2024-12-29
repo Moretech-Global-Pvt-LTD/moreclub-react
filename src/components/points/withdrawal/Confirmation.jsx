@@ -181,16 +181,6 @@ const ConfirmationForm = () => {
       <Form.Group controlId="pin">
         <Form.Label>Enter PIN</Form.Label>
         <PINInput length={4} value={pin} onChange={handlePInChange} error={pinError} />
-        {/* <Form.Control
-          type="number"
-          value={pin}
-          onChange={handlePInChange}
-          min={0}
-          maxLength={4}
-          max={9999}
-          required
-        />
-        {pinError && <p className="text-danger">{pinError}</p>} */}
       </Form.Group>
       <Button
         variant="secondary"

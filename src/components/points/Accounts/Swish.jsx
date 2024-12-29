@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { axiosInstance } from "../../..";
 import { baseURL } from "../../../config/config";
-import Swish from "../../../images/Payments/swish.png";
 import { validatePhoneNumber } from "../../../validation/addaccountvalidation";
 import { useDebounce } from "../../../Hooks/useDebounce";
 import { useDispatch } from "react-redux";
 import { fetchMethodCredentials } from "../../../redux/api/userAccountAPI";
 import { message } from "antd";
-import { set } from "lodash";
+
 
 const AddSwishaccounts = ({ onfinish }) => {
   const [phonenumber, setPhoneNumber] = useState("");
@@ -35,7 +34,7 @@ const AddSwishaccounts = ({ onfinish }) => {
       phone_number: phonenumber,
     };
     try {
-      const res = await axiosInstance.post(
+      await axiosInstance.post(
         `${baseURL}withdrawal/user/method/`,
         data
       );

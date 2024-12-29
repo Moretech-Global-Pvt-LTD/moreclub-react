@@ -341,7 +341,7 @@ const InfoForm = () => {
                     <p className="text-danger">{errors.contact_no}</p>
                   </Form.Group>
                 </Col>
-                <Col xs={12} md={6} lg={6} xl={6} xxl={4}>
+                <Col xs={6} md={6} lg={3} xl={3} xxl={2}>
                   <Form.Group controlId="formmin_order ">
                     <Form.Label>Country</Form.Label>
                     <Form.Control
@@ -395,7 +395,7 @@ const InfoForm = () => {
                   </Form.Group>
                 </Col>
 
-                <Col xs={6} md={2} lg={2} xl={2} xxl={1}>
+                <Col xs={6} md={3} lg={3} xl={3} xxl={2}>
                   <Form.Group controlId="formDeliveryTime">
                     <Form.Label>Max Delivery Time</Form.Label>
                     <Form.Control
@@ -416,7 +416,7 @@ const InfoForm = () => {
                     <p className="text-danger">{errors.delivery_time}</p>
                   </Form.Group>
                 </Col>
-                <Col xs={6} md={4} lg={4} xl={4} xxl={3}>
+                <Col xs={6} md={3} lg={3} xl={3} xxl={2}>
                   <Form.Group controlId="formDeliveryTime">
                     <TimezoneSelector
                       selectedTimezone={formValues.restro_timezone}

@@ -4,7 +4,6 @@ import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { redirect, useNavigate } from "react-router-dom";
 import { otpResend, otpVerify } from "../../redux/api/loginAPI";
-import { set } from "lodash";
 
 const OTPArea = () => {
   const [timer, setTimer] = useState(5);

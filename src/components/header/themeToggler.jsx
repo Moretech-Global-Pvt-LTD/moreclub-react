@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { setThemes } from "../../redux/slices/ThemeSlice";
 
 const ThemeToggler = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
@@ -10,6 +11,7 @@ const ThemeToggler = () => {
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+    setThemes({theme: theme === "dark" ? "light" : "dark"});
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import BusinessRegistration1 from "./BusinessRegistration1";
 import BusinessRegistration2 from "./BusinessRegistration2";
 import BusinessRegistration3 from "./BusinessRegistration3";
@@ -16,10 +16,10 @@ const MultiStepRegistration = () => {
     businessDiscount: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({ ...formData, [name]: value });
+  // };
 
   const handleNext = () => {
     if (step < 3) setStep(step + 1);

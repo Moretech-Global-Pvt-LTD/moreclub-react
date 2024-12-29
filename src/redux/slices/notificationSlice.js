@@ -28,7 +28,7 @@ export const notificationsSlice = createSlice({
           )
       );
 
-      state.notifications = [...state.notifications, ...uniqueNewNotifications];
+      state.notifications = [...uniqueNewNotifications, ...state.notifications, ];
       state.unreadCount = payload.notifications.filter(
         (n) => !n.is_read
       ).length;

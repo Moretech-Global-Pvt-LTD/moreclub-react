@@ -1,143 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-
 import ScrollToTop from "react-scroll-to-top";
 import {load_user, logout } from "./redux/api/loginAPI";
-import Home from "./pages/Home/Home";
-import ProjectDetail from "./pages/Project/ProjectDetail";
-import ProjectPage from "./pages/Project/ProjectPage";
-import Login from "./pages/AuthAndRegisterPages/Login/Login";
-import Register from "./pages/AuthAndRegisterPages/Register/Register";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import OTP from "./pages/AuthAndRegisterPages/OTP/OTP";
-import BusinessRegister from "./pages/Businesspages/BusinessRegister/BusinessRegister";
-import Profile from "./pages/UserPages/profile/Profile";
-import ForgotPassword from "./pages/AuthAndRegisterPages/ForgotPassword/ForgotPassword";
-import ForgetPasswordVerifyOTP from "./pages/AuthAndRegisterPages/ForgotPassword/ForgetPasswordVerifyOTP";
-import PasswordChange from "./pages/AuthAndRegisterPages/PasswordChange/PasswordChange";
-import BuyPlan from "./pages/BuyPlan/BuyPlan";
-import BuyCoupon from "./pages/Coupon/BuyCoupon";
-import BusinessProfile from "./pages/Businesspages/BusinessProfile/BusinessProfilePage";
-import GetMembership from "./pages/AuthAndRegisterPages/GetMembership/GetMembership";
-import { userMembership } from "./redux/api/userMembershipAPI";
-import BusinessProfilePage from "./pages/Businesspages/BusinessProfile/BusinessProfilePage";
-import { getBusinessProfile } from "./redux/api/userDetailAPI";
-
-import PricingPage from "./pages/Pricing/Pricing";
-import ViewCoupon from "./pages/Coupon/ViewCoupon";
-import ProfileChange from "./pages/UserPages/profile/ProfileChange";
-import UserTransaction from "./pages/Transactions/UserTransaction";
-
-import BusinessTransaction from "./pages/Businesspages/BusinessTransaction/BusinessTransaction";
-import SendPoints from "./pages/Points/send/SendPoints";
-import BuyPoints from "./pages/Points/buy/BuyPoints";
 import Wallet from "./pages/Wallet/WalletPage";
-import Aboutpage from "./pages/about/aboutpage";
-import TransactionPin from "./pages/Transactionpin/TransactionPin";
-import ChangePin from "./pages/Transactionpin/ChangePin";
-import Settingpage from "./pages/settings/settingpage";
-import NetworkPage from "./pages/Network/NetworkPage";
-import BusinessDocumentPage from "./pages/Businesspages/BusinessUpdate/BusinessDocumentPage";
-import LearmMorePage from "./pages/LearnMore/LearmMorePage";
-import PartnerPage from "./pages/Partner/PartnerPage";
-import NetworkMessage from "./pages/Network/NetworkMessage";
-
-import { loadUserPermissions } from "./redux/api/PermissionsAPI";
-import BillingPage from "./pages/Businesspages/Billing/Billing";
-import AllCoupon from "./pages/Coupon/AllCoupon";
-import Withdraw from "./pages/Points/withdraw/Withdraw";
-import PointPurchase from "./pages/Points/buy/pointPurchase";
-import FAQPage from "./pages/faqs/FAQ'spage";
-import TermsPage from "./pages/terms/TermsPage";
 import { getMetadata } from "./redux/api/infoApi";
-import PrivacyPage from "./pages/Privacy/privacy";
-import NotificationPage from "./pages/UserPages/notification/NotificationPage";
-import OTPEmail from "./pages/AuthAndRegisterPages/OTP/OTPEmail";
-import PartnerDetail from "./pages/Partner/PartnerDetail";
-import LiscencePage from "./pages/Liscence/LiscencePage";
 import NotFound from "./pages/notfound";
-import { CurrencySet } from "./redux/api/CurrencyConvertorAPI";
-import StripeProvider from "./components/HOC/StripeProvider";
-import Success from "./pages/Points/buy/success";
-import Eventpage from "./pages/event/eventpage";
-import EventDetailPage from "./pages/event/EventDetailPage";
-import KYCPage from "./pages/kYC/KYCPage";
-import KYCFrom from "./pages/kYC/KYCCreate";
-import KYCDocumentPage from "./pages/kYC/KYCDocumentPage";
-import Eventcreate from "./pages/event/eventcreate";
-import EventUpdate from "./pages/event/eventupdate";
-import UserEventpage from "./pages/event/userEventpage";
-import EventImageUpload from "./components/event/eventImageUpload";
-import UserEventDetailPage from "./pages/event/UsereventDetailspage";
-import ForgetPin from "./pages/Transactionpin/ForgetPin";
-import ForgetPinEmail from "./pages/Transactionpin/ForgetPinEmail";
-import ForgetPinOTP from "./pages/Transactionpin/ForgetPinOtp";
 import SessionExpiredModal from "./components/sessiondialog";
-import Resturant from "./pages/moreclub/Resturant/resturant";
-import RestroInfo from "./pages/moreclub/Resturant/Info/info";
-import RestroOffer from "./pages/moreclub/Resturant/Offers/offer";
-import RestroMenu from "./pages/moreclub/Resturant/Menu/menu";
 import ReactGA from "react-ga4";
 import { GoogleAnalytics } from "./config/config";
-import Setup from "./pages/moreclub/Resturant/setup";
-import RestroMenuItem from "./pages/moreclub/Resturant/Menu/MenuItem";
-import RestroOfferCreate from "./pages/moreclub/Resturant/Offers/CreateOffer";
-import RestroUpdateInfo from "./pages/moreclub/Resturant/Info/Update";
-import ResturantOrder from "./pages/moreclub/Resturant/Orders/ResturantOrder";
-import Morefood from "./pages/moreclub/morefood/morefood";
-import OrderDetails from "./pages/moreclub/Resturant/Orders/orderDetail";
-import GalleryPage from "./pages/moreclub/Resturant/Gallery/GalleryPage";
-import Cuisine from "./pages/moreclub/Resturant/Cuisine/cuisine";
-import UpdateCuisine from "./pages/moreclub/Resturant/Cuisine/UpdateCuisine";
-import BusinessTypesDetail from "./pages/Partner/BusinessTypesDetail";
-import RestaurantPage from "./pages/moreclub/Resturant/Gallery/RestaurantGalleryPage";
-import UserPage from "./pages/moreclub/Resturant/Gallery/UserGalleryPage";
-import OpeninghoursPage from "./pages/moreclub/Resturant/openinghours/OpeninghoursPage";
-import Failed from "./pages/Points/buy/Failed";
-import FeedPage from "./pages/feed/feedPage";
+
 import DisableDevtool from "disable-devtool";
 
 import Cookies from "js-cookie";
-import MoreSaloon from "./pages/moreclub/moresaloon/saloon/moreSaloon";
-import SaloonPage from "./pages/moreclub/moresaloon/setup/SaloonPage";
-import SaloonDetail from "./pages/moreclub/moresaloon/setup/SaloonDetail";
-import ServicePage from "./pages/moreclub/moresaloon/Services/ServicePage";
-import StaffPage from "./pages/moreclub/moresaloon/Staff/StaffPage";
-import BookingPage from "./pages/moreclub/moresaloon/Bookings/BookingPage";
-import WorkinghourPage from "./pages/moreclub/moresaloon/Workingshours/WorkinghourPage";
-import SaloonUpdate from "./pages/moreclub/moresaloon/saloon/SaloonUpdate";
-import SaloonCreate from "./pages/moreclub/moresaloon/saloon/SaloonCreate";
-import SupportPage from "./pages/Support/SupportPage";
-import SaloonPhotoUploadGallery from "./pages/moreclub/moresaloon/Gallery/SaloonPhotoUploadGallery";
-import BlogDetailPage from "./pages/Support/BlogDetailPage";
-import ServiceVariationPage from "./pages/moreclub/moresaloon/Services/ServiceVariationPage";
-import StaffDetailPage from "./pages/moreclub/moresaloon/Staff/StaffDetailPage";
-import BookingDetailPage from "./pages/moreclub/moresaloon/Bookings/BookingDetailPage";
-import BusinessRestaurantPartner from "./pages/Partner/BusinessRestaurantPartner";
 import Locationretrive from "./components/ui/Locationset";
-// import StationPage from "./pages/moreclub/Resturant/station/station";
-import StationMenu from "./pages/moreclub/Resturant/station/StationMenu";
-import StationOrder from "./pages/moreclub/Resturant/station/StationOrders";
-import OrderDetailsPage from "./pages/moreclub/Resturant/station/OrderDetailPage";
-import AllOrdersPage from "./pages/moreclub/Resturant/Allorders/AllOrdersPage";
-import StationPage from "./pages/moreclub/Station/StationPage";
-import SetupStationPage from "./pages/moreclub/Station/SetupStationPage";
-import StationDetailPage from "./pages/moreclub/Station/StationDetailPage";
-import StationUpdatePage from "./pages/moreclub/Station/StationUpdatePage";
-import StationMenuItems from "./pages/moreclub/Station/StationMenuItem";
-import NearbyStationPage from "./pages/moreclub/Resturant/nearbyStation/NearbyStationPage";
-import NearbyStationDetail from "./pages/moreclub/Resturant/nearbyStation/NearbyStationDetail";
-import NearbyStationMenuPage from "./pages/moreclub/Resturant/nearbyStation/NearbyStationMenuPage";
-import NearbyStationMyMenuPage from "./pages/moreclub/Resturant/nearbyStation/NearbyStationMyMenuPage";
-import StationOrderList from "./pages/moreclub/Resturant/Allorders/StationOrderList";
-import StationOrderDetailPage from "./pages/moreclub/Resturant/Orders/StationOrderDetailPage";
-import AllResturantsStationOrderPage from "./pages/moreclub/Resturant/Allorders/AllResturantsStationOrderPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import BusinessSetupPage from "./pages/AuthAndRegisterPages/BusinessRegistration/BusinessSetupPage";
-import UpdateOffer from "./pages/moreclub/Resturant/Offers/UpdateOffer";
-import CouponsPage from "./pages/moreclub/moresaloon/Coupons/CouponsPage";
+
+// routes 
+import authRoutes from "./routes/authroutes";
+import publicRoutes from "./routes/publicRoutes";
+import userRoutes from "./routes/userRoutes";
+import businessRoutes from "./routes/businessRoutes";
+import restaurantRoutes from "./routes/restaurantRoutes";
+import salonRoutes from "./routes/salonRoutes";
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to={`/login`} />;
@@ -145,7 +31,6 @@ const PrivateRoute = ({ element, isAuthenticated }) => {
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.userReducer);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const key = GoogleAnalytics;
   // Notification.requestPermission();
@@ -197,20 +82,20 @@ const App = () => {
   }, []);
 
   const getMetadatas = async () => {
-    await dispatch(getMetadata());
+     dispatch(getMetadata());
   };
 
   useEffect(() => {
     if (!localStorage.getItem("sessionExpired")) {
+
+
       const fetchUser = async () => {
-        await dispatch(load_user());
-        await dispatch(userMembership());
-        await dispatch(getBusinessProfile());
-        await dispatch(loadUserPermissions());
-        await dispatch(CurrencySet());
+        dispatch(load_user());
       };
+      if(!!Cookies.get("moretechglobal_access")) {
 
       fetchUser();
+      }
     }
     getMetadatas();
   }, [dispatch]);
@@ -224,570 +109,10 @@ const App = () => {
   //    }
   // }, [])
 
-  const authRoutes = [
-    
-    {
-      path: "/login",
 
-      page: <Login />,
-    },
-    {
-      path: "/register-membership",
-
-      page: <Register />,
-    },
-    {
-      path: "/otp",
-
-      page: <OTP />,
-    },
-    {
-      path: "/forgot/password/",
-
-      page: <ForgotPassword />,
-    },
-    {
-      path: "/forgot/password/otp/",
-
-      page: <ForgetPasswordVerifyOTP />,
-    },
-    {
-      path: "/register-business",
-
-      page: <BusinessProfile />,
-    },
-    {
-      path: "/business/register/",
-
-      page: <BusinessRegister />,
-    },
-  ];
-
-  const publicRoutes = [
-    {
-      path: "/",
-
-      page: <Home />,
-    },
-    {
-      path: "/support",
-
-      page: <SupportPage />,
-    },
-    {
-      path: "/blog/detail/:slug",
-
-      page: <BlogDetailPage />,
-    },
-    {
-      path: "/change-password",
-      page: <PasswordChange />,
-    },
-    {
-      path: "/learnmore",
-
-      page: <LearmMorePage />,
-    },
-    {
-      path: "/faq/",
-
-      page: <FAQPage />,
-    },
-    {
-      path: "/products/",
-
-      page: <ProjectPage />,
-    },
-    {
-      path: "/about/",
-
-      page: <Aboutpage />,
-    },
-    {
-      path: "/privacy/",
-
-      page: <PrivacyPage />,
-    },
-
-    {
-      path: "/products/",
-
-      page: <ProjectPage />,
-    },
-    {
-      path: "/partners/",
-
-      page: <PartnerPage />,
-    },
-    {
-      path: "/partners/:partnerId/:partnerName",
-
-      page: <BusinessTypesDetail />,
-    },
-    {
-      path: "/partners/:partnerId/:partnerName/:cuisineName/",
-
-      page: <BusinessRestaurantPartner />,
-    },
-
-    {
-      path: "/projects/:projectId",
-
-      page: <ProjectDetail />,
-    },
-
-    {
-      path: "/coupon/",
-
-      page: <AllCoupon />,
-    },
-
-    {
-      path: "/terms",
-
-      page: <TermsPage />,
-    },
-    {
-      path: "/liscence",
-
-      page: <LiscencePage />,
-    },
-  ];
-
-  const businessRoutes = [
-    {
-      path: "/billing",
-      page: <BillingPage />,
-    },
-    {
-      path: "/business-transactions",
-      page: <BusinessTransaction />,
-    },
-    {
-      path: "/business-profile/",
-      page: <BusinessProfilePage />,
-    },
-    {
-      path: "/business-events/",
-      page: <UserEventpage />,
-    },
-    {
-      path: "/event/create",
-      page: <Eventcreate />,
-    },
-    {
-      path: "/event/details/:eventId",
-      page: <UserEventDetailPage />,
-    },
-    {
-      path: "/event/upload/:eventId",
-      page: <EventImageUpload />,
-    },
-    {
-      path: "/event/update/:eventId",
-      page: <EventUpdate />,
-    },
-  ];
-
-  const userRoutes = [
-    {
-      path:"/businessSetup",
-      page:<BusinessSetupPage/>
-    },
-    {
-      path: "/feed",
-
-      page: <FeedPage />,
-    },
-    {
-      path: "/scan",
-
-      page: <GetMembership />,
-    },
-    {
-      path: "/partner/detail/:partnerId/:slug/:businessName",
-
-      page: <PartnerDetail />,
-    },
-    {
-      path: "/event/",
-
-      page: <Eventpage />,
-    },
-    //for email verification
-    {
-      path: "/otp-email",
-
-      page: <OTPEmail />,
-    },
-    {
-      path: "/dashboard/",
-      page: <Dashboard />,
-    },
-    {
-      path: "/notification/",
-      page: <NotificationPage />,
-    },
-    {
-      path: "/profile/",
-      page: <Profile />,
-    },
-    {
-      path: "/settings/",
-      page: <Settingpage />,
-    },
-    {
-      path: "/profile/change",
-      page: <ProfileChange />,
-    },
-    {
-      path: "/buy/plan/:planId/:planTime",
-      page: <BuyPlan />,
-    },
-    {
-      path: "/buy/coupon/:couponId",
-      page: <BuyCoupon />,
-    },
-    {
-      path: "/my-coupons/",
-      page: <ViewCoupon />,
-    },
-    {
-      path: "/transactions",
-      page: <UserTransaction />,
-    },
-    {
-      path: "/forget-pin",
-      page: <ForgetPin />,
-    },
-    {
-      path: "/my-network",
-      page: <NetworkPage />,
-    },
-    {
-      path: "/network/message",
-      page: <NetworkMessage />,
-    },
-    {
-      path: "/points/withdraw",
-      page: <Withdraw />,
-    },
-
-    {
-      path: "/transactions-pin",
-      page: <TransactionPin />,
-    },
-    {
-      path: "/transactions-pin-change",
-      page: <ChangePin />,
-    },
-    {
-      path: "/business/register/",
-      page: <BusinessRegister />,
-    },
-    {
-      path: "/points/send",
-      page: <SendPoints />,
-    },
-    {
-      path: "/points/buy",
-      page: <BuyPoints />,
-    },
-    {
-      path: "/points/buy/success",
-      page: <Success />,
-    },
-    {
-      path: "/points/buy/failed",
-      page: <Failed />,
-    },
-    {
-      path: "/points/buy/:paymentId",
-      page: <PointPurchase />,
-    },
-    {
-      path: "/event/:eventId",
-
-      page: <EventDetailPage />,
-    },
-
-    {
-      path: "/business/update",
-      page: (
-        <StripeProvider>
-          <BusinessDocumentPage />
-        </StripeProvider>
-      ),
-    },
-    {
-      path: "/KYC",
-      page: <KYCPage />,
-    },
-    {
-      path: "/KYC/update",
-      page: <KYCFrom />,
-    },
-    {
-      path: "/KYC/document/update",
-      page: <KYCDocumentPage />,
-    },
-    {
-      path: "/forget/pin",
-      page: <ForgetPinEmail />,
-    },
-    {
-      path: "/forget/pin/otp",
-      page: <ForgetPinOTP />,
-    },
-    {
-      path: "/reset/pin/",
-      page: <ForgetPin />,
-    },
-  ];
-
-  const resturant = [
-    {
-      path: "/morefood",
-
-      page: <Morefood />,
-    },
-    {
-      path: "/restaurant",
-
-      page: <Resturant />,
-    },
-    {
-      path: "/restaurant/create/",
-
-      page: <RestroInfo />,
-    },
-    {
-      path: "/restaurant/:id/:slug",
-
-      page: <Setup />,
-    },
-    {
-      path: "/resturant/update/:id/:slug",
-
-      page: <RestroUpdateInfo />,
-    },
-
-    //menu
-    {
-      path: "/resturant/:res_id/menu/:slug",
-
-      page: <RestroMenu />,
-    },
-    {
-      path: "/resturant/:res_id/menu/:cat_id/:slug/:menu_name",
-
-      page: <RestroMenuItem />,
-    },
-
-
-
-    // cuisines
-    {
-      path: "/resturant/:res_id/cuisine/:slug",
-      page: <Cuisine />,
-    },
-    {
-      path: "/resturant/:res_id/cuisine/:cuisine_id/:slug/:name",
-      page: <UpdateCuisine />,
-    },
-
-    //offer
-
-    {
-      path: "/resturant/:res_id/offer/:slug",
-
-      page: <RestroOffer />,
-    },
-    {
-      path: "/restaurant/:res_id/offer/create/:slug",
-
-      page: <RestroOfferCreate />,
-    },
-    {
-      path: "/restaurant/:res_id/offer/update/:offer_id/:slug",
-
-      page: <UpdateOffer />,
-    },
-
-    //orders
-    {
-      path: "/resturant/:res_id/orders/:slug",
-      page: <ResturantOrder />,
-    },
-    {
-      path: "/resturant/:res_id/orders/:slug/:ord_id",
-      page: <OrderDetails />,
-    },
-
-    //gallery
-    {
-      path: "/resturant/:res_id/gallery/:slug",
-
-      page: <GalleryPage />,
-    },
-    {
-      path: "/resturant/:res_id/gallery/:slug/restaurant",
-
-      page: <RestaurantPage />,
-    },
-    {
-      path: "/resturant/:res_id/gallery/:slug/user-upload",
-
-      page: <UserPage />,
-    },
-
-    {
-      path: "/resturant/:res_id/opening-duration/:slug",
-      page: <OpeninghoursPage />,
-    },
-
-    //nearby station
-
-    {
-      path: "/station/:resid/nearby/",
-      page: <NearbyStationPage />,
-    },
-    {
-      path: "/restaurant/:resid/station/:stationid/:name",
-      page: <NearbyStationDetail />,
-    },
-    {
-      path: "/restaurant/:resid/station/:stationid/:name/menu",
-      page: <NearbyStationMenuPage />,
-    },
-    {
-      path: "/restaurant/:resid/station/:stationid/:name/my-menu",
-      page: <NearbyStationMyMenuPage />,
-    },
-
-    //station orders
-    {
-      path: "/station/:id/stationorders/:name",
-      page: <StationOrderList />,
-    },
-    
-    {
-      path: "/station/:id/stationorders/:ord_id/:name/details",
-      page: <StationOrderDetailPage />,
-    },
-
-
-    //station all orders
-    {
-      path: "/resturant/:res_id/station/allOrders/:name",
-
-      page: <AllResturantsStationOrderPage />,
-    },
-
-
-   //station
-    {
-      path: "/station/",
-      page: <StationPage />,
-    },
-    {
-      path: "/station/setup",
-      page: <SetupStationPage />,
-    },
-    {
-      path: "/station/:id/:name",
-      page: <StationDetailPage />,
-    },
-    {
-      path: "/station/:id/:name/update",
-      page: <StationUpdatePage />,
-    },
-    {
-      path: "/station/:id/menu/:name",
-      page: <StationMenu />,
-    },
-    {
-      path: "/station/:id/menu/:name/:menu_id/:menu_name",
-      page: <StationMenuItems />,
-    },
-    {
-      path: "/station/:id/orders/:name",
-      page: <StationOrder />,
-    },
-    {
-      path: "/station/:id/orders/:ord_id/:name",
-      page: <OrderDetailsPage />,
-    },
-    {
-      path: "/station/:id/allorders/:name",
-      page: <AllOrdersPage />,
-    },
-  ];
-
-  const Saloon = [
-    {
-      path: "/saloon",
-      page: <SaloonPage />,
-    },
-    {
-      path: "/moresaloon",
-
-      page: <MoreSaloon />,
-    },
-    {
-      path: `/saloon/:id/:slug`,
-      page: <SaloonDetail />,
-    },
-    {
-      path: `/saloon/create/`,
-      page: <SaloonCreate />,
-    },
-    {
-      path: `/saloon/:id/update/:slug`,
-      page: <SaloonUpdate />,
-    },
-    {
-      path: `/saloon/:id/services/:slug`,
-      page: <ServicePage />,
-    },
-    {
-      path: `/saloon/:id/service/:ser_id/:slug/:ser_name`,
-      page: <ServiceVariationPage />,
-    },
-    {
-      path: `/saloon/:id/staff/:slug`,
-      page: <StaffPage />,
-    },
-    {
-      path: `/saloon/:id/coupon/:slug`,
-      page: <CouponsPage />,
-    },
-    {
-      path: `/saloon/:id/:slug/staff/:staff_id/:staff_name`,
-      page: <StaffDetailPage />,
-    },
-    {
-      path: `/saloon/:id/booking/:slug`,
-      page: <BookingPage />,
-    },
-    {
-      path: `/saloon/:id/booking/:slug/:book_id/:appoit_id`,
-      page: <BookingDetailPage />,
-    },
-    {
-      path: `/saloon/:id/gallery/:slug`,
-      page: <SaloonPhotoUploadGallery />,
-    },
-    {
-      path: `/saloon/:id/gallery/:slug/saloon`,
-      page: <SaloonPhotoUploadGallery />,
-    },
   
-    {
-      path: `/saloon/:id/opening-duration/:slug`,
-      page: <WorkinghourPage />,
-    },
-  ];
+
+  
 
   const handleLogout = () => {
     dispatch(logout());
@@ -863,7 +188,7 @@ const App = () => {
           }
         />
 
-        {resturant.map((route) => (
+        {restaurantRoutes.map((route) => (
           <Route
             key={route.path}
             path={route.path}
@@ -876,7 +201,7 @@ const App = () => {
           />
         ))}
 
-        {Saloon.map((route) => (
+        {salonRoutes.map((route) => (
           <Route
             key={route.path}
             path={route.path}

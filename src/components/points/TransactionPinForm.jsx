@@ -5,6 +5,8 @@ import { axiosInstance } from '../..';
 import { baseURL } from '../../config/config';
 import { message } from 'antd';
 import PINInput from '../ui/GridPinInput';
+import { fetchNewNotifications } from '../../redux/api/notificationApi';
+import { useDispatch } from 'react-redux';
 
 
 function TransactionPinForm({onPinSet}) {
@@ -13,6 +15,7 @@ function TransactionPinForm({onPinSet}) {
     const [pinError, setPinError] = useState('');
     const [confirmPinError, setConfirmPinError] = useState('');
     const [loading, setLoading]= useState(false)
+    const dispatch = useDispatch();
 
   
     const validatePin = (value) => {
@@ -55,7 +58,6 @@ function TransactionPinForm({onPinSet}) {
       e.preventDefault();
       const pinValidationError = validatePin(pin);
       const confirmPinValidationError = validateConfirmPin(confirmPin);
-      console.log(pin, confirmPin)
 
     
       if (pinValidationError || confirmPinValidationError) {
@@ -78,11 +80,11 @@ function TransactionPinForm({onPinSet}) {
               if (typeof onPinSet === "function") {
                 onPinSet(pin);
               }
+               dispatch(fetchNewNotifications());
               // dispatch(checkTransactionPin())
               // navigate('/wallet')
             }
         }catch(err){
-            console.log(err)
             message.error("error setting Pin");
             setLoading(false);
             

@@ -152,6 +152,75 @@ export const validateProperties = (value) => {
 };
 
 
+// export const validateRequiredField = (value, fieldName = "Field") => {
+//   if (!value || !value.trim()) {
+//     return `${fieldName} is required.`;
+//   }
+//   return "";
+// };
+
+
+export const validateCuisineField = (value) => {
+  if (!value || value.length === 0) {
+    return "Cuisine is required.";
+  }
+  return "";
+};
+
+export const validateMenuImage = (banner) => {
+  if (!banner) {
+    return "Menu image is required.";
+  }
+
+  const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+  const maxSizeInBytes = 10 * 1024 * 1024; // 10 MB
+
+  if (!validImageTypes.includes(banner.type)) {
+    return "Invalid image type. Only JPEG, PNG, and GIF are allowed.";
+  }
+
+  if (banner.size > maxSizeInBytes) {
+    return "Image size must be less than 10 MB.";
+  }
+
+  return ""; // Valid image
+};
+
+
+export const validatePriceAndOfferPrice = (price, offerPrice) => {
+  let errors = {};
+
+    if(!price) {
+      errors.price = "Price is required.";
+    }
+
+    const Price = Number(price);
+      // If variation is false, price is required
+    if (Price <= 0) {
+      errors.price = "Price is required and must be greater than zero.";
+    } else {
+      errors.price = "";
+    }
+
+    if(!offerPrice) {
+      errors.offerPrice = "";
+    }
+    const OfferPrice = Number(offerPrice);
+
+    if (OfferPrice <= 0) {
+      errors.offerPrice = "Offer price cannot be negative.";
+    }
+    if(OfferPrice >= Price) {
+      errors.offerPrice = "Offer price must be less than the price.";
+    }else{
+      errors.offerPrice = "";
+    }
+
+
+  return errors;
+};
+
+
 export const validateRequiredField = (value, fieldName = "Field") => {
  
   if (!value || value.trim() === "") {

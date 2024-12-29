@@ -1,11 +1,11 @@
 import React from "react";
-import UniverslNavbar from "../header/Header";
+import UniversalNavbar from "../header/Header";
 import Divider from "../divider/Divider";
 
 const AuthLayout = ({ children }) => {
   return (
     <div className="layout-wrapper">
-      <UniverslNavbar />
+      <UniversalNavbar />
       <div className="container">
         <div className="login-container">
           <Divider />

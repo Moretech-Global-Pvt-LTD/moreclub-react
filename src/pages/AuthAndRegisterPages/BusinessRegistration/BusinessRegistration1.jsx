@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import { validateBusinessName, validateBusinessRegistration } from '../../../validation/RegistrationValidation';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFormData } from '../../../redux/slices/RegisterSlice';
