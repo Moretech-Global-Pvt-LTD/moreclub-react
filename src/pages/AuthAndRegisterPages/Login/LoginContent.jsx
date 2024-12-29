@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { login } from "../../../redux/api/loginAPI";
@@ -75,12 +75,6 @@ const LoginContent = (props) => {
     validateAndCheckPhone();
   }, [debouncedEmail]);
 
-  // useEffect(() => {
-  //   const storedAttempts = cookies.get('failedAttempts');
-  //   if (storedAttempts) {
-  //     setFailedAttempts(parseInt(storedAttempts, 10));
-  //   }
-  // }, []);
 
   useEffect(() => {
     const storedAttempts = cookies.failedAttempts;

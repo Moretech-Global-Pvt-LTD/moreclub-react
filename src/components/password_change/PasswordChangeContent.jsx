@@ -7,9 +7,7 @@ import PasswordchangeImage from "../../images/auth/login.png";
 import { message } from "antd";
 import { baseURL } from "../../config/config";
 import { axiosInstance } from "../..";
-import { userMembership } from "../../redux/api/userMembershipAPI";
-import { loadMembershipType } from "../../redux/api/membershipTypeAPI";
-import { getBusinessProfile } from "../../redux/api/userDetailAPI";
+
 import PasswordInput from "../ui/passwordInput";
 
 export default function ChangePasswordContent(props) {
@@ -55,9 +53,7 @@ export default function ChangePasswordContent(props) {
       );
 
       await dispatch(load_user());
-      // await dispatch(userMembership());
-      // await dispatch(loadMembershipType());
-      // await dispatch(getBusinessProfile());
+
       message.success(res.data.detail);
       navigate("/dashboard");
     } catch (error) {
@@ -77,24 +73,6 @@ export default function ChangePasswordContent(props) {
 
             <div className="register-form mt-3">
               <Form onSubmit={handleSubmit}>
-                {/* <Form.Group className="mb-4">
-                  <Form.Label>New Password</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="New Password"
-                    onChange={(e) => setInputPassword1(e.target.value)}
-                    required
-                  />
-                </Form.Group>
-                <Form.Group className="mb-4">
-                  <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Confirm Password"
-                    onChange={(e) => setInputPassword2(e.target.value)}
-                    required
-                  />
-                </Form.Group> */}
                 <div className="row g-2">
                   <PasswordInput
                     label="New Password"

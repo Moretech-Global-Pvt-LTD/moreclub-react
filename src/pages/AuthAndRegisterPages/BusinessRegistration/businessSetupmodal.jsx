@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import BusinessRegistration1 from "./BusinessRegistration1";
 import BusinessRegistration2 from "./BusinessRegistration2";
-import BusinessRegistration3 from "./BusinessRegistration3";
 import BusinessRegistration4 from "./BusinessRegistration4";
 import { axiosInstance } from "../../..";
 import { baseURL } from "../../../config/config";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
-import { forEach } from "lodash";
 import { logout } from "../../../redux/api/loginAPI";
 
 const BusinessSetupmodal = () => {

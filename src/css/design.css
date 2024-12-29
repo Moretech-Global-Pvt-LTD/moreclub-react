@@ -2316,6 +2316,228 @@
   [data-theme="dark"] .vertical-line {
     border-left: 1px solid #fff
   }
+
+  .quicklink-card-container {
+    display: grid;
+    grid-gap: 1rem;
+    margin-top: 1rem;
+    grid-template-columns: repeat(3, 1fr); /* Default for small screens */
+  }
+  
+  @media (min-width: 576px) {
+    .quicklink-card-container {
+      grid-template-columns: repeat(4, 1fr); /* SM */
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .quicklink-card-container {
+      grid-template-columns: repeat(5, 1fr); /* MD */
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .quicklink-card-container {
+      grid-template-columns: repeat(5, 1fr); /* LG */
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .quicklink-card-container {
+      grid-template-columns: repeat(8, 1fr); /* XL */
+    }
+  }
+  
+  @media (min-width: 1400px) {
+    .quicklink-card-container {
+      grid-template-columns: repeat(10, 1fr); /* XXL */
+    }
+  }
+  
+  .quicklink-card-link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .quicklink-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: white;
+    background-color: white;
+    transition: transform 0.2s;
+  }
+
+  [data-theme="dark"] .quicklink-card {
+    background-color: #0c153b;
+  }
+  
+  .quicklink-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .quicklink-card-icon-container {
+    margin-bottom: 0.5rem;
+  }
+  
+  .quicklink-card-small-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .quicklink-card-title {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .no-background {
+    background: transparent !important;
+  }
+
+  .dark-image-show{
+    display: none;
+  }
+
+  [data-theme="dark"] .dark-image-show{
+    display: block;
+  }
+
+  .light-image-show{
+    display: block;
+  }
+
+  [data-theme="dark"] .light-image-show{
+    display: none;
+  }
+
+
+/* Container that holds the cards */
+.cuisine-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Default: 2 cards per row (mobile) */
+  gap: 16px; /* Space between the cards */
+  padding: 16px;
+  width: 100%; /* Occupy the full width of the screen */
+  box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+/* Small screens: show 3 cards per row */
+@media (min-width: 640px) { /* "sm" breakpoint */
+  .cuisine-container {
+    grid-template-columns: repeat(3, 1fr); /* Three cards per row */
+  }
+}
+
+/* Medium screens: show 4 cards per row */
+@media (min-width: 768px) { /* "md" breakpoint */
+  .cuisine-container {
+    grid-template-columns: repeat(4, 1fr); /* Four cards per row */
+  }
+}
+
+/* Large screens: show 5 cards per row */
+@media (min-width: 1024px) { /* "lg" breakpoint */
+  .cuisine-container {
+    grid-template-columns: repeat(5, 1fr); /* Five cards per row */
+  }
+}
+@media (min-width: 1356px) { /* "lg" breakpoint */
+  .cuisine-container {
+    grid-template-columns: repeat(6, 1fr); /* Five cards per row */
+  }
+}
+
+@media (min-width: 1700px) { /* "lg" breakpoint */
+  .cuisine-container {
+    grid-template-columns: repeat(7, 1fr); /* Five cards per row */
+  }
+}
+
+@media (min-width: 2100px) { /* "lg" breakpoint */
+  .cuisine-container {
+    grid-template-columns: repeat(8, 1fr); /* Five cards per row */
+  }
+}
+
+.cuisine-card-link {
+  display: inline-block;
+  padding-left: 8px; /* px-2 */
+  cursor: pointer;
+  text-decoration: none; /* Remove underline */
+}
+
+.cuisine-card {
+  position: relative;
+  margin: 16px; /* m-4 */
+  overflow: hidden;
+  border-radius: 12px; /* rounded-3xl */
+  background-color: white; /* bg-white */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+  transition: box-shadow 0.3s ease-in-out; /* transition-shadow */
+}
+
+.cuisine-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* hover:shadow-xl */
+}
+
+.cuisine-card-image {
+  width: 100%;
+  height: 80px; /* h-20 */
+  object-fit: cover;
+  background-color: #0c153b; /* bg-slate-200 */
+}
+
+.cuisine-card-content {
+  text-align: center;
+  padding: 8px; /* For spacing inside content */
+}
+
+.cuisine-card-title {
+  color: #1f2937; /* text-gray-800 */
+  font-weight: bold; /* To emphasize the title */
+}
+
+.cuisine-card-action{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.cuisine-card-delete {
+ 
+ cursor: pointer;
+ color: #f87171;
+}
+
+
+.cuisine-card-edit {
+  
+  cursor: pointer;
+  color: #fff;
+ }
+/* Dark mode styles */
+[data-theme="dark"] .cuisine-card{
+   
+    background-color: #0c153b;
+  }
+
+ [data-theme="dark"] .cuisine-card-title {
+    color: #e5e7eb; 
+  }
+
+  
+
+  
   
   
   

@@ -4,17 +4,18 @@ import { axiosInstance } from "../../../..";
 import { morefoodURL } from "../../../../config/config";
 import { message } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+import { updateCuisine } from "../../../../redux/slices/MenuSlice";
 
-const UpdateCuisineForm = ({ data }) => {
-  const { res_id, cuisine_id, rest_name } = useParams();
-  const queryClient = useQueryClient();
+const UpdateCuisineForm = ({ data, onCancel }) => {
+  const { res_id } = useParams();
   const [imageUrl, setImageUrl] = useState(data.image);
   const [cuisineFormData, setCuisineFormData] = useState({
     name: data?.name,
     image: null,
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,11 +35,13 @@ const UpdateCuisineForm = ({ data }) => {
     const formData = new FormData();
     formData.append("name", cuisineFormData.name);
     formData.append("restaurant_id", res_id);
-    {cuisineFormData.image && formData.append("image", cuisineFormData.image);}
+    {
+      cuisineFormData.image && formData.append("image", cuisineFormData.image);
+    }
 
     axiosInstance
       .patch(
-        `${morefoodURL}moreclub/user/cuisines/update/${cuisine_id}/${res_id}/`,
+        `${morefoodURL}moreclub/user/cuisines/update/${data.id}/${res_id}/`,
         formData,
         {
           headers: {
@@ -48,24 +51,20 @@ const UpdateCuisineForm = ({ data }) => {
       )
       .then((response) => {
         message.success("Cuisine Updated Successfully");
-        queryClient.invalidateQueries({
-          queryKey: [`Resturant Cuisine List ${res_id}`],
-        });
-        queryClient.invalidateQueries({
-          queryKey: [`Resturant Cuisine Detail ${res_id} ${cuisine_id}`],
-        });
-        navigate(`/resturant/${res_id}/cuisine/${rest_name}`);
+        dispatch(updateCuisine({ cuisine: response.data.data }));
+        onCancel();
       })
       .catch((error) => {
-        message.error("error Updating cuisine ");
+        message.error("error Updating cuisine");
       })
       .finally(() => {
         setLoading(false);
       });
   };
+
   return (
     <Row>
-      <Col xs={12} sm={8} md={6} lg={4}>
+      <Col>
         <Card className="p-3">
           {/* <h1>Add Menu Item to {category}</h1> */}
           <Form onSubmit={handleSubmit}>
@@ -131,10 +130,18 @@ const UpdateCuisineForm = ({ data }) => {
                 className="my-4"
               />
             </Form.Group>
+            <div className="d-flex justify-content-end align-items-center gap-2">
+              <Button className="btn-sm btn-secondary " onClick={onCancel}>
+                Cancel
+              </Button>
 
-            <Button variant="success" type="submit" className="my-3">
-              Update Cuisine
-            </Button>
+              <Button variant="success" type="submit" className="my-3 btn-sm">
+                {loading && (
+                  <span className="spinner-border spinner-border-sm"></span>
+                )}{" "}
+                Update Cuisine
+              </Button>
+            </div>
           </Form>
         </Card>
       </Col>
