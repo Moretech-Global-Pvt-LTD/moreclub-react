@@ -83,8 +83,8 @@ const FoodItemDetail = () => {
             ) : (
               <div className="related-card-container">
                 {FoodDetail.foodItemDetail[food_id].variations &&
-                  FoodDetail.foodItemDetail[food_id].variations.filter((variation) => variation.value !== "Default").length > 0 &&
-                  FoodDetail.foodItemDetail[food_id].variations.filter((variation) => variation.value !== "Default").map(
+                  FoodDetail.foodItemDetail[food_id].variations.length > 0 &&
+                  FoodDetail.foodItemDetail[food_id].variations.map(
                     (items) => (
                       <VariaentCard
                         item={items}
@@ -95,7 +95,7 @@ const FoodItemDetail = () => {
                   }
 
                 {FoodDetail.foodItemDetail[food_id].variations &&
-                  FoodDetail.foodItemDetail[food_id].variations.filter((variation) => variation.value !== "Default").length === 0 && (
+                  FoodDetail.foodItemDetail[food_id].variations.length === 0 && (
                     <div className="d-flex flex-column justify-content-center">
                       <p className="text-center">No Variations of Food Items</p>
                       <Button
