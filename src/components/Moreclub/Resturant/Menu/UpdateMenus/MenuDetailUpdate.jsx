@@ -29,12 +29,12 @@ const MenuDetailUpdateForm = ({item , onCancel }) => {
     ingredient: item.ingredient ?? "",
     short_description: item.short_description ?? "",
     menu_id: item.menu_id?? "",
-    price: item.actual_price ?? "",
-    offerPrice: item.item_price === item.actual_price ? "" : item.item_price ?? "",
+    // price: item.actual_price ?? "",
+    // offerPrice: item.item_price === item.actual_price ? "" : item.item_price ?? "",
     image: null,
     imagePreview: item.image ?? "",
     cuisine_id: item.cuisine ? item.cuisine.map((items) => items.id) : [],
-    variation: item.variations ? item.variations.filter((variation) => variation.value !== "Default").length > 0 : false,
+    // variation: item.variations ? item.variations.filter((variation) => variation.value !== "Default").length > 0 : false,
 
   });
   const [showMenuForm, setShowMenuForm] = useState(false);
@@ -252,10 +252,10 @@ const MenuDetailUpdateForm = ({item , onCancel }) => {
         ...(formData.image && { image: formData.image }),
         has_variation: false,
         cuisine_id: formData.cuisine_id,
-        ...(formData.variation === false && {
-          price: formData.price,
-          discount_price: formData.discount_price,
-        }),
+        // ...(formData.variation === false && {
+        //   price: formData.price,
+        //   discount_price: formData.discount_price,
+        // }),
       };
       setLoading(true);
 
@@ -478,7 +478,7 @@ const MenuDetailUpdateForm = ({item , onCancel }) => {
         </Form.Group> */}
 
         {/* Price and Offer Price (hidden if variations exist) */}
-        {!formData.variation && (
+        {/* {!formData.variation && (
           <div className="row row-cols-2">
             <Form.Group controlId="price" className="mt-3">
               <Form.Label>Price</Form.Label>
@@ -508,7 +508,7 @@ const MenuDetailUpdateForm = ({item , onCancel }) => {
               </Form.Control.Feedback>
             </Form.Group>
           </div>
-        )}
+        )} */}
 
   
 

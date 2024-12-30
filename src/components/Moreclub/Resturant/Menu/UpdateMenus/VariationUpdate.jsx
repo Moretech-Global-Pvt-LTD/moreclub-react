@@ -11,7 +11,6 @@ import {
 } from "../../../../../validation/resturantValidation";
 import VariationForm from "../VariationForm";
 import { message } from "antd";
-import { has } from "lodash";
 import { fetchFoodItemsDetailSuccess } from "../../../../../redux/slices/FoodItemDetailSlice";
 
 const VariationUpdateForm = ({item, onCancel}) => {
@@ -24,7 +23,7 @@ const VariationUpdateForm = ({item, onCancel}) => {
     price: item.actual_price ?? "",
     offerPrice: item.item_price === item.actual_price ? "" : item.item_price ?? "",
 
-    variation: item.variations ? item.variations.filter((variation) => variation.value !== "Default").length > 0 : false,
+    variation: true,
     variation_type: item.variations ? item.variations.length > 0 ? item.variations[0].variation_type : "": "",
     variations: [],
   });
@@ -33,7 +32,7 @@ const VariationUpdateForm = ({item, onCancel}) => {
 
   const [errors, setErrors] = useState({});
   const [variationData, setVariationData] = useState(item.variations ?
-    item.variations.filter((variation) => variation.value !== "Default").map((variation) => ({
+    item.variations.map((variation) => ({
       id: variation.id,
       value: variation.value,
       price: variation.price,
@@ -284,7 +283,7 @@ const VariationUpdateForm = ({item, onCancel}) => {
     if (Object.keys(validationErrors).length === 0) {
       
       const newMenu = {
-        has_variation: formData.variation,
+        has_variation: true,
         variations: formData.variation
           ? variationData.map((variation) => ({
               food_item_id: item.id,
@@ -295,8 +294,8 @@ const VariationUpdateForm = ({item, onCancel}) => {
               discount_price: variation.discountPrice,
             }))
           : [],
-        price: formData.variation === false ? formData.price : "0",
-        discount_price: (formData.variation === false) && (formData.offerPrice !== "") ? formData.offerPrice : null,
+        // price: formData.variation === false ? formData.price : "0",
+        // discount_price: (formData.variation === false) && (formData.offerPrice !== "") ? formData.offerPrice : null,
       };
       setLoading(true);
       axiosInstance
@@ -335,12 +334,13 @@ const VariationUpdateForm = ({item, onCancel}) => {
             name="variation"
             label="Has Variations?"
             checked={formData.variation}
+            disabled={true}
             onChange={handleInputChange}
           />
         </Form.Group>
 
         {/* Price and Offer Price (hidden if variations exist) */}
-        {!formData.variation && (
+        {/* {!formData.variation && (
           <div className="row row-cols-2">
             <Form.Group controlId="price" className="mt-3">
               <Form.Label>Price</Form.Label>
@@ -370,10 +370,10 @@ const VariationUpdateForm = ({item, onCancel}) => {
               </Form.Control.Feedback>
             </Form.Group>
           </div>
-        )}
+        )} */}
 
         {/* Variations Section */}
-        {formData.variation && (
+        {/* {formData.variation && ( */}
           <>
             <h5 className="mt-4">Variations</h5>
 
@@ -493,7 +493,7 @@ const VariationUpdateForm = ({item, onCancel}) => {
               + Add Variation
             </Button>
           </>
-        )}
+        {/* )} */}
 
 
       <div className="d-flex justify-content-end gap-2">
