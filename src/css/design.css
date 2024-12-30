@@ -152,6 +152,46 @@
   }
   
   
+
+.food-detail-container{
+  display: grid;
+  column-gap: 1rem;
+  row-gap: 1rem;
+}
+
+
+@media screen and (min-width: 992px) {
+  .food-detail-container{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  .food-detail-container{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+
+
+
+
+
+.food-card-cover {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  border-radius: 8px;
+}
+
+[data-theme="dark"] .food-card-cover {
+  background-color: #0c153b;
+  border-right-color: rgba(194, 212, 248, 0.15);
+}
+
+
+
   /* Container for all food cards */
   .food-card-container {
     display: flex;
