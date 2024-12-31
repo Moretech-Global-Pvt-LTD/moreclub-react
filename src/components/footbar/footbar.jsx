@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import HeaderUserInfo from "../header/HeaderUserInfo";
 import HeaderDashboardMenu from "../header/HeaderDashboardMenu";
 import { useSelector } from "react-redux";
+import DashboardMenu from "../header/Dashboardmenu";
 
 const Footbar = () => {
   const loaction = useLocation();
@@ -113,7 +114,7 @@ const Footbar = () => {
             >
               <HeaderUserInfo />
 
-              <HeaderDashboardMenu />
+              <DashboardMenu />
             </div>
           </div>
           <div

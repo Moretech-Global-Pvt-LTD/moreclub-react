@@ -6,7 +6,6 @@ import LandingLayout from '../../components/Layout/LandingLayout';
 import Breadcrumb from '../../components/breadcrumb/Breadcrumb';
 import UnauthenticatedBusinessPartnerContent from './UnauthenticatedPartnerContent';
 import Divider from '../../components/divider/Divider';
-import { axiosInstance } from '../..';
 import { useQuery } from '@tanstack/react-query';
 import { baseURL } from '../../config/config';
 import { BestDealsinTownSkeleton } from '../../components/Skeleton/SmallCardSkeleton';
@@ -66,7 +65,12 @@ const BusinessPartnerContent = ({ partnerId, CuisineName }) => {
 
             const response = await axios.get(
                 `${baseURL}business/partners/${partnerId}/list/?cuisine=${cuisineName}`,{
-                    headers: {
+                    credentials: 'include',    
+                    Origin : 'https://moredealsclub.com',
+                headers: {
+                    "Content-Type": "application/json",
+                    
+                    
                         'x-country-code': Cookies.get("countryCode"),
                     }
                 }

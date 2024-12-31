@@ -14,7 +14,9 @@ const RestaurantCusine = () => {
         queryFn: async () => {
             const response = await axiosInstance.get(
                 `${morefoodURL}menus/cuisines/`, {
+                credentials: 'include',    
                 headers: {
+                    "Content-Type": "application/json",
                     'x-country-code': Cookies.get("countryCode"),
                 }
             }
