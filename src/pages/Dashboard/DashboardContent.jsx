@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
 import QuickLinks from "../../components/dashboard/quickLinks";
 import { get_transaction } from "../../redux/api/transactionAPI";
 import { useDispatch} from "react-redux";
-import Walletlinks from "../../components/dashboard/Walletlinks";
+// import Walletlinks from "../../components/dashboard/Walletlinks";
 import { Link } from "react-router-dom";
 import EventDashboardDisplay from "../../components/event/EventDashboardDisplay";
 import PopularResturant from "../../components/Moreclub/morefood/PopularResturant";
