@@ -6,25 +6,24 @@ import handleRedirection from "../../utills/redircting";
 import SidebarDropDownMenu from "./dropdownmenu";
 import MarketplaceLinks from "./MarketplaceLinks";
 
-import HomeWhite from "../../images/svg/dashboard/HomeWhite.svg"
-import HomePrimary from "../../images/svg/dashboard/Home.svg"
-import NetworkYellow from "../../images/svg/NetworkYellow.svg"
-import WalletWhite from "../../images/svg/wallet.svg"
-import Events from "../../images/svg/dashboard/events.svg"
-import Transactions from "../../images/svg/Transaction.svg"
-import BusinessTransactions from "../../images/svg/transactionWhite.svg"
+import HomeWhite from "../../images/svg/dashboard/HomeWhite.svg";
+import HomePrimary from "../../images/svg/dashboard/Home.svg";
+import NetworkYellow from "../../images/svg/NetworkYellow.svg";
+import WalletWhite from "../../images/svg/wallet.svg";
+import Events from "../../images/svg/dashboard/events.svg";
+import Transactions from "../../images/svg/Transaction.svg";
+import BusinessTransactions from "../../images/svg/transactionWhite.svg";
 
-import MoreFood from "../../images/svg/dashboard/morefood.svg"
-import MoreSalonWhite from "../../images/svg/dashboard/moresaloonwhite.svg"
-import MoreSalonBlack from "../../images/svg/dashboard/moresaloonblack.svg"
-import settingRed from "../../images/svg/dashboard/SettingRed.svg"
-import settingWhite from "../../images/svg/dashboard/settingWhite.svg"
-import settingBlack from "../../images/svg/dashboard/settingGray.svg"
+import MoreFood from "../../images/svg/dashboard/morefood.svg";
+import MoreSalonWhite from "../../images/svg/dashboard/moresaloonwhite.svg";
+import MoreSalonBlack from "../../images/svg/dashboard/moresaloonblack.svg";
+import settingRed from "../../images/svg/dashboard/SettingRed.svg";
+import settingWhite from "../../images/svg/dashboard/settingWhite.svg";
+import settingBlack from "../../images/svg/dashboard/settingGray.svg";
 import BusinessMenu from "../../images/svg/dashboard/businessMenus.svg";
 import BusinessProfile from "../../images/svg/dashboard/businessProfile.svg";
 import BusinessEvent from "../../images/svg/dashboard/businessEvents.svg";
-
-
+import Station from "../../images/svg/dashboard/Station.svg";
 
 const MoreClubLinks = [
   {
@@ -96,8 +95,14 @@ const DashboardMenu = () => {
   //   </li>
   // );
 
-  
-  const generateMenuItem = (to, lightIcon, darkIcon, label, hasPermission = true, onClick) => (
+  const generateMenuItem = (
+    to,
+    lightIcon,
+    darkIcon,
+    label,
+    hasPermission = true,
+    onClick
+  ) => (
     <li>
       {hasPermission ? (
         onClick ? (
@@ -112,10 +117,10 @@ const DashboardMenu = () => {
               className="me-2 small-dashboard-icon menu-icon dark-logo dashboard-menus-dark-icon"
             />
             <img
-            src={lightIcon}
-            alt={label}
-            className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
-          />
+              src={lightIcon}
+              alt={label}
+              className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
+            />
             {label}
           </div>
         ) : (
@@ -123,16 +128,27 @@ const DashboardMenu = () => {
             to={to}
             className="redirectlink fw-semibold dashboard-menus-items"
           >
-            <img
-              src={darkIcon}
-              alt={label}
-              className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
-            />
-            <img
-            src={lightIcon}
-            alt={label}
-            className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
-          />
+            {label === "Events" || label === "Setup Station" ? (
+              <img
+                src={darkIcon}
+                alt={label}
+                className="me-2 small-dashboard-icon"
+              />
+            ) : (
+              <>
+                <img
+                  src={darkIcon}
+                  alt={label}
+                  className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
+                />
+                <img
+                  src={lightIcon}
+                  alt={label}
+                  className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
+                />
+              </>
+            )}
+
             {label}
           </NavLink>
         )
@@ -153,42 +169,50 @@ const DashboardMenu = () => {
       )}
     </li>
   );
-  
+
   const menuItems = [
-    { to: "/dashboard", lightIcon: HomePrimary, darkIcon:HomeWhite, label: "Dashboard" },
+    {
+      to: "/dashboard",
+      lightIcon: HomePrimary,
+      darkIcon: HomeWhite,
+      label: "Dashboard",
+    },
     permissions.permission?.my_network && {
       to: "/my-network",
-      lightIcon: NetworkYellow, 
-      darkIcon:NetworkYellow,
+      lightIcon: NetworkYellow,
+      darkIcon: NetworkYellow,
       label: "My Network",
       hasPermission: permissions.permission.my_network,
     },
     permissions.permission?.my_wallet && {
       to: "/wallet",
-      lightIcon: WalletWhite, 
-      darkIcon:WalletWhite,
+      lightIcon: WalletWhite,
+      darkIcon: WalletWhite,
       label: "My Wallet",
       hasPermission: permissions.permission.my_wallet,
     },
-    { to: "/event",  lightIcon: Events, darkIcon:Events, label: "Events" },
+    { to: "/event", lightIcon: Events, darkIcon: Events, label: "Events" },
     permissions.permission?.transaction && {
       to: "/transactions",
-      lightIcon: Transactions, darkIcon:Transactions,
+      lightIcon: Transactions,
+      darkIcon: Transactions,
       label: "Transactions",
       hasPermission: permissions.permission.transaction,
     },
-    
+
     user.user &&
       user.user?.user_type !== "BUSINESS" && {
         to: "/morefood",
-        lightIcon: MoreFood, darkIcon:MoreFood,
+        lightIcon: MoreFood,
+        darkIcon: MoreFood,
         label: "MOREFOOD",
         hasPermission: true,
       },
     user.user &&
       user.user?.user_type !== "BUSINESS" && {
         to: "/moresaloon",
-        lightIcon: MoreSalonBlack, darkIcon:MoreSalonWhite,
+        lightIcon: MoreSalonBlack,
+        darkIcon: MoreSalonWhite,
         label: "MORE SALONS",
         hasPermission: true,
       },
@@ -205,7 +229,8 @@ const DashboardMenu = () => {
         (type) => type.name === "Restaurant"
       ) && {
         to: "/morefood",
-        lightIcon: MoreFood, darkIcon:MoreFood,
+        lightIcon: MoreFood,
+        darkIcon: MoreFood,
         label: "MOREFOOD",
         hasPermission: true,
       },
@@ -215,7 +240,8 @@ const DashboardMenu = () => {
         (type) => type.name === "Salons"
       ) && {
         to: "/moresaloon",
-        lightIcon: MoreSalonBlack, darkIcon:MoreSalonWhite,
+        lightIcon: MoreSalonBlack,
+        darkIcon: MoreSalonWhite,
         label: "MORE SALONS",
         hasPermission: true,
       },
@@ -255,7 +281,8 @@ const DashboardMenu = () => {
   const additionalLinks = [
     (user.isSuperAdmin || user.isStationOwner) && {
       to: "/station",
-      icon: "bi-currency-exchange",
+      lightIcon: Station,
+      darkIcon: Station,
       label: "Setup Station",
       hasPermission: permissions.permission.my_wallet,
     },
@@ -288,7 +315,8 @@ const DashboardMenu = () => {
           <li key={idx}>
             {generateMenuItem(
               item.to,
-              item.icon,
+              item.lightIcon,
+              item.darkIcon,
               item.label,
               item.hasPermission,
               item.onClick
@@ -305,8 +333,8 @@ export default DashboardMenu;
 const MorefoodDropdown = () => {
   return (
     <SidebarDropDownMenu
-    darkIcon={MoreFood}
-    lightIcon={MoreFood}
+      darkIcon={MoreFood}
+      lightIcon={MoreFood}
       menuSvg={
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -324,39 +352,40 @@ const MorefoodDropdown = () => {
       links={MoreClubLinks}
     >
       <li>
-        <NavLink to={"/restaurant"}
-        className="redirectlink fw-semibold dashboard-menus-items"
+        <NavLink
+          to={"/restaurant"}
+          className="redirectlink fw-semibold dashboard-menus-items"
         >
-        <img
-              src={settingRed}
-              alt={"MORE FOOD"}
-              className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
-            />
-            <img
+          <img
+            src={settingRed}
+            alt={"MORE FOOD"}
+            className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
+          />
+          <img
             src={settingRed}
             alt={"MORE FOOD"}
             className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
-          /> Setup Resturant
+          />{" "}
+          Setup Resturant
         </NavLink>
       </li>
       <li>
-        
         <NavLink
-            to={"/morefood"}
-            className="redirectlink fw-semibold dashboard-menus-items"
-          >
-            <img
-              src={MoreFood}
-              alt={"MORE FOOD"}
-              className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
-            />
-            <img
+          to={"/morefood"}
+          className="redirectlink fw-semibold dashboard-menus-items"
+        >
+          <img
+            src={MoreFood}
+            alt={"MORE FOOD"}
+            className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
+          />
+          <img
             src={MoreFood}
             alt={"MORE FOOD"}
             className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
           />
-            MORE FOOD
-          </NavLink>
+          MORE FOOD
+        </NavLink>
       </li>
     </SidebarDropDownMenu>
   );
@@ -365,38 +394,40 @@ const MorefoodDropdown = () => {
 const MoreSaloonDropdown = () => {
   return (
     <SidebarDropDownMenu
-    darkIcon={MoreSalonWhite}
-    lightIcon={MoreSalonBlack}
+      darkIcon={MoreSalonWhite}
+      lightIcon={MoreSalonBlack}
       menuIcon={"bi-scissors"}
       menuTitle="MORE SALONS"
       links={MoreClubLinks}
     >
       <li>
         <NavLink to={"/saloon"}>
-        <img
-              src={settingWhite}
-              alt={"MORE FOOD"}
-              className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
-            />
-            <img
+          <img
+            src={settingWhite}
+            alt={"MORE FOOD"}
+            className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
+          />
+          <img
             src={settingBlack}
             alt={"MORE FOOD"}
             className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
-          /> Setup Salon
+          />{" "}
+          Setup Salon
         </NavLink>
       </li>
       <li>
         <NavLink to={"/moresaloon"}>
-        <img
-              src={MoreSalonWhite}
-              alt={"MORE SALON"}
-              className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
-            />
-            <img
+          <img
+            src={MoreSalonWhite}
+            alt={"MORE SALON"}
+            className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
+          />
+          <img
             src={MoreSalonBlack}
             alt={"MORE SALON"}
             className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
-          /> MORE SALONS
+          />{" "}
+          MORE SALONS
         </NavLink>
       </li>
     </SidebarDropDownMenu>
@@ -429,17 +460,16 @@ const BusinessMenuDropdown = ({ permisions }) => {
       {permisions.permission && permisions.permission.business_transaction ? (
         <li>
           <NavLink to={"/business-transactions"}>
-          <img
+            <img
               src={BusinessTransactions}
               alt={"BusinessTransactions"}
               className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
             />
             <img
-            src={BusinessTransactions}
-            alt={"BusinessTransactions"}
-            className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
-          />
-          
+              src={BusinessTransactions}
+              alt={"BusinessTransactions"}
+              className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
+            />
             Business Transactions
           </NavLink>
         </li>
@@ -453,27 +483,27 @@ const BusinessMenuDropdown = ({ permisions }) => {
       {permisions.permission && permisions.permission.business_profile ? (
         <li>
           <NavLink to={"/business-profile"}>
-          <img
+            <img
               src={BusinessProfile}
               alt={"BusinessProfile"}
               className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
             />
             <img
-            src={BusinessProfile}
-            alt={"BusinessProfile"}
-            className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
-          />
+              src={BusinessProfile}
+              alt={"BusinessProfile"}
+              className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
+            />
             Business Profile
           </NavLink>
         </li>
       ) : (
         <li>
           <img
-              src={BusinessProfile}
-              alt={"BusinessProfile"}
-              className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
-            />
-            <img
+            src={BusinessProfile}
+            alt={"BusinessProfile"}
+            className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
+          />
+          <img
             src={BusinessProfile}
             alt={"BusinessProfile"}
             className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
@@ -485,12 +515,12 @@ const BusinessMenuDropdown = ({ permisions }) => {
 
       <li>
         <NavLink to={"/business-events"}>
-        <img
-              src={BusinessEvent}
-              alt={"BusinessEvent"}
-              className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
-            />
-            <img
+          <img
+            src={BusinessEvent}
+            alt={"BusinessEvent"}
+            className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
+          />
+          <img
             src={BusinessEvent}
             alt={"BusinessEvent"}
             className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"

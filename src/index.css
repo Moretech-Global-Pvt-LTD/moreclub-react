@@ -28095,6 +28095,20 @@ span {
   margin-right:0.5rem;
 }
 
+.small-footbar-icon{
+  width:1.5rem;
+  height:1.5rem;
+ 
+}
+
+
+.active-footbar-icon {
+  filter: brightness(0) saturate(100%) invert(54%) sepia(96%) saturate(742%) hue-rotate(0deg) brightness(104%) contrast(102%);
+}
+
+.inactive-footbar-icon {
+  filter: none;}
+
 
 
 /* Style the menu item */
@@ -28161,4 +28175,7 @@ span {
 [data-theme="dark"] .dashboard-menus-light-icon {
   display: none;
 }
+
+
+
 
