@@ -1,22 +1,18 @@
 import React from 'react'
-import { morefoodURL } from '../../../config/config';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import Cookies from "js-cookie"
-
-
 import PopularresturantCarousel from './PopularresturantCarousel';
 import RestaurantCardSkeleton from '../../Skeleton/RestaurantCardSkeleton';
+import { morefoodPublicAxios } from '../../../utills/axios/morefoodaxios';
+
 const PopularResturant = () => {
+
+
     const { data, isLoading, isError } = useQuery({
       queryKey: ["More Food Popular Resturant List"],
       queryFn: async () => {
-        const response = await axios.get(
-          `${morefoodURL}restaurants/popular-restaurants/`,{
-            headers: {
-              'x-country-code': Cookies.get("countryCode"),
-            }
-          }
+        const response = await morefoodPublicAxios.get(
+          `restaurants/popular-restaurants/`,
+          
         );
         const data = await response.data.data;
         return data;

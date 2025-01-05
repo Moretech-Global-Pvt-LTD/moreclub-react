@@ -1,10 +1,9 @@
 import { message } from "antd";
 import React, {useState } from "react";
 import { Form } from "react-bootstrap";
-import { morefoodURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const Logo = ({data}) => {
   const { id } = useParams();
@@ -28,8 +27,8 @@ const Logo = ({data}) => {
       const formData = {
         logo: inputBanner,
       };
-      const res = await await axiosInstance.patch(
-        `${morefoodURL}moreclub/user/restaurants/${id}/`,
+      const res = await await morefoodAuthenticatedAxios.patch(
+        `moreclub/user/restaurants/${id}/`,
         formData,
         {
           headers: {
@@ -39,7 +38,7 @@ const Logo = ({data}) => {
       );
       if (res.status === 200) {
         message.success("Logo Updated Successfully");
-        queryClient.invalidateQueries([`Resturant List ${id}`]);
+        queryClient.invalidateQueries([`Restaurant ${data.id}`]);
       } else {
         message.error("Failed to Upload Logo");
       }

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {  Row, Col, Form,  Button, ToggleButton } from 'react-bootstrap';
+import {  Row, Col, Form,  Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { axiosInstance } from '../../../..';
-import { morefoodURL } from '../../../../config/config';
 import { message } from 'antd';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const OpeningHoursForm = ({ existingdata }) => {
   const { res_id } = useParams();
@@ -83,8 +82,8 @@ const OpeningHoursForm = ({ existingdata }) => {
     if (existingdata) {
       setIsloading(true)
       try {
-        const res = axiosInstance.patch(
-          `${morefoodURL}moreclub/user/restaurants/${res_id}/working/hours/`, openingHours
+        morefoodAuthenticatedAxios.patch(
+          `moreclub/user/restaurants/${res_id}/working/hours/`, openingHours
         )
         message.success('Working hours updated successfully')
       } catch (err) {
@@ -97,8 +96,8 @@ const OpeningHoursForm = ({ existingdata }) => {
     } else {
       setIsloading(true)
       try {
-        const res = axiosInstance.post(
-          `${morefoodURL}moreclub/user/restaurants/${res_id}/working/hours/`, openingHours
+        morefoodAuthenticatedAxios.post(
+          `moreclub/user/restaurants/${res_id}/working/hours/`, openingHours
         )
         message.success('Working hours created successfully')
       } catch (err) {

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Col } from "react-bootstrap";
-import { axiosInstance } from "../../../../..";
 import { useParams } from "react-router-dom";
-import { morefoodURL } from "../../../../../config/config";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -12,6 +10,7 @@ import {
 import VariationForm from "../VariationForm";
 import { message } from "antd";
 import { fetchFoodItemsDetailSuccess } from "../../../../../redux/slices/FoodItemDetailSlice";
+import { morefoodAuthenticatedAxios } from "../../../../../utills/axios/morefoodaxios";
 
 const VariationUpdateForm = ({item, onCancel}) => {
   const { res_id } = useParams();
@@ -298,9 +297,9 @@ const VariationUpdateForm = ({item, onCancel}) => {
         // discount_price: (formData.variation === false) && (formData.offerPrice !== "") ? formData.offerPrice : null,
       };
       setLoading(true);
-      axiosInstance
+      morefoodAuthenticatedAxios
         .patch(
-          `${morefoodURL}moreclub/user/all/food/items/${res_id}/${item.id}/`,
+          `moreclub/user/all/food/items/${res_id}/${item.id}/`,
           newMenu,
           {
             headers: {

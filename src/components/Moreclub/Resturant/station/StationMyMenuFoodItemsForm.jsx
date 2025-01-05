@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Form, Button, Row, Col, Card } from "react-bootstrap";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
+import React, {  useState } from "react";
+import { Form, Button, Row, Col} from "react-bootstrap";
+
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
-// import Cookies from "js-cookie";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 
 
@@ -20,31 +19,8 @@ const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish , cuisineO
         ingredient: ""
     });
     const [loading, setLoading] = useState(false)
-    const [uiLoading, setUIloading] = useState(false);
     // const [cuisineOption, setCuisineOption] = useState([]);
     const [offererror, setOfferError] = useState("");
-
-
-    // async function getCuisineList() {
-    //     try {
-    //         const res = await axiosInstance.get(
-    //             `${morefoodURL}moreclub/station/restro/${stationId}/by/restaurant/menu/`, {
-    //             headers: {
-    //                 'x-country-code': Cookies.get("countryCode"),
-    //             }
-    //         }
-    //         );
-    //         setCuisineOption(res.data.data);
-    //     } catch (err) {
-    //         console.error(err);
-    //         setCuisineOption([]);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     getCuisineList();
-    // }, []);
-
 
 
     const handleChange = (e) => {
@@ -88,8 +64,8 @@ const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish , cuisineO
             menu_id: menuItem.menu_id
         }
 
-        axiosInstance
-            .post(`${morefoodURL}moreclub/station/${stationId}/restaurant/${res_id}/food-items/restro/`, data,
+        morefoodAuthenticatedAxios
+            .post(`moreclub/station/${stationId}/restaurant/${res_id}/food-items/restro/`, data,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -147,19 +123,7 @@ const StationMyMenuItemsForm = ({ res_id, cat_id, stationId, onFinish , cuisineO
                             />
                         </Form.Group>
                     </Col>
-                    {/* <Col>
-                        <Form.Group controlId="formItemOfferPrice">
-                            <Form.Label>Offer Price <span style={{ fontSize: "11px" }}>(optional)</span></Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter offer price"
-                                name="offerPrice"
-                                value={menuItem.offerPrice}
-                                onChange={handleChange}
-                            />
-                            {offererror && <p className="text-danger" style={{ fontSize: "11px" }}>{offererror}</p>}
-                        </Form.Group>
-                    </Col> */}
+                    
                 </Row>
 
                 <Form.Group className="my-4">

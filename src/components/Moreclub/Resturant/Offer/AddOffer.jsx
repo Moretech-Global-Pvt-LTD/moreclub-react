@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col, Spinner, Badge } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { message } from "antd";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const convertUTCToLocalDate = (utcDateString) => {
   if (!utcDateString) return null;
@@ -65,8 +65,8 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
   const { data: categories, isLoading: categoriesLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${morefoodURL}moreclub/user/menus/${res_id}/`
+      const response = await morefoodAuthenticatedAxios.get(
+        `moreclub/user/menus/${res_id}/`
       );
       return response.data.data;
     },
@@ -76,8 +76,8 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
   const { data: submenuItems, isLoading: submenuItemsLoading } = useQuery({
     queryKey: ["submenuItems", formData.selectedCategory],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${morefoodURL}moreclub/user/food/items/${formData.selectedCategory}/${res_id}`
+      const response = await morefoodAuthenticatedAxios.get(
+        `moreclub/user/food/items/${formData.selectedCategory}/${res_id}`
       );
       return response.data.data;
     },
@@ -310,11 +310,11 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
     try {
       const endpoint =
         mode === "create"
-          ? `${morefoodURL}moreclub/user/offers/${res_id}/`
-          : `${morefoodURL}moreclub/user/offers/${res_id}/${initialData.id}/`;
+          ? `moreclub/user/offers/${res_id}/`
+          : `moreclub/user/offers/${res_id}/${initialData.id}/`;
       const method = mode === "create" ? "post" : "patch";
 
-      const res = await axiosInstance[method](endpoint, offerData, {
+      const res = await morefoodAuthenticatedAxios[method](endpoint, offerData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

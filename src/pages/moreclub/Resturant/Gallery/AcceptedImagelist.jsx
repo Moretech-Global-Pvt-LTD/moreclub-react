@@ -2,11 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 import { Placeholder } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { axiosInstance } from '../../../..';
-import { morefoodURL } from '../../../../config/config';
 import ImageAccept from '../../../../components/Moreclub/Resturant/Gallery/ImageAccept';
 import { setUserGalleryAccepted } from '../../../../redux/slices/gallerySlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const AcceptedImagelist = () => {
     const { res_id } = useParams();
@@ -15,8 +14,8 @@ const AcceptedImagelist = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Resturant Accepted images Gallery ${res_id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/user/restaurants/gallery/user/upload/${res_id}/?status=verified`
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/user/restaurants/gallery/user/upload/${res_id}/?status=verified`
             );
             const data = await response.data.data;
             dispatch(setUserGalleryAccepted(data));
@@ -65,8 +64,6 @@ const AcceptedImagelist = () => {
     if (isError) {
         return <div className="text-dynamic-white">Error: retriving</div>;
     }
-
-    const datas = data && data.map((e) => ({ ...e, width: "300", height: "200" }));
 
   return (
       <div className='d-flex flex-wrap gap-2'>

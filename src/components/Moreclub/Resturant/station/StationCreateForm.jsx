@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form, Spinner } from "react-bootstrap";
 import axios from "axios";
-import { baseURL, morefoodURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
+import { baseURL } from "../../../../config/config";
+
 import { message } from "antd";
 import {
   valdateShortDescription,
@@ -27,6 +27,7 @@ import {
   validateUserPhone,
 } from "../../../../validation/userRegisterValidation";
 import PhoneNumberInput from "../../../ui/PhoneInput2";
+import { morefoodAuthenticatedAxios, morefoodPublicAxios } from "../../../../utills/axios/morefoodaxios";
 
 const StationCreateForm = () => {
   const navigate = useNavigate();
@@ -269,7 +270,7 @@ const StationCreateForm = () => {
 
   const fetchCountry = async () => {
     try {
-      const res = await axios.get(`${morefoodURL}country/list/`);
+      const res = await morefoodPublicAxios.get(`country/list/`);
       setCountryList(res.data.data);
       const uniqueCurrencies = new Map();
 
@@ -288,7 +289,7 @@ const StationCreateForm = () => {
   };
   const fetchUserList = async () => {
     try {
-      const res = await axios.get(`${morefoodURL}user/list/`);
+      const res = await morefoodPublicAxios.get(`user/list/`);
       setUsersList(res.data.data);
     } catch (err) {
       console.error(err);
@@ -429,8 +430,8 @@ const StationCreateForm = () => {
       };
 
       try {
-        const res = await axiosInstance.post(
-          `${morefoodURL}moreclub/setup/station/`,
+        const res = await morefoodAuthenticatedAxios.post(
+          `moreclub/setup/station/`,
           formData,
           {
             headers: {

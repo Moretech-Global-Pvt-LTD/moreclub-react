@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Form, Button, Row, Col, Card } from "react-bootstrap";
+import React, { useState } from "react";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { axiosInstance } from "../../../..";
-import { morefoodURL, moresaloonURL } from "../../../../config/config";
+import {  moresaloonURL } from "../../../../config/config";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
-
-
-
-
-
 
 
 
@@ -27,7 +22,6 @@ const ServiceVariationUpdateForm = ({ ser_id, sal_id, data, onFinish, onCancel }
     const [serverImage, setServerImage] = useState(data.images);
     const [removedImages, setRemovedImages] = useState([]);
     const [loading, setLoading] = useState(false)
-    const [uiLoading, setUIloading] = useState(false);
 
     const [offererror, setOfferError] = useState("");
     const [durationerror, setDurationError] = useState("");

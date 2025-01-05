@@ -3,11 +3,11 @@ import StationLayout from './StationLayout'
 import { Col, Placeholder } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../../..';
-import { morefoodURL } from '../../../config/config';
+
 import StationUpdateInfoForm from '../../../components/Moreclub/Resturant/station/StationUpdateForm';
 import StationBanner from '../../../components/Moreclub/Resturant/station/StationBannerUpdate';
 import StationLogoUpdate from '../../../components/Moreclub/Resturant/station/StationLogoUpdate';
+import { morefoodAuthenticatedAxios } from '../../../utills/axios/morefoodaxios';
 
 const StationUpdatePage = () => {
     const [activeTab, setActiveTab] = useState("Information");
@@ -16,8 +16,8 @@ const StationUpdatePage = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Station ${id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${id}/`
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/station/${id}/`
             );
             const data = await response.data.data;
             return data;

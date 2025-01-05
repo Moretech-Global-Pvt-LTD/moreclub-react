@@ -5,17 +5,17 @@ import { Card, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Plus from "../../../images/moreclub/plus.png";
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../../..';
 import { morefoodURL } from '../../../config/config';
 import StationLayout from './StationLayout';
 import { useSelector } from 'react-redux';
+import { morefoodAuthenticatedAxios } from '../../../utills/axios/morefoodaxios';
 
 const StationPage = () => {
     const user = useSelector((state) => state.userReducer);
     const { data, isLoading, isError } = useQuery({
         queryKey: ["station List"],
         queryFn: async () => {
-            const response = await axiosInstance.get(`${morefoodURL}moreclub/stations/list/`);
+            const response = await morefoodAuthenticatedAxios.get(`${morefoodURL}moreclub/stations/list/`);
             const data = await response.data.data;
             return data;
         },

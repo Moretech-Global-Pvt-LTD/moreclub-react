@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 import { useParams } from 'react-router-dom';
-import { axiosInstance } from '../../../..';
 import { morefoodURL } from '../../../../config/config';
 import { Placeholder } from 'react-bootstrap';
 import OpeningHoursForm from '../../../../components/Moreclub/Resturant/openingHours/openinghourform';
 import RestaurantLayout from '../../../../components/Layout/RestaurantLayout';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const OpeninghoursPage = () => {
     const { res_id } = useParams();
@@ -14,8 +14,8 @@ const OpeninghoursPage = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: [`working hours ${res_id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/user/restaurants/${res_id}/working/hours/`
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/user/restaurants/${res_id}/working/hours/`
             );
             const data = await response.data.data;
             return data;

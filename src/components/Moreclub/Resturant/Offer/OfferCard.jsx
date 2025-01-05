@@ -1,10 +1,10 @@
 import React from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
+
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const OfferCard = ({
   slug,
@@ -119,8 +119,8 @@ const OfferCard = ({
   const deleteOffer = async (offer_id) => {
     try {
       setIsDeleting(true);
-      const res = await axiosInstance.delete(
-        `${morefoodURL}moreclub/user/offers/${res_id}/${offer_id}/delete/`
+      const res = await morefoodAuthenticatedAxios.delete(
+        `moreclub/user/offers/${res_id}/${offer_id}/delete/`
       );
       message.success("Offer Deleted successfully");
       queryClient.invalidateQueries({

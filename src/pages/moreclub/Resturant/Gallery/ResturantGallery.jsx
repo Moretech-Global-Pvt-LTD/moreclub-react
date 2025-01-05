@@ -5,12 +5,13 @@ import { Button, Card, Col, Placeholder, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 
-import { morefoodURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
+
+
 import ImageContainer from "../../../../components/Moreclub/Resturant/Gallery/GalleryImageContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { setRestaurantGallery } from "../../../../redux/slices/gallerySlice";
 import FewImage from "../../../../components/Moreclub/Resturant/Gallery/fewimage";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const RestaurantGalleryContent = () => {
   const { res_id } = useParams();
@@ -21,8 +22,8 @@ const RestaurantGalleryContent = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: [`Resturant Gallery ${res_id}`],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${morefoodURL}moreclub/user/restaurants/gallery/${res_id}/`
+      const response = await morefoodAuthenticatedAxios.get(
+        `moreclub/user/restaurants/gallery/${res_id}/`
       );
       const data = await response.data.data;
       dispatch(setRestaurantGallery(data));

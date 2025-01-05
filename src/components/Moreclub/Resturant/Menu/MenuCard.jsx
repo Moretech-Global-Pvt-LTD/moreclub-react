@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-
 import { Link, useParams } from "react-router-dom";
-import { axiosInstance } from "../../../..";
 import { message } from "antd";
-import { morefoodURL } from "../../../../config/config";
 import { useQueryClient } from "@tanstack/react-query";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const MenuCard = ({
   menu,
@@ -21,9 +19,9 @@ const MenuCard = ({
   async function handleDelete() {
     setDeleting(true)
     try {
-      await axiosInstance
+      await morefoodAuthenticatedAxios
         .delete
-        (`${morefoodURL}moreclub/user/food/items/${data.menu_id}/${data.id}/${res_id}/`)
+        (`moreclub/user/food/items/${data.menu_id}/${data.id}/${res_id}/`)
 
       message.success("Menu Deleted successfully");
       queryClient.invalidateQueries({

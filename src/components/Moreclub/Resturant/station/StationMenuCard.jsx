@@ -3,8 +3,7 @@ import { Badge, Card, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import MenuCategoryAddForm from "../common/MenuCategoryAddForm";
-import { morefoodURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const StationMenuCard = ({ id, slug, stationId, logo, name, item }) => {
 
@@ -23,8 +22,8 @@ const StationMenuCard = ({ id, slug, stationId, logo, name, item }) => {
         name = datas.name
         logo = datas.logo && URL.createObjectURL(datas.logo)
         try {
-            const response = await axiosInstance.patch(
-                `${morefoodURL}moreclub/station/menu/${id}/update/`,
+            const response = await morefoodAuthenticatedAxios.patch(
+                `moreclub/station/menu/${id}/update/`,
                 datas,
                 {
                     headers: {

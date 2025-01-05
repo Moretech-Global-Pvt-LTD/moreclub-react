@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
 import { message } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateCuisine } from "../../../../redux/slices/MenuSlice";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const UpdateCuisineForm = ({ data, onCancel }) => {
   const { res_id } = useParams();
@@ -14,7 +13,7 @@ const UpdateCuisineForm = ({ data, onCancel }) => {
     name: data?.name,
     image: null,
   });
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -39,9 +38,9 @@ const UpdateCuisineForm = ({ data, onCancel }) => {
       cuisineFormData.image && formData.append("image", cuisineFormData.image);
     }
 
-    axiosInstance
+    morefoodAuthenticatedAxios
       .patch(
-        `${morefoodURL}moreclub/user/cuisines/update/${data.id}/${res_id}/`,
+        `moreclub/user/cuisines/update/${data.id}/${res_id}/`,
         formData,
         {
           headers: {

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
-import { Link, useParams } from "react-router-dom";
-import { axiosInstance } from "../../../..";
+import {useParams } from "react-router-dom";
+
 import { message } from "antd";
-import { imageURL, morefoodURL } from "../../../../config/config";
+
 import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "react-bootstrap";
 import StationMyMenuItemsUpdateForm from "./StationMyMenuFoodItemsFormUpdate";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const StationFoodCard = ({
     cuisineOption,
@@ -32,9 +33,9 @@ const StationFoodCard = ({
     async function handleDelete() {
         setHideMenu(true)
         try {
-            await axiosInstance
+            await morefoodAuthenticatedAxios
                 .delete
-                (`${morefoodURL}moreclub/station/${stationid}/${resid}/${foodid}/food-items/restro/update/`)
+                (`moreclub/station/${stationid}/${resid}/${foodid}/food-items/restro/update/`)
 
             message.success("Menu Deleted successfully");
             queryClient.invalidateQueries({

@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { Button, Col, Modal, Row } from 'react-bootstrap';
+import {  Col, Modal, Row } from 'react-bootstrap';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-
-import Cookies from "js-cookie"
 import StationLayout from './StationLayout';
 import RestaurantCardSkeleton from '../../../components/Skeleton/RestaurantCardSkeleton';
-import { axiosInstance } from '../../..';
-import { morefoodURL } from '../../../config/config';
 import StationMenuFoodForm from '../../../components/Moreclub/Resturant/station/StationMenuFoodForm';
 import StationFoodCard from '../../../components/Moreclub/Resturant/station/StationFoodCard';
+import { morefoodAuthenticatedAxios } from '../../../utills/axios/morefoodaxios';
 
 
 const StationMenuItems = () => {
@@ -24,17 +21,13 @@ const StationMenuItems = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Station Menu List for ${menu_id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${id}/${menu_id}/food-items/`, {
-                headers: {
-                    'x-country-code': Cookies.get("countryCode"),
-                }
-            }
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/station/${id}/${menu_id}/food-items/`, 
             );
             const data = await response.data.data;
             return data;
         },
-        staleTime: 1000,
+        staleTime: 60000,
     });
 
     if (isLoading) {
@@ -64,8 +57,8 @@ const StationMenuItems = () => {
 
     const submit = async (datas) => {
         try {
-            const response = await axiosInstance.post(
-                `${morefoodURL}moreclub/station/${id}/${menu_id}/food-items/`,
+            const response = await morefoodAuthenticatedAxios.post(
+                `moreclub/station/${id}/${menu_id}/food-items/`,
                 datas,
                 {
                     headers: {
@@ -89,18 +82,6 @@ const StationMenuItems = () => {
 
     return (
         <StationLayout title={`${slug} ${menu}`}>
-            {/* <div className="d-flex align-items-center justify-content-end my-2">
-
-                {showForm ? (
-                    <Button variant="danger" onClick={() => hideAddCategory()}>
-                        Cancel
-                    </Button>
-                ) : (
-                    <Button variant="warning" onClick={() => showAddCategory()}>
-                        Add Station Menu
-                    </Button>
-                )}
-            </div> */}
 
             <Modal
                 aria-labelledby="contained-modal-title-vcenter"

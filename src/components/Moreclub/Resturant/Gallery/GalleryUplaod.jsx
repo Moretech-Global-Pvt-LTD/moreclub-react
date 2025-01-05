@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { message } from "antd";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
 import { useDispatch } from "react-redux";
 import { updateRestaurantGallery } from "../../../../redux/slices/gallerySlice";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 
 const GalleryImageUpload = ({onFinish}) => {
@@ -85,8 +84,8 @@ const GalleryImageUpload = ({onFinish}) => {
     setLoading(true);
 
     try {
-        const res = await axiosInstance.post(
-          `${morefoodURL}moreclub/user/restaurants/gallery/${res_id}/`,
+        const res = await morefoodAuthenticatedAxios.post(
+          `moreclub/user/restaurants/gallery/${res_id}/`,
           formData,
           {
             headers: {

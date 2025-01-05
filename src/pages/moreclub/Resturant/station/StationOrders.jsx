@@ -1,14 +1,14 @@
 import React from 'react'
-import { morefoodURL } from '../../../../config/config';
-import { axiosInstance } from '../../../..';
+
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useParams } from 'react-router-dom';
 import DashboardLayout from '../../../../components/Layout/DashboardLayout';
-import { Button, Placeholder, Table } from 'react-bootstrap';
+import {  Placeholder, Table } from 'react-bootstrap';
 import Divider from '../../../../components/divider/Divider';
 import StationOrderCard from '../../../../components/Moreclub/Resturant/station/StationOrderCard';
 import FilterComponent from '../../../../components/Moreclub/CommonComponents/FilterComponents';
 import CustomPagination from '../../../../components/ui/pagination/pagination';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const StationOrder = () => {
     const { id, name} = useParams();
@@ -30,13 +30,13 @@ const StationOrder = () => {
     const { data, isLoading, isError , isRefetching } = useQuery({
         queryKey: [`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType , page],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${id}/orders/?${queryParams.toString()}`
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/station/${id}/orders/?${queryParams.toString()}`
             );
             const data = await response.data;
             return data;
         },
-        staleTime: 6000,
+        staleTime: 60000,
     });
 
     if (isLoading || isRefetching) {

@@ -1,12 +1,10 @@
 import React from "react";
-// import { Badge, Card, Modal} from "react-bootstrap";
-import { morefoodURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { Badge, Button, Modal } from "react-bootstrap";
 import MenuCategoryAddForm from "../common/MenuCategoryAddForm";
 import { useDispatch } from "react-redux";
 import { removeMenu, updateMenu } from "../../../../redux/slices/MenuSlice";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const CategoryCard = ({ id, res_id, logo, name, item, data, slug }) => {
   const [showCuisineForm, setShowCuisineForm] = React.useState(false);
@@ -16,8 +14,8 @@ const CategoryCard = ({ id, res_id, logo, name, item, data, slug }) => {
 
   const submit = async (data) => {
     try {
-      const response = await axiosInstance.patch(
-        `${morefoodURL}moreclub/user/menus/${id}/${res_id}/`,
+      const response = await morefoodAuthenticatedAxios.patch(
+        `moreclub/user/menus/${id}/${res_id}/`,
         data,
         {
           headers: {
@@ -37,8 +35,8 @@ const CategoryCard = ({ id, res_id, logo, name, item, data, slug }) => {
    async function handleDelete() {
     setDeleting(true)
      try {
-       await axiosInstance.delete(
-         `${morefoodURL}moreclub/user/menus/${id}/${res_id}/`
+       await morefoodAuthenticatedAxios.delete(
+         `moreclub/user/menus/${id}/${res_id}/`
        );
        dispatch(removeMenu({ id: id }));
        message.success("Menu Deleted successfully");

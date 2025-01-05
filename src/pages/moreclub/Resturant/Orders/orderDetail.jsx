@@ -9,16 +9,16 @@ import { morefoodURL } from "../../../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import OrderDetailsContent from "./OrderDetailContent";
 import RestaurantLayout from "../../../../components/Layout/RestaurantLayout";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const OrderDetails = () => {
-  const { ord_id, slug } = useParams();
-  const name = slug.replace("-", " ");
+  const { ord_id, } = useParams();
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [`Resturant order detail ${ord_id}`],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${morefoodURL}orders/order/${ord_id}/`
+      const response = await morefoodAuthenticatedAxios.get(
+        `orders/order/${ord_id}/`
       );
       const data = await response.data.data;
       return data;

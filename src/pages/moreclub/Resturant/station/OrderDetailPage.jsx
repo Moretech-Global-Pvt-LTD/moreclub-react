@@ -5,10 +5,9 @@ import {
     Placeholder,
 } from "react-bootstrap";
 import DashboardLayout from "../../../../components/Layout/DashboardLayout";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import StationOrderDetailsContent from "./StationOrderDetail";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const OrderDetailsPage = () => {
     const { ord_id, id, name } = useParams();
@@ -17,8 +16,8 @@ const OrderDetailsPage = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Station order detail ${ord_id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${id}/orders/${ord_id}/`
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/station/${id}/orders/${ord_id}/`
             );
             const data = await response.data.data;
             return data;

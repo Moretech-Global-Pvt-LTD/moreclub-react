@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../../../..';
-import { morefoodURL } from '../../../../config/config';
 import StationLayout from '../../Station/StationLayout';
 import RestaurantLayoutSkeleton from '../../../../components/Skeleton/RestaurantLayout';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import StationMyMenuItemsForm from '../../../../components/Moreclub/Resturant/station/StationMyMenuFoodItemsForm';
 import StationMenuItemCard from '../../../../components/Moreclub/Resturant/station/StationMenuItemCard2';
-import Cookies from "js-cookie";
+
 import ResturantpackageUpdate from '../../../../components/Moreclub/Resturant/common/resturantpackageUpdate';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const NearbyStationMyMenuPage = () => {
     const { resid, stationid, name } = useParams();
@@ -19,12 +18,9 @@ const NearbyStationMyMenuPage = () => {
 
     async function getCuisineList() {
         try {
-            const res = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/restro/${stationid}/by/restaurant/menu/`, {
-                headers: {
-                    'x-country-code': Cookies.get("countryCode"),
-                }
-            }
+            const res = await morefoodAuthenticatedAxios.get(
+                `moreclub/station/restro/${stationid}/by/restaurant/menu/`
+            
             );
             setCuisineOption(res.data.data);
         } catch (err) {
@@ -35,13 +31,13 @@ const NearbyStationMyMenuPage = () => {
 
     useEffect(() => {
         getCuisineList();
-    }, [stationid]);
+    }, [stationid ]);
 
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Nearby Station my menu ${stationid}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${stationid}/restaurant/${resid}/food-items/restro/`
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/station/${stationid}/restaurant/${resid}/food-items/restro/`
             );
             const data = await response.data.data;
             return data;

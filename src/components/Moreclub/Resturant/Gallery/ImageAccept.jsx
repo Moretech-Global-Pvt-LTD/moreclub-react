@@ -1,26 +1,23 @@
 import React from 'react'
 import { Image } from 'react-bootstrap'
-import { axiosInstance } from '../../../..';
-import { morefoodURL } from '../../../../config/config';
 import { useParams } from 'react-router-dom';
 import { message } from 'antd';
-import { useQueryClient } from '@tanstack/react-query';
-import Restaurant from '../../../../images/moreclub/Restaturant.png';
 import { useDispatch } from 'react-redux';
-import { approvePendingItem, deleteItem, deletePendingItem } from '../../../../redux/slices/gallerySlice';
+import { approvePendingItem, deleteItem } from '../../../../redux/slices/gallerySlice';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const ImageAccept = ({ item }) => {
-    const { res_id, cat_id, slug } = useParams();
+    const { res_id, } = useParams();
     const [deleting , setDeleting] = React.useState(false)
     const [verifying, setVerifying] = React.useState(false)
     const dispatch = useDispatch();
 
-    const queryClient = useQueryClient();
+   
     async function verifyImage() {
         setVerifying(true)
         try {
-            const response = await axiosInstance.post(
-                `${morefoodURL}moreclub/user/restaurants/gallery/user/upload/${res_id}/${item.id}/`,
+            await morefoodAuthenticatedAxios.post(
+                `moreclub/user/restaurants/gallery/user/upload/${res_id}/${item.id}/`,
 
                 {
                     status: "verified"
@@ -33,16 +30,14 @@ const ImageAccept = ({ item }) => {
         } catch {
             message.error("Error verifying Image");
         } finally {
-            // queryClient.invalidateQueries(`Resturant Unverified images ${res_id}`);
-            // queryClient.invalidateQueries(`Resturant Accepted images Gallery ${res_id}`);
             setVerifying(false)
         }
     }
     async function deleteImage() {
         setDeleting(true)
         try {
-            const response = await axiosInstance.post(
-                `${morefoodURL}moreclub/user/restaurants/gallery/user/upload/${res_id}/${item.id}/`,
+            await morefoodAuthenticatedAxios.post(
+                `moreclub/user/restaurants/gallery/user/upload/${res_id}/${item.id}/`,
                 {
                     status: "delete"
                 }
@@ -50,12 +45,10 @@ const ImageAccept = ({ item }) => {
             message.warning("Image Deleted")
             dispatch(deleteItem(item));
         } catch {
-            console.log("error")
+           
             message.error("Error deleting Image")
 
         } finally {
-            // queryClient.invalidateQueries(`Resturant Unverified images ${res_id}`);
-            // queryClient.invalidateQueries(`Resturant Accepted images Gallery ${res_id}`);
             setDeleting(false)
         }
     }

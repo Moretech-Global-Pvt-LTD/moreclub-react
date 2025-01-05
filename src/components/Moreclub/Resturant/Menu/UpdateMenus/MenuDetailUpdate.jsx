@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Button, Form, Alert, Badge, Col } from "react-bootstrap";
+import React, {useState } from "react";
+import { Modal, Button, Form} from "react-bootstrap";
 import Select from "react-select";
-import { customStyles } from "../MenuItemForm";
-import { axiosInstance } from "../../../../..";
 import { useParams } from "react-router-dom";
-import { morefoodURL } from "../../../../../config/config";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFoodItems } from "../../../../../redux/api/menuApi";
 import MenuCategoryAddForm from "../../common/MenuCategoryAddForm";
 import AddCuisineForm from "../../Cuisine/AddCuisine";
 import {
@@ -17,6 +13,56 @@ import {
 import { message } from "antd";
 import { addMenu } from "../../../../../redux/slices/MenuSlice";
 import { fetchFoodItemsDetailSuccess } from "../../../../../redux/slices/FoodItemDetailSlice";
+import { morefoodAuthenticatedAxios } from "../../../../../utills/axios/morefoodaxios";
+
+
+export const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    backgroundColor: 'transparent',
+    borderColor: state.isFocused ? '#80bdff' : '#ced4da',
+    boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(0,123,255,.25)' : null,
+    '&:hover': {
+      borderColor: state.isFocused ? '#80bdff' : '#ced4da',
+    },
+  }),
+  menu: (provided) => ({
+    ...provided,
+    backgroundColor: '#f8f9fa',
+    borderRadius: '0.25rem',
+    boxShadow: '0 0.5rem 1rem rgba(0, 0, 0, 0.15)',
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected
+      ? '#007bff'
+      : state.isFocused
+        ? '#e9ecef'
+        : 'white',
+    color: state.isSelected ? 'white' : 'black',
+    '&:active': {
+      backgroundColor: '#007bff',
+      color: 'white',
+    },
+  }),
+  multiValue: (provided) => ({
+    ...provided,
+    backgroundColor: '#007bff',
+    color: 'white',
+  }),
+  multiValueLabel: (provided) => ({
+    ...provided,
+    color: 'white',
+  }),
+  multiValueRemove: (provided) => ({
+    ...provided,
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#0056b3',
+      color: 'white',
+    },
+  }),
+};
 
 const MenuDetailUpdateForm = ({item , onCancel }) => {
   const { res_id } = useParams();
@@ -74,10 +120,9 @@ const MenuDetailUpdateForm = ({item , onCancel }) => {
   };
 
   const handleImageChange = (e) => {
-    console.log(e.target.files[0]);
     const url = URL.createObjectURL(e.target.files[0]);
     setFormData({ ...formData, image: e.target.files[0], imagePreview: url });
-    console.log(formData);
+
   };
 
   const validateForm = (fieldValues = formData, variationIndex = null) => {
@@ -107,36 +152,7 @@ const MenuDetailUpdateForm = ({item , onCancel }) => {
       } else {
         tempErrors.image = validateMenuImage(fieldValues.image);
       }
-    // if ("price" in fieldValues) {
-    //   if (formData.variation) {
-    //     tempErrors.price = "";
-    //     tempErrors.offerPrice = "";
-    //   } else {
-    //     tempErrors.price = validatePriceAndOfferPrice(
-    //       fieldValues.price,
-    //       formData.offerPrice
-    //     ).price;
-    //     tempErrors.offerPrice = validatePriceAndOfferPrice(
-    //       fieldValues.price,
-    //       formData.offerPrice
-    //     ).offerPrice;
-    //   }
-    // }
-    // if ("offerPrice" in fieldValues) {
-    //   if (formData.variation) {
-    //     tempErrors.price = "";
-    //     tempErrors.offerPrice = "";
-    //   } else {
-    //     tempErrors.offerPrice = validatePriceAndOfferPrice(
-    //       formData.price,
-    //       fieldValues.offerPrice
-    //     ).offerPrice;
-    //     tempErrors.price = validatePriceAndOfferPrice(
-    //       formData.price,
-    //       fieldValues.offerPrice
-    //     ).price;
-    //   }
-    // }
+    
 
     setErrors({ ...tempErrors });
   };
@@ -159,29 +175,7 @@ const MenuDetailUpdateForm = ({item , onCancel }) => {
         } else {
           return validateMenuImage(value);
         }
-      // case "price":
-      //   if (formData.variation) {
-      //     return "";
-      //   } else {
-      //     return validatePriceAndOfferPrice(value, formData.offerPrice).price;
-      //   }
-      // case "offerPrice":
-      //   if (formData.variation) {
-      //     return "";
-      //   } else {
-      //     if (!value || value === 0) {
-      //       return "";
-      //     } else {
-      //       return validatePriceAndOfferPrice(formData.price, value).offerPrice;
-      //     }
-      //   }
-
-    //   case "variation_type":
-    //     if (!formData.variation) {
-    //       return "";
-    //     } else {
-    //       return validateRequiredField(value, "Variation type");
-    //     }
+      
       default:
         return "";
     }
@@ -221,8 +215,8 @@ const MenuDetailUpdateForm = ({item , onCancel }) => {
 
   const MenuSubmit = async (data) => {
     try {
-      const response = await axiosInstance.post(
-        `${morefoodURL}moreclub/user/menus/${res_id}/`,
+      const response = await morefoodAuthenticatedAxios.post(
+        `moreclub/user/menus/${res_id}/`,
         data,
         {
           headers: {
@@ -259,9 +253,9 @@ const MenuDetailUpdateForm = ({item , onCancel }) => {
       };
       setLoading(true);
 
-      axiosInstance
+      morefoodAuthenticatedAxios
         .patch(
-          `${morefoodURL}moreclub/user/all/food/items/${res_id}/${item.id}/`,
+          `moreclub/user/all/food/items/${res_id}/${item.id}/`,
           newMenu,
           {
             headers: {

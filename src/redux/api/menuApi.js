@@ -1,5 +1,5 @@
-import { axiosInstance } from "../..";
-import { morefoodURL } from "../../config/config";
+
+import { morefoodAuthenticatedAxios } from "../../utills/axios/morefoodaxios";
 import { addCuisine, addMenu, addVariationType, fetchCuisineSuccess, fetchFoodItemsSuccess, fetchMenuSuccess, fetchVariationTypeSuccess, setError, setFoodItemError, setFoodItemLoading, setLoading } from "../slices/MenuSlice";
 
 
@@ -10,24 +10,21 @@ const shouldRefresh = (lastFetched, maxAge = 5 * 60 * 1000) => {
 
 
   export const fetchMenus = (res_id, forceRefresh = false) => async (dispatch, getState) => {
-    console.log("getting menus")
     const state = getState();
     const { menuLoaded, menuLastFetched, menuRestaurant_id } = state.menus;
   
     // If the menuRestaurant_id matches and we don't need a refresh, exit early
     if (menuRestaurant_id === res_id) {
-        console.log("checking res_id")
       // Only skip if data is loaded and doesn't need a refresh
       if (menuLoaded && !shouldRefresh(menuLastFetched) && !forceRefresh) return;
     }
   
     // If the restaurant ID is different or data needs to be refreshed
     dispatch(setLoading({ loadingType: "menu", status: true }));
-    console.log("fetching menus")
+    
     try {
-      const response = await axiosInstance.get(`${morefoodURL}moreclub/user/menus/${res_id}/`); // Replace with your actual API call
+      const response = await morefoodAuthenticatedAxios.get(`moreclub/user/menus/${res_id}/`); // Replace with your actual API call
       const menus = response.data.data;
-      console.log("menu response",menus);
       
       // Store menus in state upon successful API response
       dispatch(fetchMenuSuccess({ res_id, menus }));
@@ -51,7 +48,7 @@ const shouldRefresh = (lastFetched, maxAge = 5 * 60 * 1000) => {
 
     dispatch(setLoading({ loadingType: "cuisine", status: true }));
     try {
-      const response = await axiosInstance.get(`${morefoodURL}moreclub/user/cuisines/${res_id}/`); // Replace with your actual API call
+      const response = await morefoodAuthenticatedAxios.get(`moreclub/user/cuisines/${res_id}/`); // Replace with your actual API call
       const cuisines = response.data.data;
   
       dispatch(fetchCuisineSuccess({res_id, cuisines}));
@@ -73,7 +70,7 @@ const shouldRefresh = (lastFetched, maxAge = 5 * 60 * 1000) => {
       }
     dispatch(setLoading({ loadingType: "variationType", status: true }));
     try {
-      const response = await axiosInstance.get(`${morefoodURL}moreclub/user/variation/types/${res_id}/`); // Replace with your actual API call
+      const response = await morefoodAuthenticatedAxios.get(`moreclub/user/variation/types/${res_id}/`); // Replace with your actual API call
       const variationTypes = response.data.data;
   
       dispatch(fetchVariationTypeSuccess({res_id, variationTypes}));
@@ -88,7 +85,7 @@ const shouldRefresh = (lastFetched, maxAge = 5 * 60 * 1000) => {
 
   export const fetchFoodItems = (menu_id, res_id, forceRefresh = false) => async (dispatch, getState) => {
     const state = getState();
-    const { foodItemList, foodItemLastFetched, foodItemLoading, foodItemMenuId } = state.menus;
+    const { foodItemList, foodItemLastFetched, foodItemMenuId } = state.menus;
   
     // Check if food items are already loaded for this menu_id and if it should be refreshed
     if (foodItemMenuId.includes(menu_id) && !forceRefresh) {
@@ -101,7 +98,7 @@ const shouldRefresh = (lastFetched, maxAge = 5 * 60 * 1000) => {
     dispatch(setFoodItemLoading({status: true, menu_id }));
   
     try {
-      const response = await axiosInstance.get(`${morefoodURL}moreclub/user/food/items/${menu_id}/${res_id}`);
+      const response = await morefoodAuthenticatedAxios.get(`moreclub/user/food/items/${menu_id}/${res_id}`);
       const foodItems = response.data.data;
   
       // Dispatch success to store the food items
@@ -119,7 +116,7 @@ const shouldRefresh = (lastFetched, maxAge = 5 * 60 * 1000) => {
 
   export const addMenus = (data, res_id) => async (dispatch) => {
     try {
-      const response = await axiosInstance.post(`${morefoodURL}moreclub/user/menus/${res_id}/`, data, {
+      const response = await morefoodAuthenticatedAxios.post(`moreclub/user/menus/${res_id}/`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -135,7 +132,7 @@ const shouldRefresh = (lastFetched, maxAge = 5 * 60 * 1000) => {
 
   export const addCuisines = (data, res_id) => async (dispatch) => {
     try {
-      const response = await axiosInstance.post(`${morefoodURL}moreclub/user/cuisines/${res_id}/`, data, {
+      const response = await morefoodAuthenticatedAxios.post(`moreclub/user/cuisines/${res_id}/`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -150,7 +147,7 @@ const shouldRefresh = (lastFetched, maxAge = 5 * 60 * 1000) => {
 
   export const addVariationTypes = (data, res_id) => async (dispatch) => {
     try {
-      const response = await axiosInstance.post(`${morefoodURL}moreclub/user/cuisines/${res_id}/`, data);
+      const response = await morefoodAuthenticatedAxios.post(`moreclub/user/cuisines/${res_id}/`, data);
       const menu = response.data.data;
       dispatch(addVariationType({ menu }));
       return response

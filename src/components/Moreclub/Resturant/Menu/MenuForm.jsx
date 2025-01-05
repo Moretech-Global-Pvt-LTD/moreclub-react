@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Button, Form, Alert, Badge, Col } from "react-bootstrap";
+import { Modal, Button, Form, Badge, Col } from "react-bootstrap";
 import Select from "react-select";
-import { customStyles } from "./MenuItemForm";
-import { axiosInstance } from "../../../..";
 import { useNavigate, useParams } from "react-router-dom";
-import { morefoodURL } from "../../../../config/config";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFoodItems } from "../../../../redux/api/menuApi";
 import MenuCategoryAddForm from "../common/MenuCategoryAddForm";
@@ -14,6 +11,8 @@ import VariationForm from "./VariationForm";
 import { message } from "antd";
 import { addMenu } from "../../../../redux/slices/MenuSlice";
 import { useQueryClient } from "@tanstack/react-query";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
+import { customStyles } from "./UpdateMenus/MenuDetailUpdate";
 
 const MenuForm = () => {
   const { res_id ,slug } = useParams();
@@ -396,8 +395,8 @@ const MenuForm = () => {
 
   const MenuSubmit = async (data) => {
     try {
-      const response = await axiosInstance.post(
-        `${morefoodURL}moreclub/user/menus/${res_id}/`,
+      const response = await morefoodAuthenticatedAxios.post(
+        `moreclub/user/menus/${res_id}/`,
         data,
         {
           headers: {
@@ -441,9 +440,9 @@ const MenuForm = () => {
         }),
       };
       setLoading(true)
-      axiosInstance
+      morefoodAuthenticatedAxios
         .post(
-          `${morefoodURL}moreclub/user/food/items/${formData.menu_id}/${res_id}/`,
+          `moreclub/user/food/items/${formData.menu_id}/${res_id}/`,
           newMenu,
           {
             headers: {

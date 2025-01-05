@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Row, Col, Card } from "react-bootstrap";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
-import Cookies from "js-cookie";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 
 
@@ -21,31 +19,12 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
         ingredient: data.ingredient
     });
     const [loading, setLoading] = useState(false)
-    const [uiLoading, setUIloading] = useState(false);
+    // const [uiLoading, setUIloading] = useState(false);
     const [offererror, setOfferError] = useState("");
     const [defaultMenu_id, setDefaultMenu_id] = useState("");
 
 
-    // async function getCuisineList() {
-    //     try {
-    //         const res = await axiosInstance.get(
-    //             `${morefoodURL}moreclub/station/${stationId}/menu/`, {
-    //             headers: {
-    //                 'x-country-code': Cookies.get("countryCode"),
-    //             }
-    //         }
-    //         );
-
-    //         setCuisineOption(res.data.data);
-    //     } catch (err) {
-    //         console.error(err);
-    //         setCuisineOption([]);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     getCuisineList();
-    // }, [cat_id, res_id])
+   
 
     useEffect(() => {
 
@@ -101,8 +80,8 @@ const StationMyMenuItemsUpdateForm = ({ res_id, cat_id, food_id, stationId, onFi
             menu_id: menuItem.menu_id
         }
 
-        axiosInstance
-            .patch(`${morefoodURL}moreclub/station/${stationId}/${res_id}/${food_id}/food-items/restro/update/ `, data,
+        morefoodAuthenticatedAxios
+            .patch(`moreclub/station/${stationId}/${res_id}/${food_id}/food-items/restro/update/ `, data,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",

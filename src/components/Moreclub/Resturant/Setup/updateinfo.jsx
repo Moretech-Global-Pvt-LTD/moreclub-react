@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form, InputGroup, Spinner } from "react-bootstrap";
-import axios from "axios";
-import { morefoodURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 import { valdateShortDescription, validateAddress, validateContactNumber, validateCountry, validateFacebookURL, validateInstagramURL, validateLongDescription, validateMin_order, validateResturantName, validateTimeZone, validateWebsiteURL, ValidationStationNoofPackedItem } from "../../../../validation/resturantValidation";
@@ -10,6 +7,7 @@ import { validateEmail } from "../../../../validation/addaccountvalidation";
 import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
 import TimezoneSelector from "../../CommonComponents/TimeZoneInput";
 import moment from "moment-timezone";
+import { morefoodAuthenticatedAxios, morefoodPublicAxios } from "../../../../utills/axios/morefoodaxios";
 
 const UpdateInfoForm = ({ data }) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -126,7 +124,7 @@ const UpdateInfoForm = ({ data }) => {
 
   const fetchCountry = async () => {
     try {
-      const res = await axios.get(`${morefoodURL}country/list/`);
+      const res = await morefoodPublicAxios.get(`country/list/`);
       setCountryList(res.data.data);
     } catch (err) {
       console.error(err);
@@ -207,12 +205,12 @@ const UpdateInfoForm = ({ data }) => {
 
       try {
         setIsLoading(true);
-        const res = await axiosInstance.patch(
-          `${morefoodURL}moreclub/user/restaurants/${data.id}/`,
+        const res = await morefoodAuthenticatedAxios.patch(
+          `moreclub/user/restaurants/${data.id}/`,
           formValues
         );
         message.success("Your changes was Uploaded ")
-        queryClient.invalidateQueries([`Resturant List ${data.id}`]);
+        queryClient.invalidateQueries([`Restaurant ${data.id}`]);
       
       } catch (err) {
         console.log(err);

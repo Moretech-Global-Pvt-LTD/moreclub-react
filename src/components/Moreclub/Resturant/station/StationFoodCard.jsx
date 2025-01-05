@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-import { Link, useParams } from "react-router-dom";
-import { axiosInstance } from "../../../..";
+import {  useParams } from "react-router-dom";
 import { message } from "antd";
-import { imageURL, morefoodURL } from "../../../../config/config";
+
 import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "react-bootstrap";
 import StationMenuFoodForm from "./StationMenuFoodForm";
 import { useSelector } from "react-redux";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const StationFoodCard = ({
     foodid,
@@ -33,9 +33,9 @@ const StationFoodCard = ({
     async function handleDelete() {
         setHideMenu(true)
         try {
-            await axiosInstance
+            await morefoodAuthenticatedAxios
                 .delete
-                (`${morefoodURL}moreclub/station/${id}/${menu_id}/${foodid}/food-items/`)
+                (`moreclub/station/${id}/${menu_id}/${foodid}/food-items/`)
 
             message.success("Menu Deleted successfully");
             queryClient.invalidateQueries({
@@ -71,8 +71,8 @@ const StationFoodCard = ({
 
 
         try {
-            const response = await axiosInstance.patch(
-                `${morefoodURL}moreclub/station/${id}/${menu_id}/${foodid}/food-items/`,
+            const response = await morefoodAuthenticatedAxios.patch(
+                `moreclub/station/${id}/${menu_id}/${foodid}/food-items/`,
                 formDatas,
                 {
                     headers: {

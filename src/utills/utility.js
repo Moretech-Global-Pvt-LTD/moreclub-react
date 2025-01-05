@@ -92,3 +92,29 @@ export function parseMembershipData(data, additionalLinks = []) {
   
     return features;
   }
+
+
+  export const getApiUrl = ()=> {
+    if (typeof window === "undefined") {
+      return process.env.NEXT_PUBLIC_BASEURL ?? 'https://api.morefood.se/api/'
+    }
+  
+    // Define the mapping of host to API URLs
+    const apiUrlMapping = {
+      "SE": process.env.NEXT_PUBLIC_BASEURL ?? 'https://api.morefood.se/api/',
+      "NP": process.env.NEXT_PUBLIC_BASEURL_NEPAL ?? 'https://api.nepalbites.com/api/',
+    };
+  
+    // Get the current host from the browser
+    const currentCountry = Cookies.get("countryCode"); // Remove "www." if present
+  
+    // Get the API URL for the current host
+    const apiUrl = apiUrlMapping[currentCountry];
+  
+    if (!apiUrl) {
+      return process.env.NEXT_PUBLIC_BASEURL ?? 'https://api.morefood.se/api/'
+    }
+  
+    return apiUrl;
+  };
+  
