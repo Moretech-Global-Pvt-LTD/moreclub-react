@@ -59,47 +59,7 @@ const StationDetailContent = ({ data }) => {
                         </Card>
                     </Col>
                 </Link>
-                {/* <Link
-                    to={`/station/${id}/cuisine/${slug}`}
-                    className="d-flex flex-column my-2 "
-                >
-                    <Col className="d-flex flex-column my-2">
-                        <Card className="p-2 flex-grow-1">
-                            <Card.Body className="d-flex justify-content-center">
-                                <img
-                                    src={'/images/moreclub/morefood/cuisine.png'}
-                                    alt="cuisine"
-                                    className="px-2 py-1 rounded "
-                                    style={{ height: "5rem", width: "5rem" }}
-                                />
-                            </Card.Body>
-                            <Card.Title className="text-dynamic-white text-center fs-6">
-                                Cuisine
-                            </Card.Title>
-                        </Card>
-                    </Col>
-                </Link>
-                <Link
-                    to={`/station/${id}/offer/${slug}`}
-                    className="d-flex flex-column my-2 "
-                >
-                    <Col className="d-flex flex-column my-2">
-                        <Card className="p-2 flex-grow-1">
-                            <Card.Body className="d-flex justify-content-center">
-                                <img
-                                    src={'/images/moreclub/morefood/offers.png'}
-                                    alt="offer"
-                                    className="px-2 py-1 rounded "
-                                    style={{ height: "5rem", width: "5rem" }}
-                                />
-                            </Card.Body>
-                            <Card.Title className="text-dynamic-white text-center fs-6">
-                                Offers
-                            </Card.Title>
-                        </Card>
-                    </Col>
-                </Link> */}
-
+                
 
 
                 <Link
@@ -122,26 +82,6 @@ const StationDetailContent = ({ data }) => {
                         </Card>
                     </Col>
                 </Link>
-                {/* <Link
-                    to={`/station/${id}/restro/orders/${slug}`}
-                    className="d-flex flex-column my-2 "
-                >
-                    <Col className="d-flex flex-column my-2">
-                        <Card className="p-2 px-2 flex-grow-1">
-                            <Card.Body className="d-flex justify-content-center">
-                                <img
-                                    src={'/images/moreclub/morefood/orders.png'}
-                                    alt="orders"
-                                    className="  rounded "
-                                    style={{ height: "5rem", width: "5rem" }}
-                                />
-                            </Card.Body>
-                            <Card.Title className="text-dynamic-white text-center fs-6">
-                                Resturants Summary
-                            </Card.Title>
-                        </Card>
-                    </Col>
-                </Link> */}
                 <Link
                     to={`/station/${id}/allorders/${slug}`}
                     className="d-flex flex-column my-2 "
@@ -162,26 +102,6 @@ const StationDetailContent = ({ data }) => {
                         </Card>
                     </Col>
                 </Link>
-                {/* <Link
-                    to={`/station/${id}/opening-duration/${slug}`}
-                    className="d-flex flex-column my-2 "
-                >
-                    <Col className="d-flex flex-column my-2">
-                        <Card className="p-2 flex-grow-1">
-                            <Card.Body className="d-flex justify-content-center">
-                                <img
-                                    src={'/images/moreclub/morefood/workinghour.png'}
-                                    alt="working"
-                                    className="px-2 py-1 rounded "
-                                    style={{ height: "5rem", width: "5rem" }}
-                                />
-                            </Card.Body>
-                            <Card.Title className="text-dynamic-white text-center fs-6">
-                                Opening Duration
-                            </Card.Title>
-                        </Card>
-                    </Col>
-                </Link> */}
             </Row>
 
         </div>

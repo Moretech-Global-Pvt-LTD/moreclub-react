@@ -1,21 +1,19 @@
 import React from 'react'
-import DashboardLayout from '../../../components/Layout/DashboardLayout';
 import Setuppage from '../../../components/Moreclub/Resturant/Setup/setuppage';
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../../..';
-import { morefoodURL } from '../../../config/config';
 import { useParams } from 'react-router-dom';
 import RestaurantLayoutSkeleton from '../../../components/Skeleton/RestaurantLayout';
 import RestaurantLayout from '../../../components/Layout/RestaurantLayout';
+import { morefoodAuthenticatedAxios } from '../../../utills/axios/morefoodaxios';
 
 const Setup = () => {
    const { id } = useParams();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: [`Resturant ${id}`],
+    queryKey: [`Restaurant ${id}`],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${morefoodURL}moreclub/user/restaurants/${id}/`
+      const response = await morefoodAuthenticatedAxios.get(
+        `moreclub/user/restaurants/${id}/`
       );
       const data = await response.data.data;
       return data;

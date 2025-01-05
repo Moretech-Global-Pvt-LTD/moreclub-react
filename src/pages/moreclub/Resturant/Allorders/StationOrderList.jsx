@@ -1,6 +1,4 @@
 import React from 'react'
-import { morefoodURL } from '../../../../config/config';
-import { axiosInstance } from '../../../..';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import DashboardLayout from '../../../../components/Layout/DashboardLayout';
@@ -9,6 +7,9 @@ import Divider from '../../../../components/divider/Divider';
 import moment from 'moment';
 import FilterComponent from '../../../../components/Moreclub/CommonComponents/FilterComponents';
 import CustomPagination from '../../../../components/ui/pagination/pagination';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
+
+
 const StationOrderList = () => {
     const { id, name } = useParams();
     const navigate = useNavigate()
@@ -30,8 +31,8 @@ const StationOrderList = () => {
     const { data, isLoading, isError, isRefetching } = useQuery({
         queryKey: [`Station order ${id}`, searchQuery, filterDate, orderStatus, orderType, page],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/restro/${id}/all/orders/?${queryParams.toString()}`
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/station/restro/${id}/all/orders/?${queryParams.toString()}`
             );
             const data = await response.data;
             return data;

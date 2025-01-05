@@ -2,24 +2,20 @@ import React from "react";
 import { Button, Col, Placeholder, Row } from "react-bootstrap";
 
 import { Link, useParams } from "react-router-dom";
-import { morefoodURL } from "../../../../config/config";
 import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../../../..";
 import OfferCard from "../../../../components/Moreclub/Resturant/Offer/OfferCard";
 import RestaurantLayout from "../../../../components/Layout/RestaurantLayout";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 
 const RestroOffer = () => {
   const { res_id , slug} = useParams();
- 
-
-  const name=slug.replace(/-/g," ")
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [`Resturant offer List ${res_id}`],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${morefoodURL}moreclub/user/offers/${res_id}/`
+      const response = await morefoodAuthenticatedAxios.get(
+        `moreclub/user/offers/${res_id}/`
       );
       const data = await response.data.data;
       return data;

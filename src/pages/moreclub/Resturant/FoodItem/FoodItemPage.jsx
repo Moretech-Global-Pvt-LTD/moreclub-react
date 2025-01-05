@@ -12,6 +12,7 @@ import Filter from '../../../../components/Moreclub/Resturant/Menu/UpdateMenus/M
 import { fetchCuisines, fetchMenus } from '../../../../redux/api/menuApi';
 import MenuList from '../../../../components/Moreclub/Resturant/Menu/MenuList';
 import CuisineList from '../../../../components/Moreclub/Resturant/Menu/CuisineList';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const FoodItemPage = () => {
 
@@ -36,8 +37,8 @@ const FoodItemPage = () => {
     const { data, isLoading, isError } = useQuery({
       queryKey: [`Restaurant All Menu ${res_id}`, menu, cuisine],
       queryFn: async () => {
-        const response = await axiosInstance.get(
-          `${morefoodURL}moreclub/user/all/food/items/${res_id}/`,
+        const response = await morefoodAuthenticatedAxios.get(
+          `moreclub/user/all/food/items/${res_id}/`,
           {
             params: {
               menu_id: menu || undefined,

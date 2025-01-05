@@ -2,11 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react'
 import { Placeholder } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { axiosInstance } from '../../../..';
-import { morefoodURL } from '../../../../config/config';
 import ImageAccept from '../../../../components/Moreclub/Resturant/Gallery/ImageAccept';
 import { setUserGalleryPending } from '../../../../redux/slices/gallerySlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const PendingImagelist = () => {
     const { res_id } = useParams();
@@ -15,8 +14,8 @@ const PendingImagelist = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Resturant Unverified images ${res_id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/user/restaurants/gallery/user/upload/${res_id}/?status=unverified`
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/user/restaurants/gallery/user/upload/${res_id}/?status=unverified`
             );
             const data = await response.data.data;
             dispatch(setUserGalleryPending(data));
@@ -65,10 +64,6 @@ const PendingImagelist = () => {
     if (isError) {
         return <div className="text-dynamic-white">Error: retriving</div>;
     }
-
-    console.log("redux",gallery)
-
-    console.log("data",data)
 
    
     return (

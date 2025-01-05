@@ -2,20 +2,15 @@ import React from "react";
 import {Row } from "react-bootstrap";
 import ResturantCard from "../Resturant/RestaurantCard3";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { morefoodhostURL, morefoodURL } from "../../../config/config";
+import { morefoodhostURL } from "../../../config/config";
 import RestaurantCardSkeleton from "../../Skeleton/RestaurantCardSkeleton";
-import Cookies from "js-cookie"
+import { morefoodPublicAxios } from "../../../utills/axios/morefoodaxios";
 
 const MorefoodContent = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["More Food Resturant List"],
     queryFn: async () => {
-      const response = await axios.get(`${morefoodURL}restaurants/list/`, {
-        headers: {
-          'x-country-code': Cookies.get("countryCode"),
-        }
-      });
+      const response = await morefoodPublicAxios.get(`restaurants/list/`);
       const data = await response.data.data;
       return data;
     },

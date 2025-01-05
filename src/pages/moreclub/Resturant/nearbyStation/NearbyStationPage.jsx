@@ -2,11 +2,10 @@ import React from 'react'
 import DashboardLayout from '../../../../components/Layout/DashboardLayout'
 import StationLayout from '../../Station/StationLayout';
 import RestaurantCardSkeleton from '../../../../components/Skeleton/RestaurantCardSkeleton';
-import { axiosInstance } from '../../../..';
-import { morefoodURL } from '../../../../config/config';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import Cookies from "js-cookie"
+
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 
 
@@ -33,11 +32,8 @@ const NearbyStationPage = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: ["nearby station List"],
         queryFn: async () => {
-            const response = await axiosInstance.get(`${morefoodURL}moreclub/station/${resid}/nearby/`, {
-                headers: {
-                    'x-country-code': Cookies.get("countryCode"),
-                }
-            });
+            const response = await morefoodAuthenticatedAxios.get(`moreclub/station/${resid}/nearby/` 
+            );
             const data = await response.data.data;
             return data;
         },

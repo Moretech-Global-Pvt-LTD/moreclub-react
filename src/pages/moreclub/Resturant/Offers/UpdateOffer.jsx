@@ -1,20 +1,19 @@
 import React from 'react'
-import { Col, Placeholder, Row } from 'react-bootstrap'
+import { Placeholder } from 'react-bootstrap'
 import RestaurantLayout from '../../../../components/Layout/RestaurantLayout'
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { axiosInstance } from '../../../..';
-import { morefoodURL } from '../../../../config/config';
 import OfferForm from '../../../../components/Moreclub/Resturant/Offer/AddOffer';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const UpdateOffer = () => {
-    const { res_id , slug, offer_id} = useParams();
+    const { res_id , offer_id} = useParams();
 
     const { data, isLoading, isError } = useQuery({
       queryKey: [`Resturant offer detail ${offer_id}`],
       queryFn: async () => {
-        const response = await axiosInstance.get(
-          `${morefoodURL}moreclub/user/offers/${res_id}/${offer_id}/`
+        const response = await morefoodAuthenticatedAxios.get(
+          `moreclub/user/offers/${res_id}/${offer_id}/`
         );
         const data = await response.data.data;
         return data;
@@ -45,44 +44,6 @@ const UpdateOffer = () => {
     }
 
 
-    // const datas = {
-    // id:data.id,
-    // offerName: data.name,
-    // description: data.description || "",
-    // price: data.price || "",
-    // selectedCategory: "",
-    // selectedItems: data.food_item.map((item) => item.id),
-    // selectedItemsName: data.food_item,
-    // bannerImage: null,
-    // previewImage: data.banner || null,
-    // isEveryDay: data.is_every_day,
-    // startDate: data.start_offer,
-    // endDate: data.end_offer,
-    // ...(data.isEveryDay === false && {
-    //     customDays: {
-    //     Monday: { start_time: "", end_time: "" },
-    //   Tuesday: { start_time: "", end_time: "" },
-    //   Wednesday: { start_time: "", end_time: "" },
-    //   Thursday: { start_time: "", end_time: "" },
-    //   Friday: { start_time: "", end_time: "" },
-    //   Saturday: { start_time: "", end_time: "" },
-    //   Sunday: { start_time: "", end_time: "" },
-    //   ...data.applicable_days,
-    //     },
-    //   }),
-    //   ...(data.isEveryDay === true && {
-    //     customDays: {
-      //   Monday: { start_time: "", end_time: "" },
-      // Tuesday: { start_time: "", end_time: "" },
-      // Wednesday: { start_time: "", end_time: "" },
-      // Thursday: { start_time: "", end_time: "" },
-      // Friday: { start_time: "", end_time: "" },
-      // Saturday: { start_time: "", end_time: "" },
-      // Sunday: { start_time: "", end_time: "" },
-    //   ...data.applicable_days,
-    //     },
-    //   })
-    // }
 
     const convertTimeStringToLocalDate = (timeString) => {
       if (!timeString) return null; // Handle empty strings or undefined values
@@ -145,14 +106,6 @@ const UpdateOffer = () => {
   return (
     <RestaurantLayout>
       <div>
-        {/* <div className="d-flex align-items-center justify-content-between my-2">
-          <div></div>
-          <Link to={`/restaurant/${res_id}/offer/create/${slug}`}>
-            <Button variant="warning">
-              Add New Offers
-            </Button>
-          </Link>
-        </div> */}
 
        <OfferForm mode = "update" initialData = {datas} />
         

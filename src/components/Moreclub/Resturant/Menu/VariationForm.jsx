@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
+
 import { message } from "antd";
 import {Form, Button } from "react-bootstrap";
 import { addVariationType } from "../../../../redux/slices/MenuSlice";
 import { useDispatch } from "react-redux";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const VariationForm = ({ res_id, onFinish }) => {
   const dispatch = useDispatch();
@@ -24,8 +24,8 @@ const VariationForm = ({ res_id, onFinish }) => {
     const formData = new FormData();
     formData.append("name", variationFormData.name);
 
-    axiosInstance
-      .post(`${morefoodURL}moreclub/user/variation/types/${res_id}/`, formData)
+    morefoodAuthenticatedAxios
+      .post(`moreclub/user/variation/types/${res_id}/`, formData)
       .then((response) => {
         message.success("Variation Added Successfully");
         setVariationFormData({ name: "", image: null });

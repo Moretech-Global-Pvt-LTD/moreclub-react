@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { Badge, Button, Card, Col, Form, Modal, Row, Table } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { axiosInstance } from '../../../..';
-import { morefoodURL } from '../../../../config/config';
 import { message } from 'antd';
 import moment from 'moment';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const StationOrderDetailContent = ({ item }) => {
     const { ord_id, id } = useParams();
@@ -25,8 +24,8 @@ const StationOrderDetailContent = ({ item }) => {
         e.preventDefault();
         try {
             setStatusLoading(true);
-            const res = await axiosInstance.patch(
-                `${morefoodURL}moreclub/station/restro/${id}/orders/${ord_id}/status/update/`,
+            const res = await morefoodAuthenticatedAxios.patch(
+                `moreclub/station/restro/${id}/orders/${ord_id}/status/update/`,
                 {
                     order_status: orderStatus,
                 }
@@ -49,8 +48,8 @@ const StationOrderDetailContent = ({ item }) => {
     async function handleReject(items) {
         setRejectLoading(true);
         try {
-            const res = await axiosInstance.patch(
-                `${morefoodURL}moreclub/station/restro/${id}/orders/${items.id}/rejected/`,
+            const res = await morefoodAuthenticatedAxios.patch(
+                `moreclub/station/restro/${id}/orders/${items.id}/rejected/`,
                 {
                     food_rejected: true
                 }

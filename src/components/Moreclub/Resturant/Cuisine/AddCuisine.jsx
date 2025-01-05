@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { Form, Button,Col, Card } from "react-bootstrap";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
+
 import { message } from "antd";
 import { useParams } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { addCuisine } from "../../../../redux/slices/MenuSlice";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const AddCuisineForm = ({ onFinish }) => {
   const { res_id,} = useParams();
-  const queryClient = useQueryClient();
+
   const dispatch = useDispatch();
   const [imageUrl, setImageUrl] = useState("");
   const [cuisineFormData, setCuisineFormData] = useState({
@@ -38,8 +37,8 @@ const AddCuisineForm = ({ onFinish }) => {
     formData.append("restaurant_id", res_id);
     formData.append("image", cuisineFormData.image);
 
-    axiosInstance
-      .post(`${morefoodURL}moreclub/user/cuisines/${res_id}/`, formData, {
+    morefoodAuthenticatedAxios
+      .post(`moreclub/user/cuisines/${res_id}/`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

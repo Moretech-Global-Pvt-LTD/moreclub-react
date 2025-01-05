@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button, Col, Row, Form, Spinner } from "react-bootstrap";
-import { morefoodURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
+
 import { message } from "antd";
 import { validateAddress, validateResturantName, } from "../../../../validation/resturantValidation";
 import { useParams } from "react-router-dom";
 import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
 import { useSelector } from "react-redux";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const StationSetupForm = ({ onFinish, onCancel }) => {
     const businessProfiles = useSelector((state) => state.businessReducer.businessProfile);
@@ -103,8 +103,8 @@ const StationSetupForm = ({ onFinish, onCancel }) => {
         if (Object.keys(validationErrors).length === 0) {
             setIsLoading(true);
             try {
-                const res = await axiosInstance.post(
-                    `${morefoodURL}moreclub/${res_id}/setup/station/`,
+                 await morefoodAuthenticatedAxios.post(
+                    `moreclub/${res_id}/setup/station/`,
                     formValues,
                     {
                         headers: {

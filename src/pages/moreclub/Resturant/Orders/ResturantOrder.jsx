@@ -1,6 +1,4 @@
 import React from 'react'
-import { morefoodURL } from '../../../../config/config';
-import { axiosInstance } from '../../../..';
 import { useQuery } from '@tanstack/react-query';
 import { useLocation,  useParams } from 'react-router-dom';
 import RestaurantLayout from '../../../../components/Layout/RestaurantLayout';
@@ -9,6 +7,7 @@ import { Placeholder, Table } from 'react-bootstrap';
 import Divider from '../../../../components/divider/Divider';
 import FilterComponent from '../../../../components/Moreclub/CommonComponents/FilterComponents';
 import CustomPagination from '../../../../components/ui/pagination/pagination';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const ResturantOrder = () => {
   const { res_id, slug } = useParams(); 
@@ -32,8 +31,8 @@ const ResturantOrder = () => {
       const { data, isLoading, isError , isRefetching } = useQuery({
         queryKey: [`Resturant order ${res_id}`, searchQuery, filterDate, orderStatus, orderType, page],
         queryFn: async () => {
-          const response = await axiosInstance.get(
-            `${morefoodURL}moreclub/user/orders/${res_id}/?${queryParams.toString()}`
+          const response = await morefoodAuthenticatedAxios.get(
+            `moreclub/user/orders/${res_id}/?${queryParams.toString()}`
           );
           const data = await response.data;
           return data;

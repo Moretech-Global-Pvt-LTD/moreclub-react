@@ -2,17 +2,16 @@ import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Plus from "../../../images/moreclub/plus.png";
-import { axiosInstance } from "../../..";
-import { morefoodURL } from "../../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import ResturantCard from "./ResturantCard";
 import RestaurantCardSkeleton from "../../Skeleton/RestaurantCardSkeleton";
+import { morefoodAuthenticatedAxios } from "../../../utills/axios/morefoodaxios";
 
 const ResturantContent = () => {
     const { data, isLoading, isError } = useQuery({
-      queryKey: ["Resturant List"],
+      queryKey: ["Restaurant List"],
       queryFn: async () => {
-        const response = await axiosInstance.get(`${morefoodURL}moreclub/user/restaurants/list`);
+        const response = await morefoodAuthenticatedAxios.get(`moreclub/user/restaurants/list`);
         const data = await response.data.data;
         return data;
       },

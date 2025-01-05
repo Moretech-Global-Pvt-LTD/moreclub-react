@@ -9,7 +9,7 @@ const StationCard = ({ station }) => {
         <Link to={`/station/${station.id}/${slug}`}> 
             <div class="restaurant-card mx-auto mb-2" >
                 <div class="restaurant-card-image">
-                    <img src={`${station.banner}`} alt="Restaurant Image" />
+                    <img src={`${station.banner}`} alt="Station-Image" />
                 </div>
                 <div class="restaurant-card-details">
                     <h3 class="restaurant-name">{station.name}</h3>

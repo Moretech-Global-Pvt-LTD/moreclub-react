@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form, Spinner } from "react-bootstrap";
-import axios from "axios";
-import { morefoodURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
+
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 import {
@@ -16,6 +14,7 @@ import {
 } from "../../../../validation/resturantValidation";
 import { validateEmail } from "../../../../validation/addaccountvalidation";
 import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInput";
+import { morefoodAuthenticatedAxios, morefoodPublicAxios } from "../../../../utills/axios/morefoodaxios";
 
 const StationUpdateInfoForm = ({ data }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -72,7 +71,7 @@ const StationUpdateInfoForm = ({ data }) => {
 
   const fetchCountry = async () => {
     try {
-      const res = await axios.get(`${morefoodURL}country/list/`);
+      const res = await morefoodPublicAxios.get(`country/list/`);
       setCountryList(res.data.data);
       const uniqueCurrencies = new Map();
 
@@ -134,8 +133,8 @@ const StationUpdateInfoForm = ({ data }) => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         setIsLoading(true);
-        const res = await axiosInstance.patch(
-          `${morefoodURL}moreclub/station/${data.id}/`,
+        const res = await morefoodAuthenticatedAxios.patch(
+          `moreclub/station/${data.id}/`,
           formValues
         );
         message.success("Your changes was Uploaded ");

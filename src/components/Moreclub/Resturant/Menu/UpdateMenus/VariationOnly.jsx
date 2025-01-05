@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Col } from "react-bootstrap";
-import { axiosInstance } from "../../../../..";
 import { useParams } from "react-router-dom";
-import { morefoodURL } from "../../../../../config/config";
+
 // import { useDispatch } from "react-redux";
 
 import {
@@ -10,6 +9,7 @@ import {
   validateRequiredField,
 } from "../../../../../validation/resturantValidation";
 import { message } from "antd";
+import { morefoodAuthenticatedAxios } from "../../../../../utills/axios/morefoodaxios";
 
 const VariationUpdateOnlyForm = ({ item, onCancel }) => {
   const { res_id } = useParams();
@@ -114,9 +114,9 @@ const VariationUpdateOnlyForm = ({ item, onCancel }) => {
         price: variationData.price,
         discount_price: variationData.discountPrice,
       };
-      axiosInstance
+      morefoodAuthenticatedAxios
         .post(
-          `${morefoodURL}moreclub/user/food/items/${variationData.menu_id}/${res_id}/`,
+          `moreclub/user/food/items/${variationData.menu_id}/${res_id}/`,
           newMenu,
           {
             headers: {

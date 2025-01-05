@@ -1,11 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../../..';
-import { morefoodURL } from '../../../config/config';
+
 import RestaurantLayoutSkeleton from '../../../components/Skeleton/RestaurantLayout';
 import StationLayout from './StationLayout';
 import StationDetailContent from '../../../components/Moreclub/Resturant/station/StationDetailContent';
+import { morefoodAuthenticatedAxios } from '../../../utills/axios/morefoodaxios';
 
 const StationDetailPage = () => {
 
@@ -15,8 +15,8 @@ const StationDetailPage = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Station ${id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${id}/`
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/station/${id}/`
             );
             const data = await response.data.data;
             return data;

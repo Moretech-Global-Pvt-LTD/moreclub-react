@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Badge, Button, Form, Modal } from 'react-bootstrap'
-import { axiosInstance } from '../../../..';
-import { morefoodURL } from '../../../../config/config';
+import {Button, Form, Modal } from 'react-bootstrap'
+
 import { message } from 'antd';
 import moment from 'moment';
 import { useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderStatus, resturant_status }) => {
     const [showResturant, setShowResturant] = useState(false);
@@ -37,7 +37,7 @@ const StationOrderCards = ({ item, restaurant, stationId, orderStatus, setOrderS
         e.preventDefault();
         setIsLoading(true);
         try {
-            const res = await axiosInstance.patch(`${morefoodURL}moreclub/station/${stationId}/order-item/${item.id}/${item.restaurant_id}/confirm/`, {
+            const res = await morefoodAuthenticatedAxios.patch(`moreclub/station/${stationId}/order-item/${item.id}/${item.restaurant_id}/confirm/`, {
                 is_received_from_restaurant: true,
                 received_item_quantity_restaurant: received
             });

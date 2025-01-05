@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Badge } from "react-bootstrap";
-import { axiosInstance } from "../../../../..";
 import { useParams } from "react-router-dom";
-import { morefoodURL } from "../../../../../config/config";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { fetchFoodItems } from "../../../../../redux/api/menuApi";
 import { fetchFoodItemsDetailSuccess } from "../../../../../redux/slices/FoodItemDetailSlice";
+import { morefoodAuthenticatedAxios } from "../../../../../utills/axios/morefoodaxios";
 
 const RelatedFoodItemsForm = ({ item, food_id, onCancel }) => {
   const { res_id } = useParams();
@@ -86,9 +85,9 @@ const RelatedFoodItemsForm = ({ item, food_id, onCancel }) => {
       has_variation: false,
       related_food_items: formData.selectedItems,
     };
-    axiosInstance
+    morefoodAuthenticatedAxios
       .patch(
-        `${morefoodURL}moreclub/user/all/food/items/${res_id}/${food_id}/`,
+        `moreclub/user/all/food/items/${res_id}/${food_id}/`,
         newMenu,
         {
           headers: {

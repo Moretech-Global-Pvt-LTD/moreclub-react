@@ -10,11 +10,10 @@ import {
     Form,
     Button,
 } from "react-bootstrap";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
 import StationOrderCards from "../../../../components/Moreclub/Resturant/station/StationOrderCards";
 import { message } from "antd";
 import moment from "moment";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const StationOrderDetailsContent = ({ item }) => {
     const { ord_id, id, name } = useParams();
@@ -28,8 +27,8 @@ const StationOrderDetailsContent = ({ item }) => {
         e.preventDefault();
         try {
             setStatusLoading(true);
-            const res = await axiosInstance.patch(
-                `${morefoodURL}moreclub/station/${id}/orders/${ord_id}/status/update/`,
+            const res = await morefoodAuthenticatedAxios.patch(
+                `moreclub/station/${id}/orders/${ord_id}/status/update/`,
                 {
                     order_status: orderStatus,
                 }

@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
-import DashboardLayout from '../../../../components/Layout/DashboardLayout'
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import RestaurantCardSkeleton from '../../../../components/Skeleton/RestaurantCardSkeleton';
-import { axiosInstance } from '../../../..';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { morefoodURL } from '../../../../config/config';
-import Cookies from "js-cookie"
 import MenuCategoryAddForm from '../../../../components/Moreclub/Resturant/common/MenuCategoryAddForm';
 import StationMenuCard from '../../../../components/Moreclub/Resturant/station/StationMenuCard';
 import StationLayout from '../../Station/StationLayout';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 
 const StationMenu = () => {
@@ -22,17 +19,13 @@ const StationMenu = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Station Menu List  ${id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/${id}/menu/`, {
-                headers: {
-                    'x-country-code': Cookies.get("countryCode"),
-                }
-            }
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/station/${id}/menu/`, 
             );
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 60000,
     });
 
     if (isLoading) {
@@ -58,8 +51,8 @@ const StationMenu = () => {
 
     const submit = async (datas) => {
         try {
-            const response = await axiosInstance.post(
-                `${morefoodURL}moreclub/station/${id}/menu/`,
+            const response = await morefoodAuthenticatedAxios.post(
+                `moreclub/station/${id}/menu/`,
                 datas,
                 {
                     headers: {
@@ -82,18 +75,7 @@ const StationMenu = () => {
     return (
         <StationLayout title={`${SlugName} `}>
             <div className="d-flex align-items-center justify-content-start my-2 gap-2">
-                {/* <Link to={`/resturant/${res_id}/station/${stationId}/orders/${slug}`} >
-                    <Button variant="warning">
-                        Station Orders
-                    </Button>
-
-                </Link>
-                <Link to={`/resturant/${res_id}/${stationId}/allorders/${slug}`} >
-                    <Button variant="warning">
-                        All Food Orders
-                    </Button>
-
-                </Link> */}
+                
             </div>
             <div className="d-flex align-items-center justify-content-end my-2">
 

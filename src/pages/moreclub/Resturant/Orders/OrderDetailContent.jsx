@@ -10,9 +10,8 @@ import {
   Form,
   Button,
 } from "react-bootstrap";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
 import { message } from "antd";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const OrderDetailsContent = ({ item }) => {
   const { ord_id, res_id, } = useParams();
@@ -26,8 +25,8 @@ const OrderDetailsContent = ({ item }) => {
     e.preventDefault();
     try {
       setStatusLoading(true);
-      const res = await axiosInstance.patch(
-        `${morefoodURL}moreclub/user/orders/${ord_id}/${res_id}/`,
+      const res = await morefoodAuthenticatedAxios.patch(
+        `moreclub/user/orders/${ord_id}/${res_id}/`,
         {
           order_status: orderStatus,
         }

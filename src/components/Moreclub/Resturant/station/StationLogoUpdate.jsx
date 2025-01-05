@@ -1,10 +1,10 @@
 import { message } from "antd";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import { morefoodURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
+
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const StationLogoUpdate = ({ data }) => {
     const { id } = useParams();
@@ -24,8 +24,8 @@ const StationLogoUpdate = ({ data }) => {
             const formData = {
                 logo: inputBanner,
             };
-            const res = await await axiosInstance.patch(
-                `${morefoodURL}moreclub/station/${id}/`,
+            const res = await await morefoodAuthenticatedAxios.patch(
+                `moreclub/station/${id}/`,
                 formData,
                 {
                     headers: {

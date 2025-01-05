@@ -4,18 +4,17 @@ import Banner from "../../../../components/Moreclub/Resturant/Setup/Banner";
 import Logo from "../../../../components/Moreclub/Resturant/Setup/Logo";
 import UpdateInfoForm from "../../../../components/Moreclub/Resturant/Setup/updateinfo";
 import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../../../..";
 import { useParams } from "react-router-dom";
-import { morefoodURL } from "../../../../config/config";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const InfoUpdateTabs = () => {
   const [activeTab, setActiveTab] = useState("Information");
     const { id } = useParams();
       const { data, isLoading, isError } = useQuery({
-        queryKey: [`Resturant ${id}`],
+        queryKey: [`Restaurant ${id}`],
         queryFn: async () => {
-          const response = await axiosInstance.get(
-            `${morefoodURL}moreclub/user/restaurants/${id}/`
+          const response = await morefoodAuthenticatedAxios.get(
+            `moreclub/user/restaurants/${id}/`
           );
           const data = await response.data.data;
           return data;

@@ -5,6 +5,8 @@ const SidebarDropDownMenu = ({
   menuTitle,
   menuSvg,
   menuIcon,
+  darkIcon,
+  lightIcon,
   links,
   children,
 
@@ -41,8 +43,18 @@ const SidebarDropDownMenu = ({
           }`}
           style={{ marginBottom: isOpen ? "10px" : "0px" }}
         >
-          {menuSvg ? menuSvg : <i className={`bi ${menuIcon}`} />}
-          &nbsp;&nbsp;&nbsp;{menuTitle}
+          <img
+              src={darkIcon}
+              alt={menuTitle}
+              className="me-2 small-dashboard-icon menu-icon dark-logo dashboard-menus-dark-icon"
+            />
+            <img
+            src={lightIcon}
+            alt={menuTitle}
+            className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
+          />
+          {/* {menuSvg ? menuSvg : <i className={`bi ${menuIcon}`} />} */}
+          {menuTitle}
         </h6>
         {isOpen ? (
           <i className="bi bi-caret-up-fill"></i>

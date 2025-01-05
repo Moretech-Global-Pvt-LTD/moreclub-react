@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import MenuCategoryAddForm from "../../../common/MenuCategoryAddForm";
 import AddCuisineForm from "../../../Cuisine/AddCuisine";
-import { axiosInstance } from "../../../../../..";
-import { morefoodURL } from "../../../../../../config/config";
 import { addMenu } from "../../../../../../redux/slices/MenuSlice";
+import { morefoodAuthenticatedAxios } from "../../../../../../utills/axios/morefoodaxios";
 
 const Filter = ({ onFilterChange, onViewChange }) => {
   const { res_id, slug } = useParams();
@@ -82,8 +81,8 @@ const Filter = ({ onFilterChange, onViewChange }) => {
 
   const MenuSubmit = async (data) => {
     try {
-      const response = await axiosInstance.post(
-        `${morefoodURL}moreclub/user/menus/${res_id}/`,
+      const response = await morefoodAuthenticatedAxios.post(
+        `moreclub/user/menus/${res_id}/`,
         data,
         {
           headers: {

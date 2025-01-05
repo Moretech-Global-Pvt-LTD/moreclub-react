@@ -2,9 +2,10 @@ import React from 'react'
 import DashboardLayout from '../../../../components/Layout/DashboardLayout'
 import { useParams } from 'react-router-dom';
 import {  Col, Placeholder, Row, Table } from 'react-bootstrap';
-import { axiosInstance } from '../../../..';
+
 import { useQuery } from '@tanstack/react-query';
-import { morefoodURL } from '../../../../config/config';
+
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const AllResturantsStationOrderPage = () => {
 
@@ -16,8 +17,8 @@ const AllResturantsStationOrderPage = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: [`All food orders ${res_id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/station/restro/${res_id}/all/orders/summary/`
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/station/restro/${res_id}/all/orders/summary/`
             );
             const data = await response.data.data;
             return data;

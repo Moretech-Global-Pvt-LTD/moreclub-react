@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import HeaderUserInfo from "../header/HeaderUserInfo";
-import HeaderDashboardMenu from "../header/HeaderDashboardMenu";
 import { useSelector } from "react-redux";
 import DashboardMenu from "../header/Dashboardmenu";
+import HomePrimary from "../../images/svg/dashboard/Home.svg"
+import HomeWhite from "../../images/svg/dashboard/HomeWhite.svg"
+import Transactions from "../../images/svg/Transaction.svg"
 
 const Footbar = () => {
   const loaction = useLocation();
@@ -15,12 +17,16 @@ const Footbar = () => {
       id: 101,
       name: "Dashboard",
       icon: "bi-speedometer",
+      lightIcon: HomePrimary,
+      darkIcon: HomeWhite,
       href: "/dashboard",
     },
     {
       id: 102,
       name: "Transaction",
       icon: "bi-currency-exchange",
+      darkIcon: Transactions,
+      lightIcon: Transactions,
       href: "/transactions",
     },
     // {
@@ -55,7 +61,24 @@ const Footbar = () => {
                 }`}
               >
                 <span class="footbar-item-icon">
-                  <i className={`bi ${item.icon} `}></i>
+                <img
+              src={item.darkIcon}
+              alt={item.name}
+              className={` small-footbar-icon menu-icon dark-logo dashboard-menus-dark-icon ${
+                  loaction.pathname === item.href
+                    ? "active-footbar-icon "
+                    : "inactive-footbar-icon"
+                }`}
+            />
+            <img
+            src={item.lightIcon}
+            alt={item.name}
+            className={` small-footbar-icon menu-icon dashboard-menus-light-icon  ${
+              loaction.pathname === item.href
+                ? "active-footbar-icon "
+                : "inactive-footbar-icon"
+            }`}
+          />
                 </span>
                 <span class="footbar-item-name">&nbsp;{item.name}</span>
               </div>
@@ -85,10 +108,16 @@ const Footbar = () => {
                 }`}
               >
                 <span class="footbar-item-icon position-relative">
-                <i className={`bi bi-bell `}></i>
+                <i className={`bi ${
+                  loaction.pathname === '/notification'
+                    ? "bi-bell-fill "
+                    : "bi-bell "
+                } `}></i>
+                {notification.unreadCount > 0 && 
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "10px" }} >
                   {notification.unreadCount}
                 </span>
+                }
                 </span>
                 <span class="footbar-item-name">&nbsp;Notification</span>
               </div>

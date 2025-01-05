@@ -1,8 +1,5 @@
   import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form, InputGroup, Spinner } from "react-bootstrap";
-import axios from "axios";
-import { morefoodURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import {
   valdateShortDescription,
@@ -26,9 +23,12 @@ import MapBoxLocationDisplayAutocomplete from "../../../Googlemap/MapLocationInp
 import { useSelector } from "react-redux";
 import moment from "moment-timezone";
 import TimezoneSelector from "../../CommonComponents/TimeZoneInput";
+import { useQueryClient } from "@tanstack/react-query";
+import { morefoodAuthenticatedAxios, morefoodPublicAxios } from "../../../../utills/axios/morefoodaxios";
 
 const InfoForm = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const businessProfiles = useSelector(
     (state) => state.businessReducer.businessProfile
   );
@@ -162,7 +162,7 @@ const InfoForm = () => {
 
   const fetchCountry = async () => {
     try {
-      const res = await axios.get(`${morefoodURL}country/list/`);
+      const res = await morefoodPublicAxios.get(`country/list/`);
       setCountryList(res.data.data);
     } catch (err) {
       console.error(err);
@@ -271,8 +271,8 @@ const InfoForm = () => {
     if (Object.keys(validationErrors).length === 0) {
       setIsLoading(true);
       try {
-        const res = await axiosInstance.post(
-          `${morefoodURL}moreclub/restaurant/setup/`,
+        const res = await morefoodAuthenticatedAxios.post(
+          `moreclub/restaurant/setup/`,
           formValues,
           {
             headers: {
@@ -283,6 +283,7 @@ const InfoForm = () => {
         message.success("Restaurant created");
         const name = res.data.data.name.replace(/ /g, "-");
         navigate(`/restaurant/${res.data.data.id}/${name}`);
+        queryClient.invalidateQueries(["Restaurant List"]);
       } catch (err) {
         message.error("Error Creating Restaurant");
       } finally {

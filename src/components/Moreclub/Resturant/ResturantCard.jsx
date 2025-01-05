@@ -10,8 +10,8 @@ const ResturantCard = ({res, link}) => {
       >
           <div class="restaurant-card mx-auto mb-2" >
             <div class="restaurant-card-image">
-              <img src={`${res.banner}`} alt="Restaurant Image" />
-              {/* <span class="open-status">{res.is_open ? "Open" : `${res.open_hrs}`}</span> */}
+              <img src={`${res.banner}`} alt="Restaurant-Image" />
+              
             </div>
             <div class="restaurant-card-details">
               <h3 class="restaurant-name">{res.name}</h3>

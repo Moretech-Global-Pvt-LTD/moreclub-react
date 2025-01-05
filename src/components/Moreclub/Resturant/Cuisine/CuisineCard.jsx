@@ -1,15 +1,10 @@
 import React from "react";
 import {Badge, Button, Modal } from "react-bootstrap";
-// import { Link, useParams } from "react-router-dom";
-// import { morefoodimageURL, morefoodURL } from "../../../../config/config";
-// import { axiosInstance } from "../../../..";
-// import { message } from "antd";
 import UpdateCuisineForm from "./UpdateCuisine";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
 import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { removeCuisine } from "../../../../redux/slices/MenuSlice";
+import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 
 const CuisineCard = ({ res_id, logo, name, items }) => {
   const [showCuisineForm, setShowCuisineForm] = React.useState(false);
@@ -33,13 +28,10 @@ const CuisineCard = ({ res_id, logo, name, items }) => {
   async function handleDelete() {
     try {
       setDeleting(true)
-      await axiosInstance.delete(
-        `${morefoodURL}moreclub/user/cuisines/update/${items.id}/${res_id}/`
+      await morefoodAuthenticatedAxios.delete(
+        `moreclub/user/cuisines/update/${items.id}/${res_id}/`
       );
       dispatch(removeCuisine({ id: items.id }));
-      // queryClient.invalidateQueries({
-      //   queryKey: [`Resturant Cuisine List ${res_id}`],
-      // });
       message.success("Menu Deleted successfully");
     } catch (err) {
       message.error("error deleting");

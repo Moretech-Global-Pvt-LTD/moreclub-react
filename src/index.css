@@ -28087,3 +28087,95 @@ span {
   height:2rem;
   margin-right:0.5rem;
 }
+
+
+.small-dashboard-icon{
+  width:1rem;
+  height:1rem;
+  margin-right:0.5rem;
+}
+
+.small-footbar-icon{
+  width:1.5rem;
+  height:1.5rem;
+ 
+}
+
+
+.active-footbar-icon {
+  filter: brightness(0) saturate(100%) invert(54%) sepia(96%) saturate(742%) hue-rotate(0deg) brightness(104%) contrast(102%);
+}
+
+.inactive-footbar-icon {
+  filter: none;}
+
+
+
+/* Style the menu item */
+.dashboard-menus-items {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit; /* Inherit text color from parent */
+  transition: color 0.3s ease, filter 0.3s ease;
+}
+
+/* Hover state: change color to warning */
+.dashboard-menus-items:hover,
+.dashboard-menus-items:focus {
+  color: #ffc107; /* Warning color */
+}
+
+/* .dashboard-menus-items:hover .menu-icon,
+.dashboard-menus-items:focus .menu-icon {
+  filter: brightness(0) saturate(100%) invert(75%) sepia(60%) saturate(584%) hue-rotate(330deg) brightness(96%) contrast(91%);
+ 
+} */
+
+/* Active state: persist warning color */
+.dashboard-menus-items.active {
+  color: #ffc107; /* Warning color */
+}
+
+/* .dashboard-menus-items.active .menu-icon {
+  filter: brightness(0) saturate(100%) invert(75%) sepia(60%) saturate(584%) hue-rotate(330deg) brightness(96%) contrast(91%);
+} */
+
+.dashboard-menus-items:hover .menu-icon,
+.dashboard-menus-items:focus .menu-icon {
+  filter: brightness(0) saturate(100%) invert(29%) sepia(85%) saturate(600%) hue-rotate(190deg) brightness(94%) contrast(90%);
+
+}
+
+.dashboard-menus-items.active .menu-icon {
+  filter: brightness(0) saturate(100%) invert(29%) sepia(85%) saturate(600%) hue-rotate(190deg) brightness(94%) contrast(90%);
+}
+
+[data-theme="dark"] .dashboard-menus-items:hover .menu-icon,
+.dashboard-menus-items:focus .menu-icon {
+  filter: brightness(0) saturate(100%) invert(75%) sepia(60%) saturate(584%) hue-rotate(330deg) brightness(96%) contrast(91%);
+}
+
+[data-theme="dark"] .dashboard-menus-items.active .menu-icon{
+  filter: brightness(0) saturate(100%) invert(75%) sepia(60%) saturate(584%) hue-rotate(330deg) brightness(96%) contrast(91%);
+}
+
+.dashboard-menus-light-icon{
+  display: inline-flex;
+}
+
+.dashboard-menus-dark-icon{
+  display: none;
+}
+
+[data-theme="dark"] .dashboard-menus-dark-icon {
+  display: inline-flex;
+}
+
+[data-theme="dark"] .dashboard-menus-light-icon {
+  display: none;
+}
+
+
+
+

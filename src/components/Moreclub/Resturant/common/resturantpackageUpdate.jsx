@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react'
-import { axiosInstance } from '../../../..';
-import { morefoodURL } from '../../../../config/config';
 import { Button, Col, Form, Modal } from 'react-bootstrap';
 import { message } from 'antd';
+import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 
 const ResturantpackageUpdate = ({ id }) => {
  
@@ -14,8 +13,8 @@ const ResturantpackageUpdate = ({ id }) => {
     const { data, isLoading, isError } = useQuery({
         queryKey: [`max station Package for ${id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${morefoodURL}moreclub/user/restaurants/${id}/max-package/update/`
+            const response = await morefoodAuthenticatedAxios.get(
+                `moreclub/user/restaurants/${id}/max-package/update/`
             );
             const data = await response.data.data;
             return data;
@@ -59,7 +58,7 @@ const ResturantpackageUpdate = ({ id }) => {
         e.preventDefault();
         try {
             setLoading(true)
-            const res =await axiosInstance.patch(`${morefoodURL}moreclub/user/restaurants/${data.id}/`,
+            const res =await morefoodAuthenticatedAxios.patch(`moreclub/user/restaurants/${data.id}/`,
                 {
                     "station_no_of_packed_item": stationMaxPackage
                 }
