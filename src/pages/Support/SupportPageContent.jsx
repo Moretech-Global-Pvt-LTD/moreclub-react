@@ -151,7 +151,7 @@ const SupportBotPage = () => {
 
       {isRefetching ? <p className='text-center'>Loading...</p> : 
       
-      <Row xs={1} sm={2} md={2} lg={3} xl={3} xxl={4}>
+      <Row xs={1} sm={2} md={2} lg={3} xl={3} xxl={4} className="gy-2">
         { data && data.length > 0 && data.map((blog) => (
           <Col>
             <BlogCard

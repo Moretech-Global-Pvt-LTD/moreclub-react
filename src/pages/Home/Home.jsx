@@ -10,12 +10,19 @@ import PartnerSection from "../../components/home/PartnerSection";
 import Footer from "../../components/footer/Footer";
 import About1 from "../../images/about/expectation.png";
 import About2 from "../../images/about/ourmission.png";
+import Boost from "../../images/svg/BOOST.svg";
+import Growth from "../../images/svg/gROWTH.svg";
+import Growth2 from "../../images/svg/gROWTHS.svg";
+import Rewards from "../../images/svg/REWARD.svg";
+import Savings from "../../images/svg/SAVINGS.svg"
+import Unlock from "../../images/svg/secure.svg"
+
 import playstore from "../../images/about/1.png";
 import appstore from "../../images/about/2.png";
 
 const Infodata1 = [
   {
-    image: About2,
+    image: Boost,
     heading: "Boost Your Savings and Earnings with More Deals Club!",
     subheadings: [
       {
@@ -38,7 +45,7 @@ const Infodata1 = [
     // },
   },
   {
-    image: About1, // replace with actual path
+    image: Savings, // replace with actual path
     heading: "Supercharge Your Savings and Earnings with More Deals Club!",
     subheadings: [
       {
@@ -55,7 +62,7 @@ const Infodata1 = [
     ],
   },
   {
-    image: About2, // replace with actual path
+    image: Rewards, // replace with actual path
     heading: "For Users",
     subheadings: [
       {
@@ -77,7 +84,7 @@ const Infodata1 = [
 
 const Infodata2 = [
   {
-    image: About2,
+    image: Growth2,
     heading: "Grow Your Business With More Deals Club!",
     subheadings: [
       {
@@ -93,7 +100,7 @@ const Infodata2 = [
     ],
   },
   {
-    image: About2, // replace with actual path
+    image: Growth, // replace with actual path
     heading: "For Businesses",
     subheadings: [
       {
@@ -115,7 +122,7 @@ const Infodata2 = [
 ];
 const Infodata3 = [
   {
-    image: About2,
+    image: Unlock,
     heading: "Join More Deals Club today and unlock a world of opportunities.",
     subheadings: [
       {

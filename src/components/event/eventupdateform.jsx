@@ -4,6 +4,7 @@ import { axiosInstance } from "../..";
 import { message } from "antd";
 import { baseURL } from "../../config/config";
 import MapBoxLocationDisplayAutocomplete from "../Googlemap/MapLocationInput";
+import { validateDates, validateRequiredField } from "../../validation/resturantValidation";
 
 // import CKEditor from 'ckeditor4-react';
 
@@ -25,11 +26,77 @@ const UpdateEventForm = ({ existingEventData, id }) => {
     event_highlights_description: existingEventData.event_highlights_description ??"",
   });
 
+  const [errors, setErrors] = useState({});
+
+
+   const validateForm = (fieldValues = formData) => {
+      const tempErrors = { ...errors };
+      console.log("validating field errors" , fieldValues);
+      if ("name" in fieldValues)
+        tempErrors.name = validateRequiredField(fieldValues.name, "name");
+      if ("description" in fieldValues)
+        tempErrors.description = validateRequiredField(fieldValues.description, "Description");
+      if ("location" in fieldValues)
+        tempErrors.location = validateRequiredField(fieldValues.location, "Location");
+      if ("start_date" in fieldValues){
+  
+        const dateErrors = validateDates(fieldValues.start_date, formData.end_date , "start_date")
+            
+          tempErrors.start_date = dateErrors?.start_date;
+        
+          tempErrors.end_date = dateErrors?.end_date;
+        
+      }
+       
+      if ("end_date" in fieldValues){
+  
+        const dateErrors = validateDates(formData.start_date, fieldValues.end_date , "end_date")
+          tempErrors.start_date = dateErrors.start_date;  
+          tempErrors.end_date = dateErrors.end_date;
+      }
+      
+      if ("price" in fieldValues)
+        tempErrors.price = validateRequiredField(fieldValues.price, "Price");
+      if ("max_limit" in fieldValues)
+        tempErrors.max_limit = validateRequiredField(fieldValues.max_limit, "Max Limit");
+      if ("event_highlights_title" in fieldValues)
+        tempErrors.event_highlights_title = validateRequiredField(
+          fieldValues.event_highlights_title,
+          "Event Highlights Title"
+        );
+      if ("event_highlights_description" in fieldValues)
+        tempErrors.event_highlights_description = validateRequiredField(
+          fieldValues.event_highlights_description,
+          "Event Highlights Description"
+        );  
+      setErrors({ ...tempErrors });
+    };
+  
+    const validateField = (name, value) => {
+      switch (name) {
+        case "name":
+          return validateRequiredField(value, "name");
+        case "description":
+          return validateRequiredField(value, "Description");
+        case "location":
+          return validateRequiredField(value, "Location")
+        case "price":
+          return validateRequiredField(value, "Price");
+        case "max_limit":
+          return validateRequiredField(`${value}`, "Max Limit");
+        case "event_highlights_title":
+          return validateRequiredField(value, "Event Highlights Title");
+        case "event_highlights_description":
+          return validateRequiredField(value, "Event Highlights Description");
+        default:
+          return "";
+      }
+    };
+
   const fetchCurrency = async () => {
     try {
       const res = await axiosInstance.get(`/user/currency/`);
       setCurrencyList(res.data.data.currency);
-      console.log("user currencies", res.data.data.currency);
     } catch (err) {
       console.error(err);
     }
@@ -65,6 +132,7 @@ const UpdateEventForm = ({ existingEventData, id }) => {
       ...formData,
       [name]: value,
     });
+    validateForm({ [name]: value });
   };
 
   const handlePlaceSelected = async (place, address) => {
@@ -84,6 +152,45 @@ const UpdateEventForm = ({ existingEventData, id }) => {
     });
   };
 
+
+   const validateAllFields = () => {
+      const tempErrors = {};
+      for (const key in formData) {
+  
+        if(key === "start_date" || key === "end_date"){
+          if (key === "start_date"){
+  
+            const dateErrors = validateDates(formData[key], formData.end_date , "start_date" , "update")
+                
+              tempErrors.start_date = dateErrors?.start_date;
+            
+              tempErrors.end_date = dateErrors?.end_date;
+            
+          }
+           
+          if (key ==="end_date"){
+      
+            const dateErrors = validateDates(formData.start_date, formData[key] , "end_date" , "update")
+              tempErrors.start_date = dateErrors.start_date;  
+              tempErrors.end_date = dateErrors.end_date;
+          }
+        }
+        
+        const error = validateField(key, formData[key]);
+        if (error) tempErrors[key] = error;
+      }
+
+      for (const key in tempErrors) {
+        if (tempErrors[key] === undefined || tempErrors[key] === "") {
+          delete tempErrors[key];
+        }
+      }
+  
+  
+      setErrors(tempErrors);
+      return tempErrors;
+    };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
       
@@ -101,17 +208,24 @@ const UpdateEventForm = ({ existingEventData, id }) => {
       formData.event_highlights_description !==
         existingEventData.event_highlights_description
     ) {
-      setLoading(true);
-      try {
-        const res = await axiosInstance.put(
-          `${baseURL}events/${id}/update`,
-          formData
-        );
-        message.success("Event detail Updated successfully");
-      } catch (err) {
-        message.error(err?.response.data?.errors?.non_field_errors[0]);
-      } finally {
-        setLoading(false);
+      const validationErrors = validateAllFields();
+      console.log(validationErrors);
+      if(Object.keys(validationErrors).length === 0){
+        setLoading(true);
+        try {
+          const res = await axiosInstance.put(
+            `${baseURL}events/${id}/update`,
+            formData
+          );
+          message.success("Event detail Updated successfully");
+        } catch (err) {
+          message.error(err?.response.data?.errors?.non_field_errors[0]);
+        } finally {
+          setLoading(false);
+        }
+
+      }else{
+        message.error("Please Provide the valid information");
       }
     } else {
       message.warning("You have not update anything");
@@ -136,7 +250,11 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                />
+                isInvalid={!!errors.name}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                  {errors.name}
+                                </Form.Control.Feedback>
               </Form.Group>
 
             </Col>
@@ -150,7 +268,11 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                   name="max_limit"
                   value={formData.max_limit}
                   onChange={handleChange}
-                />
+                  isInvalid={!!errors.max_limit}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.max_limit}
+                  </Form.Control.Feedback>
               </Form.Group>
             </Col>
             <Col xs={12} md={6} lg={6} xl={4} xxl={4}>
@@ -169,6 +291,10 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                     onChange={handleChange}
                   />
                 </div>
+                
+                                <p className="text-danger" style={{ fontSize: "12px" }}>
+                                  {errors.price}
+                                </p>
               </Form.Group>
             </Col>
             <Col xs={12} md={6} lg={6} xl={4} xxl={4}>
@@ -181,7 +307,11 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                     name="start_date"
                     value={formData.start_date}
                     onChange={handleChange}
-                  />
+                    isInvalid={!!errors.start_date}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.start_date}
+                    </Form.Control.Feedback>
                 </Form.Group>
               </Col>
               <Col >
@@ -192,7 +322,11 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                     name="end_date"
                     value={formData.end_date}
                     onChange={handleChange}
-                  />
+                    isInvalid={!!errors.end_date}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.end_date}
+                    </Form.Control.Feedback>
                 </Form.Group>
               </Col>
               
@@ -207,7 +341,11 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
-                />
+                  isInvalid={!!errors.description}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.description}
+                  </Form.Control.Feedback>
               </Form.Group>
 
             </Col>
@@ -222,7 +360,11 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                   name="event_highlights_title"
                   value={formData.event_highlights_title}
                   onChange={handleChange}
-                />
+                  isInvalid={!!errors.event_highlights_title}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.event_highlights_title}
+                  </Form.Control.Feedback>
               </Form.Group>
               <Form.Group
                 controlId="formEventHighlightsDescription"
@@ -246,13 +388,20 @@ const UpdateEventForm = ({ existingEventData, id }) => {
                   name="event_highlights_description"
                   value={formData.event_highlights_description}
                   onChange={handleChange}
-                />
+                  isInvalid={!!errors.event_highlights_description}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.event_highlights_description}
+                  </Form.Control.Feedback>
               </Form.Group>
 
             </Col>
             <Col xs={12} lg={6}>
               <Form.Group controlId="formLocation" className="mb-3">
                 <Form.Label>Location</Form.Label>
+                <p className="text-danger" style={{ fontSize: "12px" }}>
+                  {errors.location}
+                </p>
                 <MapBoxLocationDisplayAutocomplete
                   onPlaceSelected={handlePlaceSelected}
                   initialLat={formData.lat}
