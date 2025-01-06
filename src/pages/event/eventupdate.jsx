@@ -117,12 +117,6 @@ const EventUpdate = () => {
           </div>
         </div>
       </div>
-
-      <div className="d-flex justify-content-end">
-        <Link to={`/event/upload/${data.id}`}>
-          <Button>Update Images</Button>
-        </Link>
-      </div>
     </DashboardLayout>
   );
 };

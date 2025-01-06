@@ -222,7 +222,7 @@ export const validatePriceAndOfferPrice = (price, offerPrice) => {
 
 
 export const validateRequiredField = (value, fieldName = "Field") => {
- 
+  console.log("value", value);
   if (!value || value.trim() === "") {
     return `${fieldName} is required.`;
   }
@@ -243,6 +243,55 @@ export const validateServiceField = (value) => {
     return "Services is required.";
   }
   return "";
+};
+
+
+export const validateDates = (start_date , end_date , checking ,status) => {
+  const errors = {};
+
+  if (start_date) {
+    const startDate = new Date(start_date);
+    const today = new Date();
+   
+
+    if (!start_date) {
+      errors.start_date = "Start Date is required.";
+    } else if (startDate < today) {
+      errors.start_date = "Start Date cannot be in the past.";
+    }
+    else{
+      errors.start_date = "";
+    }
+  }
+
+  if(checking === "end_date"){
+    if (!start_date) {
+      errors.start_date = "Start Date is required.";
+    }
+    if(!end_date) {
+      errors.end_date = "End Date is required.";
+    }
+  }
+
+  if (end_date) {
+    const endDate = new Date(end_date);
+    const startDate = new Date(start_date);
+
+    if (!end_date) {
+      errors.end_date = "End Date is required.";
+    } else if (start_date && endDate <= startDate) {
+      errors.end_date = "End Date must be greater than the Start Date.";
+    }
+  }
+
+  if(status === "update"){
+    if(errors.start_date === "Start Date cannot be in the past."){
+      errors.start_date = "";
+    }
+  }
+
+
+  return errors;
 };
 
 

@@ -6,7 +6,7 @@ import moment from 'moment';
 
 const BlogCard = ({ slug, image, title, description, date }) => {
     return (
-        <Link to={`${hostURL}/blog/detail/${slug}`} className="blog-card" style={{cursor:"pointer"}}>
+        <Link to={`${hostURL}/blog/detail/${slug}`} className="blog-card card mx-0 my-2" style={{cursor:"pointer"}} >
             {/* Conditionally render image if available */}
             {image && <img src={image} alt="Blog Post" />}
 

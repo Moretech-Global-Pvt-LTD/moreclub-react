@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { useDispatch } from "react-redux";
 import MapBoxLocationDisplayAutocomplete from "../Googlemap/MapLocationInput";
+import { validateDates, validateRequiredField } from "../../validation/resturantValidation";
 // import CKEditor from "ckeditor4-react";
 
 const Eventcreateform = () => {
@@ -28,7 +29,78 @@ const Eventcreateform = () => {
   const [currency, setCurrency] = useState("");
   const [isLoading, setIsloading] = useState(false);
 
+  const [errors, setErrors] = useState({});
+
   const dispatch = useDispatch();
+
+  const validateForm = (fieldValues = formData) => {
+    const tempErrors = { ...errors };
+    console.log("validating field errors" , fieldValues);
+    if ("name" in fieldValues)
+      tempErrors.name = validateRequiredField(fieldValues.name, "name");
+    if ("description" in fieldValues)
+      tempErrors.description = validateRequiredField(fieldValues.description, "Description");
+    if ("location" in fieldValues)
+      tempErrors.location = validateRequiredField(fieldValues.location, "Location");
+    if ("start_date" in fieldValues){
+
+      const dateErrors = validateDates(fieldValues.start_date, formData.end_date , "start_date")
+          
+        tempErrors.start_date = dateErrors?.start_date;
+      
+        tempErrors.end_date = dateErrors?.end_date;
+      
+    }
+     
+    if ("end_date" in fieldValues){
+
+      const dateErrors = validateDates(formData.start_date, fieldValues.end_date , "end_date")
+        tempErrors.start_date = dateErrors.start_date;  
+        tempErrors.end_date = dateErrors.end_date;
+    }
+    
+    if ("price" in fieldValues)
+      tempErrors.price = validateRequiredField(fieldValues.price, "Price");
+    if ("max_limit" in fieldValues)
+      tempErrors.max_limit = validateRequiredField(fieldValues.max_limit, "Max Limit");
+    if ("event_highlights_title" in fieldValues)
+      tempErrors.event_highlights_title = validateRequiredField(
+        fieldValues.event_highlights_title,
+        "Event Highlights Title"
+      );
+    if ("event_highlights_description" in fieldValues)
+      tempErrors.event_highlights_description = validateRequiredField(
+        fieldValues.event_highlights_description,
+        "Event Highlights Description"
+      );
+
+
+
+    setErrors({ ...tempErrors });
+  };
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case "name":
+        return validateRequiredField(value, "name");
+      case "description":
+        return validateRequiredField(value, "Description");
+      case "location":
+        return validateRequiredField(value, "Location")
+      case "price":
+        return validateRequiredField(value, "Price");
+      case "max_limit":
+        return validateRequiredField(value, "Max Limit");
+      case "event_highlights_title":
+        return validateRequiredField(value, "Event Highlights Title");
+      case "event_highlights_description":
+        return validateRequiredField(value, "Event Highlights Description");
+      
+
+      default:
+        return "";
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,13 +108,13 @@ const Eventcreateform = () => {
       ...formData,
       [name]: value,
     });
+    validateForm({ [name]: value });
   };
 
   const fetchCurrency = async () => {
     try {
       const res = await axiosInstance.get(`/user/currency/`);
       setCurrencyList(res.data.data.currency);
-      console.log("user currencies", res.data.data.currency);
     } catch (err) {
       console.error(err);
     }
@@ -60,7 +132,6 @@ const Eventcreateform = () => {
             (bt) => bt.default === true
           );
           if (matchedCurrency) {
-           
             setCurrency(matchedCurrency.symbol);
           }
         }
@@ -80,7 +151,6 @@ const Eventcreateform = () => {
   };
 
   const handlePlaceSelected = async (place, address) => {
-  
     setFormData({
       ...formData,
       location: address,
@@ -89,22 +159,63 @@ const Eventcreateform = () => {
     });
   };
 
+
+
+  const validateAllFields = () => {
+    const tempErrors = {};
+    for (const key in formData) {
+
+      if(key === "start_date" || key === "end_date"){
+        if (key === "start_date"){
+
+          const dateErrors = validateDates(formData[key], formData.end_date , "start_date")
+              
+            tempErrors.start_date = dateErrors?.start_date;
+          
+            tempErrors.end_date = dateErrors?.end_date;
+          
+        }
+         
+        if (key ==="end_date"){
+    
+          const dateErrors = validateDates(formData.start_date, formData[key] , "end_date")
+            tempErrors.start_date = dateErrors.start_date;  
+            tempErrors.end_date = dateErrors.end_date;
+        }
+      }
+
+      const error = validateField(key, formData[key]);
+      if (error) tempErrors[key] = error;
+    }
+
+
+    setErrors(tempErrors);
+    return tempErrors;
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsloading(true);
-    try {
-      const res = await axiosInstance.post(`${baseURL}events/`, formData);
-      const id = res.data.data.id;
-      navigate(`/event/upload/${id}`);
-    } catch (err) {
-      message.error(err?.response.data?.errors?.non_field_errors[0]);
-    } finally {
-      setIsloading(false);
+    
+    const validationErrors = validateAllFields();
+    
+    if (Object.keys(validationErrors).length === 0) {
+      setIsloading(true);
+      try {
+        const res = await axiosInstance.post(`${baseURL}events/`, formData);
+        const id = res.data.data.id;
+        navigate(`/event/upload/${id}`);
+      } catch (err) {
+        message.error(err?.response.data?.errors?.non_field_errors[0]);
+      } finally {
+        setIsloading(false);
+      }
+    } else {
+      message.error("Please Provide the valid information");
     }
   };
 
   return (
-   
     <Row xs={1} md={2}>
       <Col xs={12} md={12} lg={12} xl={10} xxl={10}>
         <Form onSubmit={handleSubmit} className="card p-2">
@@ -118,11 +229,14 @@ const Eventcreateform = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
+                  isInvalid={!!errors.name}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.name}
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
             <Col xs={12} md={6} lg={6} xl={4} xxl={4}>
-
               <Form.Group controlId="formName" className="mb-3">
                 <Form.Label>Maximum limit</Form.Label>
                 <Form.Control
@@ -131,11 +245,14 @@ const Eventcreateform = () => {
                   name="max_limit"
                   value={formData.max_limit}
                   onChange={handleChange}
+                  isInvalid={!!errors.max_limit}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.max_limit}
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
             <Col xs={12} md={6} lg={6} xl={4} xxl={4}>
-
               <Form.Group controlId="formPrice" className="mb-3">
                 <Form.Label>Price</Form.Label>
                 <div className="d-flex align-items-center gap-1">
@@ -149,12 +266,15 @@ const Eventcreateform = () => {
                     name="price"
                     value={formData.price}
                     onChange={handleChange}
+                    isInvalid={!!errors.price}
                   />
                 </div>
+                  <p className="text-danger " style={{ fontSize: "13px" }}>
+                    {errors.price}
+                  </p>
               </Form.Group>
             </Col>
             <Col xs={12} md={6} lg={6} xl={4} xxl={4}>
-
               <Form.Group controlId="formDate" className="mb-3">
                 <Form.Label>Start Date</Form.Label>
                 <Form.Control
@@ -162,7 +282,11 @@ const Eventcreateform = () => {
                   name="start_date"
                   value={formData.date}
                   onChange={handleChange}
+                  isInvalid={!!errors.start_date}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.start_date}
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId="formDate" className="mb-3">
                 <Form.Label>End Date</Form.Label>
@@ -171,7 +295,11 @@ const Eventcreateform = () => {
                   name="end_date"
                   value={formData.date}
                   onChange={handleChange}
+                  isInvalid={!!errors.end_date}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.end_date}
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
             <Col xs={12} md={6} lg={6} xl={8} xxl={8}>
@@ -184,11 +312,15 @@ const Eventcreateform = () => {
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
+                  isInvalid={!!errors.description}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.description}
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
-          <Row >
+          <Row>
             <Col xs={12} lg={6} className="order-last order-lg-first">
               <Form.Group controlId="formEventHighlightsTitle" className="mb-3">
                 <Form.Label>Event Highlights Title</Form.Label>
@@ -198,7 +330,11 @@ const Eventcreateform = () => {
                   name="event_highlights_title"
                   value={formData.event_highlights_title}
                   onChange={handleChange}
+                  isInvalid={!!errors.event_highlights_title}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.event_highlights_title}
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group
@@ -223,29 +359,24 @@ const Eventcreateform = () => {
                   name="event_highlights_description"
                   value={formData.event_highlights_description}
                   onChange={handleChange}
+                  isInvalid={!!errors.event_highlights_description}
                 />
+                <Form.Control.Feedback type="invalid">
+                  {errors.event_highlights_description}
+                </Form.Control.Feedback>
               </Form.Group>
-
             </Col>
             <Col xs={12} lg={6}>
               <Form.Group controlId="formLocation" className="mb-3">
                 <Form.Label>Location</Form.Label>
-                
+                <p className="text-danger fs-6" style={{ fontSize: "12px" }}>{errors.location}</p>
                 <MapBoxLocationDisplayAutocomplete
                   onPlaceSelected={handlePlaceSelected}
                   initialLat={formData.lat}
                   initialLng={formData.lng}
                   initialAddress={formData.location}
                 />
-                {/* <LocationDisplayWithAutocomplete
-                  onPlaceSelected={handlePlaceSelected}
-                  initialLat={formData.lat}
-                  initialLng={formData.lng}
-                  initialAddress={formData.location}
-                /> */}
-
               </Form.Group>
-
             </Col>
           </Row>
           <Button variant="primary" type="submit">
@@ -260,7 +391,6 @@ const Eventcreateform = () => {
         </Form>
       </Col>
     </Row>
- 
   );
 };
 
