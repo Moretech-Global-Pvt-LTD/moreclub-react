@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { baseURL, imageURL } from "../../config/config";
+import { baseURL, } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Placeholder } from "react-bootstrap";
@@ -16,7 +16,7 @@ const LiscenceContent = () => {
       const data = await response.data.data;
       return data;
     },
-    staleTime: 100,
+    staleTime: 360000,
   });
 
   if (isLoading) {
@@ -59,22 +59,21 @@ const LiscenceContent = () => {
     return <div className="text-dynamic-white">Error: retriving</div>;
   }
 
-  console.log(data);
   return (
-    <div id="privacypolicy" className="container p-4">
+    <div id="liscence" className="container p-4">
       <header className="align-items-center d-flex justify-content-between border-bottom border-secondary py-2">
         <h2>License</h2>
         <div className="admin-logo me-2 me-sm-3">
           <Link className="d-flex align-items-center" to="/dashboard">
             <img
               className="nav-light-logo"
-              src={`${imageURL}${metaInfo.meta?.black_logo}`}
+              src={`${metaInfo.meta?.black_logo}`}
               alt="Light"
               style={{ width: "auto", height: "80px" }}
             />
             <img
               className="nav-dark-logo"
-              src={`${imageURL}${metaInfo.meta?.white_logo}`}
+              src={`${metaInfo.meta?.white_logo}`}
               alt="Dark"
               style={{ width: "auto", height: "80px" }}
             />
@@ -92,7 +91,6 @@ const LiscenceContent = () => {
             >
               <div className={`col-12 ${priv.image ? "col-lg-8" : ""}`}>
                 <h4>{priv.title}</h4>
-                {/* <p className="text-dynamic-white">{priv.description}</p> */}
                 <div
                   className="text-dynamic-white"
                   dangerouslySetInnerHTML={{ __html: priv.description }}
@@ -107,7 +105,7 @@ const LiscenceContent = () => {
                   } mb-3 mb-lg-0`}
                 >
                   <img
-                    src={`${imageURL}${priv.image}`}
+                    src={`${priv.image}`}
                     alt={priv.title}
                     className="img-fluid"
                     style={{
