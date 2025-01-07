@@ -15,7 +15,7 @@ const TermsContent = () => {
       const data = await response.data.data;
       return data;
     },
-    staleTime: 100,
+    staleTime: 360000,
   });
 
   if (isLoading) {
@@ -68,7 +68,7 @@ const TermsContent = () => {
   }
 
   return (
-    <div id="privacypolicy" className="container p-4">
+    <div id="termsandcondition" className="container p-4">
       <header className="align-items-center d-flex justify-content-between border-bottom border-secondary py-2">
         <h2>Terms and Condition</h2>
         <div className="admin-logo me-2 me-sm-3">
@@ -95,7 +95,7 @@ const TermsContent = () => {
               className={`row ${
                 index % 2 !== 0 ? "flex-lg-row-reverse" : ""
               } align-items-center mb-4`}
-              key={index}
+              key={`${index}-${priv.title}`}
             >
               <div className={`col-12 ${priv.image ? "col-lg-8" : ""}`}>
                 <h4>{priv.title}</h4>
@@ -114,7 +114,7 @@ const TermsContent = () => {
                   } mb-3 mb-lg-0`}
                 >
                   <img
-                    src={`${imageURL}${priv.image}`}
+                    src={`${priv.image}`}
                     alt={priv.title}
                     className="img-fluid"
                     style={{

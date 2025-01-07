@@ -5,7 +5,7 @@ import { baseURL, imageURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Placeholder } from "react-bootstrap";
-import Content from "../../components/ui/content";
+import ReactMarkdown from "react-markdown";
 
 const PrivacyContent = () => {
   const metaInfo = useSelector((state) => state.metaReducer);
@@ -17,7 +17,7 @@ const PrivacyContent = () => {
       const data = await response.data.data;
       return data;
     },
-    staleTime: 100,
+    staleTime: 360000,
   });
 
   if (isLoading) {
@@ -69,6 +69,7 @@ const PrivacyContent = () => {
     return <div className="text-dynamic-white">Error: retriving</div>;
   }
 
+
   return (
     <div id="privacypolicy" className="container p-4">
       <header className="align-items-center d-flex justify-content-between border-bottom border-secondary py-2">
@@ -102,6 +103,7 @@ const PrivacyContent = () => {
               <div className={`col-12 ${priv.image ? "col-lg-8" : ""}`}>
                 <h4>{priv.title}</h4>
                 {/* <Content priv={priv.description} /> */}
+                
                 <div
                   className="text-dynamic-white"
                   dangerouslySetInnerHTML={{ __html: priv.description }}
@@ -116,7 +118,7 @@ const PrivacyContent = () => {
                   } mb-3 mb-lg-0`}
                 >
                   <img
-                    src={`${imageURL}${priv.image}`}
+                    src={`${priv.image}`}
                     alt={priv.title}
                     className="img-fluid"
                     style={{

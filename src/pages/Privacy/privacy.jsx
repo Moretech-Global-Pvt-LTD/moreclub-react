@@ -2,7 +2,6 @@ import React from "react";
 import PrivacyContent from "./PrivacyContent";
 import LandingLayout from "../../components/Layout/LandingLayout";
 import Divider from "../../components/divider/Divider";
-import { useSelector } from "react-redux";
 import HeaderDashboard from "../../components/header/HeaderDashboard";
 import Footbar from "../../components/footbar/footbar";
 import Footer from "../../components/footer/Footer";

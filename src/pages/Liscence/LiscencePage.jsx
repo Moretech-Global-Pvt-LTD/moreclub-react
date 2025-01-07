@@ -5,11 +5,10 @@ import LiscenceContent from "./LiscenceContent";
 import Footer from "../../components/footer/Footer";
 import Footbar from "../../components/footbar/footbar";
 import HeaderDashboard from "../../components/header/HeaderDashboard";
-import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 const LiscencePage = () => {
-  const user = useSelector((state) => state.userReducer);
-  if (user.isAuthenticated) {
+  if (Cookies.get("moretechglobal_access")) {
     return (
       <>
         <HeaderDashboard />
