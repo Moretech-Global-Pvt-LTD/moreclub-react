@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   forget_password_otp_verify,
+  load_user,
   otpChangePasswordResend,
 } from "../../redux/api/loginAPI";
 import { setAccessToken, setRefressToken } from "../../utills/token";
@@ -71,6 +72,7 @@ const ForgetPasswordOTP = () => {
     if (result.status === 200) {
       setAccessToken(result.data.data.token);
       setRefressToken(result.data.data.refresh_token);
+      dispatch(load_user());
       
       message.success(result.data.message);
       navigate("/change-password");
