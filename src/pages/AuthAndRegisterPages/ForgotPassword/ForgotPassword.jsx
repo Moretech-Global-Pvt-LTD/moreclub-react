@@ -8,7 +8,7 @@ const ForgotPassword = () => {
       <div className="divider-large" />
       <ForgetPasswordContent
         title="Reset your Password"
-        subTitle="Already have an account?"
+        subTitle=""
       />
     </AuthLayout>
   );

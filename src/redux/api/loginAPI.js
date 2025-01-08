@@ -410,15 +410,14 @@ export const update_business_detail = (formData) => async (dispatch) => {
   }
 };
 
-export const forget_password = (formData) => async (dispatch) => {
-  dispatch(setLoading(true));
+export const forget_password = (formData) => async () => {
   try {
     const res = await axios.post(`${baseURL}auth/password/reset/`, formData);
-    dispatch(setLoading(false));
 
-    return res.data.success;
+    return res;
   } catch (error) {
-    dispatch(setLoading(false));
+
+    return error.response;
   }
 };
 
