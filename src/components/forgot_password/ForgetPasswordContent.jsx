@@ -14,14 +14,37 @@ export default function ForgetPasswordContent(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [debouncedEmails, setDebouncedEmails] = useState("");
+  const [debouncedPhones, setDebouncedPhones] = useState("");
 
-  const debouncedEmail = useDebounce(email, 500);
 
-  const validateEmail = async (email) => {
-    const emailpattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailpattern.test(email)) {
+  const debouncedEmail = useDebounce(debouncedEmails, 500);
+  const debouncedPhone = useDebounce(debouncedPhones, 500);
+
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Email format
+  const phoneRegex = /^\+[1-9]\d{1,14}$/;         // E.164 phone number format
+
+
+  const validateUsername = async (email) => {
+    // const emailpattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
       return "Invalid email";
     }
+    return await checkUsername(email);
+  };
+
+  const validatePhone = async (email) => {
+    // const emailpattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!phoneRegex.test(email)) {
+      return "Please enter a valid phone number with country code.";
+    }
+    return await checkUsername(email);
+  };
+
+ 
+
+  const checkUsername = async (username) => {
     try {
       const res = await axios.post(`${baseURL}auth/check/username/`, {
         username: `${email}`,
@@ -36,13 +59,12 @@ export default function ForgetPasswordContent(props) {
         return error.response.data?.errors?.username[0];
       }
     }
-    return "";
-  };
+  }
 
   useEffect(() => {
     const validateAndCheckPhone = async () => {
       if (debouncedEmail) {
-        const error = await validateEmail(debouncedEmail);
+        const error = await validateUsername(debouncedEmail);
         setEmailError(error);
       } else {
         setEmailError("");
@@ -51,15 +73,63 @@ export default function ForgetPasswordContent(props) {
     validateAndCheckPhone();
   }, [debouncedEmail]);
 
+  useEffect(() => {
+    const validateAndCheckPhone = async () => {
+      if (debouncedPhone) {
+        const error = await validatePhone(debouncedPhone);
+        setEmailError(error);
+      } else {
+        setEmailError("");
+      }
+    };
+    validateAndCheckPhone();
+  }, [debouncedPhone]);
+
+  
+  const handleInputChange = (value) => {
+   
+    if (value.trim() === "") {
+      setEmail("");
+      setEmailError("");
+      return;
+    }
+  
+    setEmail(value);
+    if (value.length < 3) {
+      setEmailError(""); // Don't validate yet
+      return;
+    }
+  
+    if (value.includes("@")) {
+       setDebouncedEmails(value);
+      
+    } else if (value.startsWith("+")) {
+      // Likely a phone number
+      setDebouncedPhones(value);      
+    }    
+    else {
+      setEmailError(""); // Do not prematurely show an error
+    }
+  };
+  
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = {
-      username: email,
-    };
-    const res = dispatch(forget_password(formData));
-    if (res) {
-      localStorage.setItem("otp_username", email);
-      navigate("/forgot/password/otp");
+
+    if(emailRegex.test(email) || phoneRegex.test(email)){
+      setEmailError("");
+      const formData = {
+        username: email,
+      };
+      const res = dispatch(forget_password(formData));
+      if (res) {
+        localStorage.setItem("otp_username", email);
+        navigate("/forgot/password/otp");
+      }
+    }
+    else{
+      setEmailError("Please enter a valid email address or phone number with country code.");
     }
   };
 
@@ -80,11 +150,23 @@ export default function ForgetPasswordContent(props) {
                       type="email"
                       placeholder="Enter email to reset password"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => handleInputChange(e.target.value)}
                       required
                     />
                     {emailError && <p className="text-danger">{emailError}</p>}
                   </Form.Group>
+                  {/* <Form.Group className="mb-4">
+  <Form.Label>Email Address or Phone Number</Form.Label>
+  <Form.Control
+    type="text"
+    placeholder="Enter email or phone number"
+    value={email}
+    onChange={(e) => handleInputChange(e.target.value)}
+    required
+  />
+  {emailError && <p className="text-danger">{emailError}</p>}
+</Form.Group> */}
+
                   <button
                     className="btn btn-warning btn-sm"
                     type="submit"

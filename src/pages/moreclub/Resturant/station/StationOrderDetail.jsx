@@ -52,7 +52,43 @@ const StationOrderDetailsContent = ({ item }) => {
 
     return (
         <div className="pe-4">
-            <Row className="mt-4  flex-xl-row-reverse ">
+            <Row className="mt-4  flex-xl-row ">
+            <Col className="col-12 col-lg-8 col-xl-6 my-xl-0 my-4">
+                    <h5>Items Ordered</h5>
+
+                    <div className="station-order-card-container">
+                        {Object.entries(item.order_items).map(([restaurant, items]) =>
+                            <div>
+
+
+                                <div className="station-order-card-header mb-2">
+                                    <div className="station-order-card-restaurant">{restaurant} &nbsp; &nbsp;<Badge
+                                        size="lg"
+                                        className={`ml-2 ${items?.restaurant_status === "Pending"
+                                            ? "bg-warning"
+                                            : items?.restaurant_status === "Confirmed"
+                                                ? "bg-primary"
+                                                : items?.restaurant_status === "Ready"
+                                                    ? "bg-success"
+                                                    : items?.restaurant_status === "Delivered to boy" ? "bg-success" :
+                                                        items?.restaurant_status === "Delivered to boy" ? "bg-success" :
+                                                            "bg-danger"
+                                            }`}
+                                    >
+                                        {items?.restaurant_status}
+                                    </Badge>
+                                    </div>
+                                    <span className={`station-order-card-received-status ${items?.restaurant_payment ? "received" : "not-received"}`}>Payment: {items?.restaurant_payment ? "Received" : "Pending"}</span>
+                                </div>
+
+                                {items.food_item.map((orders) => (
+                                    <StationOrderCards item={orders} resturant_status={items.restaurant_status} restaurant={restaurant} stationId={item.station} orderStatus={orderStatus} setOrderStatus={setOrderStatus} />
+                                ))}
+                            </div>
+
+                        )}
+                    </div>
+                </Col>
                 <Card className="col-12 col-lg-8 col-xl-6 p-2">
                     <h5 as="h5">Order Details</h5>
                     <Card.Body className="text-dynamic-white text-start">
@@ -120,42 +156,7 @@ const StationOrderDetailsContent = ({ item }) => {
                     </Card.Body>
                 </Card>
 
-                <Col className="col-12 col-lg-8 col-xl-6 my-xl-0 my-4">
-                    <h5>Items Ordered</h5>
-
-                    <div className="station-order-card-container">
-                        {Object.entries(item.order_items).map(([restaurant, items]) =>
-                            <div>
-
-
-                                <div className="station-order-card-header mb-2">
-                                    <div className="station-order-card-restaurant">{restaurant} &nbsp; &nbsp;<Badge
-                                        size="lg"
-                                        className={`ml-2 ${items?.restaurant_status === "Pending"
-                                            ? "bg-warning"
-                                            : items?.restaurant_status === "Confirmed"
-                                                ? "bg-primary"
-                                                : items?.restaurant_status === "Ready"
-                                                    ? "bg-success"
-                                                    : items?.restaurant_status === "Delivered to boy" ? "bg-success" :
-                                                        items?.restaurant_status === "Delivered to boy" ? "bg-success" :
-                                                            "bg-danger"
-                                            }`}
-                                    >
-                                        {items?.restaurant_status}
-                                    </Badge>
-                                    </div>
-                                    <span className={`station-order-card-received-status ${items?.restaurant_payment ? "received" : "not-received"}`}>Payment: {items?.restaurant_payment ? "Received" : "Pending"}</span>
-                                </div>
-
-                                {items.food_item.map((orders) => (
-                                    <StationOrderCards item={orders} resturant_status={items.restaurant_status} restaurant={restaurant} stationId={item.station} orderStatus={orderStatus} setOrderStatus={setOrderStatus} />
-                                ))}
-                            </div>
-
-                        )}
-                    </div>
-                </Col>
+                
 
             </Row>
             <Row>

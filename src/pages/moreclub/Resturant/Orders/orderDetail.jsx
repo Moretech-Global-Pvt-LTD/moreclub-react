@@ -4,8 +4,6 @@ import {
  
   Placeholder,
 } from "react-bootstrap";
-import { axiosInstance } from "../../../..";
-import { morefoodURL } from "../../../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import OrderDetailsContent from "./OrderDetailContent";
 import RestaurantLayout from "../../../../components/Layout/RestaurantLayout";
