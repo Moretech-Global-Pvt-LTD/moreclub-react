@@ -144,18 +144,18 @@ export default function ForgetPasswordContent(props) {
 
               <div className="register-form mt-5">
                 <Form onSubmit={handleSubmit}>
-                  {/* <Form.Group className="mb-4">
+                  <Form.Group className="mb-4">
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control
                       type="email"
                       placeholder="Enter email to reset password"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => handleInputChange(e.target.value)}
                       required
                     />
                     {emailError && <p className="text-danger">{emailError}</p>}
-                  </Form.Group> */}
-                  <Form.Group className="mb-4">
+                  </Form.Group>
+                  {/* <Form.Group className="mb-4">
   <Form.Label>Email Address or Phone Number</Form.Label>
   <Form.Control
     type="text"
@@ -165,7 +165,7 @@ export default function ForgetPasswordContent(props) {
     required
   />
   {emailError && <p className="text-danger">{emailError}</p>}
-</Form.Group>
+</Form.Group> */}
 
                   <button
                     className="btn btn-warning btn-sm"
