@@ -1,7 +1,3 @@
-// notifications/notification/mark_as_read/
-
-
-import { toast } from "react-toastify";
 import { axiosInstance } from "../.."; // Adjust the import based on your project structure
 import { baseURL } from "../../config/config";
 import { addNewNotifications, fetchNextPageSuccess, fetchNotificationsSuccess, markAllAsRead, setError, setLoading } from "../slices/notificationSlice";
