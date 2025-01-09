@@ -18,6 +18,8 @@ const ForgetPasswordOTP = () => {
   const [isResending, setIsResending] = useState(true);
   const [verifying , setVerifying] = useState(false)
   const [loading, setLoading] = useState(false);
+  const emailpattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  
   
   useEffect(() => {
     let interval;
@@ -43,10 +45,16 @@ const ForgetPasswordOTP = () => {
     
     message.success("OTP has been sent");
     setIsResending(true);
+    const username = localStorage.getItem("otp_username")
+    const formData = {
+      username: localStorage.getItem("otp_username"),
+      reset_type: emailpattern.test(username) ? "email" : "phone_number"
+    }
+
     try {
       setLoading(true)
       const result = await dispatch(
-        otpChangePasswordResend(localStorage.getItem("otp_username"))
+        otpChangePasswordResend(formData)
       );
       if(result.data.success){
       message.success("OTP has been sent");

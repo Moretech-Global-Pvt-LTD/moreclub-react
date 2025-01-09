@@ -187,11 +187,12 @@ export const register =
     }
   };
 
-export const otpChangePasswordResend = (username) => async (dispatch) => {
+export const otpChangePasswordResend = (formData) => async (dispatch) => {
   try {
-    const res = await axios.post(`${baseURL}auth/resend-otp/forget/password/`, {
-      username,
-    });
+    console.log(formData);
+    const res = await axios.post(`${baseURL}auth/resend-otp/forget/password/`, { username: formData.username,
+      reset_type: formData.reset_type
+     });
     return res;
   } catch (err) {
     return err.response;
