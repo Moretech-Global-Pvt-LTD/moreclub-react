@@ -37,7 +37,7 @@ const MorefoodContent = () => {
       <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={5} className=" px-2">
         {data?.map((item) => (
           <>
-            <ResturantCard key={item.id} link={`${morefoodhostURL}/resturants/${item.id}`} res={item} />
+            <ResturantCard key={item.id} link={`${morefoodhostURL}/restaurant/${item.slug}`} res={item} />
           </>
         ))}
       </Row>

@@ -5,7 +5,7 @@ const ResturantCard = ({ res, link }) => {
 
     return (
     <div className="restaurant-card-container">
-            <div class="restaurant-card" onClick={()=>handleRedirection("morefood" , `/resturants/${res.id}`)}>
+            <div class="restaurant-card" onClick={()=>handleRedirection("morefood" , `/restaurant/${res.slug}`)}>
                 <div class="restaurant-card-image">
                     <img src={`${res.banner}`} alt="Restaurant-Image"/>
                     <span class={`open-status ${res.open_hrs === "Open" ? "restro-open" : ""}`}>{res.open_hrs }</span>

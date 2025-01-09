@@ -105,7 +105,7 @@ const PopularresturantCarousel = ({data}) => {
       
       {data.slice(0, 10).map((item) => (
         <Col key={item.id} className="d-flex flex-column flex-grow-1 rounded-3 restaurantCard position-relative">
-          <ResturantCard key={item.id} res={item}  link={`${morefoodhostURL}/resturants/${item.id}`} />
+          <ResturantCard key={item.id} res={item}  link={`${morefoodhostURL}/restaurant/${item.slug}`} />
         </Col >
       ))}
     </Carousel>
