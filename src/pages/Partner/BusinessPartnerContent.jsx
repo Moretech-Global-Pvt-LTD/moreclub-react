@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
 import { baseURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
@@ -9,15 +9,22 @@ import { useParams } from "react-router-dom";
 import { BestDealsinTownSkeleton } from "../../components/Skeleton/SmallCardSkeleton";
 import BusinessListCard from "../../components/dashboard/BusinessListCard";
 import { getplatformName } from "../../utills/utility";
+import Cookies from "js-cookie";
 
 const BusinessPartnerContent = ({ partnerId }) => {
   const { partnerName } = useParams();
-  const title = partnerName.replace("-", " ");
+  const title = partnerName.replace(/-/g, " ");
   const { data, isLoading, isError } = useQuery({
     queryKey: [`partners data ${partnerId}`],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        `${baseURL}business/partners/${partnerId}/list/`
+        `${baseURL}business/partners/${partnerId}/list/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-country-code": Cookies.get("countryCode"),
+          },
+        }
       );
       return response.data.data;
     },
@@ -57,6 +64,13 @@ const BusinessPartnerContent = ({ partnerId }) => {
           })}
       </Row>
       {data && data.length === 0 && (
+        <>
+          <Divider />
+          <p className="text-center">Partner not Registered yet in {title} </p>
+          <Divider />
+        </>
+      )}
+      {title !== "Salons" && (
         <>
           <Divider />
           <p className="text-center">Partner not Registered yet in {title} </p>
