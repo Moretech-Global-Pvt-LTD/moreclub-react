@@ -12,7 +12,7 @@ export function GetURL(props) {
       default: morefoodhostURL,
     },
     moresaloon: moresaloonhostURL,
-    moreliving: "https:moreliving.com",
+    moreliving: "https://moreliving.vercel.app",
     marketplace: marketPlacehostURL,
     marketplaceadmin: marketPlaceadminhostURL,
     hotel: "https:morehotel.com",
@@ -117,4 +117,22 @@ export function parseMembershipData(data, additionalLinks = []) {
   
     return apiUrl;
   };
+
+
+
+  export const getplatformName = (title) => {
+    switch (title) {
+        case "Restaurant":
+            return {name:"morefood" , paths:"restaurant", type:"slug"};
+        case "Salons":
+            return {name:"moresaloon" , paths:"saloon", type:"id"};
+        case "Marketplace":
+            return {name:"marketplace" , paths:"store", type:"id"};
+        case "Hotel":
+            return {name:"moreliving" , paths:"hotel", type:"id"};
+        default:
+            return {name:"#" , paths:"#", type:"#"};
+    }
+};
+
   

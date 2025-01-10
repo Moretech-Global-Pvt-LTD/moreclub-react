@@ -34,6 +34,21 @@ const MoreClubLinks = [
   },
 ];
 
+const NetworkLinks = [
+  {
+    to: "/my-network",
+    icon: "bi-receipt",
+    label: "Network",
+    permission: true,
+  },
+  {
+    to: "/leads",
+    icon: "bi-receipt",
+    label: "Leads",
+    permission: true,
+  },
+];
+
 const businessMenuLinks = [
   // {
   //   to: "/billing",
@@ -175,29 +190,38 @@ const DashboardMenu = () => {
       to: "/dashboard",
       lightIcon: HomePrimary,
       darkIcon: HomeWhite,
-      label: "Dashboard",
+      label: "Dashboard", 
+      hasDropdown : false
+
     },
-    permissions.permission?.my_network && {
+    user && user.user && permissions.permission?.my_network && {
       to: "/my-network",
       lightIcon: NetworkYellow,
       darkIcon: NetworkYellow,
       label: "My Network",
-      hasPermission: permissions.permission.my_network,
+      hasPermission: permissions.permission.my_network, 
+      hasDropdown: false
+      // hasDropdown : user.user?.user_type === "BUSINESS" ? true : false,
+      // dropdownComponent: <NwtworkDropdown />
+
     },
     permissions.permission?.my_wallet && {
       to: "/wallet",
       lightIcon: WalletWhite,
       darkIcon: WalletWhite,
       label: "My Wallet",
-      hasPermission: permissions.permission.my_wallet,
+      hasPermission: permissions.permission.my_wallet, 
+      hasDropdown : false,
     },
-    { to: "/event", lightIcon: Events, darkIcon: Events, label: "Events" },
+    { to: "/event", lightIcon: Events, darkIcon: Events, label: "Events", 
+      hasDropdown : false },
     permissions.permission?.transaction && {
       to: "/transactions",
       lightIcon: Transactions,
       darkIcon: Transactions,
       label: "Transactions",
-      hasPermission: permissions.permission.transaction,
+      hasPermission: permissions.permission.transaction, 
+      hasDropdown : false
     },
 
     user.user &&
@@ -206,7 +230,8 @@ const DashboardMenu = () => {
         lightIcon: MoreFood,
         darkIcon: MoreFood,
         label: "MOREFOOD",
-        hasPermission: true,
+        hasPermission: true, 
+        hasDropdown : false
       },
     user.user &&
       user.user?.user_type !== "BUSINESS" && {
@@ -214,7 +239,8 @@ const DashboardMenu = () => {
         lightIcon: MoreSalonBlack,
         darkIcon: MoreSalonWhite,
         label: "MORE SALONS",
-        hasPermission: true,
+        hasPermission: true, 
+        hasDropdown : false
       },
     // user.user &&
     //   user.user?.user_type !== "BUSINESS" && {
@@ -232,7 +258,8 @@ const DashboardMenu = () => {
         lightIcon: MoreFood,
         darkIcon: MoreFood,
         label: "MOREFOOD",
-        hasPermission: true,
+        hasPermission: true, 
+        hasDropdown : false
       },
     user.user &&
       user.user?.user_type === "BUSINESS" &&
@@ -243,7 +270,8 @@ const DashboardMenu = () => {
         lightIcon: MoreSalonBlack,
         darkIcon: MoreSalonWhite,
         label: "MORE SALONS",
-        hasPermission: true,
+        hasPermission: true, 
+        hasDropdown : false
       },
     // user.user &&
     //   user.user?.user_type === "BUSINESS" &&
@@ -255,7 +283,7 @@ const DashboardMenu = () => {
     //     hasPermission: true,
     //     onClick: () => handleRedirection("marketplaceadmin", "/login"),
     //   },
-  ];
+  ].filter(Boolean);
 
   const dropdownItems = [
     user.user && user.user?.user_type === "BUSINESS" && (
@@ -285,6 +313,7 @@ const DashboardMenu = () => {
       darkIcon: Station,
       label: "Setup Station",
       hasPermission: permissions.permission.my_wallet,
+      hasDropdown: false,
     },
   ].filter(Boolean);
 
@@ -298,7 +327,8 @@ const DashboardMenu = () => {
         <li>User Menu</li>
         {menuItems.map(
           (item, idx) =>
-            item &&
+            (item) &&
+            (!item.hasDropdown) ?
             generateMenuItem(
               item.to,
               item.lightIcon,
@@ -306,7 +336,8 @@ const DashboardMenu = () => {
               item.label,
               item.hasPermission,
               item.onClick
-            )
+            ): 
+            <li key={idx}>{item.dropdownComponent}</li>
         )}
         {dropdownItems.map((item, idx) => (
           <li key={idx}>{item}</li>
@@ -329,6 +360,56 @@ const DashboardMenu = () => {
 };
 
 export default DashboardMenu;
+
+
+const NwtworkDropdown = () => {
+  return (
+    <SidebarDropDownMenu
+      darkIcon={NetworkYellow}
+      lightIcon={NetworkYellow}
+      
+      menuTitle="Network"
+      links={NetworkLinks}
+    >
+      <li>
+        <NavLink
+          to={"/my-network"}
+          className="redirectlink fw-semibold dashboard-menus-items"
+        >
+          <img
+            src={NetworkYellow}
+            alt={"Network"}
+            className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
+          />
+          <img
+            src={NetworkYellow}
+            alt={"Network"}
+            className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
+          />{" "}
+          Network
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to={"/leads"}
+          className="redirectlink fw-semibold dashboard-menus-items"
+        >
+          <img
+            src={NetworkYellow}
+            alt={"NetworkYellow"}
+            className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
+          />
+          <img
+            src={NetworkYellow}
+            alt={"NetworkYellow"}
+            className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
+          />
+          Leads
+        </NavLink>
+      </li>
+    </SidebarDropDownMenu>
+  );
+};
 
 const MorefoodDropdown = () => {
   return (

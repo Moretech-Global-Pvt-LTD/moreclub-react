@@ -111,6 +111,7 @@ const userRoutes = [
       path: "/my-network",
       page: <NetworkPage />,
     },
+    
     {
       path: "/network/message",
       page: <NetworkMessage />,

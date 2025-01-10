@@ -16,7 +16,7 @@ import RestaurantCusine from "./RestaurantCusine";
 const BusinessTypesDetail = () => {
     const { partnerId, partnerName } = useParams();
     
-    const title= partnerName.replace("-"," ")
+    const title= partnerName.replace(/-/g," ");
     
    
     if (!!getAccessToken()) {
