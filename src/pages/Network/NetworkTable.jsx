@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/loading/loading";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
+import { getInitials, truncateText } from "../../utills/utility";
 
 const NetworkTable = ({ list, meta }) => {
   const [selectedRows, setSelectedRows] = useState([]);
@@ -152,7 +153,97 @@ const NetworkTable = ({ list, meta }) => {
           )}
         </div>
       </div>
-      <Table responsive className="bg-white">
+
+      {list && list.length > 0 && (
+      <div className="d-flex align-item-center gap-2">
+        <input type="checkbox" onChange={handleSelectAll} />{" "}
+        <p className="fw-bold text-dynamic-white">Select All</p>
+      </div>)}
+      <div className="network-container">
+        {list && list.length > 0 ? (
+          list.map((row) => (
+            <div
+              key={row.user.username}
+              className={`network-card mb-3 ${
+                selectedRows.includes(row) ? "network-card-selected" : ""
+              }`}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="d-flex align-items-center">
+                <div className="network-card-select me-2">
+                  <input
+                    type="checkbox"
+                    onChange={(e) => handleCheckboxChange(e, row)}
+                    checked={selectedRows.includes(row)}
+                  />
+                </div>
+                <div className="network-card-body d-flex align-items-center">
+                  <div className="network-card-image ">
+                    {row.user.profile_image ? (
+                      <img
+                        src={row.user.profile_image}
+                        alt={`${row.user.first_name} ${row.user.last_name}`}
+                        className="rounded-circle"
+                      />
+                    ) : (
+                      <div className="network-card-initials rounded-circle bg-black p-2 ">
+                        {getInitials(row.user.first_name, row.user.last_name)}
+                      </div>
+                    )}
+                  </div>
+                  <div className="network-card-info ms-3">
+                    <h5 className="network-card-name mb-0">
+                      {truncateText(
+                        `${row.user.first_name} ${row.user.last_name}`,
+                        26
+                      )}
+                    </h5>
+                    <p className="network-card-email mb-1 ">
+                      {truncateText(row.user.email, 23)}
+                    </p>
+                    <p className="network-card-phone mb-0">
+                      {row.user.phone_number}
+                    </p>
+                  </div>
+                  {/* {permissions && permissions.send_sms_refer && ( */}
+                  <div className="text-dynamic-white text-center ms-2">
+                    <Link to="/network/message">
+                      <Button
+                        className="btn btn-secondary btn-sm me-3"
+                        disabled={
+                          selectedRows.length > 1 || !selectedRows.includes(row)
+                        }
+                      >
+                        <i className="bi bi-envelope"></i>
+                      </Button>
+                    </Link>
+                  </div>
+                {/* )} */}
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="text-center text-muted py-3"> </div>
+        )}
+      </div>
+
+      {meta && meta?.count === 0 && (
+        <div className="text-center text-muted py-3"> No referals Found</div>
+      )}
+
+      {meta && (
+        <div className="d-flex justify-content-center mt-3">
+          <Pagination
+            totalItems={meta?.count}
+            totalPages={meta?.total_pages}
+            itemsPerPage={20}
+          />
+        </div>
+      )}  
+
+
+      {/* <Table responsive className="bg-white">
         <thead className="border-bottom-0">
           <tr className="pricingcard-premium">
             <th>
@@ -232,7 +323,7 @@ const NetworkTable = ({ list, meta }) => {
             </td>
           </tr>
         </tfoot>
-      </Table>
+      </Table> */}
     </div>
   );
 };

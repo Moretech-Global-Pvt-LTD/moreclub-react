@@ -2672,7 +2672,7 @@
   
   margin: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
   overflow: hidden;
 }
 
@@ -2824,85 +2824,261 @@
   }
 }
 
+
+
 /* Wrapper for the message list */
-.leed-detail-msg-list {
+.Lead-message-card-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
 /* Card styling */
-.leed-detail-msg-card {
-  border: 1px solid #ccc;
+.Lead-message-card {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #fff;
   border-radius: 8px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border: 1px solid #ccc;
   transition: transform 0.2s ease;
 }
 
-.leed-detail-msg-card:hover {
+[data-theme="dark"] .Lead-message-card {
+  background-color: #0c153b;
+  border-color: #333a54;
+}
+
+.Lead-message-card:hover {
   transform: translateY(-2px);
 }
 
 /* Card Header */
-.leed-detail-msg-card-header {
-  padding: 0.5rem 1rem;
-  background: #f9f9f9;
-  font-weight: bold;
+.Lead-message-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  padding: 0.5rem;
+  background: #f9f9f9;
+  font-weight: bold;
+  border-radius: 8px;
 }
 
-/* Highlight for via type */
-.leed-detail-via {
-  font-size: 0.875rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+[data-theme="dark"] .Lead-message-card-header {
+  background: #333a54;
+}
+
+/* Avatar Styling */
+.Lead-message-card-avatar {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 16px;
+}
+
+.Lead-message-card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Comment Content */
+.Lead-message-card-comment-content {
+  flex: 1;
+}
+
+.Lead-message-card-comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* User Name and Role */
+.Lead-message-card-user-name {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #000;
+}
+
+[data-theme="dark"] .Lead-message-card-user-name {
   color: #fff;
 }
 
-.leed-detail-via.email {
-  background: #007bff;
+.Lead-message-card-role {
+  background-color: #4a5568;
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
 }
 
-.leed-detail-via.phone {
-  background: #28a745;
+/* Timestamp */
+.Lead-message-card-timestamp {
+  font-size: 0.875rem;
+  color: #a0aec0;
 }
 
 /* Card Body */
-.leed-detail-msg-card-body {
+.Lead-message-card-body {
   padding: 1rem;
   color: #333;
 }
 
-.leed-detail-msg-subject {
+.Lead-message-card-subject {
   margin-bottom: 0.5rem;
 }
 
-.leed-detail-msg-body {
+.Lead-message-card-body-text {
   margin-bottom: 0.5rem;
   color: #444;
 }
 
-.leed-detail-msg-response {
+.Lead-message-card-response {
   font-size: 0.875rem;
   color: #555;
 }
 
-.leed-detail-msg-no-response {
+.Lead-message-card-no-response {
   font-size: 0.875rem;
   color: #999;
   font-style: italic;
 }
 
 /* No message state */
-.leed-detail-no-messages {
+.Lead-message-card-no-messages {
   text-align: center;
   color: #777;
   font-size: 1rem;
   margin-top: 2rem;
 }
+
+.leads-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.tab-leads-button {
+  background-color: #6c757d;
+  border: none;
+  padding: 10px 20px;
+  color: #000;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.tab-leads-button.active {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.leads-tab-content {
+  
+  border-radius: 10px;
+}
+
+@media screen and (min-width: 992px) {
+  .leads-tabs {
+    display: none;
+    }
+    .leads-tab-content{
+      display: none;
+    }
+  
+}
+
+.display-big-only {
+  display: none;
+}
+
+@media screen and (min-width: 992px) {
+  .display-big-only {
+    display: block;
+  }
+}
+
+
+.lead-card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.lead-card-list {
+  border-radius: 10px;
+}
+
+.network-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 10px;
+}
+
+
+
+
+.network-card {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  max-width:345px;
+}
+
+[data-theme="dark"] .network-card {
+  background-color: #0c153b;
+}
+
+.network-card-selected {
+  background-color: #198754; /* Bootstrap success color */
+  color: white;
+}
+
+[data-theme="dark"] .network-card-selected {
+  background-color: #198754; /* Bootstrap success color */
+  color: white;
+}
+
+.network-card-body {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.network-card-image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.network-card-info {
+  flex-grow: 1;
+}
+
+.network-card-name {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.network-card-email,
+.network-card-phone {
+  font-size: 0.9rem;
+}
+
 
 /*# sourceMappingURL=main.c1c39487.css.map*/

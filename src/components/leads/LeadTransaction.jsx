@@ -7,6 +7,7 @@ import { baseURL } from "../../config/config";
 import { axiosInstance } from "../..";
 import TransactionCardSkeleton from "../Skeleton/TransactionCardSkeleton";
 import TransactionCard from "../transaction/Users/transactionCard";
+import LeadsTransactionCard from "./LeadTransactionCard";
 
 const LeadTransactions = ({ username }) => {
   const location = useLocation();
@@ -73,17 +74,18 @@ const LeadTransactions = ({ username }) => {
                     {moment(notification.day).format("dddd DD MMM, YY")}
                   </h6>
                   {notification.transactions.map((row, transactionIndex) => (
-                    <TransactionCard
+                    <LeadsTransactionCard
+
                       key={transactionIndex}
                       transactionType={row.transaction_type}
                       narration={row.narration}
                       transactiontime={row.timestamp}
                       transactionamount={row.amount}
-                      previousbalance={row.previous_balance}
-                      currency={row.currency}
+                      
+                      
                       currency_received={row.currency_received_symbol}
                       currency_send={row.currency_sent_symbol}
-                      transaction_id={row.id}
+                      
                     />
                   ))}
                 </React.Fragment>

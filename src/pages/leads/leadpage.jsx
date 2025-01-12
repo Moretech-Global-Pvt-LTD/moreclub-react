@@ -36,7 +36,7 @@ const LeadPage = () => {
 
   if (isLoading) {
     return (
-      <DashboardLayout title={"Networks"}> 
+      <DashboardLayout title={"Leads"}> 
         <Table responsive className="bg-white">
           <thead className="border-bottom-0">
             <tr className="pricingcard-premium">
@@ -72,14 +72,14 @@ const LeadPage = () => {
   }
   if (isError) {
     return (
-      <DashboardLayout title={"Networks"}>
+      <DashboardLayout title={"Leads"}>
         <p className="text-dynamic-white">Error retriving the data...</p>
       </DashboardLayout>
     );
   }
 
   return (
-    <DashboardLayout title={"Networks"}>
+    <DashboardLayout title={"Leads"}>
       {permission.permission.isLoading ? (
         <Loading />
       ) : (

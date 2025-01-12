@@ -135,4 +135,15 @@ export function parseMembershipData(data, additionalLinks = []) {
     }
 };
 
+
+export const getInitials = (firstName, lastName) => {
+  return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+};
+
+export const truncateText = (text, maxLength) => {
+  return text.length > maxLength
+    ? `${text.substring(0, maxLength)}...`
+    : text;
+};
+
   

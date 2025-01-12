@@ -7,7 +7,7 @@ const NetworkMessage = () => {
   return (
     <DashboardLayout title={"Send Message"}>
       <Row>
-        <Col xs={12} md={10}  lg={8} xl={6}> 
+        <Col xs={12} md={10}  lg={8} xl={6} className=" card p-2"> 
           <MessageContent />
         </Col>
       </Row>

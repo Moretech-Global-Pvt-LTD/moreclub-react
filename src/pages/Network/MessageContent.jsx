@@ -91,7 +91,7 @@ const MessageContent = () => {
 
 
   return (
-    <div className="card p-2">
+    <div className="">
       <div className="d-flex align-items-center gap-2 my-3">
         <label className="text-dynamic-white">Send Your message via </label>
         <Form.Select
