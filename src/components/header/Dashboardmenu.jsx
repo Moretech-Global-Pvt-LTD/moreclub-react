@@ -24,6 +24,7 @@ import BusinessMenu from "../../images/svg/dashboard/businessMenus.svg";
 import BusinessProfile from "../../images/svg/dashboard/businessProfile.svg";
 import BusinessEvent from "../../images/svg/dashboard/businessEvents.svg";
 import Station from "../../images/svg/dashboard/Station.svg";
+import Leads from "../../images/svg/leads.svg";
 
 const MoreClubLinks = [
   {
@@ -200,9 +201,9 @@ const DashboardMenu = () => {
       darkIcon: NetworkYellow,
       label: "My Network",
       hasPermission: permissions.permission.my_network, 
-      hasDropdown: false
-      // hasDropdown : user.user?.user_type === "BUSINESS" ? true : false,
-      // dropdownComponent: <NwtworkDropdown />
+      // hasDropdown: false
+      hasDropdown : user.user?.user_type === "BUSINESS" ? true : false,
+      dropdownComponent: <NwtworkDropdown />
 
     },
     permissions.permission?.my_wallet && {
@@ -395,13 +396,13 @@ const NwtworkDropdown = () => {
           className="redirectlink fw-semibold dashboard-menus-items"
         >
           <img
-            src={NetworkYellow}
-            alt={"NetworkYellow"}
+            src={Leads}
+            alt={"Leads"}
             className="me-2 small-dashboard-icon menu-icon dashboard-menus-dark-icon"
           />
           <img
-            src={NetworkYellow}
-            alt={"NetworkYellow"}
+            src={Leads}
+            alt={"Leads"}
             className="me-2 small-dashboard-icon menu-icon dashboard-menus-light-icon"
           />
           Leads

@@ -154,6 +154,7 @@ const NetworkTable = ({ list, meta }) => {
         </div>
       </div>
 
+      {/* <div className="no-display-small-only">
       {list && list.length > 0 && (
       <div className="d-flex align-item-center gap-2">
         <input type="checkbox" onChange={handleSelectAll} />{" "}
@@ -205,7 +206,7 @@ const NetworkTable = ({ list, meta }) => {
                       {row.user.phone_number}
                     </p>
                   </div>
-                  {/* {permissions && permissions.send_sms_refer && ( */}
+                  {permissions && permissions.send_sms_refer && (
                   <div className="text-dynamic-white text-center ms-2">
                     <Link to="/network/message">
                       <Button
@@ -218,7 +219,7 @@ const NetworkTable = ({ list, meta }) => {
                       </Button>
                     </Link>
                   </div>
-                {/* )} */}
+                 )}
                 </div>
               </div>
             </div>
@@ -241,9 +242,10 @@ const NetworkTable = ({ list, meta }) => {
           />
         </div>
       )}  
+      </div> */}
 
-
-      {/* <Table responsive className="bg-white">
+      {/* <div className="display-small-only"> */}
+      <Table responsive className="bg-white ">
         <thead className="border-bottom-0">
           <tr className="pricingcard-premium">
             <th>
@@ -323,7 +325,9 @@ const NetworkTable = ({ list, meta }) => {
             </td>
           </tr>
         </tfoot>
-      </Table> */}
+      </Table>
+
+      {/* </div> */}
     </div>
   );
 };

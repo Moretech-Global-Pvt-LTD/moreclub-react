@@ -162,7 +162,7 @@ const LeadTable = ({ list, meta }) => {
           )}
         </div>
       </div>
-{list && list.length > 0 && (
+{/* {list && list.length > 0 && (
   
       <div className="d-flex align-item-center gap-2">
         <input type="checkbox" onChange={handleSelectAll} />{" "}
@@ -237,90 +237,90 @@ const LeadTable = ({ list, meta }) => {
           />
         </div>
       )}
-    </div>
+    </div> */}
 
-    // <Table responsive className="bg-white">
-    //   <thead className="border-bottom-0">
-    //     <tr className="pricingcard-premium">
-    //       <th>
-    //         <input type="checkbox" onChange={handleSelectAll} />
-    //       </th>
-    //       <th className="text-white"> Name</th>
-    //       <th className="text-white">Email</th>
-    //       <th className="text-white">Phone</th>
-    //       {permissions && permissions.send_sms_refer && (
-    //         <th className="text-white text-center">Actions</th>
-    //       )}
-    //     </tr>
-    //   </thead>
-    //   <tbody>
-    //     {list &&
-    //       list.map((row) => (
-    //         <tr key={row.user.username} className="text-dynamic-white" style={{cursor:"pointer"}} onClick={() => {navigate(`/leads/${row.user.username}`)}}>
-    //           <td>
-    //             <input
-    //               type="checkbox"
-    //               onChange={(e) => handleCheckboxChange(e, row)}
-    //               checked={selectedRows.includes(row)}
-    //             />
-    //           </td>
-    //           <td className="text-dynamic-white">
-    //             {row.user.first_name}&nbsp;{row.user.last_name}
-    //           </td>
-    //           <td className="text-dynamic-white">{row.user.email}</td>
-    //           <td className="text-dynamic-white">{row.user.phone_number}</td>
-    //           {permissions && permissions.send_sms_refer && (
-    //             <td className="text-dynamic-white text-center">
-    //               <Link to="/network/message">
-    //                 <Button
-    //                   className="btn btn-secondary btn-sm me-3"
-    //                   disabled={
-    //                     selectedRows.length > 1 || !selectedRows.includes(row)
-    //                   }
-    //                 >
-    //                   <i className="bi bi-envelope"></i>
-    //                 </Button>
-    //               </Link>
-    //             </td>
-    //           )}
-    //         </tr>
-    //       ))}
-    //     {!list && (
-    //       <tr>
-    //         <td colSpan={4} className="p-3">
-    //           <div className="d-flex justify-content-center text-dynamic-white">
-    //             No Leads Found
-    //           </div>
-    //         </td>
-    //       </tr>
-    //     )}
-    //     {meta && meta?.count === 0 && (
-    //       <tr>
-    //         <td colSpan={4} className="p-3">
-    //           <div className="d-flex justify-content-center text-dynamic-white">
-    //             No Leads Found
-    //           </div>
-    //         </td>
-    //       </tr>
-    //     )}
-    //   </tbody>
-    //   <tfoot>
-    //     <tr>
-    //       <td colSpan={4} className="p-1">
-    //         <div className="d-flex justify-content-center">
-    //           {meta && (
-    //             <Pagination
-    //               totalItems={meta?.count}
-    //               totalPages={meta?.total_pages}
-    //               itemsPerPage={20}
-    //             />
-    //           )}
-    //         </div>
-    //       </td>
-    //     </tr>
-    //   </tfoot>
-    // </Table>
-    // </div>
+    <Table responsive className="bg-white">
+      <thead className="border-bottom-0">
+        <tr className="pricingcard-premium">
+          <th>
+            <input type="checkbox" onChange={handleSelectAll} />
+          </th>
+          <th className="text-white"> Name</th>
+          <th className="text-white">Email</th>
+          <th className="text-white">Phone</th>
+          {permissions && permissions.send_sms_refer && (
+            <th className="text-white text-center">Actions</th>
+          )}
+        </tr>
+      </thead>
+      <tbody>
+        {list &&
+          list.map((row) => (
+            <tr key={row.user.username} className="text-dynamic-white" style={{cursor:"pointer"}} onClick={() => {navigate(`/leads/${row.user.username}`)}}>
+              <td>
+                <input
+                  type="checkbox"
+                  onChange={(e) => handleCheckboxChange(e, row)}
+                  checked={selectedRows.includes(row)}
+                />
+              </td>
+              <td className="text-dynamic-white">
+                {row.user.first_name}&nbsp;{row.user.last_name}
+              </td>
+              <td className="text-dynamic-white">{row.user.email}</td>
+              <td className="text-dynamic-white">{row.user.phone_number}</td>
+              {permissions && permissions.send_sms_refer && (
+                <td className="text-dynamic-white text-center">
+                  <Link to="/network/message">
+                    <Button
+                      className="btn btn-secondary btn-sm me-3"
+                      disabled={
+                        selectedRows.length > 1 || !selectedRows.includes(row)
+                      }
+                    >
+                      <i className="bi bi-envelope"></i>
+                    </Button>
+                  </Link>
+                </td>
+              )}
+            </tr>
+          ))}
+        {!list && (
+          <tr>
+            <td colSpan={4} className="p-3">
+              <div className="d-flex justify-content-center text-dynamic-white">
+                No Leads Found
+              </div>
+            </td>
+          </tr>
+        )}
+        {meta && meta?.count === 0 && (
+          <tr>
+            <td colSpan={4} className="p-3">
+              <div className="d-flex justify-content-center text-dynamic-white">
+                No Leads Found
+              </div>
+            </td>
+          </tr>
+        )}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colSpan={4} className="p-1">
+            <div className="d-flex justify-content-center">
+              {meta && (
+                <Pagination
+                  totalItems={meta?.count}
+                  totalPages={meta?.total_pages}
+                  itemsPerPage={20}
+                />
+              )}
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </Table>
+    </div>
   );
 };
 

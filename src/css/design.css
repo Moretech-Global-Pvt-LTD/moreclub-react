@@ -2998,6 +2998,30 @@
   
 }
 
+
+.display-small-only {
+  display: none;
+}
+
+@media screen and (min-width: 500px) {
+  .display-small-only {
+    display: block;
+  }
+}
+
+
+.no-display-small-only {
+  display: block;
+}
+
+@media screen and (min-width: 500px) {
+  .no-display-small-only {
+    display: none;
+  }
+}
+
+
+
 .display-big-only {
   display: none;
 }
