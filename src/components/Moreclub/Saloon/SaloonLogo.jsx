@@ -1,12 +1,9 @@
 import { message } from "antd";
 import React, {  useState } from "react";
-import { useDispatch } from "react-redux";
-
 import { Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { moresaloonURL } from "../../../config/config";
-import { axiosInstance } from "../../..";
+import { moresalonAuthenticatedAxios } from "../../../utills/axios/moresalonaxios";
 
 const SaloonLogo = ({ data }) => {
     const { id } = useParams();
@@ -25,8 +22,8 @@ const SaloonLogo = ({ data }) => {
             const formData = {
                 logo: inputBanner,
             };
-            const res = await await axiosInstance.patch(
-                `${moresaloonURL}moreclub/users/saloon/${id}/`,
+            const res = await moresalonAuthenticatedAxios.patch(
+                `moreclub/users/saloon/${id}/`,
                 formData,
                 {
                     headers: {

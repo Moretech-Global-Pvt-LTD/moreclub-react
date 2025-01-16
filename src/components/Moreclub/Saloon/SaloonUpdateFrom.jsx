@@ -15,21 +15,18 @@ import {
   validateEmail,
   validateFacebookURL,
   validateInstagramURL,
-  Validatelogo,
   validateLongDescription,
   validateResturantName,
   validateWebsiteURL,
 } from "../../../validation/resturantValidation";
 import MapBoxLocationDisplayAutocomplete from "../../Googlemap/MapLocationInput";
-import { moresaloonURL } from "../../../config/config";
-import { axiosInstance } from "../../..";
 import TagsInput from "../CommonComponents/TagInput";
+import { moresalonAuthenticatedAxios, moresalonPublicAxios } from "../../../utills/axios/moresalonaxios";
 
 const SaloonUpdateInfoForm = ({ data }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [countryList, setCountryList] = useState([]);
   const [currencyList, setCurrencyList] = useState([]);
-  const [symbol, setSymbol] = useState(data.currency_code);
   const [formValues, setFormValues] = useState({
     name: data.name ?? "",
     address: data.address ?? "",
@@ -126,7 +123,7 @@ const SaloonUpdateInfoForm = ({ data }) => {
 
   const fetchCountry = async () => {
     try {
-      const res = await axios.get(`${moresaloonURL}country/list/`);
+      const res = await moresalonPublicAxios.get(`country/list/`);
       setCountryList(res.data.data);
       const uniqueCurrencies = new Map();
 
@@ -189,8 +186,8 @@ const SaloonUpdateInfoForm = ({ data }) => {
     if (Object.keys(validationErrors).length === 0) {
       try {
         setIsLoading(true);
-        const res = await axiosInstance.patch(
-          `${moresaloonURL}moreclub/users/saloon/${data.id}/`,
+        await moresalonAuthenticatedAxios.patch(
+          `moreclub/users/saloon/${data.id}/`,
           formValues
         );
         message.success("Your changes was Uploaded ");

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { message } from 'antd';
 
+
 const OpeningHoursForm = ({ existingdata, submitFunction }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [openingHours, setOpeningHours] = useState({
@@ -73,6 +74,7 @@ const OpeningHoursForm = ({ existingdata, submitFunction }) => {
         try {
             if (submitFunction) {
                 await submitFunction(openingHours); // Call the passed submit function
+                 
             } else {
                 message.error('No submit function provided');
             }

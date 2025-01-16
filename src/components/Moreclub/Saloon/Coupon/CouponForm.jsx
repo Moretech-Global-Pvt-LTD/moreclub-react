@@ -1,9 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { axiosInstance } from "../../../..";
-import { moresaloonURL } from "../../../../config/config";
-import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Form, Spinner } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { message } from "antd";
 import Select from "react-select";
@@ -13,6 +11,7 @@ import {
   validateRequiredField,
   validateServiceField,
 } from "../../../../validation/resturantValidation";
+import { moresalonAuthenticatedAxios } from "../../../../utills/axios/moresalonaxios";
 
 const CouponForm = ({ mode = "create", initialData = {} ,onFinish }) => {
   const { id } = useParams();
@@ -34,8 +33,8 @@ const CouponForm = ({ mode = "create", initialData = {} ,onFinish }) => {
   const { data: servicesData, isLoading: serviceLoading } = useQuery({
     queryKey: [`Saloon service List ${id}`],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${moresaloonURL}moreclub/users/saloons/${id}/services/`
+      const response = await moresalonAuthenticatedAxios.get(
+        `moreclub/users/saloons/${id}/services/`
       );
       return response.data.data;
     },
@@ -58,23 +57,6 @@ const CouponForm = ({ mode = "create", initialData = {} ,onFinish }) => {
         return validateRequiredDateField(value, "Start date");
       case "endDate":
         return validateRequiredDateField(value, "End date");
-      // case "percentage_discount":
-      //   if (!value && !formData.fixed_discount) {
-      //     return ""; // Clear error only when percentage_discount is empty and fixed_discount is not set
-      //   } else if (formData.fixed_discount) {
-      //     return "Either percentage discount or fixed discount can be selected";
-      //   } else {
-      //     return validateRequiredField(value, "Percentage discount");
-      //   }
-
-      // case "fixed_discount":
-      //   if (!value && !formData.percentage_discount) {
-      //     return ""; // Clear error only when fixed_discount is empty and percentage_discount is not set
-      //   } else if (formData.percentage_discount) {
-      //     return "Either percentage discount or fixed discount can be selected";
-      //   } else {
-      //     return validateRequiredField(value, "Fixed discount");
-      //   }
       case "percentage_discount":
       if (!value && !formData.fixed_discount) {
         return "Either percentage discount or fixed discount is required.";
@@ -164,11 +146,11 @@ const CouponForm = ({ mode = "create", initialData = {} ,onFinish }) => {
     try {
       const endpoint =
         mode === "create"
-          ? `${moresaloonURL}moreclub/users/saloons/${id}/coupons/create/`
-          : `${moresaloonURL}moreclub/users/saloons/${id}/coupons/${initialData.id}/details/`;
+          ? `moreclub/users/saloons/${id}/coupons/create/`
+          : `moreclub/users/saloons/${id}/coupons/${initialData.id}/details/`;
       const method = mode === "create" ? "post" : "patch";
 
-      await axiosInstance[method](endpoint, datas, {
+      await moresalonAuthenticatedAxios[method](endpoint, datas, {
         headers: { "Content-Type": "application/json" },
       });
 

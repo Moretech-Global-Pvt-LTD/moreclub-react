@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { moresaloonURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 import StaffUpdateForm from "./StaffUpdateForm";
+import { moresalonAuthenticatedAxios } from "../../../../utills/axios/moresalonaxios";
 // import ServiceUpdateForm from "./ServiceUpdateForm";
 
 const StaffCard = ({ id, sal_id, profile, name, item, email, contact, services, sal_name }) => {
@@ -17,8 +16,8 @@ const StaffCard = ({ id, sal_id, profile, name, item, email, contact, services, 
   
     async function handleDelete() {
         try {
-            await axiosInstance.delete(
-                `${moresaloonURL}moreclub/users/saloons/${sal_id}/staff/${id}/`
+            await moresalonAuthenticatedAxios.delete(
+                `moreclub/users/saloons/${sal_id}/staff/${id}/`
             );
             queryClient.invalidateQueries({
                 queryKey: [`Saloon Staff List ${sal_id}`],
@@ -44,8 +43,11 @@ const StaffCard = ({ id, sal_id, profile, name, item, email, contact, services, 
     return (
         <>
             <div className="staff-card">
-                <div className="staff-profile-pic">
+                <div className="staff-profile-pic-container">
+                <div className="staff-profile-pic ">
                     <img src={profile} alt={name} />
+                </div>
+
                 </div>
                 <div className="staff-info">
                     <h3 className="staff-name">{name}</h3>

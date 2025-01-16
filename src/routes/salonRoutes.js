@@ -1,3 +1,4 @@
+import Errorpage from "../components/Layout/Errorpage";
 import BookingDetailPage from "../pages/moreclub/moresaloon/Bookings/BookingDetailPage";
 import BookingPage from "../pages/moreclub/moresaloon/Bookings/BookingPage";
 import CouponsPage from "../pages/moreclub/moresaloon/Coupons/CouponsPage";
@@ -16,11 +17,11 @@ import WorkinghourPage from "../pages/moreclub/moresaloon/Workingshours/Workingh
 
 const salonRoutes = [
     {
-      path: "/saloon",
+      path: "/salons",
       page: <SaloonPage />,
     },
     {
-      path: "/moresaloon",
+      path: "/moresalons",
 
       page: <MoreSaloon />,
     },
@@ -73,6 +74,10 @@ const salonRoutes = [
       path: `/saloon/:id/opening-duration/:slug`,
       page: <WorkinghourPage />,
     },
+    {
+      path:'/error',
+      page: <Errorpage/>
+    }
   ];
 
   export default salonRoutes;

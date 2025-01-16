@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import Saloonlayout from '../setup/Saloonlayout'
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../../../..';
 import { useParams } from 'react-router-dom';
-import { moresaloonURL } from '../../../../config/config';
 import { RestaurantItemskeleton } from '../../../../components/Skeleton/SmallCardSkeleton';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import StaffCreationForm from '../../../../components/Moreclub/Saloon/Staff/StaffCreationForm';
 import StaffCard from '../../../../components/Moreclub/Saloon/Staff/StaffCard';
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
 
 
 const StaffPage = () => {
@@ -17,13 +16,13 @@ const StaffPage = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: [`Saloon Staff List ${id}`],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${moresaloonURL}moreclub/users/saloons/${id}/staff/`
+      const response = await moresalonAuthenticatedAxios.get(
+        `moreclub/users/saloons/${id}/staff/`
       );
       const data = await response.data.data;
       return data;
     },
-    staleTime: 100,
+    staleTime: 240000,
   });
 
   if (isLoading) {

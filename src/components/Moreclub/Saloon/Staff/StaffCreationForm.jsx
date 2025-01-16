@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button, Col, Row, Spinner } from 'react-bootstrap';
-import { axiosInstance } from '../../../..';
-import { moresaloonURL } from '../../../../config/config';
+import { Form, Button, Spinner } from 'react-bootstrap';
 import Select from "react-select";
 import { message } from 'antd';
 import { useQueryClient } from '@tanstack/react-query';
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
 
 const customStyles = {
     control: (provided, state) => ({
@@ -69,9 +68,9 @@ const StaffCreationForm = ({id, onFinish , onCancel}) => {
     const [loading, setLoading] = useState(false);
     const queryClient = useQueryClient();
 
-    async function getCuisineList() {
+    async function getServiceList() {
         try {
-            const res = await axiosInstance.get(`${moresaloonURL}moreclub/users/saloons/${id}/services/ `);
+            const res = await moresalonAuthenticatedAxios.get(`moreclub/users/saloons/${id}/services/ `);
             const mappedData = res.data.data.map(item => ({
                 value: item.id, // Assuming 'id' is the value you want
                 label: item.name // Assuming 'name' is the label you want
@@ -84,7 +83,7 @@ const StaffCreationForm = ({id, onFinish , onCancel}) => {
     }
 
     useEffect(() => {
-        getCuisineList();
+        getServiceList();
     }, [id])
 
 
@@ -95,7 +94,6 @@ const StaffCreationForm = ({id, onFinish , onCancel}) => {
            
         } else {
             setStaff({ ...staff, "services": [] });
-            console.log("selected option", selectedOptions)
         }
     };
 
@@ -129,8 +127,8 @@ const StaffCreationForm = ({id, onFinish , onCancel}) => {
                 buffer_time: staff.buffer_time
             }
 
-            axiosInstance
-                .post(`${moresaloonURL}moreclub/users/saloons/${id}/staff/`, datas ,{
+            moresalonAuthenticatedAxios
+                .post(`moreclub/users/saloons/${id}/staff/`, datas ,{
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
@@ -287,7 +285,7 @@ const StaffCreationForm = ({id, onFinish , onCancel}) => {
                     Cancel
                 </Button>
                 <Button variant="success" type="submit" >
-                   {loading && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />} 
+                   {loading && <span class="spinner-border spinner-border-sm text-warning" role="status"></span>} 
                     Add Staff
                 </Button>
             </div>

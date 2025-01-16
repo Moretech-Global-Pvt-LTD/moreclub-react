@@ -14,6 +14,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 import { customStyles } from "./UpdateMenus/MenuDetailUpdate";
 
+
 const MenuForm = () => {
   const { res_id ,slug } = useParams();
   const dispatch = useDispatch();

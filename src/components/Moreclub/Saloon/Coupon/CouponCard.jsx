@@ -1,12 +1,12 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
 import CouponForm from './CouponForm'
-import { axiosInstance } from '../../../..';
-import { moresaloonURL } from '../../../../config/config';
+
 import { useParams } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { message } from 'antd';
 import moment from 'moment';
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
 
 const CouponCard = ({coupon }) => {
 
@@ -22,8 +22,8 @@ const CouponCard = ({coupon }) => {
     const handleDelete = async () => {
         setDeleting(true);
         try {
-          await axiosInstance.delete(
-            `${moresaloonURL}moreclub/users/saloons/${id}/coupons/${coupon.id}/details/`
+          await moresalonAuthenticatedAxios.delete(
+            `moreclub/users/saloons/${id}/coupons/${coupon.id}/details/`
           );
           queryClient.invalidateQueries({
             queryKey: [`Coupon List ${id}`],

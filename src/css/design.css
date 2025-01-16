@@ -918,9 +918,7 @@
 /* Container for the service cards */
 .service-variation-container {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(250px, 1fr)
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)
   ); /* Responsive grid with cards */
   gap: 1.5rem; /* Spacing between the cards (gy-3 in Bootstrap) */
   margin: 2rem 0; /* Top and bottom margin (my-4 in Bootstrap) */
@@ -936,6 +934,7 @@
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
+  max-width: 350px;
   width: 100%; /* Ensures the card takes the full width of the grid cell */
 }
 
@@ -995,13 +994,22 @@
 .service-variation-edit,
 .service-variation-delete {
   background-color: transparent;
-  color: white;
+  color: gray;
   border: none;
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 1.2em;
+}
+[data-theme="dark"] .service-variation-edit .service-variation-delete {
+  color: white;
+}
+.service-variation-delete{
+  color: #000;
+}
+[data-theme="dark"] .service-variation-delete {
+  color: white;
 }
 
 .service-variation-edit:hover {
@@ -1020,37 +1028,25 @@
 /* Responsive behavior to control the number of columns based on screen size */
 @media (max-width: 1400px) {
   .service-variation-container {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(250px, 1fr)
-    ); /* Adjust for xl */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
   }
 }
 
 @media (max-width: 1200px) {
   .service-variation-container {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(250px, 1fr)
-    ); /* Adjust for lg */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
   }
 }
 
 @media (max-width: 992px) {
   .service-variation-container {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(250px, 1fr)
-    ); /* Adjust for md */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
   }
 }
 
 @media (max-width: 768px) {
   .service-variation-container {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(200px, 1fr)
-    ); /* Adjust for smaller screens */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
   }
 }
 
@@ -1078,12 +1074,24 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
+.staff-profile-pic-container {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .staff-profile-pic img {
   border-radius: 50%;
   width: 80px;
   height: 80px;
   object-fit: cover;
   margin-right: 20px;
+
 }
 
 .staff-info {
@@ -3102,6 +3110,60 @@
 .network-card-email,
 .network-card-phone {
   font-size: 0.9rem;
+}
+
+
+/* Container */
+.error-handler-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #f9f9f9;
+  /* padding: 20px; */
+}
+
+[data-theme="dark"] .error-handler-container {
+  background-color: #000000; /* Bootstrap success color */
+}
+
+/* Icon */
+.error-handler-icon {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+/* Title */
+.error-handler-title {
+  font-size: 24px;
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
+
+/* Message */
+.error-handler-message {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Button */
+.error-handler-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.error-handler-button:hover {
+  background-color: #0056b3;
 }
 
 

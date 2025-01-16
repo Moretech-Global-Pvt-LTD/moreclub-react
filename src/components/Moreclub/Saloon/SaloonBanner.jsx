@@ -4,8 +4,7 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { moresaloonURL } from "../../../config/config";
-import { axiosInstance } from "../../..";
+import { moresalonAuthenticatedAxios } from "../../../utills/axios/moresalonaxios";
 
 const SaloonBanner = ({ data }) => {
     const { id } = useParams();
@@ -24,8 +23,8 @@ const SaloonBanner = ({ data }) => {
             banner: inputBanner,
         };
         try {
-            const res = await await axiosInstance.patch(
-                `${moresaloonURL}moreclub/users/saloon/${id}/`,
+            const res = await await moresalonAuthenticatedAxios.patch(
+                `moreclub/users/saloon/${id}/`,
                 formData, {
     
                 headers: {

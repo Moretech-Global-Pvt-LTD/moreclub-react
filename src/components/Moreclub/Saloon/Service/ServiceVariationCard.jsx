@@ -2,24 +2,25 @@
 
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import { moresaloonURL } from "../../../../config/config";
-import { axiosInstance } from "../../../..";
 import { message } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 import ServiceVariationUpdateForm from "./ServicevariationUpdateForm";
 import Defaultimage from "../../../../images/logo/MembersClubblack.png"
+import { moresalonAuthenticatedAxios } from "../../../../utills/axios/moresalonaxios";
 
 const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
     const [hours, minutes, seconds] = item.duration.split(":");
     const [showForm, setShowForm] = useState(false);
+    const [isDeleting , setIsDeleting]= useState(false)
 
     const queryClient = useQueryClient();
     // const slug = name.replace(/ /g, "-");
 
     async function handleDelete() {
+        setIsDeleting(true)
         try {
-            await axiosInstance.delete(
-                `${moresaloonURL}moreclub/users/saloons/${sal_id}/services/${ser_id}/variations/${item.id}/`
+            await moresalonAuthenticatedAxios.delete(
+                `moreclub/users/saloons/${sal_id}/services/${ser_id}/variations/${item.id}/`
             );
             queryClient.invalidateQueries({
                 queryKey: [`Saloon variation List ${sal_id} ${ser_id}`],
@@ -30,6 +31,8 @@ const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
             queryClient.invalidateQueries({
                 queryKey: [`Saloon variation List ${sal_id} ${ser_id}`],
             });
+        }finally{
+            setIsDeleting(false)
         }
     }
 
@@ -44,8 +47,8 @@ const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
     return (
         <div class="service-variation-card">
             {(item?.images && item?.images[0] && item?.images[0].image) ?
-                <img src={item.images[0].image} alt="Service Image" class="service-variation-image" />
-                : <img src={Defaultimage} alt="Service Image" class="service-variation-image bg-white" />
+                <img src={item.images[0].image} alt="Service-Image" class="service-variation-image" />
+                : <img src={Defaultimage} alt="Service-Image" class="service-variation-image bg-white" />
             }
             <div class="service-variation-content">
                 <h3 class="service-variation-title">{item.name}</h3>
@@ -58,8 +61,8 @@ const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
                         <button class="service-variation-edit" onClick={showAddCategory}>
                             <i class="bi bi-pencil"></i>
                         </button>
-                        <button class="service-variation-delete" onClick={handleDelete}>
-                            <i class="bi bi-trash"></i>
+                        <button class="service-variation-delete" disabled={isDeleting} onClick={handleDelete}>
+                           {isDeleting ? <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> : <i class="bi bi-trash"></i>} 
                         </button>
                     </div>
                     <span class="service-variation-time">{hours !== '00' ? `${hours} hrs ${minutes} min ` : `${minutes} min `} </span>

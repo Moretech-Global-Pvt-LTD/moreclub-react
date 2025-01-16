@@ -1,25 +1,24 @@
 import React from 'react'
 import Saloonlayout from '../setup/Saloonlayout'
 import { useParams } from 'react-router-dom'
-import { Badge, Button, Card, Col, Placeholder, Row, Table } from 'react-bootstrap'
-import { moresaloonimageURL, moresaloonURL } from '../../../../config/config'
-import { axiosInstance } from '../../../..'
+import {  Card, Col, Placeholder, Row, Table } from 'react-bootstrap'
 import { useQuery } from '@tanstack/react-query'
 import moment from 'moment'
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios'
 
 const BookingDetailPage = () => {
-  const { id, slug, book_id, appoit_id } = useParams()
+  const { id, book_id, appoit_id } = useParams()
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [`Saloon bookings detail ${id} ${appoit_id}`],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${moresaloonURL}moreclub/users/saloons/${id}/appointments/${book_id}/details/`
+      const response = await moresalonAuthenticatedAxios.get(
+        `moreclub/users/saloons/${id}/appointments/${book_id}/details/`
       );
       const data = await response.data.data;
       return data;
     },
-    staleTime: 10,
+    staleTime: 480000,
   });
 
   if (isLoading) {
@@ -117,7 +116,7 @@ const BookingDetailPage = () => {
                     </div>
                   ) : (
                     <img
-                      src={`${moresaloonimageURL}${data?.staff?.image}`}
+                      src={`${data?.staff?.image}`}
                       style={{
                         width: "45px",
                         height: "45px",

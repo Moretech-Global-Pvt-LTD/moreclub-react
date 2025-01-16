@@ -2,28 +2,26 @@ import React from 'react'
 import Saloonlayout from '../setup/Saloonlayout'
 import { Placeholder, Table, Row } from 'react-bootstrap';
 import Divider from '../../../../components/divider/Divider';
-import { moresaloonURL } from '../../../../config/config';
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import BookingCalender from '../../../../components/Moreclub/Saloon/booking/bookingCalender';
-import { axiosInstance } from '../../../..';
 import BookingCard from '../../../../components/Moreclub/Saloon/booking/BookingCard';
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
 
 
 const BookingPage = () => {
 
-    const { slug, id } = useParams();
+    const { id } = useParams();
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Saloon bookings ${id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${moresaloonURL}moreclub/users/saloons/${id}/appointments/`
+            const response = await moresalonAuthenticatedAxios.get(
+                `moreclub/users/saloons/${id}/appointments/`
             );
             const data = await response.data.data;
             return data;
         },
-        staleTime: 10,
+        staleTime: 2000,
     });
 
     if (isLoading) {

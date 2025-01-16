@@ -236,7 +236,7 @@ const DashboardMenu = () => {
       },
     user.user &&
       user.user?.user_type !== "BUSINESS" && {
-        to: "/moresaloon",
+        to: "/moresalons",
         lightIcon: MoreSalonBlack,
         darkIcon: MoreSalonWhite,
         label: "MORE SALONS",
@@ -267,7 +267,7 @@ const DashboardMenu = () => {
       !business.businessProfile.business_types?.some(
         (type) => type.name === "Salons"
       ) && {
-        to: "/moresaloon",
+        to: "/moresalons",
         lightIcon: MoreSalonBlack,
         darkIcon: MoreSalonWhite,
         label: "MORE SALONS",
@@ -483,7 +483,7 @@ const MoreSaloonDropdown = () => {
       links={MoreClubLinks}
     >
       <li>
-        <NavLink to={"/saloon"}>
+        <NavLink to={"/salons"}>
           <img
             src={settingWhite}
             alt={"MORE FOOD"}
@@ -498,7 +498,7 @@ const MoreSaloonDropdown = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to={"/moresaloon"}>
+        <NavLink to={"/moresalons"}>
           <img
             src={MoreSalonWhite}
             alt={"MORE SALON"}
