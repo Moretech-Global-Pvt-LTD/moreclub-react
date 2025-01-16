@@ -1,18 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react'
-import { moresaloonhostURL, moresaloonURL } from '../../../config/config';
+import { moresaloonhostURL } from '../../../config/config';
 import RestaurantCardSkeleton from '../../Skeleton/RestaurantCardSkeleton';
 import { Row } from 'react-bootstrap';
 import SaloonCard from './SaloonCard';
-import axios from 'axios';
 import Cookies from "js-cookie"
+import { moresalonPublicAxios } from '../../../utills/axios/moresalonaxios';
 
 const MoreSaloonContent = () => {
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["More Saloon List"],
         queryFn: async () => {
-            const response = await axios.get(`${moresaloonURL}saloons/lists/`,
+            const response = await moresalonPublicAxios.get(`saloons/lists/`,
                 {
                     headers: {
                         'x-country-code': Cookies.get("countryCode"),

@@ -45,7 +45,7 @@ const BusinessTypes = ({ toppart }) => {
             className="gx-3 gy-3 px-1 px-lg-3 "
           >
             {data
-              .filter((item) => item?.name?.includes("Restaurant") || item?.name?.includes("Salons"))
+              // .filter((item) => item?.name?.includes("Restaurant") || item?.name?.includes("Salons"))
               .map((item) => (
                 <BusinessTypesCard
                   key={item.id}

@@ -1,30 +1,29 @@
 import React, { useState } from 'react'
 import Saloonlayout from '../setup/Saloonlayout'
-import { Button, Col, Modal, Placeholder, Row } from 'react-bootstrap';
+import { Button, Modal, Placeholder } from 'react-bootstrap';
 import ImageContainer from '../../../../components/Moreclub/Resturant/Gallery/GalleryImageContainer';
-import { axiosInstance } from '../../../..';
-import { moresaloonURL } from '../../../../config/config';
 import { useParams } from 'react-router-dom';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import GalleryImageUpload from '../../../../components/Moreclub/CommonComponents/GalleryImageUpload';
 import { message } from 'antd';
 import FewImage from '../../../../components/Moreclub/Resturant/Gallery/fewimage';
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
 
 const SaloonPhotoUploadGallery = () => {
-  const { id, slug } = useParams();
+  const { id, } = useParams();
   const [showForm, setShowForm] = useState(false);
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError } = useQuery({
     queryKey: [`Saloon Gallery ${id}`],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${moresaloonURL}moreclub/users/saloons/${id}/gallery/`
+      const response = await moresalonAuthenticatedAxios.get(
+        `moreclub/users/saloons/${id}/gallery/`
       );
       const data = await response.data.data;
       return data;
     },
-    staleTime: 100,
+    staleTime: 480000,
   });
 
   if (isLoading) {
@@ -67,8 +66,8 @@ const SaloonPhotoUploadGallery = () => {
   const Submit = async (formdata) => {
     try {
       // const res = await onSubmit(formData);
-      const res = await axiosInstance.post(
-        `${moresaloonURL}moreclub/users/saloons/${id}/gallery/`,
+      const res = await moresalonAuthenticatedAxios.post(
+        `moreclub/users/saloons/${id}/gallery/`,
         formdata,
           {
               headers: {

@@ -7,7 +7,6 @@ import { baseURL, imageURL } from "../../config/config";
 import { isSuperAdmin, logout } from "../../redux/api/loginAPI";
 import { getWallet } from "../../redux/api/wallets";
 import DropNotificationContent from "../Notifications/DropNotificationContent";
-import HeaderDashboardMenu from "./HeaderDashboardMenu";
 import HeaderUserInfo from "./HeaderUserInfo";
 import ThemeToggler from "./themeToggler";
 import { axiosInstance } from "../..";

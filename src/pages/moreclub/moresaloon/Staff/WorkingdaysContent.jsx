@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { moresaloonURL } from '../../../../config/config';
-import { axiosInstance } from '../../../..';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { RestaurantItemskeleton } from '../../../../components/Skeleton/SmallCardSkeleton';
 import TimeSlotForm from '../../../../components/Moreclub/Saloon/Staff/TimeSlot';
 import Workingdays from '../../../../components/Moreclub/Saloon/Staff/TimeSlotUpdate';
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
 
 const WorkingdaysContent = () => {
 
@@ -16,8 +15,8 @@ const WorkingdaysContent = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: [`Saloon Staff Working days ${staff_id}`],
         queryFn: async () => {
-            const response = await axiosInstance.get(
-                `${moresaloonURL}moreclub/users/saloons/${id}/staff/${staff_id}/working-days/`
+            const response = await moresalonAuthenticatedAxios.get(
+                `moreclub/users/saloons/${id}/staff/${staff_id}/working-days/`
             );
             const data = await response.data.data;
             return data;
@@ -40,7 +39,7 @@ const WorkingdaysContent = () => {
 
     async function logFormData(openingHours) {
         try {
-            const response = await axiosInstance.post(`${moresaloonURL}moreclub/users/saloons/${id}/staff/${staff_id}/working-days/`, openingHours)
+            const response = await moresalonAuthenticatedAxios.post(`moreclub/users/saloons/${id}/staff/${staff_id}/working-days/`, openingHours)
             queryClient.invalidateQueries({
                 queryKey: [`Saloon Staff Working days ${staff_id}`],
             });
@@ -53,7 +52,7 @@ const WorkingdaysContent = () => {
 
     async function updateWokingData(openingHours) {
             try {
-                const response = await axiosInstance.patch(`${moresaloonURL}moreclub/users/saloons/${id}/staff/${staff_id}/working-days/detail/`, openingHours)
+                const response = await moresalonAuthenticatedAxios.patch(`moreclub/users/saloons/${id}/staff/${staff_id}/working-days/detail/`, openingHours)
                 queryClient.invalidateQueries({
                     queryKey: [`Saloon Staff Working days ${staff_id}`],
                 });

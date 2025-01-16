@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import Saloonlayout from '../setup/Saloonlayout'
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../../../..';
 import { useParams } from 'react-router-dom';
-import { moresaloonURL } from '../../../../config/config';
 import { RestaurantItemskeleton } from '../../../../components/Skeleton/SmallCardSkeleton';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
 import ServiceCreateForm from '../../../../components/Moreclub/Saloon/Service/ServiceCreateForm';
 import ServiceCard from '../../../../components/Moreclub/Saloon/Service/ServiceCard';
 import ServiceVariationCreationForm from '../../../../components/Moreclub/Saloon/Service/ServiceVariationCreationForm';
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
 
 
 const ServicePage = () => {
@@ -18,13 +17,13 @@ const ServicePage = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: [`Saloon service List ${id}`],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${moresaloonURL}moreclub/users/saloons/${id}/services/`
+      const response = await moresalonAuthenticatedAxios.get(
+        `moreclub/users/saloons/${id}/services/`
       );
       const data = await response.data.data;
       return data;
     },
-    staleTime: 100,
+    staleTime: 420000,
   });
 
   if (isLoading) {
@@ -36,9 +35,7 @@ const ServicePage = () => {
   }
 
   if (isError) {
-    return <Saloonlayout className="text-dynamic-white">Error: retriving
-      <ServiceVariationCreationForm/>
-    </Saloonlayout>;
+    return <Saloonlayout className="text-dynamic-white">Error: retriving</Saloonlayout>;
   }
 
   async function showAddCategory() {
@@ -103,6 +100,7 @@ const ServicePage = () => {
               id={item.id}
               sal_id={id}
               logo={item.logo}
+              icon={item?.icon}
               name={item.name}
               sal_name={slug}
               item={item.variations?.length ?? 0}

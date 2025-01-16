@@ -3,11 +3,10 @@ import Saloonlayout from "../setup/Saloonlayout";
 import CouponForm from "../../../../components/Moreclub/Saloon/Coupon/CouponForm";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../../../..";
-import { moresaloonURL } from "../../../../config/config";
 import CouponCard from "../../../../components/Moreclub/Saloon/Coupon/CouponCard";
 import { Button, Modal, Placeholder } from "react-bootstrap";
 import Divider from "../../../../components/divider/Divider";
+import { moresalonAuthenticatedAxios } from "../../../../utills/axios/moresalonaxios";
 
 const CouponsPage = () => {
   const { id } = useParams();
@@ -16,8 +15,8 @@ const CouponsPage = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: [`Coupon List ${id}`],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${moresaloonURL}moreclub/users/saloons/${id}/coupons/list/`
+      const response = await moresalonAuthenticatedAxios.get(
+        `moreclub/users/saloons/${id}/coupons/list/`
       );
       return response.data.data;
     },

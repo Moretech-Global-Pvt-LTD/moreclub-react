@@ -1,20 +1,19 @@
 import React from 'react'
 import DashboardLayout from '../../../../components/Layout/DashboardLayout'
-import { moresaloonURL } from '../../../../config/config';
 import { useQuery } from '@tanstack/react-query';
 import RestaurantCardSkeleton from '../../../../components/Skeleton/RestaurantCardSkeleton';
 import { Card, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import SaloonCard from '../../../../components/Moreclub/Saloon/SaloonCard2';
 import Plus from "../../../../images/moreclub/plus.png";
-import { axiosInstance } from '../../../..';
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
 
 
 const SaloonPage = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["user Saloon List"],
     queryFn: async () => {
-      const response = await axiosInstance.get(`${moresaloonURL}moreclub/users/saloons/list/`);
+      const response = await moresalonAuthenticatedAxios.get(`moreclub/users/saloons/list/`);
       const data = await response.data.data;
       return data;
     },

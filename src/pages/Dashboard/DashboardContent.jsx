@@ -38,7 +38,7 @@ const DashboardContent = () => {
         <Row className="mt-4">
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="mt-4 mb-3">Popular Salons </h4>
-            <Link to="/moresaloon">
+            <Link to="/moresalons">
               <Button variant="link">View All</Button>
             </Link>
           </div>

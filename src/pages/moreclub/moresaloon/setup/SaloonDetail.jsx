@@ -2,10 +2,9 @@ import React from 'react'
 import Saloonlayout from './Saloonlayout'
 import SaloonDetailContent from './SaloonDetailContent';
 import RestaurantCardSkeleton from '../../../../components/Skeleton/RestaurantCardSkeleton';
-import { moresaloonURL } from '../../../../config/config';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { axiosInstance } from '../../../..';
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
 
 const SaloonDetail = () => {
     const { id } = useParams();
@@ -13,7 +12,7 @@ const SaloonDetail = () => {
     const { data, isLoading, isError } = useQuery({
         queryKey: ["Saloon detail", id],
         queryFn: async () => {
-            const response = await axiosInstance.get(`${moresaloonURL}moreclub/users/saloon/${id}/`);
+            const response = await moresalonAuthenticatedAxios.get(`moreclub/users/saloon/${id}/`);
             const data = await response.data.data;
             return data;
         },

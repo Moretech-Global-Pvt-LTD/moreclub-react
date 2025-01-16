@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import Saloonlayout from '../setup/Saloonlayout'
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../../../..';
-import { moresaloonURL } from '../../../../config/config';
 import { Col, Placeholder } from 'react-bootstrap';
 import SaloonUpdateInfoForm from '../../../../components/Moreclub/Saloon/SaloonUpdateFrom';
 import SaloonBanner from '../../../../components/Moreclub/Saloon/SaloonBanner';
 import SaloonLogo from '../../../../components/Moreclub/Saloon/SaloonLogo';
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
 
 const SaloonUpdate = () => {
 
@@ -16,8 +15,8 @@ const SaloonUpdate = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["Saloon detail", id],
     queryFn: async () => {
-      const response = await axiosInstance.get(
-        `${moresaloonURL}moreclub/users/saloon/${id}/`
+      const response = await moresalonAuthenticatedAxios.get(
+        `moreclub/users/saloon/${id}/`
       );
       const data = await response.data.data;
       return data;

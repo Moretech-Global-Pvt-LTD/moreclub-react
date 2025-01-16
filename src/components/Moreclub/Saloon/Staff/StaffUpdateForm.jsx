@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button, Col, Row, Spinner } from 'react-bootstrap';
-import { axiosInstance } from '../../../..';
-import { moresaloonURL } from '../../../../config/config';
+import { Form, Button, Spinner } from 'react-bootstrap';
 import Select from "react-select";
 import { message } from 'antd';
 import { useQueryClient } from '@tanstack/react-query';
+import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
 
 export const customStyles = {
     control: (provided, state) => ({
@@ -69,7 +68,7 @@ const StaffUpdateForm = ({ sal_id, id, data, onFinish, onCancel }) => {
 
     async function getServiceList() {
         try {
-            const res = await axiosInstance.get(`${moresaloonURL}moreclub/users/saloons/${sal_id}/services/ `);
+            const res = await moresalonAuthenticatedAxios.get(`moreclub/users/saloons/${sal_id}/services/ `);
             const mappedData = res.data.data.map(item => ({
                 value: item.id, // Assuming 'id' is the value you want
                 label: item.name // Assuming 'name' is the label you want
@@ -125,8 +124,8 @@ const StaffUpdateForm = ({ sal_id, id, data, onFinish, onCancel }) => {
                 ...(staff.image && { image: staff.image }),
             }
 
-            axiosInstance
-                .patch(`${moresaloonURL}moreclub/users/saloons/${sal_id}/staff/${id}/`, datas, {
+            moresalonAuthenticatedAxios
+                .patch(`moreclub/users/saloons/${sal_id}/staff/${id}/`, datas, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

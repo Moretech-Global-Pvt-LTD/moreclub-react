@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Form, Spinner } from "react-bootstrap";
-import axios from "axios";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
@@ -20,14 +19,15 @@ import {
   validateWebsiteURL,
 } from "../../../validation/resturantValidation";
 import MapBoxLocationDisplayAutocomplete from "../../Googlemap/MapLocationInput";
-import { moresaloonURL } from "../../../config/config";
-import { axiosInstance } from "../../..";
 import TagsInput from "../CommonComponents/TagInput";
 import { useSelector } from "react-redux";
+import { useQueryClient } from "@tanstack/react-query";
+import { moresalonAuthenticatedAxios, moresalonPublicAxios } from "../../../utills/axios/moresalonaxios";
 // import FormSubmissionLoading from "../../Skeleton/FormSubmissionLoading";
 
 const SaloonCreateForm = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const businessProfiles = useSelector(
     (state) => state.businessReducer.businessProfile
   );
@@ -149,7 +149,7 @@ const SaloonCreateForm = () => {
 
   const fetchCountry = async () => {
     try {
-      const res = await axios.get(`${moresaloonURL}country/list/`);
+      const res = await moresalonPublicAxios.get(`country/list/`);
       setCountryList(res.data.data);
       const uniqueCurrencies = new Map();
 
@@ -278,8 +278,8 @@ const SaloonCreateForm = () => {
       setIsLoading(true);
 
       try {
-        const res = await axiosInstance.post(
-          `${moresaloonURL}moreclub/saloon/setup/`,
+        const res = await moresalonAuthenticatedAxios.post(
+          `moreclub/saloon/setup/`,
           formValues,
           {
             headers: {
@@ -290,6 +290,7 @@ const SaloonCreateForm = () => {
         message.success("saloon created");
         const slug = res.data.data.name.replace(/ /g, "-");
         navigate(`/saloon/${res.data.data.id}/${slug}`);
+        queryClient.invalidateQueries(["user Saloon List"]);
       } catch (err) {
         message.error("Error Creating Saloon");
       } finally {

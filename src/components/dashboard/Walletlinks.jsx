@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
-import { Col, Placeholder } from "react-bootstrap";
+import { Placeholder } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Send from "../../images/svg/send.png";
 import Load from "../../images/svg/load_amount.svg";

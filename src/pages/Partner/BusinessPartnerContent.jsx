@@ -1,71 +1,84 @@
 import React from "react";
-import { Col, Placeholder, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
 import { baseURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
-import OffersCard from "../../components/dashboard/Offercard";
 import { axiosInstance } from "../..";
 import Divider from "../../components/divider/Divider";
 import { useParams } from "react-router-dom";
 import { BestDealsinTownSkeleton } from "../../components/Skeleton/SmallCardSkeleton";
+import BusinessListCard from "../../components/dashboard/BusinessListCard";
+import { getplatformName } from "../../utills/utility";
+import Cookies from "js-cookie";
 
 const BusinessPartnerContent = ({ partnerId }) => {
+  const { partnerName } = useParams();
+  const title = partnerName.replace(/-/g, " ");
+  const { data, isLoading, isError } = useQuery({
+    queryKey: [`partners data ${partnerId}`],
+    queryFn: async () => {
+      const response = await axiosInstance.get(
+        `${baseURL}business/partners/${partnerId}/list/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-country-code": Cookies.get("countryCode"),
+          },
+        }
+      );
+      return response.data.data;
+    },
+    staleTime: 360000,
+  });
 
-    const { partnerName } = useParams();
-    const title = partnerName.replace("-", " ")
-    const { data, isLoading, isError } = useQuery({
-        queryKey: [`partners data ${partnerId}`],
-        queryFn: async () => {
-
-            const response = await axiosInstance.get(
-                `${baseURL}business/partners/${partnerId}/list/`
-            );
-            return response.data.data;
-        },
-        staleTime: 360000,
-    });
-
-    if (isLoading) {
-        return (
-            <div className="d-flex gap-2">
-                <BestDealsinTownSkeleton />
-            </div>
-        );
-    }
-
-    if (isError) {
-        <div className="text-dynamic white">Error getting data</div>;
-    }
-
-    
+  if (isLoading) {
     return (
-        <div className="mt-4">
-            <Row xs={1} sm={2} md={3} xl={4} xxl={5} className="gx-3 gy-3">
-                {data && data.map((item) => (
-                    <Col className="d-flex flex-column">
-                        <OffersCard
-                            id={item.id}
-                            partnerName={partnerName}
-                            logo={item.business_logo}
-                            name={item.business_name}
-                            address={item.business_address}
-                            email={item.business_email}
-                            phone={item.business_phone}
-                            discounts={item.business_discounts}
-                        />
-                    </Col>
-                ))}
-            </Row>
-            {data && data.length === 0 && (
-                <>
-                    <Divider />
-                    <p className="text-center">Partner not Registered yet in {title} </p>
-                    <Divider />
-
-                </>
-            )}
-        </div>
+      <div className="d-flex gap-2">
+        <BestDealsinTownSkeleton />
+      </div>
     );
+  }
+
+  if (isError) {
+    <div className="text-dynamic white">Error getting data</div>;
+  }
+
+  return (
+    <div className="mt-4">
+      <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={5} className=" px-2">
+        {data &&
+          data.map((item) => {
+            const platformdetail = getplatformName(partnerName);
+            return (
+              <>
+                <BusinessListCard
+                  key={item.id}
+                  type={platformdetail.name}
+                  banner={item.banner}
+                  name={item.name}
+                  address={item.address}
+                  path={`/${platformdetail.paths}/${item[platformdetail.type]}`}
+                />
+              </>
+            );
+          })}
+      </Row>
+      {data && data.length === 0 && (
+        <>
+          <Divider />
+          <p className="text-center">Partner not Registered yet in {title} </p>
+          <Divider />
+        </>
+      )}
+      {title !== "Salons" && (
+        <>
+          <Divider />
+          <p className="text-center">Partner not Registered yet in {title} </p>
+          <Divider />
+        </>
+      )}
+    </div>
+  );
 };
 
 export default BusinessPartnerContent;

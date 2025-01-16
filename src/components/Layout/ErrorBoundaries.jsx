@@ -3,6 +3,7 @@ import DashboardLayout from "./DashboardLayout";
 import Cookies from "js-cookie";
 import LandingLayout from "./LandingLayout";
 import Divider from "../divider/Divider";
+import ErrorPage from "./ErrorContent";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -25,17 +26,15 @@ class ErrorBoundary extends React.Component {
       // Render fallback UI
       if (Cookies.get("moretechglobal_access")) {
         return (
-          <DashboardLayout>
-            <Divider />
-            <h3>Something went wrong.</h3>;
+          <DashboardLayout> 
+            <ErrorPage/>
             <Divider />
           </DashboardLayout>
         );
       } else {
         return (
           <LandingLayout>
-            <Divider />
-            <h3>Something went wrong.</h3>;
+            <ErrorPage/>
             <Divider />
           </LandingLayout>
         );
