@@ -28,9 +28,31 @@ import Leads from "../../images/svg/leads.svg";
 
 const MoreClubLinks = [
   {
-    to: "/Resturant",
+    to: "/restaurant",
     icon: "bi-receipt",
     label: "Resturant",
+    permission: true,
+  },
+  {
+    to: "/morefood",
+    icon: "bi-receipt",
+    label: "MoreFood",
+    permission: true,
+  },
+];
+
+
+const SalonLinks = [
+  {
+    to: "/salons",
+    icon: "bi-receipt",
+    label: "salons",
+    permission: true,
+  },
+  {
+    to: "/moresalons",
+    icon: "bi-receipt",
+    label: "salons",
     permission: true,
   },
 ];
@@ -480,7 +502,7 @@ const MoreSaloonDropdown = () => {
       lightIcon={MoreSalonBlack}
       menuIcon={"bi-scissors"}
       menuTitle="MORE SALONS"
-      links={MoreClubLinks}
+      links={SalonLinks}
     >
       <li>
         <NavLink to={"/salons"}>

@@ -5,6 +5,7 @@ import {  Card, Col, Placeholder, Row, Table } from 'react-bootstrap'
 import { useQuery } from '@tanstack/react-query'
 import moment from 'moment'
 import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios'
+import ServiceBookingCard from './ServiceBookingCard'
 
 const BookingDetailPage = () => {
   const { id, book_id, appoit_id } = useParams()
@@ -53,7 +54,69 @@ const BookingDetailPage = () => {
 
   return (
     <Saloonlayout>
-      <Row className="mt-4  flex-xl-row-reverse ">
+      <Row className="mt-4  flex-xl-row ">
+      <Col className="col-12 col-lg-8 col-xl-6 my-xl-0 my-4 gy-2">
+          <h5>Booked Services</h5>
+          {data.service_variation.map((orders) => (
+            <ServiceBookingCard
+              item={orders}
+              currency={data?.currency}
+            />
+          ))}
+          <div
+            className=" mt-3 p-2 card text-dynamic-white fs-6 fw-semibold"
+          >
+            <div className="d-flex justify-content-between">
+              <span>Total</span>
+              <span>
+                {data.currency}&nbsp;{data.total_price}
+              </span>
+            </div>
+            <div className="d-flex justify-content-between">
+              <span>Discount</span>
+              <span>
+                {data.currency}&nbsp;
+                {parseFloat(
+                  parseFloat(data.total_price) -
+                    parseFloat(data.user_send_amount)
+                ).toFixed(2)}
+              </span>
+            </div>
+            
+            
+            <div
+              className="border-top-2 border-dashed mt-3 pt-2 border-dynamic-white  d-flex justify-content-between"
+            >
+              <span>Grand Total</span>
+              <span>
+                {data.currency}&nbsp;{data.user_send_amount}
+              </span>
+            </div>
+            <div
+              className="  border-dynamic-white  d-flex justify-content-between"
+            >
+              <span>Payment Method</span>
+              <span>
+                {data.payment_method.toUpperCase()}
+              </span>
+            </div>
+            <div
+              className="  border-dynamic-white  d-flex justify-content-between"
+            >
+              <span>Payment Status</span>
+              {data.payment_status !== "Unpaid" ?
+              <span>
+                 PAID{" "}&#x2705; 
+              </span>:
+              <span>
+                NOT PAID &#10060;
+              </span>
+              } 
+              
+            </div>
+            </div>
+          
+        </Col>
         <Card className="col-12 col-lg-8 col-xl-6 p-2">
           <h5 as="h5">Booking Details</h5>
           <Card.Body className="text-dynamic-white text-start">
@@ -164,7 +227,7 @@ const BookingDetailPage = () => {
           </Card.Body>
         </Card>
 
-        <Col className="col-12 col-lg-8 col-xl-6 my-xl-0 my-4">
+        {/* <Col className="col-12 col-lg-8 col-xl-6 my-xl-0 my-4">
           <h5>Items Ordered</h5>
           <Table responsive className="bg-white text-dynamic-white">
             <thead>
@@ -195,7 +258,7 @@ const BookingDetailPage = () => {
               </tr>
             </tfoot>
           </Table>
-        </Col>
+        </Col> */}
       </Row>
     </Saloonlayout>
   )

@@ -167,7 +167,7 @@ const OrderDetailsContent = ({ item }) => {
                   <strong>Customer Name:</strong> {item.full_name}
                 </Col>
                 <Col>
-                  <strong>Address:</strong> {item.address}
+                  <strong>{item.order_type === "delivery" && "Delivery "}Address:</strong> {item.address}
                 </Col>
               </Row>
               <Row className="mb-3">
@@ -185,7 +185,7 @@ const OrderDetailsContent = ({ item }) => {
                     className={`ml-2 ${
                       item.order_type === "dine-here"
                         ? "bg-success"
-                        : "bg-warning"
+                        : item.order_type === "delivery" ? "bg-danger": "bg-warning"
                     }`}
                   >
                     {item.order_type}
