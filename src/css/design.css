@@ -3062,7 +3062,21 @@
 
 
 .network-card {
-  background-color: #f8f9fa;
+  background-image: linear-gradient(
+    to right top,
+    #0c153b,
+    #0e1a46,
+    #0f2051,
+    #0e265d,
+    #0d2c69,
+    #0c3276,
+    #0a3983,
+    #053f90,
+    #0547a1,
+    #064eb3,
+    #0756c5,
+    #0b5ed7
+  );
   border-radius: 10px;
   padding: 15px;
   display: flex;
@@ -3077,13 +3091,31 @@
 }
 
 .network-card-selected {
-  background-color: #198754; /* Bootstrap success color */
+  background-image: linear-gradient(
+    to right top,
+    #ff9800,
+    #ffa726,
+    #ff9800,
+    #ff9800,
+    #ffa726
+  
+  );
   color: white;
+  border: 1px solid #ff9800; /* Optional for enhanced styling */
 }
 
 [data-theme="dark"] .network-card-selected {
-  background-color: #198754; /* Bootstrap success color */
+  background-image: linear-gradient(
+    to right top,
+    #ff9800,
+    #ffa726,
+    #ff9800,
+    #ff9800,
+    #ffa726
+  
+  );
   color: white;
+  border: 1px solid #ff9800; /* Optional */
 }
 
 .network-card-body {
@@ -3096,6 +3128,12 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+
+.network-card-initials{
+  background-color: #fdfdfd;
+  color:#000;
+  font-weight: bold;
 }
 
 .network-card-info {
