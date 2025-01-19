@@ -8,15 +8,23 @@ import NetworkTable from "./NetworkTable";
 import { useLocation } from "react-router-dom";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 import Unauthorized from "../../components/unauthorized/unauthorized";
-import Loading from "../../components/loading/loading";
+// import Loading from "../../components/loading/loading";
 import { useQuery } from "@tanstack/react-query";
 import { Placeholder, Table } from "react-bootstrap";
+import NetworkLeadFilter from "../../components/leads/NetworkLeadFilter";
 
-const fetchReferals = async (page, limit=20 , offset=0) => {
+const fetchReferals = async (
+  page,
+  limit = 20,
+  offset = 0,
+  q = "",
+  time = "",
+  date_from = "",
+  date_to = ""
+) => {
   const res = await await axiosInstance.get(
     // `${baseURL}referral/user/?page=${page}`
-    `${baseURL}referral/user/?limit=${limit}&page=${page}&offset=${offset}`
-
+    `${baseURL}referral/user/?query=${q}&limit=${limit}&page=${page}&offset=${offset}&time=${time}&date_from=${date_from}&date_to=${date_to}`
   );
   return res.data;
 };
@@ -26,17 +34,32 @@ const NetworkPage = () => {
   const page = new URLSearchParams(search).get("page") || 1;
   const limit = new URLSearchParams(search).get("limit") || 20;
   const offset = new URLSearchParams(search).get("offset") || 0;
+  const q = new URLSearchParams(search).get("q") || "";
+  const time = new URLSearchParams(search).get("time") || "";
+  const date_from = new URLSearchParams(search).get("date_from") || "";
+  const date_to = new URLSearchParams(search).get("date_to") || "";
   const permission = useSelector((state) => state.permissionReducer);
 
+
+
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["referals", page ,limit, offset],
-    queryFn: async () => fetchReferals(page ,limit , offset),
+    queryKey: ["referals", page, limit, offset, q, time, date_from, date_to],
+    queryFn: async () =>
+      fetchReferals(page,  limit, offset, q, time, date_from, date_to),
     keepPreviousData: true,
   });
 
   if (isLoading) {
     return (
-      <DashboardLayout title={"Networks"}> 
+      <DashboardLayout title={"Networks"}>
+      <LoadingJsx/>
+      </DashboardLayout>
+    );
+  }
+  if (isError) {
+    return (
+      <DashboardLayout title={"Networks"}>
+        <NetworkLeadFilter />
         <Table responsive className="bg-white">
           <thead className="border-bottom-0">
             <tr className="pricingcard-premium">
@@ -46,34 +69,15 @@ const NetworkPage = () => {
               <th className="text-white text-center">Action</th>
             </tr>
           </thead>
-
+          <tbody>
+            <tr className="">
+              <td colSpan={4}>
+                <p className="text-center ">Error retriving data...</p>
+              </td>
+              
+            </tr>
+          </tbody>
         </Table>
-        <div className="row gap-2">
-
-          <Placeholder as="p" animation="glow" className="rounded my-1 w-100">
-            <Placeholder xs={12} style={{ height: "2rem" }} />
-          </Placeholder>
-          <Placeholder as="p" animation="glow" className="rounded my-2 w-100">
-            <Placeholder xs={12} style={{ height: "2rem" }} />
-          </Placeholder>
-          <Placeholder as="p" animation="glow" className="rounded my-2 w-100">
-            <Placeholder xs={12} style={{ height: "2rem" }} />
-          </Placeholder>
-          <Placeholder as="p" animation="glow" className="rounded my-2 w-100">
-            <Placeholder xs={12} style={{ height: "2rem" }} />
-          </Placeholder>
-          <Placeholder as="p" animation="glow" className="rounded my-2 w-100">
-            <Placeholder xs={12} style={{ height: "2rem" }} />
-          </Placeholder>
-
-        </div>
-      </DashboardLayout>
-    );
-  }
-  if (isError) {
-    return (
-      <DashboardLayout title={"Networks"}>
-        <p className="text-dynamic-white">Error retriving the data...</p>
       </DashboardLayout>
     );
   }
@@ -81,7 +85,7 @@ const NetworkPage = () => {
   return (
     <DashboardLayout title={"Networks"}>
       {permission.permission.isLoading ? (
-        <Loading />
+        <LoadingJsx/>
       ) : (
         <>
           {permission.permission && permission.permission.my_network ? (
@@ -161,3 +165,173 @@ const NetworkPage = () => {
 };
 
 export default NetworkPage;
+
+export const LoadingJsx = () => {
+  return (
+    <>
+      <NetworkLeadFilter />
+      <Table responsive className="bg-white">
+        <thead className="border-bottom-0">
+          <tr className="pricingcard-premium">
+            <th className="text-white"> Name</th>
+            <th className="text-white">Email</th>
+            <th className="text-white">Phone</th>
+            <th className="text-white text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="">
+            <td>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-1 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+            </td>
+            <td>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-1 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+            </td>
+            <td>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-1 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+            </td>
+            <td>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-1 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+              <Placeholder
+                as="p"
+                animation="glow"
+                className="rounded my-2 w-100"
+              >
+                <Placeholder xs={12} style={{ height: "2rem" }} />
+              </Placeholder>
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+    </>
+  );
+}

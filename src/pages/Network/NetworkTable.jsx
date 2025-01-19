@@ -6,11 +6,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateSelctionData } from "../../redux/slices/NetworkListSlice";
 import { useQuery } from "@tanstack/react-query";
-
-import Loading from "../../components/loading/loading";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
-import { getInitials, truncateText } from "../../utills/utility";
+// import { getInitials, truncateText } from "../../utills/utility";
+import NetworkLeadFilter from "../../components/leads/NetworkLeadFilter";
+import { LoadingJsx } from "./NetworkPage";
+
+
 
 const NetworkTable = ({ list, meta }) => {
   const [selectedRows, setSelectedRows] = useState([]);
@@ -100,7 +102,7 @@ const NetworkTable = ({ list, meta }) => {
   };
 
   if (isLoading) {
-    return <Loading />;
+    return <LoadingJsx/>;
   }
 
   if (isError) {
@@ -111,27 +113,8 @@ const NetworkTable = ({ list, meta }) => {
 
   return (
     <div>
-      <div className="table-controls d-flex align-items-center justify-content-between mb-3 ">
-        <div className="">
-          <label htmlFor="rowsPerPage" className="me-3">
-            Rows per page:
-          </label>
-          <select id="rowsPerPage" value={limit} onChange={handlePagelimit} className="form-select">
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="250">250</option>
-            <option value="500">500</option>
-            <option value="1000">1000</option>
-          </select>
-        </div>
-        {/* <div>
-          <label htmlFor="rowsPerPage" className="me-3">
-            Start from:
-          </label>
-          <input value={offset} onChange={handlePageOffset} type="number" className="form-control"/>
-        </div> */}
-        <div>
+      <NetworkLeadFilter>
+      <div>
           {permissions && permissions.send_sms_refer && (
             <Link to="/network/message">
               <Button
@@ -152,7 +135,10 @@ const NetworkTable = ({ list, meta }) => {
             </Button>
           )}
         </div>
-      </div>
+      </NetworkLeadFilter>
+      {/* <div className="table-controls d-flex align-items-center justify-content-between mb-3 ">
+        
+      </div> */}
 
       {/* <div className="no-display-small-only">
       {list && list.length > 0 && (
