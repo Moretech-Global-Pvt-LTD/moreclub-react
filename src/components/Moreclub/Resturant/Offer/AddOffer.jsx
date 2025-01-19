@@ -558,7 +558,7 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
 
         {formData.isEveryDay ? (
           <Row>
-            <Form.Group as={Col} controlId="startDate">
+            <Form.Group as={Col} controlId="startDate" style={{ zIndex:4}}>
               <Form.Label>Start Date</Form.Label>
               <DatePicker
                 selected={formData.startDate}
@@ -571,7 +571,7 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
               />
               <p className="text-danger">{errors.startDate}</p>
             </Form.Group>
-            <Form.Group as={Col} controlId="endDate">
+            <Form.Group as={Col} controlId="endDate" style={{ zIndex:4}}>
               <Form.Label>End Date</Form.Label>
               <DatePicker
                 selected={formData.endDate}
@@ -595,6 +595,7 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
                 <Col md={5}>
                   <Form.Group controlId={`${day}-start-time`}>
                     <Form.Label>Start Time</Form.Label>
+                   
                     <DatePicker
                       selected={formData.customDays[day].start_time}
                       onChange={(date) =>
@@ -608,11 +609,14 @@ const OfferForm = ({ mode = "create", initialData = {} }) => {
                       placeholderText="Select Start Time"
                       className="form-control"
                     />
+
+                 
                   </Form.Group>
                 </Col>
                 <Col md={5}>
-                  <Form.Group controlId={`${day}-end-time`}>
+                  <Form.Group controlId={`${day}-end-time`} style={{ zIndex:4}}>
                     <Form.Label>End Time</Form.Label>
+                    
                     <DatePicker
                       selected={formData.customDays[day].end_time}
                       onChange={(date) =>

@@ -3205,4 +3205,28 @@
 }
 
 
+
+.network-filter-form{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 10px;
+  margin-top: 2rem;
+}
+
+.network-filter-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.network-search-section {
+  flex: 1 1 100%;
+}
+
+
+
+
+
+
 /*# sourceMappingURL=main.c1c39487.css.map*/
