@@ -1,16 +1,18 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { getApiUrl } from "../utility";
+import { checkAndUpdateLocation } from "../utility";
 
 // Base URL for morefood API
 const morefoodBaseURL = getApiUrl(); 
+const countryCode = await checkAndUpdateLocation();
 
 const commonConfig = {
   baseURL: morefoodBaseURL,
   headers: {
     "Content-Type": "application/json",
     accept: "application/json",
-    "x-country-code": Cookies.get("countryCode"),
+    "x-country-code": countryCode,
   },
 };
 

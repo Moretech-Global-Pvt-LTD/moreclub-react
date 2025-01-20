@@ -18,7 +18,6 @@ import { Placeholder } from "react-bootstrap";
 import { fetchNotifications } from "../../redux/api/notificationApi";
 import DashboardMenu from "./Dashboardmenu";
 
-
 const HeaderDashboard = () => {
   let [check] = useState(true);
   const sticky = useStickyHeader(10);
@@ -112,7 +111,6 @@ const HeaderDashboard = () => {
     setActive(!isActive);
   };
 
-
   const user = useSelector((state) => state.userReducer);
 
   const logOut = () => {
@@ -198,11 +196,14 @@ const HeaderDashboard = () => {
               <Dropdown className="user-dropdown me-2 points-show">
                 <Dropdown.Toggle className="user-btn" id="userDropdown">
                   <i className="bi bi-bell" />
-                  {notification.unreadCount > 0 && 
-                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "10px" }} >
-                    {notification.unreadCount}
-                  </span>
-                  }
+                  {notification.unreadCount > 0 && (
+                    <span
+                      className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                      style={{ fontSize: "10px" }}
+                    >
+                      {notification.unreadCount}
+                    </span>
+                  )}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu
@@ -232,15 +233,17 @@ const HeaderDashboard = () => {
                 <Dropdown.Menu className="mt-3" align="end">
                   {userDropdownList}
 
-                  
-
-                  
                   <Link className="dropdown-item" to={"/support"}>
-          {/* <i className={`me-2 bi ${elem.icon}`} /> */}
-          <img src="/images/moreclub/morefood/support.png" alt="Support Icon"  style={{width:"20px", height:"20px"}} className="me-2 bi"/>
-         &nbsp;Support
-        </Link>
-                  
+                    {/* <i className={`me-2 bi ${elem.icon}`} /> */}
+                    <img
+                      src="/images/moreclub/morefood/support.png"
+                      alt="Support Icon"
+                      style={{ width: "20px", height: "20px" }}
+                      className="me-2 bi"
+                    />
+                    &nbsp;Support
+                  </Link>
+
                   <li onClick={() => logOut()}>
                     <div
                       className="dropdown-item cursor-pointer"
@@ -271,8 +274,8 @@ const HeaderDashboard = () => {
       <div className={`admin-sidebar-wrap sidebar-hidden `}>
         <div className="overflowY-scroll  ">
           <HeaderUserInfo />
-         
-          <DashboardMenu/>
+
+          <DashboardMenu />
           {/* <HeaderDashboardMenu/> */}
         </div>
       </div>
@@ -284,12 +287,10 @@ const HeaderDashboard = () => {
               isActive ? "sidebar-active" : "sidebar-disabled"
             }`}
           >
-            <div className="overflowY-scroll"
-            
-            >
+            <div className="overflowY-scroll">
               <HeaderUserInfo />
-              <DashboardMenu/>
-          {/* <HeaderDashboardMenu/> */}
+              <DashboardMenu />
+              {/* <HeaderDashboardMenu/> */}
             </div>
           </div>
           <div
@@ -299,7 +300,6 @@ const HeaderDashboard = () => {
             }}
           />
         </>
-        
       )}
     </>
   );

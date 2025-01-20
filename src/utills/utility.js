@@ -1,5 +1,48 @@
 import Cookies from "js-cookie";
 import { marketPlaceadminhostURL, marketPlacehostURL, morefoodhostNepalURL, morefoodhostURL, moresaloonhostURL } from "../config/config";
+import axios from "axios";
+
+export const fetchLiveLocation = async () => {
+  try {
+    const res = await axios.get(
+      `https://pro.ip-api.com/json/?key=F6UL4cER6af4oPb`
+    );
+    if (typeof window !== "undefined") {
+      const countryCode = res.data.countryCode;
+      Cookies.set("countryCode", countryCode, {
+        expires: 30 / 1440, // 30 minutes expiration
+        secure: true, // Only sent over HTTPS
+        sameSite: "Strict", // Protect from CSRF
+      });
+    }
+    return res.data;
+  } catch (error) {
+    console.error("Error in Live Location", error);
+
+    return error.res.data;
+  }
+};
+
+export const checkAndUpdateLocation = async () => {
+  let countryCode = Cookies.get("countryCode");
+  if (!countryCode) {
+    const code = fetchLiveLocation();
+    if (typeof window !== "undefined") {
+      countryCode = code.countryCode;
+      Cookies.set("countryCode", countryCode, {
+        expires: 30 / 1440, // 30 minutes expiration
+        secure: true, // Only sent over HTTPS
+        sameSite: "Strict", // Protect from CSRF
+      });
+    }
+  }
+
+  return countryCode;
+};
+
+
+
+
 
 export function GetURL(props) {
   // Get the country code from cookies; default to "default"
