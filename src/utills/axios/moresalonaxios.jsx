@@ -2,16 +2,19 @@ import axios from "axios";
 import Cookies from "js-cookie";
 // import { getApiUrl } from "../utility";
 import { moresaloonURL } from "../../config/config";
+import { checkAndUpdateLocation } from "../utility";
 
 // Base URL for moresalon API
 // const moresalonBaseURL = getApiUrl(); 
+
+const countryCode = await checkAndUpdateLocation();
 
 const commonConfig = {
   baseURL: moresaloonURL,
   headers: {
     "Content-Type": "application/json",
     accept: "application/json",
-    "x-country-code": Cookies.get("countryCode"),
+    "x-country-code": countryCode,
   },
 };
 

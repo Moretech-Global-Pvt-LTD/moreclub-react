@@ -170,7 +170,36 @@ export const LoadingJsx = () => {
   return (
     <>
       <NetworkLeadFilter />
-      <Table responsive className="bg-white">
+
+      <div className="network-container">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+          <div
+          className="network-card network-loadingskeleton mb-3"
+          style={{ cursor: "pointer" }}
+        >
+          <div className="d-flex align-items-center">
+            <div className="network-card-select me-2">
+              <div className="network-loadingskeleton-checkbox"></div>
+            </div>
+            <div className="network-card-body d-flex align-items-center">
+              <div className="network-card-image">
+                <div className="network-loadingskeleton-image rounded-circle"></div>
+              </div>
+              <div className="network-card-info ms-3">
+                <div className="network-loadingskeleton-name mb-2 shimmer"></div>
+                <div className="network-loadingskeleton-email mb-2 shimmer"></div>
+                <div className="network-loadingskeleton-phone shimmer"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        ))}
+      
+      </div>
+
+
+      {/* <Table responsive className="bg-white">
         <thead className="border-bottom-0">
           <tr className="pricingcard-premium">
             <th className="text-white"> Name</th>
@@ -331,7 +360,7 @@ export const LoadingJsx = () => {
             </td>
           </tr>
         </tbody>
-      </Table>
+      </Table> */}
     </>
   );
 }

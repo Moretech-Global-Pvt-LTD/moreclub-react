@@ -1,46 +1,44 @@
-import React, { useEffect } from "react";
-import moment from "moment";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import { baseURL } from "../../config/config";
 import { axiosInstance } from "../..";
 import TransactionCardSkeleton from "../Skeleton/TransactionCardSkeleton";
-import TransactionCard from "../transaction/Users/transactionCard";
 import LeadsTransactionCard from "./LeadTransactionCard";
+import { baseURL } from "../../config/config";
 
 const LeadTransactions = ({ username }) => {
-  const location = useLocation();
+  const [offset, setOffset] = useState(0);
+  const [allData, setAllData] = useState([]); // Store accumulated data
+  const [hasNextPage, setHasNextPage] = useState(true); // To track if more pages exist
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const active = urlParams.get("active");
-  }, [location.search]);
+  const fetchLeadTransactions = async (username, offset, limit = 10) => {
+    const response = await axiosInstance.get(
+      `${baseURL}leads/business/transaction/history/${username}?offset=${offset}&limit=${limit}`
+    );
+    return response;
+  };
 
-  const {
-    data,
-    isLoading,
-    isError,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["leadtransaction", username],
-    queryFn: async ({ pageParam = 1 }) => {
-      const response = await axiosInstance.get(
-        `${baseURL}wallets/transaction/?page=${pageParam}`
-      );
-      return response.data;
-    },
-    getNextPageParam: (lastPage) => {
-      if (lastPage.meta.links.next) {
-        return lastPage.meta.page_number + 1;
-      }
-      return undefined;
-    },
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["leadtransaction", username, offset],
+    queryFn: () => fetchLeadTransactions(username, offset),
+    keepPreviousData: true,
+    enabled: hasNextPage,
   });
 
-  if (isLoading) {
+  useEffect(() => {
+    if (data) {
+      setAllData((prevData) => [...prevData, ...data.data.data]);
+      setHasNextPage(!!data.data.meta.links.next);
+    }
+  }, [data]);
+
+  const handleLoadMore = () => {
+    if (hasNextPage) {
+      setOffset((prevOffset) => prevOffset + 10);
+    }
+  };
+
+  if (isLoading && allData.length === 0) {
     return (
       <div className="card p-4">
         <TransactionCardSkeleton />
@@ -57,7 +55,7 @@ const LeadTransactions = ({ username }) => {
       className="content-inside-wrapper nft-card card p-4"
       style={{ maxWidth: "640px" }}
     >
-      {data && data.pages[0].data.length === 0 ? (
+      {allData && allData.length === 0 ? (
         <div
           className="row align-items-center"
           style={{ height: "20vh", width: "100%" }}
@@ -66,47 +64,37 @@ const LeadTransactions = ({ username }) => {
         </div>
       ) : (
         <>
-          {data.pages.map((page, pageIndex) => (
-            <React.Fragment key={pageIndex}>
-              {page.data.map((notification, notificationIndex) => (
-                <React.Fragment key={notificationIndex}>
-                  <h6 className="mt-2 mb-1">
-                    {moment(notification.day).format("dddd DD MMM, YY")}
-                  </h6>
-                  {notification.transactions.map((row, transactionIndex) => (
-                    <LeadsTransactionCard
+          {allData &&
+            allData.length > 0 &&
+            allData.map((row, transactionIndex) => (
+              <React.Fragment key={transactionIndex}>
+                <LeadsTransactionCard
+                  key={transactionIndex}
+                  transactionType={
+                    row.lead_type === "Received" ? "RECEIVE" : "SEND"
+                  }
+                  narration={`${row.platform} ${row.lead_type} from ${row.payment_from}`}
+                  transactiontime={row.created}
+                  transactionamount={row.sent_amount}
+                  currency_received={row.received_currency_code}
+                  currency_send={row.sent_currency_code}
+                />
+              </React.Fragment>
+            ))}
 
-                      key={transactionIndex}
-                      transactionType={row.transaction_type}
-                      narration={row.narration}
-                      transactiontime={row.timestamp}
-                      transactionamount={row.amount}
-                      
-                      
-                      currency_received={row.currency_received_symbol}
-                      currency_send={row.currency_sent_symbol}
-                      
-                    />
-                  ))}
-                </React.Fragment>
-              ))}
-            </React.Fragment>
-          ))}
-          {isFetchingNextPage && <TransactionCardSkeleton />}
+          {isLoading && allData.length !== 0 && <TransactionCardSkeleton />}
+          {hasNextPage && (
+            <div className="text-center mt-3">
+              <button
+                className="btn btn-primary"
+                onClick={() => handleLoadMore()}
+                disabled={isLoading && allData.length !== 0}
+              >
+                {isLoading && allData.length !== 0 ? "Loading..." : "Load More"}
+              </button>
+            </div>
+          )}
         </>
-      )}
-
-      {/* Load More Button */}
-      {hasNextPage && (
-        <div className="text-center mt-3">
-          <button
-            className="btn btn-primary"
-            onClick={() => fetchNextPage()}
-            disabled={isFetchingNextPage}
-          >
-            {isFetchingNextPage ? "Loading..." : "Load More"}
-          </button>
-        </div>
       )}
     </div>
   );

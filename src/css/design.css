@@ -3226,6 +3226,64 @@
 
 
 
+.network-card.network-loadingskeleton {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  opacity: 0.8;
+}
+
+.network-loadingskeleton .network-loadingskeleton-checkbox {
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.network-loadingskeleton .network-loadingskeleton-image {
+  width: 48px;
+  height: 48px;
+  background: #fff;
+}
+
+/* Only the data placeholders have shimmer effect */
+.network-loadingskeleton .shimmer {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  background: linear-gradient(90deg, #fff, #fff, #fff);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.network-loadingskeleton .network-loadingskeleton-name {
+  width: 150px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.network-loadingskeleton .network-loadingskeleton-email,
+.network-loadingskeleton .network-loadingskeleton-phone {
+  width: 120px;
+  height: 16px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+/* Shimmer effect animation */
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+
+
+
+
 
 
 

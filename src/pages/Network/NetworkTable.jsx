@@ -8,7 +8,7 @@ import { updateSelctionData } from "../../redux/slices/NetworkListSlice";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
-// import { getInitials, truncateText } from "../../utills/utility";
+import { getInitials, truncateText } from "../../utills/utility";
 import NetworkLeadFilter from "../../components/leads/NetworkLeadFilter";
 import { LoadingJsx } from "./NetworkPage";
 
@@ -140,7 +140,7 @@ const NetworkTable = ({ list, meta }) => {
         
       </div> */}
 
-      {/* <div className="no-display-small-only">
+      <div className="">
       {list && list.length > 0 && (
       <div className="d-flex align-item-center gap-2">
         <input type="checkbox" onChange={handleSelectAll} />{" "}
@@ -173,22 +173,22 @@ const NetworkTable = ({ list, meta }) => {
                         className="rounded-circle"
                       />
                     ) : (
-                      <div className="network-card-initials rounded-circle bg-black p-2 ">
+                      <div className="network-card-initials rounded-circle p-2 ">
                         {getInitials(row.user.first_name, row.user.last_name)}
                       </div>
                     )}
                   </div>
                   <div className="network-card-info ms-3">
-                    <h5 className="network-card-name mb-0">
+                    <h5 className="network-card-name mb-0 text-white">
                       {truncateText(
                         `${row.user.first_name} ${row.user.last_name}`,
                         26
                       )}
                     </h5>
-                    <p className="network-card-email mb-1 ">
+                    <p className="network-card-email mb-1 text-white ">
                       {truncateText(row.user.email, 23)}
                     </p>
-                    <p className="network-card-phone mb-0">
+                    <p className="network-card-phone mb-0 text-white">
                       {row.user.phone_number}
                     </p>
                   </div>
@@ -228,10 +228,10 @@ const NetworkTable = ({ list, meta }) => {
           />
         </div>
       )}  
-      </div> */}
+      </div>
 
       {/* <div className="display-small-only"> */}
-      <Table responsive className="bg-white ">
+      {/* <Table responsive className="bg-white ">
         <thead className="border-bottom-0">
           <tr className="pricingcard-premium">
             <th>
@@ -311,7 +311,7 @@ const NetworkTable = ({ list, meta }) => {
             </td>
           </tr>
         </tfoot>
-      </Table>
+      </Table> */}
 
       {/* </div> */}
     </div>

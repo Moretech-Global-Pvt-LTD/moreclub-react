@@ -11,6 +11,8 @@ import Loading from "../../components/loading/loading";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import { getInitials, truncateText } from "../../utills/utility";
+import NetworkLeadFilter from "../../components/leads/NetworkLeadFilter";
+import { LoadingJsx } from "../Network/NetworkPage";
 
 const LeadTable = ({ list, meta }) => {
   const [selectedRows, setSelectedRows] = useState([]);
@@ -57,6 +59,7 @@ const LeadTable = ({ list, meta }) => {
     const newPath = `${location.pathname}?${searchParams.toString()}`;
     navigate(newPath, { replace: true });
   };
+
   const handlePageOffset = (e) => {
     setOffset(e.target.value);
     const searchParams = new URLSearchParams(location.search);
@@ -104,7 +107,7 @@ const LeadTable = ({ list, meta }) => {
   };
 
   if (isLoading) {
-    return <Loading />;
+    return  <LoadingJsx/>
   }
 
   if (isError) {
@@ -113,31 +116,7 @@ const LeadTable = ({ list, meta }) => {
 
   return (
     <div>
-      <div className="table-controls d-flex align-items-center justify-content-between mb-3 ">
-        <div className="">
-          <label htmlFor="rowsPerPage" className="me-3">
-            Leads per page:
-          </label>
-          <select
-            id="rowsPerPage"
-            value={limit}
-            onChange={handlePagelimit}
-            className="form-select"
-          >
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="250">250</option>
-            <option value="500">500</option>
-            <option value="1000">1000</option>
-          </select>
-        </div>
-        {/* <div>
-          <label htmlFor="rowsPerPage" className="me-3">
-            Start from:
-          </label>
-          <input value={offset} onChange={handlePageOffset} type="number" className="form-control"/>
-        </div> */}
+      <NetworkLeadFilter>
         <div>
           {permissions && permissions.send_sms_refer && (
             <Link to="/network/message">
@@ -159,7 +138,7 @@ const LeadTable = ({ list, meta }) => {
             </Button>
           )}
         </div>
-      </div>
+      </NetworkLeadFilter>
       {list && list.length > 0 && (
         <div className="d-flex align-item-center gap-2">
           <input type="checkbox" onChange={handleSelectAll} />{" "}
@@ -202,16 +181,16 @@ const LeadTable = ({ list, meta }) => {
                     )}
                   </div>
                   <div className="network-card-info ms-3">
-                    <h5 className="network-card-name mb-0">
+                    <h5 className="network-card-name mb-0 text-white">
                       {truncateText(
                         `${row.user.first_name} ${row.user.last_name}`,
                         26
                       )}
                     </h5>
-                    <p className="network-card-email mb-1 ">
+                    <p className="network-card-email text-white mb-1 ">
                       {truncateText(row.user.email, 26)}
                     </p>
-                    <p className="network-card-phone mb-0">
+                    <p className="network-card-phone text-white mb-0">
                       {row.user.phone_number}
                     </p>
                   </div>

@@ -106,9 +106,11 @@ const HeaderUserInfo = () => {
                       )}
                     </h6>
                   </Link> :
+                  <Link to="/business-profile">
                   <Button className="btn btn-warning btn-sm">
                     Add Business Info
                   </Button>
+                  </Link>
                   // <Link to="/profile">
                   //   <h6 className="lh-1 text-dark fz-18">
                   //     {capitalizeFirstLetterOfEachWord(

@@ -53,10 +53,10 @@ const LeadsTransactionCard = ({
           <div className="d-grid w-100">
             <span className="fw-medium mb-2 d-flex justify-content-between py-2">
               <span className="fw-medium d-flex flex-column justify-content-start">
-                <span style={{ fontSize: "16px" }}>{narration}</span>
+                <span style={{ fontSize: "16px" }}>{narration[0].toUpperCase() + narration.slice(1)}</span>
                 <span>
                   <i className="bi bi-calendar"></i>&nbsp;&nbsp;
-                  {moment.utc(transactiontime).local().format("h:mm a")}
+                  {moment.utc(transactiontime).local().format("MMM DD, YY h:mm a")}
                 </span>
               </span>
               <span className="fw-medium">
