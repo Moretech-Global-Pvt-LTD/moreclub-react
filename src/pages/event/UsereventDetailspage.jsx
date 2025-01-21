@@ -11,6 +11,7 @@ import { message } from "antd";
 import { useSelector } from "react-redux";
 import DashboardLayout from "../../components/Layout/DashboardLayout";
 import BookingTable from "./bookingtable";
+import UniversalErrorbox from "../../components/Layout/UniversalErrorBox";
 
 const UserEventDetailPage = () => {
   const { eventId } = useParams();
@@ -88,9 +89,8 @@ const UserEventDetailPage = () => {
   if (isError) {
     return (
       <DashboardLayout className="text-dynamic-white">
-        <Divider />
-        <h6 className="text-dynamic-white text-center">Error: reteriving</h6>
-        <Divider />
+        
+        <UniversalErrorbox message="Something went wrong while fetching the data." retry={["userevent", eventId]} />
       </DashboardLayout>
     );
   }

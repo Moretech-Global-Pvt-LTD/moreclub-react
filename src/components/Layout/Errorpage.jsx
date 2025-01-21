@@ -1,5 +1,4 @@
 import React from 'react'
-import DashboardLayout from './DashboardLayout'
 import Divider from '../divider/Divider'
 import ErrorPage from './ErrorContent'
 import LandingLayout from './LandingLayout'

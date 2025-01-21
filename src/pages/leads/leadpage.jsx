@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Placeholder, Table } from "react-bootstrap";
 import LeadTable from "./LeadTable";
 import { LoadingJsx } from "../Network/NetworkPage";
+import UniversalErrorbox from "../../components/Layout/UniversalErrorBox";
 
 const fetchLeads = async (page, limit=20 , offset=0, q = "",
   time = "",
@@ -54,7 +55,9 @@ const LeadPage = () => {
   if (isError) {
     return (
       <DashboardLayout title={"Leads"}>
-        <p className="text-dynamic-white">Error retriving the data...</p>
+        <UniversalErrorbox message="Something went wrong while fetching the network data" 
+        retry={["leads", page, limit, offset, q, time, date_from, date_to]}
+        />
       </DashboardLayout>
     );
   }

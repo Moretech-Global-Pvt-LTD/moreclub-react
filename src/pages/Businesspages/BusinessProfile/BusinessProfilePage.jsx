@@ -10,6 +10,7 @@ import { axiosInstance } from "../../..";
 import { businessProfileSucess } from "../../../redux/slices/businessSlice";
 import { userMembership } from "../../../redux/api/userMembershipAPI";
 import ProfileCardSkeleton from "../../../components/Skeleton/ProfileCard";
+import UniversalErrorbox from "../../../components/Layout/UniversalErrorBox";
 
 const BusinessProfilePage = () => {
  
@@ -37,7 +38,11 @@ const BusinessProfilePage = () => {
   }
 
   if (isError) {
-    <div className="text-dynamic white">Error getting page data</div>;
+    <DashboardLayout>
+      <UniversalErrorbox 
+      retry={["business profile"]}
+      />
+    </DashboardLayout>;
   }
 
 

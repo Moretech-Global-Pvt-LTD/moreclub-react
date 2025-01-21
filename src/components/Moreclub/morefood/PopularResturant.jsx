@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import PopularresturantCarousel from './PopularresturantCarousel';
 import RestaurantCardSkeleton from '../../Skeleton/RestaurantCardSkeleton';
 import { morefoodPublicAxios } from '../../../utills/axios/morefoodaxios';
+import UniversalErrorbox from '../../Layout/UniversalErrorBox';
 
 const PopularResturant = () => {
 
@@ -27,7 +28,9 @@ const PopularResturant = () => {
     }
 
     if (isError) {
-      return <div className="text-dynamic-white">Error: retriving</div>;
+      return <UniversalErrorbox message="Something went wrong while fetching the Restaurants" 
+      retry={["More Food Popular Resturant List"]}
+      />
     }
   return (
     <div>

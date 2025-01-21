@@ -5,6 +5,7 @@ import PopularSaloonCarousel from './PopularSaloonCarousel';
 
 import Cookies from "js-cookie"
 import { moresalonPublicAxios } from '../../../utills/axios/moresalonaxios';
+import UniversalErrorbox from '../../Layout/UniversalErrorBox';
 
 const PopularSaloon = () => {
 
@@ -29,7 +30,9 @@ const PopularSaloon = () => {
     }
 
     if (isError) {
-        return <div className="text-dynamic-white">Error: retriving</div>;
+        return <UniversalErrorbox message="Something went wrong while fetching the Salons" 
+        retry={["Popular Saloon List"]}
+        />
     }
 
   return (

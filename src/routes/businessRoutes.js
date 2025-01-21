@@ -6,7 +6,6 @@ import Eventcreate from "../pages/event/eventcreate";
 import EventUpdate from "../pages/event/eventupdate";
 import UserEventDetailPage from "../pages/event/UsereventDetailspage";
 import UserEventpage from "../pages/event/userEventpage";
-import LeadDetails from "../pages/leads/LeadDetails";
 import LeadPage from "../pages/leads/leadpage";
 
 const businessRoutes = [
@@ -14,10 +13,7 @@ const businessRoutes = [
     path: "/leads",
     page: <LeadPage />,
   },
-  {
-    path: "/leads/:username",
-    page: <LeadDetails />,
-  },
+  
   {
     path: "/billing",
     page: <BillingPage />,

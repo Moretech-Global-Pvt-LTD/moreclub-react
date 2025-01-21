@@ -7,6 +7,7 @@ import { Placeholder } from 'react-bootstrap';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { baseURL } from '../../config/config';
+import UniversalErrorbox from '../../components/Layout/UniversalErrorBox';
 
 const BlogDetailPage = () => {
 
@@ -19,7 +20,7 @@ const BlogDetailPage = () => {
             const data = await response.data.data;
             return data;
         },
-        staleTime: 100,
+        staleTime: 360000,
     });
 
     if (isLoading) {
@@ -70,7 +71,9 @@ const BlogDetailPage = () => {
     }
 
     if (isError) {
-        return <div className="text-dynamic-white">Error: retriving</div>;
+        return <UniversalErrorbox message="Something went wrong while fetching the data" 
+        retry={["Blog details", slug]}
+        />
     }
 
     return (

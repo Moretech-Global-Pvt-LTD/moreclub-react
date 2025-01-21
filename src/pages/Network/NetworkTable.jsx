@@ -36,7 +36,7 @@ const NetworkTable = ({ list, meta }) => {
       const response = await axiosInstance.get(`${baseURL}permissions/list/`);
       return response.data.data;
     },
-    staleTime: 1000,
+    staleTime: 240000,
   });
 
   const handleCheckboxChange = (e, rowData) => {
@@ -164,7 +164,9 @@ const NetworkTable = ({ list, meta }) => {
                     checked={selectedRows.includes(row)}
                   />
                 </div>
-                <div className="network-card-body d-flex align-items-center">
+                <div className="network-card-body d-flex align-items-center"
+                onClick={() => navigate(`/network/${row.user.username}`)}
+                >
                   <div className="network-card-image ">
                     {row.user.profile_image ? (
                       <img

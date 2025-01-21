@@ -5,6 +5,7 @@ import { baseURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { axiosInstance } from "../..";
+import UniversalErrorbox from "../Layout/UniversalErrorBox";
 
 const DashboardOffers = () => {
   const { data, isLoading, isError } = useQuery({
@@ -35,7 +36,9 @@ const DashboardOffers = () => {
   }
 
   if (isError) {
-    <div className="text-dynamic white">Error getting data</div>;
+    <UniversalErrorbox message="Something went wrong while fetching the Offer data" 
+        retry={["business types"]}
+        />;
   }
 
   return (

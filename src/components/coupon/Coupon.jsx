@@ -5,6 +5,7 @@ import { baseURL } from "../../config/config";
 import { Button, Placeholder } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import UniversalErrorbox from "../Layout/UniversalErrorBox";
 
 export default function Coupon() {
   const { data, isLoading, isError } = useQuery({
@@ -39,7 +40,9 @@ export default function Coupon() {
   }
 
   if (isError) {
-    return <div className="text-dynamic-white">Error: reteriving</div>;
+    return <UniversalErrorbox message="Something went wrong while fetching the Coupons list" 
+    retry={["coupons"]}
+    />;;
   }
 
   const oneMonthCoupons = data.filter(coupon => coupon.expiry_date_days === 30);

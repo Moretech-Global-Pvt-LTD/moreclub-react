@@ -7,6 +7,7 @@ import SaloonUpdateInfoForm from '../../../../components/Moreclub/Saloon/SaloonU
 import SaloonBanner from '../../../../components/Moreclub/Saloon/SaloonBanner';
 import SaloonLogo from '../../../../components/Moreclub/Saloon/SaloonLogo';
 import { moresalonAuthenticatedAxios } from '../../../../utills/axios/moresalonaxios';
+import DashboardLayout from '../../../../components/Layout/DashboardLayout';
 
 const SaloonUpdate = () => {
 
@@ -40,7 +41,9 @@ const SaloonUpdate = () => {
   }
 
   if (isError) {
-    return <div className="text-dynamic-white">Error: retriving</div>;
+    return <Saloonlayout>
+      <div className="text-dynamic-white">Error: retriving</div>;
+    </Saloonlayout>
   }
 
 

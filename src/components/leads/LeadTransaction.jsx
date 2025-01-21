@@ -5,6 +5,7 @@ import { axiosInstance } from "../..";
 import TransactionCardSkeleton from "../Skeleton/TransactionCardSkeleton";
 import LeadsTransactionCard from "./LeadTransactionCard";
 import { baseURL } from "../../config/config";
+import UniversalErrorbox from "../Layout/UniversalErrorBox";
 
 const LeadTransactions = ({ username }) => {
   const [offset, setOffset] = useState(0);
@@ -47,7 +48,9 @@ const LeadTransactions = ({ username }) => {
   }
 
   if (isError) {
-    return <div className="text-dynamic-white">Error: retrieving</div>;
+    return <UniversalErrorbox message="Something went wrong while fetching the Transactions" 
+    retry={["leadtransaction", username, offset]}
+    />
   }
 
   return (

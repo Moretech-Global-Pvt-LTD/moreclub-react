@@ -7,9 +7,6 @@ const TimezoneSelector = ({ selectedTimezone, onTimezoneChange }) => {
 
  const theme = useSelector((state) => state.theme);
 
-  
-
-  console.log(theme);
 
   const customStyles = {
     control: (provided, state) => ({

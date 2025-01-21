@@ -16,6 +16,7 @@ import {
   Validatelogo,
   validateLongDescription,
   validateResturantName,
+  validateTimeZone,
   validateWebsiteURL,
 } from "../../../validation/resturantValidation";
 import MapBoxLocationDisplayAutocomplete from "../../Googlemap/MapLocationInput";
@@ -23,6 +24,8 @@ import TagsInput from "../CommonComponents/TagInput";
 import { useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import { moresalonAuthenticatedAxios, moresalonPublicAxios } from "../../../utills/axios/moresalonaxios";
+import moment from "moment-timezone";
+import TimezoneSelector from "../CommonComponents/TimeZoneInput";
 // import FormSubmissionLoading from "../../Skeleton/FormSubmissionLoading";
 
 const SaloonCreateForm = () => {
@@ -59,6 +62,7 @@ const SaloonCreateForm = () => {
     facebook_link: "",
     instagram_link: "",
     amenities: [],
+    timezone: moment.tz.guess() || "",
   });
 
   const [errors, setErrors] = useState({});
@@ -97,6 +101,8 @@ const SaloonCreateForm = () => {
       tempErrors.contact_no = validateContactNumber(fieldValues.contact_no);
     if ("email" in fieldValues)
       tempErrors.email = validateEmail(fieldValues.email);
+    if ("timezone" in fieldValues)
+          tempErrors.restro_timezone = validateTimeZone(fieldValues.restro_timezone);
     setErrors({ ...tempErrors });
   };
 
@@ -131,6 +137,8 @@ const SaloonCreateForm = () => {
         return Validatebanner(value);
       case "logo":
         return Validatelogo(value);
+      case "timezone":
+        return validateTimeZone(value);
       default:
         return "";
     }
@@ -200,6 +208,14 @@ const SaloonCreateForm = () => {
       [name]: type === "checkbox" ? (checked ? true : false) : value,
     }));
     validateForm({ [name]: type === "checkbox" ? checked : value });
+  };
+
+  const handleTimezoneChange = (timezone) => {
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      timezone: timezone,
+    }));
+    validateForm({ timezone: timezone });
   };
 
   const handleCountryChange = (e) => {
@@ -276,7 +292,6 @@ const SaloonCreateForm = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       setIsLoading(true);
-
       try {
         const res = await moresalonAuthenticatedAxios.post(
           `moreclub/saloon/setup/`,
@@ -414,7 +429,19 @@ const SaloonCreateForm = () => {
                         onTagsChange={handleTagsChange}
                       />
                       <p className="text-danger">{errors.amenities}</p>
+                    
+                    
                     </Col>
+                    <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
+                  <Form.Group controlId="formDeliveryTime">
+                    <TimezoneSelector
+                      selectedTimezone={formValues.timezone}
+                      onTimezoneChange={handleTimezoneChange}
+                    />
+                    <p className="text-danger">{errors.timezone}</p>
+                  </Form.Group>
+                </Col>
+
                     <h6 className="mt-3">Social Media Links</h6>
                     <Col xs={12} md={6} lg={6} xl={12} xxl={12}>
                       <Form.Group controlId="formWebsitelink">

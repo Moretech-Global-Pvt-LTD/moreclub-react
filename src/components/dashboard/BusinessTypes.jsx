@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import BusinessTypesCard from "./BusinessTypesCard";
 import axios from "axios";
 import { BestDealsinTownSkeleton } from "../Skeleton/SmallCardSkeleton";
+import UniversalErrorbox from "../Layout/UniversalErrorBox";
 
 const BusinessTypes = ({ toppart }) => {
   const { data, isLoading, isError } = useQuery({
@@ -22,7 +23,9 @@ const BusinessTypes = ({ toppart }) => {
   }
 
   if (isError) {
-    <div className="text-dynamic white">Error getting data</div>;
+    return <UniversalErrorbox message="Something went wrong while fetching the Deals" 
+        retry={["business types"]}
+        />;
   }
 
   return (

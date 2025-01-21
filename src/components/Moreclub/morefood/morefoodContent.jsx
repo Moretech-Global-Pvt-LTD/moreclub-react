@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { morefoodhostURL } from "../../../config/config";
 import RestaurantCardSkeleton from "../../Skeleton/RestaurantCardSkeleton";
 import { morefoodPublicAxios } from "../../../utills/axios/morefoodaxios";
+import UniversalErrorbox from "../../Layout/UniversalErrorBox";
 
 const MorefoodContent = () => {
   const { data, isLoading, isError } = useQuery({
@@ -24,8 +25,9 @@ const MorefoodContent = () => {
   }
 
   if (isError) {
-    return <div className="text-dynamic-white">Error: retriving
-    </div>;
+    return <UniversalErrorbox message="Something went wrong while fetching the Restaurants" 
+    retry={["More Food Resturant List"]}
+    />
   }
 
 

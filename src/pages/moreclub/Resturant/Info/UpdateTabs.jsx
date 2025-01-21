@@ -6,6 +6,7 @@ import UpdateInfoForm from "../../../../components/Moreclub/Resturant/Setup/upda
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
+import UniversalErrorbox from "../../../../components/Layout/UniversalErrorBox";
 
 const InfoUpdateTabs = () => {
   const [activeTab, setActiveTab] = useState("Information");
@@ -38,7 +39,10 @@ const InfoUpdateTabs = () => {
       }
 
       if (isError) {
-        return <div className="text-dynamic-white">Error: retriving</div>;
+        return  <UniversalErrorbox 
+        message='Something went wrong while fetching the Restaurant data'
+        retry={[`Restaurant ${id}`]}
+        />
       }
   
   
