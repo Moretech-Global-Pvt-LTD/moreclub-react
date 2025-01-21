@@ -40,7 +40,7 @@ const LeadTable = ({ list, meta }) => {
       const response = await axiosInstance.get(`${baseURL}permissions/list/`);
       return response.data.data;
     },
-    staleTime: 1000,
+    staleTime: 240000,
   });
 
   const handleCheckboxChange = (e, rowData) => {
@@ -165,7 +165,7 @@ const LeadTable = ({ list, meta }) => {
                 </div>
                 <div
                   className="network-card-body d-flex align-items-center"
-                  onClick={() => navigate(`/leads/${row.user.username}`)}
+                  onClick={() => navigate(`/network/${row.user.username}`)}
                 >
                   <div className="network-card-image ">
                     {row.user.profile_image ? (

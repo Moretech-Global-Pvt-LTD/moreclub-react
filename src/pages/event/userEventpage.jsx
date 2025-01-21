@@ -8,6 +8,7 @@ import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import EventCardSkeleton from "../../components/Skeleton/EventCardSkeleton";
 import Divider from "../../components/divider/Divider";
+import UniversalErrorbox from "../../components/Layout/UniversalErrorBox";
 
 const UserEventpage = () => {
   const location = useLocation();
@@ -80,7 +81,10 @@ const UserEventpage = () => {
   if (isError) {
     return (
       <DashboardLayout title={"Events"}>
-        <p className="text-dynamic-white">Error: reteriving</p>
+        <UniversalErrorbox
+        message="Something went wrong while fetching the events." 
+      retry={["event", starting, ending]}
+      />
       </DashboardLayout>
     );
   }

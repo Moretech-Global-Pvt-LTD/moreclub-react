@@ -7,6 +7,7 @@ import Divider from "../../components/divider/Divider";
 import EventCarousel from "./EventCarousel";
 import { Link } from "react-router-dom";
 import RestaurantCardSkeleton from "../Skeleton/RestaurantCardSkeleton";
+import UniversalErrorbox from "../Layout/UniversalErrorBox";
 
 const EventDashboardDisplay = () => {
   const { data, isLoading, isError } = useQuery({
@@ -29,7 +30,9 @@ const EventDashboardDisplay = () => {
   if (isError) {
     return (
       <>
-        <div className="text-dynamic-white">Error: reteriving</div>
+       <UniversalErrorbox message="Something went wrong while fetching the Popular Events " 
+        retry={["event"]}
+        />;
         <Divider />
       </>
     );

@@ -3,9 +3,9 @@ import DashboardLayout from "../../components/Layout/DashboardLayout";
 import LeadTransactions from "../../components/leads/LeadTransaction";
 import { useParams } from "react-router-dom";
 import MessageHistoryList from "../../components/leads/LeadMessageList";
-import { Button, Modal, Placeholder } from "react-bootstrap";
+import { Modal, Placeholder } from "react-bootstrap";
 import LeadMessageContent from "./LeadMessage";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 
@@ -13,42 +13,9 @@ const LeadDetails = () => {
   const { username } = useParams();
   const [openSendMessage, setOpenSendMessage] = React.useState(false);
   const [activeTab, setActiveTab] = useState("transactions");
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      sender: "user",
-      via: "email",
-      senderName: "John Doe",
-      timestamp: Date.now(),
-      subject: "Order Inquiry",
-      body: "Hi there! I wanted to ask about my recent order.",
-    },
-    {
-      id: 2,
-      sender: "admin",
-      senderName: "Support Team",
-      via: "email",
-      timestamp: "2025-01-10T12:32:00",
-      subject: "Order Inquiry",
-      body: "Hello John! Sure, could you provide your order ID?",
-    },
-    {
-      id: 3,
-      sender: "user",
-      senderName: "John Doe",
-      via: "phone_number",
-      timestamp: "2025-01-09T12:35:00",
-      body: "The order ID is #12345. Can you check if it's shipped?",
-    },
-    {
-      id: 4,
-      sender: "admin",
-      senderName: "Support Team",
-      via: "email",
-      timestamp: "2025-01-09T12:40:00",
-      body: "Thank you! Let me check that for you. It seems your order has been shipped and is on its way.",
-    },
-  ]);
+ 
+  const queryClient = useQueryClient();
+
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["lead details", username],
@@ -62,21 +29,13 @@ const LeadDetails = () => {
   });
 
   const onFinishUpdate = ({ newmessage }) => {
-    setMessages((prevMessages) => {
-      return [
-        {
-          id: prevMessages.length + 1,
-          ...newmessage,
-        },
-        ...prevMessages,
-      ];
-    });
+    queryClient.invalidateQueries(["lead message", username]); 
   };
 
-  console.log("messages", data?.data?.data?.username);
+  
 
   return (
-    <DashboardLayout title={"Lead Details"}>
+    <DashboardLayout title={"Details"}>
       <div class="leed-detail-page">
         <div className="lead-top-container">
           <div>
@@ -151,7 +110,7 @@ const LeadDetails = () => {
             )}
             {data && (
               <div class="leed-detail-header">
-                {data?.data?.data?.display_picture === null ? (
+                {data?.data?.data?.display_picture !== null ? (
                   <div class="leed-detail-profile-image">
                     <img
                       src={data?.data?.data?.display_picture}
@@ -160,8 +119,8 @@ const LeadDetails = () => {
                   </div>
                 ) : (
                   <div
-                    class="leed-detail-profile-image bg-white text-black d-flex align-items-center justify-content-center fw-bold fs-6 rounded-pill"
-                    style={{ width: "4rem", height: "4rem" }}
+                    class="leed-detail-profile-image  text-black d-flex align-items-center justify-content-center fw-bold fs-6 rounded-pill "
+                    style={{ width: "4rem", height: "4rem", background: "#ffffff" }}
                   >
                     {data?.data?.data?.first_name[0].toUpperCase()}
                     {data?.data?.data?.last_name[0].toUpperCase()}
@@ -198,7 +157,8 @@ const LeadDetails = () => {
               <h3 className="fs-5 d-flex align-items-center justify-content-between">
                 Message History{" "}
               </h3>
-              <MessageHistoryList messages={messages} />
+              <p>hello</p>
+              <MessageHistoryList username={username} />
             </div>
           </div>
 
@@ -229,7 +189,7 @@ const LeadDetails = () => {
         </div>
         <div className="leads-tab-content">
           {activeTab === "messages" ? (
-            <MessageHistoryList messages={messages} />
+            <MessageHistoryList username={username} />
           ) : (
             <LeadTransactions username={username} />
           )}
@@ -254,8 +214,9 @@ const LeadDetails = () => {
         <Modal.Body>
           <LeadMessageContent
             network={{
-              email: "navinlamsal11@gmail.com",
-              phone: "+9779846983867",
+              username: data?.data?.data?.username,
+              email: data?.data?.data?.email,
+              phone: data?.data?.data?.phone_number,
             }}
             onClose={() => {
               setOpenSendMessage(false);

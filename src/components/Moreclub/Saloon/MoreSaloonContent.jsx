@@ -6,6 +6,7 @@ import { Row } from 'react-bootstrap';
 import SaloonCard from './SaloonCard';
 import Cookies from "js-cookie"
 import { moresalonPublicAxios } from '../../../utills/axios/moresalonaxios';
+import UniversalErrorbox from '../../Layout/UniversalErrorBox';
 
 const MoreSaloonContent = () => {
 
@@ -32,7 +33,9 @@ const MoreSaloonContent = () => {
     }
 
     if (isError) {
-        return <div className="text-dynamic-white">Error: retriving</div>;
+        return <UniversalErrorbox message="Something went wrong while fetching the Salons" 
+        retry={["More Saloon List"]}
+        />
     }
 
 

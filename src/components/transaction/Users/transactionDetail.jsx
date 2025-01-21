@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { baseURL } from "../../../config/config";
 import { axiosInstance } from "../../..";
 import { Placeholder } from "react-bootstrap";
+import UniversalErrorbox from "../../Layout/UniversalErrorBox";
 
 
 
@@ -46,9 +47,9 @@ const TransactionDetailView = ({
 
   if (isError) {
     return (
-      <p>
-        Error: retriving
-      </p>
+      <UniversalErrorbox message="Something went wrong while fetching the Transaction details" 
+    retry={[`USER transaction detail ${transaction_id}`]}
+    />
     );
   }
 

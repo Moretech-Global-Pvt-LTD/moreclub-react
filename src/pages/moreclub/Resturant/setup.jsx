@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import RestaurantLayoutSkeleton from '../../../components/Skeleton/RestaurantLayout';
 import RestaurantLayout from '../../../components/Layout/RestaurantLayout';
 import { morefoodAuthenticatedAxios } from '../../../utills/axios/morefoodaxios';
+import UniversalErrorbox from '../../../components/Layout/UniversalErrorBox';
 
 const Setup = () => {
    const { id } = useParams();
@@ -30,7 +31,12 @@ const Setup = () => {
   }
 
   if (isError) {
-    return <RestaurantLayout className="text-dynamic-white">Error: retriving</RestaurantLayout>;
+    return <RestaurantLayout className="text-dynamic-white">
+      <UniversalErrorbox 
+      message='Something went wrong while fetching the Restaurant data'
+      retry={[`Restaurant ${id}`]}
+      />
+    </RestaurantLayout>;
   }
 
 

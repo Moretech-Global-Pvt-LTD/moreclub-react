@@ -10,6 +10,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
 import TransactionCardSkeleton from "../../Skeleton/TransactionCardSkeleton";
+import UniversalErrorbox from "../../Layout/UniversalErrorBox";
 
 const BillingTransaction = () => {
   const location = useLocation();
@@ -81,7 +82,10 @@ const BillingTransaction = () => {
   }
 
   if (isError) {
-    return <div className="text-dynamic-white">Error: retriving</div>;
+    return <UniversalErrorbox 
+    message="Something went wrong while fetching the transactions"
+    retry={["all business transactions", activeTab, starting, ending]}
+    />
   }
 
   return (

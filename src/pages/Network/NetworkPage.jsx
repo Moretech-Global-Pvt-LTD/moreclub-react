@@ -12,6 +12,7 @@ import Unauthorized from "../../components/unauthorized/unauthorized";
 import { useQuery } from "@tanstack/react-query";
 import { Placeholder, Table } from "react-bootstrap";
 import NetworkLeadFilter from "../../components/leads/NetworkLeadFilter";
+import UniversalErrorbox from "../../components/Layout/UniversalErrorBox";
 
 const fetchReferals = async (
   page,
@@ -60,7 +61,7 @@ const NetworkPage = () => {
     return (
       <DashboardLayout title={"Networks"}>
         <NetworkLeadFilter />
-        <Table responsive className="bg-white">
+        {/* <Table responsive className="bg-white">
           <thead className="border-bottom-0">
             <tr className="pricingcard-premium">
               <th className="text-white"> Name</th>
@@ -77,7 +78,10 @@ const NetworkPage = () => {
               
             </tr>
           </tbody>
-        </Table>
+        </Table> */}
+        <UniversalErrorbox message="Something went wrong while fetching the network data" 
+        retry={["referals", page, limit, offset, q, time, date_from, date_to]}
+        />
       </DashboardLayout>
     );
   }
@@ -89,7 +93,9 @@ const NetworkPage = () => {
       ) : (
         <>
           {permission.permission && permission.permission.my_network ? (
+            <>
             <NetworkTable list={data.data} meta={data.meta} />
+            </>
           ) : (
             <Unauthorized />
           )}

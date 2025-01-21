@@ -5,6 +5,7 @@ import { axiosInstance } from '../..';
 import { useQuery } from '@tanstack/react-query';
 import { morefoodURL } from '../../config/config';
 import Cookies from "js-cookie"
+import UniversalErrorbox from '../../components/Layout/UniversalErrorBox';
 
 
 const RestaurantCusine = () => {
@@ -34,7 +35,9 @@ const RestaurantCusine = () => {
     }
 
     if (isError) {
-        return <div className="text-dynamic-white">Error: retriving</div>;
+        return <UniversalErrorbox message="Something went wrong while fetching the Cuisines" 
+        retry={["morefood Cuisine List "]}
+        />
     }
 
   

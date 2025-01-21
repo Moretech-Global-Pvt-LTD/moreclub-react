@@ -8,6 +8,7 @@ import { baseURL } from "../../config/config";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Placeholder } from "react-bootstrap";
+import UniversalErrorbox from "../Layout/UniversalErrorBox";
 
 export default function Project(props) {
   const { heading } = props;
@@ -40,7 +41,9 @@ export default function Project(props) {
   }
 
   if (isError) {
-    return <div className="text-dynamic-white">Error: reteriving</div>;
+    return <UniversalErrorbox message="Something went wrong while fetching the Projects" 
+    retry={["project"]}
+    />;
   }
 
   const ProjectCards = data.slice(0, 3).map((proj, index) => (

@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { baseURL, imageURL } from "../../config/config";
+import { baseURL } from "../../config/config";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Placeholder } from "react-bootstrap";
-import ReactMarkdown from "react-markdown";
+import UniversalErrorbox from "../../components/Layout/UniversalErrorBox";
 
 const PrivacyContent = () => {
   const metaInfo = useSelector((state) => state.metaReducer);
@@ -66,7 +66,9 @@ const PrivacyContent = () => {
   }
 
   if (isError) {
-    return <div className="text-dynamic-white">Error: retriving</div>;
+    return <UniversalErrorbox message="Something went wrong while fetching the data" 
+    retry={["privacy"]}
+    />
   }
 
 

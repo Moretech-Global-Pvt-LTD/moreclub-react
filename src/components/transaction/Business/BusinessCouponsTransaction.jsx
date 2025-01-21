@@ -87,7 +87,7 @@ const BusinessCouponsTransactions = () => {
   if (isError) {
     return <div className="text-dynamic-white">Error: retriving</div>;
   }
-  console.log("pages", data);
+
 
   return (
     <div

@@ -33,10 +33,16 @@ import NotificationPage from "../pages/UserPages/notification/NotificationPage";
 import Profile from "../pages/UserPages/profile/Profile";
 import ProfileChange from "../pages/UserPages/profile/ProfileChange";
 import BusinessSetupPage from "../pages/AuthAndRegisterPages/BusinessRegistration/BusinessSetupPage";
+import LeadDetails from "../pages/leads/LeadDetails";
 
 
 
 const userRoutes = [
+
+  {
+    path: "/network/:username",
+    page: <LeadDetails />,
+  },
     {
       path:"/businessSetup",
       page:<BusinessSetupPage/>

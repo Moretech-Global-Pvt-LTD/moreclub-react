@@ -40,17 +40,19 @@ const LeadMessageContent = ({ network, onClose, onFinish }) => {
 
   const sendmessage = async (data) => {
     try {
-      const res = await axiosInstance.post(`${baseURL}sms/send/email/`, data);
+      const res = await axiosInstance.post(`${baseURL}leads/send/sms/${network.username}/`, data);
       message.success("message sent");
-      const newmessage = {
-        sender: "user",
-        senderName: "Navin Lamsal",
-        via: "email",
-        timeStamp: Date.now(),
-        subject: res.data.data.subject,
-        body: res.data.data.message,
-      };
-      onFinish({ newmessage });
+      
+      console.log(res.data);
+      // const newmessage = {
+      //   sender: "user",
+      //   senderName: "Navin Lamsal",
+      //   via: "email",
+      //   timeStamp: Date.now(),
+      //   subject: res.data.data.subject,
+      //   body: res.data.data.message,
+      // };
+      // onFinish({ newmessage });
       if (editorRef.current) {
         editorRef.current.setData("");
       }
@@ -87,7 +89,8 @@ const LeadMessageContent = ({ network, onClose, onFinish }) => {
           const data = {
             subject: subject,
             message: messages,
-            recipients: [network.email],
+            message_type:"Email"
+            // recipients: [network.email],
           };
           await sendmessage(data);
         } else {
@@ -98,6 +101,7 @@ const LeadMessageContent = ({ network, onClose, onFinish }) => {
           const data = {
             message: sms,
             recipients: [network.phone],
+            message_type:"SMS"
           };
           await sendsms(data);
         } else {

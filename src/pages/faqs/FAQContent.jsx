@@ -102,108 +102,6 @@ const FAQContent = () => {
 
       <Row>
         <Col xs={12} lg={8}>
-        {/* <Accordion>
-          {faq && (
-            <>
-              {faq.map((item, index) => (
-                <Accordion.Item
-                  eventKey={`${item.question}-${index}`}
-                  className="text-dynamic-white"
-                >
-                  <Accordion.Header className="text-dynamic-white">
-                    {item.question}
-                  </Accordion.Header>
-                  <Accordion.Body className="text-dynamic-white">
-                    {item.answer}
-                  </Accordion.Body>
-                </Accordion.Item>
-              ))}
-            </>
-          )}
-          {!faq && (
-            <div>
-              <h6 className="text-center">FAQs not avaliable</h6>
-            </div>
-          )}
-        </Accordion>
-
-        <Accordion>
-          <Accordion.Item eventKey={0} className="text-dynamic-white">
-            <Accordion.Header
-              className="text-dynamic-white"
-              onClick={handleSelect}
-            >
-              How to delete my Account ?
-            </Accordion.Header>
-            <Accordion.Body className="text-dynamic-white">
-              <p>
-                To delete your account, click the "Delete Account" button at the
-                bottom of this question.
-              </p>
-              <p className="fw-bold">
-                Read the Following Guidelines before you delete your account
-              </p>
-              <ol>
-                <li>
-                  All your data, including personal information, saved
-                  preferences, and content you've created, will be permanently
-                  removed from our servers. This process is irreversible.
-                </li>
-                <li>
-                  Once your account is deleted, it cannot be recovered. To use
-                  our services again, you will need to create a new account.
-                </li>
-                <li>
-                  Deleting your account will cancel all active subscriptions
-                  associated with your account. Any remaining subscription
-                  period will not be refunded.
-                </li>
-                <li>
-                  The account deletion process is immediate, but it may take up
-                  to 30 days for all your data to be fully removed from our
-                  backup systems.
-                </li>
-                <li>
-                  We recommend resolving any pending orders or transactions
-                  before deleting your account. Deleting your account will
-                  cancel any ongoing transactions.
-                </li>
-                <li>
-                  You can also contact our customer support team to request
-                  account deletion. They will guide you through the process and
-                  confirm your request.
-                </li>
-                <li>
-                  If you face any problems while attempting to delete your
-                  account, please reach out to our customer support team for
-                  assistance.
-                </li>
-                <li>
-                  All your activity, including posts, comments, and
-                  interactions, will be deleted along with your account,
-                  ensuring complete removal of your presence from our platform.
-                </li>
-                <li>
-                  You can delete your account from both the website and the
-                  mobile app. The process is similar in both, located within the
-                  account settings section.
-                </li>
-              </ol>
-            </Accordion.Body>
-          </Accordion.Item>
-          <div className="bg-white">
-            {showdelete && (
-              <button
-                className="btn btn-danger btn-sm my-2 mx-2"
-                style={{ cursor: "pointer" }}
-                onClick={() => toggleModal(true)}
-              >
-                Delete Account
-              </button>
-            )}
-          </div>
-        </Accordion> */}
-          
           {faq && (
             <>
               {faq.map((item, index) => (
@@ -217,12 +115,6 @@ const FAQContent = () => {
                       </p>
                     </div>
                   </Col>
-
-                  {/* <Col md={6}>
-                    <div className="image-container">
-                      <img src={FAQimage} alt="faqs-1" className="img-fluid" />
-                    </div>
-                  </Col> */}
                 </Row>
               ))}
               <Row className="align-items-center d-flex flex-md-row" >

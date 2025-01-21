@@ -9,11 +9,12 @@ import Divider from "../../components/divider/Divider";
 import { useQuery } from "@tanstack/react-query";
 import { baseURL } from "../../config/config";
 import { BestDealsinTownSkeleton } from "../../components/Skeleton/SmallCardSkeleton";
-import { Col, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import Cookies from "js-cookie";
 import axios from "axios";
 import BusinessListCard from "../../components/dashboard/BusinessListCard";
 import { getplatformName } from "../../utills/utility";
+import UniversalErrorbox from "../../components/Layout/UniversalErrorBox";
 
 const BusinessRestaurantPartner = () => {
   const { partnerId, partnerName, cuisineName } = useParams();
@@ -87,7 +88,9 @@ const BusinessPartnerContent = ({ partnerId, CuisineName }) => {
   }
 
   if (isError) {
-    <div className="text-dynamic white">Error getting data</div>;
+    <UniversalErrorbox message="Something went wrong while fetching the Partners" 
+        retry={[`restaurant partners data ${cuisineName} `]}
+        />
   }
 
   return (

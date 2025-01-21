@@ -3282,6 +3282,89 @@
 
 
 
+.universal-errorbox-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* border: 2px solid #ff4d4f; */
+  /* background-color: #fff6f6; */
+  color: #d93025;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 0 auto;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  text-align: center;
+}
+
+.universal-errorbox-illustration {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+.universal-errorbox-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #ffcccc;
+  border: 2px solid #d93025;
+  position: absolute;
+}
+
+.universal-errorbox-face {
+  position: absolute;
+  top: 25px;
+  left: 20px;
+  width: 60px;
+  height: 50px;
+}
+
+.universal-errorbox-eyes {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+.universal-errorbox-eye {
+  width: 10px;
+  height: 10px;
+  background-color: #d93025;
+  border-radius: 50%;
+}
+
+.universal-errorbox-mouth {
+  width: 40px;
+  height: 10px;
+  border-top: 2px solid #d93025;
+  border-radius: 50%;
+  margin: 10px auto 0;
+}
+
+.universal-errorbox-message {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.universal-errorbox-retry-button {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.universal-errorbox-retry-button:hover {
+  background-color: #d93025;
+}
+
+
 
 
 

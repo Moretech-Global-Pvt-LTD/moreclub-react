@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { baseURL } from '../../config/config';
 import { useSearchParams } from 'react-router-dom';
+import UniversalErrorbox from '../../components/Layout/UniversalErrorBox';
 
 const SupportBotPage = () => {
   const [searchParams, setSearchParams] = useSearchParams(); // Hook for managing query parameters
@@ -100,7 +101,9 @@ const SupportBotPage = () => {
   }
 
   if (isError) {
-    return <div className="text-dynamic-white">Error: retriving</div>;
+    return <UniversalErrorbox message="Something went wrong while fetching the data" 
+    retry={["blog list", searchParams ]}
+    />
   }
 
   const handleSearchInputChange = (event) => {
