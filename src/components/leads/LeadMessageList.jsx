@@ -59,15 +59,11 @@ const MessageHistoryList = ({username}) => {
     return <div className="leed-detail-no-messages">No message history available</div>;
   }
 
-  console.log(messagesList);
-
   return (
  
     <div className="Lead-message-card-list">
       {messagesList.map((message, index) => (
-        <>
         <MessageHistoryCard key={message.id} messages={message} />
-        </>
       ))}
     </div>
   );
