@@ -26,6 +26,7 @@ import Setup from "../pages/moreclub/Resturant/setup";
 import OrderDetailsPage from "../pages/moreclub/Resturant/station/OrderDetailPage";
 import StationMenu from "../pages/moreclub/Resturant/station/StationMenu";
 import StationOrder from "../pages/moreclub/Resturant/station/StationOrders";
+import Tablemanagement from "../pages/moreclub/Resturant/tablemanagement/tablemanagement";
 import SetupStationPage from "../pages/moreclub/Station/SetupStationPage";
 import StationDetailPage from "../pages/moreclub/Station/StationDetailPage";
 import StationMenuItems from "../pages/moreclub/Station/StationMenuItem";
@@ -143,6 +144,10 @@ const restaurantRoutes = [
     {
       path: "/resturant/:res_id/opening-duration/:slug",
       page: <OpeninghoursPage />,
+    },
+    {
+      path: "/resturant/:res_id/tablemangement/:slug",
+      page: <Tablemanagement />,
     },
 
     //nearby station

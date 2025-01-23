@@ -179,6 +179,26 @@ const Setuppage = ({ data }) => {
           </Col>
         </Link>
         <Link
+          to={`/resturant/${id}/tablemangement/${name}-tables`}
+          className="d-flex flex-column my-2 "
+        >
+          <Col className="d-flex flex-column my-2">
+            <Card className="p-2 flex-grow-1">
+              <Card.Body className="d-flex justify-content-center">
+                <img
+                  src={'/images/moreclub/morefood/table.png'}
+                  alt="working"
+                  className="px-2 py-1 rounded "
+                  style={{ height: "5rem", width: "5rem" }}
+                />
+              </Card.Body>
+              <Card.Title className="text-dynamic-white text-center fs-6">
+                Table management
+              </Card.Title>
+            </Card>
+          </Col>
+        </Link>
+        <Link
           to={`/station/${id}/nearby?lat=${data.lat}&lng=${data.lng}`}
           className="d-flex flex-column my-2"
         >

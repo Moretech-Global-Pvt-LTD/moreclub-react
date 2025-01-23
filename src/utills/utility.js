@@ -137,15 +137,16 @@ export function parseMembershipData(data, additionalLinks = []) {
   }
 
 
+
   export const getApiUrl = ()=> {
     if (typeof window === "undefined") {
-      return process.env.NEXT_PUBLIC_BASEURL ?? 'https://api.morefood.se/api/'
+      return process.env.REACT_APP_MORE_FOOD_BASE_URL ?? 'https://api.morefood.se/api/'
     }
   
     // Define the mapping of host to API URLs
     const apiUrlMapping = {
-      "SE": process.env.NEXT_PUBLIC_BASEURL ?? 'https://api.morefood.se/api/',
-      "NP": process.env.NEXT_PUBLIC_BASEURL_NEPAL ?? 'https://api.nepalbites.com/api/',
+      "SE": process.env.REACT_APP_MORE_FOOD_BASE_URL ?? 'https://api.morefood.se/api/',
+      "NP": process.env.REACT_APP_MORE_FOOD_BASE_URL_NEPAL ?? 'https://api.nepalbites.com/api/',
     };
   
     // Get the current host from the browser
@@ -155,7 +156,7 @@ export function parseMembershipData(data, additionalLinks = []) {
     const apiUrl = apiUrlMapping[currentCountry];
   
     if (!apiUrl) {
-      return process.env.NEXT_PUBLIC_BASEURL ?? 'https://api.morefood.se/api/'
+      return process.env.REACT_APP_MORE_FOOD_BASE_URL ?? 'http://192.168.1.74:8000/api/';
     }
   
     return apiUrl;

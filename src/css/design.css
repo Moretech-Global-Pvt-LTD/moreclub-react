@@ -3365,6 +3365,41 @@
 }
 
 
+.editable-table {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  background-color: #fff;
+  transition: background-color 0.3s ease; /* Smooth transition for background changes */
+}
+
+.editable-table input,
+.editable-table button {
+  font-size: 14px;
+}
+
+.editable-table .controls {
+  display: flex;
+  gap: 2px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.editable-table .form-control {
+  margin-bottom: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+.editable-table .buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+
 
 
 
