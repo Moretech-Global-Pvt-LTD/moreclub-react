@@ -8,7 +8,7 @@ const SaloonCard = ({ sal, link }) => {
             
             className="restaurant-card-container"
         >
-            <div class="restaurant-card" onClick={()=>handleRedirection("moresaloon" , `/saloon/${sal.id}`)} >
+            <div class="restaurant-card" onClick={()=>handleRedirection("moresaloon" , `/salons/${sal.id}`)} >
                 <div class="restaurant-card-image">
                     <img src={`${sal.banner}`} alt="Saloon-Image" />
                     {/* <span class="open-status">{sal.is_open ? "Open" : `${sal.open_hrs}`}</span> */}
