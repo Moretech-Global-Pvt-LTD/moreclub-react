@@ -34,6 +34,9 @@ import Profile from "../pages/UserPages/profile/Profile";
 import ProfileChange from "../pages/UserPages/profile/ProfileChange";
 import BusinessSetupPage from "../pages/AuthAndRegisterPages/BusinessRegistration/BusinessSetupPage";
 import LeadDetails from "../pages/leads/LeadDetails";
+import PartnerPage from "../pages/Partner/PartnerPage";
+import BusinessTypesDetail from "../pages/Partner/BusinessTypesDetail";
+import BusinessRestaurantPartner from "../pages/Partner/BusinessRestaurantPartner";
 
 
 
@@ -196,6 +199,24 @@ const userRoutes = [
     {
       path: "/reset/pin/",
       page: <ForgetPin />,
+    },
+
+
+
+    {
+      path: "/partners/",
+
+      page: <PartnerPage />,
+    },
+    {
+      path: "/partners/:partnerId/:partnerName",
+
+      page: <BusinessTypesDetail />,
+    },
+    {
+      path: "/partners/:partnerId/:partnerName/:cuisineName/",
+
+      page: <BusinessRestaurantPartner />,
     },
   ];
 

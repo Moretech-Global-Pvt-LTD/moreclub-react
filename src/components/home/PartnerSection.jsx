@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../../config/config";
 import UniversalErrorbox from "../Layout/UniversalErrorBox";
+import { Link } from "react-router-dom";
 
 
 
@@ -70,12 +71,20 @@ const PartnerSection = () => {
 
 
   return (
-    <Container>
+    <Container className="my-4">
       <Row className="justify-content-center text-center">
-        {data.map((partner, index) => (
+        {/* <div className="d-flex justify-content-between align-items-center"> */}
+            <h4 className="mt-4 mb-5">Best Deals in Town </h4>
+            {/* <Link to="/morefood">
+              <Button variant="link">View All</Button>
+            </Link> */}
+        {/* </div> */}
+        {data.map((partner, index) => {
+            const slug = partner.name.replace(/ /g, "-");
+          return(
           <Col xs={6} sm={3} lg={3} xxl={2} key={index} className="partner-logo">
             
-            {/* <a href={partner.web_link} target="_blank" rel="noreferrer"> */}
+            <Link to={`/partners/${partner.id}/${slug}`}>
             <img
               className="partner-logo "
               src={`${partner.banner}`}
@@ -83,9 +92,9 @@ const PartnerSection = () => {
               style={{ height: "100px",  width: "100px", objectFit: "cover", borderRadius: "50%" }}
             />
             <p>{partner.name}</p>
-              {/* </a> */}
+              </Link>
           </Col>
-        ))}
+        )})}
       </Row>
     </Container>
   );

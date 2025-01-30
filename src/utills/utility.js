@@ -162,6 +162,30 @@ export function parseMembershipData(data, additionalLinks = []) {
     return apiUrl;
   };
 
+  export const getwsApiUrl = ()=> {
+    if (typeof window === "undefined") {
+      return process.env.REACT_APP_MORE_FOOD_WS_URL ?? 'api.morefood.se'
+    }
+  
+    // Define the mapping of host to API URLs
+    const apiUrlMapping = {
+      "SE": process.env.REACT_APP_MORE_FOOD_WS_URL ?? 'api.morefood.se',
+      "NP": process.env.REACT_APP_MORE_POOD_NEPAL_WS_URL ?? 'api.nepalbites.com',
+    };
+  
+    // Get the current host from the browser
+    const currentCountry = Cookies.get("countryCode"); // Remove "www." if present
+  
+    // Get the API URL for the current host
+    const apiUrl = apiUrlMapping[currentCountry];
+  
+    if (!apiUrl) {
+      return process.env.REACT_APP_MORE_FOOD_WS_URL ?? 'api.morefood.se';
+    }
+  
+    return apiUrl;
+  };
+
 
 
   export const getplatformName = (title) => {

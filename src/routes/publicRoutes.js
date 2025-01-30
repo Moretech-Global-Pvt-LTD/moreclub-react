@@ -5,9 +5,6 @@ import FAQPage from "../pages/faqs/FAQ'spage";
 import Home from "../pages/Home/Home";
 import LearmMorePage from "../pages/LearnMore/LearmMorePage";
 import LiscencePage from "../pages/Liscence/LiscencePage";
-import BusinessRestaurantPartner from "../pages/Partner/BusinessRestaurantPartner";
-import BusinessTypesDetail from "../pages/Partner/BusinessTypesDetail";
-import PartnerPage from "../pages/Partner/PartnerPage";
 import PrivacyPage from "../pages/Privacy/privacy";
 import ProjectDetail from "../pages/Project/ProjectDetail";
 import ProjectPage from "../pages/Project/ProjectPage";
@@ -68,21 +65,7 @@ const publicRoutes = [
 
       page: <ProjectPage />,
     },
-    {
-      path: "/partners/",
 
-      page: <PartnerPage />,
-    },
-    {
-      path: "/partners/:partnerId/:partnerName",
-
-      page: <BusinessTypesDetail />,
-    },
-    {
-      path: "/partners/:partnerId/:partnerName/:cuisineName/",
-
-      page: <BusinessRestaurantPartner />,
-    },
 
     {
       path: "/projects/:projectId",

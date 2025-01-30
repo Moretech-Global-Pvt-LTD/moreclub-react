@@ -12,7 +12,7 @@ const Tablemanagement = () => {
     const {res_id} = useParams()
 
     const { data, isLoading, isError } = useQuery({
-        queryKey: ["Restaurant tables and sections"],
+        queryKey: ["Restaurant tables and sections", res_id],
         queryFn: async () => {
           const response = await morefoodAuthenticatedAxios.get(`moreclub/restaurant/${res_id}/section/`);
           const data = await response.data.data;
@@ -24,7 +24,6 @@ const Tablemanagement = () => {
       if (isLoading) {
         return (
             <RestaurantLayout>
-
                 <RestaurantCardSkeleton />
             </RestaurantLayout>
         );
@@ -33,7 +32,7 @@ const Tablemanagement = () => {
       if (isError) {
         return <RestaurantLayout>
             <UniversalErrorbox message="Something went wrong while fetching the Restaurant tables" 
-            retry={["Restaurant tables and sections"]}
+            retry={["Restaurant tables and sections", res_id]}
             />
         </RestaurantLayout>
       }

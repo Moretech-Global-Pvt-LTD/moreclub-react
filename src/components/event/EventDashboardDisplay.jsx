@@ -38,6 +38,14 @@ const EventDashboardDisplay = () => {
     );
   }
 
+
+if(!data.data || data.data.length === 0){
+  return(
+    <></>
+  )
+}
+
+
   return (
     <div className="mb-5">
       {data.data && data.data.length !== 0 && (
