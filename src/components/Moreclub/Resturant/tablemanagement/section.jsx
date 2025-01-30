@@ -10,6 +10,7 @@ const Section = ({
   onEditTable,
   ondeleteSection,
   onDeleteTable,
+  onChangeStatus
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [adding, setadding] = useState(false);
@@ -56,7 +57,7 @@ const Section = ({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
           gap: "10px",
         }}
       >
@@ -68,6 +69,7 @@ const Section = ({
               onEditTable(section.id, tableId, newName, newChairs)
             }
             onDelete={(tableId) => onDeleteTable(section.id, tableId)}
+            onChangeStatus={(id) => onChangeStatus(id)}
           />
         ))}
         <button

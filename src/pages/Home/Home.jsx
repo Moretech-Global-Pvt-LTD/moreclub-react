@@ -8,17 +8,19 @@ import Featuredtext from "../../components/home/Featuredtext";
 import FreeButton from "../../components/home/FreeButton";
 import PartnerSection from "../../components/home/PartnerSection";
 import Footer from "../../components/footer/Footer";
-import About1 from "../../images/about/expectation.png";
-import About2 from "../../images/about/ourmission.png";
 import Boost from "../../images/svg/BOOST.svg";
 import Growth from "../../images/svg/gROWTH.svg";
 import Growth2 from "../../images/svg/gROWTHS.svg";
 import Rewards from "../../images/svg/REWARD.svg";
-import Savings from "../../images/svg/SAVINGS.svg"
-import Unlock from "../../images/svg/secure.svg"
+import Savings from "../../images/svg/SAVINGS.svg";
+import Unlock from "../../images/svg/secure.svg";
 
 import playstore from "../../images/about/1.png";
 import appstore from "../../images/about/2.png";
+import { Button, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import PopularResturant from "../../components/Moreclub/morefood/PopularResturant";
+import PopularSaloon from "../../components/Moreclub/Saloon/PopularSaloon";
 
 const Infodata1 = [
   {
@@ -139,7 +141,36 @@ const Home = () => {
     <div className="layout-wrapper">
       <Navbar />
       <Hero />
+      {/* <Divider/> */}
+      <PartnerSection />
+      {/* <Divider/> */}
+      <Container>
+      {/* <Row>
+          <BusinessTypes />
+        </Row> */}
+        {" "}
+        <Row className="mt-4">
+          <div className="d-flex justify-content-between align-items-center">
+            <h4 className="mt-4 mb-3">Popular Restaurants </h4>
+            <Link to="/morefood">
+              <Button variant="link">View All</Button>
+            </Link>
+          </div>
+          <PopularResturant />
+        </Row>
+        <Row className="mt-4">
+          <div className="d-flex justify-content-between align-items-center">
+            <h4 className="mt-4 mb-3">Popular Salons </h4>
+            <Link to="/moresalons">
+              <Button variant="link">View All</Button>
+            </Link>
+          </div>
+          <PopularSaloon />
+        </Row>
+      </Container>
+
       <Stat />
+
       <InfoContainer data={Infodata1} />
       <Divider />
       <Process />
@@ -165,52 +196,66 @@ const Home = () => {
       <InfoContainer data={Infodata3} />
       <Divider />
       <section className="download-app-section">
-        <Divider/>
+        <Divider />
         <div className="download-app-content">
           <h2 className="text-white">Download the app for free.</h2>
           <div className="download-app-buttons">
-            <a href="https://play.google.com/store/apps/details?id=com.moredelas.app&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="download-app-button">
-              <img src={playstore} alt="google play" style={{ width: "40px", height: "40px" }} />
+            <a
+              href="https://play.google.com/store/apps/details?id=com.moredelas.app&pcampaignid=web_share"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="download-app-button"
+            >
+              <img
+                src={playstore}
+                alt="google play"
+                style={{ width: "40px", height: "40px" }}
+              />
               <h6 className="text-white">
-                Available in<br />
+                Available in
+                <br />
                 Google Play
               </h6>
             </a>
             <a href="#" className="download-app-button">
-              <img src={appstore} alt="Apple Store" style={{ width: "40px", height: "40px" }} />
+              <img
+                src={appstore}
+                alt="Apple Store"
+                style={{ width: "40px", height: "40px" }}
+              />
               <h6 className="text-white">
-                Download from<br />
+                Download from
+                <br />
                 App Store
               </h6>
             </a>
           </div>
-          
-          <div className="mt-4">
-             <div className="container">
-          <FreeButton />
-        </div>
-        <p className="text-white" style={{ fontSize: "10px" }}>
-          NO OBLIGATIONS, NO CONTRACTS, CANCEL AT ANY TIME
-        </p>
-            </div>
-        </div>
 
+          <div className="mt-4">
+            <div className="container">
+              <FreeButton />
+            </div>
+            <p className="text-white" style={{ fontSize: "10px" }}>
+              NO OBLIGATIONS, NO CONTRACTS, CANCEL AT ANY TIME
+            </p>
+          </div>
+        </div>
       </section>
       {/* <Featuredtext> */}
       {/*         <h2 className="text-white">Want to hear more success stories?</h2>
 
         <Testimonials /> */}
-        {/* <div className="container">
+      {/* <div className="container">
           <FreeButton />
         </div>
         <p className="text-white" style={{ fontSize: "10px" }}>
           NO OBLIGATIONS, NO CONTRACTS, CANCEL AT ANY TIME
         </p>
       </Featuredtext> */}
-      <Divider />
-      <PartnerSection />
+      {/* <Divider /> */}
+      
       {/* <Project heading="Our Projects" /> */}
-      <Divider />
+      {/* <Divider /> */}
       <Footer />
     </div>
   );

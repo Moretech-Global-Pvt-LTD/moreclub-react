@@ -3370,8 +3370,22 @@
   padding: 10px;
   text-align: center;
   position: relative;
-  background-color: #fff;
   transition: background-color 0.3s ease; /* Smooth transition for background changes */
+}
+
+.table-pulse-dot {
+  width: 1rem;
+  height: 1rem;
+  background-color: #d93025;
+  border-radius: 50%;
+  animation: bounce 1.5s infinite;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+
+.editable-table-default{
+  background-color: #fff;
 }
 
 .editable-table input,

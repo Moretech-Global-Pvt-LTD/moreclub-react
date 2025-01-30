@@ -1,6 +1,7 @@
 import {GetURL} from "./utility"; // Assuming the URL-getting function is in GetURL.js
 import { axiosInstance } from "..";
 import { baseURL } from "../config/config";
+import { getAccessToken } from "./token";
 
 async function handleRedirection(platform, path) {
 
@@ -16,16 +17,19 @@ async function handleRedirection(platform, path) {
 
   // Open a blank tab immediately to avoid popup blockers
   const newWindow = window.open("about:blank", "_blank");
-
-  try {
-    const response = await axiosInstance.post(`${baseURL}auth/code/generate/`);
-    if (response.status === 200) {
-      const url = `${redirectLink}?redirect=true&&code=${response.data.data.auth_code}`;
-      newWindow.location.href = url;
-    } else {
+  if(getAccessToken()){
+    try {
+      const response = await axiosInstance.post(`${baseURL}auth/code/generate/`);
+      if (response.status === 200) {
+        const url = `${redirectLink}?redirect=true&&code=${response.data.data.auth_code}`;
+        newWindow.location.href = url;
+      } else {
+        newWindow.location.href = redirectLink;
+      }
+    } catch (err) {
       newWindow.location.href = redirectLink;
     }
-  } catch (err) {
+  }else{
     newWindow.location.href = redirectLink;
   }
 }

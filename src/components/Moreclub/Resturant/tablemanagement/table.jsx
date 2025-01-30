@@ -101,36 +101,15 @@
 // export default Table;
 
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Badge, Button, Form } from "react-bootstrap";
 
-const Table = ({ table, onEdit, onDelete }) => {
+const Table = ({ table, onEdit, onDelete ,onChangeStatus}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState(table.name);
   const [newChairs, setNewChairs] = useState(table.capacity);
-  const [backgroundColorClass, setBackgroundColorClass] =
-    useState("bg-default");
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  // useEffect(() => {
-  //   const socket = new WebSocket("wss://your-websocket-server");
-
-  //   socket.onmessage = (event) => {
-  //     const data = JSON.parse(event.data);
-  //     if (data.type === "updateBackgroundColor") {
-  //       // Assume `data.colorClass` contains a CSS class name, like "bg-blue" or "bg-red"
-  //       setBackgroundColorClass(data.colorClass);
-  //     }
-  //   };
-
-  //   socket.onclose = () => {
-  //     console.log("WebSocket connection closed");
-  //   };
-
-  //   return () => {
-  //     socket.close();
-  //   };
-  // }, []);
 
   const handleDeleteing = async () => {
     setDeleting(true);
@@ -147,8 +126,30 @@ const Table = ({ table, onEdit, onDelete }) => {
     setLoading(false);
   };
 
+  const handleStatusChange = async (id) => {
+    await onChangeStatus(id);
+    // await onEdit(id, newName, newChairs, status);
+    
+  };
+
+
+  const getBgColor = (status) => {
+    switch (status) {
+      case "billed_called":
+        return "bg-danger text-white"; // Success color class
+      case "called":
+        return "bg-warning text-black"; // Warning color class
+      case "waiter_called":
+        return "bg-success text-white"; // Light color class
+      default:
+        return "editable-table-default text-black"; // Default class
+    }
+  };
+
+  const tableStatus = table.billed_called ? "billed_called" : table.called ? "called" : table.waiter_called ?"waiter_called": "";
+
   return (
-    <div className={`editable-table ${backgroundColorClass}`}>
+    <div className={`editable-table editable-table-default`}>
       {isEditing ? (
         <div>
           <Form.Control
@@ -183,15 +184,28 @@ const Table = ({ table, onEdit, onDelete }) => {
         </div>
       ) : (
         <div>
-          <p className="text-black">{table.name}</p>
-          <p className="text-black">Chairs: {table.capacity}</p>
+         {tableStatus !=="" &&  <div className="table-pulse-dot"></div>}
+          <p className={`text-black`}>{table.name}</p>
+          <p className={`text-black`}>Chairs: {table.capacity}</p>
+          <p className={``}>
+            {table.billed_called && 
+            <Badge className="bg-danger">{"Want to Checkout"}</Badge>
+            }
+            {table.called && 
+            <Badge className="bg-warning text-black">{"Calling"}</Badge>
+            }
+            {table.waiter_called && 
+            <Badge className="bg-success">{"Calling Waiter"}</Badge>
+            }
+        </p>
+          {tableStatus !=="" && <span className="bg-secondary btn btn-sm" onClick={() => handleStatusChange(table.id)}> Accept</span>}
           <div className="controls">
-            <Button size="sm" onClick={() => setIsEditing(true)}>
+            <div className="bg-primary text-white rounded" style={{ cursor: "pointer",  padding:"2px"}} onClick={() => setIsEditing(true)}>
               ✎
-            </Button>
-            <Button
-              size="sm"
-              className="btn-danger"
+            </div>
+            <div
+              className="bg-danger text-white rounded"
+              style={{ cursor: "pointer",  padding:"2px"}}
               onClick={() => handleDeleteing()}
             >
               {deleting ? (
@@ -199,7 +213,7 @@ const Table = ({ table, onEdit, onDelete }) => {
               ) : (
                 <i className="bi bi-trash"></i>
               )}
-            </Button>
+            </div>
           </div>
         </div>
       )}
