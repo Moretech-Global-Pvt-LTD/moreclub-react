@@ -156,7 +156,7 @@ export function parseMembershipData(data, additionalLinks = []) {
     const apiUrl = apiUrlMapping[currentCountry];
   
     if (!apiUrl) {
-      return process.env.REACT_APP_MORE_FOOD_BASE_URL ?? 'http://192.168.1.74:8000/api/';
+      return process.env.REACT_APP_MORE_FOOD_BASE_URL ?? 'https://api.morefood.se/api/';
     }
   
     return apiUrl;

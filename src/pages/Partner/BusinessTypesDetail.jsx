@@ -21,15 +21,15 @@ const BusinessTypesDetail = () => {
    
     if (!!getAccessToken()) {
 
-        if (partnerName === "Restaurant") { 
+        // if (partnerName === "Restaurant") { 
 
-            return (
-                <DashboardLayout title={"cuisine"}>
-                    <RestaurantCusine />
-                    <Divider />
-                </DashboardLayout>
-            );
-        } else {
+        //     return (
+        //         <DashboardLayout title={"cuisine"}>
+        //             <RestaurantCusine />
+        //             <Divider />
+        //         </DashboardLayout>
+        //     );
+        // } else {
             
             return (
                 <DashboardLayout title={title}>
@@ -37,7 +37,7 @@ const BusinessTypesDetail = () => {
                     <Divider />
                 </DashboardLayout>
             );
-        }
+        // }
    
     } else {
         return (
@@ -52,7 +52,8 @@ const BusinessTypesDetail = () => {
                     ]}
                 />
                 <div className="container">
-                    <UnauthenticatedBusinessPartnerContent partnerId={partnerId} />
+                <BusinessPartnerContent partnerId={partnerId} />
+                    {/* <UnauthenticatedBusinessPartnerContent partnerId={partnerId} /> */}
                     <Divider />
                 </div>
             </LandingLayout>
