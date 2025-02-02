@@ -11,8 +11,6 @@ const PartnerPage = () => {
     return (
       <DashboardLayout title={"Our Partners"}>
         <PartnerContent />
-
-        {/* </div> */}
         <Divider />
       </DashboardLayout>
     );
@@ -30,7 +28,6 @@ const PartnerPage = () => {
         />
         <div className="container">
           <PartnerContent />
-          {/* <PartnerUnauthenticatedContent /> */}
           <Divider />
         </div>
       </LandingLayout>
