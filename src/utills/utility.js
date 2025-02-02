@@ -26,7 +26,7 @@ export const fetchLiveLocation = async () => {
 export const checkAndUpdateLocation = async () => {
   let countryCode = Cookies.get("countryCode");
   if (!countryCode) {
-    const code = fetchLiveLocation();
+    const code = await fetchLiveLocation();
     if (typeof window !== "undefined") {
       countryCode = code.countryCode;
       Cookies.set("countryCode", countryCode, {
