@@ -35,11 +35,7 @@ import StationUpdatePage from "../pages/moreclub/Station/StationUpdatePage";
 
 
 const restaurantRoutes = [
-    {
-      path: "/morefood",
-
-      page: <Morefood />,
-    },
+    
     {
       path: "/restaurant",
 

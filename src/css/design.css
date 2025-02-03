@@ -3470,5 +3470,53 @@
 }
 
 
+.best-deals-container {
+
+display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 0 -10px;
+        }
+
+.best-deals-card {
+  flex: 0 1 calc(50% - 20px);
+  max-width: calc(50% - 20px);
+  margin: 10px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+@media (min-width: 576px) {
+  .best-deals-card {
+      flex: 0 1 calc(33.33% - 20px);
+      max-width: calc(33.33% - 20px);
+  }
+}
+
+@media (min-width: 1200px) {
+  .best-deals-card {
+      flex: 0 1 calc(16.66% - 20px);
+      max-width: calc(16.66% - 20px);
+  }
+}
+
+.best-deals-card:hover {
+  transform: scale(1.05);
+}
+
+.best-deal-logo img {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.partner-logo p {
+  margin: 10px 0 0;
+  font-weight: bold;
+  color: #333;
+}
+
 
 /*# sourceMappingURL=main.c1c39487.css.map*/

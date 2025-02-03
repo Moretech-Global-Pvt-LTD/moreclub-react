@@ -2,7 +2,7 @@ import { Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { redirect, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { otpResend, otpVerify } from "../../redux/api/loginAPI";
 
 const OTPArea = () => {
@@ -72,7 +72,8 @@ const OTPArea = () => {
         nextUrl.searchParams.append('token', token);
         window.location.href = nextUrl.href;
       } else {
-        redirect("/dashboard");
+        navigate("/dashboard");
+        // window.location.href = "/dashboard";
       }
     } else {
       if (result.success === false) {

@@ -20,11 +20,7 @@ const salonRoutes = [
       path: "/salons",
       page: <SaloonPage />,
     },
-    {
-      path: "/moresalons",
-
-      page: <MoreSaloon />,
-    },
+    
     {
       path: `/saloon/:id/:slug`,
       page: <SaloonDetail />,
