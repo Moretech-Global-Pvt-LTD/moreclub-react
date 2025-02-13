@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react'
 import RestaurantLayout from '../../../../components/Layout/RestaurantLayout'
-// import Section from '../../../../components/Moreclub/Resturant/tablemanagement/section';
-import { morefoodAuthenticatedAxios } from '../../../../utills/axios/morefoodaxios';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import RestaurantCardSkeleton from '../../../../components/Skeleton/RestaurantCardSkeleton';
 import UniversalErrorbox from '../../../../components/Layout/UniversalErrorBox';
-import TablemanagementContent from './TablemanagementContent';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSections } from '../../../../redux/api/tableApi';
+import TableOrderContent from './TableOrderContent';
 
-const Tablemanagement = () => {
+const Tableorder = () => {
     const {res_id} = useParams()
 
     const section = useSelector((state) => state.table);  
@@ -45,12 +42,12 @@ const Tablemanagement = () => {
     
   return (
     <RestaurantLayout>
-      <TablemanagementContent/>
+      <TableOrderContent />
     </RestaurantLayout>
   )
 }
 
-export default Tablemanagement
+export default Tableorder
 
 
 
