@@ -179,7 +179,7 @@ const Setuppage = ({ data }) => {
           </Col>
         </Link>
         <Link
-          to={`/resturant/${id}/tablemangement/${name}-tables`}
+          to={`/restaurant/${id}/table/${name}-tables`}
           className="d-flex flex-column my-2 "
         >
           <Col className="d-flex flex-column my-2">
@@ -193,7 +193,7 @@ const Setuppage = ({ data }) => {
                 />
               </Card.Body>
               <Card.Title className="text-dynamic-white text-center fs-6">
-                Table management
+                Tables
               </Card.Title>
             </Card>
           </Col>

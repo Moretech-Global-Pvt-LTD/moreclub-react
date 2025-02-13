@@ -1,109 +1,289 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+// import React, { useEffect, useMemo, useRef, useState } from "react";
+// import Section from "../../../../components/Moreclub/Resturant/tablemanagement/section";
+// import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
+// import { useParams } from "react-router-dom";
+// import { Button, Modal } from "react-bootstrap";
+// import SectionAddingform from "../../../../components/Moreclub/Resturant/tablemanagement/SectionAddingform";
+// import { message } from "antd";
+// import { useSelector } from "react-redux";
+
+// const TablemanagementContent = () => {
+//   const { res_id } = useParams();
+
+//   const sections = useSelector((state) => state.table.sections);
+//   // const [sections, setSections] = useState(sectionsdata || []);
+
+
+//   const [addSection, setAddSection] = useState(false);
+
+
+//   const handleAddSection = async (data) => {
+//     try {
+//       const res = await morefoodAuthenticatedAxios.post(
+//         `moreclub/restaurant/${res_id}/section/`,
+//         data
+//       );
+//       const newSection = {
+//         id: res.data.data.id,
+//         name: res.data.data.name,
+//         code: res.data.data.code,
+//         tables: [],
+//       };
+//       setSections([...sections, newSection]);
+//       return res;
+//     } catch (e) {
+//       return e.response;
+//     }
+//   };
+
+//   const handledeleteSection = async (data) => {
+//     try {
+//       const res = await morefoodAuthenticatedAxios.delete(
+//         `moreclub/restaurant/${res_id}/${data.id}/section/`
+//       );
+//       const filteredSections = sections.filter(
+//         (section) => section.id !== data.id
+//       );
+//       setSections(filteredSections);
+//       return res;
+//     } catch (e) {
+//       console.log(e);
+//       return e.response;
+//     }
+//   };
+
+//   const handleEditSectionName = async (data) => {
+//     try {
+//       const res = await morefoodAuthenticatedAxios.post(
+//         `moreclub/restaurant/${res_id}/section/`,
+//         data
+//       );
+//       const newSection = {
+//         id: res.data.data.id,
+//         name: res.data.data.name,
+//         code: res.data.data.code,
+//         tables: res.data.data.tables,
+//       };
+//       setSections(
+//         sections.map((section) =>
+//           section.id === data.id ? newSection : section
+//         )
+//       );
+//       return res;
+//     } catch (e) {
+//       console.log(e);
+//       return e.response;
+//     }
+//     // console.log("edited table", id, newName);
+//     // setSections(
+//     //   sections.map((section) =>
+//     //     section.id === id ? { ...section, name: newName } : section
+//     //   )
+//     // );
+//   };
+
+//   const handleAddTable = async (sec) => {
+//     try {
+//       const res = await morefoodAuthenticatedAxios.post(
+//         `moreclub/restaurant/${res_id}/add/tables/`,
+//         {
+//           section: sec.id,
+//           name: `Table-${sec.tables.length + 1}`,
+//           capacity: 4,
+//         }
+//       );
+//       setSections(
+//         sections.map((section) =>
+//           section.id === sec.id
+//             ? {
+//                 ...section,
+//                 tables: [
+//                   ...section.tables,
+//                   {
+//                     id: res.data.data.id,
+//                     name: res.data.data.name,
+//                     capacity: res.data.data.capacity,
+//                     qr_code: res.data.data.qr_code,
+//                     called: false,
+//                     waiter_called: false,
+//                     billed_called: false,
+//                   },
+//                 ],
+//               }
+//             : section
+//         )
+//       );
+//       message.success("Table added successfully");
+//     } catch (e) {
+//       console.log(e);
+//       message.error(e.response.data.message);
+//     }
+//   };
+
+//   const handleEditTable = async (sectionId, tableId, newName, newChairs) => {
+//     try {
+//       const res = await morefoodAuthenticatedAxios.patch(
+//         `moreclub/restaurant/${res_id}/${tableId}/update/tables/`,
+//         {
+//           name: newName,
+//           capacity: newChairs,
+//         }
+//       );
+//       setSections(
+//         sections.map((section) =>
+//           section.id === sectionId
+//             ? {
+//                 ...section,
+//                 tables: section.tables.map((table) =>
+//                   table.id === tableId
+//                     ? { ...table, name: newName, chairs: newChairs }
+//                     : table
+//                 ),
+//               }
+//             : section
+//         )
+//       );
+//       message.success("Table updated successfully");
+//       return res;
+//     } catch (e) {
+//       console.log(e);
+//       message.error(e.response.data.message);
+//       return e.response;
+//     }
+//   };
+
+//   const handleDeleteTable = async (sectionId, tableId) => {
+//     try {
+//       const res = await morefoodAuthenticatedAxios.delete(
+//         `moreclub/restaurant/${res_id}/${tableId}/update/tables/`
+//       );
+//       setSections(
+//         sections.map((section) =>
+//           section.id === sectionId
+//             ? {
+//                 ...section,
+//                 tables: section.tables.filter((table) => table.id !== tableId),
+//               }
+//             : section
+//         )
+//       );
+//       message.success("Table updated successfully");
+//       return res;
+//     } catch (e) {
+//       console.log(e);
+//       message.error(e.response.data.message);
+//       return e.response;
+//     }
+//   };
+
+//   async function hideAddSection() {
+//     setAddSection(false);
+//   }
+
+//   return (
+//     <>
+//       <audio ref={audioRef} src="/path/to/notification.mp3" preload="auto" />
+//       <div style={{ padding: "20px", fontFamily: "Arial" }}>
+//         <div
+//           style={{
+//             display: "flex",
+//             alignItems: "center",
+//             justifyContent: "space-between",
+//           }}
+//         >
+//           <h2>Table Management</h2>
+//           <Button
+//             className="btn btn-warning btn-sm"
+//             onClick={() => {
+//               setAddSection(true);
+
+//               if (audioRef.current) {
+//                 audioRef.current
+//                   .play()
+//                   .catch((err) => console.error("Audio error:", err));
+//               }
+//             }}
+//           >
+//             Add Section
+//           </Button>
+//         </div>
+//         <div>
+//           {sections &&
+//             sections.length > 0 &&
+//             sections.map((section) => (
+//               <Section
+//                 key={section.id}
+//                 section={section}
+//                 onEditSectionName={handleEditSectionName}
+//                 onAddTable={handleAddTable}
+//                 onEditTable={handleEditTable}
+//                 ondeleteSection={handledeleteSection}
+//                 onDeleteTable={handleDeleteTable}
+//                 onChangeStatus={handleStatusChange}
+//               />
+//             ))}
+//           {sections && sections.length === 0 && (
+//             <div className="text-center w-100 text-dynamic-white">
+//               You have not set Table in your Restaurant
+//             </div>
+//           )}
+//         </div>
+//         <Modal
+//           aria-labelledby="contained-modal-title-vcenter"
+//           size="sm"
+//           centered
+//           show={addSection}
+//           onHide={hideAddSection}
+//         >
+//           <Modal.Header>
+//             <Modal.Title
+//               id="contained-modal-title-vcenter text-center"
+//               className="text-dynamic-white"
+//             >
+//               Add Sections
+//             </Modal.Title>
+//           </Modal.Header>
+//           <Modal.Body>
+//             <SectionAddingform
+//               onSubmit={handleAddSection}
+//               onCancel={hideAddSection}
+//             />
+//           </Modal.Body>
+//         </Modal>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default TablemanagementContent;
+
+
+import React, { useState, useRef } from "react";
 import Section from "../../../../components/Moreclub/Resturant/tablemanagement/section";
 import { morefoodAuthenticatedAxios } from "../../../../utills/axios/morefoodaxios";
 import { useParams } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import SectionAddingform from "../../../../components/Moreclub/Resturant/tablemanagement/SectionAddingform";
 import { message } from "antd";
-import ReconnectingWebSocket from "reconnecting-websocket";
-import { getwsApiUrl } from "../../../../utills/utility";
+import { useDispatch, useSelector } from "react-redux";
+import { addSection,
+  deleteSection,
+  updateSection,
+  addTable,
+  updateTable,
+  deleteTable,
 
-const TablemanagementContent = ({ sectionsdata }) => {
+} from "../../../../redux/slices/tableSlice";
+
+const TablemanagementContent = () => {
   const { res_id } = useParams();
-  const [sections, setSections] = useState(sectionsdata || []);
-  const [addSection, setAddSection] = useState(false);
-  const baseUrl = useMemo(() => {
-    return getwsApiUrl();
-  }, []);
+  const sections = useSelector((state) => state.table.sections);
+  const dispatch = useDispatch();
+  const audioRef = useRef();
 
-  const [wsStatus, setWsStatus] = useState("Disconnected");
-  const wsRef = useRef(null);
-  const audioRef = useRef(null); // Reference for the audio element
+  const [addSectionModal, setAddSectionModal] = useState(false);
 
-  audioRef.current = new Audio("/audio/notification.mp3");
-
-  useEffect(() => {
-    // wsRef.current = new ReconnectingWebSocket(`ws://${baseURL}/ws/ride/`);
-    wsRef.current = new ReconnectingWebSocket(
-      `ws://${baseUrl}/ws/restaurant/${res_id}/tables/notifications/`
-    );
-
-    setWsStatus("Connecting...");
-
-    wsRef.current.onopen = (event) => {
-      setWsStatus("Connected");
-    };
-
-    wsRef.current.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      const tableId = parseInt(data.table_id, 10); // Parse table_id as an integer
-      const action = data.action;
-      const messages = data.message;
-
-      // Use functional state update to ensure the latest state is used
-      setSections((prevSections) => {
-        const updatedSections = prevSections.map((section) => ({
-          ...section,
-          tables: section.tables.map((table) =>
-            table.id === tableId
-              ? {
-                  ...table,
-                  billed_called: action === "billed_called", // Update based on the action
-                  called: action === "called", // Update based on the action
-                  waiter_called: action === "waiter_called", // Update based on the action
-                  messages: messages,
-                }
-              : table
-          ),
-        }));
-        return updatedSections; // Return the updated state
-      });
-    };
-
-    wsRef.current.onclose = (event) => {
-      setWsStatus("Disconnected");
-    };
-
-    wsRef.current.onerror = (error) => {
-      console.error("WebSocket encountered error: ", error);
-      setWsStatus("Error");
-    };
-
-    return () => {
-      if (wsRef.current) {
-        wsRef.current.close();
-      }
-    };
-  }, []);
-
-  const handleStatusChange = async (id) => {
-    try {
-      // const res = await morefoodAuthenticatedAxios.post(
-      //   `moreclub/restaurant/${res_id}/add/tables/`,
-      // );
-
-      setSections((prevSections) => {
-        const updatedSections = prevSections.map((section) => ({
-          ...section,
-          tables: section.tables.map((table) =>
-            table.id === id
-              ? {
-                  ...table,
-                  billed_called: false, // Update based on the action
-                  called: false, // Update based on the action
-                  waiter_called: false, // Update based on the action
-                }
-              : table
-          ),
-        }));
-        return updatedSections; // Return the updated state
-      });
-    } catch (e) {
-      console.log(e);
-      message.error(e.response.data.message);
-    }
-  };
-
+  // Add a new section
   const handleAddSection = async (data) => {
     try {
       const res = await morefoodAuthenticatedAxios.post(
@@ -116,59 +296,46 @@ const TablemanagementContent = ({ sectionsdata }) => {
         code: res.data.data.code,
         tables: [],
       };
-      setSections([...sections, newSection]);
+      dispatch(addSection(newSection)); // Dispatch Redux action
+      message.success("Section added successfully");
       return res;
     } catch (e) {
+      message.error("Error adding section");
       return e.response;
     }
   };
 
+  // Delete a section
   const handledeleteSection = async (data) => {
     try {
-      const res = await morefoodAuthenticatedAxios.delete(
+      await morefoodAuthenticatedAxios.delete(
         `moreclub/restaurant/${res_id}/${data.id}/section/`
       );
-      const filteredSections = sections.filter(
-        (section) => section.id !== data.id
-      );
-      setSections(filteredSections);
-      return res;
+      dispatch(deleteSection(data.id)); // Dispatch Redux action
+      message.success("Section deleted successfully");
     } catch (e) {
       console.log(e);
-      return e.response;
+      message.error("Error deleting section");
     }
   };
 
+  // Edit a section name
   const handleEditSectionName = async (data) => {
     try {
-      const res = await morefoodAuthenticatedAxios.post(
-        `moreclub/restaurant/${res_id}/section/`,
+      const res = await morefoodAuthenticatedAxios.patch(
+        `moreclub/restaurant/${res_id}/${data.id}/section/`,
         data
       );
-      const newSection = {
-        id: res.data.data.id,
-        name: res.data.data.name,
-        code: res.data.data.code,
-        tables: res.data.data.tables,
-      };
-      setSections(
-        sections.map((section) =>
-          section.id === data.id ? newSection : section
-        )
-      );
+      dispatch(updateSection({ id: data.id, ...res.data.data })); // Dispatch Redux action
+      message.success("Section updated successfully");
       return res;
     } catch (e) {
-      console.log(e);
+      message.error("Error updating section");
       return e.response;
     }
-    // console.log("edited table", id, newName);
-    // setSections(
-    //   sections.map((section) =>
-    //     section.id === id ? { ...section, name: newName } : section
-    //   )
-    // );
   };
 
+  // Add a table to a section
   const handleAddTable = async (sec) => {
     try {
       const res = await morefoodAuthenticatedAxios.post(
@@ -179,124 +346,70 @@ const TablemanagementContent = ({ sectionsdata }) => {
           capacity: 4,
         }
       );
-      setSections(
-        sections.map((section) =>
-          section.id === sec.id
-            ? {
-                ...section,
-                tables: [
-                  ...section.tables,
-                  {
-                    id: res.data.data.id,
-                    name: res.data.data.name,
-                    capacity: res.data.data.capacity,
-                    qr_code: res.data.data.qr_code,
-                    called: false,
-                    waiter_called: false,
-                    billed_called: false,
-                  },
-                ],
-              }
-            : section
-        )
-      );
+      
+      const newTable = { ...res.data.data}
+      console.log(newTable);
+      dispatch(addTable({ sectionId: sec.id, table: newTable })); // Dispatch Redux action
       message.success("Table added successfully");
     } catch (e) {
       console.log(e);
-      message.error(e.response.data.message);
+      message.error("Error adding table");
     }
   };
 
+  // Edit a table's details
   const handleEditTable = async (sectionId, tableId, newName, newChairs) => {
     try {
-      const res = await morefoodAuthenticatedAxios.patch(
+      await morefoodAuthenticatedAxios.patch(
         `moreclub/restaurant/${res_id}/${tableId}/update/tables/`,
         {
           name: newName,
           capacity: newChairs,
         }
       );
-      setSections(
-        sections.map((section) =>
-          section.id === sectionId
-            ? {
-                ...section,
-                tables: section.tables.map((table) =>
-                  table.id === tableId
-                    ? { ...table, name: newName, chairs: newChairs }
-                    : table
-                ),
-              }
-            : section
-        )
-      );
+      dispatch(updateTable({ sectionId, table: { id: tableId, name: newName, capacity: newChairs } })); // Dispatch Redux action
       message.success("Table updated successfully");
-      return res;
     } catch (e) {
-      console.log(e);
-      message.error(e.response.data.message);
-      return e.response;
+      message.error("Error updating table");
     }
   };
 
+  // Delete a table from a section
   const handleDeleteTable = async (sectionId, tableId) => {
     try {
-      const res = await morefoodAuthenticatedAxios.delete(
+      await morefoodAuthenticatedAxios.delete(
         `moreclub/restaurant/${res_id}/${tableId}/update/tables/`
       );
-      setSections(
-        sections.map((section) =>
-          section.id === sectionId
-            ? {
-                ...section,
-                tables: section.tables.filter((table) => table.id !== tableId),
-              }
-            : section
-        )
-      );
-      message.success("Table updated successfully");
-      return res;
+      dispatch(deleteTable({ sectionId, tableId })); // Dispatch Redux action
+      message.success("Table deleted successfully");
     } catch (e) {
-      console.log(e);
-      message.error(e.response.data.message);
-      return e.response;
+      message.error("Error deleting table");
     }
   };
 
-  async function hideAddSection() {
-    setAddSection(false);
-  }
+  const hideAddSection = () => {
+    setAddSectionModal(false);
+  };
+
 
   return (
     <>
       <audio ref={audioRef} src="/path/to/notification.mp3" preload="auto" />
       <div style={{ padding: "20px", fontFamily: "Arial" }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <h2>Table Management</h2>
           <Button
             className="btn btn-warning btn-sm"
             onClick={() => {
-              setAddSection(true);
-
-              if (audioRef.current) {
-                audioRef.current
-                  .play()
-                  .catch((err) => console.error("Audio error:", err));
-              }
+              setAddSectionModal(true);
+              audioRef.current?.play().catch((err) => console.error("Audio error:", err));
             }}
           >
             Add Section
           </Button>
         </div>
         <div>
-          {sections &&
-            sections.length > 0 &&
+          {sections.length > 0 ? (
             sections.map((section) => (
               <Section
                 key={section.id}
@@ -306,10 +419,9 @@ const TablemanagementContent = ({ sectionsdata }) => {
                 onEditTable={handleEditTable}
                 ondeleteSection={handledeleteSection}
                 onDeleteTable={handleDeleteTable}
-                onChangeStatus={handleStatusChange}
               />
-            ))}
-          {sections && sections.length === 0 && (
+            ))
+          ) : (
             <div className="text-center w-100 text-dynamic-white">
               You have not set Table in your Restaurant
             </div>
@@ -319,22 +431,16 @@ const TablemanagementContent = ({ sectionsdata }) => {
           aria-labelledby="contained-modal-title-vcenter"
           size="sm"
           centered
-          show={addSection}
+          show={addSectionModal}
           onHide={hideAddSection}
         >
           <Modal.Header>
-            <Modal.Title
-              id="contained-modal-title-vcenter text-center"
-              className="text-dynamic-white"
-            >
+            <Modal.Title className="text-dynamic-white">
               Add Sections
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <SectionAddingform
-              onSubmit={handleAddSection}
-              onCancel={hideAddSection}
-            />
+            <SectionAddingform onSubmit={handleAddSection} onCancel={hideAddSection} />
           </Modal.Body>
         </Modal>
       </div>
@@ -343,3 +449,4 @@ const TablemanagementContent = ({ sectionsdata }) => {
 };
 
 export default TablemanagementContent;
+

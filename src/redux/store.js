@@ -19,6 +19,7 @@ import galleryReducer  from './slices/gallerySlice'
 import menuReducer  from './slices/MenuSlice'
 import FoodDetailReducer from './slices/FoodItemDetailSlice'
 import themeReducer  from './slices/ThemeSlice'
+import sectionReducer  from './slices/tableSlice'
 
 
 const store = configureStore({
@@ -43,6 +44,7 @@ const store = configureStore({
     menus: menuReducer,
     FoodDetail: FoodDetailReducer,
     theme: themeReducer,
+    table: sectionReducer
   },
 });
 
