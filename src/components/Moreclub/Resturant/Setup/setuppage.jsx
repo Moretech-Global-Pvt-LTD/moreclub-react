@@ -6,6 +6,7 @@ const Setuppage = ({ data }) => {
   const { id , slug} = useParams();
 
   const name = slug.replace(/ /g, "-");
+
  
 
   return (
@@ -179,7 +180,7 @@ const Setuppage = ({ data }) => {
           </Col>
         </Link>
         <Link
-          to={`/restaurant/${id}/table/${name}-tables`}
+          to={`/restaurant/${id}/table/${data.slug}`}
           className="d-flex flex-column my-2 "
         >
           <Col className="d-flex flex-column my-2">

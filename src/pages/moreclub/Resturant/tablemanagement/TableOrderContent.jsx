@@ -10,7 +10,7 @@ import {
 import OrderSection from "../../../../components/Moreclub/Resturant/tablemanagement/OrderSection";
 
 const TableOrderContent = () => {
-  const { res_id } = useParams();
+  const { res_id, slug } = useParams();
   const sections = useSelector((state) => state.table.sections);
   const dispatch = useDispatch();
 
@@ -20,27 +20,45 @@ const TableOrderContent = () => {
 
   // WebSocket Setup
   useEffect(() => {
+    console.log("base ws url", baseUrl);
     wsRef.current = new ReconnectingWebSocket(
-      `wss://${baseUrl}/ws/restaurant/${res_id}/tables/notifications/`
+      `wss://${baseUrl}/ws/restaurant/${slug}/tables/notifications/`
+      // `wss://${baseUrl}/ws/restaurant/sujit-coorporation/tables/notifications/`
     );
 
-    wsRef.current.onopen = () => console.log("WebSocket Connected" );
+    wsRef.current.onopen = (event) => console.log("WebSocket Connected" );
     wsRef.current.onclose = () => console.log("WebSocket Disconnected");
     wsRef.current.onerror = (error) => console.error("WebSocket Error", error);
 
     wsRef.current.onmessage = async (event) => {
       const data = JSON.parse(event.data);
-      const { table_id, status, message: messages } = data;
-      console.log("message",data);
-      await dispatch(
-        updateTableWS({
+      const { table_id, status, message: messages, action } = data;
+
+
+      if ( action === "remove_table") {
+        
+       await dispatch(updateTableWS({
           table: {
             id: parseInt(table_id),
-            ...status,
+            billed_called: false,
+            called: false,
+            ordered: false,
+            waiter_called: false,
             messages,
           },
-        })
-      );
+        }));
+      }else{
+        await dispatch(
+          updateTableWS({
+            table: {
+              id: parseInt(table_id),
+              ...status,
+              messages,
+            },
+          })
+        );
+
+      }
     };
 
     return () => {

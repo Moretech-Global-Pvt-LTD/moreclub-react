@@ -77,7 +77,7 @@ const Tableadmin = () => {
             <Card className="p-2 flex-grow-1">
               <Card.Body className="d-flex justify-content-center">
                 <img
-                  src={"/images/moreclub/morefood/station.png"}
+                  src={"/images/moreclub/morefood/tablesetup.svg"}
                   alt="manage"
                   className="px-2 py-1 rounded "
                   style={{ height: "5rem", width: "5rem" }}
