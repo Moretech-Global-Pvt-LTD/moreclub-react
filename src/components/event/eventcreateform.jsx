@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Row, Col, Card } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { axiosInstance } from "../..";
 import { baseURL } from "../../config/config";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,6 @@ import { message } from "antd";
 import { useDispatch } from "react-redux";
 import MapBoxLocationDisplayAutocomplete from "../Googlemap/MapLocationInput";
 import { validateDates, validateRequiredField } from "../../validation/resturantValidation";
-// import CKEditor from "ckeditor4-react";
 
 const Eventcreateform = () => {
   const [formData, setFormData] = useState({
@@ -95,8 +94,6 @@ const Eventcreateform = () => {
         return validateRequiredField(value, "Event Highlights Title");
       case "event_highlights_description":
         return validateRequiredField(value, "Event Highlights Description");
-      
-
       default:
         return "";
     }
@@ -167,28 +164,30 @@ const Eventcreateform = () => {
 
       if(key === "start_date" || key === "end_date"){
         if (key === "start_date"){
-
-          const dateErrors = validateDates(formData[key], formData.end_date , "start_date")
-              
+          const dateErrors = validateDates(formData[key], formData.end_date , "start_date")         
+            if(dateErrors.start_date){
             tempErrors.start_date = dateErrors?.start_date;
-          
+            }
+            if(dateErrors.end_date){
             tempErrors.end_date = dateErrors?.end_date;
-          
+            }
         }
          
         if (key ==="end_date"){
-    
+
           const dateErrors = validateDates(formData.start_date, formData[key] , "end_date")
-            tempErrors.start_date = dateErrors.start_date;  
-            tempErrors.end_date = dateErrors.end_date;
+          if(dateErrors.start_date){
+            tempErrors.start_date = dateErrors?.start_date;
+            }
+            if(dateErrors.end_date){
+            tempErrors.end_date = dateErrors?.end_date;
+            }
         }
       }
 
       const error = validateField(key, formData[key]);
       if (error) tempErrors[key] = error;
     }
-
-
     setErrors(tempErrors);
     return tempErrors;
   };

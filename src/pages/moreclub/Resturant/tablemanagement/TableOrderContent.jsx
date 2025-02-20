@@ -20,13 +20,13 @@ const TableOrderContent = () => {
 
   // WebSocket Setup
   useEffect(() => {
-    console.log("base ws url", baseUrl);
     wsRef.current = new ReconnectingWebSocket(
-      `wss://${baseUrl}/ws/restaurant/${slug}/tables/notifications/`
-      // `wss://${baseUrl}/ws/restaurant/sujit-coorporation/tables/notifications/`
+      `ws://192.168.1.72:8000/ws/restaurant/${slug}/tables/notifications/`
+
+      // `wss://${baseUrl}/ws/restaurant/${slug}/tables/notifications/`
     );
 
-    wsRef.current.onopen = (event) => console.log("WebSocket Connected" );
+    wsRef.current.onopen = (event) => console.log("WebSocket Connected");
     wsRef.current.onclose = () => console.log("WebSocket Disconnected");
     wsRef.current.onerror = (error) => console.error("WebSocket Error", error);
 
@@ -34,7 +34,7 @@ const TableOrderContent = () => {
       const data = JSON.parse(event.data);
       const { table_id, status, message: messages, action } = data;
 
-
+      console.log("reeived",data);
       if ( action === "remove_table") {
         
        await dispatch(updateTableWS({

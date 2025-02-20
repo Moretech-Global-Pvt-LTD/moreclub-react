@@ -17,13 +17,12 @@ const OrderTable = ({ table, handleStatusChange }) => {
 
   const closeDrawer = () => setDrawerVisible(false);
 
-  const occupied = table.occupied
-    ? table.occupied
+  const occupied = table.new_orderd
+    ? table.new_orderd
     : table.billed_called ||
       table.called ||
       table.waiter_called ||
       table.ordered;
-
   return (
     <div
       className={`pure-g table-order-view pure-u-1 pure-u-md-1-3 pure-u-lg-1-4 ${
