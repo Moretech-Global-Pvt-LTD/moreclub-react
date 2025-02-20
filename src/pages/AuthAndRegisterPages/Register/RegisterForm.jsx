@@ -52,7 +52,8 @@ const RegistrationForm = (props) => {
         (country) => country.prefix_number === formData.phone_prefix
       );
 
-      const validPhoneNumber = formData.phone_number.replace(/[^+\d]/g, "");      
+      const validPhoneNumber = formData.phone_number.replace(/[^+\d]/g, ""); 
+           
       const combinedFormData = {
         first_name: formData.first_name,
         last_name: formData.last_name,

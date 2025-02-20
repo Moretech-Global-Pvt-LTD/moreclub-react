@@ -61,24 +61,6 @@ const NetworkPage = () => {
     return (
       <DashboardLayout title={"Networks"}>
         <NetworkLeadFilter />
-        {/* <Table responsive className="bg-white">
-          <thead className="border-bottom-0">
-            <tr className="pricingcard-premium">
-              <th className="text-white"> Name</th>
-              <th className="text-white">Email</th>
-              <th className="text-white">Phone</th>
-              <th className="text-white text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="">
-              <td colSpan={4}>
-                <p className="text-center ">Error retriving data...</p>
-              </td>
-              
-            </tr>
-          </tbody>
-        </Table> */}
         <UniversalErrorbox message="Something went wrong while fetching the network data" 
         retry={["referals", page, limit, offset, q, time, date_from, date_to]}
         />

@@ -100,7 +100,6 @@ function TransactionPinForm({onPinSet}) {
       <Form.Group controlId="pin">
           <Form.Label>Set PIN</Form.Label>
           <PINInput length={4} value={pin} onChange={handlePIn} error={pinError} />
-
       </Form.Group>
       <Form.Group controlId="confirmPin">
           <Form.Label>Confirm PIN</Form.Label>

@@ -4,9 +4,6 @@ import moment from "moment";
 
 const BlogDetail = ({ data }) => {
 
-
-
-
     return (
         <div className="blog-detail-content">
             <h1 className="blog-detail-title">{data.title}</h1>
