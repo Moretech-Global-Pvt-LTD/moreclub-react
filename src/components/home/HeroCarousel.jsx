@@ -221,7 +221,7 @@ const HeroCarousel = ({ activeIndex }) => {
         className="rounded-4"
         indicators={false}
         controls={true}
-        interval={10000}
+        interval={null}
       >
         <Carousel.Item className="d-none d-lg-block">
           
