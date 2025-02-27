@@ -1,0 +1,123 @@
+
+  /* .hero-carousel-container {
+    margin: auto;
+  }
+  
+  .carousel-item-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .row-1 .carousel-image {
+    width: 50%;
+  }
+  
+  .row-2 .carousel-image {
+    width: 33%;
+    
+  }
+
+   
+  @media (max-width: 768px) {
+    .row-1 .carousel-image {
+      width: 100%;
+    }
+    .row-2 .carousel-image {
+      width: 100%;
+      display: none; 
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .carousel-item-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .carousel-image {
+      width: 80%;
+    }
+  } */
+
+  /* .hero-carousel-container {
+    margin: auto;
+  }
+  
+  .carousel-item-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .custom-card {
+    background: #800000;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 30%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .row-1 .custom-card {
+    min-width: 45%;
+    max-width: 100%;
+  }
+  
+  .row-2 .custom-card {
+    min-width: 30%;
+    max-width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .carousel-item-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .custom-card {
+      min-width: 80%;
+    }
+  } */
+
+  .hero-carousel-container {
+    margin: auto;
+  }
+  
+  .carousel-item-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .custom-card {
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-card img {
+    width: 100%;
+    max-height: 400px;
+    border-radius: 10px;
+  }
+
+  .custom-card-height {
+    min-height: 350px;
+  }
+
+  
+  
+  @media (max-width: 768px) {
+    .carousel-item-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .custom-card {
+      width: 80%;
+    }
+  }

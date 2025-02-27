@@ -13,14 +13,15 @@ const Navbar = () => {
         <div className="w-100 d-flex justify-content-between border-0">
           <div className="d-flex align-items-center">
             <div className="admin-logo me-2 me-sm-3">
-              <div className="admin-logo me-2 me-sm-3">
-                <Link className="d-block" to="/">
+              <div className="admin-logo me-2 me-sm-3 ">
+                <Link className="d-flex align-items-center" to="/">
                   <img
                     className="navbar-logo"
                     src={`${metainfo.meta?.white_logo}`}
                     alt="Dark"
-                    style={{ maxHeight: "140px" }}
+                    style={{ maxHeight: "80px" }}
                   />
+                  <h4 className="text-white d-none d-sm-block">MORE DEALS CLUB</h4>
                 </Link>
               </div>
             </div>
