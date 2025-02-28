@@ -7,6 +7,7 @@ import LearmMorePage from "../pages/LearnMore/LearmMorePage";
 import LiscencePage from "../pages/Liscence/LiscencePage";
 import Morefood from "../pages/moreclub/morefood/morefood";
 import MoreSaloon from "../pages/moreclub/moresaloon/saloon/moreSaloon";
+import OfferPage from "../pages/offers/offerPage";
 import BusinessTypesDetail from "../pages/Partner/BusinessTypesDetail";
 import PartnerPage from "../pages/Partner/PartnerPage";
 import PrivacyPage from "../pages/Privacy/privacy";
@@ -23,6 +24,11 @@ const publicRoutes = [
       path: "/",
 
       page: <Home />,
+    },
+    {
+      path: "/offers",
+
+      page: <OfferPage />,
     },
     {
       path: "/support",

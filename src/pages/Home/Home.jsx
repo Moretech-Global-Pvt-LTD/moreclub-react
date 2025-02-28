@@ -21,6 +21,12 @@ import { Button, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PopularResturant from "../../components/Moreclub/morefood/PopularResturant";
 import PopularSaloon from "../../components/Moreclub/Saloon/PopularSaloon";
+import HeroCarousel from "../../components/home/HeroCarousel";
+import Newhero from "../../components/home/Newhero";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { baseURL } from "../../config/config";
+import PartnerSkeleton from "../../components/Skeleton/PartnerSkeleton";
 
 const Infodata1 = [
   {
@@ -137,12 +143,28 @@ const Infodata3 = [
 ];
 
 const Home = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["business types"],
+    queryFn: async () => {
+      const response = await axios.get(`${baseURL}business/all/types/`);
+      return response.data.data;
+    },
+    staleTime: 200000,
+  });
+
+
+
   return (
     <div className="layout-wrapper">
       <Navbar />
-      <Hero />
+      {/* <Hero /> */}
+      {isLoading && <PartnerSkeleton />}
+      {!isLoading && !isError && data &&  <Newhero data={data}/>}
+     
       {/* <Divider/> */}
-      <PartnerSection />
+      {isLoading && <PartnerSkeleton />}
+      {!isLoading && !isError && data &&  <PartnerSection  data={data}/>}
+     
       {/* <Divider/> */}
       <Container>
       {/* <Row>

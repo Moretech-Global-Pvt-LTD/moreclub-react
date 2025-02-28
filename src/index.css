@@ -23122,6 +23122,17 @@ dropdown-no .nav-light-logo {
   }
 }
 
+
+.hide-scroll-bar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scroll-bar::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+
 .pricingcard {
   position: relative;
   border: none;
