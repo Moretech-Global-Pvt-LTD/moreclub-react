@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button } from 'react-bootstrap'
+import {Button, Placeholder } from 'react-bootstrap'
 import HeroCarousel from './HeroCarousel'
 import { Link } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ const [activeIndex, setActiveIndex] = React.useState(data[0].name);
            </Button>
         ))}    
     </div>
-    <Link href="/offers">
+    <Link to="/offers">
     <Button variant='link' style={{ whiteSpace: "nowrap"}} >
     View All
     </Button>
@@ -26,6 +26,7 @@ const [activeIndex, setActiveIndex] = React.useState(data[0].name);
     <div className='rounded-3' >
     <HeroCarousel activeIndex={activeIndex}/>
     </div>
+    
     </div>
   )
 }
