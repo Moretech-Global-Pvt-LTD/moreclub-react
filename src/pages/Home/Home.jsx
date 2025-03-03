@@ -17,7 +17,7 @@ import Unlock from "../../images/svg/secure.svg";
 
 import playstore from "../../images/about/1.png";
 import appstore from "../../images/about/2.png";
-import { Button, Container, Row } from "react-bootstrap";
+import { Button, Container, Placeholder, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PopularResturant from "../../components/Moreclub/morefood/PopularResturant";
 import PopularSaloon from "../../components/Moreclub/Saloon/PopularSaloon";
@@ -160,7 +160,7 @@ const Home = () => {
       {/* <Hero /> */}
       {isLoading && <PartnerSkeleton />}
       {!isLoading && !isError && data &&  <Newhero data={data}/>}
-     
+   
       {/* <Divider/> */}
       {isLoading && <PartnerSkeleton />}
       {!isLoading && !isError && data &&  <PartnerSection  data={data}/>}
