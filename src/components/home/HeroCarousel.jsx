@@ -177,10 +177,10 @@ export const getOffers = async (activeIndex) => {
     }
    
   }
-  // if(activeIndex === "Marketplace"){
-  //   const response = await moresalonPublicAxios.get(`http://192.168.1.74:8004/api/offers/all/offers/lists/`);
-  //   return response.data.data;
-  // }
+  if(activeIndex === "Marketplace"){
+    const response = await moresalonPublicAxios.get(`https://web-production-175d.up.railway.app/api/offers/all/offers/lists/`);
+    return response.data.data;
+  }
   if (activeIndex === "Hotel") {
     const response = await moresalonPublicAxios.get(
       `https://hotel-one-ochre.vercel.app/api/offers/all-offers/`
