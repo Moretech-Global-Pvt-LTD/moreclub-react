@@ -8,9 +8,7 @@ import { useParams } from "react-router-dom";
 import BusinessPartnerContent from "./BusinessPartnerContent";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import LandingLayout from "../../components/Layout/LandingLayout";
-import UnauthenticatedBusinessPartnerContent from "./UnauthenticatedPartnerContent";
 import { getAccessToken } from "../../utills/token";
-import RestaurantCusine from "./RestaurantCusine";
 
 
 const BusinessTypesDetail = () => {
