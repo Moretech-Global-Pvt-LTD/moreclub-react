@@ -27,6 +27,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { baseURL } from "../../config/config";
 import PartnerSkeleton from "../../components/Skeleton/PartnerSkeleton";
+import Popularhotels from "../../components/Moreclub/moreliving/popularHotels";
 
 const Infodata1 = [
   {
@@ -179,6 +180,15 @@ const Home = () => {
             </Link>
           </div>
           <PopularResturant />
+        </Row>
+        <Row className="mt-4">
+          <div className="d-flex justify-content-between align-items-center">
+            <h4 className="mt-4 mb-3">Popular Hotels </h4>
+            <Link to="/moreliving">
+              <Button variant="link">View All</Button>
+            </Link>
+          </div>
+          <Popularhotels />
         </Row>
         <Row className="mt-4">
           <div className="d-flex justify-content-between align-items-center">

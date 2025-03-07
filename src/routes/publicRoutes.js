@@ -1,3 +1,4 @@
+import MorelivingContent from "../components/Moreclub/moreliving/MorelivingContent";
 import AboutPage from "../pages/about/aboutpage";
 import PasswordChange from "../pages/AuthAndRegisterPages/PasswordChange/PasswordChange";
 import AllCoupon from "../pages/Coupon/AllCoupon";
@@ -6,6 +7,7 @@ import Home from "../pages/Home/Home";
 import LearmMorePage from "../pages/LearnMore/LearmMorePage";
 import LiscencePage from "../pages/Liscence/LiscencePage";
 import Morefood from "../pages/moreclub/morefood/morefood";
+import MoreLiving from "../pages/moreclub/moreliving/moreliving";
 import MoreSaloon from "../pages/moreclub/moresaloon/saloon/moreSaloon";
 import OfferPage from "../pages/offers/offerPage";
 import BusinessTypesDetail from "../pages/Partner/BusinessTypesDetail";
@@ -121,6 +123,12 @@ const publicRoutes = [
       path: "/moresalons",
 
       page: <MoreSaloon />,
+    },
+
+    {
+      path: "/moreliving",
+
+      page: <MoreLiving />,
     },
   ];
 

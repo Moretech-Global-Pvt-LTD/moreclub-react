@@ -9,6 +9,7 @@ import EventDashboardDisplay from "../../components/event/EventDashboardDisplay"
 import PopularResturant from "../../components/Moreclub/morefood/PopularResturant";
 import BusinessTypes from "../../components/dashboard/BusinessTypes";
 import PopularSaloon from "../../components/Moreclub/Saloon/PopularSaloon";
+import Popularhotels from "../../components/Moreclub/moreliving/popularHotels";
 
 const DashboardContent = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,15 @@ const DashboardContent = () => {
         </Row>
         <Row className="mt-4">
           <div className="d-flex justify-content-between align-items-center">
+            <h4 className="mt-4 mb-3">Popular Hotels </h4>
+            <Link to="/moreliving">
+              <Button variant="link">View All</Button>
+            </Link>
+          </div>
+          <Popularhotels />
+        </Row>
+        <Row className="mt-4">
+          <div className="d-flex justify-content-between align-items-center">
             <h4 className="mt-4 mb-3">Popular Salons </h4>
             <Link to="/moresalons">
               <Button variant="link">View All</Button>
@@ -44,6 +54,7 @@ const DashboardContent = () => {
           </div>
           <PopularSaloon />
         </Row>
+        
 
         <Row  className="align-items-center">
           {/* <Col>

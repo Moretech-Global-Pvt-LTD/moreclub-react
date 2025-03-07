@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { marketPlaceadminhostURL, marketPlacehostURL, morefoodhostNepalURL, morefoodhostURL, moresaloonhostURL } from "../config/config";
+import { marketPlaceadminhostURL, marketPlacehostURL, morefoodhostNepalURL, morefoodhostURL, morelivinghostURL, moresaloonhostURL } from "../config/config";
 import axios from "axios";
 
 export const fetchLiveLocation = async () => {
@@ -55,7 +55,7 @@ export function GetURL(props) {
       default: morefoodhostURL,
     },
     moresaloon: moresaloonhostURL,
-    moreliving: "https://moreliving.vercel.app",
+    moreliving: morelivinghostURL,
     marketplace: marketPlacehostURL,
     marketplaceadmin: marketPlaceadminhostURL,
     hotel: "https:morehotel.com",
