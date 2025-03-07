@@ -17,6 +17,8 @@ import BusinessTransactions from "../../images/svg/transactionWhite.svg";
 import MoreFood from "../../images/svg/dashboard/morefood.svg";
 import MoreSalonWhite from "../../images/svg/dashboard/moresaloonwhite.svg";
 import MoreSalonBlack from "../../images/svg/dashboard/moresaloonblack.svg";
+import MoreLiving from "../../images/svg/dashboard/morliving.png";
+
 import settingRed from "../../images/svg/dashboard/SettingRed.svg";
 import settingWhite from "../../images/svg/dashboard/settingWhite.svg";
 import settingBlack from "../../images/svg/dashboard/settingGray.svg";
@@ -262,6 +264,14 @@ const DashboardMenu = () => {
         lightIcon: MoreSalonBlack,
         darkIcon: MoreSalonWhite,
         label: "MORE SALONS",
+        hasPermission: true, 
+        hasDropdown : false
+      },
+      {
+        to: "/moreliving",
+        lightIcon: MoreLiving,
+        darkIcon: MoreLiving,
+        label: "MORE LIVING",
         hasPermission: true, 
         hasDropdown : false
       },

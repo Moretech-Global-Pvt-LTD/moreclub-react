@@ -23,6 +23,10 @@ export const marketPlaceadminhostURL = process.env.REACT_APP_MARKETPLACE_ADMIN_H
 export const moresaloonURL = process.env.REACT_APP_MORE_SALOON_BASE_URL;
 export const moresaloonimageURL = process.env.REACT_APP_MORE_SALOON_IMAGE_URL;
 
+
+export const morelivingURL = process.env.REACT_APP_MORE_LIVING_BASE_URL;
+export const morelivinghostURL = process.env.REACT_APP_MORE_LIVING_HOST_URL;
+
 export const apiKey = process.env.REACT_APP_FIREBASE_APIKEY;
 export const authDomain = process.env.REACT_APP_FIREBASE_AUTHDOMAIN;
 export const projectId = process.env.REACT_APP_FIREBASE_PROJECTID;
