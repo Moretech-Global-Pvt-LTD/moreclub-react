@@ -9,6 +9,7 @@ import BusinessPartnerContent from "./BusinessPartnerContent";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import LandingLayout from "../../components/Layout/LandingLayout";
 import { getAccessToken } from "../../utills/token";
+import BusinessPartnerHotelContent from "./BusinessPartnerHotelContent";
 
 
 const BusinessTypesDetail = () => {
@@ -31,7 +32,9 @@ const BusinessTypesDetail = () => {
             
             return (
                 <DashboardLayout title={title}>
-                    <BusinessPartnerContent partnerId={partnerId} />
+                 
+                <BusinessPartnerContent partnerId={partnerId} />
+
                     <Divider />
                 </DashboardLayout>
             );
@@ -50,7 +53,11 @@ const BusinessTypesDetail = () => {
                     ]}
                 />
                 <div className="container">
+                
                 <BusinessPartnerContent partnerId={partnerId} />
+
+                
+                {/* <BusinessPartnerContent partnerId={partnerId} /> */}
                     {/* <UnauthenticatedBusinessPartnerContent partnerId={partnerId} /> */}
                     <Divider />
                 </div>
