@@ -4,6 +4,15 @@ import { axiosInstance } from "../../index";
 import { businessProfileSucess, businessTypeSuccess, setError } from "../slices/businessSlice";
 
 
+// export const fetchBusinessTypes = () => async (dispatch) =>{
+//   try {
+//     const res = await axios.get(`${baseURL}business/all/types/`);
+//     dispatch(businessTypeSuccess(res?.data?.data))
+//   } catch (err) {
+//     dispatch(setError(err?.response?.data));
+//   }
+// };
+
 export const businessType = () => async (dispatch) =>{
   try {
     const res = await axios.get(`${baseURL}business/all/types/`);

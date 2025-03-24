@@ -6,6 +6,8 @@ const initialState = {
   businessProfile: {},
   businessQRInfo:[],
 };
+
+
 export const businessReducer = createSlice({
   name: "businessReducer",
   initialState,
