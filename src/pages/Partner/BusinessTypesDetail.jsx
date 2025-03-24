@@ -9,7 +9,6 @@ import BusinessPartnerContent from "./BusinessPartnerContent";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import LandingLayout from "../../components/Layout/LandingLayout";
 import { getAccessToken } from "../../utills/token";
-import BusinessPartnerHotelContent from "./BusinessPartnerHotelContent";
 
 
 const BusinessTypesDetail = () => {
