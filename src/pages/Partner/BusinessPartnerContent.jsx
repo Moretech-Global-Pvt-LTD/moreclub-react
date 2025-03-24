@@ -44,6 +44,7 @@ const BusinessPartnerContent = ({ partnerId }) => {
     },
   });
 
+
   const bottomRef = React.createRef();
 
   useEffect(() => {
@@ -63,7 +64,7 @@ const BusinessPartnerContent = ({ partnerId }) => {
   }, [hasNextPage, fetchNextPage, bottomRef.current]); // Add bottomRef.current to the dependency array
 
 
-  if (isLoading && partnerName !== "Hotel") {
+  if (isLoading && partnerName !== "Marketplace" ) {
     return (
       <div className="d-flex gap-2">
         <BestDealsinTownSkeleton />
@@ -71,20 +72,19 @@ const BusinessPartnerContent = ({ partnerId }) => {
     );
   }
 
-  if (isError && partnerName !== "Hotel") {
+  if (isError && partnerName !== "Marketplace") {
     <div className="text-dynamic white">Error getting data</div>;
   }
 
-  if(partnerName === "Hotel"){
+  if(partnerName === "Marketplace"){
     return (
       <>
       <Divider />
-      <p className="text-center">Partner not Registered yet in Hotel </p>
+      <p className="text-center">Coming Soon... </p>
       <Divider />
       </>
     )}else{
-
- 
+      
   return (
     <div className="mt-4">
       <Row xs={2} sm={2} md={2} lg={3} xl={4} xxl={5} className=" px-2">
@@ -96,12 +96,12 @@ const BusinessPartnerContent = ({ partnerId }) => {
         </>
         ) : (
           <>
-            {data.pages.map((data) => (
-              <>
+            {data.pages.map((data , index) => (
+              <React.Fragment key={index} >
                 {data.data.map((item) => {
                   const platformdetail = getplatformName(partnerName);
                   return (
-                    <>
+                    <React.Fragment key={item.id-index}>
                       <BusinessListCard
                         key={item.id}
                         type={platformdetail.name}
@@ -112,10 +112,10 @@ const BusinessPartnerContent = ({ partnerId }) => {
                           item[platformdetail.type]
                         }`}
                       />
-                    </>
+                    </React.Fragment>
                   );
                 })}
-              </>
+              </React.Fragment>
             ))}
           </>
         )}

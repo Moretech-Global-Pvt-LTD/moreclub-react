@@ -159,7 +159,19 @@ const Home = () => {
     <div className="layout-wrapper">
       <Navbar />
       {/* <Hero /> */}
-      {isLoading && <PartnerSkeleton />}
+      {isLoading && 
+      <div className="d-flex g-4">
+              <div className="me-4" style={{ width: "100%" }}>
+                <Placeholder as="p" animation="glow" className="rounded">
+                  <Placeholder
+                    xs={12}
+                    size="lg"
+                    style={{ height: "20rem", borderRadius: "10px" }}
+                  />
+                </Placeholder>
+              </div>
+            </div>
+      }
       {!isLoading && !isError && data &&  <Newhero data={data}/>}
    
       {/* <Divider/> */}

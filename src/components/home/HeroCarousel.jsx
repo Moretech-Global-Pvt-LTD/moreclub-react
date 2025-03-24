@@ -168,7 +168,7 @@ export const getOffers = async (activeIndex) => {
 
   if (activeIndex === "Salons") {
     const response = await moresalonPublicAxios.get(
-      `offers/all/coupons/lists/`
+      `offers/moredeals-coupons/`
     );
     if(response.data.data.length === 0){
       return dummyOffers[activeIndex]
