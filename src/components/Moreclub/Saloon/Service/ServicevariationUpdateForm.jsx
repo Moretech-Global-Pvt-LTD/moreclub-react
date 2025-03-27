@@ -412,15 +412,35 @@ const ServiceVariationUpdateForm = ({
     setServerImage((prev) => prev.filter((img) => img.id !== id));
   };
 
-  const handleDurationChange = (e) => {
-    let { value } = e.target;
-    value = value.replace(/[^\d:]/g, "");
+  // const handleDurationChange = (e) => {
+  //   let { value } = e.target;
+  //   value = value.replace(/[^\d:]/g, "");
 
-    if (value.length > 2) value = value.slice(0, 2) + ":" + value.slice(2);
-    if (value.length <= 5) {
-      setServiceVariation((prev) => ({ ...prev, duration: value }));
-      setDurationError("");
+  //   if (value.length > 2) value = value.slice(0, 2) + ":" + value.slice(2);
+  //   if (value.length <= 5) {
+  //     setServiceVariation((prev) => ({ ...prev, duration: value }));
+  //     setDurationError("");
+  //   }
+  // };
+  const handleDurationChange = async (e) => {
+    let { value } = e.target;
+
+    // Remove any non-numeric characters except for ":"
+    value = value.replace(/[^\d]/g, "");
+
+    // Automatically add colon for HH:MM format
+    if (value.length > 2) {
+      value = value.slice(0, 2) + ":" + value.slice(2);
     }
+
+    // Restrict input to 5 characters in total (HH:MM)
+    if (value.length > 5) {
+      return; // Stop accepting input if exceeds HH:MM format
+    }
+
+    // Set valid input
+    setServiceVariation({ ...serviceVariation, duration: value });
+    setDurationError(""); // Reset error on valid input
   };
 
 //   const handleSubmit = async (e) => {
