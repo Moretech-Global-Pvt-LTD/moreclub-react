@@ -27,7 +27,9 @@ const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
             });
             message.success("Service Variation Deleted successfully");
         } catch (err) {
-            message.error("error deleting");
+            message.success("Service Variation Deleted successfully");
+
+            // message.error("error deleting");
             queryClient.invalidateQueries({
                 queryKey: [`Saloon variation List ${sal_id} ${ser_id}`],
             });

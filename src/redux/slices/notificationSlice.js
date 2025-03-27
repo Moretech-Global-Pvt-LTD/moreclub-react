@@ -102,37 +102,3 @@ export const {
 } = notificationsSlice.actions;
 
 export default notificationsSlice.reducer;
-
-// Thunks for fetching notifications
-// export const fetchNotifications = () => async (dispatch) => {
-//   dispatch(setLoading(true));
-//   try {
-//     const data = await fetchNotificationsApi(1);
-//     const notifications = data.data;
-//     const hasNextPage = !!data.meta.links.next;
-
-//     dispatch(fetchNotificationsSuccess({ notifications, hasNextPage }));
-//   } catch (error) {
-//     dispatch(setError(error.message || "Failed to fetch notifications"));
-//   } finally {
-//     dispatch(setLoading(false));
-//   }
-// };
-
-// export const fetchNextPage = (currentPage) => async (dispatch) => {
-//   dispatch(setLoading(true));
-//   try {
-//     const nextPage = currentPage + 1;
-//     const data = await fetchNotificationsApi(nextPage);
-//     const notifications = data.data;
-//     const hasNextPage = !!data.meta.links.next;
-
-//     dispatch(fetchNextPageSuccess({ notifications, hasNextPage }));
-//   } catch (error) {
-//     dispatch(
-//       setError(error.message || "Failed to fetch next page of notifications")
-//     );
-//   } finally {
-//     dispatch(setLoading(false));
-//   }
-// };
