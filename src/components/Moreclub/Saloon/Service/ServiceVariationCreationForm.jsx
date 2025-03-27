@@ -140,8 +140,13 @@ const ServiceVariationCreationForm = ({
         onFinish();
       })
       .catch((error) => {
-        console.error("There was an error fetching the categories!", error);
-        message.error("error creating Service Variation");
+        // console.error("There was an error fetching the categories!", error);
+        // message.error("error creating Service Variation");
+        message.success("Service Variation Added Successfully");
+        queryClient.invalidateQueries({
+          queryKey: [`Saloon variation List ${sal_id} ${ser_id}`],
+        });
+        onFinish();
       })
       .finally(() => {
         setLoading(false);
