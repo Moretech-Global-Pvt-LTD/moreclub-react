@@ -17,9 +17,9 @@ const ServiceVariationCreationForm = ({
     discount_price: null,
     description: "",
     duration: "",
-    image: [],
+    image: null,
   });
-  const [imagePreviews, setImagePreviews] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState();
   const [loading, setLoading] = useState(false);
   const [uiLoading, setUIloading] = useState(false);
 
@@ -44,29 +44,40 @@ const ServiceVariationCreationForm = ({
     }
   };
 
-  const handleImageChange = (e, index = null) => {
-    const files = Array.from(e.target.files);
-    let updatedImages = [...serviceVariation.image];
-    let updatedPreviews = [...imagePreviews];
+  const handleImageChange = (e) => {
+    const files = e.target.files[0];
+    const newPreviews =  URL.createObjectURL(files);
 
-    if (index !== null) {
-      // Updating a specific image
-      updatedImages[index] = files[0];
-      updatedPreviews[index] = URL.createObjectURL(files[0]);
-    } else {
-      // Adding new images
-      updatedImages = updatedImages.concat(files);
-      updatedPreviews = updatedPreviews.concat(
-        files.map((file) => URL.createObjectURL(file))
-      );
-    }
-
-    setserviceVariation({
-      ...serviceVariation,
-      image: updatedImages,
-    });
-    setImagePreviews(updatedPreviews);
+    setserviceVariation((prev) => ({
+      ...prev,
+      image: files,
+    }));
+    setImagePreviews(newPreviews);
   };
+
+  // const handleImageChange = (e, index = null) => {
+  //   const files = Array.from(e.target.files);
+  //   let updatedImages = [...serviceVariation.image];
+  //   let updatedPreviews = [...imagePreviews];
+
+  //   if (index !== null) {
+  //     // Updating a specific image
+  //     updatedImages[index] = files[0];
+  //     updatedPreviews[index] = URL.createObjectURL(files[0]);
+  //   } else {
+  //     // Adding new images
+  //     updatedImages = updatedImages.concat(files);
+  //     updatedPreviews = updatedPreviews.concat(
+  //       files.map((file) => URL.createObjectURL(file))
+  //     );
+  //   }
+
+  //   setserviceVariation({
+  //     ...serviceVariation,
+  //     image: updatedImages,
+  //   });
+  //   setImagePreviews(updatedPreviews);
+  // };
 
   const handleRemoveImage = (index) => {
     const updatedImages = serviceVariation.image.filter((_, i) => i !== index);
@@ -140,13 +151,9 @@ const ServiceVariationCreationForm = ({
         onFinish();
       })
       .catch((error) => {
-        // console.error("There was an error fetching the categories!", error);
-        // message.error("error creating Service Variation");
-        message.success("Service Variation Added Successfully");
-        queryClient.invalidateQueries({
-          queryKey: [`Saloon variation List ${sal_id} ${ser_id}`],
-        });
-        onFinish();
+        console.error("There was an error fetching the categories!", error);
+        message.error("error creating Service Variation");
+        
       })
       .finally(() => {
         setLoading(false);
@@ -236,7 +243,7 @@ const ServiceVariationCreationForm = ({
         <Form.Group controlId="formItemImage" className="my-3">
           <Form.Label>Image</Form.Label>
           <br />
-          {serviceVariation.image && serviceVariation.image.length > 0 && (
+          {/* {serviceVariation.image && serviceVariation.image.length > 0 && (
             <div className="image-preview-container">
               {serviceVariation.image.map((img, index) => (
                 <div
@@ -259,11 +266,27 @@ const ServiceVariationCreationForm = ({
                 </div>
               ))}
             </div>
-          )}
+          )} */}
+           {imagePreviews && (
+              <div className="m-2">
+                <img
+                  src={imagePreviews}
+                  alt="preview"
+                  style={{ width: "5rem", height: "5rem" }}
+                />
+                {/* <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleRemoveImage(index)}
+                >
+                  &times;
+                </Button> */}
+              </div>
+            )}
           <Form.Control
             type="file"
             name="image"
-            multiple
+            // multiple
             required
             onChange={handleImageChange}
           />
