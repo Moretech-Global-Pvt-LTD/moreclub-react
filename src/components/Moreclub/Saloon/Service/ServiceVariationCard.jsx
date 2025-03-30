@@ -54,7 +54,7 @@ const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
             }
             <div class="service-variation-content">
                 <h3 class="service-variation-title">{item.name}</h3>
-                <p class="service-variation-price">{item.discount_price ? `${item.currency} ${item.discount_price}` : `${item.currency} ${item.price}`}{" "}{<span style={{ textDecoration: "line-through" }}>{item.discount_price && `Rs.${item.price}`}</span>}</p>
+                <p class="service-variation-price">{(item.discount_price && Number(item.discount_price) > 0) ? `${item.currency} ${item.discount_price}` : `${item.currency} ${item.price}`}{" "}{<span style={{ textDecoration: "line-through" }}>{(item.discount_price && Number(item.discount_price) > 0) && `${item.currency}.${item.price}`}</span>}</p>
                 <p class="service-variation-description">
                     {item.description}
                 </p>
