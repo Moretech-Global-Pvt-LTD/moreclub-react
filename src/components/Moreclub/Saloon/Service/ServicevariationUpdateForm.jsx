@@ -81,12 +81,11 @@ const ServiceVariationUpdateForm = ({
 const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-
     const datas = {
       ...(data.name !== serviceVariation.name && { name: serviceVariation.name}),
       ...(data.price !== serviceVariation.price && { price: serviceVariation.price}),
-      ...(data.discount_price !== serviceVariation.offerPrice && { discount_price: serviceVariation.offerPrice ?? null}),
+      ...(data.discount_price !== serviceVariation.discount_price
+        && { discount_price: serviceVariation.discount_price ?? null}),
       ...(data.description !== serviceVariation.description && { description: serviceVariation.description}),      
       duration: `${serviceVariation.duration}:00`,      
       ...(serviceVariation.image  && { image: serviceVariation.image }),
@@ -104,7 +103,9 @@ const handleSubmit = async (e) => {
       )
       .then((response) => {
         message.success("Service Variation updated Successfully");
-        
+        queryClient.invalidateQueries({
+          queryKey: [`Saloon variation List ${sal_id} ${ser_id}`],
+        });
         setServiceVariation({
           name: response.data.data.name,
           price: response.data.data.price,
@@ -114,9 +115,6 @@ const handleSubmit = async (e) => {
           image: null,
         });
         setImagePreviews(response.data.data.images[0].image);
-         queryClient.invalidateQueries({
-            queryKey: [`Saloon variation List ${sal_id} ${ser_id}`],
-          });
         onFinish();
       })
       .catch((error) => {
