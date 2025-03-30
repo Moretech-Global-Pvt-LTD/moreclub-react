@@ -85,7 +85,7 @@ const ServiceVariationCard = ({ id, sal_id, ser_id, item }) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <ServiceVariationUpdateForm ser_id={ser_id} sal_id={id} data={item} onFinish={hideAddCategory} onCancel={hideAddCategory} />
+                    <ServiceVariationUpdateForm ser_id={ser_id} sal_id={sal_id} data={item} onFinish={hideAddCategory} onCancel={hideAddCategory} />
                 </Modal.Body>
             </Modal>
         </div>

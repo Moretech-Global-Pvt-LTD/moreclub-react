@@ -12,7 +12,6 @@ const ProfileCard = () => {
 
                                 <Placeholder xs={8} />
 
-
                             </Placeholder>
 
                         </div>
