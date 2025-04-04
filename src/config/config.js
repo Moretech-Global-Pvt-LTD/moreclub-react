@@ -17,15 +17,21 @@ export const morefoodhostURL = process.env.REACT_APP_MORE_FOOD_HOST_URL;
 export const morefoodhostNepalURL = process.env.REACT_APP_MORE_FOOD_HOST_NEPAL_URL;
 
 export const moresaloonhostURL = process.env.REACT_APP_MORE_SALOON_HOST_URL;
-export const marketPlacehostURL = process.env.REACT_APP_MARKETPLACE_HOST_URL;
-export const marketPlaceadminhostURL = process.env.REACT_APP_MARKETPLACE_ADMIN_HOST_URL;
+
+export const marketPlacehostURL = "https://www.moremaarket.com/"
+export const marketPlaceadminhostURL = "https://admin.moremaarket.com/"
+// export const marketPlacehostURL = process.env.REACT_APP_MARKETPLACE_HOST_URL;
+// export const marketPlaceadminhostURL = process.env.REACT_APP_MARKETPLACE_ADMIN_HOST_URL;
 
 export const moresaloonURL = process.env.REACT_APP_MORE_SALOON_BASE_URL;
 export const moresaloonimageURL = process.env.REACT_APP_MORE_SALOON_IMAGE_URL;
 
 
+// export const morelivingURL = "https://morelivingglobal.com/"
+export const morelivinghostURL = "https://morelivingglobal.com/"
+
 export const morelivingURL = process.env.REACT_APP_MORE_LIVING_BASE_URL;
-export const morelivinghostURL = process.env.REACT_APP_MORE_LIVING_HOST_URL;
+// export const morelivinghostURL = process.env.REACT_APP_MORE_LIVING_HOST_URL;
 
 export const apiKey = process.env.REACT_APP_FIREBASE_APIKEY;
 export const authDomain = process.env.REACT_APP_FIREBASE_AUTHDOMAIN;

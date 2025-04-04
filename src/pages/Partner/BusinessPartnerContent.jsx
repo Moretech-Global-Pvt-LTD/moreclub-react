@@ -64,7 +64,7 @@ const BusinessPartnerContent = ({ partnerId }) => {
   }, [hasNextPage, fetchNextPage, bottomRef.current]); // Add bottomRef.current to the dependency array
 
 
-  if (isLoading && partnerName !== "Marketplace" ) {
+  if (isLoading ) {
     return (
       <div className="d-flex gap-2">
         <BestDealsinTownSkeleton />
@@ -72,18 +72,18 @@ const BusinessPartnerContent = ({ partnerId }) => {
     );
   }
 
-  if (isError && partnerName !== "Marketplace") {
+  if (isError) {
     <div className="text-dynamic white">Error getting data</div>;
   }
 
-  if(partnerName === "Marketplace"){
-    return (
-      <>
-      <Divider />
-      <p className="text-center">Coming Soon... </p>
-      <Divider />
-      </>
-    )}else{
+  // if(partnerName === "Marketplace"){
+  //   return (
+  //     <>
+  //     <Divider />
+  //     <p className="text-center">Coming Soon... </p>
+  //     <Divider />
+  //     </>
+  //   )}else{
       
   return (
     <div className="mt-4">
@@ -131,6 +131,5 @@ const BusinessPartnerContent = ({ partnerId }) => {
     </div>
   );
 }
-};
 
 export default BusinessPartnerContent;
