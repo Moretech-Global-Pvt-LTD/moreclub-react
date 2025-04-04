@@ -312,14 +312,14 @@ export const CarouselCard = ({ item, width, activeIndex }) => {
     if (activeIndex === "Restaurant")
       return `/`;
     if (activeIndex === "Salons") return `/salons/`;
-    if (activeIndex === "Marketplace") return `/store`;
+    if (activeIndex === "Marketplace") return `/`;
     if (activeIndex === "Hotel") return `/`;
     return "";
   };
   const getPlatform = () => {
     if (activeIndex === "Restaurant") return `morefood`;
     if (activeIndex === "Salons") return `moresaloon`;
-    if (activeIndex === "Marketplace") return `moresalons`;
+    if (activeIndex === "Marketplace") return `marketplace`;
     if (activeIndex === "Hotel") return `moreliving`;
     return "";
   };
