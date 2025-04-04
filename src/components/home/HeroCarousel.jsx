@@ -178,12 +178,12 @@ export const getOffers = async (activeIndex) => {
    
   }
   if(activeIndex === "Marketplace"){
-    const response = await moresalonPublicAxios.get(`https://web-production-175d.up.railway.app/api/offers/all/offers/lists/`);
+    const response = await moresalonPublicAxios.get(`https://api.moremaarket.com/api/offers/all/offers/lists/`);
     return response.data.data;
   }
   if (activeIndex === "Hotel") {
     const response = await moresalonPublicAxios.get(
-      `https://hotel-one-ochre.vercel.app/api/offers/all-offers/`
+      `https://api.morelivingglobal.com/api/offers/all-offers/`
     );
     if(response.data.data.length === 0){
       return dummyOffers[activeIndex]
@@ -310,10 +310,10 @@ export default HeroCarousel;
 export const CarouselCard = ({ item, width, activeIndex }) => {
   const getFormattedUrl = () => {
     if (activeIndex === "Restaurant")
-      return `/restaurant/${item.restaurant.slug}`;
-    if (activeIndex === "Salons") return `/salons/${item.slug}`;
-    if (activeIndex === "Marketplace") return `/salons/${item.slug}`;
-    if (activeIndex === "Hotel") return `/hotel/${item.slug}`;
+      return `/`;
+    if (activeIndex === "Salons") return `/salons/`;
+    if (activeIndex === "Marketplace") return `/store`;
+    if (activeIndex === "Hotel") return `/`;
     return "";
   };
   const getPlatform = () => {
