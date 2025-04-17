@@ -56,7 +56,7 @@ export function GetURL(props) {
     },
     moresaloon: moresaloonhostURL,
     moreliving: morelivinghostURL,
-    marketplace: marketPlacehostURL,
+    p: marketPlacehostURL,
     marketplaceadmin: marketPlaceadminhostURL,
     hotel: "https:morehotel.com",
   };
@@ -197,7 +197,7 @@ export function parseMembershipData(data, additionalLinks = []) {
         case "Marketplace":
             return {name:"marketplace" , paths:"store", type:"id"};
         case "Hotel":
-            return {name:"moreliving" , paths:"hotel", type:"id"};
+            return {name:"moreliving" , paths:"hotel", type:"slug"};
         default:
             return {name:"#" , paths:"#", type:"#"};
     }
