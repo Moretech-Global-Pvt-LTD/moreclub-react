@@ -90,11 +90,6 @@ const LoginContent = (props) => {
       const result = await dispatch(login(email, password, nextParam));
       if (result?.status === 200) {
         setLoading(false);
-        //  ReactGA.event({
-        //    category: "Authentication",
-        //    action: "Login",
-        //    label: "Successful Login",
-        //  });
         if (nextParam) {
           const tokens = result.data.data.callback_url_token
           const token = tokens;
