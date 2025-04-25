@@ -106,15 +106,12 @@ const UserBasicForm = () => {
   const handlePhoneCheck = async (value) => {
     if (value !== "") {
       try {
-
         const validPhoneNumber = value.replace(/[^+\d]/g, "");
-         console.log(validPhoneNumber);
         const res = await axios.post(`${baseURL}auth/check/username/`, {
           username: `${validPhoneNumber}`,
         });
         if (res.status === 200) {
           setPhoneError("");
-
           await dispatch(updateFormData({ phone_number: value }));
         }
       } catch (error) {
@@ -166,7 +163,10 @@ const UserBasicForm = () => {
           country: data.country,
         })
       );
+      if(data.fullNumber.length === 7)
+      {
       handlePhoneCheck(data.fullNumber);
+      }
     }
 
   };
@@ -267,6 +267,7 @@ const UserBasicForm = () => {
           email.trim() === "" ||
           emailError !== "" ||
           phone_number === "" ||
+          phone_number.length < 7 ||
           phoneError !== "" ||
           formData.phonePrefix === "" ||
           formData.country_code === "" ||

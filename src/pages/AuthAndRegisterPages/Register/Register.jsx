@@ -9,12 +9,14 @@ import Navbutton from "../../../components/header/Navbutton";
 export default function Register() {
   const otp_username = localStorage.getItem("otp_username");
   const navigate = useNavigate();
+  const url = new URL(window.location.href);
+  const nextParam = url.searchParams.get("next");
 
   useEffect(() => {
-    if (otp_username) {
+    if(!nextParam && otp_username){
       navigate("/otp");
     }
-  }, [otp_username, navigate]);
+  }, [otp_username, navigate , nextParam]);
 
   return (
     <div className="">
