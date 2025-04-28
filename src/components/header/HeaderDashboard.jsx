@@ -17,6 +17,9 @@ import { CurrencySet } from "../../redux/api/CurrencyConvertorAPI";
 import { Placeholder } from "react-bootstrap";
 import { fetchNotifications } from "../../redux/api/notificationApi";
 import DashboardMenu from "./Dashboardmenu";
+import Profile from "./userdashboard/userProfile";
+import { NavigationLinks } from "./userdashboard/usernavigationlink";
+import Referalbox from "./userdashboard/referalbox";
 
 const HeaderDashboard = () => {
   let [check] = useState(true);
@@ -112,6 +115,7 @@ const HeaderDashboard = () => {
   };
 
   const user = useSelector((state) => state.userReducer);
+
 
   const logOut = () => {
     dispatch(logout());
@@ -273,9 +277,20 @@ const HeaderDashboard = () => {
 
       <div className={`admin-sidebar-wrap sidebar-hidden `}>
         <div className="overflowY-scroll  ">
-          <HeaderUserInfo />
+         {user?.user?.user_type !== "NORMAL" ? 
+        <>
+        <HeaderUserInfo />
+        <DashboardMenu />
+        </> 
+        :
+        <>
+        <Profile/>
+        <DashboardMenu />
+        <Referalbox/>
+        </>
 
-          <DashboardMenu />
+        }
+          
           {/* <HeaderDashboardMenu/> */}
         </div>
       </div>
@@ -288,8 +303,19 @@ const HeaderDashboard = () => {
             }`}
           >
             <div className="overflowY-scroll">
-              <HeaderUserInfo />
-              <DashboardMenu />
+            {user?.user?.user_type !== "NORMAL" ? 
+        <>
+        <HeaderUserInfo />
+        <DashboardMenu />
+        </> 
+        :
+        <>
+        <Profile/>
+        <DashboardMenu />
+        <Referalbox/>
+        </>
+
+        }
               {/* <HeaderDashboardMenu/> */}
             </div>
           </div>

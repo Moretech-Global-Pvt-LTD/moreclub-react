@@ -1,5 +1,7 @@
 import React from 'react';
-import './user-dashboard.css';
+// import './user-dashboard.css';
+import Profile from '../../header/userdashboard/userProfile';
+import { NavigationLinks } from '../../header/userdashboard/usernavigationlink';
 
 const UserDashboard = () => {
   return (
@@ -16,41 +18,14 @@ const Sidebar = () => (
   <div className="user-dashboard-sidebar">
     <Profile />
     <NavigationLinks />
-    <ReferralBox />
+    {/* <ReferralBox /> */}
   </div>
 );
 
-const Profile = () => (
-  <div className="user-dashboard-profile">
-    <img
-      src="https://randomuser.me/api/portraits/men/32.jpg"
-      alt="Profile"
-      className="user-dashboard-profile-img"
-    />
-    <h3>John D.</h3>
-    <p>Gold Member</p>
-  </div>
-);
 
-const NavigationLinks = () => (
-  <ul className="user-dashboard-nav-links">
-    <li><a href="#" className="active"><i className="fas fa-home"></i> Dashboard</a></li>
-    <li><a href="#"><i className="fas fa-suitcase"></i> My Trips</a></li>
-    <li><a href="#"><i className="fas fa-gem"></i> Exclusive Offers</a></li>
-    <li><a href="#"><i className="fas fa-users"></i> Refer Friends</a></li>
-    <li><a href="#"><i className="fas fa-calendar-alt"></i> Book Meeting</a></li>
-    <li><a href="#"><i className="fas fa-cog"></i> Settings</a></li>
-    <li><a href="#"><i className="fas fa-sign-out-alt"></i> Logout</a></li>
-  </ul>
-);
 
-const ReferralBox = () => (
-  <div className="user-dashboard-referral-box">
-    <h4>Your Referral Link</h4>
-    <div className="user-dashboard-referral-link">https://moredealsclub.com/ref/johndoe123</div>
-    <button className="user-dashboard-btn user-dashboard-btn-small" style={{ width: '100%' }}>Copy Link</button>
-  </div>
-);
+
+
 
 const MainContent = () => (
   <div className="user-dashboard-main-content">
