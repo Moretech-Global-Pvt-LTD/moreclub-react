@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Hunt Travel Adventures | moredealsclub.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Global Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background: #f9f9f9;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: #d4af37;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #d4af37;
+            color: #000;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #c9a227;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-small {
+            padding: 8px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.8rem;
+            position: relative;
+        }
+        
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: #d4af37;
+            margin: 15px auto;
+        }
+        
+        .dark-bg {
+            background: #1a1a1a;
+            color: #fff;
+        }
+        
+        /* ===== Hero Section ===== */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-4.0.3&auto=format&fit=crop&w=1368&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        .hero .btn {
+            animation: fadeIn 1s ease 0.6s both;
+        }
+        
+        /* ===== Navigation ===== */
+        .navbar {
+            background: rgba(26, 26, 26, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: #d4af37;
+            font-size: 2rem;
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links li a:hover {
+            color: #d4af37;
+        }
+        
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+        
+        /* ===== Destinations Section ===== */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .destination-card {
+            height: 450px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+        }
+        
+        .destination-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .destination-card:hover::before {
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+        }
+        
+        .destination-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            color: #fff;
+            z-index: 2;
+        }
+        
+        .destination-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .destination-content ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .destination-content ul li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .destination-content ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+        }
+        
+        /* Destination Backgrounds */
+        .greece {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                        url('https://images.unsplash.com/photo-1516557070061-c3d1653fa646?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .nepal {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                        url('https://images.unsplash.com/photo-1581502372775-e2298e6d7ce6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .india {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                        url('https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=1592&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .maldives {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                        url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .thailand {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                        url('https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Pulse Animation */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* ===== Membership Benefits Section ===== */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+        
+        .benefit {
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit:hover {
+            transform: translateY(-10px);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .benefit i {
+            font-size: 3.5rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        
+        .benefit h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        /* ===== How It Works Section ===== */
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #d4af37;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 0 auto 20px;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            right: -50px;
+            width: 100px;
+            height: 2px;
+            background: #d4af37;
+        }
+        
+        /* ===== Contact Section ===== */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            gap: 20px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            padding: 15px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #aaa;
+        }
+        
+        /* ===== Testimonials ===== */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .testimonial {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+        }
+        
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(212, 175, 55, 0.2);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid #d4af37;
+        }
+        
+        /* ===== Footer ===== */
+        footer {
+            background: #111;
+            color: #fff;
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        .social-links {
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: #fff;
+            margin: 0 15px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .social-links a:hover {
+            color: #d4af37;
+            transform: translateY(-5px);
+        }
+        
+        /* ===== Animations ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .nav-links {
+                display: none; /* Replace with hamburger menu in production */
+            }
+            
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section h2 {
+                font-size: 2.2rem;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .step:not(:last-child)::after {
+                display: none;
+            }
+            
+            .step {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Treasure Hunt Travel Adventures</h1>
+            <p>Win exotic vacations by becoming a member and referring friends</p>
+            <a href="https://www.moredealsclub.com/login" class="btn">Join Now - Get 50% Off First Trip</a>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">Treasure Hunt</a>
+            <ul class="nav-links">
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="https://www.moredealsclub.com/login" class="btn btn-small">Member Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2>Unlock World Travel Rewards</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+                Our exclusive travel club offers members the chance to win dream vacations to exotic destinations. 
+                Earn points for referrals and unlock incredible discounts up to 50% on luxury getaways. 
+                With just 2 successful referrals, you become eligible for our grand prize drawings.
+            </p>
+        </div>
+    </section>
+
+    <!-- Membership Benefits Section -->
+    <section id="benefits" class="section dark-bg">
+        <div class="container">
+            <h2>Member Benefits</h2>
+            <div class="benefits">
+                <div class="benefit">
+                    <i class="fas fa-gem"></i>
+                    <h3>Exclusive Deals</h3>
+                    <p>Access to members-only pricing with discounts up to 50% on all travel packages</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Win Free Trips</h3>
+                    <p>Eligibility for our monthly vacation giveaways when you refer 2 friends</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-globe-americas"></i>
+                    <h3>Global Network</h3>
+                    <p>Premium access to our worldwide network of luxury resorts and experiences</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-concierge-bell"></i>
+                    <h3>VIP Treatment</h3>
+                    <p>Personalized travel concierge service for all your vacation planning needs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="section">
+        <div class="container">
+            <h2>Exotic Destinations</h2>
+            <p style="text-align: center; margin-bottom: 40px;">These could be your next dream vacations</p>
+            <div class="destinations-grid">
+                <!-- Greece -->
+                <div class="destination-card greece" onclick="window.location.href='https://www.moredealsclub.com/login'">
+                    <div class="destination-content">
+                        <h3>Greek Island Getaway</h3>
+                        <ul>
+                            <li>7-day luxury villa stay</li>
+                            <li>Private yacht cruise</li>
+                            <li>Ancient ruins tour</li>
+                            <li>Gourmet dining experience</li>
+                        </ul>
+                        <a href="https://www.moredealsclub.com/login" class="btn btn-small pulse">Member Price: $1,299</a>
+                    </div>
+                </div>
+                
+                <!-- Nepal -->
+                <div class="destination-card nepal" onclick="window.location.href='https://www.moredealsclub.com/login'">
+                    <div class="destination-content">
+                        <h3>Himalayan Adventure</h3>
+                        <ul>
+                            <li>10-day guided trek</li>
+                            <li>Luxury mountain lodges</li>
+                            <li>Cultural immersion</li>
+                            <li>Spa retreat included</li>
+                        </ul>
+                        <a href="https://www.moredealsclub.com/login" class="btn btn-small pulse">Member Price: $1,599</a>
+                    </div>
+                </div>
+                
+                <!-- Maldives -->
+                <div class="destination-card maldives" onclick="window.location.href='https://www.moredealsclub.com/login'">
+                    <div class="destination-content">
+                        <h3>Maldives Paradise</h3>
+                        <ul>
+                            <li>Overwater bungalow</li>
+                            <li>All-inclusive luxury</li>
+                            <li>Private island dining</li>
+                            <li>Scuba diving package</li>
+                        </ul>
+                        <a href="https://www.moredealsclub.com/login" class="btn btn-small pulse">Member Price: $2,199</a>
+                    </div>
+                </div>
+                
+                <!-- Thailand -->
+                <div class="destination-card thailand" onclick="window.location.href='https://www.moredealsclub.com/login'">
+                    <div class="destination-content">
+                        <h3>Thai Luxury Escape</h3>
+                        <ul>
+                            <li>5-star beach resort</li>
+                            <li>Elephant sanctuary visit</li>
+                            <li>Private chef experience</li>
+                            <li>Island hopping tour</li>
+                        </ul>
+                        <a href="https://www.moredealsclub.com/login" class="btn btn-small pulse">Member Price: $1,499</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section dark-bg">
+        <div class="container">
+            <h2>How To Win Your Dream Vacation</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Become a Member</h3>
+                    <p>Sign up for our exclusive travel club to access member benefits</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Refer Friends</h3>
+                    <p>Share your unique referral link with at least 2 friends who join</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Earn Eligibility</h3>
+                    <p>With 2 successful referrals, you qualify for prize drawings</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Win & Travel</h3>
+                    <p>Selected winners receive all-expense paid luxury vacations</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="https://www.moredealsclub.com/login" class="btn">Start Your Journey Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section">
+        <div class="container">
+            <h2>Our Happy Travelers</h2>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"Thanks to Treasure Hunt, we enjoyed a Maldives vacation at half the regular price. The overwater bungalow was beyond our dreams!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J.">
+                            <div>
+                                <h4>Sarah J.</h4>
+                                <p>Maldives Winner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"I never thought I could afford a luxury Greek vacation. With my member discount and bonus points, it became reality!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T.">
+                            <div>
+                                <h4>Michael T.</h4>
+                                <p>Gold Member</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"After referring just 3 friends, I won an all-expense paid trip to Thailand. The entire experience was magical!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya K.">
+                            <div>
+                                <h4>Priya K.</h4>
+                                <p>Thailand Winner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section dark-bg">
+        <div class="container">
+            <h2>Talk To Our Travel Experts</h2>
+            <p style="text-align: center; margin-bottom: 40px;">Have questions? Our concierge team is ready to help plan your perfect getaway</p>
+            <div class="contact-form">
+                <input type="text" placeholder="Your Name">
+                <input type="email" placeholder="Your Email">
+                <input type="tel" placeholder="Phone Number">
+                <textarea placeholder="Your Travel Dreams..."></textarea>
+                <button type="submit" class="btn">Get Personalized Offers</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3>Treasure Hunt Travel Adventures</h3>
+            <p>Unlocking the world's greatest travel experiences for our members</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+            </div>
+            <p style="margin-top: 30px;">&copy; 2023 moredealsclub.com. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
