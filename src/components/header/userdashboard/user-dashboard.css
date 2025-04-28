@@ -306,3 +306,243 @@
   .user-dashboard-call-to-action h3 {
     margin-bottom: 20px;
   }
+
+  
+
+  /* Main menu item */
+.user-dashboard-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #000; /* Golden yellow text */
+  cursor: pointer;
+  border-radius: 0.75rem;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: transparent;
+}
+
+[data-theme="dark"] .user-dashboard-menu-item {
+  color:#fff
+}
+
+/* Hover and Active */
+.user-dashboard-menu-item:hover,
+.user-dashboard-menu-item-active {
+  background-color: #4b3f23; /* Dark brown background */
+  color: #ffd700 !important; /* Bright yellow text */
+}
+
+/* Disabled state */
+.user-dashboard-menu-disabled {
+  color: #aaa;
+  cursor: not-allowed;
+  background-color: #f9f9f9;
+  border-radius: 0.75rem;
+}
+
+/* Icon styles */
+.user-dashboard-menu-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.75rem;
+  object-fit: contain;
+}
+
+/* Dark icon visible normally */
+.user-dashboard-menu-icon-dark {
+  display: inline-block;
+}
+
+/* Light icon hidden unless needed */
+.user-dashboard-menu-icon-light {
+  display: none;
+}
+
+
+.user-dashboard-dropdown {
+  width: 100%;
+}
+
+/* Dropdown Header */
+.user-dashboard-dropdown-header {
+  background-color: transparent;
+  color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+[data-theme="dark"] .user-dashboard-dropdown-header {
+  color:#fff
+}
+
+/* When hover or active */
+.user-dashboard-dropdown-header:hover,
+.user-dashboard-dropdown-header.active {
+  background-color: #4b3f23;
+  color: #ffd700 !important;
+}
+
+.user-dashboard-dropdown-header-active {
+  background-color: #4b3f23;
+  color: #ffd700 !important;
+}
+
+/* Dropdown title + icon wrapper */
+.user-dashboard-dropdown-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+/* Body (ul) */
+.user-dashboard-dropdown-body {
+  padding-left: 10px;
+  padding: 0.25rem;
+  margin-top: 2px !important;
+  margin-left: 14px !important;
+  background-color: rgba(25,25,25,0.3);
+  border-left: #4b3f23 solid 1px;
+  animation: fadeInDown 0.3s ease;
+}
+
+[data-theme="dark"] .user-dashboard-dropdown-body {
+  background-color: rgba(0,0,0,0.3);
+}
+
+/* Icons */
+.user-dashboard-menu-icon {
+  width: 20px;
+  height: 20px;
+}
+
+
+.user-dashboard-menu-icon-light{
+  display: inline-block;
+}
+
+[data-theme="dark"] .user-dashboard-menu-icon-light{
+  display: none;
+}
+
+
+.user-dashboard-menu-icon-dark{
+  display: none;
+}
+
+[data-theme="dark"] .user-dashboard-menu-icon-dark{
+  display: inline-block;
+}
+
+
+/* Animation (optional for fade-in dropdown) */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.user-dashboard-submenu-item {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  color: #d4af37; /* Golden yellow text */
+  cursor: pointer;
+  margin: 0.25rem ;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: transparent;
+}
+
+/* Hover and Active */
+.user-dashboard-submenu-item:hover,
+.user-dashboard-submenu-item-active {
+  background-color: #4b3f23; /* Dark brown background */
+  color: #ffd700; /* Bright yellow text */
+}
+
+/* Disabled state */
+.user-dashboard-submenu-disabled {
+  color: #aaa;
+  cursor: not-allowed;
+  background-color: #f9f9f9;
+  border-radius: 0.75rem;
+}
+
+/* Icon styles */
+.user-dashboard-submenu-icon {
+  width: 12px;
+  height: 12px;
+  margin-right: 0.25rem;
+  object-fit: contain;
+}
+
+/* Dark icon visible normally */
+.user-dashboard-submenu-icon-dark {
+  display: inline-block;
+}
+
+/* Light icon hidden unless needed */
+.user-dashboard-submenu-icon-light {
+  display: none;
+}.user-dashboard-submenu-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem ;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #000; /* Golden yellow text */
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: transparent;
+}
+
+[data-theme="dark"] .user-dashboard-submenu-item {
+  color:#fff
+}
+
+/* Hover and Active */
+.user-dashboard-submenu-item:hover,
+.user-dashboard-submenu-item-active {
+  background-color: #4b3f23; /* Dark brown background */
+  color: #ffd700 !important; /* Bright yellow text */
+}
+
+/* Disabled state */
+.user-dashboard-submenu-disabled {
+  color: #aaa;
+  cursor: not-allowed;
+  background-color: #f9f9f9;
+  border-radius: 0.75rem;
+}
+
+/* Icon styles */
+.user-dashboard-submenu-icon {
+  width: 12px;
+  height: 12px;
+  margin-right: 0.75rem;
+  object-fit: contain;
+}
+
+/* Dark icon visible normally */
+.user-dashboard-submenu-icon-dark {
+  display: inline-block;
+}
+
+/* Light icon hidden unless needed */
+.user-dashboard-submenu-icon-light {
+  display: none;
+}
