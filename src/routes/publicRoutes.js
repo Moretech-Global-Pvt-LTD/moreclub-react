@@ -1,3 +1,4 @@
+import UserDashboard from "../components/Layout/userdashboard/UserDashboardLayout";
 import MorelivingContent from "../components/Moreclub/moreliving/MorelivingContent";
 import AboutPage from "../pages/about/aboutpage";
 import PasswordChange from "../pages/AuthAndRegisterPages/PasswordChange/PasswordChange";
@@ -9,6 +10,7 @@ import LiscencePage from "../pages/Liscence/LiscencePage";
 import Morefood from "../pages/moreclub/morefood/morefood";
 import MoreLiving from "../pages/moreclub/moreliving/moreliving";
 import MoreSaloon from "../pages/moreclub/moresaloon/saloon/moreSaloon";
+import TreasureHunt from "../pages/NewHomePage/NewHome";
 import OfferPage from "../pages/offers/offerPage";
 import BusinessTypesDetail from "../pages/Partner/BusinessTypesDetail";
 import PartnerPage from "../pages/Partner/PartnerPage";
@@ -26,6 +28,16 @@ const publicRoutes = [
       path: "/",
 
       page: <Home />,
+    },
+    {
+      path: "/home",
+
+      page: <TreasureHunt />,
+    },
+    {
+      path:"/userDashboard",
+
+      page:<UserDashboard/>
     },
     {
       path: "/offers",
