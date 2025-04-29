@@ -20,6 +20,7 @@ import DashboardMenu from "./Dashboardmenu";
 import Profile from "./userdashboard/userProfile";
 import { NavigationLinks } from "./userdashboard/usernavigationlink";
 import Referalbox from "./userdashboard/referalbox";
+import UserDashboardMenu from "./uerdashboardmenu";
 
 const HeaderDashboard = () => {
   let [check] = useState(true);
@@ -276,7 +277,7 @@ const HeaderDashboard = () => {
       </header>
 
       <div className={`admin-sidebar-wrap sidebar-hidden `}>
-        <div className="overflowY-scroll  ">
+        <div className="overflowY-scroll pb-5 ">
          {user?.user?.user_type !== "NORMAL" ? 
         <>
         <HeaderUserInfo />
@@ -285,7 +286,7 @@ const HeaderDashboard = () => {
         :
         <>
         <Profile/>
-        <DashboardMenu />
+        <UserDashboardMenu />
         <Referalbox/>
         </>
 
@@ -311,7 +312,7 @@ const HeaderDashboard = () => {
         :
         <>
         <Profile/>
-        <DashboardMenu />
+        <UserDashboardMenu />
         <Referalbox/>
         </>
 
