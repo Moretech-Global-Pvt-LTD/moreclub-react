@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './newhome.css';
+import { Link } from 'react-router-dom';
 
 const TreasureHunt = () => {
     useEffect(() => {
@@ -61,7 +62,7 @@ const TreasureHunt = () => {
         <div className="treasure-hero-content">
           <h1>Treasure Hunt Travel Adventures</h1>
           <p>Win exotic vacations by becoming a member and referring friends</p>
-          <a href="https://www.moredealsclub.com/login" className="treasure-btn">Join Now - Get 50% Off First Trip</a>
+          <Link to="login" className="treasure-btn">Join Now - Get 50% Off First Trip</Link>
         </div>
       </header>
 
@@ -75,7 +76,7 @@ const TreasureHunt = () => {
             <li><a href="#destinations">Destinations</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="https://www.moredealsclub.com/login" className="treasure-btn treasure-btn-small">Member Login</a></li>
+            <li><Link to="/login" className="treasure-btn treasure-btn-small">Member Login</Link></li>
           </ul>
         </div>
       </nav>

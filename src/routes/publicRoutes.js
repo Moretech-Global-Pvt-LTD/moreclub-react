@@ -34,11 +34,7 @@ const publicRoutes = [
 
       page: <TreasureHunt />,
     },
-    {
-      path:"/userDashboard",
-
-      page:<UserDashboard/>
-    },
+   
     {
       path: "/offers",
 
