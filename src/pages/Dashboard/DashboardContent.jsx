@@ -19,56 +19,56 @@ import { CurrencySet } from "../../redux/api/CurrencyConvertorAPI";
 
 const DashboardContent = () => {
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.userReducer);
+  const user = useSelector((state) => state.userReducer);
   
-  // const fetchUsersdashboardData = async () => {
-  //   try {
-  //     // Attempt to fetch both business and user data
-  //     const [userResponse] =
-  //       await Promise.allSettled([
+  const fetchUsersdashboardData = async () => {
+    try {
+      // Attempt to fetch both business and user data
+      const [userResponse] =
+        await Promise.allSettled([
          
-  //         axiosInstance.get(`${baseURL}auth/user/all/details/`),
+          axiosInstance.get(`${baseURL}auth/user/all/details/`),
         
-  //       ]);
+        ]);
 
-  //     // Handle the responses
+      // Handle the responses
       
 
-  //     if (userResponse.status === "fulfilled") {
-  //       const userData = userResponse.value.data.data;
-  //       await dispatch(userSuccess(userData));
-  //       return {
-  //         userData,
-  //       };
-  //     } else {
-  //       throw new Error(
-  //         `Failed to fetch user data: ${userResponse.reason.message}`
-  //       );
-  //     }
-  //   } catch (error) {
-  //     // Handle the error, for example by throwing it so it can be caught by react-query
-  //     throw new Error(`Failed to fetch dashboard data: ${error.message}`);
-  //   }
-  // };
+      if (userResponse.status === "fulfilled") {
+        const userData = userResponse.value.data.data;
+        await dispatch(userSuccess(userData));
+        return {
+          userData,
+        };
+      } else {
+        throw new Error(
+          `Failed to fetch user data: ${userResponse.reason.message}`
+        );
+      }
+    } catch (error) {
+      // Handle the error, for example by throwing it so it can be caught by react-query
+      throw new Error(`Failed to fetch dashboard data: ${error.message}`);
+    }
+  };
 
-  // const { data, isLoading, isError, error } = useQuery({
-  //   queryKey: ["userdatas"],
-  //   queryFn: fetchUsersdashboardData,
-  //   staleTime: 420000,
-  // });
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["userdatas"],
+    queryFn: fetchUsersdashboardData,
+    staleTime: 420000,
+  });
 
-  // if (isLoading) {
-  //   <p>loading....</p>;
-  // }
-  // if (error) {
-  //   <p>error...</p>;
-  // }
+  if (isLoading) {
+    <p>loading....</p>;
+  }
+  if (error) {
+    <p>error...</p>;
+  }
 
-  // useEffect(() => {
-  //   dispatch(get_transaction());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(get_transaction());
+  }, [dispatch]);
 
-  // if(user && user?.user?.user_type !== "NORMAL"){
+  if(user && user?.user?.user_type !== "NORMAL"){
     return (
       <>
           <Row>
@@ -118,12 +118,12 @@ const DashboardContent = () => {
        
       </>
     );
-  // }else{
-  //   return(
-  //     <Newdashboard />
+  }else{
+    return(
+      <Newdashboard />
 
-  //   )
-  // }
+    )
+  }
       
   
 

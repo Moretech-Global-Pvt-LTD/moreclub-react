@@ -48,10 +48,10 @@ const userRoutes = [
     page: <LeadDetails />,
   },
 
-  {
-   path:"/newdashboard",
-   page:<TrasureDashboardContent/>,
-  },
+  // {
+  //  path:"/newdashboard",
+  //  page:<TrasureDashboardContent/>,
+  // },
     {
       path:"/businessSetup",
       page:<BusinessSetupPage/>
