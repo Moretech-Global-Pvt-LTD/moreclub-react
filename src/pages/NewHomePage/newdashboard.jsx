@@ -139,13 +139,13 @@ const Newdashboard = () => {
       className="offer-img"
       style={{
         backgroundImage:
-          "url('https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?ixlib=rb-4.0.3&auto=format&fit=crop&w=1530&q=80')",
+          "url('https://cdn.pixabay.com/photo/2016/07/22/20/18/greece-1535702_1280.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=1530&q=80')",
       }}
     >
       <div className="offer-badge">MEMBERS ONLY</div>
     </div>
     <div className="offer-content">
-      <h3>Santorini Luxury Getaway</h3>
+      <h3>Skiathos Luxury Getaway</h3>
       <div className="offer-meta">
         <span>
           <i className="bi bi-calendar-event"></i> 5-7 Days
@@ -170,7 +170,7 @@ const Newdashboard = () => {
       className="offer-img"
       style={{
         backgroundImage:
-          "url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&auto=format&fit=crop&w=1486&q=80')",
+          "url('https://cdn.pixabay.com/photo/2018/03/19/14/55/pagoda-3240169_1280.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=1486&q=80')",
       }}
     >
       <div className="offer-badge">LIMITED</div>
@@ -188,7 +188,7 @@ const Newdashboard = () => {
         </span>
       </div>
       <div className="offer-price">
-        $1,299 <span>$2,599</span>
+        $5,999
       </div>
       <div className="offer-actions">
       <a href="https://wa.me/9779709007758?text=I%20want%20to%20book%20the%20Greek%20Island%20Getaway%20package" target="_blank" rel="noopener noreferrer" className="newbtn newbtn-small">
@@ -223,7 +223,7 @@ const Newdashboard = () => {
         </span>
       </div>
       <div className="offer-price">
-        $2,199 <span>$4,399</span>
+        $5,999
       </div>
       <div className="offer-actions">
         <a href="#" className="newbtn newbtn-small">
@@ -251,7 +251,7 @@ const Newdashboard = () => {
     <div className="booking-card">
       <i className="bi bi-camera-video"></i>
       <h3>Video Call</h3>
-      <p>Schedule a 1-on-1 video consultation with our travel designer</p>
+      <p>Schedule a 1-on-1 video consultation with our travel expert</p>
       <a
       href="https://wa.me/9779709007758?text=Hi%2C%20I%27d%20like%20to%20schedule%20a%20video%20call%20about%20my%20travel%20plans"
       target="_blank"
@@ -265,7 +265,7 @@ const Newdashboard = () => {
     <div className="booking-card">
       <i className="bi bi-telephone"></i>
       <h3>Phone Call</h3>
-      <p>Get immediate callback from our travel specialist</p>
+      <p>Get immediate callback from our travel expert</p>
       <a
       href="https://wa.me/9779709007758?text=Hi%2C%20I%27d%20like%20a%20phone%20call%20to%20discuss%20my%20travel%20plans"
       target="_blank"
