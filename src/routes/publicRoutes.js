@@ -27,13 +27,13 @@ const publicRoutes = [
     {
       path: "/",
 
-      page: <Home />,
-    },
-    {
-      path: "/home",
-
       page: <TreasureHunt />,
     },
+    // {
+    //   path: "/home",
+
+    //   page: <Home />,
+    // },
    
     {
       path: "/offers",
