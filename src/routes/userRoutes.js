@@ -37,7 +37,6 @@ import LeadDetails from "../pages/leads/LeadDetails";
 import PartnerPage from "../pages/Partner/PartnerPage";
 import BusinessTypesDetail from "../pages/Partner/BusinessTypesDetail";
 import BusinessRestaurantPartner from "../pages/Partner/BusinessRestaurantPartner";
-import TrasureDashboardContent from "../pages/NewHomePage/treasuredshboard";
 
 
 
