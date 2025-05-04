@@ -6,6 +6,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^41.3.1",
     "@ckeditor/ckeditor5-react": "^6.3.0",
+    "@ckeditor/ckeditor5-watchdog": "^45.0.0",
     "@loadable/component": "^5.16.3",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@react-google-maps/api": "^2.19.2",
