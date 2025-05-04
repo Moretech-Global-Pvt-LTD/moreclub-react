@@ -1,0 +1,634 @@
+.new-user-treasure-hunt-container {
+  font-family: Arial, sans-serif;
+  color: #333;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.new-user-main-section {
+  margin-bottom: 2rem;
+}
+
+.new-user-hero-section {
+  text-align: center;
+  background: #000;
+  color: #fff;
+  padding: 20px 20px;
+  border-radius: 10px;
+}
+
+/* Switch to flex layout with wrapping at 1280px and up */
+@media (min-width: 900px) {
+  .new-user-hero-section {
+    padding: 70px 20px;
+  }
+}
+
+.new-user-main-title {
+  text-transform: capitalize;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.new-user-title {
+  text-transform: uppercase;
+  font-size: 1.3em;
+}
+
+.new-user-desc {
+  font-size: 0.9em;
+  padding-left: 5%;
+  padding-right: 5%;
+  text-align: center;
+}
+
+.new-user-contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  font-weight: bold;
+  background-color: #04c45c;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  font-size: 0.8em;
+}
+
+.new-user-contact-btn::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background: url("/public/images/icons/whatsapp.svg") center/contain no-repeat;
+}
+
+@media (min-width: 624px) {
+  .new-user-main-title {
+    font-size: 1.8em;
+  }
+  .new-user-desc {
+    font-size: 1.1em;
+  }
+  .new-user-contact-btn {
+    gap: 10px;
+    padding: 10px 20px;
+    font-size: 1.1em;
+  }
+  .new-user-contact-btn::before {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .new-user-main-title {
+    font-size: 2.8em;
+  }
+  .new-user-title {
+    font-size: 2em;
+  }
+  .new-user-desc {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+}
+
+/* .new-user-prize-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  width: 100%;
+} */
+
+  .new-user-prize-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 2rem;
+
+  }
+
+.new-user-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: 20px;
+  position: relative;
+  width: 300px;
+}
+
+.new-user-card-image {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.new-user-card-image-greece {
+  background: url("https://cdn.pixabay.com/photo/2016/07/22/20/18/greece-1535702_1280.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80")
+    center/cover no-repeat;
+}
+
+.new-user-card-image-nepal {
+  background: url("https://cdn.pixabay.com/photo/2010/11/29/nepal-412_1280.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80")
+    center/cover no-repeat;
+}
+
+.new-user-card-image-maldives {
+  background: url("https://cdn.pixabay.com/photo/2017/02/20/19/29/four-seasons-2083682_1280.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80")
+    center/cover no-repeat;
+}
+
+.new-user-card-image-thailand {
+  background: url("https://cdn.pixabay.com/photo/2018/03/19/14/55/pagoda-3240169_1280.jpg?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80")
+    center/cover no-repeat;
+}
+
+.new-user-badge {
+  display: inline-block;
+  background-color: #d4af37;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-top: 10px;
+  position: absolute;
+  left: 2%;
+  top: 0;
+}
+
+.new-user-card-body h3 {
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+.new-user-card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .new-user-card-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .new-user-card-body h3 {
+    font-size: 1.8rem;
+  }
+}
+
+.new-user-card-info p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Base pseudo-element for icon */
+.new-user-card-info p::before {
+  content: "";
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Specific icons */
+.icon-calendar::before {
+  background-image: url("/public/images/icons/calendar.svg");
+}
+
+.icon-location::before {
+  background-image: url("/public/images/icons/location.svg");
+}
+
+.icon-cutlery::before {
+  background-image: url("/public/images/icons/cutlery-gray.svg");
+}
+
+.icon-location-gray::before {
+  background-image: url("/public/images/icons/location-gray.svg");
+}
+
+.icon-burger::before {
+  background-image: url("/public/images/icons/burger.svg");
+}
+
+.icon-scissor::before {
+  background-image: url("/public/images/icons/scissors.svg");
+}
+
+.icon-spa::before {
+  background-image: url("/public/images/icons/spa.svg");
+}
+
+.new-user-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.new-user-card-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.new-user-card-body li {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space between icon and text */
+  /* margin-bottom: 10px; */
+}
+
+/* Base pseudo-element for icon */
+.new-user-card-body li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Specific icons */
+.icon-accommodation::before {
+  background-image: url("/public/images/icons/villa.svg");
+}
+
+.icon-cruise::before {
+  background-image: url("/public/images/icons/cruise.svg");
+}
+
+.icon-tick::before {
+  background-image: url("/public/images/icons/tick.svg");
+}
+
+.new-user-card h3 {
+  font-size: 1.4rem;
+  margin: 10px 0 5px;
+  color: #c39c0b;
+}
+
+.new-user-card-body h4 {
+  font-size: 1.2rem;
+  margin: 10px 0 5px;
+  color: #c39c0b;
+}
+
+.new-user-card-body p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.new-user-card-body ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+.new-user-card-body ul li {
+  font-size: 15px;
+  color: #444;
+  margin: 4px 0;
+}
+
+.new-user-card-body button {
+  background-color: #d4af37;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  justify-self: end;
+}
+
+.new-user-offer-section {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.new-user-offer-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 5px;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .new-user-offer-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 5px;
+    width: auto;
+  }
+}
+
+.new-user-offer-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.new-user-offer-card-image {
+  width: 100%;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.new-user-offer-card-image-catering {
+  background: url("https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80")
+    center/cover no-repeat;
+}
+
+.new-user-offer-card-image-booburgers {
+  background: url("https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80")
+    center/cover no-repeat;
+}
+
+.new-user-offer-card-image-hair {
+  background: url("https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1588&q=80")
+    center/cover no-repeat;
+}
+
+.new-user-offer-card-image-spa {
+  background: url("https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80")
+    center/cover no-repeat;
+}
+
+.new-user-badge.special {
+  background: orange;
+}
+
+.new-user-badge.limited {
+  background: crimson;
+  color: #fff;
+}
+
+.new-user-badge.new {
+  background: #0a58ca;
+  color: #fff;
+}
+
+.new-user-badge.spa {
+  background: #8e44ad;
+  color: #fff;
+}
+
+.new-user-steps-section {
+  margin-top: 50px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 1%;
+  padding: 2rem;
+  /* color: #d4af37; */
+}
+
+.new-user-steps-section h2 {
+  font-size: 1.8rem;
+}
+
+.new-user-steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 30px;
+  margin: 30px 0;
+}
+
+@media (min-width: 768px) {
+  .new-user-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    gap: 2rem;
+  }
+}
+
+.new-user-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px;
+  font-weight: bold;
+  background-color: #bac3be3e;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.new-user-step::before {
+  content: "";
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Step-specific icons */
+.step-one::before {
+  margin-bottom: 0.8rem;
+  background-image: url("/public/images/icons/users.svg");
+}
+
+.step-two::before {
+  margin-bottom: 0.8rem;
+  background-image: url("/public/images/icons/cutlery.svg");
+}
+
+.step-three::before {
+  margin-bottom: 0.8rem;
+  background-image: url("/public/images/icons/trophy.svg");
+}
+
+.step-phone::before {
+  margin-bottom: 0.8rem;
+  background-image: url("/public/images/icons/phone.svg");
+}
+
+.step-video::before {
+  margin-bottom: 0.8rem;
+  background-image: url("/public/images/icons/videocam.svg");
+}
+
+.step-whatsapp::before {
+  margin-bottom: 0.8rem;
+  background-image: url("/public/images/icons/whats-app.svg");
+}
+
+.new-user-contact-options-wrapper {
+  background: #f9f9f9;
+  padding: 60px 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.new-user-contact-options-title {
+  color: #b59014;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.new-user-contact-options-description {
+  color: #444;
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.new-user-contact-options-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.new-user-contact-card {
+  background: #fff;
+  padding: 30px 20px;
+  border-radius: 10px;
+  width: 280px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.new-user-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+  height: 40px;
+  width: 40px;
+  margin: 0 auto 15px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.new-user-video-icon {
+  background-image: url("/public/images/icons/videocam.svg");
+}
+
+.new-user-phone-icon {
+  background-image: url("/public/images/icons/phone.svg");
+}
+
+.new-user-whatsapp-icon {
+  background-image: url("/public/images/icons/whats-app.svg");
+}
+
+.new-user-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #c39c0b;
+  margin-bottom: 10px;
+}
+
+.new-user-card-text {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.new-user-contact-btn {
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+}
+
+.new-user-contact-btn.gold {
+  background-color: #d4af37;
+  color: #000;
+}
+
+.new-user-contact-btn.green {
+  background-color: #22c55e;
+  color: #fff;
+}
+
+.new-user-cta-section {
+  margin-top: 50px;
+}
+
+.new-user-cta-heading {
+  color: #c39c0b;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.new-user-cta-subtext {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.new-user-cta-btn {
+  background-color: #d4af37;
+  color: #000;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.new-user-contact-method-btn {
+  color: #fff;
+  border: none;
+  padding: 8px 40px;
+  border-radius: 30px;
+}
+
+.new-user-contact-method-btn.green {
+  background: #28d825;
+}
+
+.new-user-contact-method-btn.brown {
+  background: #d4af37;
+}
+
+.new-user-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 0;
+}

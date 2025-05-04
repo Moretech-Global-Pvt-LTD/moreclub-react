@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More deals club Treassure hunt | More deals club Treassure hunt T</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Global Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: #d4af37;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #d4af37;
+            color: #000;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #c9a227;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+        
+        .btn-whatsapp:hover {
+            background: #128C7E;
+        }
+        
+        .btn-cta {
+            background: linear-gradient(45deg, #d4af37, #f1c40f);
+            color: #000;
+            font-weight: 700;
+            padding: 15px 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* ===== Header ===== */
+        .main-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .main-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .main-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #d4af37;
+        }
+        
+        .main-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        /* ===== Treasure Hunt Section ===== */
+        .treasure-intro {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .treasure-intro h2 {
+            color: #d4af37;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .treasure-intro p {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        /* ===== Treasure Cards ===== */
+        .treasure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .treasure-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .treasure-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .treasure-lock {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.7);
+            color: #d4af37;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .treasure-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .treasure-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #d4af37;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .treasure-content {
+            padding: 25px;
+        }
+        
+        .treasure-content h3 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .treasure-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #777;
+        }
+        
+        .treasure-price {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        
+        .treasure-price span {
+            font-size: 1.1rem;
+            color: #777;
+            text-decoration: line-through;
+            margin-left: 5px;
+        }
+        
+        .treasure-features {
+            margin-bottom: 20px;
+        }
+        
+        .treasure-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .treasure-feature i {
+            color: #d4af37;
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        /* ===== Unlocked Treasure Modal ===== */
+        .treasure-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            animation: modalFadeIn 0.4s;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+            z-index: 2;
+            background: rgba(255,255,255,0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .modal-header {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .modal-main {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .modal-details h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .modal-details p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .modal-features h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .modal-feature {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .modal-feature i {
+            color: #d4af37;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+        
+        .modal-actions {
+            background: #f9f9f9;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        /* ===== Booking Section ===== */
+        .booking-section {
+            background: #fff;
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .booking-header h2 {
+            margin-bottom: 15px;
+        }
+        
+        .booking-header p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #555;
+        }
+        
+        .booking-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .booking-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 30px 20px;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .booking-card:hover {
+            border-color: #d4af37;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        
+        .booking-card i {
+            font-size: 2.5rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        
+        .booking-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .booking-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        /* ===== WhatsApp Floating Button ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+            z-index: 100;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background: #128C7E;
+        }
+        
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .modal-main {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-header {
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .main-header h1 {
+                font-size: 2rem;
+            }
+            
+            .treasure-intro {
+                padding: 40px 20px;
+            }
+            
+            .booking-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/9779709007758?text=Hi%20Treasure%20Hunt%20Travel%20Team,%20I'm%20interested%20in%20the%20Greek%20Island%20Getaway" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="container">
+        <!-- Main Header -->
+        <header class="main-header">
+            <h1>More Deals Club Treassure Hunt</h1>
+            <p>Unlock exclusive treasures Each treasure offers a unique adventure waiting to be discovered.</p>
+        </header>
+        
+        <!-- Treasure Hunt Intro -->
+        <section class="treasure-intro">
+            <h2>MORE DEALS CLUB TREASSURE HUNT</h2>
+            <p>Unlock exclusive treasures with More Deals Club – win dream vacations, premium city deals in Stockholm, and up to 50% off as a member. Contact our treasure hunt team today!.</p>
+            <a href="https://wa.me/9779709007758?text=I'm%20interested%20in%20the%20Greek%20Island%20Getaway" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Contact Our Treassure Team</a>
+        </section>
+        
+        <!-- Treasure Grid -->
+        <div class="treasure-grid">
+            <!-- Greek Island Treasure (Unlocked) -->
+            <div class="treasure-card" onclick="openModal('greek')">
+                <div class="treasure-img" style="background-image: url('https://images.unsplash.com/photo-1516557070061-c3d1653fa646?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');">
+                    <div class="treasure-badge">UNLOCKED</div>
+                </div>
+                <div class="treasure-content">
+                    <h3>Greek Island Getaway</h3>
+                    <div class="treasure-meta">
+                        <span><i class="fas fa-calendar-alt"></i> 5-7 Days</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Skiathos, Greece</span>
+                    </div>
+                    <div class="treasure-price">Win a trip, valued at $3999  <span></span></div>
+                    <div class="treasure-features">
+                        <div class="treasure-feature">
+                            <i class="fas fa-hotel"></i>
+                            <span>Luxury Villa Accommodation</span>
+                        </div>
+                        <div class="treasure-feature">
+                            <i class="fas fa-ship"></i>
+                            <span>Private Island Cruise</span>
+                        </div>
+                    </div>
+                    <button class="btn" style="width: 100%;">View Treasure</button>
+                </div>
+            </div>
+            
+            <!-- Maldives Treasure (Locked) -->
+            <div class="treasure-card" onclick="openModal('maldives')">
+                <div class="treasure-img" style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');">
+                    <div class="treasure-lock"><i class="fas fa-lock"></i></div>
+                </div>
+                <div class="treasure-content">
+                    <h3>Hidden Treasure</h3>
+                    <p>Unlock this treasure to reveal an exclusive travel package</p>
+                    <button class="btn" style="width: 100%;">Unlock Treasure</button>
+                </div>
+            </div>
+            
+            <!-- Bali Treasure (Locked) -->
+            <div class="treasure-card" onclick="openModal('bali')">
+                <div class="treasure-img" style="background-image: url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&auto=format&fit=crop&w=1486&q=80');">
+                    <div class="treasure-lock"><i class="fas fa-lock"></i></div>
+                </div>
+                <div class="treasure-content">
+                    <h3>Hidden Treasure</h3>
+                    <p>Unlock this treasure to reveal an exclusive travel package</p>
+                    <button class="btn" style="width: 100%;">Unlock Treasure</button>
+                </div>
+            </div>
+        </div>
+ 
+        <!-- How to Win the Trip Section -->
+        <section class="booking-section" style="margin-top: 0;">
+            <div class="booking-header">
+                <h2>How to win trips and other treasures?</h2>
+                <p>Follow these simple steps to enter our exclusive giveaway and you could be enjoying this luxury vacation for free!</p>
+            </div>
+            
+            <div class="booking-options">
+                <div class="booking-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Step 1: Refer Friends</h3>
+                    <p>Refer at least 2 friends or family members to the platform</p>
+                </div>
+                
+                <div class="booking-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Step 2: Take Part Of Deals</h3>
+                    <p> Get the best deals on food, salons & other services from our partners</p>
+                </div>
+                
+                <div class="booking-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Step 3: Qualified</h3>
+                    <p>
+                        You're now officially qualified to win a trip to one of our amazing destinations —  As a member, you're in the treasure paradise</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="https://wa.me/9779709007758?text=I%20want%20to%20participate%20in%20the%20free%20trip%20giveaway" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Contact Treasure Team</a>
+            </div>
+        </section>
+        
+        
+        <!-- Unlock Food Treasure Section -->
+        <div class="section-title">
+            <h2>Unlock Food Treasure</h2>
+            <p>Book catering or restaurant deals from our partners at <a href="https://morefood.se" target="_blank">morefood.se</a></p>
+        </div>
+        
+        <div class="treasure-grid">
+            <div class="treasure-card" onclick="openModal('catering')">
+                <div class="treasure-img" style="background-image: url('https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');">
+                    <div class="treasure-badge">SPECIAL OFFER</div>
+                </div>
+                <div class="treasure-content">
+                    <h3>Premium Catering Service</h3>
+                    <div class="treasure-meta">
+                        <span><i class="fas fa-utensils"></i> 50+ Guests</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Stockholm</span>
+                    </div>
+                    <div class="treasure-price">Catering up to 30% off <span>Catering up to 10% off</span></div>
+                    <div class="treasure-features">
+                        <div class="treasure-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Gourmet menu options</span>
+                        </div>
+                        <div class="treasure-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Professional service staff</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/9779709007758?text=I%20want%20more%20information%20about%20catering%20services%20for%20my%20event" class="btn" style="width: 100%;">Contact Our Catering Team</a>
+                </div>
+            </div>
+            
+            <div class="treasure-card" onclick="openModal('burger')">
+                <div class="treasure-img" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');">
+                    <div class="treasure-badge">LIMITED TIME</div>
+                </div>
+                <div class="treasure-content">
+                    <h3>Restaurant Deals</h3>
+                    <div class="treasure-meta">
+                        <span><i class="fas fa-hamburger"></i> Dining </span>
+                        <span><i class="fas fa-map-marker-alt"></i> Multiple Locations</span>
+                    </div>
+                    <div class="treasure-price">up to 30% off <span>up to 10% off</span></div>
+                   <!--  <div class="treasure-features">
+                        <div class="treasure-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Signature burger + fries</span>
+                        </div>
+                        <div class="treasure-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Free drink included</span>
+                        </div> -->
+                    </div>
+                    <a href="https://wa.me/9779709007758?text=I%20want%20to%20order%20the%20Boo%20Burgers%20deal" class="btn" style="width: 100%;">Order via WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        
+        <!-- Unlock Salon Treasure Section -->
+        <div class="section-title">
+            <h2>Unlock Salon Treasure</h2>
+            <p>Book premium salon services from our trusted partners</p>
+        </div>
+        
+        <div class="treasure-grid">
+            <div class="treasure-card" onclick="openModal('hair')">
+                <div class="treasure-img" style="background-image: url('https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1588&q=80');">
+                    <div class="treasure-badge">Treatments</div>
+                </div>
+                <div class="treasure-content">
+                    <h3>Complete Hair Makeover</h3>
+                    <div class="treasure-meta">
+                        <span><i class="fas fa-scissors"></i> Cut & Color</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Premium Salons</span>
+                    </div>
+                    <div class="treasure-price">up to 50% off <span>up to 20% off</span></div>
+                    <div class="treasure-features">
+                        <div class="treasure-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Professional consultation</span>
+                        </div>
+                        <div class="treasure-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Premium Hair Treatment</span>
+                        </div>
+                    </div>
+                    <button class="btn" style="width: 100%;">Book Now</button>
+                </div>
+            </div>
+            
+            <div class="treasure-card" onclick="openModal('spa')">
+                <div class="treasure-img" style="background-image: url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');">
+                    <div class="treasure-badge">SPA DAY</div>
+                </div>
+                <div class="treasure-content">
+                    <h3>Luxury Spa Package</h3>
+                    <div class="treasure-meta">
+                        <span><i class="fas fa-spa"></i> Up to 3 Hours</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Top Rated Spas</span>
+                    </div>
+                    <div class="treasure-price">up to 50% off <span>up to 20% off</span></div>
+                    <div class="treasure-features">
+                        <div class="treasure-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Massage + facial</span>
+                        </div>
+                        <div class="treasure-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Access to relaxation areas</span>
+                        </div>
+                    </div>
+                    <button class="btn" style="width: 100%;">Book Now</button>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <!-- Booking Section -->
+        <section class="booking-section">
+            <div class="booking-header">
+                <h2>Ready to Unlock Your Dream Treasure?  </h2>
+                <p>Our Treasure hunt experts are standing by to help you plan the perfect getaway. Choose your preferred contact method below.</p>
+            </div>
+            
+            <div class="booking-options">
+                <div class="booking-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>Video Consultation</h3>
+                    <p>Talk to our Treasure Hunt team</p>
+                    <a href="#" class="btn">Book Now</a>
+                </div>
+                
+                <div class="booking-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>Phone Call</h3>
+                    <p>Speak directly with our  Treasure Hunt team</p>
+                    <a href="tel:+9779709007758" class="btn">Call Now</a>
+                </div>
+                
+                <div class="booking-card">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <p>Instant messaging with our 24/7  Treasure Hunt team</p>
+                    <a href="https://wa.me/9779709007758?text=Hi%20Treasure%20Hunt%20Travel%20Team,%20I%20need%20help%20with%20my%20booking" class="btn btn-whatsapp">Chat Now</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action -->
+        <div style="text-align: center; margin-top: 50px;">
+            <h3>Join the treasure hunt today!</h3>
+            <p style="margin: 20px 0 30px;">Limited Availability - Join the Treasure Hunt Today!</p>
+            <a href="https://wa.me/9779709007758?text=I%20want%20to%20book%20the%20Greek%20Island%20Getaway%20package" class="btn btn-cta btn-whatsapp"><i class="fab fa-whatsapp"></i> Chat Now via WhatsApp</a>
+        </div>
+    </div>
+    
+    <!-- Greek Island Modal -->
+    <div class="treasure-modal" id="greekModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <div class="modal-header" style="background-image: url('https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="modal-main">
+                    <div class="modal-details">
+                        <h2>Greek Island Getaway</h2>
+                        <p>Experience the magic of the Greek Islands with our exclusive luxury package. From the iconic white-washed buildings of Skiathos to the crystal-clear waters of the Aegean Sea, this is a vacation you'll never forget.</p>
+                        <div class="treasure-price">Win a trip, valued at 3999 usd <span></span></div>
+                        <p><strong>Package includes:</strong> 5-7 days in a luxury villa, private island cruise, gourmet dining experiences, and guided tours of Skiathos most beautiful locations.</p>
+                        <a href="https://wa.me/9779709007758?text=I%20want%20to%20book%20the%20Greek%20Island%20Getaway%20package" class="btn btn-whatsapp" style="margin-top: 20px;"><i class="fab fa-whatsapp"></i> Book Now</a>
+                    </div>
+                    <div class="modal-features">
+                        <h3>Package Highlights</h3>
+                        <div class="modal-feature">
+                            <i class="fas fa-hotel"></i>
+                            <div>
+                                <h4>Luxury Villa Accommodation</h4>
+                                <p>Stay in a premium villa with private pool and stunning sea views</p>
+                            </div>
+                        </div>
+                        <div class="modal-feature">
+                            <i class="fas fa-ship"></i>
+                            <div>
+                                <h4>Private Island Cruise</h4>
+                                <p>Exclusive yacht tour to hidden beaches and secret coves</p>
+                            </div>
+                        </div>
+                        <div class="modal-feature">
+                            <i class="fas fa-utensils"></i>
+                            <div>
+                                <h4>Gourmet Dining</h4>
+                                <p>Authentic Greek cuisine prepared by top local chefs</p>
+                            </div>
+                        </div>
+                        <div class="modal-feature">
+                            <i class="fas fa-camera"></i>
+                            <div>
+                                <h4>Professional Photography</h4>
+                                <p>Capture your memories with our professional photo session</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <a href="tel:+9779709007758" class="btn" style="margin-right: 15px;"><i class="fas fa-phone-alt"></i> Call Us</a>
+                    <a href="https://wa.me/9779709007758?text=I%20have%20questions%20about%20the%20Greek%20Island%20Getaway" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Maldives Modal -->
+    <div class="treasure-modal" id="maldivesModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <div class="modal-header" style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="modal-main">
+                    <div class="modal-details">
+                        <h2>Maldives Paradise Retreat</h2>
+                        <p>Coming soon! Be the first to know when we unlock this exclusive Maldives vacation package featuring overwater bungalows, private beaches, and world-class diving experiences.</p>
+                        <div class="treasure-price">Valued trip 5999 usd <span> </span></div>
+                        <p><strong>Expected inclusions:</strong> 5 days in luxury overwater bungalow, private beach access, snorkeling excursions, and spa treatments.</p>
+                        <button class="btn" style="margin-top: 20px;" onclick="alert('This treasure will be unlocked soon! Contact us to be notified when available.')">Notify Me</button>
+                    </div>
+                    <div class="modal-features">
+                        <h3>Expected Highlights</h3>
+                        <div class="modal-feature">
+                            <i class="fas fa-water"></i>
+                            <div>
+                                <h4>Overwater Bungalow</h4>
+                                <p>Direct access to crystal-clear lagoon from your private deck</p>
+                            </div>
+                        </div>
+                        <div class="modal-feature">
+                            <i class="fas fa-umbrella-beach"></i>
+                            <div>
+                                <h4>Private Beach</h4>
+                                <p>Exclusive beach area reserved just for our guests</p>
+                            </div>
+                        </div>
+                        <div class="modal-feature">
+                            <i class="fas fa-fish"></i>
+                            <div>
+                                <h4>Marine Excursions</h4>
+                                <p>Guided snorkeling and diving in pristine coral reefs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <p>Contact us to be notified when this treasure becomes available</p>
+                    <a href="https://wa.me/9779709007758?text=Please%20notify%20me%20when%20the%20Maldives%20package%20is%20available" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bali Modal -->
+    <div class="treasure-modal" id="baliModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body">
+                <div class="modal-header" style="background-image: url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&auto=format&fit=crop&w=1486&q=80');"></div>
+                <div class="modal-main">
+                    <div class="modal-details">
+                        <h2>Bali Luxury Escape</h2>
+                        <p>Coming soon! Our Bali package will feature luxury villas, cultural experiences, and breathtaking landscapes at an exclusive price available only to our treasure hunters.</p>
+                        <div class="treasure-price">Valued trip 5999 usd <span></span></div>
+                        <p><strong>Expected inclusions:</strong> 7 days in private villa, cultural tours, spa treatments, and authentic Balinese dining experiences.</p>
+                        <button class="btn" style="margin-top: 20px;" onclick="alert('This treasure will be unlocked soon! Contact us to be notified when available.')">Notify Me</button>
+                    </div>
+                    <div class="modal-features">
+                        <h3>Expected Highlights</h3>
+                        <div class="modal-feature">
+                            <i class="fas fa-spa"></i>
+                            <div>
+                                <h4>Luxury Spa Treatments</h4>
+                                <p>Traditional Balinese massages and wellness therapies</p>
+                            </div>
+                        </div>
+                        <div class="modal-feature">
+                            <i class="fas fa-torii-gate"></i>
+                            <div>
+                                <h4>Cultural Tours</h4>
+                                <p>Visit ancient temples and traditional villages</p>
+                            </div>
+                        </div>
+                        <div class="modal-feature">
+                            <i class="fas fa-hiking"></i>
+                            <div>
+                                <h4>Adventure Activities</h4>
+                                <p>Volcano hikes, waterfall visits, and rice terrace tours</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <p>Contact us to be notified when this treasure becomes available</p>
+                    <a href="https://wa.me/9779709007758?text=Please%20notify%20me%20when%20the%20Bali%20package%20is%20available" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function openModal(treasure) {
+            document.getElementById(treasure + 'Modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.querySelectorAll('.treasure-modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.className === 'treasure-modal') {
+                closeModal();
+            }
+        }
+        
+        // WhatsApp button hover effect
+        document.querySelectorAll('.btn-whatsapp').forEach(btn => {
+            btn.addEventListener('mouseover', function() {
+                this.querySelector('i').style.transform = 'scale(1.2)';
+            });
+            btn.addEventListener('mouseout', function() {
+                this.querySelector('i').style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

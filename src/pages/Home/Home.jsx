@@ -8,8 +8,8 @@ import Featuredtext from "../../components/home/Featuredtext";
 import FreeButton from "../../components/home/FreeButton";
 import PartnerSection from "../../components/home/PartnerSection";
 import Footer from "../../components/footer/Footer";
-import Boost from "../../images/svg/BOOST.svg";
-import Growth from "../../images/svg/gROWTH.svg";
+import Boost from "../../images/svg/Boost.svg";
+import Growth from "../../images/svg/growth.svg";
 import Growth2 from "../../images/svg/gROWTHS.svg";
 import Rewards from "../../images/svg/REWARD.svg";
 import Savings from "../../images/svg/SAVINGS.svg";
@@ -153,37 +153,34 @@ const Home = () => {
     staleTime: 200000,
   });
 
-
-
   return (
     <div className="layout-wrapper">
       <Navbar />
       {/* <Hero /> */}
-      {isLoading && 
-      <div className="d-flex g-4">
-              <div className="me-4" style={{ width: "100%" }}>
-                <Placeholder as="p" animation="glow" className="rounded">
-                  <Placeholder
-                    xs={12}
-                    size="lg"
-                    style={{ height: "20rem", borderRadius: "10px" }}
-                  />
-                </Placeholder>
-              </div>
-            </div>
-      }
-      {!isLoading && !isError && data &&  <Newhero data={data}/>}
-   
+      {isLoading && (
+        <div className="d-flex g-4">
+          <div className="me-4" style={{ width: "100%" }}>
+            <Placeholder as="p" animation="glow" className="rounded">
+              <Placeholder
+                xs={12}
+                size="lg"
+                style={{ height: "20rem", borderRadius: "10px" }}
+              />
+            </Placeholder>
+          </div>
+        </div>
+      )}
+      {!isLoading && !isError && data && <Newhero data={data} />}
+
       {/* <Divider/> */}
       {isLoading && <PartnerSkeleton />}
-      {!isLoading && !isError && data &&  <PartnerSection  data={data}/>}
-     
+      {!isLoading && !isError && data && <PartnerSection data={data} />}
+
       {/* <Divider/> */}
       <Container>
-      {/* <Row>
+        {/* <Row>
           <BusinessTypes />
-        </Row> */}
-        {" "}
+        </Row> */}{" "}
         <Row className="mt-4">
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="mt-4 mb-3">Popular Restaurants </h4>
@@ -297,7 +294,7 @@ const Home = () => {
         </p>
       </Featuredtext> */}
       {/* <Divider /> */}
-      
+
       {/* <Project heading="Our Projects" /> */}
       {/* <Divider /> */}
       <Footer />
