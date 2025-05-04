@@ -67,7 +67,7 @@
 
     <!-- Loading Indicator -->
     <style>
-      #loading-indicator {
+      /* #loading-indicator {
         position: fixed;
         width: 100%;
         height: 100%;
@@ -95,7 +95,70 @@
       #loading-indicator[data-theme="light"] {
         --background-color: #fff;
         --text-color: #000;
-      }
+      } */
+      
+      #loading-indicator {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--background-color, #fff);
+  color: var(--text-color, #000);
+  z-index: 9999;
+}
+
+#loading-indicator[data-theme="dark"] {
+  --background-color: #000;
+  --text-color: #fff;
+}
+
+#loading-indicator[data-theme="light"] {
+  --background-color: #fff;
+  --text-color: #000;
+}
+
+.spinner-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  position: absolute;
+  top: 20px;
+  border-radius: 50%;
+  left: 20px;
+  z-index: 2;
+}
+
+/* Full circle with border animation */
+.loading-spinning-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 6px solid transparent;
+  border-top: 6px solid currentColor;
+  animation: fullSpin 2s linear infinite;
+}
+
+@keyframes fullSpin {
+  0% {
+    transform: rotate(0deg);
+    border-top-color: currentColor;
+  }
+  100% {
+    transform: rotate(360deg);
+    border-top-color: currentColor;
+  }
+}
+      
       .custom-tawk-container{
         position: fixed; /* Keep it fixed in one place */
     bottom: 20rem; /* Move it up from the bottom */
@@ -133,10 +196,18 @@ var aiBot = new AiBot({embedId: '3JmSPAjD5MBj', remoteBaseUrl: 'https://humancha
 </script> -->
   </head>
   <body>
-    <div id="loading-indicator" data-theme="dark">
+    <!-- <div id="loading-indicator" data-theme="dark">
       
       <p></p>
+    </div> -->
+
+    <div id="loading-indicator" data-theme="light">
+      <div class="spinner-container">
+        <img src="/images/moredeals/logo.png" alt="Logo" class="logo" />
+        <div class="loading-spinning-circle"></div>
+      </div>
     </div>
+
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 
@@ -157,11 +228,11 @@ var aiBot = new AiBot({embedId: '3JmSPAjD5MBj', remoteBaseUrl: 'https://humancha
         }
       }
 
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: light)");
       if (mediaQuery.matches) {
-        applyTheme("dark");
-      } else {
         applyTheme("light");
+      } else {
+        applyTheme("dark");
       }
 
       mediaQuery.addListener((e) => {
