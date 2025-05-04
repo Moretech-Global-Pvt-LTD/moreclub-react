@@ -1,4 +1,4 @@
-import React, {useEffect } from "react";
+import React, { useEffect } from "react";
 import HeaderDashboard from "../header/HeaderDashboard";
 import Footer from "../footer/Footer";
 import Divider from "../divider/Divider";
@@ -9,25 +9,24 @@ import ReactGA from "react-ga4";
 import InactivityLogout from "../HOC/inactivity";
 import { fetchNewNotifications } from "../../redux/api/notificationApi";
 import { useDispatch, useSelector } from "react-redux";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import BusinessSetupmodal from "../../pages/AuthAndRegisterPages/BusinessRegistration/businessSetupmodal";
 // import { setupNotifications } from "../../utills/firebase";
 // import useVisibilityChange from "../../Hooks/useVisibilityChange";
 // import { sendNativeNotification, toastNotification } from "../../utills/notificationhelper";
 
-const DashboardLayout = ({ children, title , showBreadCrumb}) => {
-  const location = useLocation()
+const DashboardLayout = ({ children, title, showBreadCrumb }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const notifications = useSelector((state) => state.notification);
   // const isForeground = useVisibilityChange();
   const removebpms = () => {
-
-    if (location.pathname !== '/points/send') {
+    if (location.pathname !== "/points/send") {
       if (typeof window !== "undefined") {
         sessionStorage.removeItem("bpms");
       }
     }
-  }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,40 +34,39 @@ const DashboardLayout = ({ children, title , showBreadCrumb}) => {
       page_path: location.pathname,
     });
 
-    removebpms()
-
+    removebpms();
   }, [location.pathname]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (notifications.currentpage !== 0 && notifications.checkForUpdate) {
-        dispatch(fetchNewNotifications())
-      };
+        dispatch(fetchNewNotifications());
+      }
     }, 60000); // Fetch every 1 minute
 
     return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, [dispatch]);
 
-  
   return (
-    <> 
+    <>
       <HeaderDashboard />
       <InactivityLogout />
-      {localStorage.getItem("business_exists") === "false" && <BusinessSetupmodal />}
+      {localStorage.getItem("business_exists") === "false" && (
+        <BusinessSetupmodal />
+      )}
       <div className="admin-wrapper">
-        {!showBreadCrumb && <Breadcrumb
-          breadcrumbTitle={title}
-          breadcrumbNav={[
-            {
-              navText: "Home",
-              path: "/dashboard",
-            },
-          ]}
-        />}
-        <div className="container">
-          
-          {children}
-        </div>
+        {!showBreadCrumb && (
+          <Breadcrumb
+            breadcrumbTitle={title}
+            breadcrumbNav={[
+              {
+                navText: "Home",
+                path: "/dashboard",
+              },
+            ]}
+          />
+        )}
+        <div className="container">{children}</div>
         <Divider />
         <Footer />
       </div>
