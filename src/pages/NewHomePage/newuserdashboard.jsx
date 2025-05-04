@@ -209,6 +209,13 @@ const NewUserDashboard = () => {
           </div>
         </div>
       </section>
+      <section className="new-user-footer">
+        <h3>Join the treasure hunt today!</h3>
+        <p>Limited Availability - Join the Treasure Hunt Today!</p>
+        <button className="new-user-contact-btn gold">
+          Chat Now via WhatsApp
+        </button>
+      </section>
     </div>
   );
 };

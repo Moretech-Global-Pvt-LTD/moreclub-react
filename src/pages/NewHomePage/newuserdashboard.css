@@ -95,23 +95,22 @@
   }
 }
 
-.new-user-prize-cards {
-  display: grid;
-  grid-template-columns: 1fr;
+/* .new-user-prize-cards {
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
-  margin-top: 2rem;
-}
+  width: 100%;
+} */
 
-/* Switch to flex layout with wrapping at 1280px and up */
-@media (min-width: 1280px) {
   .new-user-prize-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 2rem;
+
   }
-}
 
 .new-user-card {
   background: white;
@@ -167,9 +166,9 @@
 }
 
 .new-user-card-body h3 {
-    font-size: 1.5rem;
-    text-align: left;
-  }
+  font-size: 1.5rem;
+  text-align: left;
+}
 
 .new-user-card-info {
   display: flex;
@@ -341,14 +340,14 @@
 }
 
 @media (min-width: 640px) {
-    .new-user-offer-cards {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        justify-content: center;
-        gap: 30px;
-        margin-top: 5px;
-        width: auto;
-      }
+  .new-user-offer-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 5px;
+    width: auto;
+  }
 }
 
 .new-user-offer-card {
@@ -624,4 +623,12 @@
   background: #d4af37;
 }
 
-/*/////////////////////////////////*/
+.new-user-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 0;
+}

@@ -79,7 +79,7 @@ const TreasureHunt = () => {
       <header className="treasure-hero">
         <div className="treasure-hero-content">
           <h1 className="treasurehunt-color">More Deals Treassure Hunt</h1>
-          <p>Win Exclusive Trip To Skiathos Greece</p>
+          <p>Win Exclusive Prices With More Deals club</p>
           <Link to="register-membership" className="treasure-btn text-black">
             Join Now
           </Link>
