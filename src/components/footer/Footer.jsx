@@ -16,7 +16,6 @@ export default function Footer() {
       text: "Events",
       url: "/event",
     },
-
     {
       text: "Our Products",
       url: "/products",

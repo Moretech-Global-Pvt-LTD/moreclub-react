@@ -7,7 +7,7 @@ import Wallet from "./pages/Wallet/WalletPage";
 import { getMetadata } from "./redux/api/infoApi";
 import NotFound from "./pages/notfound";
 import SessionExpiredModal from "./components/sessiondialog";
-import ReactGA from "react-ga4";
+// import ReactGA from "react-ga4";
 import { GoogleAnalytics } from "./config/config";
 
 import DisableDevtool from "disable-devtool";
@@ -32,7 +32,7 @@ const PrivateRoute = ({ element, isAuthenticated }) => {
 const App = () => {
   const dispatch = useDispatch();
   const [isSessionExpired, setIsSessionExpired] = useState(false);
-  const key = GoogleAnalytics;
+  // const key = GoogleAnalytics;
   // Notification.requestPermission();
 
   const location = useLocation();
@@ -69,7 +69,7 @@ const App = () => {
 
 
   useEffect(() => {
-    ReactGA.initialize(key);
+    // ReactGA.initialize(key);
     const handleSessionExpired = () => {
       setIsSessionExpired(sessionStorage.getItem("sessionExpired"));
     };
@@ -100,17 +100,6 @@ const App = () => {
     getMetadatas();
   }, [dispatch]);
 
-  // useEffect(() => {
-  //    if (typeof importScripts !== "function") {
-  //      console.warn(
-  //        `You're trying to run service-worker.js file on non-worker scope. Please check your framework build and make sure you're running your service worker file once on WorkerGlobalScope.`
-  //      );
-  //      return;
-  //    }
-  // }, [])
-
-
-  
 
   
 

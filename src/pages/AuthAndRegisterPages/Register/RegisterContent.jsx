@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import RegisterPic from "../../../images/auth/register.png";
 import RegistrationForm from "./RegisterForm";
@@ -7,6 +7,26 @@ const RegisterContent = (props) => {
   const { title, subTitle, button } = props;
   const url = new URL(window.location.href);
   const nextParam = url.searchParams.get("next");
+
+   const iframeRef = useRef(null);
+  
+    const adjustIframeHeight = () => {
+      const iframe = iframeRef.current;
+      const aspectRatio = 9 / 16; // 16:9 aspect ratio
+      const width = iframe.clientWidth;
+      const height = width * aspectRatio;
+      iframe.style.height = `${height}px`;
+    };
+  
+    useEffect(() => {
+      adjustIframeHeight();
+      window.addEventListener("resize", adjustIframeHeight);
+  
+      // Cleanup event listener on component unmount
+      return () => {
+        window.removeEventListener("resize", adjustIframeHeight);
+      };
+    }, []);
 
   return (
     <div className="container">
@@ -30,11 +50,26 @@ const RegisterContent = (props) => {
             </p>
             <div className="row justify-content-center">
               <div className="col-md-12 col-lg-10 col-xl-10   ">
-                <img
+                {/* <img
                   src={RegisterPic}
                   alt="Register"
                   className="d-none d-md-block"
-                />
+                /> */}
+                <div className="row video-container">
+              
+                
+              <iframe
+                ref={iframeRef}
+                id="ytplayer"
+                type="text/html"
+                src="https://www.youtube.com/embed/l4YhB0KsYUo?loop=1&playlist=l4YhB0KsYUo&fs=0&color=white&rel=0&modestbranding=1&controls=1&disablekb=0&autoplay=1&mute=1"
+                title="Membersclub - Save and Make Money with More Deals Club"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
               </div>
             </div>
           </div>
