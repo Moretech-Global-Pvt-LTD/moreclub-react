@@ -351,8 +351,8 @@ const TreasureHunt = () => {
                     />
                   </svg>
                 ),
-                title: "Private Yacht Cruise",
-                desc: "Exclusive full-day yacht tour with captain and gourmet lunch included",
+                title: "Guided Tour",
+                desc: "Exclusive full-day guided tour and gourmet lunch included",
               },
               {
                 svg: (

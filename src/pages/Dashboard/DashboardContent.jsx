@@ -114,8 +114,8 @@ const DashboardContent = () => {
     );
   } else {
     return (
-      // <Newdashboard />
-      <NewUserDashboard />
+      <Newdashboard />
+      // <NewUserDashboard />
       // <div>New Dashboard</div>
     );
   }
