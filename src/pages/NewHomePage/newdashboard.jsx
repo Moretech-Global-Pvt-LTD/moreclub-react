@@ -67,13 +67,12 @@ const Newdashboard = () => {
             <i className="bi bi-utensils"></i>
             <h3>Step 2: Take Part Of Deals</h3>
             <p>
-              Get the best deals on food, salons & other services
-              from our partners
+            Contact directly with our Treasure Hunt team
             </p>
           </div>
 
           <div className="booking-card">
-            <i className="bi bi-trophy"></i>
+           
             <h3>Step 3: Qualified</h3>
             <p>
               You're now officially qualified to win a trip to one of our
@@ -128,7 +127,7 @@ const Newdashboard = () => {
                 "url('https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80')",
             }}
           >
-            <div className="treasure-badge">SPECIAL OFFER</div>
+            <div className="treasure-badge">More Deals Offer</div>
           </div>
           <div className="treasure-content">
             <h3>Premium Catering Service</h3>
@@ -157,7 +156,7 @@ const Newdashboard = () => {
             </div>
             <a
               href="https://wa.me/9779709007758?text=I%20want%20more%20information%20about%20catering%20services%20for%20my%20event"
-              className="newbtn newbtn-small"
+              className="newbtn newbtn-small newbtn-whatsapp"
               style={{ width: "100%" }}
             >
               Contact Our Catering Team
@@ -173,7 +172,7 @@ const Newdashboard = () => {
                 "url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80')",
             }}
           >
-            <div className="treasure-badge">LIMITED TIME</div>
+            <div className="treasure-badge">More Deals Offer</div>
           </div>
           <div className="treasure-content">
             <h3>Restaurant Deals</h3>
@@ -200,7 +199,7 @@ const Newdashboard = () => {
         </div>
       </div> */}
             <a
-              href="https://wa.me/9779709007758?text=I%20want%20to%20order%20the%20Boo%20Burgers%20deal"
+              href="https://wa.me/9779709007758?text=I%20want%20to%20order%20in%20the%20More%20Food%20deal"
               className="newbtn newbtn-small newbtn-whatsapp"
               style={{ width: "100%" }}
             >
@@ -253,7 +252,7 @@ const Newdashboard = () => {
                 </span>
               </div>
             </div>
-            <button className="newbtn newbtn-small" style={{ width: "100%" }}>
+            <button className="newbtn newbtn-small newbtn-whatsapp" style={{ width: "100%" }}>
               Book Now
             </button>
           </div>
@@ -294,7 +293,7 @@ const Newdashboard = () => {
                 </span>
               </div>
             </div>
-            <button className="newbtn newbtn-small" style={{ width: "100%" }}>
+            <button className="newbtn newbtn-small newbtn-whatsapp" style={{ width: "100%" }}>
               Book Now
             </button>
           </div>
@@ -320,7 +319,7 @@ const Newdashboard = () => {
               href="https://wa.me/9779709007758?text=Hi%2C%20I%27d%20like%20to%20schedule%20a%20video%20call%20about%20my%20travel%20plans"
               target="_blank"
               rel="noopener noreferrer"
-              className="newbtn newbtn-small"
+              className="newbtn newbtn-small newbtn-whatsapp"
               style={{ marginTop: 15 }}
             >
               Book Now
@@ -335,7 +334,7 @@ const Newdashboard = () => {
               href="https://wa.me/9779709007758?text=Hi%2C%20I%27d%20like%20a%20phone%20call%20to%20discuss%20my%20travel%20plans"
               target="_blank"
               rel="noopener noreferrer"
-              className="newbtn newbtn-small"
+              className="newbtn newbtn-small newbtn-whatsapp"
               style={{ marginTop: 15 }}
             >
               Call Me

@@ -82,11 +82,11 @@ const TreasureGrid = () => {
 
   return (
     <>
-      <div className="treasure-grid">
+      <div className={ `treasure-grid `}>
         {treasures.map((treasure) => (
-          <div className="treasure-card" key={treasure.id}>
+          <div className={`treasure-card `} key={treasure.id}>
             <div
-              className="treasure-img"
+              className={`treasure-img ${treasure.status !== "unlocked" && 'locked-offer'}`}
               style={{ backgroundImage: `url('${treasure.image}')` }}
             >
               {treasure.status === "unlocked" ? (
@@ -113,7 +113,7 @@ const TreasureGrid = () => {
                   <div className="treasure-features">
                     {treasure.features && (
                       <>
-                        <div className="treasure-feature treasurehunt-color">
+                        {/* <div className="treasure-feature treasurehunt-color">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -188,7 +188,7 @@ const TreasureGrid = () => {
                           </svg>
 
                           <span className="text-dynamic-white">Private Island Cruise</span>
-                        </div>
+                        </div> */}
                       </>
                     )}
                   </div>
