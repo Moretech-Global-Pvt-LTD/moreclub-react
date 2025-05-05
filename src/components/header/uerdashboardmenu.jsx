@@ -434,32 +434,32 @@ const UserDashboardMenu = () => {
       hasDropdown : false
     },
 
-    user.user &&
-      user.user?.user_type !== "BUSINESS" && {
-        to: "/morefood",
-        lightIcon: MoreFood,
-        darkIcon: MoreFood,
-        label: "MOREFOOD",
-        hasPermission: true, 
-        hasDropdown : false
-      },
-    user.user &&
-      user.user?.user_type !== "BUSINESS" && {
-        to: "/moresalons",
-        lightIcon: MoreSalonBlack,
-        darkIcon: MoreSalonWhite,
-        label: "MORE SALONS",
-        hasPermission: true, 
-        hasDropdown : false
-      },
-      {
-        to: "/moreliving",
-        lightIcon: MoreLiving,
-        darkIcon: MoreLiving,
-        label: "MORE LIVING",
-        hasPermission: true, 
-        hasDropdown : false
-      },
+    // user.user &&
+    //   user.user?.user_type !== "BUSINESS" && {
+    //     to: "/morefood",
+    //     lightIcon: MoreFood,
+    //     darkIcon: MoreFood,
+    //     label: "MOREFOOD",
+    //     hasPermission: true, 
+    //     hasDropdown : false
+    //   },
+    // user.user &&
+    //   user.user?.user_type !== "BUSINESS" && {
+    //     to: "/moresalons",
+    //     lightIcon: MoreSalonBlack,
+    //     darkIcon: MoreSalonWhite,
+    //     label: "MORE SALONS",
+    //     hasPermission: true, 
+    //     hasDropdown : false
+    //   },
+    //   {
+    //     to: "/moreliving",
+    //     lightIcon: MoreLiving,
+    //     darkIcon: MoreLiving,
+    //     label: "MORE LIVING",
+    //     hasPermission: true, 
+    //     hasDropdown : false
+    //   },
     // user.user &&
     //   user.user?.user_type !== "BUSINESS" && {
     //     label: "MARKETPLACE",

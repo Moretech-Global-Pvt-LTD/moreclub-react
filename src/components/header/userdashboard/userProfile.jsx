@@ -39,7 +39,8 @@ const Profile = () => {
         )}
       </h5>
 
-      <p>{user.user?.user_type} {"member"}</p>
+      {/* <p>{user.user?.user_type} {"member"}</p> */}
+      <p>MEMBER</p>
     </div>
   );
 }
