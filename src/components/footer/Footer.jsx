@@ -3,6 +3,7 @@ import LeftWidget from "./LeftWidget";
 import FooterWidget from "./FooterWidget";
 
 import { useSelector } from "react-redux";
+import CookieConsentBanner from "../Layout/CookiesConsent";
 
 export default function Footer() {
   const metainfo = useSelector((state) => state.metaReducer);
@@ -54,6 +55,7 @@ export default function Footer() {
       className="footer-area"
       style={{ paddingTop: "20px", paddingBottom: "20px" }}
     >
+     
       <div className="container">
         <div className="row">
           <LeftWidget

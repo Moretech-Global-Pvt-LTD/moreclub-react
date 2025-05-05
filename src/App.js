@@ -24,6 +24,7 @@ import userRoutes from "./routes/userRoutes";
 import businessRoutes from "./routes/businessRoutes";
 import restaurantRoutes from "./routes/restaurantRoutes";
 import salonRoutes from "./routes/salonRoutes";
+import CookieConsentBanner from "./components/Layout/CookiesConsent";
 
 const PrivateRoute = ({ element, isAuthenticated }) => {
   return isAuthenticated ? element : <Navigate to={`/login`} />;
@@ -232,6 +233,7 @@ const App = () => {
         smooth
         top={500}
       />
+       <CookieConsentBanner/>
     </div>
   );
 };
