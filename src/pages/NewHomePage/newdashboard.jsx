@@ -5,13 +5,13 @@ import TreasureGrid from "./TreasureModal";
 const Newdashboard = () => {
   return (
     <div>
-      <div style={{ textAlign: "center" }}>
+      {/* <div style={{ textAlign: "center" }}>
         <h1 className="treasurehunt-color">More Deals Club Treassure Hunt</h1>
         <p style={{ margin: "20px 0" }}>
           Unlock exclusive treasures Each treasure offers a unique adventure
           waiting to be discovered.
         </p>
-      </div>
+      </div> */}
 
       <section class="treasure-intro">
         <h2>MORE DEALS CLUB TREASSURE HUNT</h2>

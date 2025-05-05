@@ -122,7 +122,7 @@ const UserProfile = ({ users }) => {
                 </div>
                 <div className="mt-2 mb-2 d-flex ">
                   <QRDownload
-                    imageUrl={`${user.user.qr_code}`}
+                    imageUrl={`${user.user.user_refer_qr}`}
                     name={`mdc_${user.user.first_name}_${user.user.last_name}`}
                   />
                 </div>
