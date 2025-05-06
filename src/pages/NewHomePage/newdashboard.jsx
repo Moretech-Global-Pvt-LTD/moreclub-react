@@ -365,7 +365,7 @@ const Newdashboard = () => {
           Limited Availability - Join the Treasure Hunt Today!
         </p>
         <a
-          href="ttps://wa.me/9779709007758?text=Please%20notify%20me%20when%20the%20Bali%20package%20is%20available"
+          href="https://wa.me/9779709007758?text=I%20want%20to%20book%20the%20Greek%20Island%20Getaway%20package"
           target="_blank"
           rel="noopener noreferrer"
           className="newbtn newbtn-cta"
