@@ -84,7 +84,8 @@ const Newdashboard = () => {
 
         <div style={{ textAlign: "center", marginTop: 30 }}>
           <a
-            href="https://wa.me/9779709007758?text=I%20want%20to%20participate%20in%20the%20free%20trip%20giveaway"
+            href="https://wa.me/9779709007758?text=I%27m%20interested%20in%20More%20Deals%20Club%20Treasure%20Hunt.%20I%20would%20like%20to%20know%20more.
+"
             class="newbtn newbtn-small newbtn-whatsapp"
           >
            
@@ -367,7 +368,7 @@ const Newdashboard = () => {
         <a
           href="https://wa.me/9779709007758?text=I%20want%20to%20book%20the%20Greek%20Island%20Getaway%20package"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer"b
           className="newbtn newbtn-cta"
         >
           <svg
