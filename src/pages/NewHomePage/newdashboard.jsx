@@ -21,7 +21,7 @@ const Newdashboard = () => {
           Contact our treasure hunt team today!.
         </p>
         <a
-          href="https://wa.me/9779709007758?text=I'm%20interested%20in%20the%20Greek%20Island%20Getaway"
+          href="https://wa.me/9779709007758?text=I%20want%20to%20know%20more%20about%20the%20Treasure%20Hunt"
           class="newbtn newbtn-small newbtn-whatsapp"
         >
           <i class="fab fa-whatsapp"></i>
@@ -56,7 +56,7 @@ const Newdashboard = () => {
           </p>
         </div>
 
-        <div className="booking-options">
+        {/* <div className="booking-options">
           <div className="booking-card">
             <i className="bi bi-user"></i>
             <h3>Step 1: Refer Friends</h3>
@@ -80,7 +80,7 @@ const Newdashboard = () => {
               treasure paradise
             </p>
           </div>
-        </div>
+        </div> */}
 
         <div style={{ textAlign: "center", marginTop: 30 }}>
           <a
@@ -200,7 +200,7 @@ const Newdashboard = () => {
         </div>
       </div> */}
             <a
-              href="https://wa.me/9779709007758?text=I%20want%20to%20order%20in%20the%20More%20Food%20deal"
+              href="https://wa.me/9779709007758?text=I%20want%20to%20Know%20more%20about%20the%20Restaurant%20Deals." 
               className="newbtn newbtn-small newbtn-whatsapp"
               style={{ width: "100%" }}
             >
@@ -253,9 +253,14 @@ const Newdashboard = () => {
                 </span>
               </div>
             </div>
-            <button className="newbtn newbtn-small newbtn-whatsapp" style={{ width: "100%" }}>
-              Book Now
-            </button>
+            <a
+              href="https://wa.me/9779709007758" 
+              className="newbtn newbtn-small newbtn-whatsapp"
+              style={{ width: "100%" }}
+            >
+             Book Now
+            </a>
+            
           </div>
         </div>
 
@@ -294,9 +299,13 @@ const Newdashboard = () => {
                 </span>
               </div>
             </div>
-            <button className="newbtn newbtn-small newbtn-whatsapp" style={{ width: "100%" }}>
-              Book Now
-            </button>
+            <a
+              href="https://wa.me/9779709007758" 
+              className="newbtn newbtn-small newbtn-whatsapp"
+              style={{ width: "100%" }}
+            >
+             Book Now
+            </a>
           </div>
         </div>
       </div>
@@ -366,7 +375,7 @@ const Newdashboard = () => {
           Limited Availability - Join the Treasure Hunt Today!
         </p>
         <a
-          href="https://wa.me/9779709007758?text=I%20want%20to%20book%20the%20Greek%20Island%20Getaway%20package"
+          href="https://wa.me/9779709007758?text=I%20want%20to%20know%20more%20about%20the%20Treasure%20Hunt"
           target="_blank"
           rel="noopener noreferrer"b
           className="newbtn newbtn-cta"
